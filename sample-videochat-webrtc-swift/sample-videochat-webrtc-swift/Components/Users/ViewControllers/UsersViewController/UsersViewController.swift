@@ -33,6 +33,8 @@ struct UsersSegueConstant {
   static let sceneAuth = "SceneSegueAuth"
 }
 
+typealias Completion = (() -> Void)
+
 class UsersViewController: UITableViewController {
   
   @IBOutlet private weak var audioCallButton: UIBarButtonItem!
@@ -54,30 +56,27 @@ class UsersViewController: UITableViewController {
     let backgroundTask = UIBackgroundTaskIdentifier.invalid
     return backgroundTask
   }()
+  var completionBlock: Completion?
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     core.addDelegate(self)
     QBRTCClient.instance().add(self)
-    
     // Reachability
     core.networkStatusBlock = { [weak self] status in
       if status != NetworkConnectionStatus.notConnection {
         self?.loadUsers()
       }
     }
-    
     // adding refresh control task
     if let refreshControl = self.refreshControl {
       refreshControl.addTarget(self, action: #selector(loadUsers), for: .valueChanged)
     }
-    
     configureNavigationBar()
     configureTableViewController()
     setupToolbarButtonsEnabled(false)
     loadUsers()
-    
     voipRegistry.delegate = self
     voipRegistry.desiredPushTypes = Set<PKPushType>([.voIP])
   }
@@ -95,7 +94,6 @@ class UsersViewController: UITableViewController {
     debugPrint("deinit \(self)")
   }
   
-  
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     
@@ -103,25 +101,20 @@ class UsersViewController: UITableViewController {
   }
   
   // MARK: - UI Configuration
-  
   func configureTableViewController() {
     dataSource = UsersDataSource(currentUser: Core.instance.currentUser)
-    
     CallKitManager.instance.usersDatasource = dataSource
     tableView.dataSource = dataSource
     tableView.rowHeight = 44
     refreshControl?.beginRefreshing()
   }
   
-  
   func configureNavigationBar() {
-    
     let settingsButtonItem = UIBarButtonItem(image: UIImage(named: "ic-settings"),
                                              style: .plain,
                                              target: self,
                                              action: #selector(self.didPressSettingsButton(_:)))
     navigationItem.leftBarButtonItem = settingsButtonItem
-    
     //Custom label
     var userName = "Logged in as "
     var roomName = ""
@@ -135,7 +128,6 @@ class UsersViewController: UITableViewController {
       userName = userName + fullname
       titleString = roomName + "\n" + userName
     }
-    
     let attrString = NSMutableAttributedString(string: titleString)
     let roomNameRange: NSRange = (titleString as NSString).range(of: roomName)
     attrString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 16.0), range: roomNameRange)
@@ -149,7 +141,6 @@ class UsersViewController: UITableViewController {
     titleView.attributedText = attrString
     titleView.textAlignment = .center
     titleView.sizeToFit()
-    
     navigationItem.titleView = titleView
     //Show tool bar
     navigationController?.isToolbarHidden = false
@@ -164,9 +155,7 @@ class UsersViewController: UITableViewController {
   /**
    *  Load all (Recursive) users for current room (tag)
    */
-  
   @objc func loadUsers() {
-    
     var t_request: ((_ page: QBGeneralResponsePage, _ allUsers: [QBUUser]) -> Void)?
     var allUsersTempArray = [QBUUser]()
     let request: ((QBGeneralResponsePage, [QBUUser]) -> Void) = { page, allUsers in
@@ -191,24 +180,18 @@ class UsersViewController: UITableViewController {
                           }
                           t_request = nil
                         }
-                        
-                        
         }, errorBlock: { response in
           self.refreshControl?.endRefreshing()
           t_request = nil
       })
     }
-    
     t_request = request
     let allUsers: [QBUUser] = []
     request(QBGeneralResponsePage(currentPage: 1, perPage: UsersConstant.pageSize), allUsers)
   }
   
-  
   // MARK: - Actions
-  
   @IBAction func refresh(_ sender: UIRefreshControl?) {
-    
     loadUsers()
   }
   
@@ -238,23 +221,18 @@ class UsersViewController: UITableViewController {
   }
   
   @objc func didPressSettingsButton(_ item: UIBarButtonItem?) {
-    
     performSegue(withIdentifier: UsersSegueConstant.settings, sender: item)
   }
   
-  
   //MARK: - Overrides
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    
     switch segue.identifier {
     case UsersSegueConstant.settings:
       let settingsViewController = (segue.destination as? UINavigationController)?.topViewController
         as? SessionSettingsViewController
       settingsViewController?.delegate = self
-      
     case UsersSegueConstant.call:
       debugPrint("UsersSegueConstant.call")
-      
     default:
       break
     }
@@ -279,23 +257,18 @@ class UsersViewController: UITableViewController {
               uuid = UUID()
               CallKitManager.instance.startCall(withUserIDs: opponentsIDs, session: session, uuid: uuid)
             }
-            
             if let callViewController = self.storyboard?.instantiateViewController(withIdentifier: UsersSegueConstant.call) as? CallViewController {
               callViewController.session = self.session
               callViewController.usersDataSource = self.dataSource
               callViewController.callUUID = uuid
               
-              
               self.nav = UINavigationController(rootViewController: callViewController)
-              
               if let nav = self.nav {
                 nav.modalTransitionStyle = .crossDissolve
                 self.present(nav , animated: false)
               }
             }
-            
             let opponentName = String(describing: self.core.currentUser?.fullName)
-            
             let payload = ["message": "\(opponentName) is calling you.",
               "ios_voip": "1", UsersConstant.voipEvent: "1"]
             let data = try? JSONSerialization.data(withJSONObject: payload,
@@ -304,20 +277,17 @@ class UsersViewController: UITableViewController {
             if let data = data {
               message = String(data: data, encoding: .utf8) ?? ""
             }
-            
             let event = QBMEvent()
             event.notificationType = QBMNotificationType.push
             let arrayUserIDs = opponentsIDs.map({"\($0)"})
             event.usersIDs = arrayUserIDs.joined(separator: ",")
             event.type = QBMEventType.oneShot
             event.message = message
-            
             QBRequest.createEvent(event, successBlock: { response, events in
               print("Send voip push - Success")
             }, errorBlock: { response in
               print("Send voip push - Error")
             })
-            
           } else {
             SVProgressHUD.showError(withStatus: UsersAlertConstant.shouldLogin)
           }
@@ -327,29 +297,22 @@ class UsersViewController: UITableViewController {
   }
   
   // MARK: - UITableViewDelegate
-  
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
     dataSource.selectUser(at: indexPath)
     setupToolbarButtonsEnabled(dataSource.selectedUsers.count > 0)
-    
     if dataSource.selectedUsers.count > 4 {
       videoCallButton.isEnabled = false
     }
-    
     tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .none)
   }
   
   // MARK: - CallKitDataSource
-  
   func userName(forUserID userID: NSNumber, sender: Any?) -> String {
-    
     let user = dataSource.user(withID: userID.uintValue)
     return user?.fullName ?? ""
   }
   
   // MARK: - Helpers
-  
   func setupToolbarButtonsEnabled(_ enabled: Bool) {
     guard let toolbarItems = toolbarItems, toolbarItems.isEmpty == false else {
       return
@@ -358,19 +321,16 @@ class UsersViewController: UITableViewController {
       item.isEnabled = enabled
     }
   }
-  
 }
 
 extension UsersViewController: QBRTCClientDelegate {
-  
+  // MARK: - QBRTCClientDelegate
   func didReceiveNewSession(_ session: QBRTCSession, userInfo: [String : String]? = nil) {
     if self.session != nil {
       session.rejectCall(["reject": "busy"])
       return
     }
-    
     self.session = session
-    
     if CallKitManager.isCallKitAvailable() == true {
       callUUID = UUID()
       var opponentIDs = [session.initiatorID]
@@ -379,34 +339,22 @@ extension UsersViewController: QBRTCClientDelegate {
           opponentIDs.append(userID)
         }
       }
-      //            weak var weakSelf = self
-      
-      
       CallKitManager.instance.reportIncomingCall(withUserIDs: opponentIDs, session: session, uuid: callUUID, onAcceptAction: {
-        
-        //                let strongSelf = weakSelf
-        
         if let callViewController = self.storyboard?.instantiateViewController(withIdentifier: UsersSegueConstant.call) as? CallViewController {
           callViewController.session = session
           callViewController.usersDataSource = self.dataSource
           callViewController.callUUID = self.callUUID
-          
-          
           self.nav = UINavigationController(rootViewController: callViewController)
-          
           if let nav = self.nav {
             nav.modalTransitionStyle = .crossDissolve
             self.present(nav , animated: false)
           }
         }
-        
       }, completion: { (end) in
         debugPrint("end")
       })
-      
     } else {
       assert(nav == nil, "Invalid parameter not satisfying: !nav")
-      
       if let incomingViewController = UIStoryboard(name: "Call", bundle: Bundle.main).instantiateViewController(withIdentifier: UsersSegueConstant.incoming) as? IncomingCallViewController {
         incomingViewController.delegate = self
         incomingViewController.session = session
@@ -466,6 +414,7 @@ extension UsersViewController: CoreDelegate {
     SVProgressHUD.dismiss()
     //Dismiss Settings view controller
     dismiss(animated: false)
+    completionBlock!()
     DispatchQueue.main.async(execute: {
       self.navigationController?.popToRootViewController(animated: false)
     })
@@ -560,5 +509,4 @@ extension UsersViewController: IncomingCallViewControllerDelegate {
       self.nav = nil
     }
   }
-  
 }

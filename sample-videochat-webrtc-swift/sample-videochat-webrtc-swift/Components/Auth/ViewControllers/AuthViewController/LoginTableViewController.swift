@@ -50,35 +50,22 @@ class LoginTableViewController: UITableViewController {
             tableView.reloadData()
         }
     }
-    private var isSetup = false
     
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         core.addDelegate(self)
-        
-        
         tableView.estimatedRowHeight = 80.0
         tableView.rowHeight = UITableView.automaticDimension
         tableView.keyboardDismissMode = .onDrag
         tableView.delaysContentTouches = false
         navigationItem.title = LoginConstant.enterToChat
-        
         defaultConfiguration()
-        
         if let currentUser = core.currentUser {
             userNameTextField.text = currentUser.fullName;
             chatRoomNameTextField.text = currentUser.tags?.first
             login()
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super .viewWillAppear(animated)
-        if isSetup == true {
-            core.addDelegate(self)
-            defaultConfiguration()
         }
     }
     
@@ -163,6 +150,21 @@ class LoginTableViewController: UITableViewController {
         tableView.beginUpdates()
         tableView.endUpdates()
     }
+  
+  //MARK: - Overrides
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+    guard let usersViewController = segue.destination as? UsersViewController else {
+      return
+    }
+    usersViewController.completionBlock = { [weak self] in
+      guard let `self` = self else {
+        return
+      }
+      self.core.addDelegate(self)
+      self.defaultConfiguration()
+    }
+  }
     
     //MARK: - Validation helpers
     private func userNameIsValid() -> Bool {
@@ -188,7 +190,6 @@ extension LoginTableViewController: CoreDelegate {
     //MARK: - CoreDelegate
     func coreDidLogin(_ core: Core) {
         performSegue(withIdentifier: LoginConstant.showUsers, sender: nil)
-        isSetup = true
     }
     
     func coreDidLogout(_ core: Core) {

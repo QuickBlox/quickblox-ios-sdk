@@ -16,16 +16,13 @@ struct CallKitManagerConstant {
   static let maximumCallGroups: Int = 1
 }
 
-
-typealias OnMicrophoneMuteAction = (() -> Void)?
-typealias ActionCompletionBlock = (() -> Void)?
-typealias OnAcceptActionBlock = (() -> Void)?
+typealias CompletionBlock = (() -> Void)
 
 /**
  CallKitManager class interface.
  Used as manager of Apple CallKit.
  */
-class CallKitManager: NSObject, CXProviderDelegate {
+class CallKitManager: NSObject {
   
   private var callStarted = false
   
@@ -37,12 +34,12 @@ class CallKitManager: NSObject, CXProviderDelegate {
   /**
    Action on microphone mute using CallKit UI.
    */
-  var onMicrophoneMuteAction: OnMicrophoneMuteAction?
+  var onMicrophoneMuteAction: CompletionBlock?
   
   private var provider: CXProvider?
   private var callController: CXCallController?
-  private var actionCompletionBlock: ActionCompletionBlock?
-  private var onAcceptActionBlock: OnAcceptActionBlock?
+  private var actionCompletionBlock: CompletionBlock?
+  private var onAcceptActionBlock: CompletionBlock?
   private var session: QBRTCSession?
   
   /**
@@ -86,13 +83,13 @@ class CallKitManager: NSObject, CXProviderDelegate {
     super.init()
     
     let configuration: CXProviderConfiguration? = CallKitManager.configuration()
-    if let aConfiguration = configuration {
-      provider = CXProvider(configuration: aConfiguration)
+    if let configuration = configuration {
+      provider = CXProvider(configuration: configuration)
     }
-    provider?.setDelegate(self, queue: nil)
-    
+    if let provider = provider {
+      provider.setDelegate(self, queue: nil)
+    }
     callController = CXCallController(queue: DispatchQueue.main)
-    
   }
   
   // MARK: - Call management
@@ -108,21 +105,24 @@ class CallKitManager: NSObject, CXProviderDelegate {
    @see QBRTCSession
    */
   func startCall(withUserIDs userIDs: [NSNumber], session: QBRTCSession?, uuid: UUID?) {
+    guard let session = session,
+      let uuid = uuid else {
+        return
+    }
     self.session = session
     let contactIdentifier = ""
     let handle: CXHandle? = self.handle(forUserIDs: userIDs, outCallerName: contactIdentifier)
     var action: CXStartCallAction? = nil
-    if let uuid = uuid, let handle = handle {
+    if let handle = handle {
       action = CXStartCallAction(call: uuid, handle: handle)
     }
     action?.contactIdentifier = contactIdentifier
-    
     var transaction: CXTransaction? = nil
-    if let anAction = action {
-      transaction = CXTransaction(action: anAction)
+    if let action = action {
+      transaction = CXTransaction(action: action)
     }
-    if let aTransaction = transaction {
-      request(aTransaction) { succeed in
+    if let transaction = transaction {
+      request(transaction) { succeed in
         let update = CXCallUpdate()
         update.remoteHandle = handle
         update.localizedCallerName = contactIdentifier
@@ -130,10 +130,9 @@ class CallKitManager: NSObject, CXProviderDelegate {
         update.supportsGrouping = false
         update.supportsUngrouping = false
         update.supportsDTMF = false
-        update.hasVideo = session?.conferenceType == QBRTCConferenceType.video
-        
-        if let anUuid = uuid {
-          self.provider?.reportCall(with: anUuid, updated: update)
+        update.hasVideo = session.conferenceType == QBRTCConferenceType.video
+        if let provider = self.provider {
+          provider.reportCall(with: uuid, updated: update)
         }
       }
     }
@@ -146,19 +145,16 @@ class CallKitManager: NSObject, CXProviderDelegate {
    @param completion completion block
    */
   func endCall(with uuid: UUID?, completion: @escaping () -> ()) {
-    if session == nil {
-      return
+    guard let _ = self.session,
+      let uuid = uuid else {
+        return
     }
-    
     var action: CXEndCallAction? = nil
-    if let uuid = uuid {
-      action = CXEndCallAction(call: uuid)
-    }
+    action = CXEndCallAction(call: uuid)
     var transaction: CXTransaction? = nil
     if let action = action {
       transaction = CXTransaction(action: action)
     }
-    
     dispatchOnMainThread(block: {
       if let transaction = transaction {
         self.request(transaction) { _ in }
@@ -166,7 +162,6 @@ class CallKitManager: NSObject, CXProviderDelegate {
     })
     actionCompletionBlock = completion
   }
-  
   
   /**
    Report incoming call with user IDs.
@@ -183,12 +178,11 @@ class CallKitManager: NSObject, CXProviderDelegate {
    */
   func reportIncomingCall(withUserIDs userIDs: [NSNumber], session: QBRTCSession?, uuid: UUID?, onAcceptAction: @escaping () -> Void, completion: @escaping (Bool) -> Void) {
     if let uuid = uuid {
-      print("[CallKitManager] Report incoming call \(uuid)")
+      debugPrint("[CallKitManager] Report incoming call \(uuid)")
     }
-    
-    //        if self.session != nil {
-    //            return
-    //        }
+    guard let session = session else {
+      return
+    }
     
     self.session = session
     onAcceptActionBlock = onAcceptAction
@@ -201,32 +195,34 @@ class CallKitManager: NSObject, CXProviderDelegate {
     update.supportsGrouping = false
     update.supportsUngrouping = false
     update.supportsDTMF = false
-    update.hasVideo = session?.conferenceType == QBRTCConferenceType.video
+    update.hasVideo = session.conferenceType == QBRTCConferenceType.video
     
-    print("[CallKitManager] Activating audio session.")
+    debugPrint("[CallKitManager] Activating audio session.")
     let audioSession = QBRTCAudioSession.instance()
     audioSession.useManualAudio = true
     // disabling audio unit for local mic recording in recorder to enable it later
-    session?.recorder?.isLocalAudioEnabled = false
+    session.recorder?.isLocalAudioEnabled = false
     if audioSession.isInitialized == false {
-      
       audioSession.initialize { configuration in
-        
         // adding blutetooth support
         configuration.categoryOptions.insert(AVAudioSession.CategoryOptions.allowBluetooth)
         configuration.categoryOptions.insert(AVAudioSession.CategoryOptions.allowBluetoothA2DP)
         // adding airplay support
         configuration.categoryOptions.insert(AVAudioSession.CategoryOptions.allowAirPlay)
         
-        if self.session?.conferenceType == QBRTCConferenceType.video {
+        if session.conferenceType == QBRTCConferenceType.video {
           // setting mode to video chat to enable airplay audio and speaker only
           configuration.mode = AVAudioSession.Mode.videoChat.rawValue
         }
       }
     }
-    if let uuid = uuid, let provider = provider {
+    if let provider = provider,
+      let uuid = uuid{
       provider.reportNewIncomingCall(with: uuid, update: update) { error in
-        let silent: Bool = (((error as NSError?)?.domain) == CXErrorDomainIncomingCall) && (error as NSError?)?.code == CXErrorCodeIncomingCallError.Code.filteredByDoNotDisturb.rawValue
+        let errorDomain = (error as NSError?)?.domain
+        let errorCode = (error as NSError?)?.code
+        let silent = errorDomain == CXErrorDomainIncomingCall &&
+          errorCode == CXErrorCodeIncomingCallError.Code.filteredByDoNotDisturb.rawValue
         self.dispatchOnMainThread(block: {
           completion(silent)
         })
@@ -240,12 +236,13 @@ class CallKitManager: NSObject, CXProviderDelegate {
    @param uuid call uuid
    @param date connecting started date
    */
+  
   func updateCall(with uuid: UUID?, connectingAt date: Date?) {
-    if let uuid = uuid {
-      provider?.reportOutgoingCall(with: uuid, startedConnectingAt: date)
+    if let uuid = uuid,
+      let provider = provider {
+      provider.reportOutgoingCall(with: uuid, startedConnectingAt: date)
     }
   }
-  
   
   /**
    Update outgoing call with connected date.
@@ -254,24 +251,69 @@ class CallKitManager: NSObject, CXProviderDelegate {
    @param date connected date
    */
   func updateCall(with uuid: UUID?, connectedAt date: Date?) {
-    if let uuid = uuid {
-      provider?.reportOutgoingCall(with: uuid, connectedAt: date)
+    if let uuid = uuid,
+      let provider = provider {
+      provider.reportOutgoingCall(with: uuid, connectedAt: date)
     }
   }
   
+  // MARK: - Helpers
+  func handle(forUserIDs userIDs: [NSNumber], outCallerName: String?) -> CXHandle? {
+    var outCallerName = outCallerName
+    // handle user from whatever database here
+    if let usersDatasource = usersDatasource,
+      outCallerName != nil {
+      var opponentNames = [String]()
+      for userID in userIDs {
+        let user = usersDatasource.user(withID: userID.uintValue )
+        opponentNames.append(user?.fullName ?? "\(userID.uintValue)")
+      }
+      outCallerName = opponentNames.joined(separator: ", ")
+    }
+    
+    if userIDs.count == 1 {
+      if let userId = userIDs.first,
+        let usersDatasource = usersDatasource,
+        let user = usersDatasource.user(withID: userId.uintValue),
+        user.phone?.isEmpty == false {
+        return CXHandle(type: .phoneNumber, value: user.phone ?? "")
+      }
+    }
+    let arrayUserIDs = userIDs.map({"\($0)"})
+    return CXHandle(type: .generic, value: arrayUserIDs.joined(separator: ", "))
+  }
+  
+  @inline(__always) private func dispatchOnMainThread(block: @escaping () -> Void) {
+    if Thread.isMainThread == true {
+      block()
+    } else {
+      DispatchQueue.main.async(execute: block)
+    }
+  }
+  
+  func request(_ transaction: CXTransaction, completion: @escaping (Error?) -> Void) {
+    callController?.request(transaction) { error in
+      if let error = error {
+        debugPrint("[CallKitManager] Error: \(error)")
+      }
+    }
+  }
+}
+
+extension CallKitManager: CXProviderDelegate {
   // MARK: - CXProviderDelegate protocol
   @available(iOS 10.0, *)
   func providerDidReset(_ provider: CXProvider){
   }
+  
   @available(iOS 10.0, *)
   func provider(_ provider: CXProvider, perform action: CXStartCallAction) {
-    if session == nil {
+    guard let session = self.session else {
       action.fail()
       return
     }
-    
     dispatchOnMainThread(block: {
-      self.session?.startCall(nil)
+      session.startCall(nil)
       self.callStarted = true
       action.fulfill()
     })
@@ -279,92 +321,80 @@ class CallKitManager: NSObject, CXProviderDelegate {
   
   @available(iOS 10.0, *)
   func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
-    
-    if session == nil {
+    guard let session = self.session else {
       action.fail()
       return
     }
-    
-    
     CallKitManager.callKitAvailable = true
-    
     // Workaround for webrtc on ios 10, because first incoming call does not have audio
     // due to incorrect category: AVAudioSessionCategorySoloAmbient
     // webrtc need AVAudioSessionCategoryPlayAndRecord
-    
     if !((try?  AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord,
                                                             mode: AVAudioSession.Mode.default,
                                                             options: AVAudioSession.CategoryOptions.defaultToSpeaker)) != nil) {
       print("[CallKitManager] Error setting category for webrtc workaround.")
     }
-    
     dispatchOnMainThread(block: {
-      self.session?.acceptCall(nil)
+      session.acceptCall(nil)
       self.callStarted = true
       action.fulfill()
       if let onAcceptActionBlock = self.onAcceptActionBlock {
-        onAcceptActionBlock!()
+        onAcceptActionBlock()
       }
     })
   }
   
   @available(iOS 10.0, *)
   func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
-    
-    if self.session == nil {
+    guard let session = self.session else {
       action.fail()
       return
     }
-    
-    guard let session = self.session else {
-      return
-    }
     self.session = nil
-    
     dispatchOnMainThread(block: {
       let audioSession = QBRTCAudioSession.instance()
       audioSession.isAudioEnabled = false
       audioSession.useManualAudio = false
-      
       if self.callStarted == true {
         session.hangUp(nil)
         self.callStarted = false
       } else {
         session.rejectCall(nil)
       }
-      
       action.fulfill(withDateEnded: Date())
       if let actionCompletionBlock = self.actionCompletionBlock {
-        actionCompletionBlock!()
+        actionCompletionBlock()
       }
     })
   }
   
   @available(iOS 10.0, *)
   func provider(_ provider: CXProvider, perform action: CXSetMutedCallAction){
-    if session == nil {
+    guard let session = self.session else {
       action.fail()
       return
     }
-    
     dispatchOnMainThread(block: {
-      self.session?.localMediaStream.audioTrack.isEnabled = !action.isMuted
+      session.localMediaStream.audioTrack.isEnabled = !action.isMuted
       action.fulfill()
       if let onMicrophoneMuteAction = self.onMicrophoneMuteAction {
-        onMicrophoneMuteAction!()
+        onMicrophoneMuteAction()
       }
     })
   }
   
   @available(iOS 10.0, *)
   func provider(_ provider: CXProvider, didActivate audioSession: AVAudioSession){
+    guard let session = self.session else {
+      return
+    }
     print("[CallKitManager] Activated audio session.")
     let rtcAudioSession = QBRTCAudioSession.instance()
     rtcAudioSession.audioSessionDidActivate(audioSession)
     // enabling audio now
     rtcAudioSession.isAudioEnabled = true
     // enabling local mic recording in recorder (if recorder is active) as of interruptions are over now
-    session?.recorder?.isLocalAudioEnabled = true
+    session.recorder?.isLocalAudioEnabled = true
   }
   
   @available(iOS 10.0, *)
@@ -376,53 +406,6 @@ class CallKitManager: NSObject, CXProviderDelegate {
     if session.isInitialized {
       print("Deinitializing session in CallKit callback.")
       session.deinitialize()
-    }
-  }
-  
-  
-  // MARK: - Helpers
-  
-  func handle(forUserIDs userIDs: [NSNumber], outCallerName: String?) -> CXHandle? {
-    var outCallerName = outCallerName
-    // handle user from whatever database here
-    if outCallerName != nil {
-      var opponentNames = [String]()
-      for userID in userIDs {
-        //                if let userId = userID.uintValue {
-        let user = usersDatasource?.user(withID: userID.uintValue )
-        opponentNames.append(user?.fullName ?? "\(userID.uintValue)" )
-        //                }
-      }
-      outCallerName = opponentNames.joined(separator: ", ")
-    }
-    
-    if userIDs.count == 1 {
-      //            if let userId = userIDs[0].uintValue {
-      if let userId = userIDs.first,
-        let user = usersDatasource?.user(withID: userId.uintValue),
-        user.phone?.isEmpty == false {
-        return CXHandle(type: .phoneNumber, value: user.phone ?? "")
-      }
-      //            }
-    }
-    let arrayUserIDs = userIDs.map({"\($0)"})
-    return CXHandle(type: .generic, value: arrayUserIDs.joined(separator: ", ") )
-  }
-  
-  @inline(__always) private func dispatchOnMainThread(block: @escaping () -> Void) {
-    if Thread.isMainThread {
-      block()
-    } else {
-      DispatchQueue.main.async(execute: block)
-    }
-  }
-  
-  func request(_ transaction: CXTransaction, completion: @escaping (Error?) -> Void) {
-    callController?.request(transaction) { error in
-      if let error = error {
-        debugPrint("[CallKitManager] Error: \(error)")
-        
-      }
     }
   }
 }
