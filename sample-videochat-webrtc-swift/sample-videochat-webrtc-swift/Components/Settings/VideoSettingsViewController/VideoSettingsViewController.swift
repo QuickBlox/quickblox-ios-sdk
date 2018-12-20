@@ -59,11 +59,11 @@ class VideoSettingsViewController: BaseSettingsViewController {
             
             let h264BaselineModel = BaseItemModel()
             h264BaselineModel.title = "H264Baseline"
-            h264BaselineModel.data = QBRTCVideoCodec.H264
+            h264BaselineModel.data = QBRTCVideoCodec.h264Baseline
             
             let h264HighModel = BaseItemModel()
             h264HighModel.title = "H264High"
-            h264HighModel.data = QBRTCVideoCodec.H264
+            h264HighModel.data = QBRTCVideoCodec.h264Baseline
             
             if let videoCodec = self?.settings.mediaConfiguration.videoCodec {
                 self?.selectSection(VideoSettingsSectionType.videoCodec.rawValue, index: Int(videoCodec.rawValue))

@@ -46,7 +46,7 @@ class ConferenceUserCell: UICollectionViewCell {
             switch connectionState {
             case .new: statusLabel.text = "New"
             case .pending: statusLabel.text = "Pending"
-            case .connected: statusLabel.text = "Connecting"
+            case .connected: statusLabel.text = "Connected"
             case .closed: statusLabel.text = "Closed"
             case .hangUp: statusLabel.text = "Hung Up"
             case .rejected: statusLabel.text = "Rejected"

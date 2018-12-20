@@ -101,8 +101,7 @@
                         <outlet property="audioCallButton" destination="TAT-KT-Edg" id="97H-7O-r3E"/>
                         <outlet property="videoCallButton" destination="uFn-sx-h1D" id="1QH-i1-BRJ"/>
                         <segue destination="MJL-K9-GZh" kind="presentation" identifier="PresentSettingsViewController" id="muR-nh-XnT"/>
-                        <segue destination="2v9-Nr-3SC" kind="show" id="aQd-I2-Vb8"/>
-                        <segue destination="vTV-qm-f5k" kind="show" identifier="PresentRecordsViewController" id="num-3x-oEx"/>
+                        <segue destination="2v9-Nr-3SC" kind="show" identifier="PresentCallViewController" id="aQd-I2-Vb8"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oKA-Gp-ZJt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -124,34 +123,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hbf-ft-dG1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1619" y="804"/>
-        </scene>
-        <!--Records View Controller-->
-        <scene sceneID="aeb-7f-KBx">
-            <objects>
-                <tableViewController id="vTV-qm-f5k" customClass="RecordsViewController" customModule="sample_videochat_webrtc_swift" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="hPb-6I-sFl">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecordItemIdentifier" id="Eez-Gn-GqY">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Eez-Gn-GqY" id="1Jw-ha-gMh">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="vTV-qm-f5k" id="flI-KM-z7m"/>
-                            <outlet property="delegate" destination="vTV-qm-f5k" id="RTP-C7-Qvl"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9xu-Xo-o4L" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2426" y="360"/>
         </scene>
     </scenes>
 </document>
