@@ -53,13 +53,18 @@ class ScreenCapture: QBRTCVideoCapture {
     
     // MARK: -
     func screenshot() -> UIImage? {
-        //    DispatchQueue.main.async {
+      
+      var image = UIImage()
+//            DispatchQueue.main.async {
         UIGraphicsBeginImageContextWithOptions(self.view.frame.size, true, 1)
         self.view.drawHierarchy(in: self.view.bounds, afterScreenUpdates: false)
-        //    }
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
+//            }
+              guard let imageContext = UIGraphicsGetImageFromCurrentImageContext() else {return image}
+              UIGraphicsEndImageContext()
+              image = imageContext
+              
+//      }
+      
         return image
     }
     

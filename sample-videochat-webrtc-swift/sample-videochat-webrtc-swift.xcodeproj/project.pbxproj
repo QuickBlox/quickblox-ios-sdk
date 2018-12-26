@@ -43,8 +43,15 @@
 		2C854A9121C8FB0A003FCA64 /* SharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A9021C8FB0A003FCA64 /* SharingViewController.swift */; };
 		2C854A9321C8FF60003FCA64 /* SharingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A9221C8FF60003FCA64 /* SharingCell.swift */; };
 		2C854A9521C8FF7D003FCA64 /* ScreenCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A9421C8FF7D003FCA64 /* ScreenCapture.swift */; };
-		2C8DF93421CB84E2002C154D /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = 2C8DF93221CB84E2002C154D /* Sounds */; };
-		2C8DF93521CB84E2002C154D /* Plists in Resources */ = {isa = PBXBuildFile; fileRef = 2C8DF93321CB84E2002C154D /* Plists */; };
+		2C9FDB6921D3BD820094F4E6 /* end_of_call.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB5D21D3BD820094F4E6 /* end_of_call.wav */; };
+		2C9FDB6A21D3BD820094F4E6 /* calling.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB5E21D3BD820094F4E6 /* calling.wav */; };
+		2C9FDB6B21D3BD820094F4E6 /* busy.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB5F21D3BD820094F4E6 /* busy.wav */; };
+		2C9FDB6C21D3BD820094F4E6 /* ringtone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB6021D3BD820094F4E6 /* ringtone.wav */; };
+		2C9FDB6D21D3BD820094F4E6 /* DEVUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB6321D3BD820094F4E6 /* DEVUsers.plist */; };
+		2C9FDB6E21D3BD820094F4E6 /* PRODUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB6421D3BD820094F4E6 /* PRODUsers.plist */; };
+		2C9FDB6F21D3BD820094F4E6 /* WEBUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB6521D3BD820094F4E6 /* WEBUsers.plist */; };
+		2C9FDB7021D3BD820094F4E6 /* QAUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB6621D3BD820094F4E6 /* QAUsers.plist */; };
+		2C9FDB7121D3BD820094F4E6 /* StunList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB6821D3BD820094F4E6 /* StunList.plist */; };
 		2CE64E6621BAA3BF00F85E06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE64E6521BAA3BF00F85E06 /* AppDelegate.swift */; };
 		2CE64E7021BAA3C200F85E06 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CE64E6E21BAA3C200F85E06 /* LaunchScreen.storyboard */; };
 		2CFEDBF421BEB13B00511479 /* Users.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CFEDBF321BEB13B00511479 /* Users.storyboard */; };
@@ -98,8 +105,15 @@
 		2C854A9021C8FB0A003FCA64 /* SharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingViewController.swift; sourceTree = "<group>"; };
 		2C854A9221C8FF60003FCA64 /* SharingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingCell.swift; sourceTree = "<group>"; };
 		2C854A9421C8FF7D003FCA64 /* ScreenCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenCapture.swift; sourceTree = "<group>"; };
-		2C8DF93221CB84E2002C154D /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
-		2C8DF93321CB84E2002C154D /* Plists */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Plists; sourceTree = "<group>"; };
+		2C9FDB5D21D3BD820094F4E6 /* end_of_call.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = end_of_call.wav; sourceTree = "<group>"; };
+		2C9FDB5E21D3BD820094F4E6 /* calling.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = calling.wav; sourceTree = "<group>"; };
+		2C9FDB5F21D3BD820094F4E6 /* busy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = busy.wav; sourceTree = "<group>"; };
+		2C9FDB6021D3BD820094F4E6 /* ringtone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ringtone.wav; sourceTree = "<group>"; };
+		2C9FDB6321D3BD820094F4E6 /* DEVUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DEVUsers.plist; sourceTree = "<group>"; };
+		2C9FDB6421D3BD820094F4E6 /* PRODUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PRODUsers.plist; sourceTree = "<group>"; };
+		2C9FDB6521D3BD820094F4E6 /* WEBUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WEBUsers.plist; sourceTree = "<group>"; };
+		2C9FDB6621D3BD820094F4E6 /* QAUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = QAUsers.plist; sourceTree = "<group>"; };
+		2C9FDB6821D3BD820094F4E6 /* StunList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = StunList.plist; sourceTree = "<group>"; };
 		2CE64E6221BAA3BF00F85E06 /* sample-videochat-webrtc-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-videochat-webrtc-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CE64E6521BAA3BF00F85E06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CE64E6F21BAA3C200F85E06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -182,8 +196,8 @@
 		2C771CC621BAA59600FBD21C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2C8DF93321CB84E2002C154D /* Plists */,
-				2C8DF93221CB84E2002C154D /* Sounds */,
+				2C9FDB6121D3BD820094F4E6 /* Plists */,
+				2C9FDB5C21D3BD820094F4E6 /* Sounds */,
 				2C771CC821BAA5FB00FBD21C /* Images.xcassets */,
 			);
 			path = Resources;
@@ -334,6 +348,45 @@
 				2C854A9421C8FF7D003FCA64 /* ScreenCapture.swift */,
 			);
 			path = SharingViewController;
+			sourceTree = "<group>";
+		};
+		2C9FDB5C21D3BD820094F4E6 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				2C9FDB5D21D3BD820094F4E6 /* end_of_call.wav */,
+				2C9FDB5E21D3BD820094F4E6 /* calling.wav */,
+				2C9FDB5F21D3BD820094F4E6 /* busy.wav */,
+				2C9FDB6021D3BD820094F4E6 /* ringtone.wav */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		2C9FDB6121D3BD820094F4E6 /* Plists */ = {
+			isa = PBXGroup;
+			children = (
+				2C9FDB6221D3BD820094F4E6 /* Users */,
+				2C9FDB6721D3BD820094F4E6 /* StunList */,
+			);
+			path = Plists;
+			sourceTree = "<group>";
+		};
+		2C9FDB6221D3BD820094F4E6 /* Users */ = {
+			isa = PBXGroup;
+			children = (
+				2C9FDB6321D3BD820094F4E6 /* DEVUsers.plist */,
+				2C9FDB6421D3BD820094F4E6 /* PRODUsers.plist */,
+				2C9FDB6521D3BD820094F4E6 /* WEBUsers.plist */,
+				2C9FDB6621D3BD820094F4E6 /* QAUsers.plist */,
+			);
+			path = Users;
+			sourceTree = "<group>";
+		};
+		2C9FDB6721D3BD820094F4E6 /* StunList */ = {
+			isa = PBXGroup;
+			children = (
+				2C9FDB6821D3BD820094F4E6 /* StunList.plist */,
+			);
+			path = StunList;
 			sourceTree = "<group>";
 		};
 		2CE64E5921BAA3BF00F85E06 = {
@@ -575,17 +628,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C8DF93421CB84E2002C154D /* Sounds in Resources */,
 				2C771CD021BAA6C100FBD21C /* Auth.storyboard in Resources */,
-				2C8DF93521CB84E2002C154D /* Plists in Resources */,
 				2CFEDBF421BEB13B00511479 /* Users.storyboard in Resources */,
 				2C5EC6F321BFE23100A2C53B /* SettingCell.xib in Resources */,
+				2C9FDB6B21D3BD820094F4E6 /* busy.wav in Resources */,
+				2C9FDB7121D3BD820094F4E6 /* StunList.plist in Resources */,
 				2CFEDC1521BEB7EE00511479 /* Call.storyboard in Resources */,
+				2C9FDB6C21D3BD820094F4E6 /* ringtone.wav in Resources */,
 				2CFEDC1721BEB87200511479 /* Settings.storyboard in Resources */,
+				2C9FDB6D21D3BD820094F4E6 /* DEVUsers.plist in Resources */,
+				2C9FDB6F21D3BD820094F4E6 /* WEBUsers.plist in Resources */,
 				2C771CC921BAA5FB00FBD21C /* Images.xcassets in Resources */,
+				2C9FDB6A21D3BD820094F4E6 /* calling.wav in Resources */,
+				2C9FDB6E21D3BD820094F4E6 /* PRODUsers.plist in Resources */,
 				2C5EC6F421BFE23100A2C53B /* SettingSwitchCell.xib in Resources */,
+				2C9FDB6921D3BD820094F4E6 /* end_of_call.wav in Resources */,
 				2CE64E7021BAA3C200F85E06 /* LaunchScreen.storyboard in Resources */,
 				2C5EC6F521BFE23100A2C53B /* SettingSliderCell.xib in Resources */,
+				2C9FDB7021D3BD820094F4E6 /* QAUsers.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -848,7 +908,7 @@
 		};
 		2CE64E7521BAA3C200F85E06 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3031F342D02AA6DD26E797F1 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */;
+			baseConfigurationReference = B2E1185FAD66E7F279D4F0B4 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "sample-videochat-webrtc-swift/sample-videochat-webrtc-swift.entitlements";
@@ -871,7 +931,7 @@
 		};
 		2CE64E7621BAA3C200F85E06 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F5585D2FA0A62FA18D6E8E3F /* Pods-sample-videochat-webrtc-swift.release.xcconfig */;
+			baseConfigurationReference = A450A548102369010BDFA92D /* Pods-sample-videochat-webrtc-swift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "sample-videochat-webrtc-swift/sample-videochat-webrtc-swift.entitlements";
