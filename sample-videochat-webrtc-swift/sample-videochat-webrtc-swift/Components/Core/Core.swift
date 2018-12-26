@@ -11,7 +11,6 @@ import Quickblox
 import QuickbloxWebRTC
 import SVProgressHUD
 import SystemConfiguration
-import UserNotifications
 
 enum NetworkConnectionStatus: UInt {
     case notConnection
@@ -184,8 +183,7 @@ class Core: NSObject {
                         successBlock: { [weak self] response, user in
                             self?.isAutorized = true
                             connectToChat()
-                            self?.registerForRemoteNotifications()
-                            
+                          
             }, errorBlock: { [weak self] response in
                 self?.handleError(response.error?.error, domain: ErrorDomain.logIn)
                 if response.status == QBResponseStatusCode.unAuthorized {
@@ -244,27 +242,7 @@ class Core: NSObject {
             delegate.core(self, error: error!, domain: domain)
         }
     }
-    
-    // MARK: - Push Notifications
-    /**
-     *  Create subscription.
-     *
-     *  @param deviceToken Identifies client device
-     */
-    func registerForRemoteNotifications() {
-        let app = UIApplication.shared
-        
-        if app.responds(to: #selector(UIApplication.registerUserNotificationSettings(_:))) {
-            
-            let type: UIUserNotificationType = [.sound, .alert, .badge]
-            
-            let settings = UIUserNotificationSettings(types: type, categories: nil)
-            
-            app.registerUserNotificationSettings(settings)
-            app.registerForRemoteNotifications()
-        }
-    }
-    
+  
     func registerForRemoteNotifications(withDeviceToken deviceToken: Data?) {
         assert(deviceToken != nil, CoreConstants.notSatisfyingDeviceToken)
         let subscription = QBMSubscription()
@@ -399,4 +377,3 @@ extension Core: QBChatDelegate {
         debugPrint("chatDidReconnect")
     }
 }
-

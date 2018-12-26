@@ -359,4 +359,3 @@ class SoundManager {
         unloadSoundIDs()
     }
 }
-

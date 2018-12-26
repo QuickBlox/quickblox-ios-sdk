@@ -12,6 +12,7 @@ import QuickbloxWebRTC
 import Fabric
 import Crashlytics
 import SVProgressHUD
+import UserNotifications
 
 struct CredentialsConstant {
   static let applicationID:UInt = 72448
@@ -30,10 +31,9 @@ struct AppDelegateConstant {
 }
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
   
   var window: UIWindow?
-  
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     
@@ -58,6 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // loading settings
     Settings.instance.load()
+    registerForRemoteNotifications()
     return true
   }
   
@@ -66,32 +67,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       Core.instance.loginWithCurrentUser()
     }
   }
-  // MARK: - Remote Notifictions
-  
-  func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
-    
-    if notificationSettings.types != [] {
-      
-      print("Did register user notificaiton settings")
-      application.registerForRemoteNotifications()
+
+  // MARK: - Remote Notifications Help
+  func registerForRemoteNotifications() {
+    let app = UIApplication.shared
+    if #available(iOS 10, *) {
+      let center = UNUserNotificationCenter.current()
+      center.delegate = self
+      center.requestAuthorization(options: [.sound, .alert, .badge], completionHandler: { granted, error in
+        if error == nil {
+          center.getNotificationSettings(completionHandler: { settings in
+            if settings.authorizationStatus == .authorized {
+              DispatchQueue.main.async(execute: {
+                app.registerForRemoteNotifications()
+              })
+            }
+          })
+        } else {
+          debugPrint("\(String(describing: error?.localizedDescription))")
+          //                    UIViewController.showAlertViewWithErrorMessage(error?.description())
+        }
+      })
+    } else {
+      if app.responds(to: #selector(UIApplication.registerUserNotificationSettings(_:))) {
+        let type: UIUserNotificationType = [.sound, .alert, .badge]
+        let settings = UIUserNotificationSettings(types: type, categories: nil)
+        app.registerUserNotificationSettings(settings)
+        app.registerForRemoteNotifications()
+      }
     }
   }
   
+  func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+    completionHandler()
+  }
+  
+  func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+    completionHandler(.alert)
+  }
+  
   func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-    
     print("Did register for remote notifications with device token")
     Core.instance.registerForRemoteNotifications(withDeviceToken: deviceToken)
   }
   
   func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-    
     print("Did receive remote notification \(userInfo)")
   }
   
   func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-    
     print("Did fail to register for remote notification with error \(error.localizedDescription)")
   }
-  
 }
-

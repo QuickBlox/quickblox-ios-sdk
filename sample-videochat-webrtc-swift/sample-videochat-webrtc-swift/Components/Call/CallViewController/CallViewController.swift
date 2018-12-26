@@ -146,7 +146,7 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         configuration.categoryOptions.insert(AVAudioSession.CategoryOptions.allowBluetoothA2DP)
         // adding airplay support
         configuration.categoryOptions.insert(AVAudioSession.CategoryOptions.allowAirPlay)
-        
+        debugPrint("\(configuration.categoryOptions)")
         guard let session = self.session else { return }
         if session.conferenceType == QBRTCConferenceType.video {
           // setting mode to video chat to enable airplay audio and speaker only

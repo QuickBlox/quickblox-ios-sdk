@@ -339,19 +339,22 @@ extension UsersViewController: QBRTCClientDelegate {
           opponentIDs.append(userID)
         }
       }
-      CallKitManager.instance.reportIncomingCall(withUserIDs: opponentIDs, session: session, uuid: callUUID, onAcceptAction: {
-        if let callViewController = self.storyboard?.instantiateViewController(withIdentifier: UsersSegueConstant.call) as? CallViewController {
-          callViewController.session = session
-          callViewController.usersDataSource = self.dataSource
-          callViewController.callUUID = self.callUUID
-          self.nav = UINavigationController(rootViewController: callViewController)
-          if let nav = self.nav {
-            nav.modalTransitionStyle = .crossDissolve
-            self.present(nav , animated: false)
-          }
-        }
-      }, completion: { (end) in
-        debugPrint("end")
+      CallKitManager.instance.reportIncomingCall(withUserIDs: opponentIDs,
+                                                 session: session,
+                                                 uuid: callUUID,
+                                                 onAcceptAction: { [weak self] in
+                                                  if let callViewController = self?.storyboard?.instantiateViewController(withIdentifier: UsersSegueConstant.call) as? CallViewController {
+                                                    callViewController.session = session
+                                                    callViewController.usersDataSource = self?.dataSource
+                                                    callViewController.callUUID = self?.callUUID
+                                                    self?.nav = UINavigationController(rootViewController: callViewController)
+                                                    if let nav = self?.nav {
+                                                      nav.modalTransitionStyle = .crossDissolve
+                                                      self?.present(nav , animated: false)
+                                                    }
+                                                  }
+        }, completion: { (end) in
+          debugPrint("end")
       })
     } else {
       assert(nav == nil, "Invalid parameter not satisfying: !nav")
