@@ -1,0 +1,6 @@
+framework module Pods_sample_conference_videochat_swift {
+  umbrella header "Pods-sample-conference-videochat-swift-umbrella.h"
+
+  export *
+  module * { export * }
+}
