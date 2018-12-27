@@ -214,4 +214,3 @@ class BaseSettingsViewController: UITableViewController, SettingsCellDelegate {
         assert(false, "Required method of SettingsCellDelegate must be implemented in superclass.")
     }
 }
-

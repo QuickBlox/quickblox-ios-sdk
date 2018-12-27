@@ -210,7 +210,6 @@ class VideoSettingsViewController: BaseSettingsViewController {
         return videoFormatModels
     }
     
-    
     // MARK: - Helpers
     func reloadVideoFormatSection(for position: AVCaptureDevice.Position) {
         guard let videoFormatModels = self.videoFormatModels(withCameraPositon: position),
@@ -236,4 +235,3 @@ class VideoSettingsViewController: BaseSettingsViewController {
         tableView.reloadSections(sectionToReload as IndexSet, with: .fade)
     }
 }
-

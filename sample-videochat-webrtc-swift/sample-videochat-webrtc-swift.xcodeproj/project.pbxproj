@@ -29,7 +29,6 @@
 		2C771CD821BAA7A900FBD21C /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C771CD721BAA7A900FBD21C /* Core.swift */; };
 		2C771CDA21BAA7D100FBD21C /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C771CD921BAA7D100FBD21C /* Profile.swift */; };
 		2C854A7121C8F524003FCA64 /* CallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A7021C8F524003FCA64 /* CallViewController.swift */; };
-		2C854A7421C8F55A003FCA64 /* IncomingCallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A7321C8F55A003FCA64 /* IncomingCallViewController.swift */; };
 		2C854A7721C8F86F003FCA64 /* ConferenceUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A7621C8F86F003FCA64 /* ConferenceUser.swift */; };
 		2C854A7A21C8F898003FCA64 /* ConferenceUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A7921C8F898003FCA64 /* ConferenceUserCell.swift */; };
 		2C854A7D21C8F951003FCA64 /* OpponentsFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A7C21C8F951003FCA64 /* OpponentsFlowLayout.swift */; };
@@ -39,19 +38,17 @@
 		2C854A8721C8FA57003FCA64 /* LocalVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A8621C8FA57003FCA64 /* LocalVideoView.swift */; };
 		2C854A8921C8FA72003FCA64 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A8821C8FA72003FCA64 /* StatsView.swift */; };
 		2C854A8B21C8FA8D003FCA64 /* CornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A8A21C8FA8D003FCA64 /* CornerView.swift */; };
-		2C854A8E21C8FAD1003FCA64 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A8D21C8FAD1003FCA64 /* SoundManager.swift */; };
 		2C854A9121C8FB0A003FCA64 /* SharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A9021C8FB0A003FCA64 /* SharingViewController.swift */; };
 		2C854A9321C8FF60003FCA64 /* SharingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A9221C8FF60003FCA64 /* SharingCell.swift */; };
 		2C854A9521C8FF7D003FCA64 /* ScreenCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A9421C8FF7D003FCA64 /* ScreenCapture.swift */; };
-		2C9FDB6921D3BD820094F4E6 /* end_of_call.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB5D21D3BD820094F4E6 /* end_of_call.wav */; };
 		2C9FDB6A21D3BD820094F4E6 /* calling.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB5E21D3BD820094F4E6 /* calling.wav */; };
-		2C9FDB6B21D3BD820094F4E6 /* busy.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB5F21D3BD820094F4E6 /* busy.wav */; };
 		2C9FDB6C21D3BD820094F4E6 /* ringtone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB6021D3BD820094F4E6 /* ringtone.wav */; };
 		2C9FDB6D21D3BD820094F4E6 /* DEVUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB6321D3BD820094F4E6 /* DEVUsers.plist */; };
 		2C9FDB6E21D3BD820094F4E6 /* PRODUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB6421D3BD820094F4E6 /* PRODUsers.plist */; };
 		2C9FDB6F21D3BD820094F4E6 /* WEBUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB6521D3BD820094F4E6 /* WEBUsers.plist */; };
 		2C9FDB7021D3BD820094F4E6 /* QAUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB6621D3BD820094F4E6 /* QAUsers.plist */; };
 		2C9FDB7121D3BD820094F4E6 /* StunList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB6821D3BD820094F4E6 /* StunList.plist */; };
+		2C9FDB7321D411AE0094F4E6 /* SoundProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDB7221D411AE0094F4E6 /* SoundProvider.swift */; };
 		2CE64E6621BAA3BF00F85E06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE64E6521BAA3BF00F85E06 /* AppDelegate.swift */; };
 		2CE64E7021BAA3C200F85E06 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CE64E6E21BAA3C200F85E06 /* LaunchScreen.storyboard */; };
 		2CFEDBF421BEB13B00511479 /* Users.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CFEDBF321BEB13B00511479 /* Users.storyboard */; };
@@ -91,7 +88,6 @@
 		2C771CD721BAA7A900FBD21C /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
 		2C771CD921BAA7D100FBD21C /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		2C854A7021C8F524003FCA64 /* CallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallViewController.swift; sourceTree = "<group>"; };
-		2C854A7321C8F55A003FCA64 /* IncomingCallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingCallViewController.swift; sourceTree = "<group>"; };
 		2C854A7621C8F86F003FCA64 /* ConferenceUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceUser.swift; sourceTree = "<group>"; };
 		2C854A7921C8F898003FCA64 /* ConferenceUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceUserCell.swift; sourceTree = "<group>"; };
 		2C854A7C21C8F951003FCA64 /* OpponentsFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpponentsFlowLayout.swift; sourceTree = "<group>"; };
@@ -101,19 +97,17 @@
 		2C854A8621C8FA57003FCA64 /* LocalVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalVideoView.swift; sourceTree = "<group>"; };
 		2C854A8821C8FA72003FCA64 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		2C854A8A21C8FA8D003FCA64 /* CornerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerView.swift; sourceTree = "<group>"; };
-		2C854A8D21C8FAD1003FCA64 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		2C854A9021C8FB0A003FCA64 /* SharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingViewController.swift; sourceTree = "<group>"; };
 		2C854A9221C8FF60003FCA64 /* SharingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingCell.swift; sourceTree = "<group>"; };
 		2C854A9421C8FF7D003FCA64 /* ScreenCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenCapture.swift; sourceTree = "<group>"; };
-		2C9FDB5D21D3BD820094F4E6 /* end_of_call.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = end_of_call.wav; sourceTree = "<group>"; };
 		2C9FDB5E21D3BD820094F4E6 /* calling.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = calling.wav; sourceTree = "<group>"; };
-		2C9FDB5F21D3BD820094F4E6 /* busy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = busy.wav; sourceTree = "<group>"; };
 		2C9FDB6021D3BD820094F4E6 /* ringtone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ringtone.wav; sourceTree = "<group>"; };
 		2C9FDB6321D3BD820094F4E6 /* DEVUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DEVUsers.plist; sourceTree = "<group>"; };
 		2C9FDB6421D3BD820094F4E6 /* PRODUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PRODUsers.plist; sourceTree = "<group>"; };
 		2C9FDB6521D3BD820094F4E6 /* WEBUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WEBUsers.plist; sourceTree = "<group>"; };
 		2C9FDB6621D3BD820094F4E6 /* QAUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = QAUsers.plist; sourceTree = "<group>"; };
 		2C9FDB6821D3BD820094F4E6 /* StunList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = StunList.plist; sourceTree = "<group>"; };
+		2C9FDB7221D411AE0094F4E6 /* SoundProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundProvider.swift; sourceTree = "<group>"; };
 		2CE64E6221BAA3BF00F85E06 /* sample-videochat-webrtc-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-videochat-webrtc-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CE64E6521BAA3BF00F85E06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CE64E6F21BAA3C200F85E06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -207,8 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				2C854A8F21C8FAFB003FCA64 /* SharingViewController */,
-				2C854A8C21C8FAC6003FCA64 /* SoundManager */,
-				2C854A7221C8F548003FCA64 /* IncomingCallViewController */,
+				2C854A8C21C8FAC6003FCA64 /* SoundProvider */,
 				2CFEDC1321BEB7CC00511479 /* Call */,
 				2CFEDC0E21BEB4EF00511479 /* Settings */,
 				2CFEDC0B21BEB4B300511479 /* AVPermisions */,
@@ -279,14 +272,6 @@
 			path = UserPorfile;
 			sourceTree = "<group>";
 		};
-		2C854A7221C8F548003FCA64 /* IncomingCallViewController */ = {
-			isa = PBXGroup;
-			children = (
-				2C854A7321C8F55A003FCA64 /* IncomingCallViewController.swift */,
-			);
-			path = IncomingCallViewController;
-			sourceTree = "<group>";
-		};
 		2C854A7521C8F850003FCA64 /* ConferenceUser */ = {
 			isa = PBXGroup;
 			children = (
@@ -332,12 +317,12 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		2C854A8C21C8FAC6003FCA64 /* SoundManager */ = {
+		2C854A8C21C8FAC6003FCA64 /* SoundProvider */ = {
 			isa = PBXGroup;
 			children = (
-				2C854A8D21C8FAD1003FCA64 /* SoundManager.swift */,
+				2C9FDB7221D411AE0094F4E6 /* SoundProvider.swift */,
 			);
-			path = SoundManager;
+			path = SoundProvider;
 			sourceTree = "<group>";
 		};
 		2C854A8F21C8FAFB003FCA64 /* SharingViewController */ = {
@@ -353,9 +338,7 @@
 		2C9FDB5C21D3BD820094F4E6 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				2C9FDB5D21D3BD820094F4E6 /* end_of_call.wav */,
 				2C9FDB5E21D3BD820094F4E6 /* calling.wav */,
-				2C9FDB5F21D3BD820094F4E6 /* busy.wav */,
 				2C9FDB6021D3BD820094F4E6 /* ringtone.wav */,
 			);
 			path = Sounds;
@@ -631,7 +614,6 @@
 				2C771CD021BAA6C100FBD21C /* Auth.storyboard in Resources */,
 				2CFEDBF421BEB13B00511479 /* Users.storyboard in Resources */,
 				2C5EC6F321BFE23100A2C53B /* SettingCell.xib in Resources */,
-				2C9FDB6B21D3BD820094F4E6 /* busy.wav in Resources */,
 				2C9FDB7121D3BD820094F4E6 /* StunList.plist in Resources */,
 				2CFEDC1521BEB7EE00511479 /* Call.storyboard in Resources */,
 				2C9FDB6C21D3BD820094F4E6 /* ringtone.wav in Resources */,
@@ -642,7 +624,6 @@
 				2C9FDB6A21D3BD820094F4E6 /* calling.wav in Resources */,
 				2C9FDB6E21D3BD820094F4E6 /* PRODUsers.plist in Resources */,
 				2C5EC6F421BFE23100A2C53B /* SettingSwitchCell.xib in Resources */,
-				2C9FDB6921D3BD820094F4E6 /* end_of_call.wav in Resources */,
 				2CE64E7021BAA3C200F85E06 /* LaunchScreen.storyboard in Resources */,
 				2C5EC6F521BFE23100A2C53B /* SettingSliderCell.xib in Resources */,
 				2C9FDB7021D3BD820094F4E6 /* QAUsers.plist in Resources */,
@@ -745,14 +726,13 @@
 				2C854A8921C8FA72003FCA64 /* StatsView.swift in Sources */,
 				2CFEDC1221BEB6DD00511479 /* CallPermissions.swift in Sources */,
 				2CFEDC0721BEB3BE00511479 /* CheckView.swift in Sources */,
-				2C854A7421C8F55A003FCA64 /* IncomingCallViewController.swift in Sources */,
 				2CFEDC0121BEB34900511479 /* PlaceholderGenerator.swift in Sources */,
 				2C854A9121C8FB0A003FCA64 /* SharingViewController.swift in Sources */,
 				2C5EC6E421BFE10F00A2C53B /* VideoSettingsViewController.swift in Sources */,
 				2C854A9521C8FF7D003FCA64 /* ScreenCapture.swift in Sources */,
 				2C5EC6EF21BFE1E000A2C53B /* BaseSettingsCell.swift in Sources */,
 				2CFEDC0421BEB38B00511479 /* UserTableViewCell.swift in Sources */,
-				2C854A8E21C8FAD1003FCA64 /* SoundManager.swift in Sources */,
+				2C9FDB7321D411AE0094F4E6 /* SoundProvider.swift in Sources */,
 				2C854A8421C8F9E1003FCA64 /* ButtonsFactory.swift in Sources */,
 				2C854A7121C8F524003FCA64 /* CallViewController.swift in Sources */,
 				2C5EC6FB21BFE30500A2C53B /* SwitchItemModel.swift in Sources */,
@@ -792,6 +772,7 @@
 /* Begin XCBuildConfiguration section */
 		2CE64E7221BAA3C200F85E06 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B2E1185FAD66E7F279D4F0B4 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -853,6 +834,7 @@
 		};
 		2CE64E7321BAA3C200F85E06 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A450A548102369010BDFA92D /* Pods-sample-videochat-webrtc-swift.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -908,12 +890,13 @@
 		};
 		2CE64E7521BAA3C200F85E06 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B2E1185FAD66E7F279D4F0B4 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */;
+			baseConfigurationReference = 3031F342D02AA6DD26E797F1 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "sample-videochat-webrtc-swift/sample-videochat-webrtc-swift.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 8885H5G2YX;
 				INFOPLIST_FILE = "sample-videochat-webrtc-swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -931,7 +914,7 @@
 		};
 		2CE64E7621BAA3C200F85E06 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A450A548102369010BDFA92D /* Pods-sample-videochat-webrtc-swift.release.xcconfig */;
+			baseConfigurationReference = F5585D2FA0A62FA18D6E8E3F /* Pods-sample-videochat-webrtc-swift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "sample-videochat-webrtc-swift/sample-videochat-webrtc-swift.entitlements";

@@ -16,7 +16,6 @@ protocol SettingsViewControllerDelegate: class {
 enum SessionConfigureItem : Int {
     case video
     case auido
-//    case record
 }
 
 struct SessionSettingsConstant {
@@ -69,13 +68,6 @@ class SessionSettingsViewController: UITableViewController {
             cell.isUserInteractionEnabled = false
         }
         #endif
-        
-//        if UIDevice.current.qbrtc_isLowPerformance,
-//            indexPath.row == SessionConfigureItem.record.rawValue,
-//            indexPath.section == 0 {
-//            cell.isUserInteractionEnabled = false
-//        }
-        
         return cell
     }
     
@@ -103,15 +95,7 @@ class SessionSettingsViewController: UITableViewController {
     
     //MARK: - Internal Methods
     func detailTextForRow(atIndexPaht indexPath: IndexPath) -> String {
-        
-//        if indexPath.row == SessionConfigureItem.record.rawValue {
-//            if UIDevice.current.qbrtc_isLowPerformance {
-//                return "unavailable"
-//            } else {
-                //                return settings.recordSettings.isEnabled() ? "On" : "Off"
-//            }
-//        } else if indexPath.row == SessionConfigureItem.video.rawValue {
-      if indexPath.row == SessionConfigureItem.video.rawValue {
+        if indexPath.row == SessionConfigureItem.video.rawValue {
             #if targetEnvironment(simulator)
             // Simulator
             return "unavailable"

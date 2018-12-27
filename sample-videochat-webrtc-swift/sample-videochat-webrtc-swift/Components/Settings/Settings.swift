@@ -13,14 +13,12 @@ struct SettingsConstants {
     static let videoFormatKey = "videoFormat"
     static let preferredCameraPosition = "cameraPosition"
     static let mediaConfigKey = "mediaConfig"
-//    static let recordSettingsKey = "recordSettings"
 }
 
 class Settings {
     //MARK: - Properties
     static let instance = Settings()
-    
-//    var recordSettings = RecordSettings()
+
     var videoFormat = QBRTCVideoFormat.default()
     var mediaConfiguration = QBRTCMediaStreamConfiguration.default()
     var preferredCameraPostion: AVCaptureDevice.Position = .front
@@ -31,12 +29,9 @@ class Settings {
         let defaults = UserDefaults.standard
         let videFormatData = NSKeyedArchiver.archivedData(withRootObject: videoFormat as Any)
         let mediaConfig = NSKeyedArchiver.archivedData(withRootObject: mediaConfiguration as Any)
-//        let recordSettingsData = NSKeyedArchiver.archivedData(withRootObject: recordSettings as Any)
         defaults.set(preferredCameraPostion.rawValue, forKey: SettingsConstants.preferredCameraPosition)
         defaults.set(videFormatData, forKey: SettingsConstants.videoFormatKey)
         defaults.set(mediaConfig, forKey: SettingsConstants.mediaConfigKey)
-//        defaults.set(recordSettingsData, forKey: SettingsConstants.recordSettingsKey)
-        
         defaults.synchronize()
     }
     
@@ -59,12 +54,6 @@ class Settings {
             let data = NSKeyedUnarchiver.unarchiveObject(with: mediaConfigData) {
             mediaConfiguration = data as? QBRTCMediaStreamConfiguration ?? QBRTCMediaStreamConfiguration.default()
         }
-//        if let recordSettingsData = defaults.object(forKey: SettingsConstants.recordSettingsKey) as? Data,
-//            let data = NSKeyedUnarchiver.unarchiveObject(with: recordSettingsData) {
-//            recordSettings = data as? RecordSettings ?? RecordSettings()
-//        }
         applyConfig()
     }
 }
-
-

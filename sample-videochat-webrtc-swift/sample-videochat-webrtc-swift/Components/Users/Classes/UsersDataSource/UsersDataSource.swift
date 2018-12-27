@@ -30,7 +30,6 @@ class UsersDataSource: NSObject {
     }
     
     // MARK: - Public methods
-    
     func setUsers(_ users: [QBUUser]) -> Bool {
         let usersSet = Set<QBUUser>(users)
         
@@ -108,7 +107,6 @@ class UsersDataSource: NSObject {
 
 extension UsersDataSource: UITableViewDataSource {
     // MARK: - UITableViewDataSource
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return usersSortedByLastSeen().count
     }

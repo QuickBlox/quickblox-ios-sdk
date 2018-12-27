@@ -29,7 +29,6 @@ class OpponentsFlowLayout: UICollectionViewFlowLayout {
     }
     
     // MARK: UISubclassingHooks
-    
     override var collectionViewContentSize: CGSize {
         return collectionView?.frame.size ?? CGSize.zero
     }

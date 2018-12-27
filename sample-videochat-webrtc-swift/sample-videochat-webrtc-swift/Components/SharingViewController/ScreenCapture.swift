@@ -9,11 +9,11 @@
 import UIKit
 import QuickbloxWebRTC
 
-/**
- *  By default sending frames in screen share using BiPlanarFullRange pixel format type.
- *  You can also send them using ARGB by setting this constant to NO.
- */
 struct ScreenCaptureConstant {
+    /**
+     *  By default sending frames in screen share using BiPlanarFullRange pixel format type.
+     *  You can also send them using ARGB by setting this constant to NO.
+     */
     static let isUseBiPlanarFormatTypeForShare = true
 }
 
@@ -23,16 +23,17 @@ struct ScreenCaptureConstant {
  */
 class ScreenCapture: QBRTCVideoCapture {
     
-    lazy private var view: UIView = {
-        let view = UIView()
-        return view
+    //MARK: - Properties
+    private var view = UIView()
+    private var displayLink = CADisplayLink()
+    
+    static let sharedGPUContextSharedContext: CIContext = {
+        let options = [CIContextOption.priorityRequestLow: true]
+        let sharedContext = CIContext(options: options)
+        return sharedContext
     }()
     
-    lazy private var displayLink: CADisplayLink = {
-        let displayLink = CADisplayLink()
-        return displayLink
-    }()
-    
+    //MARK: - Life Cycle
     /**
      * Initialize a video capturer view and start grabbing content of given view
      */
@@ -51,111 +52,89 @@ class ScreenCapture: QBRTCVideoCapture {
         displayLink.isPaused = true
     }
     
-    // MARK: -
+    //MARK: - Internal Methods
     func screenshot() -> UIImage? {
-      
-      var image = UIImage()
-//            DispatchQueue.main.async {
-        UIGraphicsBeginImageContextWithOptions(self.view.frame.size, true, 1)
-        self.view.drawHierarchy(in: self.view.bounds, afterScreenUpdates: false)
-//            }
-              guard let imageContext = UIGraphicsGetImageFromCurrentImageContext() else {return image}
-              UIGraphicsEndImageContext()
-              image = imageContext
-              
-//      }
-      
-        return image
+        let layer = view.layer
+        UIGraphicsBeginImageContextWithOptions(layer.frame.size, true, 1);
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return nil
+        }
+        layer.render(in:context)
+        let screenshotImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return screenshotImage
     }
     
-    static let sharedGPUContextSharedContext: CIContext = {
-        let options = [CIContextOption.priorityRequestLow: true]
-        let sharedContext = CIContext(options: options)
-        return sharedContext
-    }()
-    
-    func sharedGPUContext() -> CIContext {
+    private func sharedGPUContext() -> CIContext {
         return ScreenCapture.sharedGPUContextSharedContext
     }
     
-    @objc func sendPixelBuffer(_ sender: CADisplayLink?) {
-        
-        videoQueue.async(execute: {
-            
-            let image = self.screenshot()
-            
-            let renderWidth = Int(image?.size.width ?? 0)
-            let renderHeight = Int(image?.size.height ?? 0)
-            
-            var buffer: CVPixelBuffer? = nil
-            
-            var pixelFormatType: OSType?
-            var pixelBufferAttributes: CFDictionary?
-            if ScreenCaptureConstant.isUseBiPlanarFormatTypeForShare == true {
-                
-                pixelFormatType = kCVPixelFormatType_420YpCbCr8BiPlanarFullRange
-                pixelBufferAttributes = ([kCVPixelBufferIOSurfacePropertiesKey as String: [:]]) as CFDictionary
-            } else {
-                
+    @objc private func sendPixelBuffer(_ sender: CADisplayLink?) {
+        guard let image = self.screenshot() else {
+            return
+        }
+        videoQueue.async(execute: { [weak self] in
+            guard let self = self else {
+                return
+            }
+            let renderWidth = Int(image.size.width)
+            let renderHeight = Int(image.size.height)
+            var pixelFormatType = kCVPixelFormatType_420YpCbCr8BiPlanarFullRange
+            var pixelBufferAttributes = [kCVPixelBufferIOSurfacePropertiesKey: [:]] as CFDictionary
+            if ScreenCaptureConstant.isUseBiPlanarFormatTypeForShare == false {
                 pixelFormatType = kCVPixelFormatType_32ARGB
-                pixelBufferAttributes = [kCVPixelBufferCGImageCompatibilityKey as String: false,
-                                         kCVPixelBufferCGBitmapContextCompatibilityKey as String: false] as CFDictionary
+                pixelBufferAttributes = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanFalse,
+                                         kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanFalse] as CFDictionary
             }
-            if let pixelFormatType = pixelFormatType {
-                let status = CVPixelBufferCreate(kCFAllocatorDefault,
-                                                 renderWidth,
-                                                 renderHeight,
-                                                 pixelFormatType,
-                                                 pixelBufferAttributes,
-                                                 &buffer)
-                
-                if let buffer = buffer,
-                    status == kCVReturnSuccess {
-                    
-                    CVPixelBufferLockBaseAddress(buffer, [])
-                    
-                    guard let image = image,
-                        let cgImage = image.cgImage else {
-                            return
-                    }
-                    if let rImage = CIImage(image: image),
-                        ScreenCaptureConstant.isUseBiPlanarFormatTypeForShare == true {
-                        self.sharedGPUContext().render(rImage, to: buffer)
-                        
-                    } else {
-                        
-                        let pxdata = CVPixelBufferGetBaseAddress(buffer)
-                        let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
-                        let bitmapInfo = CGBitmapInfo.byteOrder32Little.rawValue | CGImageAlphaInfo.premultipliedFirst.rawValue
-                        let context = CGContext(data: pxdata,
-                                                width: renderWidth,
-                                                height: renderHeight,
-                                                bitsPerComponent: 8,
-                                                bytesPerRow: renderWidth * 4,
-                                                space: rgbColorSpace,
-                                                bitmapInfo: bitmapInfo)
-                        let rect = CGRect(x: 0, y: 0, width: renderWidth, height: renderHeight)
-                        context?.draw(cgImage, in: rect)
-                        
-                    }
-                    
-                    CVPixelBufferUnlockBaseAddress(buffer, [])
-                    
-                    let videoFrame = QBRTCVideoFrame(pixelBuffer: buffer, videoRotation: QBRTCVideoRotation._0)
-                    super.send(videoFrame)
-                }
+            var pixelBuffer: CVPixelBuffer?
+            let status = CVPixelBufferCreate(kCFAllocatorDefault,
+                                             renderWidth,
+                                             renderHeight,
+                                             pixelFormatType,
+                                             pixelBufferAttributes,
+                                             &pixelBuffer)
+            if status != kCVReturnSuccess {
+                return
             }
+            guard let buffer = pixelBuffer else {
+                return
+            }
+            
+            CVPixelBufferLockBaseAddress(buffer, CVPixelBufferLockFlags(rawValue: 0))
+            
+            if let renderImage = CIImage(image: image),
+                ScreenCaptureConstant.isUseBiPlanarFormatTypeForShare == true {
+                self.sharedGPUContext().render(renderImage, to: buffer)
+            } else if let cgImage = image.cgImage {
+                let pxdata = CVPixelBufferGetBaseAddress(buffer)
+                let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
+                let bitmapInfo = CGBitmapInfo.byteOrder32Little.rawValue | CGImageAlphaInfo.premultipliedFirst.rawValue
+                let context = CGContext(data: pxdata,
+                                        width: renderWidth,
+                                        height: renderHeight,
+                                        bitsPerComponent: 8,
+                                        bytesPerRow: renderWidth * 4,
+                                        space: rgbColorSpace,
+                                        bitmapInfo: bitmapInfo)
+                let rect = CGRect(x: 0, y: 0, width: renderWidth, height: renderHeight)
+                context?.draw(cgImage, in: rect)
+            }
+            
+            CVPixelBufferUnlockBaseAddress(buffer, CVPixelBufferLockFlags(rawValue: 0))
+            
+            let videoFrame = QBRTCVideoFrame(pixelBuffer: buffer, videoRotation: QBRTCVideoRotation._0)
+            self.send(videoFrame)
         })
         
     }
-    
     
     // MARK: - <QBRTCVideoCapture>
     override func didSet(to videoTrack: QBRTCLocalVideoTrack?) {
         super.didSet(to: videoTrack)
         
         displayLink = CADisplayLink(target: self, selector: #selector(sendPixelBuffer(_:)))
-        displayLink.add(to: RunLoop.main, forMode: .common)
+        displayLink.add(to: .main, forMode: .common)
         displayLink.preferredFramesPerSecond = 12 //5 fps
         
         NotificationCenter.default.addObserver(self,
@@ -173,7 +152,7 @@ class ScreenCapture: QBRTCVideoCapture {
         super.didRemove(from: videoTrack)
         
         displayLink.isPaused = true
-        displayLink.remove(from: RunLoop.main, forMode: .common)
+        displayLink.remove(from: .main, forMode: .common)
         
         NotificationCenter.default.removeObserver(self,
                                                   name: UIApplication.willEnterForegroundNotification,

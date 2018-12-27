@@ -60,20 +60,23 @@ class CornerView: UIView {
         if let touches = touches, let event = event {
             super.touchesEnded(touches, with: event)
         }
-        UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseIn, .allowUserInteraction],
+        
+        UIView.animate(withDuration: 0.4,
+                       delay: 0.0,
+                       options: [.curveEaseIn, .allowUserInteraction],
                        animations: {
-        }) { finished in
+        }, completion: { finished in
             guard let touchesEndAction = self.touchesEndAction else {
                 return
             }
             touchesEndAction()
-        }
+        })
     }
     
     //MARK: - Internal Methods
     private func defaultStyle() {
         contentMode = .redraw
-        backgroundColor = UIColor.clear
+        backgroundColor = .clear
         isUserInteractionEnabled = false
     }
     
@@ -96,5 +99,3 @@ class CornerView: UIView {
         text.draw(in: rectOffset, withAttributes: attributes)
     }
 }
-
-

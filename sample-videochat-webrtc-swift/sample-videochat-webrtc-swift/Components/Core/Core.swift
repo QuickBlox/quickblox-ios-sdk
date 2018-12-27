@@ -67,7 +67,7 @@ class Core: NSObject {
         return core
     }()
     
-    // MARK: Variables
+    //MARK: - Properties
     var currentUser: QBUUser?
     var profile: Profile? {
         didSet {
@@ -98,7 +98,6 @@ class Core: NSObject {
     }
     
     // MARK: - SignUp / Login / Logout
-    
     func setLoginStatus(_ loginStatus: String) {
         if let _ = self.multicastDelegate?.core(self, loginStatus: loginStatus) {
             self.multicastDelegate?.core(self, loginStatus: loginStatus)
@@ -183,7 +182,6 @@ class Core: NSObject {
                         successBlock: { [weak self] response, user in
                             self?.isAutorized = true
                             connectToChat()
-                          
             }, errorBlock: { [weak self] response in
                 self?.handleError(response.error?.error, domain: ErrorDomain.logIn)
                 if response.status == QBResponseStatusCode.unAuthorized {
@@ -242,9 +240,12 @@ class Core: NSObject {
             delegate.core(self, error: error!, domain: domain)
         }
     }
-  
+    
     func registerForRemoteNotifications(withDeviceToken deviceToken: Data?) {
-        assert(deviceToken != nil, CoreConstants.notSatisfyingDeviceToken)
+        guard let deviceToken = deviceToken else {
+            print(CoreConstants.notSatisfyingDeviceToken)
+            return
+        }
         let subscription = QBMSubscription()
         subscription.notificationChannel = QBMNotificationChannel.APNS
         subscription.deviceUDID = UIDevice.current.identifierForVendor?.uuidString

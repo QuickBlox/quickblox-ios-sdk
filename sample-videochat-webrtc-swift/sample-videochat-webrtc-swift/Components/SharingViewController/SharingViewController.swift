@@ -25,7 +25,7 @@ class SharingViewController: UICollectionViewController, UICollectionViewDelegat
         
         collectionView.isPagingEnabled = true
         images = ["pres_img_1", "pres_img_2", "pres_img_3"]
-        view.backgroundColor = UIColor.black
+        view.backgroundColor = .black
         if let session = session {
             enabled = session.localMediaStream.videoTrack.isEnabled
             capture = session.localMediaStream.videoTrack.videoCapture
@@ -33,7 +33,7 @@ class SharingViewController: UICollectionViewController, UICollectionViewDelegat
             //Switch to sharing
             session.localMediaStream.videoTrack.videoCapture = screenCapture
         }
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        collectionView.contentInset = UIEdgeInsets.zero
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -48,12 +48,11 @@ class SharingViewController: UICollectionViewController, UICollectionViewDelegat
     override func viewDidDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if isMovingFromParent == true {
-            if let session = session,
-                enabled == false {
-                session.localMediaStream.videoTrack.isEnabled = false
-                session.localMediaStream.videoTrack.videoCapture = capture
-            }
+        if isMovingFromParent == true,
+            enabled == false,
+            let session = session {
+            session.localMediaStream.videoTrack.isEnabled = false
+            session.localMediaStream.videoTrack.videoCapture = capture
         }
     }
     
@@ -79,7 +78,7 @@ class SharingViewController: UICollectionViewController, UICollectionViewDelegat
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return self.collectionView.bounds.size
+        return collectionView.bounds.size
     }
     
     override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
@@ -97,4 +96,3 @@ class SharingViewController: UICollectionViewController, UICollectionViewDelegat
         self.indexPath = nil
     }
 }
-

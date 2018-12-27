@@ -150,21 +150,21 @@ class LoginTableViewController: UITableViewController {
         tableView.beginUpdates()
         tableView.endUpdates()
     }
-  
-  //MARK: - Overrides
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-    guard let usersViewController = segue.destination as? UsersViewController else {
-      return
+    
+    //MARK: - Overrides
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard let usersViewController = segue.destination as? UsersViewController else {
+            return
+        }
+        usersViewController.completionBlock = { [weak self] in
+            guard let `self` = self else {
+                return
+            }
+            self.core.addDelegate(self)
+            self.defaultConfiguration()
+        }
     }
-    usersViewController.completionBlock = { [weak self] in
-      guard let `self` = self else {
-        return
-      }
-      self.core.addDelegate(self)
-      self.defaultConfiguration()
-    }
-  }
     
     //MARK: - Validation helpers
     private func userNameIsValid() -> Bool {
