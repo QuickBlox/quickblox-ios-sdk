@@ -147,7 +147,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6rE-te-Yi0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1740" y="311"/>
+            <point key="canvasLocation" x="3618.4000000000001" y="310.79460269865069"/>
         </scene>
         <!--Sharing View Controller-->
         <scene sceneID="I2j-8G-mZH">
@@ -194,7 +194,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S5c-Hi-SQs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2519" y="321"/>
+            <point key="canvasLocation" x="4316" y="310.79460269865069"/>
         </scene>
     </scenes>
     <resources>

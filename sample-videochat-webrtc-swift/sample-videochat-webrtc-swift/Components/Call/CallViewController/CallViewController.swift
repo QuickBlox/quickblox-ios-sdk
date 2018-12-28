@@ -213,9 +213,10 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
             // ideally you should always stop capture session
             // when you are leaving controller in any way
             // here we should get its running state back
-            cameraCapture?.startSession(nil)
+//            cameraCapture?.startSession(nil)
             session?.localMediaStream.videoTrack.videoCapture = cameraCapture
         }
+        session?.localMediaStream.videoTrack.videoCapture = cameraCapture
         reloadContent()
     }
     
@@ -244,7 +245,7 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
                     sharingVC.session = self?.session
                     
                     // put camera capture on pause
-                    self?.cameraCapture?.stopSession(nil)
+//                    self?.cameraCapture?.stopSession(nil)
                     self?.navigationController?.pushViewController(sharingVC, animated: true)
                 })
             case .audio:
@@ -424,7 +425,7 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     
     // MARK: - Timers actions
     @objc func playCallingSound(_ sender: Any?) {
-        SoundProvider.playSound(type: .calling)
+        SoundProvider.playSound(type: .ringtone)
     }
     
     @objc func refreshCallTime(_ sender: Timer?) {

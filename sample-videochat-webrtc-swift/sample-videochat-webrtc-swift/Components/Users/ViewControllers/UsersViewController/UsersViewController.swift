@@ -263,7 +263,6 @@ class UsersViewController: UITableViewController {
                             callViewController.session = self.session
                             callViewController.usersDataSource = self.dataSource
                             callViewController.callUUID = uuid
-                            
                             self.nav = UINavigationController(rootViewController: callViewController)
                             if let nav = self.nav {
                                 nav.modalTransitionStyle = .crossDissolve
@@ -344,7 +343,7 @@ extension UsersViewController: QBRTCClientDelegate {
                                                    session: session,
                                                    uuid: callUUID,
                                                    onAcceptAction: { [weak self] in
-                                                    guard let self = self else {
+                                                    guard let `self` = self else {
                                                         return
                                                     }
                                                     if let callViewController = self.storyboard?.instantiateViewController(withIdentifier: UsersSegueConstant.call) as? CallViewController {
@@ -407,7 +406,9 @@ extension UsersViewController: CoreDelegate {
         SVProgressHUD.dismiss()
         //Dismiss Settings view controller
         dismiss(animated: false)
-        completionBlock!()
+        if let completionBlock = completionBlock {
+            completionBlock()
+        }
         DispatchQueue.main.async(execute: {
             self.navigationController?.popToRootViewController(animated: false)
         })

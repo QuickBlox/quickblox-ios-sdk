@@ -13,6 +13,7 @@ import QuickbloxWebRTC
 private let reuseIdentifier = "SharingCell"
 class SharingViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+
     var session: QBRTCSession?
     private var images: [String] = []
     private weak var capture: QBRTCVideoCapture?
