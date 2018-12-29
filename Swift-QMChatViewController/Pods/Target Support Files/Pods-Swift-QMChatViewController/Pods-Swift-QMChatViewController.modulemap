@@ -1,6 +1,0 @@
-framework module Pods_Swift_QMChatViewController {
-  umbrella header "Pods-Swift-QMChatViewController-umbrella.h"
-
-  export *
-  module * { export * }
-}
