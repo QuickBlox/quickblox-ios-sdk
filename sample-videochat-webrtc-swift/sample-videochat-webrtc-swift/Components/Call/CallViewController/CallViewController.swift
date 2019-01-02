@@ -33,7 +33,7 @@ struct CallConstant {
     static let recordingTitle = "[Recording] "
     
     static let memoryWarning = NSLocalizedString("MEMORY WARNING: leaving out of call", comment: "")
-    static let conferenceDidClose = NSLocalizedString("Conference did close due to time out", comment: "")
+    static let sessionDidClose = NSLocalizedString("Session did close due to time out", comment: "")
     static let savingRecord = NSLocalizedString("Saving record", comment: "")
 }
 
@@ -62,7 +62,7 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     private var cameraCapture: QBRTCCameraCapture?
     
     //Containers
-    private var users = [ConferenceUser]()
+    private var users = [User]()
     private var videoViews = [UInt: UIView]()
     private var statsUserID: UInt?
     
@@ -134,7 +134,7 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
             return
         }
         
-        let currentConferenceUser = ConferenceUser(user: currentUser)
+        let currentConferenceUser = User(user: currentUser)
         users = [currentConferenceUser]
         
         let audioSession = QBRTCAudioSession.instance()
@@ -176,7 +176,7 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
                                                           alpha: 1.0)
         view.backgroundColor = opponentsCollectionView.backgroundColor
         
-        var conferenceUsers = [ConferenceUser]()
+        var conferenceUsers = [User]()
         conferenceUsers.insert(currentConferenceUser, at: 0)
         for uID in session.opponentsIDs {
             if currentConferenceUser.userID == uID.uintValue {
@@ -354,7 +354,7 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         state = .disconnected
         
         if timeout {
-            SVProgressHUD.showError(withStatus: CallConstant.conferenceDidClose)
+            SVProgressHUD.showError(withStatus: CallConstant.sessionDidClose)
         } else {
             // dismissing progress hud if needed
             SVProgressHUD.dismiss()
@@ -390,22 +390,22 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         return nil
     }
     
-    private func userCell(userID: UInt) -> ConferenceUserCell? {
+    private func userCell(userID: UInt) -> UserCell? {
         let indexPath = userIndexPath(userID: userID)
-        guard let cell = opponentsCollectionView.cellForItem(at: indexPath) as? ConferenceUserCell  else {
+        guard let cell = opponentsCollectionView.cellForItem(at: indexPath) as? UserCell  else {
             return nil
         }
         return cell
     }
     
-    private func createConferenceUser(userID: UInt) -> ConferenceUser {
+    private func createConferenceUser(userID: UInt) -> User {
         guard let usersDataSource = self.usersDataSource,
             let user = usersDataSource.user(withID: userID) else {
                 let user = QBUUser()
                 user.id = userID
-                return ConferenceUser(user: user)
+                return User(user: user)
         }
-        return ConferenceUser(user: user)
+        return User(user: user)
     }
     
     private func userIndexPath(userID: UInt) -> IndexPath {
@@ -617,7 +617,7 @@ extension CallViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CallConstant.opponentCollectionViewCellIdentifier,
-                                                            for: indexPath) as? ConferenceUserCell else {
+                                                            for: indexPath) as? UserCell else {
                                                                 return UICollectionViewCell()
         }
         

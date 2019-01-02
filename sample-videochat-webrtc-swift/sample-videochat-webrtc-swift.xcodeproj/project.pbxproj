@@ -29,8 +29,8 @@
 		2C771CD821BAA7A900FBD21C /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C771CD721BAA7A900FBD21C /* Core.swift */; };
 		2C771CDA21BAA7D100FBD21C /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C771CD921BAA7D100FBD21C /* Profile.swift */; };
 		2C854A7121C8F524003FCA64 /* CallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A7021C8F524003FCA64 /* CallViewController.swift */; };
-		2C854A7721C8F86F003FCA64 /* ConferenceUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A7621C8F86F003FCA64 /* ConferenceUser.swift */; };
-		2C854A7A21C8F898003FCA64 /* ConferenceUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A7921C8F898003FCA64 /* ConferenceUserCell.swift */; };
+		2C854A7721C8F86F003FCA64 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A7621C8F86F003FCA64 /* User.swift */; };
+		2C854A7A21C8F898003FCA64 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A7921C8F898003FCA64 /* UserCell.swift */; };
 		2C854A7D21C8F951003FCA64 /* OpponentsFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A7C21C8F951003FCA64 /* OpponentsFlowLayout.swift */; };
 		2C854A8021C8F99B003FCA64 /* ToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A7F21C8F99B003FCA64 /* ToolBar.swift */; };
 		2C854A8221C8F9C0003FCA64 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A8121C8F9C0003FCA64 /* CustomButton.swift */; };
@@ -90,8 +90,8 @@
 		2C771CD721BAA7A900FBD21C /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
 		2C771CD921BAA7D100FBD21C /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		2C854A7021C8F524003FCA64 /* CallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallViewController.swift; sourceTree = "<group>"; };
-		2C854A7621C8F86F003FCA64 /* ConferenceUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceUser.swift; sourceTree = "<group>"; };
-		2C854A7921C8F898003FCA64 /* ConferenceUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceUserCell.swift; sourceTree = "<group>"; };
+		2C854A7621C8F86F003FCA64 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		2C854A7921C8F898003FCA64 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		2C854A7C21C8F951003FCA64 /* OpponentsFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpponentsFlowLayout.swift; sourceTree = "<group>"; };
 		2C854A7F21C8F99B003FCA64 /* ToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBar.swift; sourceTree = "<group>"; };
 		2C854A8121C8F9C0003FCA64 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
@@ -279,7 +279,7 @@
 		2C854A7521C8F850003FCA64 /* ConferenceUser */ = {
 			isa = PBXGroup;
 			children = (
-				2C854A7621C8F86F003FCA64 /* ConferenceUser.swift */,
+				2C854A7621C8F86F003FCA64 /* User.swift */,
 			);
 			path = ConferenceUser;
 			sourceTree = "<group>";
@@ -287,7 +287,7 @@
 		2C854A7821C8F886003FCA64 /* ConferenceUserCell */ = {
 			isa = PBXGroup;
 			children = (
-				2C854A7921C8F898003FCA64 /* ConferenceUserCell.swift */,
+				2C854A7921C8F898003FCA64 /* UserCell.swift */,
 			);
 			path = ConferenceUserCell;
 			sourceTree = "<group>";
@@ -558,6 +558,7 @@
 				2C771CDC21BAB02500FBD21C /* ShellScript */,
 				2C771CDD21BAB03D00FBD21C /* ShellScript */,
 				2C771CDE21BAB05200FBD21C /* ShellScript */,
+				A5B10B83E3681206C49DFC52 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -693,6 +694,32 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 4b96a3f33893a42103eae91d2166d0c517b833d3 48d2b1a30ed0fd2d0897e0576e7e3625f0a9270aa02fd1e09291e17c9464a023\n";
 		};
+		A5B10B83E3681206C49DFC52 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift-frameworks.sh",
+				"${PODS_ROOT}/QuickBlox/Quickblox.framework",
+				"${PODS_ROOT}/Quickblox-WebRTC/QuickbloxWebRTC.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quickblox.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QuickbloxWebRTC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B45C39857CC689E6BD89EBFD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -725,7 +752,7 @@
 				2C854A9321C8FF60003FCA64 /* SharingCell.swift in Sources */,
 				2C771CD521BAA77100FBD21C /* LoadingButton.swift in Sources */,
 				2C854A8721C8FA57003FCA64 /* LocalVideoView.swift in Sources */,
-				2C854A7A21C8F898003FCA64 /* ConferenceUserCell.swift in Sources */,
+				2C854A7A21C8F898003FCA64 /* UserCell.swift in Sources */,
 				2C5EC70321BFE36D00A2C53B /* SettingsSectionModel.swift in Sources */,
 				2CFEDC0A21BEB40A00511479 /* CallKitManager.swift in Sources */,
 				2C854A8B21C8FA8D003FCA64 /* CornerView.swift in Sources */,
@@ -753,7 +780,7 @@
 				2C5EC6FD21BFE32000A2C53B /* SettingSwitchCell.swift in Sources */,
 				2C5EC6F721BFE2C100A2C53B /* Settings.swift in Sources */,
 				2C5EC6ED21BFE1C400A2C53B /* BaseItemModel.swift in Sources */,
-				2C854A7721C8F86F003FCA64 /* ConferenceUser.swift in Sources */,
+				2C854A7721C8F86F003FCA64 /* User.swift in Sources */,
 				2CE64E6621BAA3BF00F85E06 /* AppDelegate.swift in Sources */,
 				2C854A8021C8F99B003FCA64 /* ToolBar.swift in Sources */,
 				2CFEDBFD21BEB30B00511479 /* UsersDataSource.swift in Sources */,
@@ -898,7 +925,7 @@
 		};
 		2CE64E7521BAA3C200F85E06 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3031F342D02AA6DD26E797F1 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */;
+			baseConfigurationReference = B2E1185FAD66E7F279D4F0B4 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "sample-videochat-webrtc-swift/sample-videochat-webrtc-swift.entitlements";
@@ -922,7 +949,7 @@
 		};
 		2CE64E7621BAA3C200F85E06 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F5585D2FA0A62FA18D6E8E3F /* Pods-sample-videochat-webrtc-swift.release.xcconfig */;
+			baseConfigurationReference = A450A548102369010BDFA92D /* Pods-sample-videochat-webrtc-swift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "sample-videochat-webrtc-swift/sample-videochat-webrtc-swift.entitlements";

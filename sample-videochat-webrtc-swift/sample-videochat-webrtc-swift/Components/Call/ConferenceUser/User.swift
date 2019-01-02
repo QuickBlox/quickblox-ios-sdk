@@ -10,7 +10,7 @@ import Foundation
 import Quickblox
 import QuickbloxWebRTC
 
-class ConferenceUser {
+class User {
     //MARK - Properties
     private var user: QBUUser!
     var connectionState: QBRTCConnectionState = .connecting

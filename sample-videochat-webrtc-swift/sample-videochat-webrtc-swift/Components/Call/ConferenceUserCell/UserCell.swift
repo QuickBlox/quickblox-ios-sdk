@@ -9,7 +9,7 @@
 import UIKit
 import QuickbloxWebRTC
 
-class ConferenceUserCell: UICollectionViewCell {
+class UserCell: UICollectionViewCell {
     //MARK: - IBOutlets
     @IBOutlet private weak var nameView: UIView!
     @IBOutlet private weak var nameLabel: UILabel!
