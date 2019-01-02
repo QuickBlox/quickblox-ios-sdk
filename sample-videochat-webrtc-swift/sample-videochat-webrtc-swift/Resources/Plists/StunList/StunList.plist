@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>12connect</key>
+	<string>stun:stun.12connect.com:3478</string>
+	<key>cryptonit</key>
+	<string>stun:stun.cryptonit.net:3478</string>
+	<key>1und1</key>
+	<string>stun:stun.1und1.de:3478</string>
+	<key>2talk(co.nz)</key>
+	<string>stun:stun.2talk.co.nz:3478</string>
+	<key>2talk(com)</key>
+	<string>stun:stun.2talk.com:3478</string>
+	<key>3clogic</key>
+	<string>stun:stun.3clogic.com:3478</string>
+	<key>3cx</key>
+	<string>stun:stun.3cx.com:3478</string>
+	<key>aa</key>
+	<string>stun:stun.aa.net.uk:3478</string>
+	<key>acrobits</key>
+	<string>stun:stun.acrobits.cz:3478</string>
+</dict>
+</plist>

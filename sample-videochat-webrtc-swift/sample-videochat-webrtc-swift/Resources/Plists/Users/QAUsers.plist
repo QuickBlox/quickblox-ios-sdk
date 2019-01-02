@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>users</key>
+	<array>
+		<dict>
+			<key>login</key>
+			<string>@qa1</string>
+			<key>fullName</key>
+			<string>QA 1</string>
+			<key>ID</key>
+			<string>2308562</string>
+		</dict>
+        <dict>
+            <key>login</key>
+            <string>@qa2</string>
+            <key>fullName</key>
+            <string>QA 2</string>
+            <key>ID</key>
+            <string>2308563</string>
+        </dict>
+        <dict>
+            <key>login</key>
+            <string>@qa3</string>
+            <key>fullName</key>
+            <string>QA 3</string>
+            <key>ID</key>
+            <string>2308565</string>
+        </dict>
+        <dict>
+            <key>login</key>
+            <string>@qa4</string>
+            <key>fullName</key>
+            <string>QA 4</string>
+            <key>ID</key>
+            <string>2308567</string>
+        </dict>
+        <dict>
+            <key>login</key>
+            <string>@qa5</string>
+            <key>fullName</key>
+            <string>QA 5</string>
+            <key>ID</key>
+            <string>2308568</string>
+        </dict>
+        <dict>
+            <key>login</key>
+            <string>@qa6</string>
+            <key>fullName</key>
+            <string>QA 6</string>
+            <key>ID</key>
+            <string>2308569</string>
+        </dict>
+        <dict>
+            <key>login</key>
+            <string>@qa7</string>
+            <key>fullName</key>
+            <string>QA 7</string>
+            <key>ID</key>
+            <string>2308570</string>
+        </dict>
+        <dict>
+            <key>login</key>
+            <string>@qa8</string>
+            <key>fullName</key>
+            <string>QA 8</string>
+            <key>ID</key>
+            <string>2308571</string>
+        </dict>
+        <dict>
+            <key>login</key>
+            <string>@qa9</string>
+            <key>fullName</key>
+            <string>QA 9</string>
+            <key>ID</key>
+            <string>2308572</string>
+        </dict>
+        <dict>
+            <key>login</key>
+            <string>@qa10</string>
+            <key>fullName</key>
+            <string>QA 10</string>
+            <key>ID</key>
+            <string>2308573</string>
+        </dict>
+	</array>
+</dict>
+</plist>
