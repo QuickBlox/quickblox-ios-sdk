@@ -356,8 +356,8 @@ extension UsersViewController: QBRTCClientDelegate {
                                                             self.present(nav , animated: false)
                                                         }
                                                     }
-        }, completion: { (end) in
-            debugPrint("end")
+            }, completion: { (end) in
+                debugPrint("end")
         })
         
     }

@@ -138,7 +138,6 @@ class CallKitManager: NSObject {
     
     /**
      End call with uuid.
-     
      @param uuid uuid of call
      @param completion completion block
      */

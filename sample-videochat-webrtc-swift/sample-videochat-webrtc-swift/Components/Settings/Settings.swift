@@ -18,7 +18,7 @@ struct SettingsConstants {
 class Settings {
     //MARK: - Properties
     static let instance = Settings()
-
+    
     var videoFormat = QBRTCVideoFormat.default()
     var mediaConfiguration = QBRTCMediaStreamConfiguration.default()
     var preferredCameraPostion: AVCaptureDevice.Position = .front

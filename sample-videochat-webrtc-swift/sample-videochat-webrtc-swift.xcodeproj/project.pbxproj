@@ -41,14 +41,16 @@
 		2C854A9121C8FB0A003FCA64 /* SharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A9021C8FB0A003FCA64 /* SharingViewController.swift */; };
 		2C854A9321C8FF60003FCA64 /* SharingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A9221C8FF60003FCA64 /* SharingCell.swift */; };
 		2C854A9521C8FF7D003FCA64 /* ScreenCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A9421C8FF7D003FCA64 /* ScreenCapture.swift */; };
-		2C9FDB6A21D3BD820094F4E6 /* calling.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB5E21D3BD820094F4E6 /* calling.wav */; };
-		2C9FDB6C21D3BD820094F4E6 /* ringtone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB6021D3BD820094F4E6 /* ringtone.wav */; };
-		2C9FDB6D21D3BD820094F4E6 /* DEVUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB6321D3BD820094F4E6 /* DEVUsers.plist */; };
-		2C9FDB6E21D3BD820094F4E6 /* PRODUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB6421D3BD820094F4E6 /* PRODUsers.plist */; };
-		2C9FDB6F21D3BD820094F4E6 /* WEBUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB6521D3BD820094F4E6 /* WEBUsers.plist */; };
-		2C9FDB7021D3BD820094F4E6 /* QAUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB6621D3BD820094F4E6 /* QAUsers.plist */; };
-		2C9FDB7121D3BD820094F4E6 /* StunList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C9FDB6821D3BD820094F4E6 /* StunList.plist */; };
 		2C9FDB7321D411AE0094F4E6 /* SoundProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDB7221D411AE0094F4E6 /* SoundProvider.swift */; };
+		2CE202EB21DCC44000017F18 /* end_of_call.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CE202DF21DCC44000017F18 /* end_of_call.wav */; };
+		2CE202EC21DCC44000017F18 /* calling.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CE202E021DCC44000017F18 /* calling.wav */; };
+		2CE202ED21DCC44000017F18 /* busy.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CE202E121DCC44000017F18 /* busy.wav */; };
+		2CE202EE21DCC44000017F18 /* ringtone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CE202E221DCC44000017F18 /* ringtone.wav */; };
+		2CE202EF21DCC44000017F18 /* DEVUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CE202E521DCC44000017F18 /* DEVUsers.plist */; };
+		2CE202F021DCC44000017F18 /* PRODUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CE202E621DCC44000017F18 /* PRODUsers.plist */; };
+		2CE202F121DCC44000017F18 /* WEBUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CE202E721DCC44000017F18 /* WEBUsers.plist */; };
+		2CE202F221DCC44000017F18 /* QAUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CE202E821DCC44000017F18 /* QAUsers.plist */; };
+		2CE202F321DCC44000017F18 /* StunList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CE202EA21DCC44000017F18 /* StunList.plist */; };
 		2CE64E6621BAA3BF00F85E06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE64E6521BAA3BF00F85E06 /* AppDelegate.swift */; };
 		2CE64E7021BAA3C200F85E06 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CE64E6E21BAA3C200F85E06 /* LaunchScreen.storyboard */; };
 		2CFEDBF421BEB13B00511479 /* Users.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CFEDBF321BEB13B00511479 /* Users.storyboard */; };
@@ -100,14 +102,16 @@
 		2C854A9021C8FB0A003FCA64 /* SharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingViewController.swift; sourceTree = "<group>"; };
 		2C854A9221C8FF60003FCA64 /* SharingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingCell.swift; sourceTree = "<group>"; };
 		2C854A9421C8FF7D003FCA64 /* ScreenCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenCapture.swift; sourceTree = "<group>"; };
-		2C9FDB5E21D3BD820094F4E6 /* calling.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = calling.wav; sourceTree = "<group>"; };
-		2C9FDB6021D3BD820094F4E6 /* ringtone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ringtone.wav; sourceTree = "<group>"; };
-		2C9FDB6321D3BD820094F4E6 /* DEVUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DEVUsers.plist; sourceTree = "<group>"; };
-		2C9FDB6421D3BD820094F4E6 /* PRODUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PRODUsers.plist; sourceTree = "<group>"; };
-		2C9FDB6521D3BD820094F4E6 /* WEBUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WEBUsers.plist; sourceTree = "<group>"; };
-		2C9FDB6621D3BD820094F4E6 /* QAUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = QAUsers.plist; sourceTree = "<group>"; };
-		2C9FDB6821D3BD820094F4E6 /* StunList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = StunList.plist; sourceTree = "<group>"; };
 		2C9FDB7221D411AE0094F4E6 /* SoundProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundProvider.swift; sourceTree = "<group>"; };
+		2CE202DF21DCC44000017F18 /* end_of_call.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = end_of_call.wav; sourceTree = "<group>"; };
+		2CE202E021DCC44000017F18 /* calling.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = calling.wav; sourceTree = "<group>"; };
+		2CE202E121DCC44000017F18 /* busy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = busy.wav; sourceTree = "<group>"; };
+		2CE202E221DCC44000017F18 /* ringtone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ringtone.wav; sourceTree = "<group>"; };
+		2CE202E521DCC44000017F18 /* DEVUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DEVUsers.plist; sourceTree = "<group>"; };
+		2CE202E621DCC44000017F18 /* PRODUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PRODUsers.plist; sourceTree = "<group>"; };
+		2CE202E721DCC44000017F18 /* WEBUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WEBUsers.plist; sourceTree = "<group>"; };
+		2CE202E821DCC44000017F18 /* QAUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = QAUsers.plist; sourceTree = "<group>"; };
+		2CE202EA21DCC44000017F18 /* StunList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = StunList.plist; sourceTree = "<group>"; };
 		2CE64E6221BAA3BF00F85E06 /* sample-videochat-webrtc-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-videochat-webrtc-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CE64E6521BAA3BF00F85E06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CE64E6F21BAA3C200F85E06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -190,8 +194,8 @@
 		2C771CC621BAA59600FBD21C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2C9FDB6121D3BD820094F4E6 /* Plists */,
-				2C9FDB5C21D3BD820094F4E6 /* Sounds */,
+				2CE202E321DCC44000017F18 /* Plists */,
+				2CE202DE21DCC44000017F18 /* Sounds */,
 				2C771CC821BAA5FB00FBD21C /* Images.xcassets */,
 			);
 			path = Resources;
@@ -335,39 +339,41 @@
 			path = SharingViewController;
 			sourceTree = "<group>";
 		};
-		2C9FDB5C21D3BD820094F4E6 /* Sounds */ = {
+		2CE202DE21DCC44000017F18 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				2C9FDB5E21D3BD820094F4E6 /* calling.wav */,
-				2C9FDB6021D3BD820094F4E6 /* ringtone.wav */,
+				2CE202DF21DCC44000017F18 /* end_of_call.wav */,
+				2CE202E021DCC44000017F18 /* calling.wav */,
+				2CE202E121DCC44000017F18 /* busy.wav */,
+				2CE202E221DCC44000017F18 /* ringtone.wav */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
 		};
-		2C9FDB6121D3BD820094F4E6 /* Plists */ = {
+		2CE202E321DCC44000017F18 /* Plists */ = {
 			isa = PBXGroup;
 			children = (
-				2C9FDB6221D3BD820094F4E6 /* Users */,
-				2C9FDB6721D3BD820094F4E6 /* StunList */,
+				2CE202E421DCC44000017F18 /* Users */,
+				2CE202E921DCC44000017F18 /* StunList */,
 			);
 			path = Plists;
 			sourceTree = "<group>";
 		};
-		2C9FDB6221D3BD820094F4E6 /* Users */ = {
+		2CE202E421DCC44000017F18 /* Users */ = {
 			isa = PBXGroup;
 			children = (
-				2C9FDB6321D3BD820094F4E6 /* DEVUsers.plist */,
-				2C9FDB6421D3BD820094F4E6 /* PRODUsers.plist */,
-				2C9FDB6521D3BD820094F4E6 /* WEBUsers.plist */,
-				2C9FDB6621D3BD820094F4E6 /* QAUsers.plist */,
+				2CE202E521DCC44000017F18 /* DEVUsers.plist */,
+				2CE202E621DCC44000017F18 /* PRODUsers.plist */,
+				2CE202E721DCC44000017F18 /* WEBUsers.plist */,
+				2CE202E821DCC44000017F18 /* QAUsers.plist */,
 			);
 			path = Users;
 			sourceTree = "<group>";
 		};
-		2C9FDB6721D3BD820094F4E6 /* StunList */ = {
+		2CE202E921DCC44000017F18 /* StunList */ = {
 			isa = PBXGroup;
 			children = (
-				2C9FDB6821D3BD820094F4E6 /* StunList.plist */,
+				2CE202EA21DCC44000017F18 /* StunList.plist */,
 			);
 			path = StunList;
 			sourceTree = "<group>";
@@ -614,19 +620,21 @@
 				2C771CD021BAA6C100FBD21C /* Auth.storyboard in Resources */,
 				2CFEDBF421BEB13B00511479 /* Users.storyboard in Resources */,
 				2C5EC6F321BFE23100A2C53B /* SettingCell.xib in Resources */,
-				2C9FDB7121D3BD820094F4E6 /* StunList.plist in Resources */,
+				2CE202ED21DCC44000017F18 /* busy.wav in Resources */,
+				2CE202F321DCC44000017F18 /* StunList.plist in Resources */,
 				2CFEDC1521BEB7EE00511479 /* Call.storyboard in Resources */,
-				2C9FDB6C21D3BD820094F4E6 /* ringtone.wav in Resources */,
+				2CE202EE21DCC44000017F18 /* ringtone.wav in Resources */,
 				2CFEDC1721BEB87200511479 /* Settings.storyboard in Resources */,
-				2C9FDB6D21D3BD820094F4E6 /* DEVUsers.plist in Resources */,
-				2C9FDB6F21D3BD820094F4E6 /* WEBUsers.plist in Resources */,
+				2CE202EF21DCC44000017F18 /* DEVUsers.plist in Resources */,
+				2CE202F121DCC44000017F18 /* WEBUsers.plist in Resources */,
 				2C771CC921BAA5FB00FBD21C /* Images.xcassets in Resources */,
-				2C9FDB6A21D3BD820094F4E6 /* calling.wav in Resources */,
-				2C9FDB6E21D3BD820094F4E6 /* PRODUsers.plist in Resources */,
+				2CE202EC21DCC44000017F18 /* calling.wav in Resources */,
+				2CE202F021DCC44000017F18 /* PRODUsers.plist in Resources */,
 				2C5EC6F421BFE23100A2C53B /* SettingSwitchCell.xib in Resources */,
+				2CE202EB21DCC44000017F18 /* end_of_call.wav in Resources */,
 				2CE64E7021BAA3C200F85E06 /* LaunchScreen.storyboard in Resources */,
 				2C5EC6F521BFE23100A2C53B /* SettingSliderCell.xib in Resources */,
-				2C9FDB7021D3BD820094F4E6 /* QAUsers.plist in Resources */,
+				2CE202F221DCC44000017F18 /* QAUsers.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -822,7 +830,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -878,7 +886,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

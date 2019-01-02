@@ -75,20 +75,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let center = UNUserNotificationCenter.current()
         center.delegate = self
         center.requestAuthorization(options: [.sound, .alert, .badge], completionHandler: { granted, error in
-            if error == nil {
-                center.getNotificationSettings(completionHandler: { settings in
-                    if settings.authorizationStatus == .authorized {
-                        DispatchQueue.main.async(execute: {
-                            app.registerForRemoteNotifications()
-                        })
-                    }
-                })
-            } else {
-                guard let error = error else {
-                    return
-                }
+            if let error = error {
                 debugPrint("\(String(describing: error.localizedDescription))")
+                return
             }
+            center.getNotificationSettings(completionHandler: { settings in
+                if settings.authorizationStatus == .authorized {
+                    DispatchQueue.main.async(execute: {
+                        app.registerForRemoteNotifications()
+                    })
+                }
+            })
         })
     }
     

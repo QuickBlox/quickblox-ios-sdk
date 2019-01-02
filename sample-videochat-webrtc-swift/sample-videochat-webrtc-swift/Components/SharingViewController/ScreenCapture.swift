@@ -43,6 +43,10 @@ class ScreenCapture: QBRTCVideoCapture {
         self.view = view
     }
     
+    private func sharedContext() -> CIContext {
+        return ScreenCapture.sharedGPUContextSharedContext
+    }
+    
     // MARK: - Enter BG / FG notifications
     @objc func willEnterForeground(_ note: Notification?) {
         displayLink.isPaused = false
@@ -66,9 +70,6 @@ class ScreenCapture: QBRTCVideoCapture {
         return screenshotImage
     }
     
-    private func sharedGPUContext() -> CIContext {
-        return ScreenCapture.sharedGPUContextSharedContext
-    }
     
     @objc private func sendPixelBuffer(_ sender: CADisplayLink?) {
         guard let image = self.screenshot() else {
@@ -105,7 +106,7 @@ class ScreenCapture: QBRTCVideoCapture {
             
             if let renderImage = CIImage(image: image),
                 ScreenCaptureConstant.isUseBiPlanarFormatTypeForShare == true {
-                self.sharedGPUContext().render(renderImage, to: buffer)
+                self.sharedContext().render(renderImage, to: buffer)
             } else if let cgImage = image.cgImage {
                 let pxdata = CVPixelBufferGetBaseAddress(buffer)
                 let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
@@ -162,6 +163,5 @@ class ScreenCapture: QBRTCVideoCapture {
                                                   name: UIApplication.didEnterBackgroundNotification,
                                                   object: nil)
     }
-    
 }
 

@@ -95,5 +95,3 @@ class ConferenceUserCell: UICollectionViewCell {
         didPressMuteButton?(sender.isSelected)
     }
 }
-
-
