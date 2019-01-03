@@ -63,6 +63,7 @@ class LoginTableViewController: UITableViewController {
         tableView.delaysContentTouches = false
         navigationItem.title = LoginConstant.enterToChat
         
+        
         self.defaultConfiguration()
         
         if let currentUser = core.currentUser {
@@ -70,6 +71,12 @@ class LoginTableViewController: UITableViewController {
             self.chatRoomNameTextField.text = currentUser.tags?.first
             self.login()
         }
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //add info button
+        showInfoButton()
     }
     
     deinit {

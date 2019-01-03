@@ -98,6 +98,7 @@ class MainTableViewController: UITableViewController {
                                               target: self,
                                               action: #selector(didPressUsersButton(_:)))
         navigationItem.rightBarButtonItem = usersButtonItem
+        showInfoButton()
         
         //Custom label
         var userName = "Logged in as "
