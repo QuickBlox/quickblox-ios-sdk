@@ -67,12 +67,12 @@ class InfoTableViewController: UITableViewController {
         infoModels.append(apiDomainModel)
         
         let chatDomainModel = InfoModel()
-        chatDomainModel.title = "API domain:"
+        chatDomainModel.title = "Chat domain:"
         chatDomainModel.info = "\(QBSettings.chatEndpoint ?? "")"
         infoModels.append(chatDomainModel)
         
         let janusServerURLModel = InfoModel()
-        janusServerURLModel.title = "API domain:"
+        janusServerURLModel.title = "Janus server url:"
         janusServerURLModel.info = "\(QBRTCConfig.conferenceEndpoint() ?? "")"
         infoModels.append(janusServerURLModel)
         

@@ -63,7 +63,7 @@ NSString *const kLogoTableViewCellId = @"QBLogoTableViewCell";
     [self.infoModels addObject:apiDomainModel];
     
     InfoModel *chatDomainModel = [[InfoModel alloc] init];
-    chatDomainModel.title = @"API domain:";
+    chatDomainModel.title = @"Chat domain:";
     chatDomainModel.info = [NSString stringWithFormat:@"%@", QBSettings.chatEndpoint];
     [self.infoModels addObject:chatDomainModel];
     

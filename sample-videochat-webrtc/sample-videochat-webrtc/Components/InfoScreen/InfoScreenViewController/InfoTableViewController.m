@@ -42,6 +42,11 @@ NSString *const kLogoTableViewCellId = @"QBLogoTableViewCell";
     quickBloxSdkVersionModel.info = [NSString stringWithFormat:@"%@", QuickbloxFrameworkVersion];
     [self.infoModels addObject:quickBloxSdkVersionModel];
     
+    InfoModel *wbrtcVersionModel = [[InfoModel alloc] init];
+    wbrtcVersionModel.title = @"QuickbloxWebRTC version:";
+    wbrtcVersionModel.info = [NSString stringWithFormat:@"%@", QuickbloxWebRTCFrameworkVersion];
+    [self.infoModels addObject:wbrtcVersionModel];
+    
     InfoModel *appIDModel = [[InfoModel alloc] init];
     appIDModel.title = @"Application ID:";
     appIDModel.info = [NSString stringWithFormat:@"%@", @(QBSettings.applicationID)];

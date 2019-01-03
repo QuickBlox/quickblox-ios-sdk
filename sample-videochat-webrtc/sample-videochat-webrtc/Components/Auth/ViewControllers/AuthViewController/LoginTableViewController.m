@@ -12,6 +12,7 @@
 #import "UsersViewController.h"
 #import "QBCore.h"
 #import "SVProgressHUD.h"
+#import "UIViewController+InfoScreen.h"
 
 @interface LoginTableViewController () <UITextFieldDelegate, QBCoreDelegate>
 
@@ -48,6 +49,8 @@
         self.chatRoomNameTextField.text = [Core.currentUser.tags firstObject];
         [self login];
     }
+    //add info button
+    [self showInfoButton];
 }
 
 - (void)defaultConfiguration {
