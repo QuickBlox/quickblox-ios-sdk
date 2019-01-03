@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C2FD3C021DE033A002ED66B /* icon-info.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C2FD3BF21DE033A002ED66B /* icon-info.png */; };
+		2CE203BE21DD292100017F18 /* InfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE203B621DD292000017F18 /* InfoTableViewCell.m */; };
+		2CE203BF21DD292100017F18 /* InfoScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CE203B721DD292000017F18 /* InfoScreen.storyboard */; };
+		2CE203C021DD292100017F18 /* InfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE203B921DD292000017F18 /* InfoTableViewController.m */; };
+		2CE203C121DD292100017F18 /* InfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE203BD21DD292000017F18 /* InfoModel.m */; };
+		2CE203C421DD297400017F18 /* UIViewController+InfoScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE203C321DD297400017F18 /* UIViewController+InfoScreen.m */; };
 		E381C7DB1E7830DB00ACF58D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E381C7481E7830DB00ACF58D /* AppDelegate.m */; };
 		E381C7DC1E7830DB00ACF58D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E381C7491E7830DB00ACF58D /* Assets.xcassets */; };
 		E381C7DD1E7830DB00ACF58D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E381C74A1E7830DB00ACF58D /* LaunchScreen.storyboard */; };
@@ -95,6 +101,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2C2FD3BF21DE033A002ED66B /* icon-info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-info.png"; sourceTree = "<group>"; };
+		2CE203B521DD292000017F18 /* InfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoTableViewCell.h; sourceTree = "<group>"; };
+		2CE203B621DD292000017F18 /* InfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoTableViewCell.m; sourceTree = "<group>"; };
+		2CE203B721DD292000017F18 /* InfoScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = InfoScreen.storyboard; sourceTree = "<group>"; };
+		2CE203B921DD292000017F18 /* InfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoTableViewController.m; sourceTree = "<group>"; };
+		2CE203BA21DD292000017F18 /* InfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoTableViewController.h; sourceTree = "<group>"; };
+		2CE203BC21DD292000017F18 /* InfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoModel.h; sourceTree = "<group>"; };
+		2CE203BD21DD292000017F18 /* InfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoModel.m; sourceTree = "<group>"; };
+		2CE203C221DD297400017F18 /* UIViewController+InfoScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+InfoScreen.h"; sourceTree = "<group>"; };
+		2CE203C321DD297400017F18 /* UIViewController+InfoScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+InfoScreen.m"; sourceTree = "<group>"; };
 		E381BD921E719E5300ACF58D /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		E381BD941E719E5A00ACF58D /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		E381BD961E719E5F00ACF58D /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
@@ -249,6 +265,71 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C2FD3BE21DE030D002ED66B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2C2FD3BF21DE033A002ED66B /* icon-info.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		2C2FD3C121DE1B3C002ED66B /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				2CE203C221DD297400017F18 /* UIViewController+InfoScreen.h */,
+				2CE203C321DD297400017F18 /* UIViewController+InfoScreen.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		2C2FD3C221DE1B79002ED66B /* InfoScreenStoryboard */ = {
+			isa = PBXGroup;
+			children = (
+				2CE203B721DD292000017F18 /* InfoScreen.storyboard */,
+			);
+			path = InfoScreenStoryboard;
+			sourceTree = "<group>";
+		};
+		2CE203B321DD292000017F18 /* InfoScreen */ = {
+			isa = PBXGroup;
+			children = (
+				2C2FD3BE21DE030D002ED66B /* Resources */,
+				2CE203B421DD292000017F18 /* InfoTableViewCell */,
+				2C2FD3C221DE1B79002ED66B /* InfoScreenStoryboard */,
+				2CE203B821DD292000017F18 /* InfoScreenViewController */,
+				2CE203BB21DD292000017F18 /* InfoModel */,
+				2C2FD3C121DE1B3C002ED66B /* Category */,
+			);
+			path = InfoScreen;
+			sourceTree = "<group>";
+		};
+		2CE203B421DD292000017F18 /* InfoTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				2CE203B521DD292000017F18 /* InfoTableViewCell.h */,
+				2CE203B621DD292000017F18 /* InfoTableViewCell.m */,
+			);
+			path = InfoTableViewCell;
+			sourceTree = "<group>";
+		};
+		2CE203B821DD292000017F18 /* InfoScreenViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2CE203B921DD292000017F18 /* InfoTableViewController.m */,
+				2CE203BA21DD292000017F18 /* InfoTableViewController.h */,
+			);
+			path = InfoScreenViewController;
+			sourceTree = "<group>";
+		};
+		2CE203BB21DD292000017F18 /* InfoModel */ = {
+			isa = PBXGroup;
+			children = (
+				2CE203BC21DD292000017F18 /* InfoModel.h */,
+				2CE203BD21DD292000017F18 /* InfoModel.m */,
+			);
+			path = InfoModel;
+			sourceTree = "<group>";
+		};
 		E381C7461E7830DB00ACF58D /* sample-conference-videochat */ = {
 			isa = PBXGroup;
 			children = (
@@ -267,6 +348,7 @@
 		E381C74C1E7830DB00ACF58D /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				2CE203B321DD292000017F18 /* InfoScreen */,
 				E381C74D1E7830DB00ACF58D /* Auth */,
 				E381C7571E7830DB00ACF58D /* AVPermisions */,
 				E381C75A1E7830DB00ACF58D /* Calls */,
@@ -808,6 +890,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E381C7DE1E7830DB00ACF58D /* Auth.storyboard in Resources */,
+				2CE203BF21DD292100017F18 /* InfoScreen.storyboard in Resources */,
+				2C2FD3C021DE033A002ED66B /* icon-info.png in Resources */,
 				E381C7DD1E7830DB00ACF58D /* LaunchScreen.storyboard in Resources */,
 				E381C7E21E7830DB00ACF58D /* Call.storyboard in Resources */,
 				E381C7DC1E7830DB00ACF58D /* Assets.xcassets in Resources */,
@@ -859,6 +943,7 @@
 			files = (
 				E381C80F1E7830DB00ACF58D /* UsersViewController.m in Sources */,
 				E381C7E41E7830DB00ACF58D /* LocalVideoView.m in Sources */,
+				2CE203C021DD292100017F18 /* InfoTableViewController.m in Sources */,
 				E381C8001E7830DB00ACF58D /* SwitchItemModel.m in Sources */,
 				E381C7F61E7830DB00ACF58D /* Settings.m in Sources */,
 				E381C7EA1E7830DB00ACF58D /* QBButton.m in Sources */,
@@ -867,6 +952,7 @@
 				E381C8101E7830DB00ACF58D /* CheckView.m in Sources */,
 				E381C7E61E7830DB00ACF58D /* StatsView.m in Sources */,
 				E381C7EB1E7830DB00ACF58D /* QBButtonsFactory.m in Sources */,
+				2CE203C121DD292100017F18 /* InfoModel.m in Sources */,
 				E381C8061E7830DB00ACF58D /* SVRadialGradientLayer.m in Sources */,
 				E381C80A1E7830DB00ACF58D /* QBDataFetcher.m in Sources */,
 				E381C7F01E7830DB00ACF58D /* QMSoundManager.m in Sources */,
@@ -902,6 +988,8 @@
 				E381C7F81E7830DB00ACF58D /* SettingSliderCell.m in Sources */,
 				E381C7F41E7830DB00ACF58D /* SettingCell.m in Sources */,
 				E381C8111E7830DB00ACF58D /* DialogTableViewCell.m in Sources */,
+				2CE203C421DD297400017F18 /* UIViewController+InfoScreen.m in Sources */,
+				2CE203BE21DD292100017F18 /* InfoTableViewCell.m in Sources */,
 				E381C8141E7830DB00ACF58D /* main.m in Sources */,
 				E381C8011E7830DB00ACF58D /* VideoSettingsViewController.m in Sources */,
 			);

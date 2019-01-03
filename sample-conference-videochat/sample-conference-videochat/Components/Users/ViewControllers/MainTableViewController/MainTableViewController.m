@@ -16,6 +16,7 @@
 #import "UsersViewController.h"
 #import "CallViewController.h"
 #import "QBAVCallPermissions.h"
+#import "UIViewController+InfoScreen.h"
 
 typedef NS_ENUM(NSUInteger, CallSenderValue) {
     CallSenderValueDialogInstance,
@@ -106,6 +107,8 @@ static NSString * const kSceneSegueAuth = @"SceneSegueAuth";
                                     action:@selector(didPressUsersButton:)];
     
     self.navigationItem.rightBarButtonItem = usersButtonItem;
+    //add Info Screen
+    [self showInfoButton];
     
     //Custom label
     NSString *roomName = [NSString stringWithFormat:@"%@", Core.currentUser.tags.firstObject];

@@ -182,6 +182,7 @@ static NSString * const kUsersSegue = @"PresentUsersViewController";
                                                                             action:@selector(leaveFromRoom)];
     
     self.navigationItem.rightBarButtonItem = self.addUsersItem;
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
