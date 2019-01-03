@@ -315,8 +315,8 @@
 		2CE203B821DD292000017F18 /* InfoScreenViewController */ = {
 			isa = PBXGroup;
 			children = (
-				2CE203B921DD292000017F18 /* InfoTableViewController.m */,
 				2CE203BA21DD292000017F18 /* InfoTableViewController.h */,
+				2CE203B921DD292000017F18 /* InfoTableViewController.m */,
 			);
 			path = InfoScreenViewController;
 			sourceTree = "<group>";

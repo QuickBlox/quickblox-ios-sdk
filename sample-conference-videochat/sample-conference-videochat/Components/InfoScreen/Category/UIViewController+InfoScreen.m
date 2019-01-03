@@ -19,26 +19,26 @@
         }
     }
     
-    if (needAdd) {
-        UIBarButtonItem *infoButtonItem =
-        [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-info"]
-                                         style:UIBarButtonItemStylePlain
-                                        target:self
-                                        action:@selector(didTapInfoButton:)];
-        if (self.navigationItem.rightBarButtonItems.count == 0) {
-            self.navigationItem.rightBarButtonItem = infoButtonItem;
-        } else if (self.navigationItem.rightBarButtonItems.count > 0) {
-            NSMutableArray* rightBarButtonItems = [NSMutableArray arrayWithArray:self.navigationItem.rightBarButtonItems];
-            [rightBarButtonItems addObject:infoButtonItem];
-            self.navigationItem.rightBarButtonItems = rightBarButtonItems;
-        }
-        
+    if (needAdd == false) {
+        return;
+    }
+    UIBarButtonItem *infoButtonItem =
+    [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-info"]
+                                     style:UIBarButtonItemStylePlain
+                                    target:self
+                                    action:@selector(didTapInfoButton:)];
+    if (self.navigationItem.rightBarButtonItems.count == 0) {
+        self.navigationItem.rightBarButtonItem = infoButtonItem;
+    } else if (self.navigationItem.rightBarButtonItems.count > 0) {
+        NSMutableArray* rightBarButtonItems = self.navigationItem.rightBarButtonItems.mutableCopy;
+        [rightBarButtonItems addObject:infoButtonItem];
+        self.navigationItem.rightBarButtonItems = rightBarButtonItems;
     }
 }
 
 - (void)didTapInfoButton:(UIBarButtonItem *)sender {
     UIStoryboard* infoStoryboard = [UIStoryboard storyboardWithName:
-                                @"InfoScreen" bundle:[NSBundle mainBundle]];
+                                    @"InfoScreen" bundle:[NSBundle mainBundle]];
     UITableViewController *infoController = [infoStoryboard instantiateViewControllerWithIdentifier:@"InfoTableViewController"];
     [self.navigationController pushViewController:infoController animated:YES];
 }
