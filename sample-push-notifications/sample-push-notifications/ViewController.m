@@ -10,6 +10,7 @@
 #import <Quickblox/Quickblox.h>
 #import <SVProgressHUD.h>
 #import "SAMTextView.h"
+#import "UIViewController+InfoScreen.h"
 
 @interface ViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -61,6 +62,8 @@
         }
         
     }];
+    
+    [self showInfoButton];
 }
 
 - (void)pushDidReceive:(NSNotification *)notification

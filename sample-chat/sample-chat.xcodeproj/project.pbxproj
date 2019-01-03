@@ -14,6 +14,12 @@
 		1480E08F1B25DB6600DD6B7C /* DialogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1480E08E1B25DB6600DD6B7C /* DialogTableViewCell.m */; };
 		1485D5FD1B25E60A00D26B2A /* EditDialogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1485D5FC1B25E60A00D26B2A /* EditDialogTableViewController.m */; };
 		14B088D91CA2D9700035E29D /* ReplaceSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B088D81CA2D9700035E29D /* ReplaceSegue.m */; };
+		2C2FD40021DE56A7002ED66B /* UIViewController+InfoScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FD3F121DE56A7002ED66B /* UIViewController+InfoScreen.m */; };
+		2C2FD40121DE56A7002ED66B /* icon-info.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C2FD3F421DE56A7002ED66B /* icon-info.png */; };
+		2C2FD40221DE56A7002ED66B /* InfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FD3F721DE56A7002ED66B /* InfoTableViewCell.m */; };
+		2C2FD40321DE56A7002ED66B /* InfoScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C2FD3F921DE56A7002ED66B /* InfoScreen.storyboard */; };
+		2C2FD40421DE56A7002ED66B /* InfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FD3FB21DE56A7002ED66B /* InfoTableViewController.m */; };
+		2C2FD40521DE56A7002ED66B /* InfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FD3FF21DE56A7002ED66B /* InfoModel.m */; };
 		2CC758A51B0F0EB300999187 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		5839789F1D48A6D4009E970B /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5857DCD01BD91F3700AB2D53 /* Quickblox.framework */; };
 		583978A01D48A6D4009E970B /* Quickblox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5857DCD01BD91F3700AB2D53 /* Quickblox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -85,6 +91,16 @@
 		1485D5FC1B25E60A00D26B2A /* EditDialogTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditDialogTableViewController.m; sourceTree = "<group>"; };
 		14B088D71CA2D9700035E29D /* ReplaceSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReplaceSegue.h; path = ReplaceSegue/ReplaceSegue.h; sourceTree = "<group>"; };
 		14B088D81CA2D9700035E29D /* ReplaceSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReplaceSegue.m; path = ReplaceSegue/ReplaceSegue.m; sourceTree = "<group>"; };
+		2C2FD3F121DE56A7002ED66B /* UIViewController+InfoScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+InfoScreen.m"; sourceTree = "<group>"; };
+		2C2FD3F221DE56A7002ED66B /* UIViewController+InfoScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+InfoScreen.h"; sourceTree = "<group>"; };
+		2C2FD3F421DE56A7002ED66B /* icon-info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-info.png"; sourceTree = "<group>"; };
+		2C2FD3F621DE56A7002ED66B /* InfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoTableViewCell.h; sourceTree = "<group>"; };
+		2C2FD3F721DE56A7002ED66B /* InfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoTableViewCell.m; sourceTree = "<group>"; };
+		2C2FD3F921DE56A7002ED66B /* InfoScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = InfoScreen.storyboard; sourceTree = "<group>"; };
+		2C2FD3FB21DE56A7002ED66B /* InfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoTableViewController.m; sourceTree = "<group>"; };
+		2C2FD3FC21DE56A7002ED66B /* InfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoTableViewController.h; sourceTree = "<group>"; };
+		2C2FD3FE21DE56A7002ED66B /* InfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoModel.h; sourceTree = "<group>"; };
+		2C2FD3FF21DE56A7002ED66B /* InfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoModel.m; sourceTree = "<group>"; };
 		32B5BD50720EF7D29B556D82 /* Pods-samplechat.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-samplechat.qa.xcconfig"; path = "Pods/Target Support Files/Pods-samplechat/Pods-samplechat.qa.xcconfig"; sourceTree = "<group>"; };
 		584B33AE1C2AF4490041B431 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = ../Localizable.strings; sourceTree = "<group>"; };
 		5857DCD01BD91F3700AB2D53 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
@@ -177,6 +193,71 @@
 			name = ReplaceSegue;
 			sourceTree = "<group>";
 		};
+		2C2FD3EF21DE56A7002ED66B /* InfoScreen */ = {
+			isa = PBXGroup;
+			children = (
+				2C2FD3F021DE56A7002ED66B /* Category */,
+				2C2FD3F321DE56A7002ED66B /* Resources */,
+				2C2FD3F521DE56A7002ED66B /* InfoTableViewCell */,
+				2C2FD3F821DE56A7002ED66B /* InfoScreenStoryboard */,
+				2C2FD3FA21DE56A7002ED66B /* InfoScreenViewController */,
+				2C2FD3FD21DE56A7002ED66B /* InfoModel */,
+			);
+			path = InfoScreen;
+			sourceTree = "<group>";
+		};
+		2C2FD3F021DE56A7002ED66B /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				2C2FD3F221DE56A7002ED66B /* UIViewController+InfoScreen.h */,
+				2C2FD3F121DE56A7002ED66B /* UIViewController+InfoScreen.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		2C2FD3F321DE56A7002ED66B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2C2FD3F421DE56A7002ED66B /* icon-info.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		2C2FD3F521DE56A7002ED66B /* InfoTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				2C2FD3F621DE56A7002ED66B /* InfoTableViewCell.h */,
+				2C2FD3F721DE56A7002ED66B /* InfoTableViewCell.m */,
+			);
+			path = InfoTableViewCell;
+			sourceTree = "<group>";
+		};
+		2C2FD3F821DE56A7002ED66B /* InfoScreenStoryboard */ = {
+			isa = PBXGroup;
+			children = (
+				2C2FD3F921DE56A7002ED66B /* InfoScreen.storyboard */,
+			);
+			path = InfoScreenStoryboard;
+			sourceTree = "<group>";
+		};
+		2C2FD3FA21DE56A7002ED66B /* InfoScreenViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2C2FD3FC21DE56A7002ED66B /* InfoTableViewController.h */,
+				2C2FD3FB21DE56A7002ED66B /* InfoTableViewController.m */,
+			);
+			path = InfoScreenViewController;
+			sourceTree = "<group>";
+		};
+		2C2FD3FD21DE56A7002ED66B /* InfoModel */ = {
+			isa = PBXGroup;
+			children = (
+				2C2FD3FE21DE56A7002ED66B /* InfoModel.h */,
+				2C2FD3FF21DE56A7002ED66B /* InfoModel.m */,
+			);
+			path = InfoModel;
+			sourceTree = "<group>";
+		};
 		8614B8DA1B8205D400DBB753 /* DataSources */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,6 +343,7 @@
 		BFE6FB7B180E8EF100E64AC4 /* sample-chat */ = {
 			isa = PBXGroup;
 			children = (
+				2C2FD3EF21DE56A7002ED66B /* InfoScreen */,
 				14B088D61CA2D9590035E29D /* ReplaceSegue */,
 				8614B8DF1B82060000DBB753 /* ThirdParty */,
 				8614B8DA1B8205D400DBB753 /* DataSources */,
@@ -423,7 +505,9 @@
 			files = (
 				FA984FE42018C3AA00C3C4BE /* error_image.png in Resources */,
 				BFBD3C941832CF30009D090B /* sound.mp3 in Resources */,
+				2C2FD40121DE56A7002ED66B /* icon-info.png in Resources */,
 				584B33AF1C2AF4490041B431 /* Localizable.strings in Resources */,
+				2C2FD40321DE56A7002ED66B /* InfoScreen.storyboard in Resources */,
 				86A716671B9EF0820019C42A /* InfoPlist.strings in Resources */,
 				BFE6FB91180E8EF100E64AC4 /* Images.xcassets in Resources */,
 				BFE6FB89180E8EF100E64AC4 /* Main.storyboard in Resources */,
@@ -559,7 +643,10 @@
 				E03A2B631CEA096E0081660F /* QMMessageNotification.m in Sources */,
 				1480E08F1B25DB6600DD6B7C /* DialogTableViewCell.m in Sources */,
 				8614B8E41B82060000DBB753 /* UIAlertDialog.m in Sources */,
+				2C2FD40021DE56A7002ED66B /* UIViewController+InfoScreen.m in Sources */,
+				2C2FD40221DE56A7002ED66B /* InfoTableViewCell.m in Sources */,
 				1402B6A81B14C7340069E3A4 /* LoginTableViewController.m in Sources */,
+				2C2FD40521DE56A7002ED66B /* InfoModel.m in Sources */,
 				8614B8E51B82060000DBB753 /* UIImage+fixOrientation.m in Sources */,
 				86104A1E1B0B5E1900464D52 /* ServicesManager.m in Sources */,
 				86EE31B31B26EB6700B8A383 /* ChatViewController.m in Sources */,
@@ -572,6 +659,7 @@
 				1485D5FD1B25E60A00D26B2A /* EditDialogTableViewController.m in Sources */,
 				2CC758A51B0F0EB300999187 /* (null) in Sources */,
 				86401C0D1B428CEA00D45A05 /* MessageStatusStringBuilder.m in Sources */,
+				2C2FD40421DE56A7002ED66B /* InfoTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

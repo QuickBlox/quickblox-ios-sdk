@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "DialogsViewController.h"
 #import "ChatViewController.h"
+#import "UIViewController+InfoScreen.h"
 
 @interface LoginTableViewController () <NotificationServiceDelegate>
 
@@ -67,6 +68,7 @@
     }
     
     [self retrieveUsers];
+    [self showInfoButton];
 }
 
 /**
