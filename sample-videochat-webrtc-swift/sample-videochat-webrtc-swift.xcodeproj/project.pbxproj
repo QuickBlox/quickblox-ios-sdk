@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C2FD42421DE5FB0002ED66B /* UIViewController+InfoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FD41E21DE5FB0002ED66B /* UIViewController+InfoScreen.swift */; };
+		2C2FD42521DE5FB0002ED66B /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FD41F21DE5FB0002ED66B /* InfoTableViewCell.swift */; };
+		2C2FD42621DE5FB0002ED66B /* icon-info.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C2FD42021DE5FB0002ED66B /* icon-info.png */; };
+		2C2FD42721DE5FB0002ED66B /* InfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FD42121DE5FB0002ED66B /* InfoTableViewController.swift */; };
+		2C2FD42821DE5FB0002ED66B /* InfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FD42221DE5FB0002ED66B /* InfoModel.swift */; };
+		2C2FD42921DE5FB0002ED66B /* InfoScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C2FD42321DE5FB0002ED66B /* InfoScreen.storyboard */; };
 		2C5EC6E421BFE10F00A2C53B /* VideoSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5EC6E321BFE10F00A2C53B /* VideoSettingsViewController.swift */; };
 		2C5EC6E721BFE12800A2C53B /* AudioSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5EC6E621BFE12800A2C53B /* AudioSettingsViewController.swift */; };
 		2C5EC6EA21BFE14300A2C53B /* BaseSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5EC6E921BFE14300A2C53B /* BaseSettingsViewController.swift */; };
@@ -68,6 +74,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C2FD41E21DE5FB0002ED66B /* UIViewController+InfoScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+InfoScreen.swift"; sourceTree = "<group>"; };
+		2C2FD41F21DE5FB0002ED66B /* InfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
+		2C2FD42021DE5FB0002ED66B /* icon-info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-info.png"; sourceTree = "<group>"; };
+		2C2FD42121DE5FB0002ED66B /* InfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTableViewController.swift; sourceTree = "<group>"; };
+		2C2FD42221DE5FB0002ED66B /* InfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoModel.swift; sourceTree = "<group>"; };
+		2C2FD42321DE5FB0002ED66B /* InfoScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = InfoScreen.storyboard; sourceTree = "<group>"; };
 		2C5EC6E321BFE10F00A2C53B /* VideoSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSettingsViewController.swift; sourceTree = "<group>"; };
 		2C5EC6E621BFE12800A2C53B /* AudioSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSettingsViewController.swift; sourceTree = "<group>"; };
 		2C5EC6E921BFE14300A2C53B /* BaseSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSettingsViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +169,19 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		2C2FD41D21DE5FB0002ED66B /* InfoScreenViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2C2FD41E21DE5FB0002ED66B /* UIViewController+InfoScreen.swift */,
+				2C2FD41F21DE5FB0002ED66B /* InfoTableViewCell.swift */,
+				2C2FD42021DE5FB0002ED66B /* icon-info.png */,
+				2C2FD42121DE5FB0002ED66B /* InfoTableViewController.swift */,
+				2C2FD42221DE5FB0002ED66B /* InfoModel.swift */,
+				2C2FD42321DE5FB0002ED66B /* InfoScreen.storyboard */,
+			);
+			path = InfoScreenViewController;
+			sourceTree = "<group>";
+		};
 		2C5EC6E221BFE0F900A2C53B /* VideoSettingsViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,6 +229,7 @@
 		2C771CC721BAA5B600FBD21C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				2C2FD41D21DE5FB0002ED66B /* InfoScreenViewController */,
 				2C854A8F21C8FAFB003FCA64 /* SharingViewController */,
 				2C854A8C21C8FAC6003FCA64 /* SoundProvider */,
 				2CFEDC1321BEB7CC00511479 /* Call */,
@@ -558,7 +584,6 @@
 				2C771CDC21BAB02500FBD21C /* ShellScript */,
 				2C771CDD21BAB03D00FBD21C /* ShellScript */,
 				2C771CDE21BAB05200FBD21C /* ShellScript */,
-				A5B10B83E3681206C49DFC52 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -626,6 +651,7 @@
 				2CFEDC1521BEB7EE00511479 /* Call.storyboard in Resources */,
 				2CE202EE21DCC44000017F18 /* ringtone.wav in Resources */,
 				2CFEDC1721BEB87200511479 /* Settings.storyboard in Resources */,
+				2C2FD42921DE5FB0002ED66B /* InfoScreen.storyboard in Resources */,
 				2CE202EF21DCC44000017F18 /* DEVUsers.plist in Resources */,
 				2CE202F121DCC44000017F18 /* WEBUsers.plist in Resources */,
 				2C771CC921BAA5FB00FBD21C /* Images.xcassets in Resources */,
@@ -633,6 +659,7 @@
 				2CE202F021DCC44000017F18 /* PRODUsers.plist in Resources */,
 				2C5EC6F421BFE23100A2C53B /* SettingSwitchCell.xib in Resources */,
 				2CE202EB21DCC44000017F18 /* end_of_call.wav in Resources */,
+				2C2FD42621DE5FB0002ED66B /* icon-info.png in Resources */,
 				2CE64E7021BAA3C200F85E06 /* LaunchScreen.storyboard in Resources */,
 				2C5EC6F521BFE23100A2C53B /* SettingSliderCell.xib in Resources */,
 				2CE202F221DCC44000017F18 /* QAUsers.plist in Resources */,
@@ -694,32 +721,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 4b96a3f33893a42103eae91d2166d0c517b833d3 48d2b1a30ed0fd2d0897e0576e7e3625f0a9270aa02fd1e09291e17c9464a023\n";
 		};
-		A5B10B83E3681206C49DFC52 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift-frameworks.sh",
-				"${PODS_ROOT}/QuickBlox/Quickblox.framework",
-				"${PODS_ROOT}/Quickblox-WebRTC/QuickbloxWebRTC.framework",
-				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quickblox.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QuickbloxWebRTC.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		B45C39857CC689E6BD89EBFD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -770,9 +771,12 @@
 				2C9FDB7321D411AE0094F4E6 /* SoundProvider.swift in Sources */,
 				2C854A8421C8F9E1003FCA64 /* ButtonsFactory.swift in Sources */,
 				2C854A7121C8F524003FCA64 /* CallViewController.swift in Sources */,
+				2C2FD42721DE5FB0002ED66B /* InfoTableViewController.swift in Sources */,
+				2C2FD42521DE5FB0002ED66B /* InfoTableViewCell.swift in Sources */,
 				2C5EC6FB21BFE30500A2C53B /* SwitchItemModel.swift in Sources */,
 				2C5EC6FF21BFE33A00A2C53B /* SliderItemModel.swift in Sources */,
 				2C5EC6EA21BFE14300A2C53B /* BaseSettingsViewController.swift in Sources */,
+				2C2FD42421DE5FB0002ED66B /* UIViewController+InfoScreen.swift in Sources */,
 				2C5EC6F921BFE2E600A2C53B /* SettingCell.swift in Sources */,
 				2C771CDA21BAA7D100FBD21C /* Profile.swift in Sources */,
 				2C5EC6E721BFE12800A2C53B /* AudioSettingsViewController.swift in Sources */,
@@ -783,6 +787,7 @@
 				2C854A7721C8F86F003FCA64 /* User.swift in Sources */,
 				2CE64E6621BAA3BF00F85E06 /* AppDelegate.swift in Sources */,
 				2C854A8021C8F99B003FCA64 /* ToolBar.swift in Sources */,
+				2C2FD42821DE5FB0002ED66B /* InfoModel.swift in Sources */,
 				2CFEDBFD21BEB30B00511479 /* UsersDataSource.swift in Sources */,
 				2C854A8221C8F9C0003FCA64 /* CustomButton.swift in Sources */,
 				2C854A7D21C8F951003FCA64 /* OpponentsFlowLayout.swift in Sources */,
@@ -807,7 +812,6 @@
 /* Begin XCBuildConfiguration section */
 		2CE64E7221BAA3C200F85E06 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B2E1185FAD66E7F279D4F0B4 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -869,7 +873,6 @@
 		};
 		2CE64E7321BAA3C200F85E06 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A450A548102369010BDFA92D /* Pods-sample-videochat-webrtc-swift.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -925,7 +928,7 @@
 		};
 		2CE64E7521BAA3C200F85E06 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B2E1185FAD66E7F279D4F0B4 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */;
+			baseConfigurationReference = 3031F342D02AA6DD26E797F1 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "sample-videochat-webrtc-swift/sample-videochat-webrtc-swift.entitlements";
@@ -949,7 +952,7 @@
 		};
 		2CE64E7621BAA3C200F85E06 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A450A548102369010BDFA92D /* Pods-sample-videochat-webrtc-swift.release.xcconfig */;
+			baseConfigurationReference = F5585D2FA0A62FA18D6E8E3F /* Pods-sample-videochat-webrtc-swift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "sample-videochat-webrtc-swift/sample-videochat-webrtc-swift.entitlements";
