@@ -117,11 +117,8 @@ NSString *const kLogoTableViewCellId = @"QBLogoTableViewCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat cellHeight = 54.0f;
-    if (indexPath.row == self.infoModels.count - 1) {
-        return 80.0f;
-    }
-    return cellHeight;
+    BOOL isLast = indexPath.row == self.infoModels.count - 1;
+    return isLast ? 80.0f : 54.0f;
 }
 
 @end
