@@ -10,6 +10,22 @@ Multi-conference server is available only for **Enterprise** plans, with additio
 * Display bitrate
 * Switch video input device (camera)
 
+# CocoaPods
+
+[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
+
+```bash
+$ gem install cocoapods
+```
+
+> CocoaPods 1.1+ is required to build project with QuickBlox 2.15+ and Quickblox-WebRTC 2.7.2+.
+
+To integrate QuickBlox and Quickblox-WebRTC into the **sample-conference-videochat** run the following command:
+
+```bash
+$ pod install
+```
+
 # Config
 **QBRTCConfig** class introduces two new settings for Conference, conference endpoint itself.
 
