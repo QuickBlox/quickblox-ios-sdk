@@ -11,6 +11,9 @@
 #import "QBCore.h"
 #import "Settings.h"
 
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
 const CGFloat kQBRingThickness = 1.f;
 const NSTimeInterval kQBAnswerTimeInterval = 60.f;
 const NSTimeInterval kQBDialingTimeInterval = 5.f;
@@ -45,6 +48,8 @@ NSString *const kAccountKey     = @"C4_z7nuaANnBYmsG_k98";
     
     // loading settings
     [Settings instance];
+    
+    [Fabric with:@[[Crashlytics class]]];
     
     return YES;
 }
