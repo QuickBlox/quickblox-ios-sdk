@@ -13,6 +13,7 @@
 #import "EditDialogTableViewController.h"
 #import "ChatViewController.h"
 #import "DialogTableViewCell.h"
+#import "UIViewController+InfoScreen.h"
 
 @interface DialogsViewController ()
 <
@@ -45,6 +46,7 @@ QMChatConnectionDelegate
         [self loadDialogs];
     }
      self.navigationItem.title = [ServicesManager instance].currentUser.login;
+    [self showInfoButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

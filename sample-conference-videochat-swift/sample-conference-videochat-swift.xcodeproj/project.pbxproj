@@ -13,10 +13,16 @@
 		2C0E727F21775491007A37E6 /* CheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0E727E21775491007A37E6 /* CheckView.swift */; };
 		2C0E7282217758C0007A37E6 /* PlaceholderGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0E7281217758C0007A37E6 /* PlaceholderGenerator.swift */; };
 		2C184FA6217F6F180062E235 /* ReuseIdentifierProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C184FA5217F6F180062E235 /* ReuseIdentifierProtocol.swift */; };
+		2C2FD3DD21DE38A5002ED66B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C2FD3DC21DE38A5002ED66B /* Assets.xcassets */; };
+		2C2FD3E621DE3D7B002ED66B /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FD3E121DE3D7B002ED66B /* InfoTableViewCell.swift */; };
+		2C2FD3E721DE3D7B002ED66B /* icon-info.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C2FD3E221DE3D7B002ED66B /* icon-info.png */; };
+		2C2FD3E821DE3D7B002ED66B /* InfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FD3E321DE3D7B002ED66B /* InfoTableViewController.swift */; };
+		2C2FD3E921DE3D7B002ED66B /* InfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FD3E421DE3D7B002ED66B /* InfoModel.swift */; };
+		2C2FD3EA21DE3D7B002ED66B /* InfoScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C2FD3E521DE3D7B002ED66B /* InfoScreen.storyboard */; };
+		2C2FD3EC21DE3E04002ED66B /* UIViewController+InfoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FD3EB21DE3E04002ED66B /* UIViewController+InfoScreen.swift */; };
 		2C3965B0216F8B27008D6889 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3965AF216F8B27008D6889 /* MainTableViewController.swift */; };
 		2C3965B2216F8EF7008D6889 /* DataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3965B1216F8EF7008D6889 /* DataFetcher.swift */; };
 		2C3965B4216FA76F008D6889 /* DialogsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3965B3216FA76F008D6889 /* DialogsDataSource.swift */; };
-		2C4C25F62166709B00B1E8C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C4C25F52166709B00B1E8C4 /* Assets.xcassets */; };
 		2C4C25FD2166717300B1E8C4 /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C25FC2166717300B1E8C4 /* LoginTableViewController.swift */; };
 		2C4C2600216671A900B1E8C4 /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C25FF216671A900B1E8C4 /* LoadingButton.swift */; };
 		2C4C26022166728000B1E8C4 /* CallPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C26012166728000B1E8C4 /* CallPermissions.swift */; };
@@ -70,11 +76,17 @@
 		2C0E727E21775491007A37E6 /* CheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckView.swift; sourceTree = "<group>"; };
 		2C0E7281217758C0007A37E6 /* PlaceholderGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderGenerator.swift; sourceTree = "<group>"; };
 		2C184FA5217F6F180062E235 /* ReuseIdentifierProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifierProtocol.swift; sourceTree = "<group>"; };
+		2C2FD3DC21DE38A5002ED66B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2C2FD3E121DE3D7B002ED66B /* InfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
+		2C2FD3E221DE3D7B002ED66B /* icon-info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-info.png"; sourceTree = "<group>"; };
+		2C2FD3E321DE3D7B002ED66B /* InfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTableViewController.swift; sourceTree = "<group>"; };
+		2C2FD3E421DE3D7B002ED66B /* InfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoModel.swift; sourceTree = "<group>"; };
+		2C2FD3E521DE3D7B002ED66B /* InfoScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = InfoScreen.storyboard; sourceTree = "<group>"; };
+		2C2FD3EB21DE3E04002ED66B /* UIViewController+InfoScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+InfoScreen.swift"; sourceTree = "<group>"; };
 		2C3965AF216F8B27008D6889 /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		2C3965B1216F8EF7008D6889 /* DataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetcher.swift; sourceTree = "<group>"; };
 		2C3965B3216FA76F008D6889 /* DialogsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogsDataSource.swift; sourceTree = "<group>"; };
 		2C4C25EB21666C8700B1E8C4 /* sample-conference-videochat-swift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "sample-conference-videochat-swift.entitlements"; sourceTree = "<group>"; };
-		2C4C25F52166709B00B1E8C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../sample-conference-videochat/sample-conference-videochat/Assets.xcassets"; sourceTree = "<group>"; };
 		2C4C25FC2166717300B1E8C4 /* LoginTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
 		2C4C25FF216671A900B1E8C4 /* LoadingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
 		2C4C26012166728000B1E8C4 /* CallPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallPermissions.swift; sourceTree = "<group>"; };
@@ -152,10 +164,10 @@
 		2C0D582021666256001FF80B /* sample-conference-videochat-swift */ = {
 			isa = PBXGroup;
 			children = (
+				2C2FD3DC21DE38A5002ED66B /* Assets.xcassets */,
 				2C184FA4217F6EE10062E235 /* ReuseIdentifier */,
 				2C4C25EC21666FED00B1E8C4 /* Components */,
 				2C4C25EB21666C8700B1E8C4 /* sample-conference-videochat-swift.entitlements */,
-				2C4C25F52166709B00B1E8C4 /* Assets.xcassets */,
 				2CCD5C02216E25EE00A52051 /* LaunchScreen.storyboard */,
 				2C0D582D21666258001FF80B /* Info.plist */,
 			);
@@ -186,9 +198,23 @@
 			path = ReuseIdentifier;
 			sourceTree = "<group>";
 		};
+		2C2FD3E021DE3D7B002ED66B /* InfoScreenViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2C2FD3E121DE3D7B002ED66B /* InfoTableViewCell.swift */,
+				2C2FD3E221DE3D7B002ED66B /* icon-info.png */,
+				2C2FD3E321DE3D7B002ED66B /* InfoTableViewController.swift */,
+				2C2FD3E421DE3D7B002ED66B /* InfoModel.swift */,
+				2C2FD3E521DE3D7B002ED66B /* InfoScreen.storyboard */,
+				2C2FD3EB21DE3E04002ED66B /* UIViewController+InfoScreen.swift */,
+			);
+			path = InfoScreenViewController;
+			sourceTree = "<group>";
+		};
 		2C4C25EC21666FED00B1E8C4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				2C2FD3E021DE3D7B002ED66B /* InfoScreenViewController */,
 				2C0D582121666256001FF80B /* AppDelegate.swift */,
 				2C4C25ED2166701400B1E8C4 /* Auth */,
 				2C4C25F12166704A00B1E8C4 /* CustomSegues */,
@@ -587,13 +613,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CCD5BFF216DFBA300A52051 /* Auth.storyboard in Resources */,
+				2C2FD3EA21DE3D7B002ED66B /* InfoScreen.storyboard in Resources */,
+				2C2FD3DD21DE38A5002ED66B /* Assets.xcassets in Resources */,
 				2CCD5C01216E237500A52051 /* Main.storyboard in Resources */,
 				2CCB5ECC217DCFC400555AAA /* SettingCell.xib in Resources */,
 				2CCD5C03216E25EE00A52051 /* LaunchScreen.storyboard in Resources */,
 				2CCB5EC2217DC44300555AAA /* Settings.storyboard in Resources */,
+				2C2FD3E721DE3D7B002ED66B /* icon-info.png in Resources */,
 				2C93A960217870A200D18F7D /* Call.storyboard in Resources */,
 				2CCB5ED0217DD32C00555AAA /* SettingSwitchCell.xib in Resources */,
-				2C4C25F62166709B00B1E8C4 /* Assets.xcassets in Resources */,
 				2CCB5ED6217DDA3C00555AAA /* SettingSliderCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -673,6 +701,7 @@
 				2CCB5ED2217DD9B300555AAA /* SliderItemModel.swift in Sources */,
 				2C4C26222166750900B1E8C4 /* Core.swift in Sources */,
 				2C4C26172166741000B1E8C4 /* LocalVideoView.swift in Sources */,
+				2C2FD3E821DE3D7B002ED66B /* InfoTableViewController.swift in Sources */,
 				2C4C2615216673F300B1E8C4 /* CallViewController.swift in Sources */,
 				2C4C262E2166773E00B1E8C4 /* AudioSettingsViewController.swift in Sources */,
 				2C4C260F2166739A00B1E8C4 /* ToolBar.swift in Sources */,
@@ -688,6 +717,7 @@
 				2C0E727F21775491007A37E6 /* CheckView.swift in Sources */,
 				2C4C26242166753C00B1E8C4 /* RootViewControllerSegue.swift in Sources */,
 				2C4C26192166743500B1E8C4 /* OpponentsFlowLayout.swift in Sources */,
+				2C2FD3E921DE3D7B002ED66B /* InfoModel.swift in Sources */,
 				2C0E7282217758C0007A37E6 /* PlaceholderGenerator.swift in Sources */,
 				2C184FA6217F6F180062E235 /* ReuseIdentifierProtocol.swift in Sources */,
 				2C3965B0216F8B27008D6889 /* MainTableViewController.swift in Sources */,
@@ -705,8 +735,10 @@
 				2CCB5EC8217DCD9B00555AAA /* SwitchItemModel.swift in Sources */,
 				2C4C261B2166744D00B1E8C4 /* StatsView.swift in Sources */,
 				2CC867C32170ABF1006DF7BC /* DialogTableViewCell.swift in Sources */,
+				2C2FD3E621DE3D7B002ED66B /* InfoTableViewCell.swift in Sources */,
 				2C4C2620216674F300B1E8C4 /* Profile.swift in Sources */,
 				2C4C25FD2166717300B1E8C4 /* LoginTableViewController.swift in Sources */,
+				2C2FD3EC21DE3E04002ED66B /* UIViewController+InfoScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -835,8 +867,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "sample-conference-videochat-swift/sample-conference-videochat-swift.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8885H5G2YX;
 				INFOPLIST_FILE = "sample-conference-videochat-swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -846,7 +878,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.sample-conference-videochat-swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Sample Conference Videochat Swift";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -858,8 +890,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "sample-conference-videochat-swift/sample-conference-videochat-swift.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8885H5G2YX;
 				INFOPLIST_FILE = "sample-conference-videochat-swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -869,7 +901,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.sample-conference-videochat-swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Sample Conference Videochat Swift";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -21,6 +21,7 @@
 #import "IncomingCallViewController.h"
 #import "RecordsViewController.h"
 #import "CallKitManager.h"
+#import "UIViewController+InfoScreen.h"
 
 const NSUInteger kQBPageSize = 50;
 static NSString * const kAps = @"aps";
@@ -152,6 +153,8 @@ static NSString * const kVoipEvent = @"VOIPCall";
                                     action:@selector(didPressRecordsButton:)];
     
     self.navigationItem.rightBarButtonItem = recordsButtonItem;
+    //add info button
+    [self showInfoButton];
 }
 /**
  *  Load all (Recursive) users for current room (tag)

@@ -117,6 +117,9 @@ class UsersViewController: UITableViewController {
                                                  target: self,
                                                  action: #selector(self.didPressSettingsButton(_:)))
         navigationItem.leftBarButtonItem = settingsButtonItem
+        //add info button
+        showInfoButton()
+        
         //Custom label
         var userName = "Logged in as "
         var roomName = ""

@@ -67,6 +67,7 @@ class LoginTableViewController: UITableViewController {
             chatRoomNameTextField.text = currentUser.tags?.first
             login()
         }
+        showInfoButton()
     }
     
     deinit {

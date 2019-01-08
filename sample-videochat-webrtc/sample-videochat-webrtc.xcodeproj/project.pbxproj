@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C2FD43B21DE6404002ED66B /* UIViewController+InfoScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FD42C21DE6404002ED66B /* UIViewController+InfoScreen.m */; };
+		2C2FD43C21DE6404002ED66B /* icon-info.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C2FD42F21DE6404002ED66B /* icon-info.png */; };
+		2C2FD43D21DE6404002ED66B /* InfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FD43221DE6404002ED66B /* InfoTableViewCell.m */; };
+		2C2FD43E21DE6404002ED66B /* InfoScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C2FD43421DE6404002ED66B /* InfoScreen.storyboard */; };
+		2C2FD43F21DE6404002ED66B /* InfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FD43621DE6404002ED66B /* InfoTableViewController.m */; };
+		2C2FD44021DE6404002ED66B /* InfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FD43A21DE6404002ED66B /* InfoModel.m */; };
 		55CF63A81A3AFF2500FE8D19 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CF63A71A3AFF2500FE8D19 /* SystemConfiguration.framework */; };
 		55E156AF1AD6C41C00C62699 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E156AE1AD6C41C00C62699 /* MobileCoreServices.framework */; };
 		55F6BDCA1A3F21CC0080C326 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F6BDC91A3F21CC0080C326 /* GLKit.framework */; };
@@ -117,6 +123,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2C2FD42C21DE6404002ED66B /* UIViewController+InfoScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+InfoScreen.m"; sourceTree = "<group>"; };
+		2C2FD42D21DE6404002ED66B /* UIViewController+InfoScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+InfoScreen.h"; sourceTree = "<group>"; };
+		2C2FD42F21DE6404002ED66B /* icon-info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-info.png"; sourceTree = "<group>"; };
+		2C2FD43121DE6404002ED66B /* InfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoTableViewCell.h; sourceTree = "<group>"; };
+		2C2FD43221DE6404002ED66B /* InfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoTableViewCell.m; sourceTree = "<group>"; };
+		2C2FD43421DE6404002ED66B /* InfoScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = InfoScreen.storyboard; sourceTree = "<group>"; };
+		2C2FD43621DE6404002ED66B /* InfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoTableViewController.m; sourceTree = "<group>"; };
+		2C2FD43721DE6404002ED66B /* InfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoTableViewController.h; sourceTree = "<group>"; };
+		2C2FD43921DE6404002ED66B /* InfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoModel.h; sourceTree = "<group>"; };
+		2C2FD43A21DE6404002ED66B /* InfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoModel.m; sourceTree = "<group>"; };
 		55CF63A71A3AFF2500FE8D19 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		55E076E31A30817800118D23 /* sample-videochat-webrtc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-videochat-webrtc.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55E156AE1AD6C41C00C62699 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -287,6 +303,71 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C2FD42A21DE6404002ED66B /* InfoScreen */ = {
+			isa = PBXGroup;
+			children = (
+				2C2FD42B21DE6404002ED66B /* Category */,
+				2C2FD42E21DE6404002ED66B /* Resources */,
+				2C2FD43021DE6404002ED66B /* InfoTableViewCell */,
+				2C2FD43321DE6404002ED66B /* InfoScreenStoryboard */,
+				2C2FD43521DE6404002ED66B /* InfoScreenViewController */,
+				2C2FD43821DE6404002ED66B /* InfoModel */,
+			);
+			path = InfoScreen;
+			sourceTree = "<group>";
+		};
+		2C2FD42B21DE6404002ED66B /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				2C2FD42D21DE6404002ED66B /* UIViewController+InfoScreen.h */,
+				2C2FD42C21DE6404002ED66B /* UIViewController+InfoScreen.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		2C2FD42E21DE6404002ED66B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2C2FD42F21DE6404002ED66B /* icon-info.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		2C2FD43021DE6404002ED66B /* InfoTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				2C2FD43121DE6404002ED66B /* InfoTableViewCell.h */,
+				2C2FD43221DE6404002ED66B /* InfoTableViewCell.m */,
+			);
+			path = InfoTableViewCell;
+			sourceTree = "<group>";
+		};
+		2C2FD43321DE6404002ED66B /* InfoScreenStoryboard */ = {
+			isa = PBXGroup;
+			children = (
+				2C2FD43421DE6404002ED66B /* InfoScreen.storyboard */,
+			);
+			path = InfoScreenStoryboard;
+			sourceTree = "<group>";
+		};
+		2C2FD43521DE6404002ED66B /* InfoScreenViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2C2FD43721DE6404002ED66B /* InfoTableViewController.h */,
+				2C2FD43621DE6404002ED66B /* InfoTableViewController.m */,
+			);
+			path = InfoScreenViewController;
+			sourceTree = "<group>";
+		};
+		2C2FD43821DE6404002ED66B /* InfoModel */ = {
+			isa = PBXGroup;
+			children = (
+				2C2FD43921DE6404002ED66B /* InfoModel.h */,
+				2C2FD43A21DE6404002ED66B /* InfoModel.m */,
+			);
+			path = InfoModel;
+			sourceTree = "<group>";
+		};
 		55E076DA1A30817800118D23 = {
 			isa = PBXGroup;
 			children = (
@@ -428,6 +509,7 @@
 		E3B0B16E1E1576EC00BE5FBD /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				2C2FD42A21DE6404002ED66B /* InfoScreen */,
 				E3B50D971FC8763500796F0D /* CallKitManager */,
 				E3B0B16F1E1576EC00BE5FBD /* Auth */,
 				E3B0B1791E1576EC00BE5FBD /* AVPermisions */,
@@ -951,6 +1033,7 @@
 				FB29BC0D1B32BBC0009751A1 /* ringtone.wav in Resources */,
 				E3B0B20B1E1576EC00BE5FBD /* DEVUsers.plist in Resources */,
 				FBE079F81BEA204000718C56 /* QAUsers.plist in Resources */,
+				2C2FD43C21DE6404002ED66B /* icon-info.png in Resources */,
 				FBE079F71BEA204000718C56 /* PRODUsers.plist in Resources */,
 				FB29BC0C1B32BBC0009751A1 /* end_of_call.wav in Resources */,
 				E3B0B1F51E1576EC00BE5FBD /* SettingSwitchCell.xib in Resources */,
@@ -961,6 +1044,7 @@
 				FB29BC0B1B32BBC0009751A1 /* calling.wav in Resources */,
 				E3B0B2111E1576EC00BE5FBD /* end_of_call.wav in Resources */,
 				E3B0B1F11E1576EC00BE5FBD /* Call.storyboard in Resources */,
+				2C2FD43E21DE6404002ED66B /* InfoScreen.storyboard in Resources */,
 				E3B0B20F1E1576EC00BE5FBD /* busy.wav in Resources */,
 				FBE079F41BEA204000718C56 /* StunList.plist in Resources */,
 				E3B0B22D1E1576EC00BE5FBD /* SVProgressHUD.bundle in Resources */,
@@ -1008,7 +1092,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3B0B2181E1576EC00BE5FBD /* AudioSettingsViewController.m in Sources */,
+				2C2FD43D21DE6404002ED66B /* InfoTableViewCell.m in Sources */,
 				E3B0B2201E1576EC00BE5FBD /* BaseItemModel.m in Sources */,
+				2C2FD43F21DE6404002ED66B /* InfoTableViewController.m in Sources */,
 				E3B0B1FE1E1576EC00BE5FBD /* QBCore.m in Sources */,
 				E3B0B1F71E1576EC00BE5FBD /* Profile.m in Sources */,
 				E3B0B22A1E1576EC00BE5FBD /* QBToolBar.m in Sources */,
@@ -1040,6 +1126,7 @@
 				E3B0B2131E1576EC00BE5FBD /* CallViewController.m in Sources */,
 				E3B0B21E1E1576EC00BE5FBD /* SettingSwitchCell.m in Sources */,
 				E3B0B2041E1576EC00BE5FBD /* CheckView.m in Sources */,
+				2C2FD44021DE6404002ED66B /* InfoModel.m in Sources */,
 				E3B0B2001E1576EC00BE5FBD /* PlaceholderGenerator.m in Sources */,
 				E3B50D9A1FC8763500796F0D /* CallKitManager.m in Sources */,
 				E332B2221EDD7E6500FFF7EE /* RecordsViewController.m in Sources */,
@@ -1054,6 +1141,7 @@
 				E3B0B2241E1576EC00BE5FBD /* QBRTCScreenCapture.m in Sources */,
 				E3B0B2221E1576EC00BE5FBD /* SwitchItemModel.m in Sources */,
 				E3B0B2281E1576EC00BE5FBD /* QBButton.m in Sources */,
+				2C2FD43B21DE6404002ED66B /* UIViewController+InfoScreen.m in Sources */,
 				E3B0B2291E1576EC00BE5FBD /* QBButtonsFactory.m in Sources */,
 				E3B0B1F61E1576EC00BE5FBD /* OpponentCollectionViewCell.m in Sources */,
 				E3B0B22F1E1576EC00BE5FBD /* SVRadialGradientLayer.m in Sources */,
@@ -1208,6 +1296,7 @@
 					"\"$(SDKROOT)/usr/include/libxml2\"",
 				);
 				INFOPLIST_FILE = "sample-videochat-webrtc/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = "$(inherited)";
@@ -1251,6 +1340,7 @@
 					"\"$(SDKROOT)/usr/include/libxml2\"",
 				);
 				INFOPLIST_FILE = "sample-videochat-webrtc/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = "$(inherited)";
