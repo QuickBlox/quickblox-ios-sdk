@@ -10,6 +10,7 @@
 #import <Quickblox/Quickblox.h>
 #import <SVProgressHUD.h>
 #import "SAMTextView.h"
+#import "UIViewController+InfoScreen.h"
 
 @interface ViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -56,12 +57,13 @@
         
         if (!authError) {
             weakSelf.sendPushButton.enabled = YES;
-            [weakSelf registerForRemoteNotifications];
         } else {
             [ViewController showAlertViewWithErrorMessage:[authError localizedDescription]];
         }
         
     }];
+    
+    [self showInfoButton];
 }
 
 - (void)pushDidReceive:(NSNotification *)notification
@@ -72,17 +74,6 @@
     self.tableView.hidden = NO;
     
     [self.tableView reloadData];
-}
-
-- (void)registerForRemoteNotifications {
-    
-    UIUserNotificationSettings *settings =
-    [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound |
-                                                  UIUserNotificationTypeAlert |
-                                                  UIUserNotificationTypeBadge)
-                                      categories:nil];
-    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-    [[UIApplication sharedApplication] registerForRemoteNotifications];
 }
 
 - (void)sendPushWithMessage:(NSString *)message

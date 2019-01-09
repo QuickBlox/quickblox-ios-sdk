@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:swift-ebay.xcodeproj">
+      location = "self:sample-videochat-webrtc-swift.xcodeproj">
    </FileRef>
 </Workspace>
