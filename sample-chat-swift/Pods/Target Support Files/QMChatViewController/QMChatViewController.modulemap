@@ -1,6 +1,0 @@
-framework module QMChatViewController {
-  umbrella header "QMChatViewController-umbrella.h"
-
-  export *
-  module * { export * }
-}
