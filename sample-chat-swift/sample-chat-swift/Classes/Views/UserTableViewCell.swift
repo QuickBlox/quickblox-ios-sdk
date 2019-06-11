@@ -2,8 +2,8 @@
 //  UserTableViewCell.swift
 //  sample-chat-swift
 //
-//  Created by Anton Sokolchenko on 3/31/15.
-//  Copyright (c) 2015 quickblox. All rights reserved.
+//  Created by Injoit on 1/28/19.
+//  Copyright © 2019 Quickblox. All rights reserved.
 //
 
 import UIKit
@@ -17,30 +17,23 @@ class UserTableViewCell: UITableViewCell {
     
     var userDescription:String! {
         didSet {
-            self.userDescriptionLabel.text = userDescription
+            userDescriptionLabel.text = userDescription
         }
     }
     
-    func setColorMarkerText(_ text: String, color: UIColor){
-        self.colorMarker.backgroundColor = color
-        self.colorMarker.title = text
+    func setupColorMarker(_ color: UIColor){
+        colorMarker.backgroundColor = color
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
-        
-        let markerColor = self.colorMarker.backgroundColor
-        
+        let markerColor = colorMarker.backgroundColor
         super.setSelected(selected, animated: animated)
-        
-        self.colorMarker.backgroundColor = markerColor
+        colorMarker.backgroundColor = markerColor
     }
     
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-        
-        let markerColor = self.colorMarker.backgroundColor
-        
+        let markerColor = colorMarker.backgroundColor
         super.setHighlighted(highlighted, animated: animated)
-        
-        self.colorMarker.backgroundColor = markerColor
+        colorMarker.backgroundColor = markerColor
     }
 }

@@ -1,6 +1,0 @@
-framework module SearchEmojiOnString {
-  umbrella header "SearchEmojiOnString-umbrella.h"
-
-  export *
-  module * { export * }
-}

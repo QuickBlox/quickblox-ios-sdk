@@ -2,40 +2,36 @@
 //  CornerView.swift
 //  sample-chat-swift
 //
-//  Created by Anton Sokolchenko on 3/31/15.
-//  Copyright (c) 2015 quickblox. All rights reserved.
+//  Created by Injoit on 1/28/19.
+//  Copyright © 2019 Quickblox. All rights reserved.
 //
 
 import UIKit
 
-@IBDesignable
 class CornerView: UIView {
-    @IBInspectable var title: String = "" { didSet { self.setNeedsDisplay() } }
-    @IBInspectable var fontSize: Float = 16 { didSet { self.setNeedsDisplay() } }
-    @IBInspectable var cornerRadius:CGFloat = 6 {
-        didSet(oldRadius) {
-            self.layer.cornerRadius = cornerRadius
-            self.layer.masksToBounds = cornerRadius > 0
-        }
-    }
+    var title: String = ""
+    private var fontSize: Float = 16
+    var cornerRadius:CGFloat = 6
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.contentMode = UIViewContentMode.redraw
+        contentMode = .redraw
+        layer.cornerRadius = cornerRadius
+        layer.masksToBounds = true
     }
     
     func drawWithRect(rect: CGRect, text:String, fontSize:Float){
 
-        let style = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
+        let style = NSMutableParagraphStyle()
         style.alignment = NSTextAlignment.center
         
 		guard let fontAttributeName = UIFont(name: "Helvetica", size: CGFloat(fontSize)) else {
 			return
 		}
 			
-		let rectangleFontAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: fontAttributeName,
-			NSAttributedStringKey.foregroundColor: UIColor.white,
-			NSAttributedStringKey.paragraphStyle: style]
+        let rectangleFontAttributes: [NSAttributedString.Key: Any] = [.font: fontAttributeName,
+                                                                      .foregroundColor: UIColor.white,
+                                                                      .paragraphStyle: style]
 		
 		let rectOffset = rect.offsetBy(dx: 0, dy: ((rect.height - text.boundingRect(with: rect.size, options:.usesLineFragmentOrigin, attributes:rectangleFontAttributes, context: nil).size.height)/2))
 		
@@ -43,6 +39,6 @@ class CornerView: UIView {
     }
 	
     override func draw(_ rect: CGRect) {
-        self.drawWithRect(rect: self.bounds, text: self.title, fontSize: self.fontSize)
+        drawWithRect(rect: bounds, text: title, fontSize: fontSize)
     }
 }

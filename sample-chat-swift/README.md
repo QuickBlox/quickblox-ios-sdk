@@ -1,48 +1,57 @@
-<h1> QuickBlox iOS Sample Chat (Swift) </h1>
-
-<h2> Introduction </h2>
+# Overview
+QuickBlox iOS Sample Chat (Swift)
 
 This is a code sample for [QuickBlox](http://quickblox.com/) platform. It is a great way for developers using QuickBlox platform to learn how to integrate private and group chat, add text and image attachments sending into your application.
 
-<h2> Sample description </h2>
+# Credentials
 
-<img src="http://files.quickblox.com/sample-chat1.png" border="1" alt="Login" width="200"> 
-<img src="http://files.quickblox.com/sample-chat2-1.png" border="1" alt="Dialogs" width="200"> 
-<img src="http://files.quickblox.com/sample-chat3.png" border="1" alt="New dialog" width="200"> 
-<img src="http://files.quickblox.com/sample-chat4.png" border="1" alt="Dialog info" width="200"> 
-<img src="http://files.quickblox.com/sample-chat5.png" border="1" alt="Chat" width="200"> 
+Welcome to QuickBlox [Credentials](https://quickblox.com/developers/5_Minute_Guide), where you can get your credentials in just 5 minutes! All you need is to:
+
+1. Register a free QuickBlox account and add your App there.
+2. Update credentials in your [Application Code](https://quickblox.com/developers/5_Minute_Guide#Update_authentication_credentials).
+
+# Chat Sample
 
 This Sample demonstrates how to work with [Chat](http://quickblox.com/developers/SimpleSample-chat_users-ios) QuickBlox module. 
 
-It allows:
+It allows to:
 
 1. Authenticate with Quickblox Chat and REST.
 2. Receive and display list of dialogs.
 3. Modify dialog by adding occupants.
 4. Real-time chat messaging and attachment's handling.
-5. Offline storage for messages, dialogs and users.
+5. [Push notification](https://quickblox.com/developers/SimpleSample-chat_users-ios#Push_notifications_to_the_offline_users) receiving functionality.
 
-Views:
-<ul>
-<li> List of predefined user's to login. </li>
-<li> List of user's dialog. </li>
-<li> Dialog chat view. </li>
-<li> Dialog chat info. </li>
-<li> New dialog view. </li>
-<li> Edit dialog view. </li>
-</ul>
+# Views
 
-  Additional submodules used:
-  * [QMChatViewController](https://github.com/QuickBlox/QMChatViewController-ios)
-  * [QMServices](https://github.com/QuickBlox/q-municate-services-ios)
+* Authorization view.
+* List of user's dialog.
+* Dialog chat view.
+* Dialog chat info.
+* New dialog view.
+* Edit dialog view.
 
+# CocoaPods
+
+[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
+
+```bash
+$ gem install cocoapods
+```
+
+> CocoaPods 1.1+ is required to build project with QuickBlox 2.17+.
+
+To integrate QuickBlox into the **sample-chat-swift** run the following command:
+
+```bash
+$ pod install
+```
 Additional libraries used via [CocoaPods](https://cocoapods.org):
 
 * [SVProgressHUD](https://github.com/TransitApp/SVProgressHUD.git/)
-* [TWMessageBarManager](https://github.com/rs/SDWebImage.git)
+* [SDWebImage](https://github.com/rs/SDWebImage.git)
 * [TTTAttributedLabel](https://github.com/TTTAttributedLabel/TTTAttributedLabel.git)
 
-<h2> Documentation </h2>
+# Documentation
 
 Original sample description & setup guide - [iOS Chat Sample](http://quickblox.com/developers/SimpleSample-chat_users-ios)
-

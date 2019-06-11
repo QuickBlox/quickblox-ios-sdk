@@ -2,8 +2,8 @@
 //  ReplaceSegue.swift
 //  sample-chat-swift
 //
-//  Created by Anton Sokolchenko on 3/18/16.
-//  Copyright © 2016 quickblox. All rights reserved.
+//  Created by Injoit on 1/28/19.
+//  Copyright © 2019 Quickblox. All rights reserved.
 //
 
 import Foundation
@@ -19,12 +19,12 @@ class ReplaceSegue : UIStoryboardSegue {
 		navigationController?.pushViewController(destinationViewController, animated: false)
         
 		guard var mutableVC = navigationController?.viewControllers else {
-			print("Error: no view controllers")
+			debugPrint("[ReplaceSegue] Error: no view controllers")
 			return
 		}
 		
 		guard let sourceViewControllerIndex = mutableVC.index(of: sourceViewController) else {
-			print("Error: no index for source view controller")
+			debugPrint("[ReplaceSegue] Error: no index for source view controller")
 			return
 		}
 

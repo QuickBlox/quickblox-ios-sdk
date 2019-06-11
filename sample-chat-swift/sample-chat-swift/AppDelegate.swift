@@ -2,149 +2,168 @@
 //  AppDelegate.swift
 //  sample-chat-swift
 //
-//  Created by Anton Sokolchenko on 3/30/15.
-//  Copyright (c) 2015 quickblox. All rights reserved.
+//  Created by Injoit on 1/28/19.
+//  Copyright © 2019 Quickblox. All rights reserved.
 //
 
 import UIKit
-import Fabric
-import Crashlytics
+import UserNotifications
 
-let kQBApplicationID:UInt = 72448
-let kQBAuthKey = "f4HYBYdeqTZ7KNb"
-let kQBAuthSecret = "ZC7dK39bOjVc-Z8"
-let kQBAccountKey = "C4_z7nuaANnBYmsG_k98"
+// To update the QuickBlox credentials, please see the READMe file.(You must create application in admin.quickblox.com)
+struct CredentialsConstant {
+    static let applicationID:UInt = 0
+    static let authKey = ""
+    static let authSecret = ""
+    static let accountKey = ""
+}
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelegate {
-	
-	var window: UIWindow?
-	
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
-        
-        Fabric.with([Crashlytics.self])
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    var window: UIWindow?
+    
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
         application.applicationIconBadgeNumber = 0
-        window?.backgroundColor = UIColor.white;
+        window?.backgroundColor = .white;
         // Set QuickBlox credentials (You must create application in admin.quickblox.com).
-        QBSettings.applicationID = kQBApplicationID;
-        QBSettings.authKey = kQBAuthKey
-        QBSettings.authSecret = kQBAuthSecret
-        QBSettings.accountKey = kQBAccountKey
+        QBSettings.applicationID = CredentialsConstant.applicationID
+        QBSettings.authKey = CredentialsConstant.authKey
+        QBSettings.authSecret = CredentialsConstant.authSecret
+        QBSettings.accountKey = CredentialsConstant.accountKey
         // enabling carbons for chat
         QBSettings.carbonsEnabled = true
         // Enables Quickblox REST API calls debug console output.
         QBSettings.logLevel = .debug
-        
         // Enables detailed XMPP logging in console output.
         QBSettings.enableXMPPLogging()
         
-        // app was launched from push notification, handling it
-        let remoteNotification: NSDictionary! = launchOptions?[.remoteNotification] as? NSDictionary
-        if (remoteNotification != nil) {
-            ServicesManager.instance().notificationService.pushDialogID = remoteNotification["SA_STR_PUSH_NOTIFICATION_DIALOG_ID".localized] as? String
-        }
+        let center = UNUserNotificationCenter.current()
+        center.delegate = self
         
         return true
     }
     
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        
-        let deviceIdentifier: String = UIDevice.current.identifierForVendor!.uuidString
-        let subscription = QBMSubscription()
-        
-        subscription.notificationChannel = .APNS
-        subscription.deviceUDID = deviceIdentifier
-        subscription.deviceToken = deviceToken
-        QBRequest.createSubscription(subscription, successBlock: { (response: QBResponse!, objects: [QBMSubscription]?) -> Void in
-        
-        }) { (response: QBResponse!) -> Void in
-        
-        }
-    }
-    
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        print("Push failed to register with error: %@", error)
-    }
-    
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-        
-        print("my push is: %@", userInfo)
-        guard application.applicationState == UIApplicationState.inactive else {
-            return
-        }
-        
-        guard let dialogID = userInfo["SA_STR_PUSH_NOTIFICATION_DIALOG_ID".localized] as? String else {
-            return
-        }
-        
-        guard !dialogID.isEmpty else {
-            return
-        }
-        
-        
-        let dialogWithIDWasEntered: String? = ServicesManager.instance().currentDialogID
-        if dialogWithIDWasEntered == dialogID {
-            return
-        }
-        
-        ServicesManager.instance().notificationService.pushDialogID = dialogID
-        
-        // calling dispatch async for push notification handling to have priority in main queue
-        DispatchQueue.main.async { 
-            
-            ServicesManager.instance().notificationService.handlePushNotificationWithDelegate(delegate: self)
-        }
-    }
-	
-    func applicationWillResignActive(_ application: UIApplication) {
-    }
-	
     func applicationDidEnterBackground(_ application: UIApplication) {
-        
         application.applicationIconBadgeNumber = 0
         // Logging out from chat.
-        ServicesManager.instance().chatService.disconnect(completionBlock: nil)
+        ChatManager.instance.disconnect()
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Logging in to chat.
-        ServicesManager.instance().chatService.connect(completionBlock: nil)
-    }
-    
-    func applicationDidBecomeActive(_ application: UIApplication) {
-      
+        registerForRemoteNotifications()
+        ChatManager.instance.connect { (error) in
+            if let error = error {
+                SVProgressHUD.showError(withStatus: error.localizedDescription)
+                return
+            }
+            
+        }
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
         // Logging out from chat.
-        ServicesManager.instance().chatService.disconnect(completionBlock: nil)
-    }
-	
-    // MARK: NotificationServiceDelegate protocol
-    
-    func notificationServiceDidStartLoadingDialogFromServer() {
+        ChatManager.instance.disconnect()
     }
     
-    func notificationServiceDidFinishLoadingDialogFromServer() {
-    }
-    
-    func notificationServiceDidSucceedFetchingDialog(chatDialog: QBChatDialog!) {
-        let navigatonController: UINavigationController! = self.window?.rootViewController as! UINavigationController
+    //MARK: - UNUserNotification
+    func application(_ application: UIApplication,
+                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         
-        let chatController: ChatViewController = UIStoryboard(name:"Main", bundle: nil).instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
-        chatController.dialog = chatDialog
-        
-        let dialogWithIDWasEntered = ServicesManager.instance().currentDialogID
-        if !dialogWithIDWasEntered.isEmpty {
-            // some chat already opened, return to dialogs view controller first
-            navigatonController.popViewController(animated: false);
+        guard let identifierForVendor = UIDevice.current.identifierForVendor else {
+            return
         }
-        
-        navigatonController.pushViewController(chatController, animated: true)
+
+        let deviceIdentifier = identifierForVendor.uuidString
+        let subscription = QBMSubscription()
+        subscription.notificationChannel = .APNS
+        subscription.deviceUDID = deviceIdentifier
+        subscription.deviceToken = deviceToken
+        QBRequest.createSubscription(subscription, successBlock: { response, objects in
+        }, errorBlock: { response in
+            debugPrint("[AppDelegate] createSubscription error: \(String(describing: response.error))")
+        })
     }
     
-    func notificationServiceDidFailFetchingDialog() {
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        debugPrint("Unable to register for remote notifications: \(error.localizedDescription)")
+    }
+    
+    private func registerForRemoteNotifications() {
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.sound, .alert, .badge], completionHandler: { granted, error in
+            if let error = error {
+                debugPrint("[AppDelegate] requestAuthorization error: \(error.localizedDescription)")
+                return
+            }
+            center.getNotificationSettings(completionHandler: { settings in
+                if settings.authorizationStatus != .authorized {
+                    return
+                }
+                DispatchQueue.main.async(execute: {
+                    UIApplication.shared.registerForRemoteNotifications()
+                })
+            })
+        })
     }
 }
 
+//MARK: - UNUserNotificationCenterDelegate
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        if UIApplication.shared.applicationState == .active {
+            return
+        }
+        
+        center.removeAllDeliveredNotifications()
+        center.removeAllPendingNotificationRequests()
+        
+        guard let dialogID = userInfo["SA_STR_PUSH_NOTIFICATION_DIALOG_ID".localized] as? String,
+            dialogID.isEmpty == false else {
+                return
+        }
+        // calling dispatch async for push notification handling to have priority in main queue
+        DispatchQueue.main.async {
+            
+            if let chatDialog = ChatManager.instance.storage.dialog(withID: dialogID) {
+                self.openChat(chatDialog)
+            } else {
+                ChatManager.instance.loadDialog(withID: dialogID, completion: { (loadedDialog: QBChatDialog?) -> Void in
+                    guard let dialog = loadedDialog else {
+                        return
+                    }
+                    self.openChat(dialog)
+                })
+            }
+        }
+        completionHandler()
+    }
+    
+    //MARK: Help
+    func openChat(_ chatDialog: QBChatDialog) {
+        guard let window = window,
+            let navigationController = window.rootViewController as? UINavigationController else {
+                return
+        }
+        var controllers = [UIViewController]()
+        
+        for controller in navigationController.viewControllers {
+            controllers.append(controller)
+            if controller is DialogsViewController {
+                let storyboard = UIStoryboard(name: "Chat", bundle: nil)
+                let chatController = storyboard.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
+                chatController.dialogID = chatDialog.id
+                controllers.append(chatController)
+                navigationController.setViewControllers(controllers, animated: true)
+                return
+            }
+        }
+    }
+}
