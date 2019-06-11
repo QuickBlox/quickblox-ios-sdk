@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR" customClass="HeaderCollectionReusableView" customModule="Swift_QMChatViewController" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CwB-RT-Hnk">
+                    <rect key="frame" x="109" y="11" width="102" height="28"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today 18:17" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JEj-yI-KA4">
+                            <rect key="frame" x="12" y="3" width="78" height="22"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.73725490196078436" green="0.72549019607843135" blue="0.6588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="JEj-yI-KA4" firstAttribute="top" secondItem="CwB-RT-Hnk" secondAttribute="top" constant="3" id="Cbl-Vg-Kt8"/>
+                        <constraint firstAttribute="trailing" secondItem="JEj-yI-KA4" secondAttribute="trailing" constant="12" id="IPP-FT-d0E"/>
+                        <constraint firstItem="JEj-yI-KA4" firstAttribute="leading" secondItem="CwB-RT-Hnk" secondAttribute="leading" constant="12" id="KOq-DY-lqe"/>
+                        <constraint firstItem="JEj-yI-KA4" firstAttribute="centerY" secondItem="CwB-RT-Hnk" secondAttribute="centerY" id="WeH-Tl-M4C"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="CwB-RT-Hnk" firstAttribute="centerX" secondItem="U6b-Vx-4bR" secondAttribute="centerX" id="8P0-R9-g4w"/>
+                <constraint firstItem="CwB-RT-Hnk" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="109" id="Brr-3l-eq0"/>
+                <constraint firstItem="CwB-RT-Hnk" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="eVx-qG-lAc"/>
+                <constraint firstItem="CwB-RT-Hnk" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="11" id="vm2-Wx-8LB"/>
+            </constraints>
+            <connections>
+                <outlet property="containerView" destination="CwB-RT-Hnk" id="rOi-lc-fVZ"/>
+                <outlet property="headerLabel" destination="JEj-yI-KA4" id="MmZ-wT-3mb"/>
+            </connections>
+        </collectionReusableView>
+    </objects>
+</document>
