@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ZUn-az-6JK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ZUn-az-6JK">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -65,7 +65,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" background="bg-textinputline" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iwd-Ux-nSU">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Login" textAlignment="natural" minimumFontSize="17" background="bg-textinputline" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iwd-Ux-nSU">
                                                     <rect key="frame" x="32" y="18" width="311" height="44"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="uJM-Or-dAo"/>
@@ -115,7 +115,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Group name" textAlignment="natural" minimumFontSize="17" background="bg-textinputline" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="EuA-HP-sft">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" background="bg-textinputline" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="EuA-HP-sft">
                                                     <rect key="frame" x="32" y="18" width="311" height="44"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="IJL-NV-lo4"/>
@@ -196,18 +196,27 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="m1t-9J-IBE"/>
                     <connections>
-                        <outlet property="chatRoomDescritptionLabel" destination="Mxg-nC-e2p" id="500-Eh-PDe"/>
-                        <outlet property="chatRoomNameTextField" destination="EuA-HP-sft" id="OTG-Ug-cNe"/>
                         <outlet property="loginButton" destination="sDV-TR-cUr" id="frX-lr-klc"/>
+                        <outlet property="loginDescritptionLabel" destination="Bl5-f3-GmO" id="Ait-jd-Ngc"/>
                         <outlet property="loginInfo" destination="lCi-rE-4bS" id="vbE-ne-W37"/>
-                        <outlet property="userNameDescriptionLabel" destination="Bl5-f3-GmO" id="cg9-tn-ALg"/>
-                        <outlet property="userNameTextField" destination="iwd-Ux-nSU" id="hq6-uM-Mkh"/>
+                        <outlet property="loginTextField" destination="iwd-Ux-nSU" id="j8P-7L-axK"/>
+                        <outlet property="userNameDescriptionLabel" destination="Mxg-nC-e2p" id="5jU-9S-MID"/>
+                        <outlet property="userNameTextField" destination="EuA-HP-sft" id="9Oi-WR-2Gj"/>
                         <segue destination="qBd-oN-eyW" kind="show" identifier="ShowUsersViewController" id="3fx-eC-JZQ"/>
+                        <segue destination="7hi-Le-DpK" kind="show" identifier="ShowInfoScreen" id="3II-ww-8HP"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jut-XR-5L9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="459" y="488"/>
+        </scene>
+        <!--InfoScreen-->
+        <scene sceneID="36e-i0-gP4">
+            <objects>
+                <viewControllerPlaceholder storyboardName="InfoScreen" id="7hi-Le-DpK" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E9X-e6-iMJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1030" y="161"/>
         </scene>
         <!--UsersViewController-->
         <scene sceneID="M8O-xE-YWZ">

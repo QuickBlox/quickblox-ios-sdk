@@ -1,8 +1,8 @@
 //
 //  UIViewController+InfoScreen.swift
-//  sample-conference-videochat-swift
+//  sample-videochat-webrtc-swift
 //
-//  Created by Vladimir Nybozhinsky on 1/3/19.
+//  Created by Injoit on 1/3/19.
 //  Copyright © 2019 QuickBlox. All rights reserved.
 //
 
@@ -32,8 +32,7 @@ extension UIViewController {
         } else {
             var rightBarButtonItems = navigationItem.rightBarButtonItems
             rightBarButtonItems?.append(infoButtonItem)
-            navigationItem.rightBarButtonItems = rightBarButtonItems;
-            
+            navigationItem.rightBarButtonItems = rightBarButtonItems 
         }
     }
     

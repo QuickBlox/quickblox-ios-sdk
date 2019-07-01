@@ -2,8 +2,8 @@
 //  PlaceholderGenerator.m
 //  LoginComponent
 //
-//  Created by Andrey Ivanov on 08/06/16.
-//  Copyright © 2016 Quickblox. All rights reserved.
+//  Created by Injoit on 2/25/19.
+//  Copyright © 2019 Quickblox. All rights reserved.
 //
 
 #import "PlaceholderGenerator.h"
@@ -35,7 +35,7 @@
     if (self) {
         
         _cache = [[NSCache alloc] init];
-        _cache.name = @"QMUserPlaceholer.cache";
+        _cache.name = @"UserPlaceholer.cache";
         _cache.countLimit = 200;
         
         _colors =
@@ -59,20 +59,8 @@
 }
 
 - (UIColor* _Nonnull)colorForString:(NSString*)string {
-    
-    unsigned long hashNumber = stringToLong((unsigned char*)[string UTF8String]);
-    UIColor* color = self.colors[hashNumber % [self.colors count]];
+    UIColor* color = self.colors[string.length % [self.colors count]];
     return color;
-}
-
-unsigned long stringToLong(unsigned char* str) {
-    
-    unsigned long hash = 5381;
-    int c;
-    while ((c = *str++)) {
-        hash = ((hash << 5) + hash) + c;
-    }
-    return hash;
 }
 
 + (UIImage *)placeholderWithSize:(CGSize)size

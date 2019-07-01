@@ -1,8 +1,8 @@
 //
 //  UIViewController+InfoScreen.h
-//  sample-conference-videochat
+//  sample-videochat-webrtc
 //
-//  Created by Vladimir Nybozhinsky on 1/2/19.
+//  Created by Injoit on 1/2/19.
 //  Copyright © 2019 Quickblox. All rights reserved.
 //
 

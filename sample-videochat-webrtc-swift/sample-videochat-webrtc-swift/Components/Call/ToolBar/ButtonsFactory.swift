@@ -2,7 +2,7 @@
 //  ButtonsFactory.swift
 //  sample-videochat-webrtc-swift
 //
-//  Created by Vladimir Nybozhinsky on 12/18/18.
+//  Created by Injoit on 12/18/18.
 //  Copyright © 2018 QuickBlox. All rights reserved.
 //
 
@@ -53,7 +53,7 @@ class ButtonsFactory {
     class func dynamicEnable() -> CustomButton {
         let button: CustomButton = self.button(withFrame: ButtonsFactoryConstants.rect, backgroundColor: ButtonsFactoryConstants.backgroundColor, selectedColor: ButtonsFactoryConstants.selectedColor)
         button.pushed = true
-        button.iconView = self.iconView(withNormalImage: "dynamic_on_ic", selectedImage: "dynamic_off_ic")
+        button.iconView = self.iconView(withNormalImage: "ic_volume_low", selectedImage: "ic_volume_high")
         return button
     }
     

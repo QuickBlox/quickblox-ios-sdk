@@ -2,7 +2,7 @@
 //  OpponentsFlowLayout.swift
 //  sample-videochat-webrtc-swift
 //
-//  Created by Vladimir Nybozhinsky on 12/18/18.
+//  Created by Injoit on 12/18/18.
 //  Copyright © 2018 QuickBlox. All rights reserved.
 //
 
@@ -117,10 +117,6 @@ class OpponentsFlowLayout: UICollectionViewFlowLayout {
         
         let originX = width * Double(slipMod).rounded()
         let originY = height * row
-        
-        //        debugPrint(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<")
-        //        debugPrint(CGRect(x: originX, y: originY, width: width, height: height))
-        //        debugPrint(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<")
         
         return CGRect(x: originX, y: originY, width: width, height: height)
     }

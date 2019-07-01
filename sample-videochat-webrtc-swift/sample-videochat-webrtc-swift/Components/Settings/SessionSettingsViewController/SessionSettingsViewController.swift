@@ -2,7 +2,7 @@
 //  SessionSettingsViewController.swift
 //  sample-videochat-webrtc-swift
 //
-//  Created by Vladimir Nybozhinsky on 12/10/18.
+//  Created by Injoit on 12/10/18.
 //  Copyright © 2018 QuickBlox. All rights reserved.
 //
 
@@ -52,9 +52,13 @@ class SessionSettingsViewController: UITableViewController {
     
     // MARK: - Actions
     @IBAction func pressDoneBtn(_ sender: Any) {
+        doneAction()
+    }
+    
+    private func doneAction() {
         settings.saveToDisk()
         settings.applyConfig()
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     //MARK: - Overrides

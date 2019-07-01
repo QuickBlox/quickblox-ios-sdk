@@ -2,12 +2,13 @@
 //  FileManager.m
 //  sample-videochat-webrtc
 //
-//  Created by Andrey Ivanov on 28.02.17.
-//  Copyright © 2017 QuickBlox Team. All rights reserved.
+//  Created by Injoit on 2/25/19.
+//  Copyright © 2019 Quickblox. All rights reserved.
 //
 
 #import "FileManager.h"
 #import <sys/xattr.h>
+#import "Log.h"
 
 @interface FileManager()
 
@@ -59,7 +60,7 @@
     BOOL success = [[NSFileManager defaultManager] removeItemAtPath:url.path error:&error];
     
     if (!success) {
-        NSLog(@"Remove file %@ - error %@", url, error.localizedDescription);
+        Log(@"[%@] Remove file %@ - error %@",  NSStringFromClass([FileManager class]), url, error.localizedDescription);
     }
     
     return success;
@@ -77,8 +78,7 @@
                                  [self.fManager subpathsOfDirectoryAtPath:absolutePath error:&error] :
                                  [self.fManager contentsOfDirectoryAtPath:absolutePath error:&error]);
     if (error) {
-        
-        NSLog(@"Error %@", error.localizedDescription);
+        Log(@"[%@] Error %@",  NSStringFromClass([FileManager class]), error.localizedDescription);
     }
     
     NSMutableArray *absoluteSubpaths = [NSMutableArray array];
@@ -146,7 +146,7 @@
     NSDictionary *attrs = [self.fManager attributesOfItemAtPath:path error:&error];
     
     if (error) {
-        NSLog(@"attributesOfItemAtPath: %@", error.localizedDescription);
+        Log(@"[%@] attributesOfItemAtPath: %@", NSStringFromClass([FileManager class]), error.localizedDescription);
     }
     
     return attrs;

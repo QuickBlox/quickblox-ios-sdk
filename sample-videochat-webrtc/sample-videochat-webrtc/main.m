@@ -1,9 +1,9 @@
 //
 //  main.m
-//  QBRTCChatSemple
+//  sample-videochat-webrtc
 //
-//  Created by Andrey Ivanov on 04.12.14.
-//  Copyright (c) 2014 QuickBlox Team. All rights reserved.
+//  Created by Injoit on 2/25/19.
+//  Copyright © 2019 Quickblox. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

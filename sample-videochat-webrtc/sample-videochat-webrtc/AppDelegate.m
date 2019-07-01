@@ -1,32 +1,32 @@
 //
 //  AppDelegate.m
-//  QBRTCChatSample
+//  sample-videochat-webrtc
 //
-//  Created by Andrey Ivanov on 04.12.14.
-//  Copyright (c) 2014 QuickBlox Team. All rights reserved.
+//  Created by Injoit on 2/25/19.
+//  Copyright © 2019 Quickblox. All rights reserved.
 //
 
 #import "AppDelegate.h"
 #import "SVProgressHUD.h"
-#import "QBCore.h"
 #import "Settings.h"
-
-#import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
+#import "Profile.h"
 
 const CGFloat kQBRingThickness = 1.f;
 const NSTimeInterval kQBAnswerTimeInterval = 60.f;
 const NSTimeInterval kQBDialingTimeInterval = 5.f;
+static NSString* const kChatServiceDomain = @"com.q-municate.chatservice";
+static NSUInteger const kErrorDomaimCode = -1000;
 
-const NSUInteger kApplicationID = 72448;
-NSString *const kAuthKey        = @"f4HYBYdeqTZ7KNb";
-NSString *const kAuthSecret     = @"ZC7dK39bOjVc-Z8";
-NSString *const kAccountKey     = @"C4_z7nuaANnBYmsG_k98";
+//To update the Credentials, please see the README file.
+const NSUInteger kApplicationID = 0;
+NSString *const kAuthKey        = @"";
+NSString *const kAuthSecret     = @"";
+NSString *const kAccountKey     = @"";
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
+    
     self.window.backgroundColor = [UIColor whiteColor];
     
     // Set QuickBlox credentials (You must create application in admin.quickblox.com)
@@ -49,45 +49,57 @@ NSString *const kAccountKey     = @"C4_z7nuaANnBYmsG_k98";
     // loading settings
     [Settings instance];
     
-    [Fabric with:@[[Crashlytics class]]];
-    
     return YES;
 }
 
 // MARK: - Application states
-
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    if (![QBChat instance].isConnected
-        && [QBCore instance].isAuthorized) {
-        [[QBCore instance] loginWithCurrentUser];
+    if (![QBChat instance].isConnected) {
+        [SVProgressHUD showSuccessWithStatus: @"Connecting..."];
+        [self connect:^(NSError * _Nullable error) {
+            if (error) {
+                [SVProgressHUD showErrorWithStatus: error.localizedDescription];
+                return;
+            }
+            [SVProgressHUD dismiss];
+        }];
     }
 }
 
-// MARK: - Remote Notifictions
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+        [self disconnect:nil];
+}
 
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+- (void)applicationWillTerminate:(UIApplication *)application {
+        [self disconnect:nil];
+}
+
+//MARK: - Connect/Disconnect
+- (void)connect:(nullable QBChatCompletionBlock)completion {
+    Profile *currentUser = [[Profile alloc] init];
     
-    if (notificationSettings.types != UIUserNotificationTypeNone) {
-        
-        NSLog(@"Did register user notificaiton settings");
-        [application registerForRemoteNotifications];
+    if (currentUser.isFull == NO) {
+        if (completion) {
+            completion([NSError errorWithDomain:kChatServiceDomain
+                                           code:kErrorDomaimCode
+                                       userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Please enter your login and username.", nil)}]);
+            
+        }
+        return;
+    }
+    
+    if (QBChat.instance.isConnected) {
+        if (completion) {
+            completion(nil);
+        }
+    } else {
+        QBSettings.autoReconnectEnabled = YES;
+        [QBChat.instance connectWithUserID:[currentUser ID] password:[currentUser password] completion:completion];
     }
 }
 
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    
-    NSLog(@"Did register for remote notifications with device token");
-    [Core registerForRemoteNotificationsWithDeviceToken:deviceToken];
-}
-
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    
-    NSLog(@"Did receive remote notification %@", userInfo);
-}
-
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    
-    NSLog(@"Did fail to register for remote notification with error %@", error.localizedDescription);
+- (void)disconnect:(nullable QBChatCompletionBlock)completion {
+    [QBChat.instance disconnectWithCompletionBlock:completion];
 }
 
 @end

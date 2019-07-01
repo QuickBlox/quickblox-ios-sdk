@@ -2,33 +2,40 @@
 //  UsersViewController.m
 //  LoginComponent
 //
-//  Created by Andrey Ivanov on 02/06/16.
-//  Copyright © 2016 Quickblox. All rights reserved.
+//  Copyright © 2019 Quickblox. All rights reserved.
 //
 
 #import "UsersViewController.h"
 
 #import <Quickblox/Quickblox.h>
 #import <PushKit/PushKit.h>
-
-#import "QBCore.h"
 #import "UsersDataSource.h"
 #import "PlaceholderGenerator.h"
-#import "QBAVCallPermissions.h"
+#import "CallPermissions.h"
 #import "SessionSettingsViewController.h"
 #import "SVProgressHUD.h"
 #import "CallViewController.h"
-#import "IncomingCallViewController.h"
-#import "RecordsViewController.h"
 #import "CallKitManager.h"
 #import "UIViewController+InfoScreen.h"
+#import "Profile.h"
+#import "Reachability.h"
+#import "Log.h"
 
 const NSUInteger kQBPageSize = 50;
 static NSString * const kAps = @"aps";
 static NSString * const kAlert = @"alert";
 static NSString * const kVoipEvent = @"VOIPCall";
+NSString *const DEFAULT_PASSOWORD = @"quickblox";
 
-@interface UsersViewController () <QBCoreDelegate, QBRTCClientDelegate, SettingsViewControllerDelegate, IncomingCallViewControllerDelegate, PKPushRegistryDelegate>
+typedef NS_ENUM(NSUInteger, ErrorDomain) {
+    
+    ErrorDomainSignUp,
+    ErrorDomainLogIn,
+    ErrorDomainLogOut,
+    ErrorDomainChat,
+};
+
+@interface UsersViewController () <QBRTCClientDelegate, SettingsViewControllerDelegate, PKPushRegistryDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *audioCallButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *videoCallButton;
@@ -36,7 +43,6 @@ static NSString * const kVoipEvent = @"VOIPCall";
 @property (strong, nonatomic) UsersDataSource *dataSource;
 @property (strong, nonatomic) UINavigationController *nav;
 @property (weak, nonatomic) QBRTCSession *session;
-@property (weak, nonatomic) RecordsViewController *recordsViewController;
 
 @property (strong, nonatomic) PKPushRegistry *voipRegistry;
 
@@ -56,11 +62,10 @@ static NSString * const kVoipEvent = @"VOIPCall";
     
     _backgroundTask = UIBackgroundTaskInvalid;
     
-    [Core addDelegate:self];
     [QBRTCClient.instance addDelegate:self];
     // Reachability
     __weak __typeof(self)weakSelf = self;
-    Core.networkStatusBlock = ^(QBNetworkStatus status) {
+    Reachability.instance.networkStatusBlock = ^(QBNetworkStatus status) {
         if (status != QBNetworkStatusNotReachable) {
             [weakSelf loadUsers];
         }
@@ -82,7 +87,6 @@ static NSString * const kVoipEvent = @"VOIPCall";
     if (self.refreshControl.refreshing) {
         [self.tableView setContentOffset:CGPointMake(0, -self.refreshControl.frame.size.height) animated:NO];
     }
-    
     self.navigationController.toolbarHidden = NO;
 }
 
@@ -96,7 +100,7 @@ static NSString * const kVoipEvent = @"VOIPCall";
 
 - (void)configureTableViewController {
     
-    _dataSource = [[UsersDataSource alloc] initWithCurrentUser:Core.currentUser];
+    _dataSource = [[UsersDataSource alloc] init];
     CallKitManager.instance.usersDatasource = _dataSource;
     
     self.tableView.dataSource = _dataSource;
@@ -114,9 +118,16 @@ static NSString * const kVoipEvent = @"VOIPCall";
     
     self.navigationItem.leftBarButtonItem = settingsButtonItem;
     //Custom label
-    NSString *roomName = [NSString stringWithFormat:@"%@", Core.currentUser.tags.firstObject];
-    NSString *userName = [NSString stringWithFormat:@"Logged in as %@", Core.currentUser.fullName];
-    NSString *titleString = [NSString stringWithFormat:@"%@\n%@", roomName, userName];
+    
+    Profile *profile = [[Profile alloc] init];
+    NSString *roomName = [NSString stringWithFormat:@"%@", profile.tag];
+    NSString *loggedString = [NSString stringWithFormat:@"Logged in as "];
+    NSString *fullName = profile.fullName;
+    NSString *titleString = [NSString stringWithFormat:@"%@%@", loggedString, fullName];
+    if (profile.tag) {
+        titleString = [NSString stringWithFormat:@"%@\n%@", roomName, loggedString];
+    }
+    
     
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:titleString];
     NSRange roomNameRange = [titleString rangeOfString:roomName];
@@ -124,7 +135,7 @@ static NSString * const kVoipEvent = @"VOIPCall";
                        value:[UIFont boldSystemFontOfSize:16.0f]
                        range:roomNameRange];
     
-    NSRange userNameRange = [titleString rangeOfString:userName];
+    NSRange userNameRange = [titleString rangeOfString:loggedString];
     [attrString addAttribute:NSFontAttributeName
                        value:[UIFont systemFontOfSize:12.0f]
                        range:userNameRange];
@@ -145,14 +156,6 @@ static NSString * const kVoipEvent = @"VOIPCall";
     for (UIView *subview in self.navigationController.toolbar.subviews) {
         [subview setExclusiveTouch:YES];
     }
-    
-    UIBarButtonItem *recordsButtonItem =
-    [[UIBarButtonItem alloc] initWithTitle:@"Records"
-                                     style:UIBarButtonItemStylePlain
-                                    target:self
-                                    action:@selector(didPressRecordsButton:)];
-    
-    self.navigationItem.rightBarButtonItem = recordsButtonItem;
     //add info button
     [self showInfoButton];
 }
@@ -161,49 +164,15 @@ static NSString * const kVoipEvent = @"VOIPCall";
  */
 - (void)loadUsers {
     
-    __block void(^t_request) (QBGeneralResponsePage *, NSMutableArray *);
+    QBGeneralResponsePage *firstPage = [QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:100];
     __weak __typeof(self)weakSelf = self;
-    
-    void(^request) (QBGeneralResponsePage *, NSMutableArray *) =
-    ^(QBGeneralResponsePage *page, NSMutableArray *allUsers) {
-        
-        [QBRequest usersWithTags:Core.currentUser.tags
-                            page:page
-                    successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray<QBUUser *> *users)
-         {
-             page.currentPage++;
-             [allUsers addObjectsFromArray:users];
-             
-             BOOL cancel = NO;
-             if (page.currentPage * page.perPage >= page.totalEntries) {
-                 cancel = YES;
-             }
-             
-             if (!cancel) {
-                 t_request(page, allUsers);
-             }
-             else {
-                 [weakSelf.refreshControl endRefreshing];
-                 BOOL isUpdated = [weakSelf.dataSource setUsers:allUsers];
-                 if (isUpdated) {
-                     [weakSelf.tableView reloadData];
-                 }
-                 t_request = nil;
-             }
-             
-         } errorBlock:^(QBResponse *response) {
-             [weakSelf.refreshControl endRefreshing];
-             t_request = nil;
-         }];
-    };
-    
-    t_request = [request copy];
-    
-    QBGeneralResponsePage *responsePage =
-    [QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:kQBPageSize];
-    NSMutableArray *allUsers = [NSMutableArray array];
-    
-    request(responsePage, allUsers);
+    [QBRequest usersWithExtendedRequest:@{@"order": @"desc date updated_at"} page:firstPage successBlock:^(QBResponse * _Nonnull response, QBGeneralResponsePage * _Nonnull page, NSArray<QBUUser *> * _Nonnull users) {
+        [weakSelf.refreshControl endRefreshing];
+        [weakSelf.dataSource updateUsers:users];
+        [weakSelf.tableView reloadData];
+    } errorBlock:^(QBResponse * _Nonnull response) {
+        [weakSelf.refreshControl endRefreshing];
+    }];
 }
 
 #pragma mark - Actions
@@ -234,9 +203,11 @@ static NSString * const kVoipEvent = @"VOIPCall";
         return;
     }
     
+    Profile *profile = [[Profile alloc] init];
+    
     if ([self hasConnectivity]) {
         
-        [QBAVCallPermissions checkPermissionsWithConferenceType:conferenceType completion:^(BOOL granted) {
+        [CallPermissions checkPermissionsWithConferenceType:conferenceType completion:^(BOOL granted) {
             
             if (granted) {
                 
@@ -248,12 +219,9 @@ static NSString * const kVoipEvent = @"VOIPCall";
                 if (session) {
                     
                     self.session = session;
+                    NSUUID *uuid = [NSUUID UUID];
                     
-                    NSUUID *uuid = nil;
-                    if (CallKitManager.isCallKitAvailable) {
-                        uuid = [NSUUID UUID];
-                        [CallKitManager.instance startCallWithUserIDs:opponentsIDs session:session uuid:uuid];
-                    }
+                    [CallKitManager.instance startCallWithUserIDs:opponentsIDs session:session uuid:uuid];
                     
                     CallViewController *callViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CallViewController"];
                     callViewController.session = self.session;
@@ -263,10 +231,15 @@ static NSString * const kVoipEvent = @"VOIPCall";
                     self.nav = [[UINavigationController alloc] initWithRootViewController:callViewController];
                     self.nav.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
                     
-                    [self presentViewController:self.nav animated:NO completion:nil];
+                    [self presentViewController:self.nav animated:NO completion:^{
+                        self.audioCallButton.enabled = NO;
+                        self.videoCallButton.enabled = NO;
+                    }];
+                    
+                    NSString *name = profile.fullName.length > 0 ? profile.fullName : @"Unknown user";
                     
                     NSDictionary *payload = @{
-                                              @"message"  : [NSString stringWithFormat:@"%@ is calling you.", Core.currentUser.fullName],
+                                              @"message"  : [NSString stringWithFormat:@"%@ is calling you.", name],
                                               @"ios_voip" : @"1",
                                               kVoipEvent  : @"1",
                                               };
@@ -286,14 +259,14 @@ static NSString * const kVoipEvent = @"VOIPCall";
                     
                     [QBRequest createEvent:event
                               successBlock:^(QBResponse *response, NSArray<QBMEvent *> *events) {
-                                  NSLog(@"Send voip push - Success");
+                                  Log(@"[%@] Send voip push - Success",  NSStringFromClass([UsersViewController class]));
                               } errorBlock:^(QBResponse * _Nonnull response) {
-                                  NSLog(@"Send voip push - Error");
+                                  Log(@"[%@] Send voip push - Error",  NSStringFromClass([UsersViewController class]));
                               }];
                 }
                 else {
                     
-                    [SVProgressHUD showErrorWithStatus:@"You should login to use chat API. Session hasn’t been created. Please try to relogin the chat."];
+                    [SVProgressHUD showErrorWithStatus:@"You should login to use VideoChat API. Session hasn’t been created. Please try to relogin."];
                 }
             }
         }];
@@ -302,7 +275,7 @@ static NSString * const kVoipEvent = @"VOIPCall";
 
 - (BOOL)hasConnectivity {
     
-    BOOL hasConnectivity = Core.networkStatus != QBNetworkStatusNotReachable;
+    BOOL hasConnectivity = Reachability.instance.networkStatus != QBNetworkStatusNotReachable;
     
     if (!hasConnectivity) {
         [self showAlertViewWithMessage:NSLocalizedString(@"Please check your Internet connection", nil)];
@@ -326,29 +299,92 @@ static NSString * const kVoipEvent = @"VOIPCall";
 }
 
 - (void)didPressSettingsButton:(UIBarButtonItem *)item {
-    
-    [self performSegueWithIdentifier:@"PresentSettingsViewController" sender:item];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    if ([segue.identifier isEqualToString:@"PresentSettingsViewController"]) {
-        
-        SessionSettingsViewController *settingsViewController =
-        (id)((UINavigationController *)segue.destinationViewController).topViewController;
-        settingsViewController.delegate = self;
-    }
-    else if ([segue.identifier isEqualToString:@"PresentRecordsViewController"]) {
-        self.recordsViewController = segue.destinationViewController;
-    }
+    UIStoryboard *settingsStoryboard = [UIStoryboard storyboardWithName:@"Settings" bundle:nil];
+    SessionSettingsViewController *settingsController = [settingsStoryboard instantiateViewControllerWithIdentifier:@"SessionSettingsViewController"];
+    settingsController.delegate = self;
+    [self.navigationController pushViewController:settingsController animated:YES];
 }
 
 #pragma mark - SettingsViewControllerDelegate
 
 - (void)settingsViewController:(SessionSettingsViewController *)vc didPressLogout:(id)sender {
+    [self logoutAction];
+}
+
+- (void)logoutAction {
+    if (QBChat.instance.isConnected == NO) {
+        [SVProgressHUD showErrorWithStatus:@"Error"];
+        return;
+    }
+    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"SA_STR_LOGOUTING", nil)];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
     
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"Logout...", nil)];
-    [Core logout];
+#if TARGET_OS_SIMULATOR
+    [self disconnectUser];
+#else
+    NSString *deviceIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    
+    [QBRequest subscriptionsWithSuccessBlock:^(QBResponse * _Nonnull response, NSArray<QBMSubscription *> * _Nullable objects) {
+        for (QBMSubscription *subscription in objects) {
+            if ([subscription.deviceUDID isEqualToString:deviceIdentifier] && subscription.notificationChannel == QBMNotificationChannelAPNSVOIP) {
+                [self unregisterSubscriptionForUniqueDeviceIdentifier:deviceIdentifier];
+                return;
+            }
+        }
+        [self disconnectUser];
+    } errorBlock:^(QBResponse * _Nonnull response) {
+        if (response.status == 404) {
+            [self disconnectUser];
+        }
+    }];
+#endif
+}
+
+- (void)unregisterSubscriptionForUniqueDeviceIdentifier:(NSString *)deviceIdentifier {
+    [QBRequest unregisterSubscriptionForUniqueDeviceIdentifier:deviceIdentifier successBlock:^(QBResponse *response) {
+        
+        [self disconnectUser];
+        
+    } errorBlock:^(QBError *error) {
+        if (error) {
+            [SVProgressHUD showErrorWithStatus:error.error.localizedDescription];
+            return;
+        }
+        [SVProgressHUD dismiss];
+    }];
+}
+
+- (void)disconnectUser {
+    [QBChat.instance disconnectWithCompletionBlock:^(NSError * _Nullable error) {
+        if (error) {
+            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+            return;
+        }
+        [self logOut];
+    }];
+}
+
+- (void)logOut {
+    __weak __typeof(self)weakSelf = self;
+    [QBRequest logOutWithSuccessBlock:^(QBResponse * _Nonnull response) {
+        __typeof(weakSelf)strongSelf = weakSelf;
+        
+        //ClearProfile
+        [Profile clearProfile];
+        [SVProgressHUD dismiss];
+        //Dismiss Settings view controller
+        [strongSelf dismissViewControllerAnimated:NO completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [strongSelf.navigationController popToRootViewControllerAnimated:NO];
+        });
+        [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Complited", nil)];
+        
+    } errorBlock:^(QBResponse * _Nonnull response) {
+        if (response.error.error) {
+            [SVProgressHUD showErrorWithStatus:response.error.error.localizedDescription];
+            return;
+        }
+    }];
 }
 
 #pragma mark - UITableViewDelegate
@@ -356,40 +392,8 @@ static NSString * const kVoipEvent = @"VOIPCall";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [self.dataSource selectUserAtIndexPath:indexPath];
-    
-    [self setToolbarButtonsEnabled:self.dataSource.selectedUsers.count > 0];
-    
-    if (self.dataSource.selectedUsers.count > 4) {
-        self.videoCallButton.enabled = NO;
-    }
-    
-    [tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
-}
-
-#pragma mark - QBSampleCoreDelegate
-
-- (void)core:(QBCore *)core loginStatus:(NSString *)loginStatus {
-    [SVProgressHUD showWithStatus:loginStatus];
-}
-
-- (void)coreDidLogin:(QBCore *)core {
-    [SVProgressHUD dismiss];
-}
-
-- (void)coreDidLogout:(QBCore *)core {
-    [SVProgressHUD dismiss];
-    //Dismiss Settings view controller
-    [self dismissViewControllerAnimated:NO completion:nil];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.navigationController popToRootViewControllerAnimated:NO];
-    });
-}
-
-- (void)core:(QBCore *)core error:(NSError *)error domain:(ErrorDomain)domain {
-    [SVProgressHUD dismiss];
-    if (domain == ErrorDomainLogOut) {
-        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-    }
+    [self setupToolbarButtons];
+    [tableView reloadData];
 }
 
 #pragma mark - QBCallKitDataSource
@@ -409,55 +413,104 @@ static NSString * const kVoipEvent = @"VOIPCall";
     }
 }
 
+- (void)setupToolbarButtons {
+    [self setToolbarButtonsEnabled:self.dataSource.selectedUsers.count > 0];
+    if (self.dataSource.selectedUsers.count > 4) {
+        self.videoCallButton.enabled = NO;
+    }
+}
+
 #pragma mark - QBWebRTCChatDelegate
+- (void)loadUserWithID:(NSUInteger)ID completion:(void(^)(QBUUser * _Nullable user))completion {
+    [QBRequest userWithID:ID successBlock:^(QBResponse * _Nonnull response, QBUUser * _Nonnull user) {
+        [self.dataSource updateUsers:@[user]];
+        if (completion) {
+            completion(user);
+        }
+    } errorBlock:^(QBResponse * _Nonnull response) {
+        if (completion) {
+            completion(nil);
+        }
+    }];
+}
+
+- (void)session:(__kindof QBRTCBaseSession *)session hungUpByUser:(NSNumber *)userID userInfo:(NSDictionary<NSString *,NSString *> *)userInfo {
+    if (self.session.initiatorID.unsignedIntegerValue == userID.unsignedIntegerValue && !CallKitManager.instance.isCallDidStarted) {
+        [CallKitManager.instance endCallWithUUID:self.callUUID completion:nil];
+    }
+}
 
 - (void)didReceiveNewSession:(QBRTCSession *)session userInfo:(NSDictionary *)userInfo {
     
-    if (self.session != nil
-        || self.recordsViewController.playerPresented) {
-        
+    if (self.session != nil) {
         [session rejectCall:@{@"reject" : @"busy"}];
         return;
     }
     
     self.session = session;
     
-    if (CallKitManager.isCallKitAvailable) {
-        self.callUUID = [NSUUID UUID];
-        NSMutableArray *opponentIDs = [@[session.initiatorID] mutableCopy];
-        for (NSNumber *userID in session.opponentsIDs) {
-            if ([userID integerValue] != [QBCore instance].currentUser.ID) {
-                [opponentIDs addObject:userID];
-            }
+    self.callUUID = [NSUUID UUID];
+    
+    NSMutableArray *opponentIDs = [@[session.initiatorID] mutableCopy];
+    Profile *profile = [[Profile alloc] init];
+    
+    for (NSNumber *userID in session.opponentsIDs) {
+        if ([userID isEqualToNumber:@(profile.ID)]) {
+            continue;
         }
-        __weak __typeof(self)weakSelf = self;
-        [CallKitManager.instance reportIncomingCallWithUserIDs:[opponentIDs copy] session:session uuid:self.callUUID onAcceptAction:^{
-            __typeof(weakSelf)strongSelf = weakSelf;
-            CallViewController *callViewController =
-            [strongSelf.storyboard instantiateViewControllerWithIdentifier:@"CallViewController"];
-            
-            callViewController.session = session;
-            callViewController.usersDatasource = strongSelf.dataSource;
-            callViewController.callUUID = self.callUUID;
-            strongSelf.nav = [[UINavigationController alloc] initWithRootViewController:callViewController];
-            [strongSelf presentViewController:strongSelf.nav animated:NO completion:nil];
-            
-        } completion:nil];
+        [opponentIDs addObject:userID];
     }
-    else {
-        
-        NSParameterAssert(!self.nav);
-        
-        IncomingCallViewController *incomingViewController =
-        [[UIStoryboard storyboardWithName:@"Call" bundle:[NSBundle mainBundle]]
-         instantiateViewControllerWithIdentifier:@"IncomingCallViewController"];
-        incomingViewController.delegate = self;
-        incomingViewController.session = session;
-        incomingViewController.usersDatasource = self.dataSource;
-        
-        self.nav = [[UINavigationController alloc] initWithRootViewController:incomingViewController];
-        [self presentViewController:self.nav animated:NO completion:nil];
+    
+    __block NSString *callerName = @"";
+    NSMutableArray *opponentNames = [NSMutableArray arrayWithCapacity:opponentIDs.count];
+    NSMutableArray *newUsers = [NSMutableArray array];
+    for (NSNumber *userID in opponentIDs) {
+        QBUUser *user = [self.dataSource userWithID:userID.unsignedIntegerValue];
+        if (user) {
+            [opponentNames addObject:user.fullName];
+        } else {
+            [newUsers addObject:userID];
+        }
     }
+    
+    if (newUsers.count) {
+        dispatch_group_t loadGroup = dispatch_group_create();
+        for (NSNumber *userID in newUsers) {
+            dispatch_group_enter(loadGroup);
+            [self loadUserWithID:userID.unsignedIntegerValue completion:^(QBUUser * _Nullable user) {
+                if (user) {
+                    [opponentNames addObject:user.fullName];
+                } else {
+                    [opponentNames addObject:@(user.ID)];
+                }
+                dispatch_group_leave(loadGroup);
+            }];
+        }
+        dispatch_group_notify(loadGroup, dispatch_get_main_queue(), ^{
+            callerName = [opponentNames componentsJoinedByString:@", "];
+            [self reportIncomingCallWithUserIDs:opponentIDs.copy outCallerName:callerName session:self.session uuid:self.callUUID];
+        });
+    } else {
+        callerName = [opponentNames componentsJoinedByString:@", "];
+        [self reportIncomingCallWithUserIDs:opponentIDs.copy outCallerName:callerName session:self.session uuid:self.callUUID];
+    }
+}
+
+- (void)reportIncomingCallWithUserIDs:(NSArray *)userIDs outCallerName:(NSString *)callerName session:(QBRTCSession *)session uuid:(NSUUID *)uuid {
+    __weak __typeof(self)weakSelf = self;
+    
+    [CallKitManager.instance reportIncomingCallWithUserIDs:userIDs outCallerName:callerName session:session uuid:uuid onAcceptAction:^{
+        __typeof(weakSelf)strongSelf = weakSelf;
+        CallViewController *callViewController =
+        [strongSelf.storyboard instantiateViewControllerWithIdentifier:@"CallViewController"];
+        
+        callViewController.session = session;
+        callViewController.usersDatasource = strongSelf.dataSource;
+        callViewController.callUUID = self.callUUID;
+        strongSelf.nav = [[UINavigationController alloc] initWithRootViewController:callViewController];
+        [strongSelf presentViewController:strongSelf.nav animated:NO completion:nil];
+        
+    } completion:nil];
 }
 
 - (void)sessionDidClose:(QBRTCSession *)session {
@@ -469,8 +522,9 @@ static NSString * const kVoipEvent = @"VOIPCall";
         }
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground
-                && _backgroundTask == UIBackgroundTaskInvalid) {
+            UIApplication *application = [UIApplication sharedApplication];
+            if ((application.applicationState == UIApplicationStateBackground || application.applicationState == UIApplicationStateInactive)
+                && self.backgroundTask == UIBackgroundTaskInvalid) {
                 // dispatching chat disconnect in 1 second so message about call end
                 // from webrtc does not cut mid sending
                 // checking for background task being invalid though, to avoid disconnecting
@@ -485,31 +539,14 @@ static NSString * const kVoipEvent = @"VOIPCall";
                 [self.nav dismissViewControllerAnimated:NO completion:nil];
                 self.session = nil;
                 self.nav = nil;
+                [self setupToolbarButtons];
             });
         }
-        else if (CallKitManager.isCallKitAvailable) {
-            [CallKitManager.instance endCallWithUUID:self.callUUID completion:nil];
-            self.callUUID = nil;
-            self.session = nil;
-        }
+        [CallKitManager.instance endCallWithUUID:self.callUUID completion:nil];
+        self.callUUID = nil;
+        self.session = nil;
+        [self setupToolbarButtons];
     }
-}
-
-- (void)incomingCallViewController:(IncomingCallViewController *)vc didAcceptSession:(QBRTCSession *)session {
-    
-    CallViewController *callViewController =
-    [self.storyboard instantiateViewControllerWithIdentifier:@"CallViewController"];
-    
-    callViewController.session = session;
-    callViewController.usersDatasource = self.dataSource;
-    self.nav.viewControllers = @[callViewController];
-}
-
-- (void)incomingCallViewController:(IncomingCallViewController *)vc didRejectSession:(QBRTCSession *)session {
-    
-    [session rejectCall:nil];
-    [self.nav dismissViewControllerAnimated:NO completion:nil];
-    self.nav = nil;
 }
 
 // MARK: - PKPushRegistryDelegate protocol
@@ -525,38 +562,59 @@ static NSString * const kVoipEvent = @"VOIPCall";
     subscription.deviceToken = [self.voipRegistry pushTokenForType:PKPushTypeVoIP];
     
     [QBRequest createSubscription:subscription successBlock:^(QBResponse *response, NSArray *objects) {
-        NSLog(@"Create Subscription request - Success");
+        Log(@"[%@] Create Subscription request - Success",  NSStringFromClass([UsersViewController class]));
     } errorBlock:^(QBResponse *response) {
-        NSLog(@"Create Subscription request - Error");
+        Log(@"[%@] Create Subscription request - Error",  NSStringFromClass([UsersViewController class]));
     }];
 }
 
 - (void)pushRegistry:(PKPushRegistry *)registry didInvalidatePushTokenForType:(PKPushType)type {
     NSString *deviceIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     [QBRequest unregisterSubscriptionForUniqueDeviceIdentifier:deviceIdentifier successBlock:^(QBResponse * _Nonnull response) {
-        NSLog(@"Unregister Subscription request - Success");
+        Log(@"[%@] Unregister Subscription request - Success",  NSStringFromClass([UsersViewController class]));
     } errorBlock:^(QBError * _Nonnull error) {
-        NSLog(@"Unregister Subscription request - Error");
+        Log(@"[%@] Unregister Subscription request - Error",  NSStringFromClass([UsersViewController class]));
     }];
 }
 
 - (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(PKPushType)type {
-    if (CallKitManager.isCallKitAvailable) {
-        if ([payload.dictionaryPayload objectForKey:kVoipEvent] != nil) {
-            UIApplication *application = [UIApplication sharedApplication];
-            if (application.applicationState == UIApplicationStateBackground
-                && _backgroundTask == UIBackgroundTaskInvalid) {
-                _backgroundTask = [application beginBackgroundTaskWithExpirationHandler:^{
-                    [application endBackgroundTask:_backgroundTask];
-                    _backgroundTask = UIBackgroundTaskInvalid;
-                }];
-            }
-            if (![QBChat instance].isConnected) {
-                [[QBCore instance] loginWithCurrentUser];
-            }
+    if ([payload.dictionaryPayload objectForKey:kVoipEvent] != nil) {
+        UIApplication *application = [UIApplication sharedApplication];
+        if ((application.applicationState == UIApplicationStateBackground)
+            && _backgroundTask == UIBackgroundTaskInvalid) {
+            _backgroundTask = [application beginBackgroundTaskWithExpirationHandler:^{
+                [application endBackgroundTask:self.backgroundTask];
+                self.backgroundTask = UIBackgroundTaskInvalid;
+            }];
         }
+        if (![QBChat instance].isConnected) {
+            
+            Profile *currentUser = [[Profile alloc] init];
+            if (currentUser.isFull == false) {
+                return;
+            }
+            __weak __typeof(self)weakSelf = self;
+            
+            [QBChat.instance connectWithUserID:currentUser.ID
+                                      password:DEFAULT_PASSOWORD
+                                    completion:^(NSError * _Nullable error) {
+                                        
+                                        __typeof(weakSelf)strongSelf = weakSelf;
+                                        
+                                        if (error) {
+                                            if (error.code == QBResponseStatusCodeUnAuthorized) {
+                                                [strongSelf logoutAction];
+                                            } else {
+                                                [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Please check your Internet connection", nil)];
+                                                
+                                            }
+                                        } else {
+                                            [SVProgressHUD dismiss];
+                                        }
+                                    }];
+        }
+        
     }
 }
 
 @end
-

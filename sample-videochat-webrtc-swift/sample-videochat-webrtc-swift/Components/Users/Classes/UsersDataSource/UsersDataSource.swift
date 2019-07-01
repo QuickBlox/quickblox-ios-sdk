@@ -2,7 +2,7 @@
 //  UsersDataSource.swift
 //  sample-videochat-webrtc-swift
 //
-//  Created by Vladimir Nybozhinsky on 12/10/18.
+//  Created by Injoit on 12/10/18.
 //  Copyright © 2018 QuickBlox. All rights reserved.
 //
 
@@ -17,44 +17,27 @@ class UsersDataSource: NSObject {
     
     // MARK: - Properties
     var selectedUsers = [QBUUser]()
+    private var users = [QBUUser]()
     
-    private let fullNameSortSelector = #selector(getter: QBUUser.fullName)
-    private let lastSeenSortSelector = #selector(getter: QBUUser.createdAt)
-    private var usersSet: Set<QBUUser> = []
-    private var currentUser: QBUUser?
-    
-    init(currentUser: QBUUser?) {
-        super.init()
-        
-        self.currentUser = currentUser
+    func update(users: [QBUUser]) {
+        for chatUser in users {
+            update(user:chatUser)
+        }
     }
     
-    // MARK: - Public methods
-    func setUsers(_ users: [QBUUser]) -> Bool {
-        let usersSet = Set<QBUUser>(users)
-        
-        for user in users {
-            
-            user.fullName = user.fullName ?? "User id: \(user.id) (no full name)"
+    func update(user: QBUUser) {
+        if let localUser = users.filter({ $0.id == user.id }).first {
+            //Update local User
+            localUser.fullName = user.fullName
+            localUser.updatedAt = user.updatedAt
+            return
         }
-        if self.usersSet != usersSet {
-            self.usersSet.removeAll()
-            self.usersSet = usersSet
-            
-            for user in selectedUsers {
-                if !self.usersSet.contains(user) {
-                    selectedUsers.removeAll(where: { element in element == user })
-                }
-            }
-            return true
-        }
-        return false
+        users.append(user)
     }
     
     func selectUser(at indexPath: IndexPath) {
         
         let user = usersSortedByLastSeen()[indexPath.row]
-        
         if selectedUsers.contains(user) {
             selectedUsers.removeAll(where: { element in element == user })
         } else {
@@ -63,7 +46,7 @@ class UsersDataSource: NSObject {
     }
     
     func user(withID ID: UInt) -> QBUUser? {
-        return usersSet.filter{ $0.id == ID }.first
+        return users.filter{ $0.id == ID }.first
     }
     
     
@@ -78,30 +61,50 @@ class UsersDataSource: NSObject {
     }
     
     func removeAllUsers() {
-        usersSet.removeAll()
+        users.removeAll()
     }
     
     func usersSortedByFullName() -> [QBUUser] {
-        return sortUsers(bySEL: fullNameSortSelector)
+        let sortedUsers = unsortedUsersWithoutMe().sorted(by: {
+            guard let firstUserName = $0.fullName, let secondUserName = $1.fullName else {
+                return false
+            }
+            return firstUserName < secondUserName
+        })
+        return sortedUsers
     }
     
     func usersSortedByLastSeen() -> [QBUUser] {
-        return sortUsers(bySEL: lastSeenSortSelector)
-    }
-    
-    func sortUsers(bySEL selector: Selector) -> [QBUUser] {
-        // Create sort Descriptor
-        let usersSortDescriptor = NSSortDescriptor(key: NSStringFromSelector(selector), ascending: false)
-        guard let sorted = (unsortedUsersWithoutMe() as NSArray).sortedArray(using: [usersSortDescriptor]) as? [QBUUser] else {
-            return unsortedUsersWithoutMe()
-        }
-        return sorted
+        let sortedUsers = unsortedUsersWithoutMe().sorted(by: {
+            guard let firstUpdatedAt = $0.updatedAt, let secondUpdatedAt = $1.updatedAt else {
+                return false
+            }
+            return secondUpdatedAt < firstUpdatedAt
+        })
+        return sortedUsers
     }
     
     func unsortedUsersWithoutMe() -> [QBUUser] {
-        var unsorterUsers = Array(usersSet)
-        unsorterUsers.removeAll(where: { element in element == currentUser })
+        var unsorterUsers = self.users
+        let profile = Profile()
+        if profile.isFull == false {
+            return unsorterUsers
+        }
+        guard let index = unsorterUsers.index(where: { $0.id == profile.ID }) else {
+            return unsorterUsers
+        }
+        unsorterUsers.remove(at: index)
         return unsorterUsers
+    }
+    
+    //MARK: - Load User from server
+    func loadUser(_ id: UInt, completion: ((QBUUser?) -> Void)? = nil) {
+        QBRequest.user(withID: id, successBlock: { (response, user) in
+            self.update(user: user)
+            completion?(user)
+        }) { (response) in
+            completion?(nil)
+        }
     }
 }
 
@@ -122,15 +125,18 @@ extension UsersDataSource: UITableViewDataSource {
         let selected = selectedUsers.contains(user)
         
         let size = CGSize(width: 32.0, height: 32.0)
-        let userImage = PlaceholderGenerator.placeholder(size: size, title: user.fullName)
-        
-        cell.fullName = user.fullName
+        var name = user.fullName ?? ""
+        if name.isEmpty {
+            name = user.login ?? "Unknown user"
+        }
+        let userImage = PlaceholderGenerator.placeholder(size: size, title: name)
+        cell.fullName = name
         cell.check = selected
         cell.userImage = userImage
         
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         let str = String(format: "Select users for call (%tu)", selectedUsers.count)

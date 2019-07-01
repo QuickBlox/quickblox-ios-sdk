@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		2C2FD42421DE5FB0002ED66B /* UIViewController+InfoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FD41E21DE5FB0002ED66B /* UIViewController+InfoScreen.swift */; };
 		2C2FD42521DE5FB0002ED66B /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FD41F21DE5FB0002ED66B /* InfoTableViewCell.swift */; };
-		2C2FD42621DE5FB0002ED66B /* icon-info.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C2FD42021DE5FB0002ED66B /* icon-info.png */; };
 		2C2FD42721DE5FB0002ED66B /* InfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FD42121DE5FB0002ED66B /* InfoTableViewController.swift */; };
 		2C2FD42821DE5FB0002ED66B /* InfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FD42221DE5FB0002ED66B /* InfoModel.swift */; };
 		2C2FD42921DE5FB0002ED66B /* InfoScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C2FD42321DE5FB0002ED66B /* InfoScreen.storyboard */; };
+		2C45CEC82236A2A7000955CB /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45CEC72236A2A7000955CB /* Reachability.swift */; };
 		2C5EC6E421BFE10F00A2C53B /* VideoSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5EC6E321BFE10F00A2C53B /* VideoSettingsViewController.swift */; };
 		2C5EC6E721BFE12800A2C53B /* AudioSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5EC6E621BFE12800A2C53B /* AudioSettingsViewController.swift */; };
 		2C5EC6EA21BFE14300A2C53B /* BaseSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5EC6E921BFE14300A2C53B /* BaseSettingsViewController.swift */; };
@@ -28,11 +28,11 @@
 		2C5EC6FF21BFE33A00A2C53B /* SliderItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5EC6FE21BFE33A00A2C53B /* SliderItemModel.swift */; };
 		2C5EC70121BFE35200A2C53B /* SettingSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5EC70021BFE35200A2C53B /* SettingSliderCell.swift */; };
 		2C5EC70321BFE36D00A2C53B /* SettingsSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5EC70221BFE36D00A2C53B /* SettingsSectionModel.swift */; };
+		2C6F8828224E67F200A0DEB5 /* Info.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C6F8827224E67F200A0DEB5 /* Info.xcassets */; };
 		2C771CC921BAA5FB00FBD21C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C771CC821BAA5FB00FBD21C /* Images.xcassets */; };
 		2C771CD021BAA6C100FBD21C /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C771CCF21BAA6C100FBD21C /* Auth.storyboard */; };
 		2C771CD221BAA73900FBD21C /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C771CD121BAA73900FBD21C /* LoginTableViewController.swift */; };
 		2C771CD521BAA77100FBD21C /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C771CD421BAA77100FBD21C /* LoadingButton.swift */; };
-		2C771CD821BAA7A900FBD21C /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C771CD721BAA7A900FBD21C /* Core.swift */; };
 		2C771CDA21BAA7D100FBD21C /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C771CD921BAA7D100FBD21C /* Profile.swift */; };
 		2C854A7121C8F524003FCA64 /* CallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A7021C8F524003FCA64 /* CallViewController.swift */; };
 		2C854A7721C8F86F003FCA64 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A7621C8F86F003FCA64 /* User.swift */; };
@@ -48,6 +48,7 @@
 		2C854A9321C8FF60003FCA64 /* SharingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A9221C8FF60003FCA64 /* SharingCell.swift */; };
 		2C854A9521C8FF7D003FCA64 /* ScreenCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A9421C8FF7D003FCA64 /* ScreenCapture.swift */; };
 		2C9FDB7321D411AE0094F4E6 /* SoundProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDB7221D411AE0094F4E6 /* SoundProvider.swift */; };
+		2CCB0E5A22BA238B00940FAF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CCB0E5922BA238B00940FAF /* Localizable.strings */; };
 		2CE202EB21DCC44000017F18 /* end_of_call.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CE202DF21DCC44000017F18 /* end_of_call.wav */; };
 		2CE202EC21DCC44000017F18 /* calling.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CE202E021DCC44000017F18 /* calling.wav */; };
 		2CE202ED21DCC44000017F18 /* busy.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2CE202E121DCC44000017F18 /* busy.wav */; };
@@ -70,16 +71,18 @@
 		2CFEDC1221BEB6DD00511479 /* CallPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFEDC1121BEB6DD00511479 /* CallPermissions.swift */; };
 		2CFEDC1521BEB7EE00511479 /* Call.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CFEDC1421BEB7EE00511479 /* Call.storyboard */; };
 		2CFEDC1721BEB87200511479 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CFEDC1621BEB87100511479 /* Settings.storyboard */; };
-		5D1DE3F012D3E468B1C335C0 /* Pods_sample_videochat_webrtc_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD21774226C3191FC9C8245E /* Pods_sample_videochat_webrtc_swift.framework */; };
+		41066672B18D23CD367DE3D6 /* Pods_sample_videochat_webrtc_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFD9D38FCCA0A0CF35F84FB /* Pods_sample_videochat_webrtc_swift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04A48498494A9D108B9AADCA /* Pods-sample-videochat-webrtc-swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-videochat-webrtc-swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift.release.xcconfig"; sourceTree = "<group>"; };
+		283C45A15C870787DE61B614 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-videochat-webrtc-swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift.debug.xcconfig"; sourceTree = "<group>"; };
 		2C2FD41E21DE5FB0002ED66B /* UIViewController+InfoScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+InfoScreen.swift"; sourceTree = "<group>"; };
 		2C2FD41F21DE5FB0002ED66B /* InfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
-		2C2FD42021DE5FB0002ED66B /* icon-info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-info.png"; sourceTree = "<group>"; };
 		2C2FD42121DE5FB0002ED66B /* InfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTableViewController.swift; sourceTree = "<group>"; };
 		2C2FD42221DE5FB0002ED66B /* InfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoModel.swift; sourceTree = "<group>"; };
 		2C2FD42321DE5FB0002ED66B /* InfoScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = InfoScreen.storyboard; sourceTree = "<group>"; };
+		2C45CEC72236A2A7000955CB /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		2C5EC6E321BFE10F00A2C53B /* VideoSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSettingsViewController.swift; sourceTree = "<group>"; };
 		2C5EC6E621BFE12800A2C53B /* AudioSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSettingsViewController.swift; sourceTree = "<group>"; };
 		2C5EC6E921BFE14300A2C53B /* BaseSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSettingsViewController.swift; sourceTree = "<group>"; };
@@ -95,11 +98,11 @@
 		2C5EC6FE21BFE33A00A2C53B /* SliderItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderItemModel.swift; sourceTree = "<group>"; };
 		2C5EC70021BFE35200A2C53B /* SettingSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSliderCell.swift; sourceTree = "<group>"; };
 		2C5EC70221BFE36D00A2C53B /* SettingsSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSectionModel.swift; sourceTree = "<group>"; };
+		2C6F8827224E67F200A0DEB5 /* Info.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Info.xcassets; sourceTree = "<group>"; };
 		2C771CC821BAA5FB00FBD21C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2C771CCF21BAA6C100FBD21C /* Auth.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		2C771CD121BAA73900FBD21C /* LoginTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
 		2C771CD421BAA77100FBD21C /* LoadingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
-		2C771CD721BAA7A900FBD21C /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
 		2C771CD921BAA7D100FBD21C /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		2C854A7021C8F524003FCA64 /* CallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallViewController.swift; sourceTree = "<group>"; };
 		2C854A7621C8F86F003FCA64 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -115,6 +118,7 @@
 		2C854A9221C8FF60003FCA64 /* SharingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingCell.swift; sourceTree = "<group>"; };
 		2C854A9421C8FF7D003FCA64 /* ScreenCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenCapture.swift; sourceTree = "<group>"; };
 		2C9FDB7221D411AE0094F4E6 /* SoundProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundProvider.swift; sourceTree = "<group>"; };
+		2CCB0E5922BA238B00940FAF /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		2CE202DF21DCC44000017F18 /* end_of_call.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = end_of_call.wav; sourceTree = "<group>"; };
 		2CE202E021DCC44000017F18 /* calling.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = calling.wav; sourceTree = "<group>"; };
 		2CE202E121DCC44000017F18 /* busy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = busy.wav; sourceTree = "<group>"; };
@@ -139,9 +143,7 @@
 		2CFEDC1121BEB6DD00511479 /* CallPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallPermissions.swift; sourceTree = "<group>"; };
 		2CFEDC1421BEB7EE00511479 /* Call.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Call.storyboard; sourceTree = "<group>"; };
 		2CFEDC1621BEB87100511479 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
-		A450A548102369010BDFA92D /* Pods-sample-videochat-webrtc-swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-videochat-webrtc-swift.release.xcconfig"; path = "Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift.release.xcconfig"; sourceTree = "<group>"; };
-		B2E1185FAD66E7F279D4F0B4 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-videochat-webrtc-swift.debug.xcconfig"; path = "Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift.debug.xcconfig"; sourceTree = "<group>"; };
-		BD21774226C3191FC9C8245E /* Pods_sample_videochat_webrtc_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sample_videochat_webrtc_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7CFD9D38FCCA0A0CF35F84FB /* Pods_sample_videochat_webrtc_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sample_videochat_webrtc_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,33 +151,32 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5D1DE3F012D3E468B1C335C0 /* Pods_sample_videochat_webrtc_swift.framework in Frameworks */,
+				41066672B18D23CD367DE3D6 /* Pods_sample_videochat_webrtc_swift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		18A8827AB496FF73401747A8 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				B2E1185FAD66E7F279D4F0B4 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */,
-				A450A548102369010BDFA92D /* Pods-sample-videochat-webrtc-swift.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		2C2FD41D21DE5FB0002ED66B /* InfoScreenViewController */ = {
 			isa = PBXGroup;
 			children = (
 				2C2FD41E21DE5FB0002ED66B /* UIViewController+InfoScreen.swift */,
 				2C2FD41F21DE5FB0002ED66B /* InfoTableViewCell.swift */,
-				2C2FD42021DE5FB0002ED66B /* icon-info.png */,
 				2C2FD42121DE5FB0002ED66B /* InfoTableViewController.swift */,
 				2C2FD42221DE5FB0002ED66B /* InfoModel.swift */,
 				2C2FD42321DE5FB0002ED66B /* InfoScreen.storyboard */,
+				2C6F8827224E67F200A0DEB5 /* Info.xcassets */,
 			);
 			path = InfoScreenViewController;
+			sourceTree = "<group>";
+		};
+		2C45CEC62236A28C000955CB /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				2C45CEC72236A2A7000955CB /* Reachability.swift */,
+			);
+			path = Reachability;
 			sourceTree = "<group>";
 		};
 		2C5EC6E221BFE0F900A2C53B /* VideoSettingsViewController */ = {
@@ -225,6 +226,8 @@
 		2C771CC721BAA5B600FBD21C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				2C45CEC62236A28C000955CB /* Reachability */,
+				2C771CD621BAA79800FBD21C /* UserPorfile */,
 				2C2FD41D21DE5FB0002ED66B /* InfoScreenViewController */,
 				2C854A8F21C8FAFB003FCA64 /* SharingViewController */,
 				2C854A8C21C8FAC6003FCA64 /* SoundProvider */,
@@ -233,7 +236,6 @@
 				2CFEDC0B21BEB4B300511479 /* AVPermisions */,
 				2CFEDC0821BEB3F700511479 /* CallKitManager */,
 				2CFEDBEF21BEAEC100511479 /* Users */,
-				2C771CCB21BAA62000FBD21C /* Core */,
 				2C771CCA21BAA61700FBD21C /* Auth */,
 			);
 			path = Components;
@@ -243,35 +245,10 @@
 			isa = PBXGroup;
 			children = (
 				2C771CCF21BAA6C100FBD21C /* Auth.storyboard */,
-				2C771CCD21BAA67400FBD21C /* Views */,
-				2C771CCC21BAA66900FBD21C /* ViewControllers */,
-			);
-			path = Auth;
-			sourceTree = "<group>";
-		};
-		2C771CCB21BAA62000FBD21C /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				2C771CD621BAA79800FBD21C /* UserPorfile */,
-				2C771CD721BAA7A900FBD21C /* Core.swift */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
-		2C771CCC21BAA66900FBD21C /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
 				2C771CCE21BAA68500FBD21C /* AuthViewController */,
-			);
-			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		2C771CCD21BAA67400FBD21C /* Views */ = {
-			isa = PBXGroup;
-			children = (
 				2C771CD321BAA76000FBD21C /* LoadingButton */,
 			);
-			path = Views;
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		2C771CCE21BAA68500FBD21C /* AuthViewController */ = {
@@ -403,10 +380,11 @@
 		2CE64E5921BAA3BF00F85E06 = {
 			isa = PBXGroup;
 			children = (
+				2CCB0E5922BA238B00940FAF /* Localizable.strings */,
 				2CE64E6421BAA3BF00F85E06 /* sample-videochat-webrtc-swift */,
 				2CE64E6321BAA3BF00F85E06 /* Products */,
-				18A8827AB496FF73401747A8 /* Pods */,
 				87FDC6FADE87370B56144BF4 /* Frameworks */,
+				C1E1B7103AA8FBB151849872 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -435,7 +413,7 @@
 			children = (
 				2CFEDBF321BEB13B00511479 /* Users.storyboard */,
 				2CFEDBF221BEAEEF00511479 /* Classes */,
-				2CFEDBF121BEAEE100511479 /* ViewControllers */,
+				2CFEDBF121BEAEE100511479 /* UsersViewController */,
 				2CFEDBF021BEAED400511479 /* Views */,
 			);
 			path = Users;
@@ -450,12 +428,12 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		2CFEDBF121BEAEE100511479 /* ViewControllers */ = {
+		2CFEDBF121BEAEE100511479 /* UsersViewController */ = {
 			isa = PBXGroup;
 			children = (
-				2CFEDBF521BEB25100511479 /* UsersViewController */,
+				2CFEDBF621BEB26400511479 /* UsersViewController.swift */,
 			);
-			path = ViewControllers;
+			path = UsersViewController;
 			sourceTree = "<group>";
 		};
 		2CFEDBF221BEAEEF00511479 /* Classes */ = {
@@ -465,14 +443,6 @@
 				2CFEDBFB21BEB2FB00511479 /* UsersDataSource */,
 			);
 			path = Classes;
-			sourceTree = "<group>";
-		};
-		2CFEDBF521BEB25100511479 /* UsersViewController */ = {
-			isa = PBXGroup;
-			children = (
-				2CFEDBF621BEB26400511479 /* UsersViewController.swift */,
-			);
-			path = UsersViewController;
 			sourceTree = "<group>";
 		};
 		2CFEDBFB21BEB2FB00511479 /* UsersDataSource */ = {
@@ -561,9 +531,18 @@
 		87FDC6FADE87370B56144BF4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BD21774226C3191FC9C8245E /* Pods_sample_videochat_webrtc_swift.framework */,
+				7CFD9D38FCCA0A0CF35F84FB /* Pods_sample_videochat_webrtc_swift.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C1E1B7103AA8FBB151849872 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				283C45A15C870787DE61B614 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */,
+				04A48498494A9D108B9AADCA /* Pods-sample-videochat-webrtc-swift.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -579,8 +558,7 @@
 				2CE64E6021BAA3BF00F85E06 /* Resources */,
 				2C771CDC21BAB02500FBD21C /* ShellScript */,
 				2C771CDD21BAB03D00FBD21C /* ShellScript */,
-				2C771CDE21BAB05200FBD21C /* ShellScript */,
-				7924FBEB619C50BE80DE281B /* [CP] Embed Pods Frameworks */,
+				95D1622B2194C39FEDB77502 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -645,10 +623,12 @@
 				2C5EC6F321BFE23100A2C53B /* SettingCell.xib in Resources */,
 				2CE202ED21DCC44000017F18 /* busy.wav in Resources */,
 				2CE202F321DCC44000017F18 /* StunList.plist in Resources */,
+				2C6F8828224E67F200A0DEB5 /* Info.xcassets in Resources */,
 				2CFEDC1521BEB7EE00511479 /* Call.storyboard in Resources */,
 				2CE202EE21DCC44000017F18 /* ringtone.wav in Resources */,
 				2CFEDC1721BEB87200511479 /* Settings.storyboard in Resources */,
 				2C2FD42921DE5FB0002ED66B /* InfoScreen.storyboard in Resources */,
+				2CCB0E5A22BA238B00940FAF /* Localizable.strings in Resources */,
 				2CE202EF21DCC44000017F18 /* DEVUsers.plist in Resources */,
 				2CE202F121DCC44000017F18 /* WEBUsers.plist in Resources */,
 				2C771CC921BAA5FB00FBD21C /* Images.xcassets in Resources */,
@@ -656,7 +636,6 @@
 				2CE202F021DCC44000017F18 /* PRODUsers.plist in Resources */,
 				2C5EC6F421BFE23100A2C53B /* SettingSwitchCell.xib in Resources */,
 				2CE202EB21DCC44000017F18 /* end_of_call.wav in Resources */,
-				2C2FD42621DE5FB0002ED66B /* icon-info.png in Resources */,
 				2CE64E7021BAA3C200F85E06 /* LaunchScreen.storyboard in Resources */,
 				2C5EC6F521BFE23100A2C53B /* SettingSliderCell.xib in Resources */,
 				2CE202F221DCC44000017F18 /* QAUsers.plist in Resources */,
@@ -700,25 +679,7 @@
 			shellPath = /bin/sh;
 			shellScript = "bash \"${PODS_ROOT}/Quickblox-WebRTC/QuickbloxWebRTC.framework/strip-framework.sh\"\n";
 		};
-		2C771CDE21BAB05200FBD21C /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" 4b96a3f33893a42103eae91d2166d0c517b833d3 48d2b1a30ed0fd2d0897e0576e7e3625f0a9270aa02fd1e09291e17c9464a023\n";
-		};
-		7924FBEB619C50BE80DE281B /* [CP] Embed Pods Frameworks */ = {
+		95D1622B2194C39FEDB77502 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -777,6 +738,7 @@
 				2C771CD521BAA77100FBD21C /* LoadingButton.swift in Sources */,
 				2C854A8721C8FA57003FCA64 /* LocalVideoView.swift in Sources */,
 				2C854A7A21C8F898003FCA64 /* UserCell.swift in Sources */,
+				2C45CEC82236A2A7000955CB /* Reachability.swift in Sources */,
 				2C5EC70321BFE36D00A2C53B /* SettingsSectionModel.swift in Sources */,
 				2CFEDC0A21BEB40A00511479 /* CallKitManager.swift in Sources */,
 				2C854A8B21C8FA8D003FCA64 /* CornerView.swift in Sources */,
@@ -814,7 +776,6 @@
 				2CFEDBFD21BEB30B00511479 /* UsersDataSource.swift in Sources */,
 				2C854A8221C8F9C0003FCA64 /* CustomButton.swift in Sources */,
 				2C854A7D21C8F951003FCA64 /* OpponentsFlowLayout.swift in Sources */,
-				2C771CD821BAA7A900FBD21C /* Core.swift in Sources */,
 				2C771CD221BAA73900FBD21C /* LoginTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -951,7 +912,7 @@
 		};
 		2CE64E7521BAA3C200F85E06 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B2E1185FAD66E7F279D4F0B4 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */;
+			baseConfigurationReference = 283C45A15C870787DE61B614 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "sample-videochat-webrtc-swift/sample-videochat-webrtc-swift.entitlements";
@@ -975,7 +936,7 @@
 		};
 		2CE64E7621BAA3C200F85E06 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A450A548102369010BDFA92D /* Pods-sample-videochat-webrtc-swift.release.xcconfig */;
+			baseConfigurationReference = 04A48498494A9D108B9AADCA /* Pods-sample-videochat-webrtc-swift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "sample-videochat-webrtc-swift/sample-videochat-webrtc-swift.entitlements";

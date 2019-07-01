@@ -2,7 +2,7 @@
 //  ConferenceUserCell.swift
 //  sample-videochat-webrtc-swift
 //
-//  Created by Vladimir Nybozhinsky on 12/18/18.
+//  Created by Injoit on 12/18/18.
 //  Copyright © 2018 QuickBlox. All rights reserved.
 //
 
@@ -14,8 +14,9 @@ class UserCell: UICollectionViewCell {
     @IBOutlet private weak var nameView: UIView!
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var containerView: UIView!
-    @IBOutlet private weak var statusLabel: UILabel!
-    @IBOutlet private weak var muteButton: UIButton!
+    @IBOutlet private weak var bitrateLabel: UILabel!
+    @IBOutlet weak var muteButton: UIButton!
+    @IBOutlet weak var statusLabel: UILabel!
     
     //MARK: - Properties
     var videoView: UIView? {
@@ -31,8 +32,6 @@ class UserCell: UICollectionViewCell {
             view.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
             view.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
             view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
-            
-            view.layoutIfNeeded()
         }
     }
     
@@ -71,7 +70,7 @@ class UserCell: UICollectionViewCell {
     
     var bitrate: Double = 0.0 {
         didSet {
-            statusLabel.text = String(format: "%.0f kbits/sec", bitrate * 1e-3)
+            bitrateLabel.text = String(format: "%.0f kbits/sec", bitrate * 1e-3)
         }
     }
     
@@ -82,7 +81,7 @@ class UserCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         backgroundColor = UIColor.clear
-        statusLabel.backgroundColor = UIColor(red: 0.9441, green: 0.9441, blue: 0.9441, alpha: 0.350031672297297)
+        bitrateLabel.backgroundColor = UIColor(red: 0.9441, green: 0.9441, blue: 0.9441, alpha: 0.350031672297297)
         muteButton.setImage(unmutedImage, for: .normal)
         muteButton.setImage(mutedImage, for: .selected)
         muteButton.isHidden = true

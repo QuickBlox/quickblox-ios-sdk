@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ZUn-az-6JK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ZUn-az-6JK">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -65,7 +65,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" background="bg-textinputline" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iwd-Ux-nSU">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Login" textAlignment="natural" minimumFontSize="17" background="bg-textinputline" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iwd-Ux-nSU">
                                                     <rect key="frame" x="32" y="18" width="311" height="44"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="uJM-Or-dAo"/>
@@ -115,7 +115,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Chat room name" textAlignment="natural" minimumFontSize="17" background="bg-textinputline" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="EuA-HP-sft">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" background="bg-textinputline" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="EuA-HP-sft">
                                                     <rect key="frame" x="32" y="18" width="311" height="44"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="IJL-NV-lo4"/>
@@ -165,7 +165,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sDV-TR-cUr" customClass="QBLoadingButton">
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sDV-TR-cUr" customClass="LoadingButton">
                                                     <rect key="frame" x="112.5" y="13" width="150" height="47"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="150" id="ChW-V9-1kv"/>
@@ -194,12 +194,12 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="m1t-9J-IBE"/>
                     <connections>
-                        <outlet property="chatRoomDescritptionLabel" destination="Mxg-nC-e2p" id="bcI-RK-KuN"/>
-                        <outlet property="chatRoomNameTextField" destination="EuA-HP-sft" id="3uo-bh-6rj"/>
                         <outlet property="loginButton" destination="sDV-TR-cUr" id="QMw-5W-TIp"/>
+                        <outlet property="loginDescritptionLabel" destination="Bl5-f3-GmO" id="uhM-1R-OOF"/>
                         <outlet property="loginInfo" destination="lCi-rE-4bS" id="MQJ-TS-w7V"/>
-                        <outlet property="userNameDescriptionLabel" destination="Bl5-f3-GmO" id="bXV-yu-HPe"/>
-                        <outlet property="userNameTextField" destination="iwd-Ux-nSU" id="TmM-9p-igD"/>
+                        <outlet property="loginTextField" destination="iwd-Ux-nSU" id="24I-xy-bq6"/>
+                        <outlet property="userNameDescriptionLabel" destination="Mxg-nC-e2p" id="m35-4r-y0w"/>
+                        <outlet property="userNameTextField" destination="EuA-HP-sft" id="Cgg-oi-Bbp"/>
                         <segue destination="dHk-93-006" kind="show" identifier="ShowUsersViewController" id="ciD-PN-tm0"/>
                     </connections>
                 </tableViewController>
