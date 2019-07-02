@@ -65,8 +65,8 @@ class CornerView: UIView {
                        delay: 0.0,
                        options: [.curveEaseIn, .allowUserInteraction],
                        animations: {
-        }, completion: { finished in
-            guard let touchesEndAction = self.touchesEndAction else {
+        }, completion: { [weak self] finished in
+            guard let touchesEndAction = self?.touchesEndAction else {
                 return
             }
             touchesEndAction()

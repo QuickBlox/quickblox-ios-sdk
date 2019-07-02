@@ -164,9 +164,9 @@ class UsersViewController: UITableViewController {
                             self?.tableView.reloadData()
                             self?.refreshControl?.endRefreshing()
                             
-            }, errorBlock: { response in
-                self.refreshControl?.endRefreshing()
-                debugPrint("[UsersViewController] loadUsers error: \(self.errorMessage(response: response) ?? "")")
+            }, errorBlock: { [weak self] response in
+                self?.refreshControl?.endRefreshing()
+                debugPrint("[UsersViewController] loadUsers error: \(self?.errorMessage(response: response) ?? "")")
         })
     }
     
@@ -422,18 +422,15 @@ extension UsersViewController: QBRTCClientDelegate {
                                                        session: session,
                                                        uuid: self.callUUID,
                                                        onAcceptAction: { [weak self] in
-                                                        guard let self = self else {
-                                                            return
-                                                        }
-                                                        
-                                                        if let callViewController = self.storyboard?.instantiateViewController(withIdentifier: UsersSegueConstant.call) as? CallViewController {
+ 
+                                                        if let callViewController = self?.storyboard?.instantiateViewController(withIdentifier: UsersSegueConstant.call) as? CallViewController {
                                                             callViewController.session = session
-                                                            callViewController.usersDataSource = self.dataSource
-                                                            callViewController.callUUID = self.callUUID
-                                                            self.nav = UINavigationController(rootViewController: callViewController)
-                                                            if let nav = self.nav {
+                                                            callViewController.usersDataSource = self?.dataSource
+                                                            callViewController.callUUID = self?.callUUID
+                                                            self?.nav = UINavigationController(rootViewController: callViewController)
+                                                            if let nav = self?.nav {
                                                                 nav.modalTransitionStyle = .crossDissolve
-                                                                self.present(nav , animated: false)
+                                                                self?.present(nav , animated: false)
                                                             }
                                                         }
                 }, completion: { (end) in
@@ -450,8 +447,8 @@ extension UsersViewController: QBRTCClientDelegate {
                 UIApplication.shared.endBackgroundTask(backgroundTask)
                 backgroundTask = UIBackgroundTaskIdentifier.invalid
             }
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
-                if UIApplication.shared.applicationState == .background && self.backgroundTask == .invalid {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: { [weak self] in
+                if UIApplication.shared.applicationState == .background && self?.backgroundTask == .invalid {
                     // dispatching chat disconnect in 1 second so message about call end
                     // from webrtc does not cut mid sending
                     // checking for background task being invalid though, to avoid disconnecting
@@ -460,12 +457,12 @@ extension UsersViewController: QBRTCClientDelegate {
                 }
             })
             if let nav = self.nav {
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: { [weak self] in
                     nav.view.isUserInteractionEnabled = false
                     nav.dismiss(animated: false)
-                    self.session = nil
-                    self.nav = nil
-                    self.setupToolbarButtons()
+                    self?.session = nil
+                    self?.nav = nil
+                    self?.setupToolbarButtons()
                 })
                 
             } else {
@@ -515,7 +512,10 @@ extension UsersViewController: PKPushRegistryDelegate {
         if payload.dictionaryPayload[UsersConstant.voipEvent] != nil {
             let application = UIApplication.shared
             if application.applicationState == .background && backgroundTask == .invalid {
-                backgroundTask = application.beginBackgroundTask(expirationHandler: {
+                backgroundTask = application.beginBackgroundTask(expirationHandler: { [weak self] in
+                    guard let self = self else {
+                        return
+                    }
                     application.endBackgroundTask(self.backgroundTask)
                     self.backgroundTask = UIBackgroundTaskIdentifier.invalid
                 })

@@ -99,8 +99,8 @@ class UsersDataSource: NSObject {
     
     //MARK: - Load User from server
     func loadUser(_ id: UInt, completion: ((QBUUser?) -> Void)? = nil) {
-        QBRequest.user(withID: id, successBlock: { (response, user) in
-            self.update(user: user)
+        QBRequest.user(withID: id, successBlock: { [weak self] (response, user) in
+            self?.update(user: user)
             completion?(user)
         }) { (response) in
             completion?(nil)

@@ -412,9 +412,9 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     // MARK: - Helpers
     private func cancelCallAlert() {
         let alert = UIAlertController(title: UsersAlertConstant.checkInternet, message: nil, preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Ok", style: .cancel) { (action) in
-            CallKitManager.instance.endCall(with: self.callUUID, completion: {
-                self.dismiss(animated: false, completion: nil)
+        let cancelAction = UIAlertAction(title: "Ok", style: .cancel) { [weak self] (action) in
+            CallKitManager.instance.endCall(with: self?.callUUID, completion: {
+                self?.dismiss(animated: false, completion: nil)
             })
         }
         alert.addAction(cancelAction)
