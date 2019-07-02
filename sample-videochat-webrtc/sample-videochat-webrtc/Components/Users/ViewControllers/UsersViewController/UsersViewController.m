@@ -368,15 +368,14 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
 - (void)logOut {
     __weak __typeof(self)weakSelf = self;
     [QBRequest logOutWithSuccessBlock:^(QBResponse * _Nonnull response) {
-        __typeof(weakSelf)strongSelf = weakSelf;
         
         //ClearProfile
         [Profile clearProfile];
         [SVProgressHUD dismiss];
         //Dismiss Settings view controller
-        [strongSelf dismissViewControllerAnimated:NO completion:nil];
+        [weakSelf dismissViewControllerAnimated:NO completion:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [strongSelf.navigationController popToRootViewControllerAnimated:NO];
+            [weakSelf.navigationController popToRootViewControllerAnimated:NO];
         });
         [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Complited", nil)];
         
@@ -487,9 +486,10 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
                 dispatch_group_leave(loadGroup);
             }];
         }
+        __weak __typeof(self)weakSelf = self;
         dispatch_group_notify(loadGroup, dispatch_get_main_queue(), ^{
             callerName = [opponentNames componentsJoinedByString:@", "];
-            [self reportIncomingCallWithUserIDs:opponentIDs.copy outCallerName:callerName session:self.session uuid:self.callUUID];
+            [weakSelf reportIncomingCallWithUserIDs:opponentIDs.copy outCallerName:callerName session:weakSelf.session uuid:weakSelf.callUUID];
         });
     } else {
         callerName = [opponentNames componentsJoinedByString:@", "];
@@ -514,7 +514,7 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
 }
 
 - (void)sessionDidClose:(QBRTCSession *)session {
-    
+    __weak __typeof(self)weakSelf = self;
     if (session == self.session) {
         if (_backgroundTask != UIBackgroundTaskInvalid) {
             [[UIApplication sharedApplication] endBackgroundTask:_backgroundTask];
@@ -524,7 +524,7 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             UIApplication *application = [UIApplication sharedApplication];
             if ((application.applicationState == UIApplicationStateBackground || application.applicationState == UIApplicationStateInactive)
-                && self.backgroundTask == UIBackgroundTaskInvalid) {
+                && weakSelf.backgroundTask == UIBackgroundTaskInvalid) {
                 // dispatching chat disconnect in 1 second so message about call end
                 // from webrtc does not cut mid sending
                 // checking for background task being invalid though, to avoid disconnecting
@@ -533,19 +533,19 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
             }
         });
         
-        if (self.nav != nil) {
+        if (weakSelf.nav != nil) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                self.nav.view.userInteractionEnabled = NO;
-                [self.nav dismissViewControllerAnimated:NO completion:nil];
-                self.session = nil;
-                self.nav = nil;
-                [self setupToolbarButtons];
+                weakSelf.nav.view.userInteractionEnabled = NO;
+                [weakSelf.nav dismissViewControllerAnimated:NO completion:nil];
+                weakSelf.session = nil;
+                weakSelf.nav = nil;
+                [weakSelf setupToolbarButtons];
             });
         }
-        [CallKitManager.instance endCallWithUUID:self.callUUID completion:nil];
-        self.callUUID = nil;
-        self.session = nil;
-        [self setupToolbarButtons];
+        [CallKitManager.instance endCallWithUUID:weakSelf.callUUID completion:nil];
+        weakSelf.callUUID = nil;
+        weakSelf.session = nil;
+        [weakSelf setupToolbarButtons];
     }
 }
 
@@ -579,12 +579,13 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
 
 - (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(PKPushType)type {
     if ([payload.dictionaryPayload objectForKey:kVoipEvent] != nil) {
+        __weak __typeof(self)weakSelf = self;
         UIApplication *application = [UIApplication sharedApplication];
         if ((application.applicationState == UIApplicationStateBackground)
             && _backgroundTask == UIBackgroundTaskInvalid) {
             _backgroundTask = [application beginBackgroundTaskWithExpirationHandler:^{
-                [application endBackgroundTask:self.backgroundTask];
-                self.backgroundTask = UIBackgroundTaskInvalid;
+                [application endBackgroundTask:weakSelf.backgroundTask];
+                weakSelf.backgroundTask = UIBackgroundTaskInvalid;
             }];
         }
         if (![QBChat instance].isConnected) {
@@ -593,7 +594,6 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
             if (currentUser.isFull == false) {
                 return;
             }
-            __weak __typeof(self)weakSelf = self;
             
             [QBChat.instance connectWithUserID:currentUser.ID
                                       password:DEFAULT_PASSOWORD

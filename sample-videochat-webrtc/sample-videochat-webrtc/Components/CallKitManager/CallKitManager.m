@@ -94,12 +94,11 @@ static const NSInteger DefaultMaximumCallGroups = 1;
     if (_session == nil || uuid == nil) {
         return;
     }
-    
+    __weak __typeof(self)weakSelf = self;
     CXEndCallAction *action = [[CXEndCallAction alloc] initWithCallUUID:uuid];
     CXTransaction *transaction = [[CXTransaction alloc] initWithAction:action];
-    
     dispatchOnMainThread(^{
-        [self requestTransaction:transaction completion:nil];
+        [weakSelf requestTransaction:transaction completion:nil];
     });
     
     if (completion != nil) {
@@ -177,10 +176,10 @@ static const NSInteger DefaultMaximumCallGroups = 1;
         [action fail];
         return;
     }
-    
+    __weak __typeof(self)weakSelf = self;
     dispatchOnMainThread(^{
-        [self.session startCall:nil];
-        self.isCallStarted = YES;
+        [weakSelf.session startCall:nil];
+        weakSelf.isCallStarted = YES;
         [action fulfill];
     });
 }
@@ -221,15 +220,15 @@ static const NSInteger DefaultMaximumCallGroups = 1;
     
     QBRTCSession *session = _session;
     _session = nil;
-    
+    __weak __typeof(self)weakSelf = self;
     dispatchOnMainThread(^{
         QBRTCAudioSession *audioSession = [QBRTCAudioSession instance];
         audioSession.audioEnabled = NO;
         audioSession.useManualAudio = NO;
         
-        if (self.isCallStarted == YES) {
+        if (weakSelf.isCallStarted == YES) {
             [session hangUp:nil];
-            self.isCallStarted = NO;
+            weakSelf.isCallStarted = NO;
         }
         else {
             [session rejectCall:nil];
@@ -237,9 +236,9 @@ static const NSInteger DefaultMaximumCallGroups = 1;
         
         [action fulfillWithDateEnded:[NSDate date]];
         
-        if (self.actionCompletionBlock != nil) {
-            self.actionCompletionBlock();
-            self.actionCompletionBlock = nil;
+        if (weakSelf.actionCompletionBlock != nil) {
+            weakSelf.actionCompletionBlock();
+            weakSelf.actionCompletionBlock = nil;
         }
     });
 }
@@ -249,13 +248,13 @@ static const NSInteger DefaultMaximumCallGroups = 1;
         [action fail];
         return;
     }
-    
+    __weak __typeof(self)weakSelf = self;
     dispatchOnMainThread(^{
-        self.session.localMediaStream.audioTrack.enabled = !action.isMuted;
+        weakSelf.session.localMediaStream.audioTrack.enabled = !action.isMuted;
         [action fulfill];
         
-        if (self.onMicrophoneMuteAction != nil) {
-            self.onMicrophoneMuteAction();
+        if (weakSelf.onMicrophoneMuteAction != nil) {
+            weakSelf.onMicrophoneMuteAction();
         }
     });
 }

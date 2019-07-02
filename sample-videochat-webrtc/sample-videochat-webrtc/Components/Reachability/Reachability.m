@@ -133,9 +133,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 }
 
 - (void)reachabilityChanged:(SCNetworkReachabilityFlags)flags {
+    __weak __typeof(self)weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.networkStatusBlock) {
-            self.networkStatusBlock([self networkStatusForFlags:flags]);
+        if (weakSelf.networkStatusBlock) {
+            weakSelf.networkStatusBlock([weakSelf networkStatusForFlags:flags]);
         }
     });
 }

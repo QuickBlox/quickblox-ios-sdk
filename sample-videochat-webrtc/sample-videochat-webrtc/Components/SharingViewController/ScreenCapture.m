@@ -71,12 +71,12 @@ static const BOOL kQBRTCUseBiPlanarFormatTypeForShare = YES;
 }
 
 - (void)sendPixelBuffer:(CADisplayLink *)sender {
-    
+    __weak __typeof(self)weakSelf = self;
     dispatch_async(self.videoQueue, ^{
         
         @autoreleasepool {
             
-            UIImage *image = [self screenshot];
+            UIImage *image = [weakSelf screenshot];
             
             int renderWidth = image.size.width;
             int renderHeight = image.size.height;
@@ -118,7 +118,7 @@ static const BOOL kQBRTCUseBiPlanarFormatTypeForShare = YES;
                 if (kQBRTCUseBiPlanarFormatTypeForShare) {
                     
                     CIImage *rImage = [[CIImage alloc] initWithImage:image];
-                    [self.qb_sharedGPUContext render:rImage toCVPixelBuffer:buffer];
+                    [weakSelf.qb_sharedGPUContext render:rImage toCVPixelBuffer:buffer];
                 }
                 else {
                     
