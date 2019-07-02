@@ -249,7 +249,6 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
                 CallKitManager.instance.endCall(with: self?.callUUID, completion: {
                     self?.dismiss(animated: false, completion: nil)
                 })
-                
             })
         }
         

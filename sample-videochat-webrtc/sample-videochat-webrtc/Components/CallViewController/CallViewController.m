@@ -150,12 +150,12 @@ static NSString * const kUnknownUserLabel = @"?";
     self.audioEnabled = [ButtonsFactory auidoEnable];
     [self.toolbar addButton:self.audioEnabled action: ^(UIButton *sender) {
         
-        weakSelf.session.localMediaStream.audioTrack.enabled ^=1;
+        weakSelf.session.localMediaStream.audioTrack.enabled = !weakSelf.session.localMediaStream.audioTrack.enabled;
         weakSelf.session.recorder.microphoneMuted = !weakSelf.session.localMediaStream.audioTrack.enabled;
     }];
     
     [CallKitManager.instance setOnMicrophoneMuteAction:^{
-        weakSelf.audioEnabled.pressed ^= 1;
+        weakSelf.audioEnabled.pressed = !weakSelf.audioEnabled.pressed;
         weakSelf.session.recorder.microphoneMuted = weakSelf.audioEnabled.pressed;
     }];
     
@@ -248,14 +248,14 @@ static NSString * const kUnknownUserLabel = @"?";
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Please check your Internet connection", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
     
+    __weak __typeof(self)weakSelf = self;
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         [CallKitManager.instance endCallWithUUID:self.callUUID completion:^{
-            [self dismissViewControllerAnimated:NO completion:nil];
+            [weakSelf dismissViewControllerAnimated:NO completion:nil];
         }];
     }];
     [alertController addAction:cancelAction];
-    [self presentViewController:alertController animated:NO completion:^{
-    }];
+    [self presentViewController:alertController animated:NO completion:nil];
 }
 
 - (void)reloadContent {
@@ -558,9 +558,9 @@ static NSString * const kUnknownUserLabel = @"?";
         self.callTimer = nil;
         
         self.toolbar.userInteractionEnabled = NO;
+        __weak __typeof(self)weakSelf = self;
         [UIView animateWithDuration:0.5 animations:^{
-            
-            self.toolbar.alpha = 0.4;
+            weakSelf.toolbar.alpha = 0.4;
         }];
         
         self.title = [NSString stringWithFormat:@"End - %@", [self stringWithTimeDuration:self.timeDuration]];

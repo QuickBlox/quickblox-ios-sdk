@@ -231,10 +231,10 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
                     
                     self.nav = [[UINavigationController alloc] initWithRootViewController:callViewController];
                     self.nav.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-                    
+                    __weak __typeof(self)weakSelf = self;
                     [self presentViewController:self.nav animated:NO completion:^{
-                        self.audioCallButton.enabled = NO;
-                        self.videoCallButton.enabled = NO;
+                        weakSelf.audioCallButton.enabled = NO;
+                        weakSelf.videoCallButton.enabled = NO;
                     }];
                     
                     NSString *name = profile.fullName.length > 0 ? profile.fullName : @"Unknown user";
@@ -501,15 +501,14 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
     __weak __typeof(self)weakSelf = self;
     
     [CallKitManager.instance reportIncomingCallWithUserIDs:userIDs outCallerName:callerName session:session uuid:uuid onAcceptAction:^{
-        __typeof(weakSelf)strongSelf = weakSelf;
         CallViewController *callViewController =
-        [strongSelf.storyboard instantiateViewControllerWithIdentifier:@"CallViewController"];
+        [weakSelf.storyboard instantiateViewControllerWithIdentifier:@"CallViewController"];
         
         callViewController.session = session;
-        callViewController.usersDatasource = strongSelf.dataSource;
-        callViewController.callUUID = self.callUUID;
-        strongSelf.nav = [[UINavigationController alloc] initWithRootViewController:callViewController];
-        [strongSelf presentViewController:strongSelf.nav animated:NO completion:nil];
+        callViewController.usersDatasource = weakSelf.dataSource;
+        callViewController.callUUID = weakSelf.callUUID;
+        weakSelf.nav = [[UINavigationController alloc] initWithRootViewController:callViewController];
+        [weakSelf presentViewController:weakSelf.nav animated:NO completion:nil];
         
     } completion:nil];
 }
@@ -600,11 +599,9 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
                                       password:DEFAULT_PASSOWORD
                                     completion:^(NSError * _Nullable error) {
                                         
-                                        __typeof(weakSelf)strongSelf = weakSelf;
-                                        
                                         if (error) {
                                             if (error.code == QBResponseStatusCodeUnAuthorized) {
-                                                [strongSelf logoutAction];
+                                                [weakSelf logoutAction];
                                             } else {
                                                 [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Please check your Internet connection", nil)];
                                                 

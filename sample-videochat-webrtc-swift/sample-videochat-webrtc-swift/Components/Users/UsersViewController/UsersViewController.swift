@@ -529,10 +529,9 @@ extension UsersViewController: PKPushRegistryDelegate {
                 QBChat.instance.connect(withUserID: profile.ID,
                                         password: LoginConstant.defaultPassword,
                                         completion: { [weak self] error in
-                                            guard let self = self else { return }
                                             if let error = error {
                                                 if error._code == QBResponseStatusCode.unAuthorized.rawValue {
-                                                    self.logoutAction()
+                                                    self?.logoutAction()
                                                 } else {
                                                     debugPrint("[UsersViewController] login error response:\n \(error.localizedDescription)")
                                                 }
@@ -567,19 +566,19 @@ extension UsersViewController: SettingsViewControllerDelegate {
         #if targetEnvironment(simulator)
         disconnectUser()
         #else
-        QBRequest.subscriptions(successBlock: { (response, subscriptions) in
+        QBRequest.subscriptions(successBlock: { [weak self] (response, subscriptions) in
             
             if let subscriptions = subscriptions {
                 for subscription in subscriptions {
                     if let subscriptionsUIUD = subscriptions.first?.deviceUDID,
                         subscriptionsUIUD == uuidString,
                         subscription.notificationChannel == .APNSVOIP {
-                        self.unregisterSubscription(forUniqueDeviceIdentifier: uuidString)
+                        self?.unregisterSubscription(forUniqueDeviceIdentifier: uuidString)
                         return
                     }
                 }
             }
-            self.disconnectUser()
+            self?.disconnectUser()
             
         }) { response in
             if response.status.rawValue == 404 {
@@ -590,18 +589,18 @@ extension UsersViewController: SettingsViewControllerDelegate {
     }
     
     private func disconnectUser() {
-        QBChat.instance.disconnect(completionBlock: { error in
+        QBChat.instance.disconnect(completionBlock: { [weak self] error in
             if let error = error {
                 SVProgressHUD.showError(withStatus: error.localizedDescription)
                 return
             }
-            self.logOut()
+            self?.logOut()
         })
     }
     
     private func unregisterSubscription(forUniqueDeviceIdentifier uuidString: String) {
-        QBRequest.unregisterSubscription(forUniqueDeviceIdentifier: uuidString, successBlock: { response in
-            self.disconnectUser()
+        QBRequest.unregisterSubscription(forUniqueDeviceIdentifier: uuidString, successBlock: { [weak self] response in
+            self?.disconnectUser()
         }, errorBlock: { error in
             if let error = error.error {
                 SVProgressHUD.showError(withStatus: error.localizedDescription)
