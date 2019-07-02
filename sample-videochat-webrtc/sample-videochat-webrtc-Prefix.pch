@@ -1,0 +1,12 @@
+//
+//  sample-videochat-webrtc-Prefix.pch
+//  sample-videochat-webrtc
+//
+//  Created by Injoit on 2/25/19.
+//  Copyright © 2019 Quickblox. All rights reserved.
+//
+#import <Availability.h>
+#import <SystemConfiguration/SystemConfiguration.h>
+
+#import <Quickblox/Quickblox.h>
+#import <QuickbloxWebRTC/QuickbloxWebRTC.h>
