@@ -129,4 +129,3 @@ class Reachability: NSObject {
         })
     }
 }
-
