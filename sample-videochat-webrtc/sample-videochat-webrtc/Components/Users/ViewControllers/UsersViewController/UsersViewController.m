@@ -1,6 +1,6 @@
 //
 //  UsersViewController.m
-//  LoginComponent
+//  sample-videochat-webrtc
 //
 //  Copyright © 2019 Quickblox. All rights reserved.
 //
