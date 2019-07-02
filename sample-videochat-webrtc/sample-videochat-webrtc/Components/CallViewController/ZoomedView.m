@@ -3,7 +3,7 @@
 //  sample-videochat-webrtc
 //
 //  Created by Injoit on 3/12/19.
-//  Copyright © 2018 QuickBlox. All rights reserved.
+//  Copyright © 2019 QuickBlox. All rights reserved.
 //
 
 #import "ZoomedView.h"
