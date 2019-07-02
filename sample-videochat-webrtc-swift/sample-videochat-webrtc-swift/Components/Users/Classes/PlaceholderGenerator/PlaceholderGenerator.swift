@@ -2,7 +2,7 @@
 //  PlaceholderGenerator.swift
 //  sample-videochat-webrtc-swift
 //
-//  Created by Vladimir Nybozhinsky on 12/10/18.
+//  Created by Injoit on 12/10/18.
 //  Copyright © 2018 QuickBlox. All rights reserved.
 //
 
@@ -110,7 +110,7 @@ class PlaceholderGenerator {
     
     //MARK: - Internal Methods
     private func color(index: Int) -> UIColor {
-        let color = colors[index % 10]
+        let color = colors[index % colors.count]
         return color
     }
 }

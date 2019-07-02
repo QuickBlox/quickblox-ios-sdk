@@ -2,7 +2,7 @@
 //  VideoSettingsViewController.swift
 //  sample-videochat-webrtc-swift
 //
-//  Created by Vladimir Nybozhinsky on 12/11/18.
+//  Created by Injoit on 12/11/18.
 //  Copyright © 2018 QuickBlox. All rights reserved.
 //
 
@@ -63,8 +63,8 @@ class VideoSettingsViewController: BaseSettingsViewController {
             
             let h264HighModel = BaseItemModel()
             h264HighModel.title = "H264High"
-            h264HighModel.data = QBRTCVideoCodec.h264Baseline
-            
+            h264HighModel.data = QBRTCVideoCodec.h264High
+
             if let videoCodec = self?.settings.mediaConfiguration.videoCodec {
                 self?.selectSection(VideoSettingsSectionType.videoCodec.rawValue, index: Int(videoCodec.rawValue))
             }
@@ -78,7 +78,8 @@ class VideoSettingsViewController: BaseSettingsViewController {
                 return videoFormats
             }
             videoFormats = videoFormatsModels
-            let formats = QBRTCCameraCapture.formats(with: position)
+            var formats = QBRTCCameraCapture.formats(with: position)
+            formats = formats.filter({ $0.width <= 1024 })
             //Select index path
             let idx: Int = (formats as NSArray).index(of: self?.settings.videoFormat as Any)
             self?.selectSection(VideoSettingsSectionType.supportedFormats.rawValue, index: idx)
@@ -149,7 +150,6 @@ class VideoSettingsViewController: BaseSettingsViewController {
             reloadVideoFormatSection(for: model.on ? .back : .front)
             
         case Int(VideoSettingsSectionType.sectionController.rawValue):
-            debugPrint("QBRTCRemoteVideoView.preferMetal")
             QBRTCRemoteVideoView.preferMetal = model.on
         default:
             break
@@ -199,7 +199,8 @@ class VideoSettingsViewController: BaseSettingsViewController {
     //MARK: - Internal Methods
     func videoFormatModels(withCameraPositon cameraPosition: AVCaptureDevice.Position) -> [BaseItemModel]? {
         //Grab supported formats
-        let formats = QBRTCCameraCapture.formats(with: cameraPosition)
+        var formats = QBRTCCameraCapture.formats(with: cameraPosition)
+        formats = formats.filter({ $0.width <= 1024 })
         var videoFormatModels = [BaseItemModel]()
         for videoFormat in formats {
             let videoFormatModel = BaseItemModel()

@@ -1,9 +1,9 @@
 //
 //  OpponentCollectionViewCell.m
-//  QBRTCChatSemple
+//  sample-videochat-webrtc
 //
-//  Created by Andrey Ivanov on 11.12.14.
-//  Copyright (c) 2014 QuickBlox Team. All rights reserved.
+//  Created by Injoit on 2/25/19.
+//  Copyright © 2019 Quickblox. All rights reserved.
 //
 
 #import "OpponentCollectionViewCell.h"
@@ -32,10 +32,10 @@ static UIImage *mutedImage() {
 @interface OpponentCollectionViewCell()
 @property (weak, nonatomic) IBOutlet UIView *nameView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 
 @property (weak, nonatomic) IBOutlet UIView *containerView;
-@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
-@property (weak, nonatomic) IBOutlet UIButton *muteButton;
+@property (weak, nonatomic) IBOutlet UILabel *bitrateLabel;
 
 @end
 
@@ -44,25 +44,27 @@ static UIImage *mutedImage() {
 - (void)awakeFromNib {
     [super awakeFromNib];
 
-    self.backgroundColor = [UIColor blackColor];
-    self.statusLabel.backgroundColor =
+    self.backgroundColor = [UIColor clearColor];
+    self.bitrateLabel.backgroundColor =
     [UIColor colorWithRed:0.9441 green:0.9441 blue:0.9441 alpha:0.350031672297297];
+    self.bitrateLabel.text = @"";
     self.statusLabel.text = @"";
     
     [self.muteButton setImage:unmutedImage() forState:UIControlStateNormal];
     [self.muteButton setImage:mutedImage() forState:UIControlStateSelected];
     self.muteButton.hidden = YES;
+    self.muteButton.selected = NO;
 }
 
 - (void)setVideoView:(UIView *)videoView {
-    
-    if (_videoView != videoView) {
+  
+    [self.containerView insertSubview:videoView atIndex:0];
         
-        [_videoView removeFromSuperview];
-        _videoView = videoView;
-        _videoView.frame = self.bounds;
-        [self.containerView addSubview:_videoView];
-    }
+    videoView.translatesAutoresizingMaskIntoConstraints = NO;
+    [videoView.leftAnchor constraintEqualToAnchor:self.containerView.leftAnchor].active = YES;
+    [videoView.rightAnchor constraintEqualToAnchor:self.containerView.rightAnchor].active = YES;
+    [videoView.topAnchor constraintEqualToAnchor:self.containerView.topAnchor].active = YES;
+    [videoView.bottomAnchor constraintEqualToAnchor:self.containerView.bottomAnchor].active = YES;
 }
 
 - (void)setName:(NSString *)name {
@@ -72,6 +74,7 @@ static UIImage *mutedImage() {
         _name = [name copy];
         self.nameLabel.text = _name;
         self.nameView.hidden = _name == nil;
+        self.muteButton.hidden = _name == nil;
     }
 }
 
@@ -151,6 +154,11 @@ static UIImage *mutedImage() {
                 self.statusLabel.text = @"Disconnected";
                 
                 break;
+            case QBRTCConnectionStateUnknown:
+                
+                self.statusLabel.text = @"";
+                
+                break;
             default:
                 break;
         }
@@ -164,14 +172,14 @@ static UIImage *mutedImage() {
 - (void)setBitrateString:(NSString *)bitrateString {
     if (![_bitrateString isEqualToString:bitrateString]) {
         _bitrateString = [bitrateString copy];
-        self.statusLabel.text = bitrateString;
+        self.bitrateLabel.text = bitrateString;
     }
 }
 
 // MARK: Mute button
 
 - (IBAction)didPressMuteButton:(UIButton *)sender {
-    
+
     sender.selected ^= 1;
     if (self.didPressMuteButton != nil) {
         self.didPressMuteButton(sender.isSelected);

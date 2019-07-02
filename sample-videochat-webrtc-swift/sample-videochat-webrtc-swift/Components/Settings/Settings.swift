@@ -2,7 +2,7 @@
 //  Settings.swift
 //  sample-videochat-webrtc-swift
 //
-//  Created by Vladimir Nybozhinsky on 12/11/18.
+//  Created by Injoit on 12/11/18.
 //  Copyright © 2018 QuickBlox. All rights reserved.
 //
 
@@ -16,13 +16,13 @@ struct SettingsConstants {
 }
 
 class Settings {
+
     //MARK: - Properties
     static let instance = Settings()
-    
     var videoFormat = QBRTCVideoFormat.default()
     var mediaConfiguration = QBRTCMediaStreamConfiguration.default()
     var preferredCameraPostion: AVCaptureDevice.Position = .front
-    
+
     //MARK: - Public Methods
     func saveToDisk() {
         // saving to disk

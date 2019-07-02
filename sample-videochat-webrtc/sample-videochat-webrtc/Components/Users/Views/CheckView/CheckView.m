@@ -1,9 +1,9 @@
 //
 //  CheckView.m
-//  LoginComponent
+//  sample-videochat-webrtc
 //
-//  Created by Andrey Ivanov on 03/06/16.
-//  Copyright © 2016 Quickblox. All rights reserved.
+//  Created by Injoit on 2/25/19.
+//  Copyright © 2019 Quickblox. All rights reserved.
 //
 
 #import "CheckView.h"

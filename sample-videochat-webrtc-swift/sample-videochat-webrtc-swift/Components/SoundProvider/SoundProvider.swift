@@ -2,7 +2,7 @@
 //  SoundProvider.swift
 //  sample-videochat-webrtc-swift
 //
-//  Created by Vladimir Nybozhinsky on 12/26/18.
+//  Created by Injoit on 12/26/18.
 //  Copyright © 2018 QuickBlox. All rights reserved.
 //
 
@@ -81,7 +81,7 @@ class SoundProvider {
     private func createSoundID(withName filename: String, extention: String?) -> SystemSoundID {
         var soundID: SystemSoundID = 1158
         guard let fileURL = Bundle.main.url(forResource: filename, withExtension: extention) else {
-            debugPrint("Error: audio file not found at URL")
+            debugPrint("[SoundProvider] Error: audio file not found at URL")
             return soundID
         }
         if FileManager.default.fileExists(atPath: fileURL.path) {
@@ -122,7 +122,7 @@ class SoundProvider {
         default:
             break
         }
-        print("\(message ?? "") Error: (code \(Int(error))) \(errorMessage ?? "")")
+        debugPrint("\(message ?? "") Error: (code \(Int(error))) \(errorMessage ?? "")")
     }
     
     // MARK: - Did Receive Memory Warning Notification

@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,11 +18,11 @@
                         <viewControllerLayoutGuide type="bottom" id="t9G-q1-P8b"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="S1Y-7c-ZeL">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nvl-aP-B6G" customClass="ToolBar" customModule="sample_videochat_webrtc_swift">
-                                <rect key="frame" x="0.0" y="544" width="600" height="56"/>
+                                <rect key="frame" x="0.0" y="806" width="414" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="VHO-eP-YBj"/>
                                 </constraints>
@@ -26,7 +30,7 @@
                                 <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </toolbar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VGE-Qc-V5u">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="544"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="806"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="HNy-nE-Z4V" customClass="OpponentsFlowLayout">
                                     <size key="itemSize" width="145" height="139"/>
@@ -44,10 +48,23 @@
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3z8-EN-AEE">
                                                     <rect key="frame" x="0.0" y="0.0" width="145" height="139"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NfR-mc-2RT">
+                                                            <rect key="frame" x="8" y="66" width="0.0" height="24"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="24" id="zIr-Yb-D3V"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                            <size key="shadowOffset" width="-1" height="-1"/>
+                                                        </label>
+                                                    </subviews>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </view>
                                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VST-25-yIj">
-                                                    <rect key="frame" x="8" y="28" width="38.5" height="14"/>
+                                                    <rect key="frame" x="8" y="52" width="38.5" height="14"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="751" verticalHuggingPriority="251" horizontalCompressionResistancePriority="249" text="User 1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXV-xr-7be">
                                                             <rect key="frame" x="4" y="0.0" width="30.5" height="14"/>
@@ -81,7 +98,7 @@
                                                         <action selector="didPressMuteButton:" destination="o2Y-bk-ZiS" eventType="touchUpInside" id="DcI-uA-j5L"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="local" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z8h-bw-LHK">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z8h-bw-LHK">
                                                     <rect key="frame" x="0.0" y="115" width="145" height="24"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.46114864859999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
@@ -100,20 +117,23 @@
                                             <constraint firstAttribute="trailing" secondItem="3z8-EN-AEE" secondAttribute="trailing" id="Cl4-dn-gES"/>
                                             <constraint firstItem="3z8-EN-AEE" firstAttribute="leading" secondItem="o2Y-bk-ZiS" secondAttribute="leading" id="Eal-4x-yMZ"/>
                                             <constraint firstAttribute="topMargin" secondItem="VST-25-yIj" secondAttribute="top" id="GOK-jV-ywo"/>
+                                            <constraint firstItem="NfR-mc-2RT" firstAttribute="top" secondItem="VST-25-yIj" secondAttribute="bottom" id="KF8-Cg-y88"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="Fup-q0-Jp0" secondAttribute="trailing" id="RLB-5z-dmR"/>
                                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="VST-25-yIj" secondAttribute="trailing" priority="751" id="WPj-34-ebn"/>
                                             <constraint firstAttribute="bottom" secondItem="3z8-EN-AEE" secondAttribute="bottom" id="Z4y-mS-gzf"/>
                                             <constraint firstAttribute="trailing" secondItem="z8h-bw-LHK" secondAttribute="trailing" id="eu5-VA-QvY"/>
                                             <constraint firstItem="3z8-EN-AEE" firstAttribute="top" secondItem="o2Y-bk-ZiS" secondAttribute="top" id="fRA-Ul-F1G"/>
+                                            <constraint firstItem="NfR-mc-2RT" firstAttribute="leading" secondItem="VST-25-yIj" secondAttribute="leading" id="l4D-Zv-jTI"/>
                                             <constraint firstItem="z8h-bw-LHK" firstAttribute="leading" secondItem="o2Y-bk-ZiS" secondAttribute="leading" id="m6f-yx-pRd"/>
                                             <constraint firstAttribute="leadingMargin" secondItem="VST-25-yIj" secondAttribute="leading" id="pe9-48-Yof"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="bitrateLabel" destination="z8h-bw-LHK" id="QQr-8U-SU4"/>
                                             <outlet property="containerView" destination="3z8-EN-AEE" id="tIa-vK-xUV"/>
                                             <outlet property="muteButton" destination="Fup-q0-Jp0" id="IZS-LT-dok"/>
                                             <outlet property="nameLabel" destination="gXV-xr-7be" id="Mu2-SH-FUG"/>
                                             <outlet property="nameView" destination="VST-25-yIj" id="qyt-1w-W7x"/>
-                                            <outlet property="statusLabel" destination="z8h-bw-LHK" id="tEb-oM-BV3"/>
+                                            <outlet property="statusLabel" destination="NfR-mc-2RT" id="giA-0J-Jn8"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -150,7 +170,7 @@
             <objects>
                 <collectionViewController storyboardIdentifier="SharingViewController" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="dig-P4-hPv" customClass="SharingViewController" customModule="sample_videochat_webrtc_swift" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="aYt-VW-Cxb">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="wYd-Xu-r6M">
                             <size key="itemSize" width="100" height="100"/>
@@ -194,6 +214,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="pres_img_3" width="641" height="718"/>
+        <image name="pres_img_3" width="320.5" height="359"/>
     </resources>
 </document>

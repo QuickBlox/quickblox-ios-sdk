@@ -2,7 +2,7 @@
 //  CornerView.swift
 //  sample-videochat-webrtc-swift
 //
-//  Created by Vladimir Nybozhinsky on 12/18/18.
+//  Created by Injoit on 12/18/18.
 //  Copyright © 2018 QuickBlox. All rights reserved.
 //
 
@@ -65,8 +65,8 @@ class CornerView: UIView {
                        delay: 0.0,
                        options: [.curveEaseIn, .allowUserInteraction],
                        animations: {
-        }, completion: { finished in
-            guard let touchesEndAction = self.touchesEndAction else {
+        }, completion: { [weak self] finished in
+            guard let touchesEndAction = self?.touchesEndAction else {
                 return
             }
             touchesEndAction()

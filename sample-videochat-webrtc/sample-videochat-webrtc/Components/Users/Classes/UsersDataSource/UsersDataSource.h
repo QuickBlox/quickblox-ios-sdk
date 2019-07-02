@@ -1,9 +1,9 @@
 //
 //  UsersDataSource.h
-//  LoginComponent
+//  sample-videochat-webrtc
 //
-//  Created by Andrey Ivanov on 06/06/16.
-//  Copyright © 2016 Quickblox. All rights reserved.
+//  Created by Injoit on 2/25/19.
+//  Copyright © 2019 Quickblox. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -14,14 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UsersDataSource : NSObject <UITableViewDataSource>
 
-//@property (copy, nonatomic, readonly) NSArray <QBUUser *> *roomUsers;
 @property (copy, nonatomic, readonly) NSArray <QBUUser *> *selectedUsers;
-
-- (instancetype)init NS_UNAVAILABLE;
-
-- (instancetype)initWithCurrentUser:(QBUUser *)currentUser;
-
-- (BOOL)setUsers:(NSArray <QBUUser *> *)users;
 
 - (void)selectUserAtIndexPath:(NSIndexPath *)indexPath;
 
@@ -29,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray <NSNumber *> *)idsForUsers:(NSArray <QBUUser *>*)users;
 - (NSArray <QBUUser *> *)usersSortedByFullName;
 - (NSArray <QBUUser *> *)usersSortedByLastSeen;
+- (void)updateUsers:(NSArray<QBUUser *> *)users;
 
 @end
 

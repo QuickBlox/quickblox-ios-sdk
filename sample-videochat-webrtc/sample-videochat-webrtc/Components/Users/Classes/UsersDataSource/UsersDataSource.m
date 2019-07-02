@@ -1,89 +1,77 @@
 //
 //  UsersDataSource.m
-//  LoginComponent
+//  sample-videochat-webrtc
 //
-//  Created by Andrey Ivanov on 06/06/16.
-//  Copyright © 2016 Quickblox. All rights reserved.
+//  Created by Injoit on 2/25/19.
+//  Copyright © 2019 Quickblox. All rights reserved.
 //
 
 #import "UsersDataSource.h"
 #import "UserTableViewCell.h"
 #import <Quickblox/Quickblox.h>
-#import "QBProfile.h"
+#import "Profile.h"
 #import "PlaceholderGenerator.h"
+#import "User.h"
 
-@interface UsersDataSource() {
-    
-    NSMutableSet <QBUUser *> *_usersSet;
-    NSMutableArray <QBUUser *> *_selectedUsers;
-    QBUUser *_currentUser;
-}
+@interface UsersDataSource()
+
+@property (strong, nonatomic) NSMutableArray <QBUUser *> *_selectedUsers;
+@property (strong, nonatomic) NSMutableArray <QBUUser *> *users;
 
 @end
 
 @implementation UsersDataSource
 
-- (instancetype)initWithCurrentUser:(QBUUser *)currentUser {
-    
+- (instancetype)init
+{
     self = [super init];
     if (self) {
-        
-        _currentUser = currentUser;
-        _usersSet = [NSMutableSet set];
-        _selectedUsers = [NSMutableArray array];
+        self._selectedUsers = [NSMutableArray array];
+        self.users = [NSMutableArray array];
     }
-    
     return self;
 }
 
 #pragma mark - Public methods
 
-- (BOOL)setUsers:(NSArray *)users {
-    
-    NSSet *usersSet = [NSSet setWithArray:users];
-    
-    for (QBUUser *user in users) {
-        user.fullName = user.fullName ?: [NSString stringWithFormat:@"User id: %tu (no full name)", user.ID];
+- (void)updateUsers:(NSArray<QBUUser *> *)users {
+    for (QBUUser *chatUser in users) {
+        [self updateUser:chatUser];
     }
-    
-    if (![_usersSet isEqualToSet:usersSet]) {
-        
-        [_usersSet removeAllObjects];
-        [_usersSet unionSet:usersSet];
-        
-        for (QBUUser *user in self.selectedUsers) {
-            
-            if (![_usersSet containsObject:user]) {
-                [_selectedUsers removeObject:user];
-            }
-        }
-        
-        return YES;
+}
+
+- (void)updateUser:(QBUUser *)user {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ID == %@", @(user.ID)];
+    QBUUser *localUser = [[self.users filteredArrayUsingPredicate:predicate] firstObject];
+    if (localUser) {
+        //Update local User
+        localUser.fullName = user.fullName;
+        localUser.updatedAt = user.updatedAt;
+        return;
     }
-    
-    return NO;
+    [self.users addObject:user];
 }
 
 - (NSArray<QBUUser *> *)selectedUsers {
     
-    return [_selectedUsers copy];
+    return [self._selectedUsers copy];
 }
 
 - (void)selectUserAtIndexPath:(NSIndexPath *)indexPath {
     
     QBUUser *user = self.usersSortedByLastSeen[indexPath.row];
     
-    if ([_selectedUsers containsObject:user]) {
-        [_selectedUsers removeObject:user];
+    if ([self._selectedUsers containsObject:user]) {
+        [self._selectedUsers removeObject:user];
     }
     else {
-        [_selectedUsers addObject:user];
+        [self._selectedUsers addObject:user];
     }
 }
 
 - (QBUUser *)userWithID:(NSUInteger)ID {
     
-    for (QBUUser *user in _usersSet) {
+    for (QBUUser *user in self.users) {
         
         if (user.ID == ID) {
             return user;
@@ -106,7 +94,7 @@
 
 - (void)removeAllUsers {
     
-    [_usersSet removeAllObjects];
+    [self.users removeAllObjects];
 }
 
 - (NSArray <QBUUser *> *)usersSortedByFullName {
@@ -116,27 +104,23 @@
 
 - (NSArray <QBUUser *> *)usersSortedByLastSeen {
     
-    return [self sortUsersBySEL:@selector(createdAt)];
+    return [self sortUsersBySEL:@selector(updatedAt)];
 }
 
 - (NSArray <QBUUser *> *)sortUsersBySEL:(SEL)selector {
+
+    Profile *profile = [[Profile alloc] init];
+    User *me = [[User alloc] initWithID:profile.ID fullName:profile.fullName];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ID != %@", me.ID];
+    NSArray *unsorterUsers = [self.users filteredArrayUsingPredicate:predicate];
     
     // Create sort Descriptor
     NSSortDescriptor *usersSortDescriptor =
     [[NSSortDescriptor alloc] initWithKey:NSStringFromSelector(selector)
                                 ascending:NO];
-    
-    NSArray *sortedUsers = [[self unsortedUsersWithoutMe] sortedArrayUsingDescriptors:@[usersSortDescriptor]];
+    NSArray *sortedUsers = [unsorterUsers sortedArrayUsingDescriptors:@[usersSortDescriptor]];
     
     return sortedUsers;
-}
-
-- (NSArray <QBUUser *>*)unsortedUsersWithoutMe {
-    
-    NSMutableArray *unsorterUsers = [_usersSet.allObjects mutableCopy];
-    [unsorterUsers removeObject:_currentUser];
-    
-    return [unsorterUsers copy];
 }
 
 #pragma mark - UITableViewDataSource
@@ -151,10 +135,11 @@
     UserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserCell"];
     
     QBUUser *user = self.usersSortedByLastSeen[indexPath.row];
-    BOOL selected = [_selectedUsers containsObject:user];
-    UIImage *userImage = [PlaceholderGenerator placeholderWithSize:CGSizeMake(32, 32)  title:user.fullName];
+    BOOL selected = [self._selectedUsers containsObject:user];
+    NSString *name = user.fullName.length > 0 ? user.fullName : user.login;
+    UIImage *userImage = [PlaceholderGenerator placeholderWithSize:CGSizeMake(32, 32)  title:name];
     
-    [cell setFullName:user.fullName];
+    [cell setFullName:name];
     [cell setCheck:selected];
     [cell setUserImage:userImage];
     
@@ -163,7 +148,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     
-    NSString *str = [NSString stringWithFormat:@"Select users for call (%tu)", _selectedUsers.count];
+    NSString *str = [NSString stringWithFormat:@"Select users for call (%tu)", self._selectedUsers.count];
     
     return NSLocalizedString(str, nil);
 }

@@ -1,9 +1,9 @@
 //
 //  InfoTableViewCell.m
-//  sample-conference-videochat
+//  sample-videochat-webrtc
 //
-//  Created by Vladimir Nybozhinsky on 12/30/18.
-//  Copyright © 2018 Quickblox. All rights reserved.
+//  Created by Injoit on 3/12/19.
+//  Copyright © 2019 Quickblox. All rights reserved.
 //
 
 #import "InfoTableViewCell.h"

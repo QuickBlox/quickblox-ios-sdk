@@ -2,7 +2,7 @@
 //  CustomButton.swift
 //  sample-videochat-webrtc-swift
 //
-//  Created by Vladimir Nybozhinsky on 12/18/18.
+//  Created by Injoit on 12/18/18.
 //  Copyright © 2018 QuickBlox. All rights reserved.
 //
 
@@ -83,9 +83,8 @@ class CustomButton: UIButton {
                        delay: 0.0,
                        options: .curveEaseIn,
                        animations: { [weak self] in
-                        guard let `self` = self else { return }
-                        self.isHighlighted = true
-                        self.selectedView.alpha = 1.0
+                        self?.isHighlighted = true
+                        self?.selectedView.alpha = 1.0
         })
     }
     
@@ -98,7 +97,7 @@ class CustomButton: UIButton {
                        delay: 0.0,
                        options: [.curveEaseIn, .allowUserInteraction],
                        animations: { [weak self] in
-                        guard let `self` = self else { return }
+                        guard let self = self else { return }
                         
                         if self.pushed {
                             self.pressed = !self.pressed

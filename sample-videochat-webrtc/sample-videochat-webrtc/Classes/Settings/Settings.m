@@ -2,19 +2,17 @@
 //  Settings.m
 //  sample-videochat-webrtc
 //
-//  Created by Andrey Ivanov on 25.06.15.
-//  Copyright (c) 2015 QuickBlox Team. All rights reserved.
+//  Created by Injoit on 2/25/19.
+//  Copyright © 2019 Quickblox. All rights reserved.
 //
 
 #import "Settings.h"
-#import "RecordSettings.h"
 
 #pragma mark - keys
 
 static NSString * const kVideoFormatKey = @"videoFormat";
 static NSString * const kPreferredCameraPosition = @"cameraPosition";
 static NSString * const kMediaConfigKey = @"mediaConfig";
-static NSString * const kRecordSettingsKey = @"recordSettings";
 
 @implementation Settings
 
@@ -44,12 +42,10 @@ static NSString * const kRecordSettingsKey = @"recordSettings";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSData *videFormatData = [NSKeyedArchiver archivedDataWithRootObject:self.videoFormat];
     NSData *mediaConfig = [NSKeyedArchiver archivedDataWithRootObject:self.mediaConfiguration];
-    NSData *recordSettingsData = [NSKeyedArchiver archivedDataWithRootObject:self.recordSettings];
     
     [defaults setInteger:self.preferredCameraPostion forKey:kPreferredCameraPosition];
     [defaults setObject:videFormatData forKey:kVideoFormatKey];
     [defaults setObject:mediaConfig forKey:kMediaConfigKey];
-    [defaults setObject:recordSettingsData forKey:kRecordSettingsKey];
     
     [defaults synchronize];
 }
@@ -93,14 +89,6 @@ static NSString * const kRecordSettingsKey = @"recordSettings";
     else {
         
         self.mediaConfiguration = [QBRTCMediaStreamConfiguration defaultConfiguration];
-    }
-    
-    NSData *recordSettingsData = [defaults objectForKey:kRecordSettingsKey];
-    if (recordSettingsData != nil) {
-        self.recordSettings = [NSKeyedUnarchiver unarchiveObjectWithData:recordSettingsData];
-    }
-    else {
-        self.recordSettings = [[RecordSettings alloc] init];
     }
 }
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0AV-U1-m9M">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0AV-U1-m9M">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -100,7 +100,6 @@
                     <connections>
                         <outlet property="audioCallButton" destination="TAT-KT-Edg" id="97H-7O-r3E"/>
                         <outlet property="videoCallButton" destination="uFn-sx-h1D" id="1QH-i1-BRJ"/>
-                        <segue destination="MJL-K9-GZh" kind="presentation" identifier="PresentSettingsViewController" id="muR-nh-XnT"/>
                         <segue destination="2v9-Nr-3SC" kind="show" identifier="PresentCallViewController" id="aQd-I2-Vb8"/>
                     </connections>
                 </tableViewController>
@@ -111,7 +110,9 @@
         <!--SettingsNaviationViewController-->
         <scene sceneID="xKQ-8t-pWT">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="SettingsNaviationViewController" storyboardName="Settings" referencedIdentifier="SettingsNaviationViewController" id="MJL-K9-GZh" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="SettingsNaviationViewController" storyboardName="Settings" referencedIdentifier="SettingsNaviationViewController" id="MJL-K9-GZh" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="0ly-jO-Dn1"/>
+                </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wA1-v1-xdq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1248" y="804"/>

@@ -1,8 +1,8 @@
 //
 //  InfoTableViewController.swift
-//  sample-conference-videochat-swift
+//  sample-videochat-webrtc-swift
 //
-//  Created by Vladimir Nybozhinsky on 12/30/18.
+//  Created by Injoit on 12/30/18.
 //  Copyright © 2018 QuickBlox. All rights reserved.
 //
 
@@ -44,7 +44,7 @@ class InfoTableViewController: UITableViewController {
         let appIDModel = InfoModel()
         appIDModel.title = "Application ID:"
         appIDModel.info = "\(QBSettings.applicationID)"
-        infoModels.append(appVersionModel)
+        infoModels.append(appIDModel)
         
         let authKeyModel = InfoModel()
         authKeyModel.title = "Auhtorization key:"

@@ -1,8 +1,8 @@
 //
 //  UIViewController+InfoScreen.m
-//  sample-conference-videochat
+//  sample-videochat-webrtc
 //
-//  Created by Vladimir Nybozhinsky on 1/2/19.
+//  Created by Injoit on 1/2/19.
 //  Copyright © 2019 Quickblox. All rights reserved.
 //
 
@@ -27,6 +27,7 @@
                                      style:UIBarButtonItemStylePlain
                                     target:self
                                     action:@selector(didTapInfoButton:)];
+
     if (self.navigationItem.rightBarButtonItems.count == 0) {
         self.navigationItem.rightBarButtonItem = infoButtonItem;
     } else if (self.navigationItem.rightBarButtonItems.count > 0) {

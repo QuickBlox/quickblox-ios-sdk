@@ -2,23 +2,21 @@
 //  AppDelegate.swift
 //  sample-videochat-webrtc-swift
 //
-//  Created by Vladimir Nybozhinsky on 12/7/18.
+//  Created by Injoit on 12/7/18.
 //  Copyright © 2018 QuickBlox. All rights reserved.
 //
 
 import UIKit
 import Quickblox
 import QuickbloxWebRTC
-import Fabric
-import Crashlytics
 import SVProgressHUD
-import UserNotifications
 
+//To update the Credentials, please see the README file.
 struct CredentialsConstant {
-    static let applicationID:UInt = 72448
-    static let authKey = "f4HYBYdeqTZ7KNb"
-    static let authSecret = "ZC7dK39bOjVc-Z8"
-    static let accountKey = "C4_z7nuaANnBYmsG_k98"
+    static let applicationID:UInt = 0
+    static let authKey = ""
+    static let authSecret = ""
+    static let accountKey = ""
 }
 
 struct TimeIntervalConstant {
@@ -31,13 +29,12 @@ struct AppDelegateConstant {
 }
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        Fabric.with([Crashlytics.self])
         QBSettings.applicationID = CredentialsConstant.applicationID;
         QBSettings.authKey = CredentialsConstant.authKey
         QBSettings.authSecret = CredentialsConstant.authSecret
@@ -58,55 +55,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         // loading settings
         Settings.instance.load()
-        registerForRemoteNotifications()
         
         return true
     }
     
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        // Logging out from chat.
+        disconnect()
+    }
+    
     func applicationWillEnterForeground(_ application: UIApplication) {
-        if QBChat.instance.isConnected == false, Core.instance.isAutorized == true {
-            Core.instance.loginWithCurrentUser()
+        // Logging in to chat.
+        connect { (error) in
+            if let error = error {
+                SVProgressHUD.showError(withStatus: error.localizedDescription)
+                return
+            }
+            SVProgressHUD.showSuccess(withStatus: "Connected")
         }
     }
     
-    // MARK: - UserNotifications
-    func registerForRemoteNotifications() {
-        let app = UIApplication.shared
-        let center = UNUserNotificationCenter.current()
-        center.delegate = self
-        center.requestAuthorization(options: [.sound, .alert, .badge], completionHandler: { granted, error in
-            if let error = error {
-                debugPrint("\(String(describing: error.localizedDescription))")
-                return
-            }
-            center.getNotificationSettings(completionHandler: { settings in
-                if settings.authorizationStatus == .authorized {
-                    DispatchQueue.main.async(execute: {
-                        app.registerForRemoteNotifications()
-                    })
-                }
-            })
-        })
+    func applicationWillTerminate(_ application: UIApplication) {
+        // Logging out from chat.
+        disconnect()
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        completionHandler()
+    //MARK: - Connect/Disconnect
+    func connect(completion: QBChatCompletionBlock? = nil) {
+        let currentUser = Profile()
+        
+        guard currentUser.isFull == true else {
+            completion?(NSError(domain: LoginConstant.chatServiceDomain,
+                                code: LoginConstant.errorDomaimCode,
+                                userInfo: [
+                                    NSLocalizedDescriptionKey: "Please enter your login and username."
+                ]))
+            return
+        }
+        if QBChat.instance.isConnected == true {
+            completion?(nil)
+        } else {
+            QBSettings.autoReconnectEnabled = true
+            QBChat.instance.connect(withUserID: currentUser.ID, password: currentUser.password, completion: completion)
+        }
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler(.alert)
-    }
-    
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        debugPrint("Did register for remote notifications with device token")
-        Core.instance.registerForRemoteNotifications(withDeviceToken: deviceToken)
-    }
-    
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-        debugPrint("Did receive remote notification \(userInfo)")
-    }
-    
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        debugPrint("Did fail to register for remote notification with error \(error.localizedDescription)")
+    func disconnect(completion: QBChatCompletionBlock? = nil) {
+        QBChat.instance.disconnect(completionBlock: completion)
     }
 }

@@ -1,9 +1,9 @@
 //
 //  CallKitManager.h
-//  sample-videochat-webrtc-old
+//  sample-videochat-webrtc
 //
-//  Created by Vitaliy Gorbachov on 10/9/17.
-//  Copyright © 2017 QuickBlox Team. All rights reserved.
+//  Created by Injoit on 3/12/19.
+//  Copyright © 2019 Quickblox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -24,11 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, class, readonly) CallKitManager *instance;
 
 /**
- Determines whether call kit is available in the current circumstances.
- */
-@property (nonatomic, class, readonly, getter=isCallKitAvailable) BOOL callKitAvailable;
-
-/**
  UserDataSource instance to get users information from.
  */
 @property (weak, nonatomic) UsersDataSource *usersDatasource;
@@ -40,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Start Call with user IDs.
-
+ 
  @param userIDs user IDs to perform call with
  @param session session instance
  @param uuid call uuid
@@ -49,11 +44,14 @@ NS_ASSUME_NONNULL_BEGIN
  
  @see QBRTCSession
  */
+
+- (Boolean)isCallDidStarted;
+
 - (void)startCallWithUserIDs:(NSArray <NSNumber *> *)userIDs session:(QBRTCSession *)session uuid:(NSUUID *)uuid;
 
 /**
  End call with uuid.
-
+ 
  @param uuid uuid of call
  @param completion completion block
  */
@@ -61,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Report incoming call with user IDs.
-
+ 
  @param userIDs user IDs of incoming call
  @param session session instance
  @param uuid call uuid
@@ -72,11 +70,11 @@ NS_ASSUME_NONNULL_BEGIN
  
  @see QBRTCSession
  */
-- (void)reportIncomingCallWithUserIDs:(NSArray <NSNumber *> *)userIDs session:(QBRTCSession *)session uuid:(NSUUID *)uuid onAcceptAction:(nullable dispatch_block_t)onAcceptAction completion:(nullable void (^)(BOOL))completion;
+- (void)reportIncomingCallWithUserIDs:(NSArray <NSNumber *> *)userIDs outCallerName:(NSString *)callerName session:(QBRTCSession *)session uuid:(NSUUID *)uuid onAcceptAction:(nullable dispatch_block_t)onAcceptAction completion:(void (^)(BOOL))completion;
 
 /**
  Update outgoing call with connecting date
-
+ 
  @param uuid call uuid
  @param date connecting started date
  */
@@ -84,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Update outgoing call with connected date.
-
+ 
  @param uuid call uuid
  @param date connected date
  */

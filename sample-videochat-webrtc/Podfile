@@ -6,7 +6,5 @@ target 'sample-videochat-webrtc' do
   use_frameworks!
   pod 'QuickBlox', '~> 2.17.1'
   pod 'Quickblox-WebRTC', '~> 2.7.3'
-  pod 'Fabric'
-  pod 'Crashlytics'
 
 end
