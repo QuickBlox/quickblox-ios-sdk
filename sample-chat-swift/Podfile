@@ -6,7 +6,7 @@ use_frameworks!
 target 'sample-chat-swift' do
 
     pod 'QuickBlox', '~> 2.17.1'
-# Additional libraries:
+# Required additional libraries:
     pod 'SVProgressHUD', '~> 1.1.3'
     pod 'TTTAttributedLabel', '~> 2.0.0'
     pod 'SDWebImage', '~> 4.4.7'
