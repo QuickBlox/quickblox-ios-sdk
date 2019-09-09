@@ -47,6 +47,7 @@ class UserCell: UICollectionViewCell {
             case .pending: statusLabel.text = "Pending"
             case .connected: statusLabel.text = "Connected"
             case .closed: statusLabel.text = "Closed"
+            case .failed: statusLabel.text = "Failed"
             case .hangUp: statusLabel.text = "Hung Up"
             case .rejected: statusLabel.text = "Rejected"
             case .noAnswer: statusLabel.text = "No Answer"

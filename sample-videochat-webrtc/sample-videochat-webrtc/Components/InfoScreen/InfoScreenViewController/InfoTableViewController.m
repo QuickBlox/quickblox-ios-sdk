@@ -2,8 +2,8 @@
 //  InfoTableViewController.m
 //  sample-videochat-webrtc
 //
-//  Created by Injoit on 3/12/19.
-//  Copyright © 2019 Quickblox. All rights reserved.
+//  Created by Injoit on 12/30/18.
+//  Copyright © 2018 Quickblox. All rights reserved.
 //
 
 #import "InfoTableViewController.h"
@@ -30,6 +30,12 @@ NSString *const kLogoTableViewCellId = @"QBLogoTableViewCell";
 - (void)setupTableView
 {
     self.infoModels = [NSMutableArray new];
+    
+    NSString *appName = NSBundle.mainBundle.infoDictionary[@"CFBundleName"];
+    InfoModel *appNameModel = [[InfoModel alloc] init];
+    appNameModel.title = @"Application name:";
+    appNameModel.info = [NSString stringWithFormat:@"%@", appName];
+    [self.infoModels addObject:appNameModel];
     
     NSString *appVersion = NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"];
     InfoModel *appVersionModel = [[InfoModel alloc] init];

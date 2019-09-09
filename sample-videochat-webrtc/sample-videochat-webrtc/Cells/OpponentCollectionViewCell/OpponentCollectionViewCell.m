@@ -125,6 +125,12 @@ static UIImage *mutedImage() {
                 
                 break;
                 
+            case QBRTCConnectionStateFailed:
+                
+                self.statusLabel.text = @"Failed";
+                
+                break;
+                
             case QBRTCConnectionStateHangUp:
                 
                 self.statusLabel.text = @"Hung Up";

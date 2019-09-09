@@ -74,6 +74,8 @@ static inline struct AudioCodecBandWidthRange audioCodecRangeForCodec(QBRTCAudio
 
 - (void)configure {
     
+    Settings *settings = [[Settings alloc] init];
+    
     __weak __typeof(self)weakSelf = self;
     
     //Constraints
@@ -82,7 +84,7 @@ static inline struct AudioCodecBandWidthRange audioCodecRangeForCodec(QBRTCAudio
         //audio level control
         SwitchItemModel *switchItem = [[SwitchItemModel alloc] init];
         switchItem.title = @"Audio level control";
-        switchItem.on = weakSelf.settings.mediaConfiguration.audioLevelControlEnabled;
+        switchItem.on = settings.mediaConfiguration.audioLevelControlEnabled;
         
         return @[switchItem];
     }];
@@ -102,7 +104,7 @@ static inline struct AudioCodecBandWidthRange audioCodecRangeForCodec(QBRTCAudio
         iLBCModel.title = @"iLBC";
         iLBCModel.data = @(QBRTCAudioCodeciLBC);
         
-        [weakSelf selectSection:AudioSettingsSectionAudioCodec index:(NSUInteger)weakSelf.settings.mediaConfiguration.audioCodec];
+        [weakSelf selectSection:AudioSettingsSectionAudioCodec index:(NSUInteger)settings.mediaConfiguration.audioCodec];
         
         return @[opusModel, isacModel, iLBCModel];
     }];
@@ -113,13 +115,13 @@ static inline struct AudioCodecBandWidthRange audioCodecRangeForCodec(QBRTCAudio
         SwitchItemModel *switchItem = [[SwitchItemModel alloc] init];
         switchItem.title = @"Enable";
         
-        BOOL isEnabled = (weakSelf.settings.mediaConfiguration.audioBandwidth > 0);
+        BOOL isEnabled = (settings.mediaConfiguration.audioBandwidth > 0);
         switchItem.on = isEnabled;
         
         SliderItemModel *bandwidthSlider = [[SliderItemModel alloc] init];
         bandwidthSlider.title = @"30";
-        [weakSelf updateBandwidthSliderModelRange:bandwidthSlider usingCodec:weakSelf.settings.mediaConfiguration.audioCodec];
-        bandwidthSlider.currentValue = weakSelf.settings.mediaConfiguration.audioBandwidth < bandwidthSlider.minValue ? bandwidthSlider.minValue : weakSelf.settings.mediaConfiguration.audioBandwidth;
+        [weakSelf updateBandwidthSliderModelRange:bandwidthSlider usingCodec:settings.mediaConfiguration.audioCodec];
+        bandwidthSlider.currentValue = settings.mediaConfiguration.audioBandwidth < bandwidthSlider.minValue ? bandwidthSlider.minValue : settings.mediaConfiguration.audioBandwidth;
         
         bandwidthSlider.disable = !isEnabled;
         
@@ -137,6 +139,7 @@ static inline struct AudioCodecBandWidthRange audioCodecRangeForCodec(QBRTCAudio
         case AudioSettingsSectionAudioCodec:
             [self updateSelectionAtIndexPath:indexPath];
             [self updateBandwidthValueForIndexPath:indexPath];
+            [self applySettings];
             break;
     }
 }
@@ -192,16 +195,16 @@ static inline struct AudioCodecBandWidthRange audioCodecRangeForCodec(QBRTCAudio
 - (void)applySettings {
     
     //APPLY SETTINGS
-    
+    Settings *settings = [[Settings alloc] init];
     //constraints
     SettingsSectionModel *constraints = [self sectionWith:AudioSettingsSectionConstraints];
     SwitchItemModel *levelControlSwitch = constraints.items.firstObject;
-    self.settings.mediaConfiguration.audioLevelControlEnabled = levelControlSwitch.on;
+    settings.mediaConfiguration.audioLevelControlEnabled = levelControlSwitch.on;
     
     //Video codec
     NSIndexPath *audioCodecIndexPath = [self indexPathAtSection:AudioSettingsSectionAudioCodec];
     BaseItemModel *audioCodec = [self modelWithIndex:audioCodecIndexPath.row section:audioCodecIndexPath.section];
-    self.settings.mediaConfiguration.audioCodec = (QBRTCAudioCodec)[(NSNumber *)audioCodec.data integerValue];
+    settings.mediaConfiguration.audioCodec = (QBRTCAudioCodec)[(NSNumber *)audioCodec.data integerValue];
     
     //bandwidth
     SettingsSectionModel *bandwidth = [self sectionWith:AudioSettingsSectionBandwidth];
@@ -210,11 +213,14 @@ static inline struct AudioCodecBandWidthRange audioCodecRangeForCodec(QBRTCAudio
     if (isEnabled) {
         
         SliderItemModel *bandwidthSlider = bandwidth.items[AudioBandwidthSectionBandwidth];
-        self.settings.mediaConfiguration.audioBandwidth = bandwidthSlider.currentValue;
+        settings.mediaConfiguration.audioBandwidth = bandwidthSlider.currentValue;
     }
     else {
-        self.settings.mediaConfiguration.audioBandwidth = 0;
+        settings.mediaConfiguration.audioBandwidth = 0;
     }
+    
+    [settings applyConfig];
+    [settings saveToDisk];
 }
 
 @end

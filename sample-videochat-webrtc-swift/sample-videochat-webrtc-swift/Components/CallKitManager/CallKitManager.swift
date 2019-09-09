@@ -25,7 +25,13 @@ typealias CompletionBlock = (() -> Void)
 class CallKitManager: NSObject {
     
     //MARK: - Properties
-    private var callStarted = false
+    private var callStarted = false {
+        didSet {
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                appDelegate.isCalling = callStarted
+            }
+        }
+    }
     
     /**
      UserDataSource instance to get users information from.
@@ -47,15 +53,13 @@ class CallKitManager: NSObject {
      */
     static let instance = CallKitManager()
     
-    
-    class func configuration() -> CXProviderConfiguration? {
+    class func configuration() -> CXProviderConfiguration {
         let appName = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String
         let config = CXProviderConfiguration(localizedName: appName ?? "")
         config.supportsVideo = true
         config.maximumCallsPerCallGroup = CallKitManagerConstant.maximumCallsPerCallGroup
         config.maximumCallGroups = CallKitManagerConstant.maximumCallGroups
-        let supportedHandleTypes: Set = [CXHandle.HandleType.generic, CXHandle.HandleType.phoneNumber]
-        config.supportedHandleTypes = supportedHandleTypes
+        config.supportedHandleTypes = [.phoneNumber]
         if let image = UIImage(named: "CallKitLogo") {
             config.iconTemplateImageData = image.pngData()
         }
@@ -67,10 +71,8 @@ class CallKitManager: NSObject {
     override init() {
         super.init()
         
-        let configuration: CXProviderConfiguration? = CallKitManager.configuration()
-        if let configuration = configuration {
-            provider = CXProvider(configuration: configuration)
-        }
+        provider = CXProvider(configuration: CallKitManager.configuration())
+        
         if let provider = provider {
             provider.setDelegate(self, queue: nil)
         }
@@ -100,18 +102,12 @@ class CallKitManager: NSObject {
         }
         self.session = session
         let contactIdentifier = ""
-        let handle: CXHandle? = self.handle(forUserIDs: userIDs)
-        var action: CXStartCallAction? = nil
-        if let handle = handle {
-            action = CXStartCallAction(call: uuid, handle: handle)
-        }
-        action?.contactIdentifier = contactIdentifier
-        var transaction: CXTransaction? = nil
-        if let action = action {
-            transaction = CXTransaction(action: action)
-        }
-        if let transaction = transaction {
-            request(transaction) { succeed in
+        let handle = self.handle(forUserIDs: userIDs)
+        let action = CXStartCallAction(call: uuid, handle: handle)
+        action.contactIdentifier = contactIdentifier
+        let transaction = CXTransaction(action: action)
+        request(transaction) { error in
+            if error == nil {
                 let update = CXCallUpdate()
                 update.remoteHandle = handle
                 update.localizedCallerName = contactIdentifier
@@ -137,15 +133,11 @@ class CallKitManager: NSObject {
             let uuid = uuid else {
                 return
         }
-        var action: CXEndCallAction? = nil
-        action = CXEndCallAction(call: uuid)
-        var transaction: CXTransaction? = nil
-        if let action = action {
-            transaction = CXTransaction(action: action)
-        }
-        dispatchOnMainThread(block: { [weak self] in
-            if let transaction = transaction {
-                self?.request(transaction) { _ in }
+        
+        let  action = CXEndCallAction(call: uuid)
+        let transaction = CXTransaction(action: action)
+        dispatchOnMainThread(block: {
+            self.request(transaction) { _ in
             }
         })
         actionCompletionBlock = completion
@@ -168,7 +160,7 @@ class CallKitManager: NSObject {
         if let uuid = uuid {
             debugPrint("[CallKitManager] Report incoming call \(uuid)")
         }
-        guard let session = session else {
+        guard let session = session, self.session == nil else {
             return
         }
         
@@ -182,13 +174,13 @@ class CallKitManager: NSObject {
         update.supportsGrouping = false
         update.supportsUngrouping = false
         update.supportsDTMF = false
-        update.hasVideo = session.conferenceType == QBRTCConferenceType.video
+        update.hasVideo = session.conferenceType == .video
         
         debugPrint("[CallKitManager] Activating audio session.")
         let audioSession = QBRTCAudioSession.instance()
         audioSession.useManualAudio = true
-        // disabling audio unit for local mic recording in recorder to enable it later
         session.recorder?.isLocalAudioEnabled = false
+
         if audioSession.isInitialized == false {
             audioSession.initialize { configuration in
                 // adding blutetooth support
@@ -196,13 +188,13 @@ class CallKitManager: NSObject {
                 configuration.categoryOptions.insert(AVAudioSession.CategoryOptions.allowBluetoothA2DP)
                 // adding airplay support
                 configuration.categoryOptions.insert(AVAudioSession.CategoryOptions.allowAirPlay)
-                
-                if session.conferenceType == QBRTCConferenceType.video {
+                if session.conferenceType == .video {
                     // setting mode to video chat to enable airplay audio and speaker only
                     configuration.mode = AVAudioSession.Mode.videoChat.rawValue
                 }
             }
         }
+        
         if let provider = provider,
             let uuid = uuid{
             provider.reportNewIncomingCall(with: uuid, update: update) { error in
@@ -244,7 +236,7 @@ class CallKitManager: NSObject {
     }
     
     // MARK: - Helpers
-    func handle(forUserIDs userIDs: [NSNumber]) -> CXHandle? {
+    func handle(forUserIDs userIDs: [NSNumber]) -> CXHandle {
         if userIDs.count == 1 {
             if let userId = userIDs.first,
                 let usersDatasource = usersDatasource,
@@ -254,7 +246,7 @@ class CallKitManager: NSObject {
             }
         }
         let arrayUserIDs = userIDs.map({"\($0)"})
-        return CXHandle(type: .generic, value: arrayUserIDs.joined(separator: ", "))
+        return CXHandle(type: .phoneNumber, value: arrayUserIDs.joined(separator: ", "))
     }
     
     @inline(__always) private func dispatchOnMainThread(block: @escaping () -> Void) {
@@ -270,6 +262,8 @@ class CallKitManager: NSObject {
             if let error = error {
                 debugPrint("[CallKitManager] Error: \(error)")
             }
+            debugPrint("[CallKitManager] transaction successfully!!!")
+            completion(nil)
         }
     }
 }
@@ -284,9 +278,9 @@ extension CallKitManager: CXProviderDelegate {
             action.fail()
             return
         }
-        dispatchOnMainThread(block: { [weak self] in
+        dispatchOnMainThread(block: {
             session.startCall(nil)
-            self?.callStarted = true
+            self.callStarted = true
             action.fulfill()
         })
     }
@@ -296,19 +290,15 @@ extension CallKitManager: CXProviderDelegate {
             action.fail()
             return
         }
-        // Workaround for webrtc on ios 10, because first incoming call does not have audio
-        // due to incorrect category: AVAudioSessionCategorySoloAmbient
-        // webrtc need AVAudioSessionCategoryPlayAndRecord
-        if !((try?  AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord,
-                                                                mode: AVAudioSession.Mode.default,
-                                                                options: AVAudioSession.CategoryOptions.defaultToSpeaker)) != nil) {
+        
+        if !((try?  AVAudioSession.sharedInstance().setCategory(.playAndRecord)) != nil ) {
             debugPrint("[CallKitManager] Error setting category for webrtc workaround.")
         }
-        dispatchOnMainThread(block: { [weak self] in
+        dispatchOnMainThread(block: {
             session.acceptCall(nil)
-            self?.callStarted = true
+            self.callStarted = true
             action.fulfill()
-            if let onAcceptActionBlock = self?.onAcceptActionBlock {
+            if let onAcceptActionBlock = self.onAcceptActionBlock {
                 onAcceptActionBlock()
             }
         })
@@ -320,18 +310,18 @@ extension CallKitManager: CXProviderDelegate {
             return
         }
         self.session = nil
-        dispatchOnMainThread(block: { [weak self] in
+        dispatchOnMainThread(block: {
             let audioSession = QBRTCAudioSession.instance()
             audioSession.isAudioEnabled = false
             audioSession.useManualAudio = false
-            if self?.callStarted == true {
+            if self.callStarted == true {
                 session.hangUp(nil)
-                self?.callStarted = false
+                self.callStarted = false
             } else {
                 session.rejectCall(nil)
             }
             action.fulfill(withDateEnded: Date())
-            if let actionCompletionBlock = self?.actionCompletionBlock {
+            if let actionCompletionBlock = self.actionCompletionBlock {
                 actionCompletionBlock()
             }
         })
@@ -342,17 +332,17 @@ extension CallKitManager: CXProviderDelegate {
             action.fail()
             return
         }
-        dispatchOnMainThread(block: { [weak self] in
+        dispatchOnMainThread(block: {
             session.localMediaStream.audioTrack.isEnabled = !action.isMuted
             action.fulfill()
-            if let onMicrophoneMuteAction = self?.onMicrophoneMuteAction {
+            if let onMicrophoneMuteAction = self.onMicrophoneMuteAction {
                 onMicrophoneMuteAction()
             }
         })
     }
     
     func provider(_ provider: CXProvider, didActivate audioSession: AVAudioSession){
-        guard let session = self.session else {
+        guard let _ = self.session else {
             return
         }
         debugPrint("[CallKitManager] Activated audio session.")
@@ -360,18 +350,16 @@ extension CallKitManager: CXProviderDelegate {
         rtcAudioSession.audioSessionDidActivate(audioSession)
         // enabling audio now
         rtcAudioSession.isAudioEnabled = true
-        // enabling local mic recording in recorder (if recorder is active) as of interruptions are over now
-        session.recorder?.isLocalAudioEnabled = true
     }
     
     func provider(_ provider: CXProvider, didDeactivate audioSession: AVAudioSession){
         debugPrint("[CallKitManager] Dectivated audio session.")
         QBRTCAudioSession.instance().audioSessionDidDeactivate(audioSession)
         // deinitializing audio session after iOS deactivated it for us
-        let session = QBRTCAudioSession.instance()
-        if session.isInitialized {
+        let rtcAudioSession = QBRTCAudioSession.instance()
+        if rtcAudioSession.isInitialized == true {
             debugPrint("Deinitializing session in CallKit callback.")
-            session.deinitialize()
+            rtcAudioSession.deinitialize()
         }
     }
 }

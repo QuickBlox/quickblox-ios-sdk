@@ -12,10 +12,7 @@
 #import "UsersViewController.h"
 
 @interface SessionSettingsViewController()
-
 @property (weak, nonatomic) IBOutlet UILabel *versionLabel;
-@property (weak, nonatomic) Settings *settings;
-
 @end
 
 typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
@@ -28,8 +25,6 @@ typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.settings = [Settings instance];
     
     NSString *appVersion = NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"];
     NSString *appBuild = NSBundle.mainBundle.infoDictionary[@"CFBundleVersion"];
@@ -50,8 +45,6 @@ typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
 #pragma mark - Actions
 
 - (IBAction)pressDoneBtn:(id)sender {
-    [self.settings saveToDisk];
-    [self.settings applyConfig];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -107,10 +100,11 @@ typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
 
 - (NSString *)detailTextForRowAtIndexPaht:(NSIndexPath *)indexPath {
 
+    Settings *settings = [[Settings alloc] init];
     if (indexPath.row == SessionConfigureItemVideo) {
         
 #if !(TARGET_IPHONE_SIMULATOR)
-        return [NSString stringWithFormat:@"%tux%tu", self.settings.videoFormat.width, self.settings.videoFormat.height];
+        return [NSString stringWithFormat:@"%tux%tu", settings.videoFormat.width, settings.videoFormat.height];
 #else
         return @"unavailable";
 #endif
@@ -118,15 +112,15 @@ typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
     }
     else if (indexPath.row == SessionConfigureItemAudio) {
         
-        if (self.settings.mediaConfiguration.audioCodec == QBRTCAudioCodecOpus ) {
+        if (settings.mediaConfiguration.audioCodec == QBRTCAudioCodecOpus ) {
             
             return @"Opus";
         }
-        else if (self.settings.mediaConfiguration.audioCodec == QBRTCAudioCodecISAC) {
+        else if (settings.mediaConfiguration.audioCodec == QBRTCAudioCodecISAC) {
             
             return @"ISAC";
         }
-        else if (self.settings.mediaConfiguration.audioCodec == QBRTCAudioCodeciLBC) {
+        else if (settings.mediaConfiguration.audioCodec == QBRTCAudioCodeciLBC) {
             
             return @"iLBC";
         }

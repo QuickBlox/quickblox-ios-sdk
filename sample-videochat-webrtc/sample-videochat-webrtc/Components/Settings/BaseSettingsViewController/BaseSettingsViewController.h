@@ -3,14 +3,13 @@
 //  sample-videochat-webrtc
 //
 //  Created by Injoit on 2/25/19.
-//  Copyright © 2019 QuickBlox. All rights reserved.
+//  Copyright © 2018 QuickBlox. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
 #import "BaseSettingsCell.h"
 
-@class Settings;
 @class SettingsSectionModel;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -18,13 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BaseSettingsViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, SettingsCellDelegate>
 
 // MARK: Properties
-
-/**
- *  Settings storage.
- *
- *  @see Settings
- */
-@property (strong, nonatomic) Settings *settings;
 
 /**
  *  Sections models.

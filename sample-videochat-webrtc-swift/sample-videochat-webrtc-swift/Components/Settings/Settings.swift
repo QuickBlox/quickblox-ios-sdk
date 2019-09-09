@@ -16,9 +16,12 @@ struct SettingsConstants {
 }
 
 class Settings {
+    
+    init() {
+        load()
+    }
 
     //MARK: - Properties
-    static let instance = Settings()
     var videoFormat = QBRTCVideoFormat.default()
     var mediaConfiguration = QBRTCMediaStreamConfiguration.default()
     var preferredCameraPostion: AVCaptureDevice.Position = .front
@@ -40,7 +43,7 @@ class Settings {
         QBRTCConfig.setMediaStreamConfiguration(mediaConfiguration)
     }
     
-    func load() {
+   private func load() {
         let defaults = UserDefaults.standard
         let defaultCameraPosition = defaults.integer(forKey: SettingsConstants.preferredCameraPosition)
         if let postion = AVCaptureDevice.Position(rawValue: defaultCameraPosition) {

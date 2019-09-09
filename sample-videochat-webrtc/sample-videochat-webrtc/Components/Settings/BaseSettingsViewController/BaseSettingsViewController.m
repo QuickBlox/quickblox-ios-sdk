@@ -3,12 +3,10 @@
 //  sample-videochat-webrtc
 //
 //  Created by Injoit on 2/25/19.
-//  Copyright © 2019 QuickBlox. All rights reserved.
+//  Copyright © 2018 QuickBlox. All rights reserved.
 //
 
 #import "BaseSettingsViewController.h"
-
-#import "Settings.h"
 
 #import "SettingCell.h"
 #import "SettingSliderCell.h"
@@ -24,8 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.settings = [Settings instance];
+
     self.selectedIndexes = [NSMutableDictionary dictionary];
     self.sections = [NSMutableDictionary dictionary];
     

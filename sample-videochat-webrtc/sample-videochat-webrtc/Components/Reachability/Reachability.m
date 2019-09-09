@@ -3,7 +3,7 @@
 //  sample-videochat-webrtc
 //
 //  Created by Injoit on 3/12/19.
-//  Copyright © 2019 Quickblox. All rights reserved.
+//  Copyright © 2019 QuickBlox. All rights reserved.
 //
 
 #import "Reachability.h"
@@ -133,10 +133,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 }
 
 - (void)reachabilityChanged:(SCNetworkReachabilityFlags)flags {
-    __weak __typeof(self)weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (weakSelf.networkStatusBlock) {
-            weakSelf.networkStatusBlock([weakSelf networkStatusForFlags:flags]);
+        if (self.networkStatusBlock) {
+            self.networkStatusBlock([self networkStatusForFlags:flags]);
         }
     });
 }

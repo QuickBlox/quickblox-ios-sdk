@@ -25,20 +25,26 @@ class InfoTableViewController: UITableViewController {
     }
     
     private func setupTableView() {
+        let appName = Bundle.main.infoDictionary?["CFBundleName"] as? String
+        let appNameModel = InfoModel()
+        appNameModel.title = "Application name:"
+        appNameModel.info = appName ?? ""
+        infoModels.append(appNameModel)
+        
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         let appVersionModel = InfoModel()
         appVersionModel.title = "Application version:"
-        appVersionModel.info = "\(appVersion ?? "")"
+        appVersionModel.info = appVersion ?? ""
         infoModels.append(appVersionModel)
         
         let quickBloxSdkVersionModel = InfoModel()
         quickBloxSdkVersionModel.title = "QuickBlox SDK version:"
-        quickBloxSdkVersionModel.info = "\(QuickbloxFrameworkVersion)"
+        quickBloxSdkVersionModel.info = QuickbloxFrameworkVersion
         infoModels.append(quickBloxSdkVersionModel)
         
         let wbrtcVersionModel = InfoModel()
         wbrtcVersionModel.title = "QuickbloxWebRTC version:"
-        wbrtcVersionModel.info = "\(QuickbloxWebRTCFrameworkVersion)"
+        wbrtcVersionModel.info = QuickbloxWebRTCFrameworkVersion
         infoModels.append(wbrtcVersionModel)
         
         let appIDModel = InfoModel()
@@ -48,27 +54,27 @@ class InfoTableViewController: UITableViewController {
         
         let authKeyModel = InfoModel()
         authKeyModel.title = "Auhtorization key:"
-        authKeyModel.info = "\(QBSettings.authKey ?? "")"
+        authKeyModel.info = QBSettings.authKey ?? ""
         infoModels.append(authKeyModel)
         
         let authSecretModel = InfoModel()
         authSecretModel.title = "Auhtorization secret:"
-        authSecretModel.info = "\(QBSettings.authSecret ?? "")"
+        authSecretModel.info = QBSettings.authSecret ?? ""
         infoModels.append(authSecretModel)
         
         let accountKeyModel = InfoModel()
         accountKeyModel.title = "Account key:"
-        accountKeyModel.info = "\(QBSettings.accountKey ?? "")"
+        accountKeyModel.info = QBSettings.accountKey ?? ""
         infoModels.append(accountKeyModel)
         
         let apiDomainModel = InfoModel()
         apiDomainModel.title = "API domain:"
-        apiDomainModel.info = "\(QBSettings.apiEndpoint ?? "")"
+        apiDomainModel.info = QBSettings.apiEndpoint ?? ""
         infoModels.append(apiDomainModel)
         
         let chatDomainModel = InfoModel()
         chatDomainModel.title = "Chat domain:"
-        chatDomainModel.info = "\(QBSettings.chatEndpoint ?? "")"
+        chatDomainModel.info = QBSettings.chatEndpoint ?? ""
         infoModels.append(chatDomainModel)
         
         let logoModel = InfoModel()

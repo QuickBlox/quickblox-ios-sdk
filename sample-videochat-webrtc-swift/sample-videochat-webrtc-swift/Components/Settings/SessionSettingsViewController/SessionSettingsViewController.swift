@@ -30,11 +30,11 @@ class SessionSettingsViewController: UITableViewController {
     @IBOutlet private weak var versionLabel: UILabel!
     
     //MARK: - Properties
-    private var settings = Settings.instance
     weak var delegate: SettingsViewControllerDelegate?
     
     //MARK: - Life Cycle
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         let appBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
@@ -56,8 +56,6 @@ class SessionSettingsViewController: UITableViewController {
     }
     
     private func doneAction() {
-        settings.saveToDisk()
-        settings.applyConfig()
         navigationController?.popViewController(animated: true)
     }
     
@@ -86,10 +84,7 @@ class SessionSettingsViewController: UITableViewController {
             
             alertController.addAction(UIAlertAction(title: SessionSettingsConstant.yesMessage,
                                                     style: .default,
-                                                    handler: { [weak self] action in
-                                                        guard let self = self else {
-                                                            return
-                                                        }
+                                                    handler: { action in
                                                         self.delegate?.settingsViewController(self,
                                                                                               didPressLogout: cell as Any)
             }))
@@ -102,6 +97,7 @@ class SessionSettingsViewController: UITableViewController {
     
     //MARK: - Internal Methods
     func detailTextForRow(atIndexPaht indexPath: IndexPath) -> String {
+        let settings = Settings()
         if indexPath.row == SessionConfigureItem.video.rawValue {
             #if targetEnvironment(simulator)
             // Simulator

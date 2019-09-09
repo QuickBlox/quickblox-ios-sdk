@@ -138,5 +138,3 @@ class OpponentsFlowLayout: UICollectionViewFlowLayout {
         }
     }
 }
-
-

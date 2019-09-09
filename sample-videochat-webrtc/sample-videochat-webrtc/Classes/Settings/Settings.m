@@ -16,17 +16,6 @@ static NSString * const kMediaConfigKey = @"mediaConfig";
 
 @implementation Settings
 
-+ (instancetype)instance {
-    
-    static id instance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        instance = [[self alloc] init];
-    });
-    
-    return instance;
-}
-
 - (instancetype)init {
     self = [super init];
     if (self != nil) {

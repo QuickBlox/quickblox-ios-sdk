@@ -124,7 +124,7 @@ const CGFloat kAnimationLength = 0.15;
                      animations:^{
                          
                         weakSelf.highlighted = YES;
-                        weakSelf.selectedView.alpha = 1;
+                         weakSelf.selectedView.alpha = 1;
                          
                      } completion:nil];
 }

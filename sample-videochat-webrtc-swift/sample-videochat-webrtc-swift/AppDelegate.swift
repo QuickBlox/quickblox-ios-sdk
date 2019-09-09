@@ -31,7 +31,30 @@ struct AppDelegateConstant {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
+    lazy private var backgroundTask: UIBackgroundTaskIdentifier = {
+        let backgroundTask = UIBackgroundTaskIdentifier.invalid
+        return backgroundTask
+    }()
+    
     var window: UIWindow?
+    
+    var isCalling = false {
+        didSet {
+            switch UIApplication.shared.applicationState {
+            case .active:
+                break
+            case .inactive:
+                break
+            case .background:
+                if isCalling == false {
+                    disconnect()
+                }
+                break
+            default:
+                break
+            }
+        }
+    }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -40,11 +63,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         QBSettings.authSecret = CredentialsConstant.authSecret
         QBSettings.accountKey = CredentialsConstant.accountKey
         QBSettings.autoReconnectEnabled = true
-        QBSettings.logLevel = QBLogLevel.debug
-        QBSettings.enableXMPPLogging()
+        QBSettings.logLevel = QBLogLevel.nothing
         QBRTCConfig.setAnswerTimeInterval(TimeIntervalConstant.answerTimeInterval)
         QBRTCConfig.setDialingTimeInterval(TimeIntervalConstant.dialingTimeInterval)
-        QBRTCConfig.setLogLevel(QBRTCLogLevel.verbose)
+        QBRTCConfig.setLogLevel(QBRTCLogLevel.nothing)
         
         if AppDelegateConstant.enableStatsReports == 1 {
             QBRTCConfig.setStatsReportTimeInterval(1.0)
@@ -52,20 +74,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.clear)
         QBRTCClient.initializeRTC()
-        
-        // loading settings
-        Settings.instance.load()
-        
+
         return true
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Logging out from chat.
-        disconnect()
+        if isCalling == false {
+            disconnect()
+        }
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Logging in to chat.
+        if QBChat.instance.isConnected == true {
+            return
+        }
         connect { (error) in
             if let error = error {
                 SVProgressHUD.showError(withStatus: error.localizedDescription)

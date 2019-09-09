@@ -1,6 +1,6 @@
 //
 //  OpponentsFlowLayout.h
-//  sample-videochat-webrtc
+//  flowlayout
 //
 //  Created by Injoit on 3/12/19.
 //  Copyright © 2019 Quickblox. All rights reserved.
