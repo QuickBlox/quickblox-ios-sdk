@@ -148,10 +148,8 @@ class LoginTableViewController: UITableViewController {
         newUser.password = LoginConstant.defaultPassword
         infoText = LoginStatusConstant.signUp
         QBRequest.signUp(newUser, successBlock: { [weak self] response, user in
-            guard let self = self else {
-                return
-            }
-            self.login(fullName: fullName, login: login)
+            
+            self?.login(fullName: fullName, login: login)
             
             }, errorBlock: { [weak self] response in
                 
@@ -172,18 +170,15 @@ class LoginTableViewController: UITableViewController {
         QBRequest.logIn(withUserLogin: login,
                         password: password,
                         successBlock: { [weak self] response, user in
-                            guard let self = self else {
-                                return
-                            }
-                            
+
                             user.password = password
                             user.updatedAt = Date()
                             Profile.synchronize(user)
                             
                             if user.fullName != fullName {
-                                self.updateFullName(fullName: fullName, login: login)
+                                self?.updateFullName(fullName: fullName, login: login)
                             } else {
-                                self.connectToChat(user: user)
+                                self?.connectToChat(user: user)
                             }
                             
             }, errorBlock: { [weak self] response in
@@ -203,14 +198,12 @@ class LoginTableViewController: UITableViewController {
         let updateUserParameter = QBUpdateUserParameters()
         updateUserParameter.fullName = fullName
         QBRequest.updateCurrentUser(updateUserParameter, successBlock: {  [weak self] response, user in
-            guard let self = self else {
-                return
-            }
+
             user.updatedAt = Date()
             
-            self.infoText = LoginConstant.fullNameDidChange
+            self?.infoText = LoginConstant.fullNameDidChange
             Profile.update(user)
-            self.connectToChat(user: user)
+            self?.connectToChat(user: user)
             
             }, errorBlock: { [weak self] response in
                 self?.handleError(response.error?.error, domain: ErrorDomain.signUp)
@@ -225,18 +218,17 @@ class LoginTableViewController: UITableViewController {
         QBChat.instance.connect(withUserID: user.id,
                                 password: LoginConstant.defaultPassword,
                                 completion: { [weak self] error in
-                                    guard let self = self else { return }
                                     if let error = error {
                                         if error._code == QBResponseStatusCode.unAuthorized.rawValue {
                                             // Clean profile
                                             Profile.clearProfile()
-                                            self.defaultConfiguration()
+                                            self?.defaultConfiguration()
                                         } else {
-                                            self.handleError(error, domain: ErrorDomain.logIn)
+                                            self?.handleError(error, domain: ErrorDomain.logIn)
                                         }
                                     } else {
                                         //did Login action
-                                        self.performSegue(withIdentifier: LoginConstant.showUsers, sender: nil)
+                                        self?.performSegue(withIdentifier: LoginConstant.showUsers, sender: nil)
                                     }
         })
     }

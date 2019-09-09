@@ -278,9 +278,9 @@ extension CallKitManager: CXProviderDelegate {
             action.fail()
             return
         }
-        dispatchOnMainThread(block: {
+        dispatchOnMainThread(block: { [weak self] in
             session.startCall(nil)
-            self.callStarted = true
+            self?.callStarted = true
             action.fulfill()
         })
     }
@@ -294,11 +294,11 @@ extension CallKitManager: CXProviderDelegate {
         if !((try?  AVAudioSession.sharedInstance().setCategory(.playAndRecord)) != nil ) {
             debugPrint("[CallKitManager] Error setting category for webrtc workaround.")
         }
-        dispatchOnMainThread(block: {
+        dispatchOnMainThread(block: { [weak self] in
             session.acceptCall(nil)
-            self.callStarted = true
+            self?.callStarted = true
             action.fulfill()
-            if let onAcceptActionBlock = self.onAcceptActionBlock {
+            if let onAcceptActionBlock = self?.onAcceptActionBlock {
                 onAcceptActionBlock()
             }
         })
@@ -310,18 +310,18 @@ extension CallKitManager: CXProviderDelegate {
             return
         }
         self.session = nil
-        dispatchOnMainThread(block: {
+        dispatchOnMainThread(block: { [weak self] in
             let audioSession = QBRTCAudioSession.instance()
             audioSession.isAudioEnabled = false
             audioSession.useManualAudio = false
-            if self.callStarted == true {
+            if self?.callStarted == true {
                 session.hangUp(nil)
-                self.callStarted = false
+                self?.callStarted = false
             } else {
                 session.rejectCall(nil)
             }
             action.fulfill(withDateEnded: Date())
-            if let actionCompletionBlock = self.actionCompletionBlock {
+            if let actionCompletionBlock = self?.actionCompletionBlock {
                 actionCompletionBlock()
             }
         })
@@ -332,10 +332,10 @@ extension CallKitManager: CXProviderDelegate {
             action.fail()
             return
         }
-        dispatchOnMainThread(block: {
+        dispatchOnMainThread(block: { [weak self] in
             session.localMediaStream.audioTrack.isEnabled = !action.isMuted
             action.fulfill()
-            if let onMicrophoneMuteAction = self.onMicrophoneMuteAction {
+            if let onMicrophoneMuteAction = self?.onMicrophoneMuteAction {
                 onMicrophoneMuteAction()
             }
         })

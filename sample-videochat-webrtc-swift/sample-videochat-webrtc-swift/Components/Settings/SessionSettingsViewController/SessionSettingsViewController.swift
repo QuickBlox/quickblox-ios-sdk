@@ -84,7 +84,10 @@ class SessionSettingsViewController: UITableViewController {
             
             alertController.addAction(UIAlertAction(title: SessionSettingsConstant.yesMessage,
                                                     style: .default,
-                                                    handler: { action in
+                                                    handler: { [weak self] action in
+                                                        guard let self = self else {
+                                                            return
+                                                        }
                                                         self.delegate?.settingsViewController(self,
                                                                                               didPressLogout: cell as Any)
             }))

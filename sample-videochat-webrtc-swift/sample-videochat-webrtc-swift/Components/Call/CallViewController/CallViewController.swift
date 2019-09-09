@@ -369,9 +369,9 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     }
     
     private func userView(userID: UInt) -> UIView? {
-
+        
         let profile = Profile()
-
+        
         if profile.isFull == true, profile.ID == userID,
             session?.conferenceType != .audio {
             
@@ -379,22 +379,22 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
                 cameraCapture?.startSession(nil)
                 session?.localMediaStream.videoTrack.videoCapture = cameraCapture
             }
-
+            
             if let result = videoViews[userID] as? LocalVideoView {
                 return result
             } else {
-
+                
                 //Local preview
                 let localVideoView = LocalVideoView(previewlayer: cameraCapture!.previewLayer)
                 videoViews[userID] = localVideoView
                 localVideoView.delegate = self
                 self.localVideoView = localVideoView
-
+                
                 return localVideoView
             }
-
+            
         } else if let remoteVideoTraсk = session?.remoteVideoTrack(withUserID: NSNumber(value: userID)) {
-
+            
             if let result = videoViews[userID] as? QBRTCRemoteVideoView {
                 result.setVideoTrack(remoteVideoTraсk)
                 return result
@@ -404,7 +404,7 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
                 remoteVideoView.videoGravity = AVLayerVideoGravity.resizeAspectFill.rawValue
                 videoViews[userID] = remoteVideoView
                 remoteVideoView.setVideoTrack(remoteVideoTraсk)
-
+                
                 return remoteVideoView
             }
         }
@@ -513,7 +513,7 @@ extension CallViewController: QBRTCAudioSessionDelegate {
 
 // MARK: QBRTCClientDelegate
 extension CallViewController: QBRTCClientDelegate {
-
+    
     func session(_ session: QBRTCBaseSession, updatedStatsReport report: QBRTCStatsReport, forUserID userID: NSNumber) {
         guard let session = session as? QBRTCSession,
             session == self.session,
@@ -530,7 +530,7 @@ extension CallViewController: QBRTCClientDelegate {
                 cell.bitrate = user.bitrate
             }
         }
-        
+
         guard let selectedUserID = statsUserID,
             selectedUserID == userID.uintValue,
             shouldGetStats == true else {

@@ -121,9 +121,10 @@ class Reachability: NSObject {
     }
     
     func reachabilityChanged(_ flags: SCNetworkReachabilityFlags) {
-        DispatchQueue.main.async(execute: {
-            guard let networkStatusBlock = self.networkStatusBlock else {
-                return
+        DispatchQueue.main.async(execute: { [weak self] in
+            guard let self = self,
+                let networkStatusBlock = self.networkStatusBlock else {
+                    return
             }
             networkStatusBlock?(self.networkStatusForFlags(flags))
         })

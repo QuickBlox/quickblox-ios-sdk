@@ -57,16 +57,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+
         QBSettings.applicationID = CredentialsConstant.applicationID;
         QBSettings.authKey = CredentialsConstant.authKey
         QBSettings.authSecret = CredentialsConstant.authSecret
         QBSettings.accountKey = CredentialsConstant.accountKey
         QBSettings.autoReconnectEnabled = true
-        QBSettings.logLevel = QBLogLevel.nothing
+        QBSettings.logLevel = QBLogLevel.debug
+        QBSettings.enableXMPPLogging()
         QBRTCConfig.setAnswerTimeInterval(TimeIntervalConstant.answerTimeInterval)
         QBRTCConfig.setDialingTimeInterval(TimeIntervalConstant.dialingTimeInterval)
-        QBRTCConfig.setLogLevel(QBRTCLogLevel.nothing)
+        QBRTCConfig.setLogLevel(QBRTCLogLevel.verbose)
         
         if AppDelegateConstant.enableStatsReports == 1 {
             QBRTCConfig.setStatsReportTimeInterval(1.0)
