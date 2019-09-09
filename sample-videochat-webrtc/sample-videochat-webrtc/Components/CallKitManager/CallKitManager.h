@@ -47,7 +47,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (Boolean)isCallDidStarted;
 
-
 - (void)startCallWithUserIDs:(NSArray <NSNumber *> *)userIDs session:(QBRTCSession *)session uuid:(NSUUID *)uuid;
 
 /**

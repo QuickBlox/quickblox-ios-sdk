@@ -1,6 +1,6 @@
 //
 //  CustomLayout.m
-//  flowlayout
+//  sample-videochat-webrtc
 //
 //  Created by Injoit on 3/12/19.
 //  Copyright © 2019 Quickblox. All rights reserved.
@@ -9,8 +9,6 @@
 #import "OpponentsFlowLayout.h"
 
 @interface OpponentsFlowLayout()
-
-//@property (strong, nonatomic) NSMutableArray *data;
 @property (strong, nonatomic) NSMutableArray *layoutAttributes;
 
 @end

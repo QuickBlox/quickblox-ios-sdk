@@ -1,6 +1,6 @@
 //
 //  UsersViewController.m
-//  LoginComponent
+//  sample-videochat-webrtc
 //
 //  Copyright © 2019 Quickblox. All rights reserved.
 //
@@ -219,32 +219,35 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
         
         [CallPermissions checkPermissionsWithConferenceType:conferenceType completion:^(BOOL granted) {
             
+            __weak __typeof(self)weakSelf = self;
+            
             if (granted) {
                 
-                NSArray *opponentsIDs = [self.dataSource idsForUsers:self.dataSource.selectedUsers];
+                NSArray *opponentsIDs = [weakSelf.dataSource idsForUsers:weakSelf.dataSource.selectedUsers];
                 //Create new session
                 QBRTCSession *session =
                 [QBRTCClient.instance createNewSessionWithOpponents:opponentsIDs
                                                  withConferenceType:conferenceType];
                 if (session) {
                     
-                    self.session = session;
+                    weakSelf.session = session;
                     NSUUID *uuid = [NSUUID UUID];
-                    self.callUUID = uuid;
+                    weakSelf.callUUID = uuid;
                     
                     [CallKitManager.instance startCallWithUserIDs:opponentsIDs session:session uuid:uuid];
                     
-                    CallViewController *callViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CallViewController"];
-                    callViewController.session = self.session;
-                    callViewController.usersDatasource = self.dataSource;
+                    CallViewController *callViewController = [weakSelf.storyboard instantiateViewControllerWithIdentifier:@"CallViewController"];
+                    callViewController.session = weakSelf.session;
+                    callViewController.usersDatasource = weakSelf.dataSource;
                     callViewController.callUUID = uuid;
                     
-                    self.navViewController = [[UINavigationController alloc] initWithRootViewController:callViewController];
-                    self.navViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+                    weakSelf.navViewController = [[UINavigationController alloc] initWithRootViewController:callViewController];
+                    weakSelf.navViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
                     
                     [self presentViewController:self.navViewController animated:NO completion:^{
-                        self.audioCallButton.enabled = NO;
-                        self.videoCallButton.enabled = NO;
+                        __weak __typeof(self)weakSelf = self;
+                        weakSelf.audioCallButton.enabled = NO;
+                        weakSelf.videoCallButton.enabled = NO;
                     }];
                     
                     NSString *name = profile.fullName.length > 0 ? profile.fullName : @"Unknown user";
@@ -448,8 +451,7 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Please check your Internet connection", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        [CallKitManager.instance endCallWithUUID:self.callUUID completion:^{
-        }];
+        [CallKitManager.instance endCallWithUUID:self.callUUID completion:nil];
         [self prepareCloseCall];
     }];
     [alertController addAction:cancelAction];
@@ -470,8 +472,7 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
 
 - (void)session:(QBRTCSession *)session hungUpByUser:(NSNumber *)userID userInfo:(NSDictionary<NSString *,NSString *> *)userInfo {
     if (self.session.initiatorID.unsignedIntegerValue == userID.unsignedIntegerValue && !CallKitManager.instance.isCallDidStarted) {
-        [CallKitManager.instance endCallWithUUID:self.callUUID completion:^{
-        }];
+        [CallKitManager.instance endCallWithUUID:self.callUUID completion:nil];
         [self prepareCloseCall];
     }
 }
@@ -509,10 +510,11 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
     }
     
     if (newUsers.count) {
+        __weak __typeof(self)weakSelf = self;
         dispatch_group_t loadGroup = dispatch_group_create();
         for (NSNumber *userID in newUsers) {
             dispatch_group_enter(loadGroup);
-            [self loadUserWithID:userID.unsignedIntegerValue completion:^(QBUUser * _Nullable user) {
+            [weakSelf loadUserWithID:userID.unsignedIntegerValue completion:^(QBUUser * _Nullable user) {
                 if (user) {
                     [opponentNames addObject:user.fullName];
                 } else {
@@ -523,7 +525,7 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
         }
         dispatch_group_notify(loadGroup, dispatch_get_main_queue(), ^{
             callerName = [opponentNames componentsJoinedByString:@", "];
-            [self reportIncomingCallWithUserIDs:opponentIDs.copy outCallerName:callerName session:session uuid:uuid];
+            [weakSelf reportIncomingCallWithUserIDs:opponentIDs.copy outCallerName:callerName session:session uuid:uuid];
         });
     } else {
         callerName = [opponentNames componentsJoinedByString:@", "];
@@ -555,8 +557,7 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
             [self.navViewController dismissViewControllerAnimated:NO completion:nil];
             
         }
-        [CallKitManager.instance endCallWithUUID:self.callUUID completion:^{
-        }];
+        [CallKitManager.instance endCallWithUUID:self.callUUID completion:nil];
         [self prepareCloseCall];
     }
 }
@@ -591,12 +592,13 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
 
 - (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(PKPushType)type {
     if ([payload.dictionaryPayload objectForKey:kVoipEvent] != nil) {
+        __weak __typeof(self)weakSelf = self;
         UIApplication *application = [UIApplication sharedApplication];
         if ((application.applicationState == UIApplicationStateBackground)
             && _backgroundTask == UIBackgroundTaskInvalid) {
             _backgroundTask = [application beginBackgroundTaskWithExpirationHandler:^{
-                [application endBackgroundTask:self.backgroundTask];
-                self.backgroundTask = UIBackgroundTaskInvalid;
+                [application endBackgroundTask:weakSelf.backgroundTask];
+                weakSelf.backgroundTask = UIBackgroundTaskInvalid;
             }];
         }
         if (![QBChat instance].isConnected) {

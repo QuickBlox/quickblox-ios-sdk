@@ -307,7 +307,8 @@ static NSString * const kUnknownUserLabel = @"?";
     cell.name = nil;
     cell.connectionState = QBRTCConnectionStateUnknown;
     
-    if (user.ID.unsignedIntegerValue != [QBSession currentSession].currentUser.ID) {
+    Profile *profile = [[Profile alloc] init];
+    if (user.ID.unsignedIntegerValue != profile.ID) {
         
         NSString *title = user.fullName ?: kUnknownUserLabel;
         cell.name = title;
@@ -382,7 +383,8 @@ static NSString * const kUnknownUserLabel = @"?";
             user.bitrate = report.videoReceivedBitrateTracker.bitrate;
             NSIndexPath *userIndexPath = [self indexPathAtUserID:user.ID];
             OpponentCollectionViewCell *cell = (OpponentCollectionViewCell *)[self.opponentsCollectionView cellForItemAtIndexPath:userIndexPath];
-            if (cell && user.ID.unsignedIntegerValue != [QBSession currentSession].currentUser.ID) {
+            Profile *profile = [[Profile alloc] init];
+            if (cell && user.ID.unsignedIntegerValue != profile.ID) {
                 cell.bitrateString = [NSString stringWithFormat:@"%.0f kbits/sec", user.bitrate* 1e-3];
             }
         }
