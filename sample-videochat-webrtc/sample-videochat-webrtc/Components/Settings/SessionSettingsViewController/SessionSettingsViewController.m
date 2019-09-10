@@ -114,15 +114,12 @@ typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
         switch (settings.mediaConfiguration.audioCodec) {
                 case QBRTCAudioCodecOpus:
                 return @"Opus";
-                break;
                 
                 case QBRTCAudioCodecISAC:
                 return @"ISAC";
-                break;
                 
                 case QBRTCAudioCodeciLBC:
                 return @"iLBC";
-                break;
                 
             default:
                 break;

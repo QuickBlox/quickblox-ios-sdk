@@ -128,7 +128,7 @@ class CallKitManager: NSObject {
      @param uuid uuid of call
      @param completion completion block
      */
-    func endCall(with uuid: UUID?, completion: (() -> ())?) {
+    func endCall(with uuid: UUID?, completion: CompletionBlock? = nil) {
         guard let _ = self.session,
             let uuid = uuid else {
                 return
@@ -293,10 +293,14 @@ extension CallKitManager: CXProviderDelegate {
             action.fail()
             return
         }
-        
-        if !((try?  AVAudioSession.sharedInstance().setCategory(.playAndRecord)) != nil ) {
-            debugPrint("[CallKitManager] Error setting category for webrtc workaround.")
+        if (Int(UIDevice.current.systemVersion) == 10) {
+            // Workaround for webrtc on ios 10, because first incoming call does not have audio
+            // due to incorrect category: AVAudioSessionCategorySoloAmbient
+            // webrtc need AVAudioSessionCategoryPlayAndRecord
+            try! AVAudioSession.sharedInstance().setCategory(.playAndRecord)
+            debugPrint("[CallKitManager] Error setting category for webrtc workaround on ios 10.")
         }
+
         dispatchOnMainThread(block: { [weak self] in
             session.acceptCall(nil)
             self?.callStarted = true

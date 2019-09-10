@@ -40,10 +40,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var isCalling = false {
         didSet {
-            if UIApplication.shared.applicationState == .background {
-                if isCalling == false {
-                    disconnect()
-                }
+            if UIApplication.shared.applicationState == .background,
+                isCalling == false {
+                disconnect()
             }
         }
     }

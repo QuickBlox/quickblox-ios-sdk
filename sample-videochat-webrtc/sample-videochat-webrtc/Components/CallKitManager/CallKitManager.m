@@ -199,10 +199,15 @@ static const NSInteger DefaultMaximumCallGroups = 1;
         [action fail];
         return;
     }
-
-    NSError *err = nil;
-    if (![[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:&err]) {
-        Log(@"[%@] Error setting category for webrtc workaround.",  NSStringFromClass([CallKitManager class]));
+    
+    if ([UIDevice currentDevice].systemVersion.integerValue == 10) {
+        // Workaround for webrtc on ios 10, because first incoming call does not have audio
+        // due to incorrect category: AVAudioSessionCategorySoloAmbient
+        // webrtc need AVAudioSessionCategoryPlayAndRecord
+        NSError *err = nil;
+        if (![[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:&err]) {
+            Log(@"[%@] Error setting category for webrtc workaround on ios 10.",  NSStringFromClass([CallKitManager class]));
+        }
     }
     
     __weak __typeof(self)weakSelf = self;
