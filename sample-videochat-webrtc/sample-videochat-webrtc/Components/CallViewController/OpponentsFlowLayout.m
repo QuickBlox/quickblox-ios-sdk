@@ -9,8 +9,6 @@
 #import "OpponentsFlowLayout.h"
 
 @interface OpponentsFlowLayout()
-
-//@property (strong, nonatomic) NSMutableArray *data;
 @property (strong, nonatomic) NSMutableArray *layoutAttributes;
 
 @end

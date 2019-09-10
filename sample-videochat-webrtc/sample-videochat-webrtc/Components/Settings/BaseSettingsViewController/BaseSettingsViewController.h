@@ -10,7 +10,6 @@
 
 #import "BaseSettingsCell.h"
 
-@class Settings;
 @class SettingsSectionModel;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -18,13 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BaseSettingsViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, SettingsCellDelegate>
 
 // MARK: Properties
-
-/**
- *  Settings storage.
- *
- *  @see Settings
- */
-@property (strong, nonatomic) Settings *settings;
 
 /**
  *  Sections models.

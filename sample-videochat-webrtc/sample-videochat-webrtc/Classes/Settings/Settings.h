@@ -15,8 +15,6 @@
 @property (strong, nonatomic) QBRTCMediaStreamConfiguration *mediaConfiguration;
 @property (assign, nonatomic) AVCaptureDevicePosition preferredCameraPostion;
 
-+ (instancetype)instance;
-
 - (void)saveToDisk;
 - (void)applyConfig;
 

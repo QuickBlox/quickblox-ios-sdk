@@ -27,7 +27,7 @@ Welcome to QuickBlox [Credentials](https://quickblox.com/developers/5_Minute_Gui
 * H264,VP8,H264High video codecs supported
 * Lots of different settings related to call quality 
 
-Original sample description & setup guide - [https://quickblox.com/developers/Sample-webrtc-ios](https://quickblox.com/developers/Sample-webrtc-ios)
+Original sample description & setup guide - [Sample-webrtc-ios](https://quickblox.com/developers/Sample-webrtc-ios)
 
 # CocoaPods
 
@@ -39,7 +39,7 @@ $ gem install cocoapods
 
 > CocoaPods 1.1+ is required to build project with QuickBlox 2.17.1+ and Quickblox-WebRTC 2.7.3+.
 
-To integrate QuickBlox and Quickblox-WebRTC into the **sample-videochat-webrtc** run the following command:
+To integrate QuickBlox and Quickblox-WebRTC into the **sample-videochat-webrtc-objc** run the following command:
 
 ```bash
 $ pod install

@@ -30,11 +30,11 @@ class SessionSettingsViewController: UITableViewController {
     @IBOutlet private weak var versionLabel: UILabel!
     
     //MARK: - Properties
-    private var settings = Settings.instance
     weak var delegate: SettingsViewControllerDelegate?
     
     //MARK: - Life Cycle
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         let appBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
@@ -56,8 +56,6 @@ class SessionSettingsViewController: UITableViewController {
     }
     
     private func doneAction() {
-        settings.saveToDisk()
-        settings.applyConfig()
         navigationController?.popViewController(animated: true)
     }
     
@@ -102,6 +100,7 @@ class SessionSettingsViewController: UITableViewController {
     
     //MARK: - Internal Methods
     func detailTextForRow(atIndexPaht indexPath: IndexPath) -> String {
+        let settings = Settings()
         if indexPath.row == SessionConfigureItem.video.rawValue {
             #if targetEnvironment(simulator)
             // Simulator
@@ -112,14 +111,13 @@ class SessionSettingsViewController: UITableViewController {
             #endif
             
         } else if indexPath.row == SessionConfigureItem.auido.rawValue {
-            if settings.mediaConfiguration.audioCodec == QBRTCAudioCodec.codecOpus {
-                
+            
+            switch (settings.mediaConfiguration.audioCodec) {
+            case .codecOpus:
                 return "Opus"
-            } else if settings.mediaConfiguration.audioCodec == QBRTCAudioCodec.codecISAC {
-                
+            case .codecISAC:
                 return "ISAC"
-            } else if settings.mediaConfiguration.audioCodec == QBRTCAudioCodec.codeciLBC {
-                
+            case .codeciLBC:
                 return "iLBC"
             }
         }

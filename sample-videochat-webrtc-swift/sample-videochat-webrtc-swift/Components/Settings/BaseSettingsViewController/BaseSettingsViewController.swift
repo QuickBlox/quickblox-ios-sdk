@@ -17,12 +17,6 @@ struct BaseSettingsConstant {
 class BaseSettingsViewController: UITableViewController, SettingsCellDelegate {
     // MARK: - Properties
     /**
-     *  Settings storage.
-     *
-     *  @see Settings
-     */
-    let settings = Settings.instance
-    /**
      *  Sections models.
      */
     var sections: [String: SettingsSectionModel] = [:]
@@ -34,7 +28,6 @@ class BaseSettingsViewController: UITableViewController, SettingsCellDelegate {
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configure()
         registerNibs()
     }

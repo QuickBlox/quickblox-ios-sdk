@@ -31,6 +31,12 @@ NSString *const kLogoTableViewCellId = @"QBLogoTableViewCell";
 {
     self.infoModels = [NSMutableArray new];
     
+    NSString *appName = NSBundle.mainBundle.infoDictionary[@"CFBundleName"];
+    InfoModel *appNameModel = [[InfoModel alloc] init];
+    appNameModel.title = @"Application name:";
+    appNameModel.info = [NSString stringWithFormat:@"%@", appName];
+    [self.infoModels addObject:appNameModel];
+    
     NSString *appVersion = NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"];
     InfoModel *appVersionModel = [[InfoModel alloc] init];
     appVersionModel.title = @"Application version:";

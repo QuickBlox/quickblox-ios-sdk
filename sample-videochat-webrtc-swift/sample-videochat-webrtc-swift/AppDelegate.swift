@@ -31,10 +31,24 @@ struct AppDelegateConstant {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
+    lazy private var backgroundTask: UIBackgroundTaskIdentifier = {
+        let backgroundTask = UIBackgroundTaskIdentifier.invalid
+        return backgroundTask
+    }()
+    
     var window: UIWindow?
     
+    var isCalling = false {
+        didSet {
+            if UIApplication.shared.applicationState == .background,
+                isCalling == false {
+                disconnect()
+            }
+        }
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+
         QBSettings.applicationID = CredentialsConstant.applicationID;
         QBSettings.authKey = CredentialsConstant.authKey
         QBSettings.authSecret = CredentialsConstant.authSecret
@@ -52,20 +66,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.clear)
         QBRTCClient.initializeRTC()
-        
-        // loading settings
-        Settings.instance.load()
-        
+
         return true
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Logging out from chat.
-        disconnect()
+        if isCalling == false {
+            disconnect()
+        }
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Logging in to chat.
+        if QBChat.instance.isConnected == true {
+            return
+        }
         connect { (error) in
             if let error = error {
                 SVProgressHUD.showError(withStatus: error.localizedDescription)

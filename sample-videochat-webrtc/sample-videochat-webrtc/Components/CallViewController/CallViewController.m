@@ -26,9 +26,11 @@
 #import "User.h"
 #import "Log.h"
 #import "Reachability.h"
+#import "AppDelegate.h"
 
 static NSString * const kOpponentCollectionViewCellIdentifier = @"OpponentCollectionViewCellIdentifier";
 static NSString * const kSharingViewControllerIdentifier = @"SharingViewController";
+static NSString * const kMemoryWarning = @"MEMORY WARNING: leaving out of call. Please, reduce the quality of the video settings";
 
 static const NSTimeInterval kRefreshTimeInterval = 1.0f;
 
@@ -76,6 +78,9 @@ static NSString * const kUnknownUserLabel = @"?";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[QBRTCClient instance] addDelegate:self];
+    [[QBRTCAudioSession instance] addDelegate:self];
+    
     QBRTCAudioSession *audioSession = [QBRTCAudioSession instance];
     if (!audioSession.isInitialized) {
         [audioSession initializeWithConfigurationBlock:^(QBRTCAudioSessionConfiguration *configuration) {
@@ -96,15 +101,12 @@ static NSString * const kUnknownUserLabel = @"?";
     self.users = [NSMutableArray array];
     [self configureGUI];
     
-    
-    
     if (self.session.conferenceType == QBRTCConferenceTypeVideo) {
-        
         
 #if TARGET_OS_SIMULATOR
         Log(@"[%@] TARGET_OS_SIMULATOR", NSStringFromClass([CallViewController class]));
 #else
-        Settings *settings = [Settings instance];
+        Settings *settings = [[Settings alloc] init];
         self.cameraCapture = [[QBRTCCameraCapture alloc] initWithVideoFormat:settings.videoFormat
                                                                     position:settings.preferredCameraPostion];
         [self.cameraCapture startSession:nil];
@@ -128,9 +130,6 @@ static NSString * const kUnknownUserLabel = @"?";
     if (self.session.initiatorID.unsignedIntegerValue == profile.ID) {
         [CallKitManager.instance updateCallWithUUID:_callUUID connectingAtDate:[NSDate date]];
     }
-    
-    [[QBRTCClient instance] addDelegate:self];
-    [[QBRTCAudioSession instance] addDelegate:self];
 }
 
 - (void)configureGUI {
@@ -142,26 +141,31 @@ static NSString * const kUnknownUserLabel = @"?";
         self.videoEnabled = [ButtonsFactory videoEnable];
         [self.toolbar addButton:self.videoEnabled action: ^(UIButton *sender) {
             
-            weakSelf.session.localMediaStream.videoTrack.enabled ^=1;
+            weakSelf.session.localMediaStream.videoTrack.enabled = !weakSelf.session.localMediaStream.videoTrack.enabled;
             weakSelf.localVideoView.hidden = !weakSelf.session.localMediaStream.videoTrack.enabled;
         }];
-    }
-    
-    self.audioEnabled = [ButtonsFactory auidoEnable];
-    [self.toolbar addButton:self.audioEnabled action: ^(UIButton *sender) {
         
-        weakSelf.session.localMediaStream.audioTrack.enabled = !weakSelf.session.localMediaStream.audioTrack.enabled;
-        weakSelf.session.recorder.microphoneMuted = !weakSelf.session.localMediaStream.audioTrack.enabled;
-    }];
-    
-    [CallKitManager.instance setOnMicrophoneMuteAction:^{
-        weakSelf.audioEnabled.pressed = !weakSelf.audioEnabled.pressed;
-        weakSelf.session.recorder.microphoneMuted = weakSelf.audioEnabled.pressed;
-    }];
+        [self.toolbar addButton:[ButtonsFactory screenShare] action: ^(UIButton *sender) {
+            
+            SharingViewController *sharingVC =
+            [weakSelf.storyboard instantiateViewControllerWithIdentifier:kSharingViewControllerIdentifier];
+            sharingVC.session = weakSelf.session;
+            [weakSelf.navigationController pushViewController:sharingVC animated:YES];
+        }];
+    }
     
     if (self.session.conferenceType == QBRTCConferenceTypeAudio) {
         
         self.dynamicEnable = [ButtonsFactory dynamicEnable];
+        
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+            [QBRTCAudioSession instance].currentAudioDevice = QBRTCAudioDeviceSpeaker;
+            self.dynamicEnable.pressed = YES;
+        } else {
+            [QBRTCAudioSession instance].currentAudioDevice = QBRTCAudioDeviceReceiver;
+            self.dynamicEnable.pressed = NO;
+        }
+        
         [self.toolbar addButton:self.dynamicEnable action:^(UIButton *sender) {
             
             QBRTCAudioDevice device = [QBRTCAudioSession instance].currentAudioDevice;
@@ -171,31 +175,22 @@ static NSString * const kUnknownUserLabel = @"?";
         }];
     }
     
-    if (self.session.conferenceType == QBRTCConferenceTypeVideo) {
-        
-        [self.toolbar addButton:[ButtonsFactory screenShare] action: ^(UIButton *sender) {
-            
-            SharingViewController *sharingVC =
-            [weakSelf.storyboard instantiateViewControllerWithIdentifier:kSharingViewControllerIdentifier];
-            sharingVC.session = weakSelf.session;
-            
-            // put camera capture on pause
-            [weakSelf.cameraCapture stopSession:nil];
-            
-            [weakSelf.navigationController pushViewController:sharingVC animated:YES];
-        }];
-    }
-    
-    [self.toolbar addButton:[ButtonsFactory decline] action: ^(UIButton *sender) {
-        
-        [weakSelf.callTimer invalidate];
-        weakSelf.callTimer = nil;
-        
-        [weakSelf.session hangUp:@{@"hangup" : @"hang up"}];
-        [CallKitManager.instance endCallWithUUID:weakSelf.callUUID completion:^{
-            [weakSelf dismissViewControllerAnimated:NO completion:nil];
-        }];
+    self.audioEnabled = [ButtonsFactory auidoEnable];
+    weakSelf.session.localMediaStream.audioTrack.enabled = YES;
+    weakSelf.session.recorder.microphoneMuted = NO;
+    [self.toolbar addButton:self.audioEnabled action: ^(UIButton *sender) {
+        weakSelf.session.localMediaStream.audioTrack.enabled = !weakSelf.session.localMediaStream.audioTrack.enabled;
     }];
+    
+    [CallKitManager.instance setOnMicrophoneMuteAction:^{
+        weakSelf.audioEnabled.pressed = !weakSelf.audioEnabled.pressed;
+    }];
+
+    [self.toolbar addButton:[ButtonsFactory decline] action: ^(UIButton *sender) {
+        [weakSelf.session hangUp:@{@"hangup" : @"hang up"}];
+    }];
+        
+    
     
     [self.toolbar updateItems];
     
@@ -224,10 +219,9 @@ static NSString * const kUnknownUserLabel = @"?";
     Reachability.instance.networkStatusBlock = ^(QBNetworkStatus status) {
         updateConnectionStatus(status);
     };
-    updateConnectionStatus(Reachability.instance.networkStatus);
     
     if (!self.cameraCapture) {
-        Settings *settings = [Settings instance];
+        Settings *settings = [[Settings alloc] init];
         self.cameraCapture = [[QBRTCCameraCapture alloc] initWithVideoFormat:settings.videoFormat
                                                                     position:settings.preferredCameraPostion];
     }
@@ -238,24 +232,17 @@ static NSString * const kUnknownUserLabel = @"?";
         // when you are leaving controller in any way
         // here we should get its running state back
         [self.cameraCapture startSession:nil];
-        self.session.localMediaStream.videoTrack.videoCapture = self.cameraCapture;
     }
     self.session.localMediaStream.videoTrack.videoCapture = self.cameraCapture;
     [self reloadContent];
 }
 
-- (void)cancelCallAlert {
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
     
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Please check your Internet connection", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
-    __weak __typeof(self)weakSelf = self;
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        [CallKitManager.instance endCallWithUUID:self.callUUID completion:^{
-            [weakSelf dismissViewControllerAnimated:NO completion:nil];
-        }];
-    }];
-    [alertController addAction:cancelAction];
-    [self presentViewController:alertController animated:NO completion:nil];
+    [SVProgressHUD showErrorWithStatus:kMemoryWarning];
+    self.title = @"Disconnected";
+    [self closeCall];
 }
 
 - (void)reloadContent {
@@ -320,7 +307,8 @@ static NSString * const kUnknownUserLabel = @"?";
     cell.name = nil;
     cell.connectionState = QBRTCConnectionStateUnknown;
     
-    if (user.ID.unsignedIntegerValue != [QBSession currentSession].currentUser.ID) {
+    Profile *profile = [[Profile alloc] init];
+    if (user.ID.unsignedIntegerValue != profile.ID) {
         
         NSString *title = user.fullName ?: kUnknownUserLabel;
         cell.name = title;
@@ -393,8 +381,13 @@ static NSString * const kUnknownUserLabel = @"?";
         if (user.connectionState == QBRTCConnectionStateConnected
             && report.videoReceivedBitrateTracker.bitrate > 0) {
             user.bitrate = report.videoReceivedBitrateTracker.bitrate;
+            NSIndexPath *userIndexPath = [self indexPathAtUserID:user.ID];
+            OpponentCollectionViewCell *cell = (OpponentCollectionViewCell *)[self.opponentsCollectionView cellForItemAtIndexPath:userIndexPath];
+            Profile *profile = [[Profile alloc] init];
+            if (user.ID.unsignedIntegerValue != profile.ID) {
+                cell.bitrateString = [NSString stringWithFormat:@"%.0f kbits/sec", user.bitrate* 1e-3];
+            }
         }
-        [self reloadContent];
         
         if ([_statsUserID isEqualToNumber:userID]) {
             
@@ -418,6 +411,10 @@ static NSString * const kUnknownUserLabel = @"?";
         
         if (user) {
             user.connectionState = state;
+            NSIndexPath *userIndexPath = [self indexPathAtUserID:user.ID];
+            OpponentCollectionViewCell *cell = (OpponentCollectionViewCell *)[self.opponentsCollectionView cellForItemAtIndexPath:userIndexPath];
+            cell.connectionState = user.connectionState;
+
         } else {
             QBUUser *qbUser = [self.usersDatasource userWithID:userID.unsignedIntegerValue];
             User *user = [[User alloc] initWithID:qbUser.ID fullName:qbUser.fullName];
@@ -426,9 +423,8 @@ static NSString * const kUnknownUserLabel = @"?";
             if (![self.users containsObject:user] || user.connectionState == QBRTCConnectionStateConnected) {
                 [self.users insertObject:user atIndex:0];
             }
-            
+            [self reloadContent];
         }
-        [self reloadContent];
     }
 }
 
@@ -439,7 +435,6 @@ static NSString * const kUnknownUserLabel = @"?";
 - (void)session:(__kindof QBRTCBaseSession *)session receivedRemoteVideoTrack:(QBRTCVideoTrack *)videoTrack fromUser:(NSNumber *)userID {
     
     if (session == self.session) {
-        
         [self reloadContent];
     }
 }
@@ -475,37 +470,13 @@ static NSString * const kUnknownUserLabel = @"?";
     }
 }
 
-- (void)session:(QBRTCSession *)session hungUpByUser:(NSNumber *)userID userInfo:(NSDictionary<NSString *,NSString *> *)userInfo {
-    if ([userInfo[@"hangup"] isEqualToString:@"hang up"]) {
-        if (self.statsUserID == userID) {
-            [self unzoomUser];
-        }
-        
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ID == %@", userID];
-        User *user = [[self.users filteredArrayUsingPredicate:predicate] firstObject];
-        if (user.connectionState == QBRTCConnectionStateConnected) {
-            return;
-        }
-        
-        UIView *videoView = self.videoViews[userID];
-        
-        [videoView removeFromSuperview];
-        [self.videoViews removeObjectForKey:userID];
-        
-        
-        QBRTCRemoteVideoView *remoteVideoView = [[QBRTCRemoteVideoView alloc] initWithFrame:CGRectMake(2.0f, 2.0f, 2.0f, 2.0f)];
-        remoteVideoView.videoGravity = AVLayerVideoGravityResizeAspectFill;
-        self.videoViews[userID] = remoteVideoView;
-        
-        [self reloadContent];
-    }
-}
-
 /**
  *  Called in case when connection state changed
  */
 - (void)session:(__kindof QBRTCBaseSession *)session connectionClosedForUser:(NSNumber *)userID {
-    
+    if (session != self.session) {
+        return;
+    }
     if (self.statsUserID == userID) {
         [self unzoomUser];
     }
@@ -515,12 +486,12 @@ static NSString * const kUnknownUserLabel = @"?";
     if (user.connectionState == QBRTCConnectionStateConnected) {
         return;
     }
+    user.bitrate = 0.0f;
     
     UIView *videoView = self.videoViews[userID];
     
     [videoView removeFromSuperview];
     [self.videoViews removeObjectForKey:userID];
-    
     
     QBRTCRemoteVideoView *remoteVideoView = [[QBRTCRemoteVideoView alloc] initWithFrame:CGRectMake(2.0f, 2.0f, 2.0f, 2.0f)];
     remoteVideoView.videoGravity = AVLayerVideoGravityResizeAspectFill;
@@ -529,46 +500,14 @@ static NSString * const kUnknownUserLabel = @"?";
     [self reloadContent];
 }
 
-/**
- *  Called in case when session will close
- */
-- (void)sessionDidClose:(__kindof QBRTCBaseSession *)session {
-    
-    if (session == self.session) {
-        
-        [CallKitManager.instance endCallWithUUID:_callUUID completion:nil];
-        
-        [self.cameraCapture stopSession:nil];
-        
-        QBRTCAudioSession *audioSession = [QBRTCAudioSession instance];
-        if (audioSession.isInitialized
-            && ![audioSession audioSessionIsActivatedOutside:[AVAudioSession sharedInstance]]) {
-            Log(@"[%@] Deinitializing QBRTCAudioSession", NSStringFromClass([CallViewController class]));
-            [audioSession deinitialize];
-        }
-        
-        if (self.beepTimer) {
-            
-            [self.beepTimer invalidate];
-            self.beepTimer = nil;
-            [[SoundManager instance] stopAllSounds];
-        }
-        
-        [self.callTimer invalidate];
-        self.callTimer = nil;
-        
-        self.toolbar.userInteractionEnabled = NO;
-        __weak __typeof(self)weakSelf = self;
-        [UIView animateWithDuration:0.5 animations:^{
-            weakSelf.toolbar.alpha = 0.4;
-        }];
-        
-        self.title = [NSString stringWithFormat:@"End - %@", [self stringWithTimeDuration:self.timeDuration]];
+- (void)sessionDidClose:(QBRTCSession *)session {
+    if (self.session == session) {
+        [self closeCall];
     }
 }
 
-// MARK: - QBRTCAudioSessionDelegate
 
+// MARK: - QBRTCAudioSessionDelegate
 - (void)audioSession:(QBRTCAudioSession *)audioSession didChangeCurrentAudioDevice:(QBRTCAudioDevice)updatedAudioDevice {
     
     BOOL isSpeaker = updatedAudioDevice == QBRTCAudioDeviceSpeaker;
@@ -578,7 +517,6 @@ static NSString * const kUnknownUserLabel = @"?";
 }
 
 // MARK: - Timers actions
-
 - (void)playCallingSound:(id)sender {
     [SoundManager playCallingSound];
 }
@@ -586,9 +524,8 @@ static NSString * const kUnknownUserLabel = @"?";
 - (void)refreshCallTime:(NSTimer *)sender {
     
     self.timeDuration += kRefreshTimeInterval;
-    NSString *extraTitle = @"";
-    
-    self.title = [NSString stringWithFormat:@"%@Call time - %@", extraTitle, [self stringWithTimeDuration:self.timeDuration]];
+    NSString *time = [self stringWithTimeDuration:self.timeDuration];
+    self.title = [NSString stringWithFormat:@" Call time - %@", time];
 }
 
 - (NSString *)stringWithTimeDuration:(NSTimeInterval )timeDuration {
@@ -659,6 +596,41 @@ static NSString * const kUnknownUserLabel = @"?";
     [self.session acceptCall:userInfo];
 }
 
+- (void)closeCall { 
+    
+    [CallKitManager.instance endCallWithUUID:self.callUUID completion:nil];
+    
+    [self.cameraCapture stopSession:nil];
+    
+    QBRTCAudioSession *audioSession = [QBRTCAudioSession instance];
+    if (audioSession.isInitialized
+        && ![audioSession audioSessionIsActivatedOutside:[AVAudioSession sharedInstance]]) {
+        Log(@"[%@] Deinitializing QBRTCAudioSession", NSStringFromClass([CallViewController class]));
+        [audioSession deinitialize];
+    }
+    
+    if (self.beepTimer) {
+        
+        [self.beepTimer invalidate];
+        self.beepTimer = nil;
+        [[SoundManager instance] stopAllSounds];
+    }
+    
+    [self.callTimer invalidate];
+    self.callTimer = nil;
+    
+    self.toolbar.userInteractionEnabled = NO;
+    [UIView animateWithDuration:0.5 animations:^{
+        
+        self.toolbar.alpha = 0.4;
+    }];
+    
+    [[QBRTCClient instance] removeDelegate:self];
+    [[QBRTCAudioSession instance] removeDelegate:self];
+    
+    self.title = [NSString stringWithFormat:@"End - %@", [self stringWithTimeDuration:self.timeDuration]];
+}
+
 - (void)updateStatsView {
     self.shouldGetStats = !self.shouldGetStats;
     self.statsView.hidden = !self.statsView.hidden;
@@ -681,14 +653,13 @@ static inline __kindof UIView *prepareSubview(UIView *view, Class subviewClass) 
 
 - (UIView *)userViewWithUserID:(NSNumber *)userID {
     id result = self.videoViews[userID];
-    if (self.videoViews[userID]) {
-        return self.videoViews[userID];
-    }
-    
+
     Profile *profile = [[Profile alloc] init];
-    if (profile.ID == userID.unsignedIntegerValue && self.session.conferenceType == QBRTCConferenceTypeVideo) {//Local preview
-        
-        if (!result) {
+    if (self.session.conferenceType == QBRTCConferenceTypeVideo && profile.ID == userID.unsignedIntegerValue) {//Local preview
+        id result = self.videoViews[userID];
+        if (result && [result isKindOfClass:[LocalVideoView class]]) {
+            return self.videoViews[userID];
+        } else {
             LocalVideoView *localVideoView = [[LocalVideoView alloc] initWithPreviewlayer:self.cameraCapture.previewLayer];
             self.videoViews[userID] = localVideoView;
             localVideoView.delegate = self;
@@ -701,9 +672,12 @@ static inline __kindof UIView *prepareSubview(UIView *view, Class subviewClass) 
         QBRTCRemoteVideoView *remoteVideoView = nil;
         
         QBRTCVideoTrack *remoteVideoTraсk = [self.session remoteVideoTrackWithUserID:userID];
-        
-        if (!result && remoteVideoTraсk) {
-            
+        id result = self.videoViews[userID];
+        if (result && [result isKindOfClass:[QBRTCRemoteVideoView class]] && remoteVideoTraсk) {
+            [result setVideoTrack:remoteVideoTraсk];
+            return result;
+          } else if (!result && remoteVideoTraсk) {
+    
             remoteVideoView = [[QBRTCRemoteVideoView alloc] initWithFrame:CGRectMake(2.0f, 2.0f, 2.0f, 2.0f)];
             remoteVideoView.videoGravity = AVLayerVideoGravityResizeAspectFill;
             self.videoViews[userID] = remoteVideoView;
@@ -714,6 +688,18 @@ static inline __kindof UIView *prepareSubview(UIView *view, Class subviewClass) 
     }
     
     return result;
+}
+
+- (void)cancelCallAlert {
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Please check your Internet connection", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [self closeCall];
+    }];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:NO completion:^{
+    }];
 }
 
 @end

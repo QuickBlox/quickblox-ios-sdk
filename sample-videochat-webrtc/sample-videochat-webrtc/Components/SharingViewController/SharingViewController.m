@@ -9,6 +9,7 @@
 #import "SharingViewController.h"
 #import "ScreenCapture.h"
 #import "SharingCell.h"
+#import "Log.h"
 
 @interface SharingViewController () <UICollectionViewDelegateFlowLayout>
 
@@ -33,11 +34,12 @@ static NSString * const reuseIdentifier = @"SharingCell";
     self.view.backgroundColor = [UIColor blackColor];
     
     self.enabled = self.session.localMediaStream.videoTrack.isEnabled;
-    
     self.capture = self.session.localMediaStream.videoTrack.videoCapture;
-    self.screenCapture = [[ScreenCapture alloc] initWithView:self.view];
+    
     //Switch to sharing
+    self.screenCapture = [[ScreenCapture alloc] initWithView:self.view];
     self.session.localMediaStream.videoTrack.videoCapture = self.screenCapture;
+    
     self.collectionView.contentInset =  UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
@@ -61,7 +63,7 @@ static NSString * const reuseIdentifier = @"SharingCell";
     }
 }
 
-#pragma mark <UICollectionViewDataSource>
+#pragma mark - <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     
@@ -83,26 +85,20 @@ static NSString * const reuseIdentifier = @"SharingCell";
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     return self.collectionView.bounds.size;
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    
     self.indexPath =  [self.collectionView.indexPathsForVisibleItems firstObject];
     [self.collectionView.collectionViewLayout invalidateLayout];
-//    self.collectionView.alpha = 0;
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    
-//    self.collectionView.alpha = 1;
-    
     [self.collectionView scrollToItemAtIndexPath:self.indexPath
                                 atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
                                         animated:NO];
     self.indexPath = nil;
 }
-    
 
 @end

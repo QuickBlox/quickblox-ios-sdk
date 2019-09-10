@@ -27,6 +27,7 @@ NSString *const kAccountKey     = @"";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    self.isCalling = NO;
     self.window.backgroundColor = [UIColor whiteColor];
     
     // Set QuickBlox credentials (You must create application in admin.quickblox.com)
@@ -46,10 +47,14 @@ NSString *const kAccountKey     = @"";
     
     [QBRTCClient initializeRTC];
     
-    // loading settings
-    [Settings instance];
-    
     return YES;
+}
+
+- (void)setIsCalling:(Boolean)isCalling {
+    _isCalling = isCalling;
+    if (UIApplication.sharedApplication.applicationState == UIApplicationStateBackground && self.isCalling == NO) {
+        [self disconnect:nil];
+    }
 }
 
 // MARK: - Application states
@@ -67,7 +72,9 @@ NSString *const kAccountKey     = @"";
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
+    if (self.isCalling == NO) {
         [self disconnect:nil];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

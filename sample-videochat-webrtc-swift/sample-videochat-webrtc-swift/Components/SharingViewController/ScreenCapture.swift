@@ -47,7 +47,7 @@ class ScreenCapture: QBRTCVideoCapture {
         return ScreenCapture.sharedGPUContextSharedContext
     }
     
-    // MARK: - Enter Background / Fofeground notifications
+   //MARK: - Enter Background / Fofeground notifications
     @objc func willEnterForeground(_ note: Notification?) {
         displayLink.isPaused = false
     }
@@ -164,4 +164,3 @@ class ScreenCapture: QBRTCVideoCapture {
                                                   object: nil)
     }
 }
-

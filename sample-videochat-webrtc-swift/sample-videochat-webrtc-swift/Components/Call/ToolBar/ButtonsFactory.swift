@@ -43,7 +43,7 @@ class ButtonsFactory {
         return button
     }
     
-    class func auidoEnable() -> CustomButton {
+    class func audioEnable() -> CustomButton {
         let button: CustomButton = self.button(withFrame: ButtonsFactoryConstants.rect, backgroundColor: ButtonsFactoryConstants.backgroundColor, selectedColor: ButtonsFactoryConstants.selectedColor)
         button.pushed = true
         button.iconView = self.iconView(withNormalImage: "mute_on_ic", selectedImage: "mute_off_ic")

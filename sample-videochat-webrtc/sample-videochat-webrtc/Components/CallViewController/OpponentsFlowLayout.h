@@ -10,6 +10,4 @@
 
 @interface OpponentsFlowLayout : UICollectionViewFlowLayout
 
-//+ (CGRect)frameForWithNumberOfItems:(NSUInteger)numberOfItems row:(NSUInteger)row contentSize:(CGSize)contentSize;
-
 @end

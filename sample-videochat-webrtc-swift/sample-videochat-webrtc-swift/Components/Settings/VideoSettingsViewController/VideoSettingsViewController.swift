@@ -20,6 +20,7 @@ enum VideoSettingsSectionType: Int {
 }
 
 class VideoSettingsViewController: BaseSettingsViewController {
+    
     //MARK: - Overrides
     override func title(forSection section: Int) -> String {
         switch section {
@@ -40,15 +41,15 @@ class VideoSettingsViewController: BaseSettingsViewController {
         }
     }
     
-    
     //MARK: - Overrides
     override func configure() {
+        let settings = Settings()
         //Camera position section
-        addSection(with: VideoSettingsSectionType.cameraPostion.rawValue, items: { [weak self] sectionTitle in
+        addSection(with: VideoSettingsSectionType.cameraPostion.rawValue, items: { sectionTitle in
             //Camera position section
             let switchItem = SwitchItemModel()
             switchItem.title = "Back Camera"
-            switchItem.on = self?.settings.preferredCameraPostion == .back
+            switchItem.on = settings.preferredCameraPostion == .back
             return [switchItem]
         })
         //Video codecs
@@ -64,49 +65,49 @@ class VideoSettingsViewController: BaseSettingsViewController {
             let h264HighModel = BaseItemModel()
             h264HighModel.title = "H264High"
             h264HighModel.data = QBRTCVideoCodec.h264High
-
-            if let videoCodec = self?.settings.mediaConfiguration.videoCodec {
-                self?.selectSection(VideoSettingsSectionType.videoCodec.rawValue, index: Int(videoCodec.rawValue))
-            }
+            
+            let videoCodec = settings.mediaConfiguration.videoCodec
+            self?.selectSection(VideoSettingsSectionType.videoCodec.rawValue, index: Int(videoCodec.rawValue))
+            
             
             return [vp8Model, h264BaselineModel, h264HighModel]
         })
         //Supported video formats section
         addSection(with: VideoSettingsSectionType.supportedFormats.rawValue, items: { [weak self] sectionTitle in
             var videoFormats = [BaseItemModel]()
-            guard let position = self?.settings.preferredCameraPostion, let videoFormatsModels = self?.videoFormatModels(withCameraPositon: position)  else {
+            let position = settings.preferredCameraPostion
+            guard let videoFormatsModels = self?.videoFormatModels(withCameraPositon: position)  else {
                 return videoFormats
             }
             videoFormats = videoFormatsModels
             var formats = QBRTCCameraCapture.formats(with: position)
             formats = formats.filter({ $0.width <= 1024 })
             //Select index path
-            let idx: Int = (formats as NSArray).index(of: self?.settings.videoFormat as Any)
+            let idx: Int = (formats as NSArray).index(of: settings.videoFormat as Any)
             self?.selectSection(VideoSettingsSectionType.supportedFormats.rawValue, index: idx)
+            
             return videoFormats
         })
         //Frame rate
-        addSection(with: VideoSettingsSectionType.videoFrameRate.rawValue, items: { [weak self] sectionTitle in
+        addSection(with: VideoSettingsSectionType.videoFrameRate.rawValue, items: { sectionTitle in
             let frameRateSlider = SliderItemModel()
             frameRateSlider.title = "30"
             frameRateSlider.minValue = 2
             frameRateSlider.maxValue = 30
-            if let currentValue = self?.settings.videoFormat.frameRate {
-                frameRateSlider.currentValue = currentValue
-            } else {
-                frameRateSlider.currentValue = 2
-            }
+            let currentValue = settings.videoFormat.frameRate
+            frameRateSlider.currentValue = currentValue
+            
             return [frameRateSlider]
         })
         //Video bandwidth
-        addSection(with: VideoSettingsSectionType.bandwidth.rawValue, items: { [weak self] sectionTitle in
+        addSection(with: VideoSettingsSectionType.bandwidth.rawValue, items: { sectionTitle in
             var currentValue = 30
             let bandwidthSlider = SliderItemModel()
             bandwidthSlider.title = "30"
             bandwidthSlider.minValue = 0
-            if let currValue = self?.settings.mediaConfiguration.videoBandwidth {
-                currentValue = currValue
-            }
+            let currValue = settings.mediaConfiguration.videoBandwidth
+            currentValue = currValue
+            
             bandwidthSlider.currentValue = UInt(bitPattern: currentValue)
             bandwidthSlider.maxValue = 2000
             return [bandwidthSlider]
@@ -115,6 +116,7 @@ class VideoSettingsViewController: BaseSettingsViewController {
             let switchItem = SwitchItemModel()
             switchItem.title = "Prefer Metal for drawing"
             switchItem.on = QBRTCRemoteVideoView.preferMetal
+            
             return [switchItem]
         })
     }
@@ -128,8 +130,6 @@ class VideoSettingsViewController: BaseSettingsViewController {
             // need to request available formats 1 more time for new codec
             // but we need to save it first
             applySettings()
-            settings.applyConfig()
-            reloadVideoFormatSection(for: settings.preferredCameraPostion)
             
         case Int(VideoSettingsSectionType.supportedFormats.rawValue):
             updateSelection(at: indexPath)
@@ -159,6 +159,7 @@ class VideoSettingsViewController: BaseSettingsViewController {
     override func applySettings() {
         //APPLY SETTINGS
         //Preferred camera positon
+        let settings = Settings()
         guard let cameraPostion = model(with: 0, section: VideoSettingsSectionType.cameraPostion.rawValue) as? SwitchItemModel else {
             return }
         settings.preferredCameraPostion = cameraPostion.on ? .back : .front
@@ -194,6 +195,10 @@ class VideoSettingsViewController: BaseSettingsViewController {
                                                      height: videoFormat.height,
                                                      frameRate: frameRateSlider.currentValue,
                                                      pixelFormat: QBRTCPixelFormat.format420f)
+        
+        settings.applyConfig()
+        settings.saveToDisk()
+        reloadVideoFormatSection(for: settings.preferredCameraPostion)
     }
     
     //MARK: - Internal Methods

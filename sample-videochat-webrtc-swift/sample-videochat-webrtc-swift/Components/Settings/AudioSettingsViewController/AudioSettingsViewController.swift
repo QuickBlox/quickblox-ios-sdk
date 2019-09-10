@@ -44,6 +44,7 @@ struct AudioCodecBandWidthRange {
 }
 
 class AudioSettingsViewController: BaseSettingsViewController {
+    
     // MARK: - Overrides superClass Methods
     override func title(forSection section: Int) -> String? {
         switch section {
@@ -60,8 +61,9 @@ class AudioSettingsViewController: BaseSettingsViewController {
     }
     
     override func configure() {
+        let settings = Settings()
         //Constraints
-        addSection(with: AudioSettingsSectionType.constraints.rawValue, items: { [weak self] sectionTitle in
+        addSection(with: AudioSettingsSectionType.constraints.rawValue, items: { sectionTitle in
             //audio level control
             let switchItem = SwitchItemModel()
             switchItem.title = "Audio level control"
@@ -70,9 +72,8 @@ class AudioSettingsViewController: BaseSettingsViewController {
             switchItem.on = true
             #else
             // Device
-            if let isOn = self?.settings.mediaConfiguration.isAudioLevelControlEnabled {
-                switchItem.on = isOn
-            }
+            switchItem.on = settings.mediaConfiguration.isAudioLevelControlEnabled
+            
             #endif
             return [switchItem]
         })
@@ -91,9 +92,8 @@ class AudioSettingsViewController: BaseSettingsViewController {
             iLBCModel.title = "iLBC"
             iLBCModel.data = QBRTCAudioCodec.codeciLBC
             
-            if let audioCodec = self?.settings.mediaConfiguration.audioCodec {
-                self?.selectSection(AudioSettingsSectionType.audioCodec.rawValue, index: Int(audioCodec.rawValue))
-            }
+            let audioCodec = settings.mediaConfiguration.audioCodec
+            self?.selectSection(AudioSettingsSectionType.audioCodec.rawValue, index: Int(audioCodec.rawValue))
             
             return [opusModel, isacModel, iLBCModel]
         })
@@ -115,15 +115,16 @@ class AudioSettingsViewController: BaseSettingsViewController {
             bandwidthSlider.maxValue = 510
             #else
             // Device
-            if let audioBandwidth = self?.settings.mediaConfiguration.audioBandwidth {
-                isEnabled = audioBandwidth > 0
-                let sliderMinValue = UInt(bitPattern: (bandwidthSlider.minValue))
-                let audioBandwidthValue = UInt(bitPattern: audioBandwidth)
-                bandwidthSlider.currentValue = audioBandwidth < sliderMinValue ? sliderMinValue : audioBandwidthValue
-            }
-            if let audioCodec = self?.settings.mediaConfiguration.audioCodec {
-                self?.updateBandwidthSliderModelRange(bandwidthSlider, using: audioCodec)
-            }
+            
+            let audioBandwidth = settings.mediaConfiguration.audioBandwidth
+            isEnabled = audioBandwidth > 0
+            let sliderMinValue = UInt(bitPattern: (bandwidthSlider.minValue))
+            let audioBandwidthValue = UInt(bitPattern: audioBandwidth)
+            bandwidthSlider.currentValue = audioBandwidth < sliderMinValue ? sliderMinValue : audioBandwidthValue
+            
+            let audioCodec = settings.mediaConfiguration.audioCodec
+            self?.updateBandwidthSliderModelRange(bandwidthSlider, using: audioCodec)
+            
             #endif
             switchItem.on = isEnabled
             bandwidthSlider.isDisabled = isEnabled
@@ -140,7 +141,6 @@ class AudioSettingsViewController: BaseSettingsViewController {
             updateSelection(at: indexPath)
             updateBandwidthValue(for: indexPath)
             applySettings()
-            settings.applyConfig()
             
         default:
             break
@@ -176,6 +176,7 @@ class AudioSettingsViewController: BaseSettingsViewController {
     override func applySettings() {
         //APPLY SETTINGS
         //constraints
+        let settings = Settings()
         let constraints = section(with: AudioSettingsSectionType.constraints.rawValue)
         if let levelControlSwitch = constraints?.items.first as? SwitchItemModel {
             settings.mediaConfiguration.isAudioLevelControlEnabled = levelControlSwitch.on
@@ -200,6 +201,8 @@ class AudioSettingsViewController: BaseSettingsViewController {
         } else {
             settings.mediaConfiguration.audioBandwidth = 0
         }
+        settings.applyConfig()
+        settings.saveToDisk()
     }
     
     // MARK: - Helpers

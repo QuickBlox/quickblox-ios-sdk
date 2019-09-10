@@ -71,6 +71,7 @@ static const BOOL kQBRTCUseBiPlanarFormatTypeForShare = YES;
 }
 
 - (void)sendPixelBuffer:(CADisplayLink *)sender {
+    
     __weak __typeof(self)weakSelf = self;
     dispatch_async(self.videoQueue, ^{
         

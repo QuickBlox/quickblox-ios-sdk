@@ -71,6 +71,7 @@ typedef NS_ENUM(NSUInteger, VideoSettingsSectionType) {
 
 - (void)configure {
     
+    Settings *settings = [[Settings alloc] init];
     //Camera position section
     __weak __typeof(self)weakSelf = self;
     [self addSectionWith:VideoSettingsSectionCameraPostion items:^NSArray *(NSString *sectionTitle) {
@@ -79,7 +80,7 @@ typedef NS_ENUM(NSUInteger, VideoSettingsSectionType) {
         SwitchItemModel *switchItem = [[SwitchItemModel alloc] init];
         switchItem.title = @"Back Camera";
         
-        switchItem.on = (weakSelf.settings.preferredCameraPostion == AVCaptureDevicePositionBack);
+        switchItem.on = (settings.preferredCameraPostion == AVCaptureDevicePositionBack);
         
         return @[switchItem];
     }];
@@ -98,14 +99,14 @@ typedef NS_ENUM(NSUInteger, VideoSettingsSectionType) {
         h264HighModel.title = @"H264High";
         h264HighModel.data = @(QBRTCVideoCodecH264High);
         
-        [weakSelf selectSection:VideoSettingsSectionVideoCodec index:(NSUInteger)weakSelf.settings.mediaConfiguration.videoCodec];
+        [weakSelf selectSection:VideoSettingsSectionVideoCodec index:(NSUInteger)settings.mediaConfiguration.videoCodec];
         
         return @[vp8Model, h264BaselineModel, h264HighModel];
     }];
     //Supported video formats section
     [self addSectionWith:VideoSettingsSectionSupportedFormats items:^NSArray *(NSString *sectionTitle) {
         
-        AVCaptureDevicePosition position = weakSelf.settings.preferredCameraPostion;
+        AVCaptureDevicePosition position = settings.preferredCameraPostion;
         NSArray *videoFormats = [weakSelf videoFormatModelsWithCameraPositon:position];
         
         NSArray *formats = [QBRTCCameraCapture formatsWithPosition:position];
@@ -113,7 +114,7 @@ typedef NS_ENUM(NSUInteger, VideoSettingsSectionType) {
         formats = [formats filteredArrayUsingPredicate:formatsPredicate];
 
         //Select index path
-        NSUInteger idx = [formats indexOfObject:weakSelf.settings.videoFormat];
+        NSUInteger idx = [formats indexOfObject:settings.videoFormat];
         [weakSelf selectSection:VideoSettingsSectionSupportedFormats index:idx];
         
         return videoFormats;
@@ -124,7 +125,7 @@ typedef NS_ENUM(NSUInteger, VideoSettingsSectionType) {
         SliderItemModel *frameRateSlider = [[SliderItemModel alloc] init];
         frameRateSlider.title = @"30";
         frameRateSlider.minValue = 2;
-        frameRateSlider.currentValue = weakSelf.settings.videoFormat.frameRate;
+        frameRateSlider.currentValue = settings.videoFormat.frameRate;
         frameRateSlider.maxValue = 30;
         
         return @[frameRateSlider];
@@ -135,7 +136,7 @@ typedef NS_ENUM(NSUInteger, VideoSettingsSectionType) {
         SliderItemModel *bandwidthSlider = [[SliderItemModel alloc] init];
         bandwidthSlider.title = @"30";
         bandwidthSlider.minValue = 0;
-        bandwidthSlider.currentValue = weakSelf.settings.mediaConfiguration.videoBandwidth;
+        bandwidthSlider.currentValue = settings.mediaConfiguration.videoBandwidth;
         bandwidthSlider.maxValue = 2000;
         
         return @[bandwidthSlider];
@@ -159,14 +160,11 @@ typedef NS_ENUM(NSUInteger, VideoSettingsSectionType) {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     switch (indexPath.section) {
-            
         case VideoSettingsSectionVideoCodec:
             [self updateSelectionAtIndexPath:indexPath];
             // need to request available formats 1 more time for new codec
             // but we need to save it first
             [self applySettings];
-            [self.settings applyConfig];
-            [self reloadVideoFormatSectionForPosition:self.settings.preferredCameraPostion];
             break;
             
         case VideoSettingsSectionSupportedFormats: {
@@ -228,15 +226,15 @@ typedef NS_ENUM(NSUInteger, VideoSettingsSectionType) {
 - (void)applySettings {
     
     //APPLY SETTINGS
-    
+    Settings *settings = [[Settings alloc] init];
     //Preferred camera positon
     SwitchItemModel *cameraPostion = (id)[self modelWithIndex:0 section:VideoSettingsSectionCameraPostion];
-    self.settings.preferredCameraPostion = cameraPostion.on ? AVCaptureDevicePositionBack : AVCaptureDevicePositionFront;
+    settings.preferredCameraPostion = cameraPostion.on ? AVCaptureDevicePositionBack : AVCaptureDevicePositionFront;
     
     //Video codec
     NSIndexPath *videoCodecIndexPath = [self indexPathAtSection:VideoSettingsSectionVideoCodec];
     BaseItemModel *videoCodec = [self modelWithIndex:videoCodecIndexPath.row section:videoCodecIndexPath.section];
-    self.settings.mediaConfiguration.videoCodec = (QBRTCVideoCodec)[(NSNumber *)videoCodec.data integerValue];
+    settings.mediaConfiguration.videoCodec = (QBRTCVideoCodec)[(NSNumber *)videoCodec.data integerValue];
     
     //Supported format
     NSIndexPath *supportedFormatIndexPath = [self indexPathAtSection:VideoSettingsSectionSupportedFormats];
@@ -251,13 +249,16 @@ typedef NS_ENUM(NSUInteger, VideoSettingsSectionType) {
     SettingsSectionModel *bandwidth = [self sectionWith:VideoSettingsSectionBandwidth];
     SliderItemModel *bandwidthSlider = bandwidth.items.firstObject;
     
-    self.settings.mediaConfiguration.videoBandwidth = bandwidthSlider.currentValue;
+    settings.mediaConfiguration.videoBandwidth = bandwidthSlider.currentValue;
     
-    self.settings.videoFormat =
+    settings.videoFormat =
     [QBRTCVideoFormat videoFormatWithWidth:videoFormat.width
                                     height:videoFormat.height
                                  frameRate:frameRateSlider.currentValue
                                pixelFormat:QBRTCPixelFormat420f];
+    [settings applyConfig];
+    [settings saveToDisk];
+    [self reloadVideoFormatSectionForPosition:settings.preferredCameraPostion];
 }
 
 @end

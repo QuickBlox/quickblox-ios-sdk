@@ -8,8 +8,6 @@
 
 #import "BaseSettingsViewController.h"
 
-#import "Settings.h"
-
 #import "SettingCell.h"
 #import "SettingSliderCell.h"
 #import "SettingSwitchCell.h"
@@ -24,8 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.settings = [Settings instance];
+
     self.selectedIndexes = [NSMutableDictionary dictionary];
     self.sections = [NSMutableDictionary dictionary];
     

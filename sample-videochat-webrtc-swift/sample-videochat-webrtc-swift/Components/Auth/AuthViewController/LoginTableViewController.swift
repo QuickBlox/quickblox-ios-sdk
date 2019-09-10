@@ -170,8 +170,9 @@ class LoginTableViewController: UITableViewController {
         QBRequest.logIn(withUserLogin: login,
                         password: password,
                         successBlock: { [weak self] response, user in
-                            
+
                             user.password = password
+                            user.updatedAt = Date()
                             Profile.synchronize(user)
                             
                             if user.fullName != fullName {
@@ -197,6 +198,9 @@ class LoginTableViewController: UITableViewController {
         let updateUserParameter = QBUpdateUserParameters()
         updateUserParameter.fullName = fullName
         QBRequest.updateCurrentUser(updateUserParameter, successBlock: {  [weak self] response, user in
+
+            user.updatedAt = Date()
+            
             self?.infoText = LoginConstant.fullNameDidChange
             Profile.update(user)
             self?.connectToChat(user: user)

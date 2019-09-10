@@ -43,7 +43,11 @@ class UsersViewController: UITableViewController {
         let dataSource = UsersDataSource()
         return dataSource
     }()
-    private var nav: UINavigationController?
+    lazy private var navViewController: UINavigationController = {
+        let navViewController = UINavigationController()
+        return navViewController
+        
+    }()
     private weak var session: QBRTCSession?
     lazy private var voipRegistry: PKPushRegistry = {
         let voipRegistry = PKPushRegistry(queue: DispatchQueue.main)
@@ -60,6 +64,11 @@ class UsersViewController: UITableViewController {
         
         QBRTCClient.instance().add(self)
         
+        // Reachability
+        if Reachability.instance.networkConnectionStatus() != NetworkConnectionStatus.notConnection {
+            loadUsers()
+        }
+        
         // adding refresh control task
         if let refreshControl = self.refreshControl {
             refreshControl.addTarget(self, action: #selector(loadUsers), for: .valueChanged)
@@ -74,9 +83,17 @@ class UsersViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // Reachability
-        if Reachability.instance.networkConnectionStatus() != NetworkConnectionStatus.notConnection {
-            loadUsers()
+        //MARK: - Reachability
+        let updateConnectionStatus: ((_ status: NetworkConnectionStatus) -> Void)? = { [weak self] status in
+            let notConnection = status == .notConnection
+            if notConnection == true {
+                self?.cancelCallAlert()
+            } else {
+                self?.loadUsers()
+            }
+        }
+        Reachability.instance.networkStatusBlock = { status in
+            updateConnectionStatus?(status)
         }
         
         if let refreshControl = self.refreshControl, refreshControl.isRefreshing == true {
@@ -164,9 +181,9 @@ class UsersViewController: UITableViewController {
                             self?.tableView.reloadData()
                             self?.refreshControl?.endRefreshing()
                             
-            }, errorBlock: { [weak self] response in
-                self?.refreshControl?.endRefreshing()
-                debugPrint("[UsersViewController] loadUsers error: \(self?.errorMessage(response: response) ?? "")")
+            }, errorBlock: { response in
+                self.refreshControl?.endRefreshing()
+                debugPrint("[UsersViewController] loadUsers error: \(self.errorMessage(response: response) ?? "")")
         })
     }
     
@@ -243,18 +260,20 @@ class UsersViewController: UITableViewController {
                     if session.id.isEmpty == false {
                         self.session = session
                         let uuid = UUID()
+                        self.callUUID = uuid
+                        
                         CallKitManager.instance.startCall(withUserIDs: opponentsIDs, session: session, uuid: uuid)
+                        
                         if let callViewController = self.storyboard?.instantiateViewController(withIdentifier: UsersSegueConstant.call) as? CallViewController {
                             callViewController.session = self.session
                             callViewController.usersDataSource = self.dataSource
                             callViewController.callUUID = uuid
-                            self.nav = UINavigationController(rootViewController: callViewController)
-                            if let nav = self.nav {
-                                nav.modalTransitionStyle = .crossDissolve
-                                self.present(nav , animated: false)
-                                self.audioCallButton.isEnabled = false
-                                self.videoCallButton.isEnabled = false
-                            }
+                            let nav = UINavigationController(rootViewController: callViewController)
+                            nav.modalTransitionStyle = .crossDissolve
+                            self.present(nav , animated: false)
+                            self.audioCallButton.isEnabled = false
+                            self.videoCallButton.isEnabled = false
+                            self.navViewController = nav
                         }
                         let profile = Profile()
                         guard profile.isFull == true else {
@@ -315,7 +334,12 @@ class UsersViewController: UITableViewController {
     private func cancelCallAlert() {
         let alert = UIAlertController(title: UsersAlertConstant.checkInternet, message: nil, preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Ok", style: .cancel) { (action) in
-            
+
+            CallKitManager.instance.endCall(with: self.callUUID) {
+                debugPrint("[UsersViewController] endCall")
+                
+            }
+            self.prepareCloseCall()
         }
         alert.addAction(cancelAction)
         present(alert, animated: false) {
@@ -350,12 +374,12 @@ class UsersViewController: UITableViewController {
 
 // MARK: - QBRTCClientDelegate
 extension UsersViewController: QBRTCClientDelegate {
-    
     func session(_ session: QBRTCSession, hungUpByUser userID: NSNumber, userInfo: [String : String]? = nil) {
-        if CallKitManager.instance.isCallStarted() == false {
+        if CallKitManager.instance.isCallStarted() == false && self.session?.id == session.id && self.session?.initiatorID == userID {
             CallKitManager.instance.endCall(with: callUUID) {
                 debugPrint("[UsersViewController] endCall")
             }
+            prepareCloseCall()
         }
     }
     
@@ -366,7 +390,8 @@ extension UsersViewController: QBRTCClientDelegate {
         }
         
         self.session = session
-        callUUID = UUID()
+        let uuid = UUID()
+        callUUID = uuid
         var opponentIDs = [session.initiatorID]
         let profile = Profile()
         guard profile.isFull == true else {
@@ -407,31 +432,34 @@ extension UsersViewController: QBRTCClientDelegate {
             }
             loadGroup.notify(queue: DispatchQueue.main) {
                 callerName = opponentNames.joined(separator: ", ")
-                self.reportIncomingCall(withUserIDs: opponentIDs, outCallerName: callerName, session: session, uuid: self.callUUID)
+                self.reportIncomingCall(withUserIDs: opponentIDs, outCallerName: callerName, session: session, uuid: uuid)
             }
         } else {
             callerName = opponentNames.joined(separator: ", ")
-            self.reportIncomingCall(withUserIDs: opponentIDs, outCallerName: callerName, session: session, uuid: self.callUUID)
+            self.reportIncomingCall(withUserIDs: opponentIDs, outCallerName: callerName, session: session, uuid: uuid)
         }
     }
     
-    private func reportIncomingCall(withUserIDs userIDs: [NSNumber], outCallerName: String, session: QBRTCSession?, uuid: UUID?) {
+    private func reportIncomingCall(withUserIDs userIDs: [NSNumber], outCallerName: String, session: QBRTCSession, uuid: UUID) {
         if hasConnectivity() {
             CallKitManager.instance.reportIncomingCall(withUserIDs: userIDs,
                                                        outCallerName: outCallerName,
                                                        session: session,
-                                                       uuid: self.callUUID,
+                                                       uuid: uuid,
                                                        onAcceptAction: { [weak self] in
- 
-                                                        if let callViewController = self?.storyboard?.instantiateViewController(withIdentifier: UsersSegueConstant.call) as? CallViewController {
+                                                        guard let self = self else {
+                                                            return
+                                                        }
+                                                        
+                                                        if let callViewController = self.storyboard?.instantiateViewController(withIdentifier: UsersSegueConstant.call) as? CallViewController {
                                                             callViewController.session = session
-                                                            callViewController.usersDataSource = self?.dataSource
-                                                            callViewController.callUUID = self?.callUUID
-                                                            self?.nav = UINavigationController(rootViewController: callViewController)
-                                                            if let nav = self?.nav {
-                                                                nav.modalTransitionStyle = .crossDissolve
-                                                                self?.present(nav , animated: false)
-                                                            }
+                                                            callViewController.usersDataSource = self.dataSource
+                                                            callViewController.callUUID = self.callUUID
+                                                            self.navViewController = UINavigationController(rootViewController: callViewController)
+                                                 
+                                                                self.navViewController.modalTransitionStyle = .crossDissolve
+                                                                self.present(self.navViewController , animated: false)
+                                                        
                                                         }
                 }, completion: { (end) in
                     debugPrint("[UsersViewController] endCall")
@@ -442,53 +470,63 @@ extension UsersViewController: QBRTCClientDelegate {
     }
     
     func sessionDidClose(_ session: QBRTCSession) {
-        if self.session == session {
-            if backgroundTask != .invalid {
-                UIApplication.shared.endBackgroundTask(backgroundTask)
-                backgroundTask = UIBackgroundTaskIdentifier.invalid
+        if let sessionID = self.session?.id,
+            sessionID == session.id {
+            if self.navViewController.presentingViewController?.presentedViewController == self.navViewController {
+                    self.navViewController.view.isUserInteractionEnabled = false
+                    self.navViewController.dismiss(animated: false)
             }
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: { [weak self] in
-                if UIApplication.shared.applicationState == .background && self?.backgroundTask == .invalid {
-                    // dispatching chat disconnect in 1 second so message about call end
-                    // from webrtc does not cut mid sending
-                    // checking for background task being invalid though, to avoid disconnecting
-                    // from chat when another call has already being received in background
-                    QBChat.instance.disconnect(completionBlock: nil)
-                }
-            })
-            if let nav = self.nav {
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: { [weak self] in
-                    nav.view.isUserInteractionEnabled = false
-                    nav.dismiss(animated: false)
-                    self?.session = nil
-                    self?.nav = nil
-                    self?.setupToolbarButtons()
-                })
+            CallKitManager.instance.endCall(with: self.callUUID) {
+                debugPrint("[UsersViewController] endCall")
                 
-            } else {
-                
-                CallKitManager.instance.endCall(with: callUUID) {
-                    debugPrint("[UsersViewController] endCall")
-                }
-                callUUID = nil
-                self.session = nil
-                setupToolbarButtons()
             }
+            prepareCloseCall()
         }
+    }
+    
+    private func prepareCloseCall() {
+        self.callUUID = nil
+        self.session = nil
+        if QBChat.instance.isConnected == false {
+            self.connectToChat()
+        }
+        self.setupToolbarButtons()
+    }
+    
+    private func connectToChat() {
+        let profile = Profile()
+        guard profile.isFull == true else {
+            return
+        }
+        
+        QBChat.instance.connect(withUserID: profile.ID,
+                                password: LoginConstant.defaultPassword,
+                                completion: { [weak self] error in
+                                    guard let self = self else { return }
+                                    if let error = error {
+                                        if error._code == QBResponseStatusCode.unAuthorized.rawValue {
+                                            self.logoutAction()
+                                        } else {
+                                            debugPrint("[UsersViewController] login error response:\n \(error.localizedDescription)")
+                                        }
+                                    } else {
+                                        //did Login action
+                                        SVProgressHUD.dismiss()
+                                    }
+        })
     }
 }
 
 extension UsersViewController: PKPushRegistryDelegate {
     // MARK: - PKPushRegistryDelegate
     func pushRegistry(_ registry: PKPushRegistry, didUpdate pushCredentials: PKPushCredentials, for type: PKPushType) {
-        //  New way, only for updated backend
         guard let deviceIdentifier = UIDevice.current.identifierForVendor?.uuidString else {
             return
         }
         let subscription = QBMSubscription()
         subscription.notificationChannel = .APNSVOIP
         subscription.deviceUDID = deviceIdentifier
-        subscription.deviceToken = voipRegistry.pushToken(for: .voIP)
+        subscription.deviceToken = pushCredentials.token
         
         QBRequest.createSubscription(subscription, successBlock: { response, objects in
             debugPrint("[UsersViewController] Create Subscription request - Success")
@@ -508,38 +546,19 @@ extension UsersViewController: PKPushRegistryDelegate {
         })
     }
     
-    func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType) {
+    func pushRegistry(_ registry: PKPushRegistry,
+                      didReceiveIncomingPushWith payload: PKPushPayload,
+                      for type: PKPushType) {
         if payload.dictionaryPayload[UsersConstant.voipEvent] != nil {
             let application = UIApplication.shared
             if application.applicationState == .background && backgroundTask == .invalid {
-                backgroundTask = application.beginBackgroundTask(expirationHandler: { [weak self] in
-                    guard let self = self else {
-                        return
-                    }
+                backgroundTask = application.beginBackgroundTask(expirationHandler: {
                     application.endBackgroundTask(self.backgroundTask)
                     self.backgroundTask = UIBackgroundTaskIdentifier.invalid
                 })
             }
             if QBChat.instance.isConnected == false {
-                let profile = Profile()
-                guard profile.isFull == true else {
-                    return
-                }
-                
-                QBChat.instance.connect(withUserID: profile.ID,
-                                        password: LoginConstant.defaultPassword,
-                                        completion: { [weak self] error in
-                                            if let error = error {
-                                                if error._code == QBResponseStatusCode.unAuthorized.rawValue {
-                                                    self?.logoutAction()
-                                                } else {
-                                                    debugPrint("[UsersViewController] login error response:\n \(error.localizedDescription)")
-                                                }
-                                            } else {
-                                                //did Login action
-                                                SVProgressHUD.dismiss()
-                                            }
-                })
+                connectToChat()
             }
         }
     }
@@ -553,7 +572,7 @@ extension UsersViewController: SettingsViewControllerDelegate {
     
     private func logoutAction() {
         if QBChat.instance.isConnected == false {
-            SVProgressHUD.showError(withStatus: "It is not connected.")
+            SVProgressHUD.showError(withStatus: "Error")
             return
         }
         SVProgressHUD.show(withStatus: UsersAlertConstant.logout)
@@ -566,19 +585,19 @@ extension UsersViewController: SettingsViewControllerDelegate {
         #if targetEnvironment(simulator)
         disconnectUser()
         #else
-        QBRequest.subscriptions(successBlock: { [weak self] (response, subscriptions) in
+        QBRequest.subscriptions(successBlock: { (response, subscriptions) in
             
             if let subscriptions = subscriptions {
                 for subscription in subscriptions {
                     if let subscriptionsUIUD = subscriptions.first?.deviceUDID,
                         subscriptionsUIUD == uuidString,
                         subscription.notificationChannel == .APNSVOIP {
-                        self?.unregisterSubscription(forUniqueDeviceIdentifier: uuidString)
+                        self.unregisterSubscription(forUniqueDeviceIdentifier: uuidString)
                         return
                     }
                 }
             }
-            self?.disconnectUser()
+            self.disconnectUser()
             
         }) { response in
             if response.status.rawValue == 404 {
@@ -589,18 +608,18 @@ extension UsersViewController: SettingsViewControllerDelegate {
     }
     
     private func disconnectUser() {
-        QBChat.instance.disconnect(completionBlock: { [weak self] error in
+        QBChat.instance.disconnect(completionBlock: { error in
             if let error = error {
                 SVProgressHUD.showError(withStatus: error.localizedDescription)
                 return
             }
-            self?.logOut()
+            self.logOut()
         })
     }
     
     private func unregisterSubscription(forUniqueDeviceIdentifier uuidString: String) {
-        QBRequest.unregisterSubscription(forUniqueDeviceIdentifier: uuidString, successBlock: { [weak self] response in
-            self?.disconnectUser()
+        QBRequest.unregisterSubscription(forUniqueDeviceIdentifier: uuidString, successBlock: { response in
+            self.disconnectUser()
         }, errorBlock: { error in
             if let error = error.error {
                 SVProgressHUD.showError(withStatus: error.localizedDescription)

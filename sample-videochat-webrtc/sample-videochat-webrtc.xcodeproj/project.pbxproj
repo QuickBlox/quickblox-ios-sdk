@@ -693,10 +693,10 @@
 		E3B0B1A31E1576EC00BE5FBD /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				E3B0B1A41E1576EC00BE5FBD /* busy.wav */,
-				E3B0B1A51E1576EC00BE5FBD /* calling.wav */,
-				E3B0B1A61E1576EC00BE5FBD /* end_of_call.wav */,
 				E3B0B1A71E1576EC00BE5FBD /* ringtone.wav */,
+				E3B0B1A51E1576EC00BE5FBD /* calling.wav */,
+				E3B0B1A41E1576EC00BE5FBD /* busy.wav */,
+				E3B0B1A61E1576EC00BE5FBD /* end_of_call.wav */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";

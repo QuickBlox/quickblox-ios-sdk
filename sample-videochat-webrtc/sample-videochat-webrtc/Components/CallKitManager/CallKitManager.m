@@ -10,6 +10,7 @@
 #import <CallKit/CallKit.h>
 #import "UsersDataSource.h"
 #import "Log.h"
+#import "AppDelegate.h"
 
 static const NSInteger DefaultMaximumCallsPerCallGroup = 1;
 static const NSInteger DefaultMaximumCallGroups = 1;
@@ -21,7 +22,6 @@ static const NSInteger DefaultMaximumCallGroups = 1;
 @property (strong, nonatomic) CXCallController *callController;
 @property (copy, nonatomic) dispatch_block_t actionCompletionBlock;
 @property (copy, nonatomic) dispatch_block_t onAcceptActionBlock;
-
 @property (weak, nonatomic) QBRTCSession *session;
 
 @end
@@ -45,7 +45,7 @@ static const NSInteger DefaultMaximumCallGroups = 1;
     config.supportsVideo = YES;
     config.maximumCallsPerCallGroup = DefaultMaximumCallsPerCallGroup;
     config.maximumCallGroups = DefaultMaximumCallGroups;
-    config.supportedHandleTypes = [NSSet setWithObjects:@(CXHandleTypeGeneric), @(CXHandleTypePhoneNumber), nil];
+    config.supportedHandleTypes = [NSSet setWithObjects:@(CXHandleTypePhoneNumber), nil];
     config.iconTemplateImageData = UIImagePNGRepresentation([UIImage imageNamed:@"CallKitLogo"]);
     config.ringtoneSound = @"ringtone.wav";
     return config;
@@ -63,8 +63,17 @@ static const NSInteger DefaultMaximumCallGroups = 1;
         self.provider = [[CXProvider alloc] initWithConfiguration:configuration];
         [self.provider setDelegate:self queue:nil];
         self.callController = [[CXCallController alloc] initWithQueue:dispatch_get_main_queue()];
+        self.isCallStarted = NO;
     }
     return self;
+}
+
+- (void)setIsCallStarted:(BOOL)isCallStarted {
+    if (_isCallStarted != isCallStarted) {
+        _isCallStarted = isCallStarted;
+        AppDelegate *appDelegate = (AppDelegate*)[UIApplication.sharedApplication delegate];
+        appDelegate.isCalling = _isCallStarted;
+    }
 }
 
 // MARK: - Call management
@@ -91,14 +100,18 @@ static const NSInteger DefaultMaximumCallGroups = 1;
 }
 
 - (void)endCallWithUUID:(NSUUID *)uuid completion:(dispatch_block_t)completion {
-    if (_session == nil || uuid == nil) {
+    if (!self.session || !uuid) {
+        if (completion != nil) {
+            completion();
+        }
         return;
     }
-    __weak __typeof(self)weakSelf = self;
+    
     CXEndCallAction *action = [[CXEndCallAction alloc] initWithCallUUID:uuid];
     CXTransaction *transaction = [[CXTransaction alloc] initWithAction:action];
+    
     dispatchOnMainThread(^{
-        [weakSelf requestTransaction:transaction completion:nil];
+        [self requestTransaction:transaction completion:nil];
     });
     
     if (completion != nil) {
@@ -109,8 +122,7 @@ static const NSInteger DefaultMaximumCallGroups = 1;
 - (void)reportIncomingCallWithUserIDs:(NSArray *)userIDs outCallerName:(NSString *)callerName session:(QBRTCSession *)session uuid:(NSUUID *)uuid onAcceptAction:(dispatch_block_t)onAcceptAction completion:(void (^)(BOOL))completion {
     
     Log(@"[%@] Report incoming call %@",  NSStringFromClass([CallKitManager class]), uuid);
-    
-    if (_session != nil) {
+    if (self.session != nil) {
         return;
     }
     
@@ -140,8 +152,7 @@ static const NSInteger DefaultMaximumCallGroups = 1;
             
             // adding airplay support
             configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowAirPlay;
-            
-            if (self.session.conferenceType == QBRTCConferenceTypeVideo) {
+            if (session.conferenceType == QBRTCConferenceTypeVideo) {
                 // setting mode to video chat to enable airplay audio and speaker only
                 configuration.mode = AVAudioSessionModeVideoChat;
             }
@@ -167,7 +178,6 @@ static const NSInteger DefaultMaximumCallGroups = 1;
 }
 
 // MARK: - CXProviderDelegate protocol
-
 - (void)providerDidReset:(CXProvider *)__unused provider {
 }
 
@@ -196,30 +206,32 @@ static const NSInteger DefaultMaximumCallGroups = 1;
         // webrtc need AVAudioSessionCategoryPlayAndRecord
         NSError *err = nil;
         if (![[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:&err]) {
-            Log(@"[%@] Error setting category for webrtc workaround.",  NSStringFromClass([CallKitManager class]));
+            Log(@"[%@] Error setting category for webrtc workaround on ios 10.",  NSStringFromClass([CallKitManager class]));
         }
     }
     
+    __weak __typeof(self)weakSelf = self;
     dispatchOnMainThread(^{
-        [self.session acceptCall:nil];
-        self.isCallStarted = YES;
+        [weakSelf.session acceptCall:nil];
+        weakSelf.isCallStarted = YES;
         [action fulfill];
         
-        if (self.onAcceptActionBlock != nil) {
-            self.onAcceptActionBlock();
-            self.onAcceptActionBlock = nil;
+        if (weakSelf.onAcceptActionBlock != nil) {
+            weakSelf.onAcceptActionBlock();
+            weakSelf.onAcceptActionBlock = nil;
         }
     });
 }
 
 - (void)provider:(CXProvider *)__unused provider performEndCallAction:(CXEndCallAction *)action {
-    if (_session == nil) {
+    if (self.session == nil) {
         [action fail];
         return;
     }
     
     QBRTCSession *session = _session;
     _session = nil;
+    
     __weak __typeof(self)weakSelf = self;
     dispatchOnMainThread(^{
         QBRTCAudioSession *audioSession = [QBRTCAudioSession instance];
@@ -229,8 +241,7 @@ static const NSInteger DefaultMaximumCallGroups = 1;
         if (weakSelf.isCallStarted == YES) {
             [session hangUp:nil];
             weakSelf.isCallStarted = NO;
-        }
-        else {
+        } else {
             [session rejectCall:nil];
         }
         
@@ -248,6 +259,7 @@ static const NSInteger DefaultMaximumCallGroups = 1;
         [action fail];
         return;
     }
+    
     __weak __typeof(self)weakSelf = self;
     dispatchOnMainThread(^{
         weakSelf.session.localMediaStream.audioTrack.enabled = !action.isMuted;
@@ -265,18 +277,16 @@ static const NSInteger DefaultMaximumCallGroups = 1;
     [rtcAudioSession audioSessionDidActivate:audioSession];
     // enabling audio now
     rtcAudioSession.audioEnabled = YES;
-    // enabling local mic recording in recorder (if recorder is active) as of interruptions are over now
-    _session.recorder.localAudioEnabled = YES;
 }
 
 - (void)provider:(CXProvider *)provider didDeactivateAudioSession:(AVAudioSession *)audioSession {
     Log(@"[%@] Dectivated audio session.",  NSStringFromClass([CallKitManager class]));
     [[QBRTCAudioSession instance] audioSessionDidDeactivate:audioSession];
     // deinitializing audio session after iOS deactivated it for us
-    QBRTCAudioSession *session = [QBRTCAudioSession instance];
-    if (session.isInitialized) {
+    QBRTCAudioSession *rtcAudioSession = [QBRTCAudioSession instance];
+    if (rtcAudioSession.isInitialized) {
         Log(@"[%@] Deinitializing session in CallKit callback.",  NSStringFromClass([CallKitManager class]));
-        [session deinitialize];
+        [rtcAudioSession deinitialize];
     }
 }
 
@@ -291,7 +301,7 @@ static const NSInteger DefaultMaximumCallGroups = 1;
         }
     }
     
-    return [[CXHandle alloc] initWithType:CXHandleTypeGeneric value:[userIDs componentsJoinedByString:@", "]];
+    return [[CXHandle alloc] initWithType:CXHandleTypePhoneNumber value:[userIDs componentsJoinedByString:@", "]];
 }
 
 static inline void dispatchOnMainThread(dispatch_block_t block) {
@@ -308,7 +318,7 @@ static inline void dispatchOnMainThread(dispatch_block_t block) {
         if (error != nil) {
             Log(@"[%@] Error: %@",  NSStringFromClass([CallKitManager class]), error);
         }
-        if (completion != nil) {
+        if (completion) {
             completion(error == nil);
         }
     }];
