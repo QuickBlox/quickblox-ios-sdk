@@ -384,7 +384,7 @@ static NSString * const kUnknownUserLabel = @"?";
             NSIndexPath *userIndexPath = [self indexPathAtUserID:user.ID];
             OpponentCollectionViewCell *cell = (OpponentCollectionViewCell *)[self.opponentsCollectionView cellForItemAtIndexPath:userIndexPath];
             Profile *profile = [[Profile alloc] init];
-            if (cell && user.ID.unsignedIntegerValue != profile.ID) {
+            if (user.ID.unsignedIntegerValue != profile.ID) {
                 cell.bitrateString = [NSString stringWithFormat:@"%.0f kbits/sec", user.bitrate* 1e-3];
             }
         }
@@ -413,9 +413,8 @@ static NSString * const kUnknownUserLabel = @"?";
             user.connectionState = state;
             NSIndexPath *userIndexPath = [self indexPathAtUserID:user.ID];
             OpponentCollectionViewCell *cell = (OpponentCollectionViewCell *)[self.opponentsCollectionView cellForItemAtIndexPath:userIndexPath];
-            if (cell) {
-                cell.connectionState = user.connectionState;
-            }
+            cell.connectionState = user.connectionState;
+
         } else {
             QBUUser *qbUser = [self.usersDatasource userWithID:userID.unsignedIntegerValue];
             User *user = [[User alloc] initWithID:qbUser.ID fullName:qbUser.fullName];

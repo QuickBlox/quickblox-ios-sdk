@@ -95,76 +95,54 @@ static UIImage *mutedImage() {
         switch (connectionState) {
                 
             case QBRTCConnectionStateNew:
-                
                 self.statusLabel.text = @"New";
-                
                 break;
                 
             case QBRTCConnectionStatePending:
-                
                 self.statusLabel.text = @"Pending";
-                
                 break;
                 
             case QBRTCConnectionStateChecking:
             case QBRTCConnectionStateConnecting:
-                
                 self.statusLabel.text = @"Connecting";
-                
                 break;
                 
             case QBRTCConnectionStateConnected:
-                
                 self.statusLabel.text = @"Connected";
-                
                 break;
                 
             case QBRTCConnectionStateClosed:
-                
                 self.statusLabel.text = @"Closed";
-                
                 break;
                 
             case QBRTCConnectionStateFailed:
-                
                 self.statusLabel.text = @"Failed";
-                
                 break;
                 
             case QBRTCConnectionStateHangUp:
-                
                 self.statusLabel.text = @"Hung Up";
-                
                 break;
                 
             case QBRTCConnectionStateRejected:
-                
                 self.statusLabel.text = @"Rejected";
-                
                 break;
                 
             case QBRTCConnectionStateNoAnswer:
-                
                 self.statusLabel.text = @"No Answer";
-                
                 break;
                 
             case QBRTCConnectionStateDisconnectTimeout:
-                
                 self.statusLabel.text = @"Time out";
-                
                 break;
                 
             case QBRTCConnectionStateDisconnected:
-                
                 self.statusLabel.text = @"Disconnected";
-                
                 break;
+                
             case QBRTCConnectionStateUnknown:
-                
                 self.statusLabel.text = @"";
-                
                 break;
+                
             default:
                 break;
         }

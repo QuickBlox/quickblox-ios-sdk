@@ -313,8 +313,7 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     
     private func closeCall() {
         
-        CallKitManager.instance.endCall(with: callUUID, completion: {
-        })
+        CallKitManager.instance.endCall(with: callUUID, completion: nil)
         cameraCapture?.stopSession(nil)
         
         let audioSession = QBRTCAudioSession.instance()
@@ -385,12 +384,14 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
             } else {
                 
                 //Local preview
-                let localVideoView = LocalVideoView(previewlayer: cameraCapture!.previewLayer)
-                videoViews[userID] = localVideoView
-                localVideoView.delegate = self
-                self.localVideoView = localVideoView
-                
-                return localVideoView
+                if let previewLayer = cameraCapture?.previewLayer {
+                    let localVideoView = LocalVideoView(previewlayer: previewLayer)
+                    videoViews[userID] = localVideoView
+                    localVideoView.delegate = self
+                    self.localVideoView = localVideoView
+                    
+                    return localVideoView
+                }
             }
             
         } else if let remoteVideoTraсk = session?.remoteVideoTrack(withUserID: NSNumber(value: userID)) {

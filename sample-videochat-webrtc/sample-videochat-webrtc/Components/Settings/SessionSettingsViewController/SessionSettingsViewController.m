@@ -109,24 +109,25 @@ typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
         return @"unavailable";
 #endif
         
-    }
-    else if (indexPath.row == SessionConfigureItemAudio) {
+    } else if (indexPath.row == SessionConfigureItemAudio) {
         
-        if (settings.mediaConfiguration.audioCodec == QBRTCAudioCodecOpus ) {
-            
-            return @"Opus";
+        switch (settings.mediaConfiguration.audioCodec) {
+                case QBRTCAudioCodecOpus:
+                return @"Opus";
+                break;
+                
+                case QBRTCAudioCodecISAC:
+                return @"ISAC";
+                break;
+                
+                case QBRTCAudioCodeciLBC:
+                return @"iLBC";
+                break;
+                
+            default:
+                break;
         }
-        else if (settings.mediaConfiguration.audioCodec == QBRTCAudioCodecISAC) {
-            
-            return @"ISAC";
-        }
-        else if (settings.mediaConfiguration.audioCodec == QBRTCAudioCodeciLBC) {
-            
-            return @"iLBC";
-        }
-        
     }
-    
     return @"Unknown";
 }
 

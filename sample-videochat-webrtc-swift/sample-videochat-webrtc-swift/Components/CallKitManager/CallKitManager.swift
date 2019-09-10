@@ -128,7 +128,7 @@ class CallKitManager: NSObject {
      @param uuid uuid of call
      @param completion completion block
      */
-    func endCall(with uuid: UUID?, completion: @escaping () -> ()) {
+    func endCall(with uuid: UUID?, completion: (() -> ())?) {
         guard let _ = self.session,
             let uuid = uuid else {
                 return
@@ -137,8 +137,11 @@ class CallKitManager: NSObject {
         let  action = CXEndCallAction(call: uuid)
         let transaction = CXTransaction(action: action)
         dispatchOnMainThread(block: {
-            self.request(transaction) { _ in
-            }
+            self.request(transaction, completion: { (error) in
+                if let error = error {
+                    debugPrint("[CallKitManager] Request transaction error: \(error.localizedDescription)")
+                }
+            })
         })
         actionCompletionBlock = completion
     }

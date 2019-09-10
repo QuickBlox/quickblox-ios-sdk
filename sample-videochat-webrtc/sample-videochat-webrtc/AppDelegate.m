@@ -53,19 +53,10 @@ NSString *const kAccountKey     = @"";
 - (void)setIsCalling:(Boolean)isCalling {
     if (self.isCalling != isCalling) {
         _isCalling = isCalling;
-        switch (UIApplication.sharedApplication.applicationState) {
-            case UIApplicationStateActive:
-                break;
-            case UIApplicationStateInactive:
-                break;
-            case UIApplicationStateBackground:
-                if (self.isCalling == NO) {
-                    [self disconnect:nil];
-                }
-                break;
-                
-            default:
-                break;
+        if (UIApplication.sharedApplication.applicationState == UIApplicationStateBackground) {
+            if (self.isCalling == NO) {
+                [self disconnect:nil];
+            }
         }
     }
 }

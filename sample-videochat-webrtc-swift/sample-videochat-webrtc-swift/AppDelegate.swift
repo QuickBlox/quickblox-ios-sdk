@@ -40,18 +40,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var isCalling = false {
         didSet {
-            switch UIApplication.shared.applicationState {
-            case .active:
-                break
-            case .inactive:
-                break
-            case .background:
+            if UIApplication.shared.applicationState == .background {
                 if isCalling == false {
                     disconnect()
                 }
-                break
-            default:
-                break
             }
         }
     }

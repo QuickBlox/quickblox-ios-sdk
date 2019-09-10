@@ -111,14 +111,13 @@ class SessionSettingsViewController: UITableViewController {
             #endif
             
         } else if indexPath.row == SessionConfigureItem.auido.rawValue {
-            if settings.mediaConfiguration.audioCodec == QBRTCAudioCodec.codecOpus {
-                
+            
+            switch (settings.mediaConfiguration.audioCodec) {
+            case .codecOpus:
                 return "Opus"
-            } else if settings.mediaConfiguration.audioCodec == QBRTCAudioCodec.codecISAC {
-                
+            case .codecISAC:
                 return "ISAC"
-            } else if settings.mediaConfiguration.audioCodec == QBRTCAudioCodec.codeciLBC {
-                
+            case .codeciLBC:
                 return "iLBC"
             }
         }
