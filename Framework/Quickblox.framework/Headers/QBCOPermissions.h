@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Quickblox/QBCustomObjectsEnums.h>
+#import "QBCustomObjectsEnums.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

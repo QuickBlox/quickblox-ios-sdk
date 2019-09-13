@@ -6,19 +6,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "QBContactListItem.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class QBContactListItem;
-
 /**
- *  QBContactList class interface.
- *  Represents user's contact list.
+ QBContactList class interface.
+ Represents user's contact list.
  */
 @interface QBContactList : NSObject
 
 /**
- *  Current contacts.
+ Current contacts.
  */
 @property (nonatomic, readonly, nullable) NSArray<QBContactListItem *> *contacts;
 
@@ -26,6 +25,25 @@ NS_ASSUME_NONNULL_BEGIN
  *  Your requests which pending approval.
  */
 @property (nonatomic, readonly, nullable) NSArray<QBContactListItem *> *pendingApproval;
+
+
+/**
+ How to use:
+ QBContactListItem *item = QBChat.instance.contactList[userID];
+
+ @param userID userID.
+ @return QBContactListItem isnstance if exist.
+ */
+- (nullable QBContactListItem *)objectAtIndexedSubscript:(NSUInteger)userID;
+
+/**
+ Sorted by state
+
+ @param state @see QBPresenseSubscriptionState
+ @return Array of QBContactListItem items
+ */
+- (NSArray<QBContactListItem *> *)itemsSortedByState:(QBPresenseSubscriptionState)state;
+
 
 @end
 

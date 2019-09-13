@@ -5,7 +5,7 @@
 //  Copyright 2011 QuickBlox team. All rights reserved.
 //
 
-#import <Quickblox/QBLoggerEnums.h>
+#import "QBLoggerEnums.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

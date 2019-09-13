@@ -5,7 +5,7 @@
 //  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
-#import <Quickblox/QBMPushMessageBase.h>
+#import "QBMPushMessageBase.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
