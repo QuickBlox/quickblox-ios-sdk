@@ -6,8 +6,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Quickblox/QBCEntity.h>
-#import <Quickblox/QBContentEnums.h>
+#if __has_include("QBCEntity.h")
+#import "QBCEntity.h"
+#import "QBContentEnums.h"
+#else
+#import <QBCEntity.h>
+#import <QBContentEnums.h>
+#endif
 
 @class QBCBlobObjectAccess;
 

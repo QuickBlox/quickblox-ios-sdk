@@ -4,7 +4,7 @@
 //  Created by QuickBlox team
 //  Copyright (c) 2017 QuickBlox. All rights reserved.
 
-#import <Quickblox/QBSettings.h>
+#import "QBSettings.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

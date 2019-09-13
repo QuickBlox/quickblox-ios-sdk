@@ -5,7 +5,7 @@
 //  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 #import <Foundation/Foundation.h>
-#import <Quickblox/QBCEntity.h>
+#import "QBCEntity.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
