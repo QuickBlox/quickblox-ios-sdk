@@ -1,30 +1,21 @@
 PODS:
-  - Crashlytics (3.12.0):
-    - Fabric (~> 1.9.0)
-  - Fabric (1.9.0)
-  - QuickBlox (2.17.1)
-  - Quickblox-WebRTC (2.7.3):
-    - QuickBlox (>= 2.7)
+  - QuickBlox (2.17.4)
+  - Quickblox-WebRTC (2.7.4):
+    - QuickBlox (>= 2.17.2)
 
 DEPENDENCIES:
-  - Crashlytics
-  - Fabric
-  - QuickBlox (~> 2.17.1)
-  - Quickblox-WebRTC (~> 2.7.3)
-
-SPEC CHECKSUMS:
-  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
-  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
-  QuickBlox: b8c327b61db8382880bd41185703acf228105a1c
-  Quickblox-WebRTC: 92897974c3b39fa8f54a373520e2eefc3696f6a4
-
-COCOAPODS: 1.5.3
-
-PODFILE CHECKSUM: 7929d41354ba6230522ad0cffe2aa0d790cfd99e
+  - QuickBlox (~> 2.17.4)
+  - Quickblox-WebRTC (~> 2.7.4)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - Crashlytics
-    - Fabric
     - QuickBlox
     - Quickblox-WebRTC
+
+SPEC CHECKSUMS:
+  QuickBlox: 992be26bc127313991a1337dfd98c9359832c147
+  Quickblox-WebRTC: cd1a5159c2ddb5b0feaf00b7a38b5551743eb067
+
+PODFILE CHECKSUM: ee44a4eca096673a01e5ee32bc2729cc963c366f
+
+COCOAPODS: 1.5.3
