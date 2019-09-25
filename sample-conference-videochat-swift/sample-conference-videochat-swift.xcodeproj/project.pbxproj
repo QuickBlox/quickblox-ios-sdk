@@ -552,7 +552,6 @@
 				2C0D581C21666256001FF80B /* Resources */,
 				CE2709E321959D820010D0EB /* ShellScript */,
 				CE2709E421959D9E0010D0EB /* ShellScript */,
-				CE2709E521959DC20010D0EB /* ShellScript */,
 				DAB6A06BD5E53CE98388D9DB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -655,20 +654,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "bash \"${PODS_ROOT}/Quickblox-WebRTC/QuickbloxWebRTC.framework/strip-framework.sh\"\n";
-		};
-		CE2709E521959DC20010D0EB /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" 4b96a3f33893a42103eae91d2166d0c517b833d3 48d2b1a30ed0fd2d0897e0576e7e3625f0a9270aa02fd1e09291e17c9464a023\n";
 		};
 		DAB6A06BD5E53CE98388D9DB /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

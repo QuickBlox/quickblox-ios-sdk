@@ -7,8 +7,8 @@ use_frameworks!
 target 'sample-videochat-webrtc-swift' do
   inhibit_all_warnings!
   
-  pod 'QuickBlox', '~> 2.17.1'
-  pod 'Quickblox-WebRTC', '~> 2.7.3'
+  pod 'QuickBlox', '~> 2.17.4'
+  pod 'Quickblox-WebRTC', '~> 2.7.4'
   pod 'SVProgressHUD', '~> 2.2.5'
 
 end

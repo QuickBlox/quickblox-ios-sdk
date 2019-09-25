@@ -9,15 +9,14 @@
 import UIKit
 import Quickblox
 import QuickbloxWebRTC
-import Fabric
-import Crashlytics
 import SVProgressHUD
 
+//To update the Credentials, please see the README file.
 struct CredentialsConstant {
-    static let applicationID:UInt = 72448
-    static let authKey = "f4HYBYdeqTZ7KNb"
-    static let authSecret = "ZC7dK39bOjVc-Z8"
-    static let accountKey = "C4_z7nuaANnBYmsG_k98"
+    static let applicationID:UInt = 0
+    static let authKey = ""
+    static let authSecret = ""
+    static let accountKey = ""
 }
 
 struct TimeIntervalConstant {
@@ -37,7 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        Fabric.with([Crashlytics.self])
         QBSettings.applicationID = CredentialsConstant.applicationID;
         QBSettings.authKey = CredentialsConstant.authKey
         QBSettings.authSecret = CredentialsConstant.authSecret

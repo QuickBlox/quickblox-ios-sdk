@@ -9,18 +9,16 @@
 #import "SVProgressHUD.h"
 #import "Settings.h"
 
-#import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
-
 const NSTimeInterval kQBAnswerTimeInterval = 60.0f;
 const NSTimeInterval kQBDialingTimeInterval = 5.0f;
 
 #define ENABLE_STATS_REPORTS 1
 
-const NSUInteger kApplicationID = 72448;
-NSString *const kAuthKey        = @"f4HYBYdeqTZ7KNb";
-NSString *const kAuthSecret     = @"ZC7dK39bOjVc-Z8";
-NSString *const kAccountKey     = @"C4_z7nuaANnBYmsG_k98";
+//To update the Credentials, please see the README file.
+const NSUInteger kApplicationID = 0;
+NSString *const kAuthKey        = @"";
+NSString *const kAuthSecret     = @"";
+NSString *const kAccountKey     = @"";
 
 @implementation AppDelegate
 
@@ -52,8 +50,6 @@ NSString *const kAccountKey     = @"C4_z7nuaANnBYmsG_k98";
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
     
     [QBRTCClient initializeRTC];
-    
-    [Fabric with:@[CrashlyticsKit]];
     
     // loading settings
     [Settings instance];
