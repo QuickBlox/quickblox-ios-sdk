@@ -121,8 +121,6 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         }
         
         let audioSession = QBRTCAudioSession.instance()
-        audioSession.useManualAudio = true
-        audioSession.isAudioEnabled = true
         if audioSession.isInitialized == false {
             audioSession.initialize { configuration in
                 // adding blutetooth support
@@ -510,6 +508,15 @@ extension CallViewController: QBRTCAudioSessionDelegate {
 
 // MARK: QBRTCClientDelegate
 extension CallViewController: QBRTCClientDelegate {
+    
+    func session(_ session: QBRTCSession, hungUpByUser userID: NSNumber, userInfo: [String : String]? = nil) {
+        guard session == self.session else {
+            return
+        }
+        if session.opponentsIDs.count == 1, session.initiatorID == userID {
+            closeCall()
+        }
+    }
     
     func session(_ session: QBRTCBaseSession, updatedStatsReport report: QBRTCStatsReport, forUserID userID: NSNumber) {
         guard let session = session as? QBRTCSession,

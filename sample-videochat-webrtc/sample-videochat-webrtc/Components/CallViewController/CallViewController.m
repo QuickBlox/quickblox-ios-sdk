@@ -374,6 +374,13 @@ static NSString * const kUnknownUserLabel = @"?";
 }
 
 // MARK: - QBRTCClientDelegate
+
+- (void)session:(QBRTCSession *)session hungUpByUser:(NSNumber *)userID userInfo:(NSDictionary<NSString *,NSString *> *)userInfo {
+    if (session == self.session && session.opponentsIDs.count == 1 && session.initiatorID.unsignedIntegerValue == userID.unsignedIntegerValue) {
+        [self closeCall];
+    }
+}
+
 - (void)session:(__kindof QBRTCBaseSession *)session updatedStatsReport:(QBRTCStatsReport *)report forUserID:(NSNumber *)userID {
     if (session == self.session) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ID == %@", userID];
