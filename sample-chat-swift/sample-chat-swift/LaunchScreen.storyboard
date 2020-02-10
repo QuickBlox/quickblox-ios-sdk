@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="y2N-t5-UAO">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="TcO-gQ-9RE">
+            <objects>
+                <viewController storyboardIdentifier="LaunchScreen" id="y2N-t5-UAO" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8jH-Hk-wTq">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="qb-logo" translatesAutoresizingMaskIntoConstraints="NO" id="T85-IC-R6p">
+                                <rect key="frame" x="157.5" y="398.5" width="99" height="99"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="99" id="DZ5-Fb-cdo"/>
+                                    <constraint firstAttribute="height" constant="99" id="Hzi-bC-dPL"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swift Chat Sample " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j62-NF-P7E">
+                                <rect key="frame" x="107" y="833" width="200" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="CBa-gM-osA"/>
+                                    <constraint firstAttribute="height" constant="29" id="jzC-Sb-fyi"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.22164413329999999" green="0.47138309480000001" blue="0.98696607349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="T85-IC-R6p" firstAttribute="centerX" secondItem="8jH-Hk-wTq" secondAttribute="centerX" id="5QL-AS-a9x"/>
+                            <constraint firstAttribute="bottom" secondItem="j62-NF-P7E" secondAttribute="bottom" constant="34" id="DeH-N2-NSD"/>
+                            <constraint firstItem="j62-NF-P7E" firstAttribute="centerX" secondItem="8jH-Hk-wTq" secondAttribute="centerX" id="O7O-GG-Eiz"/>
+                            <constraint firstItem="T85-IC-R6p" firstAttribute="centerY" secondItem="8jH-Hk-wTq" secondAttribute="centerY" id="SjS-Wm-IMh"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="h05-Nl-qgy"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CR3-rA-SB2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-472" y="-34"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="qb-logo" width="99" height="99"/>
+    </resources>
+</document>

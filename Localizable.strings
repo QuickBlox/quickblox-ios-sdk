@@ -32,7 +32,7 @@
 "SA_STR_LOADING_DIALOGS" = "Loading dialogs";
 "SA_STR_DONE" = "Done";
 "SA_STR_ADDED" = "added";
-"SA_STR_CREATE_NEW" = "created new dialog with: ";
+"SA_STR_CREATE_NEW" = "created the group chat";
 "SA_STR_CALL" = "Call";
 
 // chat dialog
@@ -73,9 +73,11 @@
 "SA_STR_CELL_DIALOG" = "dialogcell";
 
 // Segues
+"SA_STR_SEGUE_GO_TO_INFO" = "goToInfo";
 "SA_STR_SEGUE_GO_TO_DIALOGS" = "goToDialogs";
 "SA_STR_SEGUE_GO_TO_CHAT" = "goToChat";
 "SA_STR_SEGUE_GO_TO_SELECT_OPPONENTS" = "goToSelectOpponents";
+"SA_STR_SEGUE_GO_TO_ADD_OPPONENTS" = "goToAddOpponents";
 
 // User table view cell model
 "SA_STR_PRIVATE" = "private";

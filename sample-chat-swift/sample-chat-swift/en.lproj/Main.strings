@@ -1,0 +1,45 @@
+
+/* Class = "UIViewController"; title = "Chat"; ObjectID = "3e3-Lk-tKV"; */
+"3e3-Lk-tKV.title" = "Chat";
+
+/* Class = "UITableViewController"; title = "Select opponents"; ObjectID = "3ff-8d-9pb"; */
+"3ff-8d-9pb.title" = "Select opponents";
+
+/* Class = "UILabel"; text = "Login as User 1"; ObjectID = "5p4-2r-hK6"; */
+"5p4-2r-hK6.text" = "Login as User 1";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "6hA-ln-8uo"; */
+"6hA-ln-8uo.text" = "Subtitle";
+
+/* Class = "UINavigationItem"; title = "List of chat participants"; ObjectID = "A4A-Dp-q1R"; */
+"A4A-Dp-q1R.title" = "List of chat participants";
+
+/* Class = "UILabel"; text = "Select a dialog to chat"; ObjectID = "EFj-SE-fei"; */
+"EFj-SE-fei.text" = "Select a dialog to chat";
+
+/* Class = "UINavigationItem"; title = "Logged in as"; ObjectID = "Iav-xC-5Zn"; */
+"Iav-xC-5Zn.title" = "Select opponents";
+
+/* Class = "UIButton"; normalTitle = "join chat"; ObjectID = "NPR-SX-7ci"; */
+"NPR-SX-7ci.normalTitle" = "join chat";
+
+/* Class = "UILabel"; text = "Select opponents"; ObjectID = "SH2-NN-FuR"; */
+"SH2-NN-FuR.text" = "Select opponents";
+
+/* Class = "UIBarButtonItem"; title = "Info"; ObjectID = "UZt-Ef-Ucc"; */
+"UZt-Ef-Ucc.title" = "Info";
+
+/* Class = "UILabel"; text = "Login as User 1"; ObjectID = "V3F-oh-jvS"; */
+"V3F-oh-jvS.text" = "Login as User 1";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "XeG-H9-uYk"; */
+"XeG-H9-uYk.text" = "Title";
+
+/* Class = "UINavigationItem"; title = "Dialogs"; ObjectID = "bmx-cq-v74"; */
+"bmx-cq-v74.title" = "Dialogs";
+
+/* Class = "UILabel"; text = "Login as User 1"; ObjectID = "ebd-7q-adB"; */
+"ebd-7q-adB.text" = "Login as User 1";
+
+/* Class = "UIButton"; normalTitle = "New Chat"; ObjectID = "u6a-tr-QvZ"; */
+"u6a-tr-QvZ.normalTitle" = "New Chat";
