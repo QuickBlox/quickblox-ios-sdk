@@ -1447,14 +1447,6 @@ extension ChatViewController: UICollectionViewDelegate {
         inputToolbarDarkView.rightAnchor.constraint(equalTo: inputToolbar.rightAnchor).isActive = true
         inputToolbarDarkView.topAnchor.constraint(equalTo: inputToolbar.topAnchor).isActive = true
         inputToolbarDarkView.bottomAnchor.constraint(equalTo: inputToolbar.bottomAnchor).isActive = true
-        let button = UIButton()
-        button.addTarget(self, action: #selector(removePopVC(_:)), for: .touchUpInside)
-        inputToolbarDarkView.addSubview(button)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.leftAnchor.constraint(equalTo: inputToolbarDarkView.leftAnchor).isActive = true
-        button.rightAnchor.constraint(equalTo: inputToolbarDarkView.rightAnchor).isActive = true
-        button.topAnchor.constraint(equalTo: inputToolbarDarkView.topAnchor).isActive = true
-        button.bottomAnchor.constraint(equalTo: inputToolbarDarkView.bottomAnchor).isActive = true
         
         if inputToolbar.contentView.textView.isFirstResponder == true  {
             let topBarHeight = UIApplication.shared.statusBarFrame.size.height +
