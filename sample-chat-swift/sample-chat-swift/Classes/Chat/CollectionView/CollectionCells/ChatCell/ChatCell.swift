@@ -241,12 +241,6 @@ ChatCellProtocol {
         bubbleImageView.bottomAnchor.constraint(equalTo: textView.bottomAnchor, constant: 12.0).isActive = true
         return bubbleImageView
     }()
-    
-    var bubbleImage: UIImage? {
-        didSet {
-            bubbleImageView.image = bubbleImage
-        }
-    }
 
   class func registerMenuAction(_ action: Selector) {
     chatCellMenuActions.insert(NSStringFromSelector(action))

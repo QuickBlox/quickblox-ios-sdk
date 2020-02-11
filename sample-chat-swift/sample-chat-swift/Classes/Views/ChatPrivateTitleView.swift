@@ -32,7 +32,6 @@ class ChatPrivateTitleView: UIStackView {
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
         avatarImageView.widthAnchor.constraint(equalToConstant: 26.0).isActive = true
         avatarImageView.heightAnchor.constraint(equalToConstant: 26.0).isActive = true
-        avatarImageView.contentMode = .scaleAspectFill
         return avatarImageView
     }()
 

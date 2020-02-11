@@ -59,7 +59,6 @@ struct ActionMessage {
 }
 
 class ChatViewController: UIViewController {
-    var allPhotos : PHFetchResult<PHAsset>? = nil
     
     //MARK: - IBOutlets
     @IBOutlet private weak var collectionView: ChatCollectionView!
@@ -87,8 +86,6 @@ class ChatViewController: UIViewController {
     }()
     private let chatManager = ChatManager.instance
     private var offsetY: CGFloat = 0.0
-    private let blueBubble = UIImage(named: "ios_bubble_blue")
-    private let grayBubble = UIImage(named: "ios_bubble_gray")
     
     private var isDeviceLocked = false
     
