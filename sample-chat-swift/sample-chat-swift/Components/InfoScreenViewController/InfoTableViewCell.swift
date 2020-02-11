@@ -1,6 +1,6 @@
 //
 //  InfoTableViewCell.swift
-//  sample-conference-videochat-swift
+//  sample-videochat-swift
 //
 //  Created by Injoit on 1/28/19.
 //  Copyright © 2019 Quickblox. All rights reserved.

@@ -34,20 +34,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         QBSettings.authSecret = CredentialsConstant.authSecret
         QBSettings.accountKey = CredentialsConstant.accountKey
         // enabling carbons for chat
-        QBSettings.carbonsEnabled = true
+        QBSettings.carbonsEnabled = false
         // Enables Quickblox REST API calls debug console output.
         QBSettings.logLevel = .debug
         // Enables detailed XMPP logging in console output.
         QBSettings.enableXMPPLogging()
+        QBSettings.disableFileLogging()
         
         let center = UNUserNotificationCenter.current()
         center.delegate = self
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = RootParentVC()
+        window?.makeKeyAndVisible()
         
         return true
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
-        application.applicationIconBadgeNumber = 0
         // Logging out from chat.
         ChatManager.instance.disconnect()
     }
@@ -56,11 +60,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Logging in to chat.
         registerForRemoteNotifications()
         ChatManager.instance.connect { (error) in
-            if let error = error {
-                SVProgressHUD.showError(withStatus: error.localizedDescription)
+            if let _ = error {
                 return
             }
-            
         }
     }
     
@@ -76,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let identifierForVendor = UIDevice.current.identifierForVendor else {
             return
         }
-
+        
         let deviceIdentifier = identifierForVendor.uuidString
         let subscription = QBMSubscription()
         subscription.notificationChannel = .APNS
@@ -121,7 +123,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         if UIApplication.shared.applicationState == .active {
             return
         }
-        
         center.removeAllDeliveredNotifications()
         center.removeAllPendingNotificationRequests()
         
@@ -165,5 +166,21 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                 return
             }
         }
+    }
+}
+
+extension UIApplication {
+    static var appVersion: String? {
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+    }
+}
+
+extension AppDelegate {
+    static var shared: AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
+    
+    var rootViewController: RootParentVC {
+        return window!.rootViewController as! RootParentVC
     }
 }

@@ -8,6 +8,12 @@
 
 import Foundation
 
+struct UsersInfoConstant {
+    static let perPage:UInt = 10
+    static let delivered = "Message delivered to"
+    static let viewed = "Message viewed by"
+}
+
 class UsersInfoTableViewController: UITableViewController {
     
     //MARK: - Properties
@@ -19,10 +25,14 @@ class UsersInfoTableViewController: UITableViewController {
             self.dialog = chatManager.storage.dialog(withID: dialogID)
         }
     }
+    var currentUser = Profile()
+    var message: QBChatMessage?
+    var action: ChatActions?
+    private var titleView = TitleView()
     private var dialog: QBChatDialog!
     var users : [QBUUser] = []
     let chatManager = ChatManager.instance
-    private lazy var addUsersItem = UIBarButtonItem(title: "Add occupants",
+    private lazy var addUsersItem = UIBarButtonItem(image: UIImage(named: "add_user"),
                                                     style: .plain,
                                                     target: self,
                                                     action:#selector(didTapAddUsers(_:)))
@@ -30,23 +40,84 @@ class UsersInfoTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        guard let occupantIDs = dialog.occupantIDs  else {
-                return
-        }
+        navigationItem.titleView = titleView
+        
+        tableView.register(UINib(nibName: UserCellConstant.reuseIdentifier, bundle: nil),
+                           forCellReuseIdentifier: UserCellConstant.reuseIdentifier)
+        
         chatManager.delegate = self
-        let  profile = Profile()
-        if profile.isFull == true {
-            navigationItem.title = profile.fullName
-        }
+
         setupUsers(dialogID)
         
+        let backButtonItem = UIBarButtonItem(image: UIImage(named: "chevron"),
+                                             style: .plain,
+                                             target: self,
+                                             action: #selector(didTapBack(_:)))
+        navigationItem.leftBarButtonItem = backButtonItem
+        backButtonItem.tintColor = .white
+        
         navigationItem.rightBarButtonItem = addUsersItem
-        if occupantIDs.count >= chatManager.storage.users.count {
-            navigationItem.rightBarButtonItem?.isEnabled = false
+        if action == ChatActions.ChatInfo {
+            addUsersItem.tintColor = .white
+            addUsersItem.isEnabled = true
+        } else {
+            addUsersItem.tintColor = .clear
+            addUsersItem.isEnabled = false
+        }
+        
+        if action == .ViewedBy {
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(chatDidReadMessageNotification(_:)),
+                                                   name: ChatViewControllerConstant.chatDidReadMessageNotification,
+                                                   object: nil)
+        } else if action == .DeliveredTo {
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(chatDidDeliverMessageNotification(_:)),
+                                                   name: ChatViewControllerConstant.chatDidDeliverMessageNotification,
+                                                   object: nil)
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    //MARK: - Internal Methods
+    private func setupNavigationTitleByAction() {
+        var title = dialog.name ?? ""
+        if action == .ViewedBy {
+            title = UsersInfoConstant.viewed
+        } else if action == .DeliveredTo {
+            title = UsersInfoConstant.delivered
+        }
+        
+        let numberUsers = "\(self.users.count) members"
+        titleView.setupTitleView(title: title, subTitle: numberUsers)
+    }
+    
     //MARK: - Actions
+    @objc func chatDidReadMessageNotification(_ notification: Notification?) {
+        if let readedMessage = notification?.userInfo?["message"] as? QBChatMessage,
+            readedMessage.id == self.message?.id {
+            self.message = readedMessage
+            updateUsers()
+        }
+    }
+    
+    @objc func chatDidDeliverMessageNotification(_ notification: Notification?) {
+        if let deliverMessage = notification?.userInfo?["message"] as? QBChatMessage,
+            deliverMessage.id == self.message?.id {
+            self.message = deliverMessage
+            updateUsers()
+        }
+    }
+    
+    @objc func didTapBack(_ sender: UIBarButtonItem) {
+        navigationController?.popViewController(animated: true)
+    }
+    
     @objc private func didTapAddUsers(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "SA_STR_SEGUE_GO_TO_ADD_OPPONENTS".localized, sender: nil)
     }
@@ -56,25 +127,52 @@ class UsersInfoTableViewController: UITableViewController {
         guard let occupantIDs = dialog.occupantIDs  else {
             return
         }
-        if occupantIDs.count >= chatManager.storage.users.count {
-            navigationItem.rightBarButtonItem?.isEnabled = false
-        } else {
-            navigationItem.rightBarButtonItem?.isEnabled = true
-        }
         if occupantIDs.isEmpty == false {
             setupUsers(dialogID)
         }
     }
     
     private func setupUsers(_ dialogID: String) {
+        guard currentUser.isFull == true else {
+            return
+        }
         self.users = chatManager.storage.users(with: dialogID)
+        
+        if let message = message, let action = action {
+            if action == .ViewedBy {
+                var readUsers: [QBUUser] = []
+                //check and add users who read the message
+                if let readIDs = message.readIDs,
+                    readIDs.isEmpty == false {
+                    for readID in readIDs {
+                        if let user = chatManager.storage.user(withID: readID.uintValue) {
+                            readUsers.append(user)
+                        }
+                    }
+                }
+                self.users = readUsers
+            } else if action == .DeliveredTo {
+                var deliveredUsers: [QBUUser] = []
+                //check and add users who read the message
+                if let deliveredIDs = message.deliveredIDs,
+                    deliveredIDs.isEmpty == false {
+                    for deliveredID in deliveredIDs {
+                        if let user = chatManager.storage.user(withID: deliveredID.uintValue) {
+                            deliveredUsers.append(user)
+                        }
+                    }
+                }
+                self.users = deliveredUsers
+            }
+        }
+        setupNavigationTitleByAction()
         tableView.reloadData()
     }
     
     //MARK: - Overrides
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "SA_STR_SEGUE_GO_TO_ADD_OPPONENTS".localized {
-            guard let addOccupantsVC = segue.destination as? AddOccupantsController else {
+            guard let addOccupantsVC = segue.destination as? AddOccupantsVC else {
                 return
             }
             addOccupantsVC.dialogID = dialogID
@@ -92,13 +190,23 @@ class UsersInfoTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SA_STR_CELL_USER".localized, for: indexPath) as? UserTableViewCell else {
-            return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: UserCellConstant.reuseIdentifier,
+                                                       for: indexPath) as? UserTableViewCell else {
+                                                        return UITableViewCell()
         }
-        let user = users[indexPath.row]
-        cell.setupColorMarker(chatManager.color(indexPath.row))
-        cell.userDescription = user.fullName
+        let user = self.users[indexPath.row]
+        cell.userColor = user.id.generateColor()
+        if currentUser.ID == user.id {
+            cell.userNameLabel.text = "You"
+        } else {
+            cell.userNameLabel.text = user.fullName ?? user.login
+        }
+        
+        cell.userAvatarLabel.text = String(user.fullName?.capitalized.first ?? Character("U"))
         cell.tag = indexPath.row
+        cell.checkBoxView.isHidden = true
+        cell.checkBoxImageView.isHidden = true
+        
         return cell
     }
     
@@ -111,7 +219,7 @@ class UsersInfoTableViewController: UITableViewController {
 // MARK: - ChatManagerDelegate
 extension UsersInfoTableViewController: ChatManagerDelegate {
     func chatManagerWillUpdateStorage(_ chatManager: ChatManager) {
-        SVProgressHUD.show(withStatus: "SA_STR_LOADING_USERS".localized, maskType: .clear)
+        SVProgressHUD.show(withStatus: "SA_STR_LOADING_USERS".localized)
     }
     
     func chatManager(_ chatManager: ChatManager, didFailUpdateStorage message: String) {

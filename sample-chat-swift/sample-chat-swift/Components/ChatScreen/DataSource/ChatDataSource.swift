@@ -16,6 +16,7 @@ enum ChatDataSourceAction: Int {
 
 struct ChatDataSourceConstant {
     static let dateDividerKey = "kQBDateDividerCustomParameterKey"
+    static let forwardedMessage = "origin_sender_name"
     static let notificationType = "notification_type"
 }
 
@@ -32,7 +33,7 @@ class ChatDataSource {
     //MARK: - Properties
     weak var delegate: ChatDataSourceDelegate?
     private(set) var messages: [QBChatMessage] = []
-
+    
     var loadMessagesCount: Int {
         return messages.filter({
             guard let isDividerMessage = ($0.customParameters[ChatDataSourceConstant.dateDividerKey]) as? Bool else {
@@ -105,7 +106,7 @@ class ChatDataSource {
         serialQueue.async { [weak self] in
             guard let self = self else {
                 return
-            }            
+            }
             var messagesArray: [QBChatMessage] = []
             
             for message in messages {
@@ -114,15 +115,12 @@ class ChatDataSource {
                     continue
                 }
                 
-                if self.messages.contains(message) == true {
+                if self.isExistMessage(message) == true {
                     continue
                 }
-
+                
                 guard let messageDateSent = message.dateSent else {
                     debugPrint("[ChatDataSource] addMessages: message must have dateSent!")
-                    continue
-                }
-                if self.isExistMessage(message) == true {
                     continue
                 }
                 
@@ -134,17 +132,21 @@ class ChatDataSource {
                     continue
                 }
                 
-                self.dividers.insert(divideDate)
-                
                 let formatter = DateFormatter()
-                formatter.dateStyle = .long
-                formatter.timeStyle = .none
-                formatter.doesRelativeDateFormatting = true
+                
+                if divideDate.hasSame([.year], as: Date()) == true {
+                    formatter.dateFormat = "d MMM"
+                } else {
+                    formatter.dateFormat = "d MMM, yyyy"
+                }
+                
+                self.dividers.insert(divideDate)
+
                 let dividerMessage = QBChatMessage()
                 dividerMessage.text = formatter.string(from: divideDate)
                 dividerMessage.dateSent = divideDate
                 dividerMessage.customParameters[ChatDataSourceConstant.dateDividerKey] = true
-                messagesArray.append(dividerMessage)    
+                messagesArray.append(dividerMessage)
             }
             
             DispatchQueue.main.async { [weak self] in

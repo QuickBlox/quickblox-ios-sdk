@@ -23,51 +23,74 @@ class InfoTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let backButtonItem = UIBarButtonItem(image: UIImage(named: "chevron"),
+                                                           style: .plain,
+                                                           target: self,
+                                                           action: #selector(didTapBack(_:)))
+        navigationItem.leftBarButtonItem = backButtonItem
+        backButtonItem.tintColor = .white
+        
         setupTableView()
+    }
+    
+    @objc func didTapBack(_ sender: UIBarButtonItem) {
+        navigationController?.popViewController(animated: true)
     }
     
     //MARK: - Internal Methods
     private func setupTableView() {
+        let appName = Bundle.main.infoDictionary?["CFBundleName"] as? String
+        let appNameModel = InfoModel()
+        appNameModel.title = "Application name"
+        appNameModel.info = appName ?? ""
+        infoModels.append(appNameModel)
+        
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         let appVersionModel = InfoModel()
-        appVersionModel.title = "Application version:"
-        appVersionModel.info = "\(appVersion ?? "")"
+        appVersionModel.title = "Application version"
+        appVersionModel.info = appVersion ?? ""
         infoModels.append(appVersionModel)
         
         let quickBloxSdkVersionModel = InfoModel()
-        quickBloxSdkVersionModel.title = "QuickBlox SDK version:"
-        quickBloxSdkVersionModel.info = "\(QuickbloxFrameworkVersion)"
+        quickBloxSdkVersionModel.title = "QuickBlox SDK version"
+        quickBloxSdkVersionModel.info = QuickbloxFrameworkVersion
         infoModels.append(quickBloxSdkVersionModel)
         
         let appIDModel = InfoModel()
-        appIDModel.title = "Application ID:"
+        appIDModel.title = "Application ID"
         appIDModel.info = "\(QBSettings.applicationID)"
         infoModels.append(appIDModel)
         
         let authKeyModel = InfoModel()
-        authKeyModel.title = "Auhtorization key:"
-        authKeyModel.info = "\(QBSettings.authKey ?? "")"
+        authKeyModel.title = "Auhtorization key"
+        authKeyModel.info = QBSettings.authKey ?? ""
         infoModels.append(authKeyModel)
         
         let authSecretModel = InfoModel()
-        authSecretModel.title = "Auhtorization secret:"
-        authSecretModel.info = "\(QBSettings.authSecret ?? "")"
+        authSecretModel.title = "Auhtorization secret"
+        authSecretModel.info = QBSettings.authSecret ?? ""
         infoModels.append(authSecretModel)
         
         let accountKeyModel = InfoModel()
-        accountKeyModel.title = "Account key:"
-        accountKeyModel.info = "\(QBSettings.accountKey ?? "")"
+        accountKeyModel.title = "Account key"
+        accountKeyModel.info = QBSettings.accountKey ?? ""
         infoModels.append(accountKeyModel)
         
         let apiDomainModel = InfoModel()
-        apiDomainModel.title = "API domain:"
-        apiDomainModel.info = "\(QBSettings.apiEndpoint ?? "")"
+        apiDomainModel.title = "API domain"
+        apiDomainModel.info = QBSettings.apiEndpoint ?? ""
         infoModels.append(apiDomainModel)
         
         let chatDomainModel = InfoModel()
-        chatDomainModel.title = "Chat domain:"
-        chatDomainModel.info = "\(QBSettings.chatEndpoint ?? "")"
+        chatDomainModel.title = "Chat domain"
+        chatDomainModel.info = QBSettings.chatEndpoint ?? ""
         infoModels.append(chatDomainModel)
+        
+        let qaVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
+        let qaVersionModel = InfoModel()
+        qaVersionModel.title = "QA version"
+        qaVersionModel.info = qaVersion ?? ""
+        infoModels.append(qaVersionModel)
         
         let logoModel = InfoModel()
         logoModel.title = "logo"

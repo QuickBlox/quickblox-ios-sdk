@@ -16,33 +16,37 @@ struct ChatCellLayoutModel {
   var containerSize: CGSize
   var containerInsets: UIEdgeInsets
   var topLabelHeight: CGFloat
-  var bottomLabelHeight: CGFloat
+  var timeLabelHeight: CGFloat
   var staticContainerSize: CGSize
   var spaceBetweenTopLabelAndTextView: CGFloat
   var spaceBetweenTextViewAndBottomLabel: CGFloat
   var maxWidthMarginSpace: CGFloat
   var maxWidth: CGFloat
+  var bottomInfoViewHeight: CGFloat
   
   init(avatarSize: CGSize = .zero,
        containerInsets: UIEdgeInsets = .init(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0),
        topLabelHeight: CGFloat = 0.0,
-       bottomLabelHeight: CGFloat = 0.0,
+       timeLabelHeight: CGFloat = 0.0,
        spaceBetweenTextViewAndBottomLabel: CGFloat = 0.0,
        maxWidth: CGFloat = 0.0,
        staticContainerSize: CGSize = .zero,
        containerSize: CGSize = .zero,
        maxWidthMarginSpace: CGFloat = 0.0,
-       spaceBetweenTopLabelAndTextView: CGFloat = 0.0) {
+       spaceBetweenTopLabelAndTextView: CGFloat = 0.0,
+       incomingAttachmentleft: CGFloat = 0.0,
+       bottomInfoViewHeight:CGFloat = 0.0) {
     self.avatarSize = avatarSize
     self.containerInsets = containerInsets
     self.topLabelHeight = topLabelHeight
-    self.bottomLabelHeight = bottomLabelHeight
+    self.timeLabelHeight = timeLabelHeight
     self.spaceBetweenTextViewAndBottomLabel = spaceBetweenTextViewAndBottomLabel
     self.maxWidth = maxWidth
     self.staticContainerSize = staticContainerSize
     self.containerSize = containerSize
     self.maxWidthMarginSpace = maxWidthMarginSpace
     self.spaceBetweenTopLabelAndTextView = spaceBetweenTopLabelAndTextView
+    self.bottomInfoViewHeight = bottomInfoViewHeight
   }
 }
 
@@ -147,14 +151,24 @@ ChatCellProtocol {
    */
     @IBOutlet weak var containerView: ChatContainerView!
     @IBOutlet private weak var messageContainer: UIView!
+    /**
+     *  Property to set avatar label
+     */
+    @IBOutlet weak var avatarLabel: UILabel! {
+        didSet {
+            avatarLabel.setRoundedLabel(cornerRadius: 20.0)
+            avatarContainerViewWidthConstraint.constant = 0.0
+            avatarContainerViewHeightConstraint.constant = 0.0
+        }
+    }
   /**
    *  Property to set avatar view
    */
     @IBOutlet weak var avatarView: UIImageView! {
         didSet {
             avatarView.backgroundColor = UIColor.clear
-            avatarContainerViewWidthConstraint.constant = 0
-            avatarContainerViewHeightConstraint.constant = 0
+            avatarContainerViewWidthConstraint.constant = 0.0
+            avatarContainerViewHeightConstraint.constant = 0.0
         }
     }
   /**
@@ -180,7 +194,8 @@ ChatCellProtocol {
    *  its frame, nor should you remove this view from the cell or remove any of its subviews.
    *  Doing so could result in unexpected behavior.
    */
-  @IBOutlet weak var bottomLabel: TTTAttributedLabel!
+    
+    @IBOutlet weak var timeLabel: TTTAttributedLabel!
   @IBOutlet private weak var containerWidthConstraint: NSLayoutConstraint!
   @IBOutlet private weak var messageContainerTopInsetConstraint: NSLayoutConstraint!
   @IBOutlet private weak var messageContainerLeftInsetConstraint: NSLayoutConstraint!
@@ -189,10 +204,10 @@ ChatCellProtocol {
   @IBOutlet weak var avatarContainerViewWidthConstraint: NSLayoutConstraint!
   @IBOutlet weak var avatarContainerViewHeightConstraint: NSLayoutConstraint!
   @IBOutlet weak var topLabelHeightConstraint: NSLayoutConstraint!
-  @IBOutlet weak var bottomLabelHeightConstraint: NSLayoutConstraint!
   @IBOutlet weak var textViewBottomLabelVerticalSpaceConstraint: NSLayoutConstraint!
   @IBOutlet weak var topLabelTextViewVerticalSpaceConstraint: NSLayoutConstraint!
-  
+    
+    
   /**
    *  Returns the avatar container view of the cell. This view is the superview of the cell's avatarImageView.
    *
@@ -215,6 +230,17 @@ ChatCellProtocol {
    *  The object that acts as the delegate for the cell.
    */
   weak var delegate: ChatCellDelegate?
+    
+    lazy var bubbleImageView: UIImageView = {
+        let bubbleImageView = UIImageView()
+        insertSubview(bubbleImageView, at: 0)
+        bubbleImageView.translatesAutoresizingMaskIntoConstraints = false
+        bubbleImageView.leftAnchor.constraint(equalTo: textView.leftAnchor, constant: -16.0).isActive = true
+        bubbleImageView.topAnchor.constraint(equalTo: textView.topAnchor, constant: -12.0).isActive = true
+        bubbleImageView.rightAnchor.constraint(equalTo: textView.rightAnchor, constant: 16.0).isActive = true
+        bubbleImageView.bottomAnchor.constraint(equalTo: textView.bottomAnchor, constant: 12.0).isActive = true
+        return bubbleImageView
+    }()
 
   class func registerMenuAction(_ action: Selector) {
     chatCellMenuActions.insert(NSStringFromSelector(action))
@@ -259,10 +285,10 @@ ChatCellProtocol {
     
     let containerInsets = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 4.0, right: 5.0)
     
-    let defaultLayoutModel = ChatCellLayoutModel(avatarSize: CGSize(width: 30.0, height: 30.0),
+    let defaultLayoutModel = ChatCellLayoutModel(avatarSize: CGSize(width: 0.0, height: 0.0),
                                                    containerInsets: containerInsets,
-                                                   topLabelHeight: 17.0,
-                                                   bottomLabelHeight: 14.0,
+                                                   topLabelHeight: 15.0,
+                                                   timeLabelHeight: 15.0,
                                                    maxWidth: 0.0,
                                                    containerSize: .zero,
                                                    maxWidthMarginSpace: 20.0)
@@ -299,7 +325,6 @@ ChatCellProtocol {
     messageContainerRightInsetConstraint?.constant = 0
     
     topLabelHeightConstraint?.constant = 0
-    bottomLabelHeightConstraint?.constant = 0
     
     topLabelTextViewVerticalSpaceConstraint?.constant = 0
     textViewBottomLabelVerticalSpaceConstraint?.constant = 0
@@ -308,16 +333,15 @@ ChatCellProtocol {
     messageContainer?.backgroundColor = UIColor.clear
     topLabel?.backgroundColor = UIColor.clear
     textView?.backgroundColor = UIColor.clear
-    bottomLabel?.backgroundColor = UIColor.clear
+
     containerView?.backgroundColor = UIColor.clear
-    
+
     layer.drawsAsynchronously = true
     
     let tap = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
     tap.delegate = self
     addGestureRecognizer(tap)
     tapGestureRecognizer = tap
-    
   }
   
   @objc func handleTapGesture(_ tap: UITapGestureRecognizer?) {
@@ -344,11 +368,11 @@ ChatCellProtocol {
     if containerView.frame.contains(touchPt!) {
         delegate?.chatCellDidTapContainer(self)
     } else if let _ = delegate?.chatCell!(self, didTapAtPosition: touchPt!) {
-      
+
       delegate?.chatCell!(self, didTapAtPosition: touchPt!)
     }
   }
-  
+
   override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
     return layoutAttributes
   }
@@ -366,10 +390,6 @@ ChatCellProtocol {
     
     if let topLabelHeightConstraint = topLabelHeightConstraint {
         updateConstraint(topLabelHeightConstraint, withConstant: customAttributes.topLabelHeight)
-    }
-    
-    if let bottomLabelHeightConstraint = bottomLabelHeightConstraint {
-        updateConstraint(bottomLabelHeightConstraint, withConstant: customAttributes.bottomLabelHeight)
     }
     
     if let messageContainerTopInsetConstraint = messageContainerTopInsetConstraint,

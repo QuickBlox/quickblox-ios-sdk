@@ -1,8 +1,8 @@
 //
-//  DialogsViewControllerNew.swift
+//  DialogsViewController.swift
 //  sample-chat-swift
 //
-//  Created by Injoit on 1/28/19.
+//  Created by Injoit on 9/30/19.
 //  Copyright © 2019 Quickblox. All rights reserved.
 //
 
@@ -15,6 +15,10 @@ struct DialogsConstant {
     static let segueGoToChat = "goToChat"
     static let selectOpponents = "SelectOpponents"
     static let infoSegue = "PresentInfoViewController"
+    static let deleteChats = "Delete Chats"
+    static let forward = "Forward to"
+    static let deleteDialogs = "deleteDialogs"
+    static let chats = "Chats"
 }
 
 class DialogTableViewCellModel: NSObject {
@@ -29,9 +33,7 @@ class DialogTableViewCellModel: NSObject {
     init(dialog: QBChatDialog) {
         super.init()
         
-        if let dialogName = dialog.name {
-            textLabelText = dialogName
-        }
+        textLabelText = dialog.name ?? "UN"
         
         // Unread messages counter label
         if dialog.unreadMessagesCount > 0 {
@@ -75,38 +77,87 @@ class DialogsViewController: UITableViewController {
     //MARK: - Properties
     private let chatManager = ChatManager.instance
     private var dialogs: [QBChatDialog] = []
+    private var cancel = false
     
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let  profile = Profile()
-        if profile.isFull == true {
-            navigationItem.title = profile.fullName
-        }
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "SA_STR_LOGOUT".localized,
-                                                           style: .plain,
-                                                           target: self,
-                                                           action: #selector(didTapLogout(_:)))
-        let usersButtonItem = UIBarButtonItem(title: "New Chat",
-                                              style: .plain,
-                                              target: self,
-                                              action: #selector(didTapNewChat(_:)))
-        navigationItem.rightBarButtonItem = usersButtonItem
-        showInfoButton()
+
+        setupNavigationBar()
+        setupNavigationTitle()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        reloadContent()
+
         chatManager.delegate = self
         if QBChat.instance.isConnected == true {
             chatManager.updateStorage()
         }
+        
+        let tapGestureDelete = UILongPressGestureRecognizer(target: self, action: #selector(tapEdit(_:)))
+        tapGestureDelete.minimumPressDuration = 0.3
+        tapGestureDelete.delaysTouchesBegan = true
+        tableView.addGestureRecognizer(tapGestureDelete)
+        
+        //MARK: - Reachability
+        let updateConnectionStatus: ((_ status: NetworkConnectionStatus) -> Void)? = { [weak self] status in
+            let notConnection = status == .notConnection
+            if notConnection == true {
+                self?.showAlertView(LoginConstant.checkInternet, message: LoginConstant.checkInternetMessage)
+            }
+        }
+        Reachability.instance.networkStatusBlock = { status in
+            updateConnectionStatus?(status)
+        }
     }
     
-    //MARK: - Actions
+    //MARK: - Setup NavBar
+    private func setupNavigationBar() {
+        navigationItem.rightBarButtonItems = []
+        navigationItem.leftBarButtonItems = []
+            let exitButtonItem = UIBarButtonItem(image: UIImage(named: "exit"),
+                                                 style: .plain,
+                                                 target: self,
+                                                 action: #selector(didTapLogout(_:)))
+            exitButtonItem.tintColor = .white
+        
+        let emptyButtonItem = UIBarButtonItem(image: UIImage(named: "icon-info"),
+                                             style: .plain,
+                                             target: self,
+                                             action: nil)
+        emptyButtonItem.tintColor = .clear
+        emptyButtonItem.isEnabled = false
+        navigationItem.leftBarButtonItems = [exitButtonItem, emptyButtonItem]
+        
+            let usersButtonItem = UIBarButtonItem(image: UIImage(named: "add"),
+                                                  style: .plain,
+                                                  target: self,
+                                                  action: #selector(didTapNewChat(_:)))
+            navigationItem.rightBarButtonItem = usersButtonItem
+            usersButtonItem.tintColor = .white
+            showInfoButton()
+    }
+    
+    @objc func tapEdit(_ gestureReconizer: UILongPressGestureRecognizer) {
+        if gestureReconizer.state != UIGestureRecognizer.State.ended {
+            if let deleteVC = storyboard?.instantiateViewController(withIdentifier: "DialogsSelectionVC") as? DialogsSelectionVC {
+                deleteVC.action = ChatActions.Delete
+                let navVC = UINavigationController(rootViewController: deleteVC)
+                navVC.navigationBar.barTintColor = #colorLiteral(red: 0.2216441333, green: 0.4713830948, blue: 0.9869660735, alpha: 1)
+                navVC.navigationBar.barStyle = .black
+                navVC.navigationBar.shadowImage = UIImage(named: "navbar-shadow")
+                navVC.navigationBar.isTranslucent = false
+                navVC.modalPresentationStyle = .fullScreen
+                present(navVC, animated: false) {
+                    self.tableView.removeGestureRecognizer(gestureReconizer)
+                }
+            }
+        }
+    }
+    
     @objc func didTapInfo(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: DialogsConstant.infoSegue, sender: sender)
     }
@@ -132,20 +183,17 @@ class DialogsViewController: UITableViewController {
         disconnectUser()
         #else
         QBRequest.subscriptions(successBlock: { (response, subscriptions) in
-            let subscriptionsUIUD = subscriptions?.first?.deviceUDID
-            if subscriptionsUIUD == uuidString {
-                QBRequest.unregisterSubscription(forUniqueDeviceIdentifier: uuidString, successBlock: { response in
-                    self.disconnectUser()
-                }, errorBlock: { error in
-                    if let error = error.error {
-                        SVProgressHUD.showError(withStatus: error.localizedDescription)
+            if let subscriptions = subscriptions {
+                for subscription in subscriptions {
+                    if let subscriptionsUIUD = subscriptions.first?.deviceUDID,
+                        subscriptionsUIUD == uuidString,
+                        subscription.notificationChannel == .APNS {
+                        self.unregisterSubscription(forUniqueDeviceIdentifier: uuidString)
                         return
                     }
-                    SVProgressHUD.dismiss()
-                })
-            } else {
-                self.disconnectUser()
+                }
             }
+            self.disconnectUser()
             
         }) { response in
             if response.status.rawValue == 404 {
@@ -155,7 +203,29 @@ class DialogsViewController: UITableViewController {
         #endif
     }
     
+    private func unregisterSubscription(forUniqueDeviceIdentifier uuidString: String) {
+        QBRequest.unregisterSubscription(forUniqueDeviceIdentifier: uuidString, successBlock: { response in
+            self.disconnectUser()
+        }, errorBlock: { error in
+            if let error = error.error {
+                SVProgressHUD.showError(withStatus: error.localizedDescription)
+                return
+            }
+            SVProgressHUD.dismiss()
+        })
+    }
+    
     //MARK: - Internal Methods
+    private func hasConnectivity() -> Bool {
+        
+        let status = Reachability.instance.networkConnectionStatus()
+        guard status != NetworkConnectionStatus.notConnection else {
+            showAlertView(LoginConstant.checkInternet, message: LoginConstant.checkInternetMessage)
+            return false
+        }
+        return true
+    }
+    
     private func disconnectUser() {
         QBChat.instance.disconnect(completionBlock: { error in
             if let error = error {
@@ -171,7 +241,10 @@ class DialogsViewController: UITableViewController {
             //ClearProfile
             Profile.clearProfile()
             self?.chatManager.storage.clear()
-            self?.navigationController?.popToRootViewController(animated: false)
+            CacheManager.shared.clearCache()
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+                AppDelegate.shared.rootViewController.showLoginScreen()
+            }
             SVProgressHUD.showSuccess(withStatus: "SA_STR_COMPLETED".localized)
         }) { response in
             debugPrint("[DialogsViewController] logOut error: \(response)")
@@ -188,13 +261,13 @@ class DialogsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 64.0
+        return 60.0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "dialogcell",
-                                                       for: indexPath) as? DialogTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DialogCell",
+                                                       for: indexPath) as? DialogCell else {
                                                         return UITableViewCell()
         }
         
@@ -205,24 +278,49 @@ class DialogsViewController: UITableViewController {
         let chatDialog = dialogs[indexPath.row]
         let cellModel = DialogTableViewCellModel(dialog: chatDialog)
         
+            tableView.allowsMultipleSelection = false
+            cell.checkBoxImageView.isHidden = true
+            cell.checkBoxView.isHidden = true
+            cell.unreadMessageCounterLabel.isHidden = false
+            cell.unreadMessageCounterHolder.isHidden = false
+            cell.lastMessageDateLabel.isHidden = false
+            cell.contentView.backgroundColor = .clear
+            
+            if let dateSend = chatDialog.lastMessageDate {
+                cell.lastMessageDateLabel.text = setupDate(dateSend)
+            } else if let dateUpdate = chatDialog.updatedAt {
+                cell.lastMessageDateLabel.text = setupDate(dateUpdate)
+            }
+            
+            cell.unreadMessageCounterLabel.text = cellModel.unreadMessagesCounterLabelText
+            cell.unreadMessageCounterHolder.isHidden = cellModel.unreadMessagesCounterHiden
+
         cell.dialogLastMessage.text = chatDialog.lastMessageText
         if chatDialog.lastMessageText == nil && chatDialog.lastMessageID != nil {
             cell.dialogLastMessage.text = "[Attachment]"
         }
+        if let dateSend = chatDialog.lastMessageDate {
+            cell.lastMessageDateLabel.text = setupDate(dateSend)
+        } else if let dateUpdate = chatDialog.updatedAt {
+            cell.lastMessageDateLabel.text = setupDate(dateUpdate)
+        }
+        
         cell.dialogName.text = cellModel.textLabelText
-        cell.dialogTypeImage.image = cellModel.dialogIcon
-        cell.unreadMessageCounterLabel.text = cellModel.unreadMessagesCounterLabelText
-        cell.unreadMessageCounterHolder.isHidden = cellModel.unreadMessagesCounterHiden
+        cell.dialogAvatarLabel.backgroundColor = UInt(chatDialog.createdAt!.timeIntervalSince1970).generateColor()
+        cell.dialogAvatarLabel.text = String(cellModel.textLabelText.stringByTrimingWhitespace().capitalized.first ?? Character("C"))
         
         return cell
     }
     
     // MARK: - UITableViewDelegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let dialog = dialogs[indexPath.row]
-        performSegue(withIdentifier: "SA_STR_SEGUE_GO_TO_CHAT".localized , sender: dialog.id)
+
+            tableView.deselectRow(at: indexPath, animated: true)
+            let dialog = dialogs[indexPath.row]
+            performSegue(withIdentifier: "SA_STR_SEGUE_GO_TO_CHAT".localized , sender: dialog.id)
+
     }
+
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         let dialog = dialogs[indexPath.row]
@@ -234,6 +332,11 @@ class DialogsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
                             forRowAt indexPath: IndexPath) {
+        if Reachability.instance.networkConnectionStatus() == .notConnection {
+            showAlertView(LoginConstant.checkInternet, message: LoginConstant.checkInternetMessage)
+            return
+        }
+        
         let dialog = dialogs[indexPath.row]
         if editingStyle != .delete || dialog.type == .publicGroup {
             return
@@ -246,7 +349,7 @@ class DialogsViewController: UITableViewController {
         let cancelAction = UIAlertAction(title: "SA_STR_CANCEL".localized, style: .cancel, handler: nil)
         
         let leaveAction = UIAlertAction(title: "SA_STR_DELETE".localized, style: .default) { (action:UIAlertAction) in
-            SVProgressHUD.show(withStatus: "SA_STR_DELETING".localized, maskType: .clear)
+            SVProgressHUD.show(withStatus: "SA_STR_DELETING".localized)
             
             guard let dialogID = dialog.id else {
                 SVProgressHUD.dismiss()
@@ -254,18 +357,17 @@ class DialogsViewController: UITableViewController {
             }
             
             if dialog.type == .private {
-                self.chatManager.deleteDialog(withID: dialogID)
+                self.chatManager.leaveDialog(withID: dialogID)
             } else {
                 
                 let currentUser = Profile()
-                guard currentUser.isFull == true, let dialogOccupantIDs = dialog.occupantIDs else {
+                guard currentUser.isFull == true else {
                     return
                 }
                 // group
-                let occupantIDs = dialogOccupantIDs.filter({ $0.intValue != currentUser.ID })
-                dialog.occupantIDs = occupantIDs
+                dialog.pullOccupantsIDs = [(NSNumber(value: currentUser.ID)).stringValue]
                 
-                let message = "User \(currentUser.fullName) " + "SA_STR_USER_HAS_LEFT".localized
+                let message = "\(currentUser.fullName) " + "SA_STR_USER_HAS_LEFT".localized
                 // Notifies occupants that user left the dialog.
                 self.chatManager.sendLeaveMessage(message, to: dialog, completion: { (error) in
                     if let error = error {
@@ -273,7 +375,7 @@ class DialogsViewController: UITableViewController {
                         SVProgressHUD.dismiss()
                         return
                     }
-                    self.chatManager.deleteDialog(withID: dialogID)
+                    self.chatManager.leaveDialog(withID: dialogID)
                 })
             }
         }
@@ -299,11 +401,42 @@ class DialogsViewController: UITableViewController {
         dialogs = chatManager.storage.dialogsSortByUpdatedAt()
         tableView.reloadData()
     }
+    
+    fileprivate func setupDate(_ dateSent: Date) -> String {
+        let formatter = DateFormatter()
+        var dateString = ""
+        
+        if Calendar.current.isDateInToday(dateSent) == true {
+            dateString = messageTimeDateFormatter.string(from: dateSent)
+        } else if Calendar.current.isDateInYesterday(dateSent) == true {
+            dateString = "Yesterday"
+        } else if dateSent.hasSame([.year], as: Date()) == true {
+            formatter.dateFormat = "d MMM"
+            dateString = formatter.string(from: dateSent)
+        } else {
+            formatter.dateFormat = "d.MM.yy"
+            var anotherYearDate = formatter.string(from: dateSent)
+            if (anotherYearDate.hasPrefix("0")) {
+                anotherYearDate.remove(at: anotherYearDate.startIndex)
+            }
+            dateString = anotherYearDate
+        }
+        
+        return dateString
+    }
+    
+    private func setupNavigationTitle() {
+        let currentUser = Profile()
+        guard currentUser.isFull == true else {
+            return
+        }
+        let title = currentUser.fullName.count > 0 ? currentUser.fullName : currentUser.login
+        self.title = title
+    }
 }
 
 // MARK: - QBChatDelegate
 extension DialogsViewController: QBChatDelegate {
-    
     func chatRoomDidReceive(_ message: QBChatMessage, fromDialogID dialogID: String) {
         chatManager.updateDialog(with: dialogID, with: message)
     }
@@ -342,7 +475,7 @@ extension DialogsViewController: QBChatDelegate {
     func chatDidConnect() {
         if QBChat.instance.isConnected == true {
             chatManager.updateStorage()
-            SVProgressHUD.showSuccess(withStatus: "SA_STR_CONNECTED".localized, maskType: .clear)
+            SVProgressHUD.showSuccess(withStatus: "SA_STR_CONNECTED".localized)
         }
     }
     
@@ -350,7 +483,7 @@ extension DialogsViewController: QBChatDelegate {
         SVProgressHUD.show(withStatus: "SA_STR_CONNECTED".localized)
         if QBChat.instance.isConnected == true {
             chatManager.updateStorage()
-            SVProgressHUD.showSuccess(withStatus: "SA_STR_CONNECTED".localized, maskType: .clear)
+            SVProgressHUD.showSuccess(withStatus: "SA_STR_CONNECTED".localized)
         }
     }
 }
@@ -374,7 +507,7 @@ extension DialogsViewController: ChatManagerDelegate {
     
     func chatManagerWillUpdateStorage(_ chatManager: ChatManager) {
         if navigationController?.topViewController == self {
-            SVProgressHUD.show()
+
         }
     }
 }

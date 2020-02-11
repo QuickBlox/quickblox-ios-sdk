@@ -9,9 +9,9 @@
 import UIKit
 
 struct LoadingButtonColorConstant {
-    static let blueColor = UIColor(red: 0.0392, green: 0.3765, blue: 1.0, alpha: 1.0)
+    static let blueColor = UIColor(red:0.22, green:0.47, blue:0.99, alpha:1)
     static let greenColor = UIColor(red: 0.0802, green: 0.616, blue: 0.1214, alpha: 1.0)
-    static let grayColor = UIColor.gray
+    static let grayColor = #colorLiteral(red: 0.6628920436, green: 0.7223827243, blue: 0.8180354238, alpha: 1)
 }
 
 class LoadingButton: UIButton {
@@ -32,14 +32,16 @@ class LoadingButton: UIButton {
         return activity.isAnimating
     }
     
-    private var currentText = ""
+    private var currentText = "Login"
     
     override var isEnabled: Bool{
         didSet {
             if isEnabled == true {
                 shapeLayer.fillColor = LoadingButtonColorConstant.blueColor.cgColor
+                addShadowToButton(cornerRadius: 4)
             } else {
                 shapeLayer.fillColor = LoadingButtonColorConstant.grayColor.cgColor
+                removeShadowFromButton()
             }
         }
     }
@@ -60,6 +62,8 @@ class LoadingButton: UIButton {
         guard activity.isAnimating == false else {
             return
         }
+        
+        removeShadowFromButton()
         
         let animation = CABasicAnimation(keyPath: "path")
         animation.fromValue = UIBezierPath(roundedRect: bounds, cornerRadius: 5.0).cgPath

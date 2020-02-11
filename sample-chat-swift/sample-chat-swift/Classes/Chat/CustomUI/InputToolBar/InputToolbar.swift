@@ -79,7 +79,6 @@ class InputToolbar: UIToolbar {
      *  Enables or disables the send button based on whether or not its `textView` has text.
      *  That is, the send button will be enabled if there is text in the `textView`, and disabled otherwise.
      */
-    
     func setupBarButtonsEnabled(left: Bool, right: Bool) {
         contentView.rightBarButtonItem?.isEnabled = right
         contentView.leftBarButtonItem?.isEnabled = left
@@ -92,8 +91,6 @@ class InputToolbar: UIToolbar {
         if sendButtonOnRight == true || isUploaded == true {
             contentView.rightBarButtonItem?.isEnabled = hasText || isUploaded
             
-        } else {
-            contentView.leftBarButtonItem?.isHidden = !(hasText || hasTextAttachment)
         }
     }
     
@@ -104,7 +101,6 @@ class InputToolbar: UIToolbar {
      *
      *  @return An initialized `ToolbarContentView` if successful, otherwise `nil`.
      */
-    
     open func loadToolbarContentView() -> ToolbarContentView {
         let nibName = String(describing:ToolbarContentView.self)
         let objects = Bundle.main.loadNibNamed(nibName, owner: nil)
@@ -130,6 +126,7 @@ class InputToolbar: UIToolbar {
         if let toolbarContentView = toolbarContentView {
             addSubview(toolbarContentView)
             contentView = toolbarContentView
+            setShadowImage(UIImage(), forToolbarPosition: UIBarPosition.any)
         }
         pinAllEdges(ofSubview: toolbarContentView)
         setNeedsUpdateConstraints()
@@ -145,7 +142,6 @@ class InputToolbar: UIToolbar {
     
     // MARK: - Actions
     @objc func leftBarButtonPressed(_ sender: UIButton) {
-        
         inputToolbarDelegate?.messagesInputToolbar(self, didPressLeftBarButton: sender)
     }
     

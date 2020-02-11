@@ -9,7 +9,6 @@
 import UIKit
 
 class ChatNotificationCell: ChatCell {
-    
     @IBOutlet weak var notificationLabel: UILabel!
     
     override class func layoutModel() -> ChatCellLayoutModel {
@@ -17,8 +16,8 @@ class ChatNotificationCell: ChatCell {
         var defaultLayoutModel = super.layoutModel()
         defaultLayoutModel.containerInsets = containerInsets
         defaultLayoutModel.avatarSize = .zero
-        defaultLayoutModel.topLabelHeight = 0.0
-        defaultLayoutModel.bottomLabelHeight = 0.0
+        defaultLayoutModel.timeLabelHeight = 0.0
+        defaultLayoutModel.timeLabelHeight = 0.0
         
         return defaultLayoutModel
     }

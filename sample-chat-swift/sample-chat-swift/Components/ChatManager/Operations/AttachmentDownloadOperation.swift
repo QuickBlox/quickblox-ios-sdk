@@ -8,9 +8,18 @@
 
 import Foundation
 import UIKit
+import AVKit
+
+enum AttachmentType {
+    case Image
+    case Video
+    case Camera
+    case File
+    case Error
+}
 
 typealias ErrorHandler = (_ error: Error?, _ ID: String) -> Void
-typealias SuccessHandler = (_ image: UIImage, _ ID: String) -> Void
+typealias SuccessHandler = (_ image: UIImage?, _ videoUrl: URL?, _ ID: String) -> Void
 typealias ProgressHandler = (_ progress: CGFloat, _ ID: String) -> Void
 
 final class AttachmentDownloadOperation: AsyncOperation {
@@ -20,16 +29,22 @@ final class AttachmentDownloadOperation: AsyncOperation {
     private var progressHandler: ProgressHandler?
     private var errorHandler: ErrorHandler?
     var attachmentID: String
+    var attachmentName: String
+    var attachmentType: AttachmentType
     
     //MARK: - Life Cycle
     public required init (attachmentID: String,
+                          attachmentName: String,
+                          attachmentType: AttachmentType,
                           progress: @escaping ProgressHandler,
                           success: @escaping SuccessHandler,
                           error: @escaping ErrorHandler) {
         self.attachmentID = attachmentID
+        self.attachmentName = attachmentName
         self.progressHandler = progress
         self.successHandler = success
         self.errorHandler = error
+        self.attachmentType = attachmentType
         
         super.init()
     }
@@ -40,18 +55,27 @@ final class AttachmentDownloadOperation: AsyncOperation {
             self.state = .finished
             return
         }
-        self.downloadAttachmentWithID(attachmentID)
+        self.downloadAttachmentWithID(attachmentID, attachmentName: attachmentName, attachmentType: attachmentType)
     }
     
     //MARK: - Internal Methods
-    private func downloadAttachmentWithID(_ ID: String) {
+    private func downloadAttachmentWithID(_ ID: String, attachmentName: String, attachmentType: AttachmentType) {
         self.state = .executing
         QBRequest.downloadFile(withUID: ID, successBlock: { [weak self] (response: QBResponse, fileData: Data)  in
-            guard let image = UIImage(data: fileData) else {
-                self?.state = .finished
-                return
+            if attachmentType == .Image, let image = UIImage(data: fileData) {
+                self?.successHandler?(image, nil, ID)
+            } else {
+                let fileData = fileData as NSData
+//                let fileName = ID
+                let fileName = ID + "_" + attachmentName
+                let filePath = NSTemporaryDirectory() + fileName
+                let fileURL = URL(fileURLWithPath: filePath)
+                if  fileData.write(to: fileURL, atomically: true) == true {
+                    self?.successHandler?(nil, fileURL, ID)
+                } else {
+                    print("failure")
+                }
             }
-            self?.successHandler?(image, ID)
             self?.state = .finished
             }, statusBlock: { [weak self] (request: QBRequest, status: QBRequestStatus?) in
                 guard let status = status else {

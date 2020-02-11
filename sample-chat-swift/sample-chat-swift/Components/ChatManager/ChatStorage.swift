@@ -48,22 +48,31 @@ class ChatStorage {
         })
     }
     
+    func dialogsSortByLastMessage() -> [QBChatDialog] {
+        return dialogs.sorted(by: {
+            guard let firstUpdateAt = $0.lastMessageDate, let lastUpdate = $1.lastMessageDate else {
+                return false
+            }
+            return firstUpdateAt > lastUpdate
+        })
+    }
+    
     func update(dialogs: [QBChatDialog]) {
         for chatDialog in dialogs {
             assert(chatDialog.type.rawValue != 0, "Chat type is not defined")
+            assert(chatDialog.id != nil, "Chat ID is not defined")
             
             let dialog = update(dialog:chatDialog)
             
             // Autojoin to the group chat
-            if dialog.isJoined() == true {
-                continue
+            if dialog.type != .private, dialog.isJoined() == false {
+                dialog.join(completionBlock: { error in
+                    guard let error = error else {
+                        return
+                    }
+                    debugPrint("[ChatStorage] dialog.join error: \(error.localizedDescription)")
+                })
             }
-            dialog.join(completionBlock: { error in
-                guard let error = error else {
-                    return
-                }
-                debugPrint("[ChatStorage] dialog.join error: \(error.localizedDescription)")
-            })
         }
     }
     
@@ -87,6 +96,12 @@ class ChatStorage {
         }
     }
     
+    func updateSearch(users: [QBUUser]) {
+        for chatUser in users {
+            update(user:chatUser)
+        }
+    }
+
     func users(with dialogID: String) -> [QBUUser] {
         var users: [QBUUser] = []
         guard let dialog = dialog(withID: dialogID), let occupantIDs = dialog.occupantIDs  else {
@@ -111,8 +126,19 @@ class ChatStorage {
     }
     
     //MARK: - Internal Methods
+    private func markMessagesAsDelivered(forDialogID dialogID: String) {
+        QBRequest.markMessages(asDelivered: nil, dialogID: dialogID, successBlock: { response in
+            debugPrint("[ChatStorage] dialog.markMessages as Delivered success!!!")
+        }, errorBlock: { response in
+            if let error = response.error?.error {
+                debugPrint("[ChatStorage] dialog.markMessages as Delivered error: \(error.localizedDescription)")
+            }
+        })
+    }
+    
     private func update(dialog: QBChatDialog) -> QBChatDialog {
         assert(dialog.type.rawValue != 0, "Chat type is not defined")
+        assert(dialog.id != nil, "Chat ID is not defined")
         if let localDialog = self.dialog(withID: dialog.id! ) {
             localDialog.updatedAt = dialog.updatedAt
             localDialog.createdAt = dialog.createdAt
@@ -128,7 +154,6 @@ class ChatStorage {
             return localDialog
         }
         dialogs.append(dialog)
-        
         return dialog
     }
     

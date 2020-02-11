@@ -68,8 +68,8 @@ class ChatCollectionViewFlowLayout: UICollectionViewFlowLayout {
     func configureFlowLayout() {
         
         scrollDirection = UICollectionView.ScrollDirection.vertical
-        sectionInset = UIEdgeInsets(top: 10.0, left: 4.0, bottom: 10.0, right: 4.0)
-        minimumLineSpacing = 4.0
+        sectionInset = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 10.0, right: 0.0)
+        minimumLineSpacing = 16.0
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(didReceiveApplicationMemoryWarning(_:)),
@@ -221,7 +221,7 @@ class ChatCollectionViewFlowLayout: UICollectionViewFlowLayout {
         if layoutModel.staticContainerSize.equalTo(.zero) {
             
             //  from the cell xibs, there is a 2 point space between avatar and bubble
-            let spacingBetweenAvatarAndBubble: CGFloat = 2.0
+            let spacingBetweenAvatarAndBubble: CGFloat = 16.0
             let horizontalContainerInsets = layoutModel.containerInsets.left + layoutModel.containerInsets.right
             let horizontalInsetsTotal: CGFloat = horizontalContainerInsets + spacingBetweenAvatarAndBubble
             var maximumWidth: CGFloat = itemWidth - layoutModel.avatarSize.width - layoutModel.maxWidthMarginSpace
@@ -232,20 +232,21 @@ class ChatCollectionViewFlowLayout: UICollectionViewFlowLayout {
             assert(maximumWidth >= 0.0, "Maximum width cannot be a negative nuber. Please check your maxWidthMarginSpace value.")
             
             let dynamicSize = chatDelegate.collectionView(chatCollectionView, dynamicSizeAt: indexPath, maxWidth: maximumWidth - horizontalInsetsTotal)
-            let verticalContainerInsets = layoutModel.containerInsets.top + layoutModel.containerInsets.bottom + layoutModel.topLabelHeight + layoutModel.bottomLabelHeight
+
+            let verticalContainerInsets = layoutModel.containerInsets.top + layoutModel.containerInsets.bottom + layoutModel.timeLabelHeight + 6.0
             
-            let additionalSpace = layoutModel.spaceBetweenTextViewAndBottomLabel + layoutModel.spaceBetweenTopLabelAndTextView
+            let additionalSpace = layoutModel.spaceBetweenTopLabelAndTextView
             
             let finalWidth = dynamicSize.width + horizontalContainerInsets
             
             let cellHeight = dynamicSize.height + verticalContainerInsets + additionalSpace
+            
             let finalCellHeight = max(cellHeight, layoutModel.avatarSize.height)
             
             var minWidth = chatDelegate.collectionView(chatCollectionView, minWidthAt: indexPath)
             minWidth += horizontalContainerInsets
             
             finalSize = CGSize(width: min(max(finalWidth, minWidth), maximumWidth), height: finalCellHeight)
-            
         }
         
         cache[itemID] = NSValue(cgSize: finalSize)
@@ -276,9 +277,7 @@ class ChatCollectionViewFlowLayout: UICollectionViewFlowLayout {
         
         layoutAttributes.avatarSize = layoutModel.avatarSize
         layoutAttributes.containerInsets = layoutModel.containerInsets
-        layoutAttributes.topLabelHeight = layoutModel.topLabelHeight
-        layoutAttributes.bottomLabelHeight = layoutModel.bottomLabelHeight
+        layoutAttributes.topLabelHeight = layoutModel.timeLabelHeight
         layoutAttributes.spaceBetweenTopLabelAndTextView = layoutModel.spaceBetweenTopLabelAndTextView
-        layoutAttributes.spaceBetweenTextViewAndBottomLabel = layoutModel.spaceBetweenTextViewAndBottomLabel
     }
 }

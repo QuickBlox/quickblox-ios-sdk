@@ -48,11 +48,9 @@ class ChatCellLayoutAttributes: UICollectionViewLayoutAttributes {
     
     var containerInsets = UIEdgeInsets.zero
     var topLabelHeight: CGFloat = 0.0
-    var bottomLabelHeight: CGFloat = 0.0
+    var bottomInfoViewHeight: CGFloat = 0.0
     var spaceBetweenTopLabelAndTextView: CGFloat = 0.0
     var spaceBetweenTextViewAndBottomLabel: CGFloat = 0.0
-    
-    
     
     //MARK: - Lifecycle
     override init() {
@@ -62,9 +60,6 @@ class ChatCellLayoutAttributes: UICollectionViewLayoutAttributes {
     
     func commonInit() {
         self.transform = CGAffineTransform(a: 1, b: 0, c: 0, d: -1, tx: 0, ty: 0)
-    }
-    
-    deinit {
     }
     
     //MARK: - Utilities
@@ -88,7 +83,7 @@ class ChatCellLayoutAttributes: UICollectionViewLayoutAttributes {
                 !layoutAttributes.avatarSize.equalTo(avatarSize) ||
                 !(layoutAttributes.containerInsets == containerInsets) ||
                 Int(layoutAttributes.topLabelHeight) != Int(topLabelHeight) ||
-                Int(layoutAttributes.bottomLabelHeight) != Int(bottomLabelHeight) ||
+                Int(layoutAttributes.bottomInfoViewHeight) != Int(bottomInfoViewHeight) ||
                 Int(layoutAttributes.spaceBetweenTopLabelAndTextView) != Int(spaceBetweenTopLabelAndTextView) ||
                 Int(layoutAttributes.spaceBetweenTextViewAndBottomLabel) != Int(spaceBetweenTextViewAndBottomLabel) {
                 
@@ -113,7 +108,7 @@ class ChatCellLayoutAttributes: UICollectionViewLayoutAttributes {
         cellLayout.avatarSize = avatarSize
         cellLayout.containerSize = containerSize
         cellLayout.containerInsets = containerInsets
-        cellLayout.bottomLabelHeight = bottomLabelHeight
+        cellLayout.bottomInfoViewHeight = bottomInfoViewHeight
         cellLayout.topLabelHeight = topLabelHeight
         cellLayout.spaceBetweenTextViewAndBottomLabel = spaceBetweenTextViewAndBottomLabel
         cellLayout.spaceBetweenTopLabelAndTextView = spaceBetweenTopLabelAndTextView

@@ -219,7 +219,6 @@ class ToolbarContentView: UIView {
     }
     
     //MARK: - Class methods
-    
     /**
      *  Returns the `UINib` object initialized for a `ToolbarContentView`.
      *
@@ -231,7 +230,6 @@ class ToolbarContentView: UIView {
     }
     
     //MARK: - Life Cycle
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         initialize()
@@ -241,7 +239,8 @@ class ToolbarContentView: UIView {
         translatesAutoresizingMaskIntoConstraints = false
         leftHorizontalSpacingConstraint.constant = ToolbarConstant.horizontalSpacingDefault
         rightHorizontalSpacingConstraint.constant = ToolbarConstant.horizontalSpacingDefault
-        backgroundColor = .clear
+        self.layer.applyShadow(color: #colorLiteral(red: 0.8452011943, green: 0.8963350058, blue: 1, alpha: 1), alpha: 1.0, y: -2.0, blur: 48.0)
+        backgroundColor = .white
     }
     
     // MARK: - UIView overrides

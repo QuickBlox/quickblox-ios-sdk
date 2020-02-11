@@ -9,5 +9,9 @@
 import UIKit
 
 class ChatAttachmentOutgoingCell: ChatAttachmentCell {
+    @IBOutlet weak var statusImageView: UIImageView!
     
+    func setupStatusImage(_ image: UIImage) {
+        statusImageView.image = image
+    }
 }
