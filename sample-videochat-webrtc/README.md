@@ -47,7 +47,3 @@ $ pod install
 Additional libraries used via [CocoaPods](https://cocoapods.org):
 
 * [SVProgressHUD](https://github.com/TransitApp/SVProgressHUD.git/)
-
-# Demo screenshots
-
-<img src="http://quickblox.com/developers//images/thumb/1/14/User_List.png/200px-User_List.png" width=180 />&nbsp;<img src="http://quickblox.com/developers//images/thumb/e/e0/Video_Call.png/200px-Video_Call.png" width=180 />&nbsp;
