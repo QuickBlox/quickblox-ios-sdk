@@ -7,16 +7,29 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Call.h"
 
 @class UsersDataSource;
 
 NS_ASSUME_NONNULL_BEGIN
+
+
+@class CallKitManager;
+
+@protocol CallKitManagerDelegate <NSObject>
+@optional
+- (void)callKitManager:(CallKitManager *)callKitManager didUpdateSession:(QBRTCSession *)session;
+@end
+
+typedef void(^CompletionActionBlock)(Boolean isAccept);
 
 /**
  CallKitManager class interface.
  Used as manager of Apple CallKit.
  */
 @interface CallKitManager : NSObject
+
+@property (nonatomic, weak) id <CallKitManagerDelegate> delegate;
 
 /**
  Class singleton instance.
@@ -44,8 +57,13 @@ NS_ASSUME_NONNULL_BEGIN
  
  @see QBRTCSession
  */
+- (Boolean)isHasSession;
+
+- (void)setupSession:(QBRTCSession *)session;
 
 - (Boolean)isCallDidStarted;
+
+- (Call * _Nullable)currentCall;
 
 - (void)startCallWithUserIDs:(NSArray <NSNumber *> *)userIDs session:(QBRTCSession *)session uuid:(NSUUID *)uuid;
 
@@ -70,7 +88,18 @@ NS_ASSUME_NONNULL_BEGIN
  
  @see QBRTCSession
  */
-- (void)reportIncomingCallWithUserIDs:(NSArray <NSNumber *> *)userIDs outCallerName:(NSString *)callerName session:(QBRTCSession *)session uuid:(NSUUID *)uuid onAcceptAction:(nullable dispatch_block_t)onAcceptAction completion:(void (^)(BOOL))completion;
+- (void)reportIncomingCallWithUserIDs:(NSArray *)userIDs
+                        outCallerName:(NSString *)callerName
+                              session:(QBRTCSession * _Nullable)session
+                            sessionID:(NSString *)sessionID
+                sessionConferenceType:(QBRTCConferenceType)sessionConferenceType
+                                 uuid:(NSUUID *)uuid
+                       onAcceptAction:(CompletionActionBlock)onAcceptAction
+                           completion:(void (^)(BOOL))completion;
+
+- (void)updateIncomingCallWithUserIDs:(NSArray *)userIDs
+                        outCallerName:(NSString *)callerName
+                              session:(QBRTCSession *)session;
 
 /**
  Update outgoing call with connecting date

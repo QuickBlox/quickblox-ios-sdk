@@ -12,7 +12,7 @@
 
 + (void)checkPermissionsWithConferenceType:(QBRTCConferenceType)conferenceType
                                 completion:(PermissionBlock)completion {
-
+    
 #if TARGET_OS_SIMULATOR
     completion(YES);
     return;
@@ -67,7 +67,7 @@
             }
         }
     }];
-    #endif
+#endif
 }
 
 + (void)requestPermissionToMicrophoneWithCompletion:(PermissionBlock)completion {

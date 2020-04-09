@@ -16,5 +16,6 @@
 @property (strong, nonatomic) QBRTCSession *session;
 @property (weak, nonatomic) UsersDataSource *usersDatasource;
 @property (strong, nonatomic) NSUUID *callUUID;
+@property (assign, nonatomic) QBRTCConferenceType sessionConferenceType;
 
 @end

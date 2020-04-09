@@ -18,6 +18,7 @@
 		2C5551B02237DE2100BB3CAF /* Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5551AF2237DE2100BB3CAF /* Log.m */; };
 		2C6C7053223A95DE00BFE9FA /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C7052223A95DE00BFE9FA /* User.m */; };
 		2C6F882A224E76F200A0DEB5 /* Info.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C6F8829224E76F200A0DEB5 /* Info.xcassets */; };
+		2CF9DC65242B9D76009CF0CD /* Call.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF9DC64242B9D76009CF0CD /* Call.m */; };
 		55CF63A81A3AFF2500FE8D19 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CF63A71A3AFF2500FE8D19 /* SystemConfiguration.framework */; };
 		55E156AF1AD6C41C00C62699 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E156AE1AD6C41C00C62699 /* MobileCoreServices.framework */; };
 		55F6BDCA1A3F21CC0080C326 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F6BDC91A3F21CC0080C326 /* GLKit.framework */; };
@@ -124,6 +125,8 @@
 		2C6C7051223A95DE00BFE9FA /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		2C6C7052223A95DE00BFE9FA /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		2C6F8829224E76F200A0DEB5 /* Info.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Info.xcassets; sourceTree = "<group>"; };
+		2CF9DC63242B9D76009CF0CD /* Call.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Call.h; sourceTree = "<group>"; };
+		2CF9DC64242B9D76009CF0CD /* Call.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Call.m; sourceTree = "<group>"; };
 		55CF63A71A3AFF2500FE8D19 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		55E076E31A30817800118D23 /* sample-videochat-webrtc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-videochat-webrtc.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55E156AE1AD6C41C00C62699 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -360,6 +363,15 @@
 				2C5551AF2237DE2100BB3CAF /* Log.m */,
 			);
 			path = Log;
+			sourceTree = "<group>";
+		};
+		2CF9DC62242B9D57009CF0CD /* Call */ = {
+			isa = PBXGroup;
+			children = (
+				2CF9DC63242B9D76009CF0CD /* Call.h */,
+				2CF9DC64242B9D76009CF0CD /* Call.m */,
+			);
+			path = Call;
 			sourceTree = "<group>";
 		};
 		3455488185E72D90E79AF6D0 /* Pods */ = {
@@ -846,6 +858,7 @@
 		E3B50D971FC8763500796F0D /* CallKitManager */ = {
 			isa = PBXGroup;
 			children = (
+				2CF9DC62242B9D57009CF0CD /* Call */,
 				E3B50D991FC8763500796F0D /* CallKitManager.h */,
 				E3B50D981FC8763500796F0D /* CallKitManager.m */,
 			);
@@ -1032,16 +1045,12 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-sample-videochat-webrtc/Pods-sample-videochat-webrtc-frameworks.sh",
 				"${PODS_ROOT}/QuickBlox/Quickblox.framework",
 				"${PODS_ROOT}/Quickblox-WebRTC/QuickbloxWebRTC.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quickblox.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QuickbloxWebRTC.framework",
@@ -1088,6 +1097,7 @@
 				2C2FD43D21DE6404002ED66B /* InfoTableViewCell.m in Sources */,
 				E3B0B2201E1576EC00BE5FBD /* BaseItemModel.m in Sources */,
 				2C2FD43F21DE6404002ED66B /* InfoTableViewController.m in Sources */,
+				2CF9DC65242B9D76009CF0CD /* Call.m in Sources */,
 				E3B0B22A1E1576EC00BE5FBD /* ToolBar.m in Sources */,
 				E3B0B2051E1576EC00BE5FBD /* UserTableViewCell.m in Sources */,
 				E3B0B1FB1E1576EC00BE5FBD /* LoginTableViewController.m in Sources */,
@@ -1298,6 +1308,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 8885H5G2YX;
 				ENABLE_BITCODE = YES;
@@ -1316,6 +1327,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MARKETING_VERSION = 4.0.3;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
@@ -1344,6 +1356,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8885H5G2YX;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1361,6 +1374,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MARKETING_VERSION = 4.0.3;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (

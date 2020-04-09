@@ -39,6 +39,11 @@
     return self;
 }
 
+- (void)removeAllButtons {
+    [self.buttons removeAllObjects];
+    [self.actions removeAllObjects];
+}
+
 - (void)updateItems {
     
     NSMutableArray *items = [NSMutableArray array];

@@ -21,15 +21,13 @@ static const NSInteger DefaultMaximumCallGroups = 1;
 @property (strong, nonatomic) CXProvider *provider;
 @property (strong, nonatomic) CXCallController *callController;
 @property (copy, nonatomic) dispatch_block_t actionCompletionBlock;
-@property (copy, nonatomic) dispatch_block_t onAcceptActionBlock;
+@property (copy, nonatomic) CompletionActionBlock onAcceptActionBlock;
 @property (weak, nonatomic) QBRTCSession *session;
-
+@property (strong, nonatomic) NSArray<Call *> *calls;
 @end
 
 @implementation CallKitManager
-
 // MARK: - Static
-
 + (CallKitManager *)instance {
     static CallKitManager *instance = nil;
     static dispatch_once_t onceToken;
@@ -51,14 +49,11 @@ static const NSInteger DefaultMaximumCallGroups = 1;
     return config;
 }
 
-- (Boolean)isCallDidStarted {
-    return self.isCallStarted == YES ? YES : NO;
-}
-
 // MARK: - Initialization
 - (instancetype)init {
     self = [super init];
     if (self != nil) {
+        self.calls = @[];
         CXProviderConfiguration *configuration = [CallKitManager configuration];
         self.provider = [[CXProvider alloc] initWithConfiguration:configuration];
         [self.provider setDelegate:self queue:nil];
@@ -66,6 +61,30 @@ static const NSInteger DefaultMaximumCallGroups = 1;
         self.isCallStarted = NO;
     }
     return self;
+}
+
+- (Boolean)isCallDidStarted {
+    return self.isCallStarted == YES;
+}
+
+- (Call * _Nullable)currentCall {
+    Log(@"currentCall self.calls %@",  @(self.calls.count));
+    Call *currentCall = (Call *)self.calls.firstObject;
+    if (currentCall) {
+        return currentCall;
+    }
+    return nil;
+}
+
+- (Boolean)isHasSession {
+    return self.session != nil;
+}
+
+- (void)setupSession:(QBRTCSession *)session {
+    _session = session;
+    if ([self.delegate respondsToSelector:@selector(callKitManager:didUpdateSession:)]) {
+        [self.delegate callKitManager:self didUpdateSession:session];
+    }
 }
 
 - (void)setIsCallStarted:(BOOL)isCallStarted {
@@ -79,6 +98,11 @@ static const NSInteger DefaultMaximumCallGroups = 1;
 // MARK: - Call management
 - (void)startCallWithUserIDs:(NSArray *)userIDs session:(QBRTCSession *)session uuid:(NSUUID *)uuid {
     _session = session;
+    
+    self.calls = @[];
+    Call *outgoingCall = [[Call alloc] initWithUUID:uuid sessionID:session.ID status:CallStatusActive];
+    self.calls = @[outgoingCall];
+    
     NSString *contactIdentifier = nil;
     CXHandle *handle = [self handleForUserIDs:userIDs];
     CXStartCallAction *action = [[CXStartCallAction alloc] initWithCallUUID:uuid handle:handle];
@@ -100,15 +124,14 @@ static const NSInteger DefaultMaximumCallGroups = 1;
 }
 
 - (void)endCallWithUUID:(NSUUID *)uuid completion:(dispatch_block_t)completion {
-    if (!self.session || !uuid) {
-        if (completion != nil) {
-            completion();
-        }
+    Call *currentCall = (Call *)self.calls.firstObject;
+    if (!currentCall) {
         return;
     }
     
-    CXEndCallAction *action = [[CXEndCallAction alloc] initWithCallUUID:uuid];
+    CXEndCallAction *action = [[CXEndCallAction alloc] initWithCallUUID:currentCall.uuid];
     CXTransaction *transaction = [[CXTransaction alloc] initWithAction:action];
+    self.calls = @[];
     
     dispatchOnMainThread(^{
         [self requestTransaction:transaction completion:nil];
@@ -119,26 +142,83 @@ static const NSInteger DefaultMaximumCallGroups = 1;
     }
 }
 
-- (void)reportIncomingCallWithUserIDs:(NSArray *)userIDs outCallerName:(NSString *)callerName session:(QBRTCSession *)session uuid:(NSUUID *)uuid onAcceptAction:(dispatch_block_t)onAcceptAction completion:(void (^)(BOOL))completion {
-    
-    Log(@"[%@] Report incoming call %@",  NSStringFromClass([CallKitManager class]), uuid);
-    if (self.session != nil) {
-        return;
-    }
+- (void)reportIncomingCallWithUserIDs:(NSArray *)userIDs
+                        outCallerName:(NSString *)callerName
+                              session:(QBRTCSession * _Nullable)session
+                            sessionID:(NSString *)sessionID
+                sessionConferenceType:(QBRTCConferenceType)sessionConferenceType
+                                 uuid:(NSUUID *)uuid
+                       onAcceptAction:(CompletionActionBlock)onAcceptAction
+                           completion:(void (^)(BOOL))completion {
     
     _session = session;
     _onAcceptActionBlock = onAcceptAction;
     
+    self.calls = @[];
+    Call *incomingCall = [[Call alloc] initWithUUID:uuid sessionID:session.ID status:CallStatusInvite];
+    self.calls = @[incomingCall];
+    
     CXCallUpdate *update = [[CXCallUpdate alloc] init];
-    update.remoteHandle = [self handleForUserIDs:userIDs];
+    update.localizedCallerName = callerName;
+    update.supportsHolding = NO;
+    update.supportsGrouping = NO;
+    update.supportsUngrouping = NO;
+    update.supportsDTMF = NO;
+    update.hasVideo = sessionConferenceType == QBRTCConferenceTypeVideo;
+    
+    if (self.session) {
+        QBRTCAudioSession *audioSession = [QBRTCAudioSession instance];
+        audioSession.useManualAudio = YES;
+        // disabling audio unit for local mic recording in recorder to enable it later
+        session.recorder.localAudioEnabled = NO;
+        if (!audioSession.isInitialized) {
+            [audioSession initializeWithConfigurationBlock:^(QBRTCAudioSessionConfiguration *configuration) {
+                // adding blutetooth support
+                configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetooth;
+                configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetoothA2DP;
+                
+                // adding airplay support
+                configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowAirPlay;
+                if (self.session.conferenceType == QBRTCConferenceTypeVideo) {
+                    // setting mode to video chat to enable airplay audio and speaker only
+                    configuration.mode = AVAudioSessionModeVideoChat;
+                } else if (self.session.conferenceType == QBRTCConferenceTypeAudio) {
+                    // setting mode to video chat to enable airplay audio and speaker only
+                    configuration.mode = AVAudioSessionModeVoiceChat;
+                }
+            }];
+        }
+    }
+    
+    [_provider reportNewIncomingCallWithUUID:uuid update:update completion:^(NSError * _Nullable error) {
+        BOOL silent = ([error.domain isEqualToString:CXErrorDomainIncomingCall] && error.code == CXErrorCodeIncomingCallErrorFilteredByDoNotDisturb);
+        dispatchOnMainThread(^{
+            if (completion != nil) {
+                completion(silent);
+            }
+        });
+    }];
+}
+
+- (void)updateIncomingCallWithUserIDs:(NSArray *)userIDs
+                        outCallerName:(NSString *)callerName
+                              session:(QBRTCSession *)session {
+    Call *incomingCall = (Call *)self.calls.firstObject;
+    if (!incomingCall) {
+        return;
+    }
+    
+    if (!self.session) {
+        _session = session;
+    }
+    
+    CXCallUpdate *update = [[CXCallUpdate alloc] init];
     update.localizedCallerName = callerName;
     update.supportsHolding = NO;
     update.supportsGrouping = NO;
     update.supportsUngrouping = NO;
     update.supportsDTMF = NO;
     update.hasVideo = session.conferenceType == QBRTCConferenceTypeVideo;
-    
-    Log(@"[%@] Activating audio session",  NSStringFromClass([CallKitManager class]));
     
     QBRTCAudioSession *audioSession = [QBRTCAudioSession instance];
     audioSession.useManualAudio = YES;
@@ -152,21 +232,17 @@ static const NSInteger DefaultMaximumCallGroups = 1;
             
             // adding airplay support
             configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowAirPlay;
-            if (session.conferenceType == QBRTCConferenceTypeVideo) {
+            if (self.session.conferenceType == QBRTCConferenceTypeVideo) {
                 // setting mode to video chat to enable airplay audio and speaker only
                 configuration.mode = AVAudioSessionModeVideoChat;
+            } else if (self.session.conferenceType == QBRTCConferenceTypeAudio) {
+                // setting mode to video chat to enable airplay audio and speaker only
+                configuration.mode = AVAudioSessionModeVoiceChat;
             }
         }];
     }
     
-    [_provider reportNewIncomingCallWithUUID:uuid update:update completion:^(NSError * _Nullable error) {
-        BOOL silent = ([error.domain isEqualToString:CXErrorDomainIncomingCall] && error.code == CXErrorCodeIncomingCallErrorFilteredByDoNotDisturb);
-        dispatchOnMainThread(^{
-            if (completion != nil) {
-                completion(silent);
-            }
-        });
-    }];
+    [_provider reportCallWithUUID:incomingCall.uuid updated:update];
 }
 
 - (void)updateCallWithUUID:(NSUUID *)uuid connectingAtDate:(NSDate *)date {
@@ -195,57 +271,79 @@ static const NSInteger DefaultMaximumCallGroups = 1;
 }
 
 - (void)provider:(CXProvider *)__unused provider performAnswerCallAction:(CXAnswerCallAction *)action {
-    if (_session == nil) {
+    Call *incomingCall = (Call *)self.calls.firstObject;
+    if (![incomingCall.uuid isEqual:action.callUUID] || incomingCall.status != CallStatusInvite) {
+        Log(@"performAnswerCallAction self.calls %@",  @(self.calls.count));
         [action fail];
         return;
     }
-    
-    if ([UIDevice currentDevice].systemVersion.integerValue == 10) {
-        // Workaround for webrtc on ios 10, because first incoming call does not have audio
-        // due to incorrect category: AVAudioSessionCategorySoloAmbient
-        // webrtc need AVAudioSessionCategoryPlayAndRecord
-        NSError *err = nil;
-        if (![[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:&err]) {
-            Log(@"[%@] Error setting category for webrtc workaround on ios 10.",  NSStringFromClass([CallKitManager class]));
+    incomingCall.status = CallStatusActive;
+    if (self.session) {
+        if ([UIDevice currentDevice].systemVersion.integerValue == 10) {
+            // Workaround for webrtc on ios 10, because first incoming call does not have audio
+            // due to incorrect category: AVAudioSessionCategorySoloAmbient
+            // webrtc need AVAudioSessionCategoryPlayAndRecord
+            NSError *err = nil;
+            if (![[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:&err]) {
+                Log(@"[%@] Error setting category for webrtc workaround on ios 10.",  NSStringFromClass([CallKitManager class]));
+            }
         }
+        [self.session acceptCall:nil];
     }
     
     __weak __typeof(self)weakSelf = self;
     dispatchOnMainThread(^{
-        [weakSelf.session acceptCall:nil];
+        
         weakSelf.isCallStarted = YES;
         [action fulfill];
         
         if (weakSelf.onAcceptActionBlock != nil) {
-            weakSelf.onAcceptActionBlock();
+            weakSelf.onAcceptActionBlock(YES);
             weakSelf.onAcceptActionBlock = nil;
         }
     });
 }
 
 - (void)provider:(CXProvider *)__unused provider performEndCallAction:(CXEndCallAction *)action {
-    if (self.session == nil) {
-        [action fail];
-        return;
+    
+    if (self.calls.count > 0) {
+        Call *call = (Call *)self.calls.firstObject;
+        call.status = CallStatusEnded;
+        if (![call.uuid isEqual:action.callUUID]) {
+            self.calls = @[];
+            [action fail];
+            return;
+        }
     }
     
-    QBRTCSession *session = _session;
-    _session = nil;
+    if (self.session) {
+        QBRTCSession *session = self.session;
+        _session = nil;
+        
+        if (self.isCallStarted == YES) {
+            [session hangUp:nil];
+            self.isCallStarted = NO;
+        } else {
+            [session rejectCall:nil];
+        }
+        self.calls = @[];
+        
+        [action fulfillWithDateEnded:[NSDate date]];
+    }
     
     __weak __typeof(self)weakSelf = self;
     dispatchOnMainThread(^{
         QBRTCAudioSession *audioSession = [QBRTCAudioSession instance];
         audioSession.audioEnabled = NO;
         audioSession.useManualAudio = NO;
-        
-        if (weakSelf.isCallStarted == YES) {
-            [session hangUp:nil];
-            weakSelf.isCallStarted = NO;
-        } else {
-            [session rejectCall:nil];
-        }
-        
+        [audioSession deinitialize];
+        self.isCallStarted = NO;
         [action fulfillWithDateEnded:[NSDate date]];
+        
+        if (weakSelf.onAcceptActionBlock != nil) {
+            weakSelf.onAcceptActionBlock(NO);
+            weakSelf.onAcceptActionBlock = nil;
+        }
         
         if (weakSelf.actionCompletionBlock != nil) {
             weakSelf.actionCompletionBlock();
@@ -255,14 +353,11 @@ static const NSInteger DefaultMaximumCallGroups = 1;
 }
 
 - (void)provider:(CXProvider *)__unused provider performSetMutedCallAction:(CXSetMutedCallAction *)action {
-    if (_session == nil) {
-        [action fail];
-        return;
-    }
-    
     __weak __typeof(self)weakSelf = self;
     dispatchOnMainThread(^{
-        weakSelf.session.localMediaStream.audioTrack.enabled = !action.isMuted;
+        if (weakSelf.session) {
+            weakSelf.session.localMediaStream.audioTrack.enabled = !action.isMuted;
+        }
         [action fulfill];
         
         if (weakSelf.onMicrophoneMuteAction != nil) {
@@ -293,11 +388,10 @@ static const NSInteger DefaultMaximumCallGroups = 1;
 // MARK: - Helpers
 
 - (CXHandle *)handleForUserIDs:(NSArray *)userIDs {
-    
     if (userIDs.count == 1) {
         QBUUser *user = [self.usersDatasource userWithID:[[userIDs firstObject] integerValue]];
         if (user.phone.length > 0) {
-            return [[CXHandle alloc] initWithType:CXHandleTypePhoneNumber value:user.phone];
+            return [[CXHandle alloc] initWithType:CXHandleTypeGeneric value:user.phone];
         }
     }
     
