@@ -12,5 +12,6 @@
 - (void)addButton:(UIButton *)button action:(void(^)(UIButton *sender))action;
 
 - (void)updateItems;
+- (void)removeAllButtons;
 
 @end

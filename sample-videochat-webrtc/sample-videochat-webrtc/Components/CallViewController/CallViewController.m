@@ -38,7 +38,7 @@ static NSString * const kUnknownUserLabel = @"?";
 
 @interface CallViewController ()
 
-<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, QBRTCClientDelegate, QBRTCAudioSessionDelegate, LocalVideoViewDelegate>
+<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, QBRTCClientDelegate, QBRTCAudioSessionDelegate, LocalVideoViewDelegate, CallKitManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *opponentsCollectionView;
 @property (weak, nonatomic) IBOutlet ToolBar *toolbar;
@@ -59,6 +59,7 @@ static NSString * const kUnknownUserLabel = @"?";
 @property (strong, nonatomic) StatsView *statsView;
 @property (assign, nonatomic) BOOL shouldGetStats;
 @property (strong, nonatomic) NSNumber *statsUserID;
+@property (strong, nonatomic) NSMutableArray * disconnectedUsers;
 
 @property (strong, nonatomic) ZoomedView *zoomedView;
 @property (weak, nonatomic) OpponentCollectionViewCell *originCell;
@@ -78,30 +79,22 @@ static NSString * const kUnknownUserLabel = @"?";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[QBRTCClient instance] addDelegate:self];
+    if (self.session) {
+        [[QBRTCClient instance] addDelegate:self];
+    } else {
+        CallKitManager.instance.delegate = self;
+    }
+    
     [[QBRTCAudioSession instance] addDelegate:self];
     
-    QBRTCAudioSession *audioSession = [QBRTCAudioSession instance];
-    if (!audioSession.isInitialized) {
-        [audioSession initializeWithConfigurationBlock:^(QBRTCAudioSessionConfiguration *configuration) {
-            // adding blutetooth support
-            configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetooth;
-            configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetoothA2DP;
-            
-            // adding airplay support
-            configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowAirPlay;
-            
-            if (self.session.conferenceType == QBRTCConferenceTypeVideo) {
-                // setting mode to video chat to enable airplay audio and speaker only
-                configuration.mode = AVAudioSessionModeVideoChat;
-            }
-        }];
-    }
+    QBRTCConferenceType conferenceType = self.session != nil ? self.session.conferenceType : self.sessionConferenceType;
+    
+    self.disconnectedUsers = [NSMutableArray array];
     self.videoViews = [NSMutableDictionary dictionary];
     self.users = [NSMutableArray array];
     [self configureGUI];
     
-    if (self.session.conferenceType == QBRTCConferenceTypeVideo) {
+    if (conferenceType == QBRTCConferenceTypeVideo) {
         
 #if TARGET_OS_SIMULATOR
         Log(@"[%@] TARGET_OS_SIMULATOR", NSStringFromClass([CallViewController class]));
@@ -122,21 +115,72 @@ static NSString * const kUnknownUserLabel = @"?";
     
     [self.users insertObject:me atIndex:0];
     
-    BOOL isInitiator = (profile.ID == self.session.initiatorID.unsignedIntegerValue);
-    isInitiator ? [self startCall] : [self acceptCall];
-    
     self.title = @"Connecting...";
     
-    if (self.session.initiatorID.unsignedIntegerValue == profile.ID) {
+    if (self.session) {
+        [self setupSession:self.session];
+    }
+}
+
+- (void)setupSession:(QBRTCSession *)session {
+    if (self.sessionConferenceType != session.conferenceType) {
+        [self.toolbar removeAllButtons];
+        [self.toolbar updateItems];
+        [self configureGUI];
+    }
+    
+    QBRTCAudioSession *audioSession = [QBRTCAudioSession instance];
+    if (!audioSession.isInitialized) {
+        [audioSession initializeWithConfigurationBlock:^(QBRTCAudioSessionConfiguration *configuration) {
+            // adding blutetooth support
+            configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetooth;
+            configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetoothA2DP;
+            
+            // adding airplay support
+            configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowAirPlay;
+            
+            if (session.conferenceType == QBRTCConferenceTypeVideo) {
+                // setting mode to video chat to enable airplay audio and speaker only
+                configuration.mode = AVAudioSessionModeVideoChat;
+            } else if (session.conferenceType == QBRTCConferenceTypeAudio) {
+                // setting mode to video chat to enable airplay audio and speaker only
+                configuration.mode = AVAudioSessionModeVoiceChat;
+            }
+        }];
+    }
+    
+    if (session.conferenceType == QBRTCConferenceTypeVideo) {
+        
+#if TARGET_OS_SIMULATOR
+        Log(@"[%@] TARGET_OS_SIMULATOR", NSStringFromClass([CallViewController class]));
+#else
+        if (!self.cameraCapture) {
+            Settings *settings = [[Settings alloc] init];
+            self.cameraCapture = [[QBRTCCameraCapture alloc] initWithVideoFormat:settings.videoFormat
+                                                                        position:settings.preferredCameraPostion];
+        }
+        [self.cameraCapture startSession:nil];
+        self.session.localMediaStream.videoTrack.videoCapture = self.cameraCapture;
+#endif
+    }
+    
+    Profile *profile = [[Profile alloc] init];
+    BOOL isInitiator = (profile.ID == self.session.initiatorID.unsignedIntegerValue);
+    if (isInitiator) {
+        [self startCall];
         [CallKitManager.instance updateCallWithUUID:_callUUID connectingAtDate:[NSDate date]];
+    } else {
+        [self acceptCall];
     }
 }
 
 - (void)configureGUI {
     
+    QBRTCConferenceType conferenceType = self.session != nil ? self.session.conferenceType : self.sessionConferenceType;
+    
     __weak __typeof(self)weakSelf = self;
     
-    if (self.session.conferenceType == QBRTCConferenceTypeVideo) {
+    if (conferenceType == QBRTCConferenceTypeVideo) {
         
         self.videoEnabled = [ButtonsFactory videoEnable];
         [self.toolbar addButton:self.videoEnabled action: ^(UIButton *sender) {
@@ -154,7 +198,7 @@ static NSString * const kUnknownUserLabel = @"?";
         }];
     }
     
-    if (self.session.conferenceType == QBRTCConferenceTypeAudio) {
+    if (conferenceType == QBRTCConferenceTypeAudio) {
         
         self.dynamicEnable = [ButtonsFactory dynamicEnable];
         
@@ -185,11 +229,11 @@ static NSString * const kUnknownUserLabel = @"?";
     [CallKitManager.instance setOnMicrophoneMuteAction:^{
         weakSelf.audioEnabled.pressed = !weakSelf.audioEnabled.pressed;
     }];
-
+    
     [self.toolbar addButton:[ButtonsFactory decline] action: ^(UIButton *sender) {
         [weakSelf.session hangUp:@{@"hangup" : @"hang up"}];
     }];
-        
+    
     
     
     [self.toolbar updateItems];
@@ -268,7 +312,8 @@ static NSString * const kUnknownUserLabel = @"?";
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    if (self.session.conferenceType == QBRTCConferenceTypeAudio) {
+    QBRTCConferenceType conferenceType = self.session != nil ? self.session.conferenceType : self.sessionConferenceType;
+    if (conferenceType == QBRTCConferenceTypeAudio) {
         return self.users.count;
     } else {
         NSInteger count = self.statsUserID != nil ? 1 : self.users.count;
@@ -282,13 +327,13 @@ static NSString * const kUnknownUserLabel = @"?";
                                         dequeueReusableCellWithReuseIdentifier:kOpponentCollectionViewCellIdentifier
                                         forIndexPath:indexPath];
     NSInteger index = indexPath.row;
-    if (self.session.conferenceType == QBRTCConferenceTypeVideo) {
+    QBRTCConferenceType conferenceType = self.session != nil ? self.session.conferenceType : self.sessionConferenceType;
+    if (conferenceType == QBRTCConferenceTypeVideo) {
         if (self.statsUserID) {
             NSIndexPath *selectedIndexPath = [self indexPathAtUserID:self.statsUserID];
             index = selectedIndexPath.row;
         }
     }
-    
     User *user = self.users[index];
     QBRTCAudioTrack *audioTrack = [self.session remoteAudioTrackWithUserID:user.ID];
     cell.muteButton.selected = !audioTrack.enabled;
@@ -373,10 +418,34 @@ static NSString * const kUnknownUserLabel = @"?";
     } completion:nil];
 }
 
-// MARK: - QBRTCClientDelegate
+// MARK: - CallKitManagerDelegate
 
+- (void)callKitManager:(CallKitManager *)callKitManager didUpdateSession:(QBRTCSession *)session {
+    if (!self.session) {
+        [[QBRTCClient instance] addDelegate:self];
+        _session = session;
+        [self setupSession:session];
+    }
+}
+
+- (void)loadUserWithID:(NSUInteger)ID completion:(void(^)(QBUUser * _Nullable user))completion {
+    [QBRequest userWithID:ID successBlock:^(QBResponse * _Nonnull response, QBUUser * _Nonnull user) {
+        [self.usersDatasource updateUsers:@[user]];
+        if (completion) {
+            completion(user);
+        }
+    } errorBlock:^(QBResponse * _Nonnull response) {
+        Log(@"%@ loadUser error: %@",NSStringFromClass([CallViewController class]),
+            response.error.error.localizedDescription);
+        if (completion) {
+            completion(nil);
+        }
+    }];
+}
+
+// MARK: - QBRTCClientDelegate
 - (void)session:(QBRTCSession *)session hungUpByUser:(NSNumber *)userID userInfo:(NSDictionary<NSString *,NSString *> *)userInfo {
-    if (session == self.session && session.opponentsIDs.count == 1 && session.initiatorID.unsignedIntegerValue == userID.unsignedIntegerValue) {
+    if (session == self.session && session.opponentsIDs.count == 1) {
         [self closeCall];
     }
 }
@@ -385,52 +454,117 @@ static NSString * const kUnknownUserLabel = @"?";
     if (session == self.session) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ID == %@", userID];
         User *user = [[self.users filteredArrayUsingPredicate:predicate] firstObject];
-        if (user.connectionState == QBRTCConnectionStateConnected
-            && report.videoReceivedBitrateTracker.bitrate > 0) {
-            user.bitrate = report.videoReceivedBitrateTracker.bitrate;
-            NSIndexPath *userIndexPath = [self indexPathAtUserID:user.ID];
-            OpponentCollectionViewCell *cell = (OpponentCollectionViewCell *)[self.opponentsCollectionView cellForItemAtIndexPath:userIndexPath];
-            Profile *profile = [[Profile alloc] init];
-            if (user.ID.unsignedIntegerValue != profile.ID) {
-                cell.bitrateString = [NSString stringWithFormat:@"%.0f kbits/sec", user.bitrate* 1e-3];
+        Profile *profile = [[Profile alloc] init];
+        BOOL isInitiator = (profile.ID == self.session.initiatorID.unsignedIntegerValue);
+        if (!user && !isInitiator) {
+            QBUUser *qbUser = [self.usersDatasource userWithID:userID.unsignedIntegerValue];
+            if (qbUser) {
+                User *user = [[User alloc] initWithID:qbUser.ID fullName:qbUser.fullName];
+                [self.users insertObject:user atIndex:0];
+                [self reloadContent];
+            } else {
+                [self loadUserWithID:userID.unsignedIntegerValue completion:^(QBUUser * _Nullable user) {
+                    if (user) {
+                        User *newUser = [[User alloc] initWithID:user.ID fullName:user.fullName];
+                        [self.users insertObject:newUser atIndex:0];
+                        [self reloadContent];
+                    }
+                }];
             }
         }
-        
-        if ([_statsUserID isEqualToNumber:userID]) {
+        if (user) {
+            if (user.connectionState == QBRTCConnectionStateConnected
+                && report.videoReceivedBitrateTracker.bitrate > 0) {
+                user.bitrate = report.videoReceivedBitrateTracker.bitrate;
+                NSIndexPath *userIndexPath = [self indexPathAtUserID:user.ID];
+                OpponentCollectionViewCell *cell = (OpponentCollectionViewCell *)[self.opponentsCollectionView cellForItemAtIndexPath:userIndexPath];
+                Profile *profile = [[Profile alloc] init];
+                if (user.ID.unsignedIntegerValue != profile.ID) {
+                    cell.bitrateString = [NSString stringWithFormat:@"%.0f kbits/sec", user.bitrate* 1e-3];
+                }
+            }
+            if ([_statsUserID isEqualToNumber:userID]) {
+                NSString *result = [NSString stringWithFormat:@"User: %@\n%@", user.fullName ?: userID,[report statsString]];
+                
+                // send stats to stats view if needed
+                if (_shouldGetStats) {
+                    [_statsView setStats:result];
+                    [self.view setNeedsLayout];
+                }
+            }
+        }
+    }
+}
+
+- (void)session:(__kindof QBRTCBaseSession *)session disconnectedFromUser:(NSNumber *)userID {
+    if (session == self.session) {
+        if (self.session.opponentsIDs.count == 1) {
+            [self closeCall];
+        } else if (self.session.opponentsIDs.count > 1) {
             
-            NSString *result = [NSString stringWithFormat:@"User: %@\n%@", user.fullName ?: userID,[report statsString]];
-            
-            // send stats to stats view if needed
-            if (_shouldGetStats) {
-                [_statsView setStats:result];
-                [self.view setNeedsLayout];
+            if (![self.disconnectedUsers containsObject:userID]) {
+                [self.disconnectedUsers addObject:userID];
+            }
+            if (self.disconnectedUsers.count == self.session.opponentsIDs.count) {
+                [self closeCall];
             }
         }
     }
 }
 
 - (void)session:(__kindof QBRTCBaseSession *)session didChangeConnectionState:(QBRTCConnectionState)state forUser:(nonnull NSNumber *)userID {
-    
     if (session == self.session) {
         
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ID == %@", userID];
         User *user = [[self.users filteredArrayUsingPredicate:predicate] firstObject];
         
         if (user) {
-            user.connectionState = state;
+            if (user.connectionState != QBRTCConnectionStateHangUp) {
+                user.connectionState = state;
+            }
             NSIndexPath *userIndexPath = [self indexPathAtUserID:user.ID];
             OpponentCollectionViewCell *cell = (OpponentCollectionViewCell *)[self.opponentsCollectionView cellForItemAtIndexPath:userIndexPath];
             cell.connectionState = user.connectionState;
-
+            
         } else {
             QBUUser *qbUser = [self.usersDatasource userWithID:userID.unsignedIntegerValue];
-            User *user = [[User alloc] initWithID:qbUser.ID fullName:qbUser.fullName];
-            user.connectionState = state;
-            
-            if (![self.users containsObject:user] || user.connectionState == QBRTCConnectionStateConnected) {
-                [self.users insertObject:user atIndex:0];
+            if (qbUser) {
+                User *user = [[User alloc] initWithID:qbUser.ID fullName:qbUser.fullName];
+                user.connectionState = state;
+                if (user.connectionState == QBRTCConnectionStateConnected) {
+                    [self.users insertObject:user atIndex:0];
+                    [self reloadContent];
+                }
+            } else {
+                [self loadUserWithID:userID.unsignedIntegerValue completion:^(QBUUser * _Nullable user) {
+                    if (user) {
+                        User *newUser = [[User alloc] initWithID:user.ID fullName:user.fullName];
+                        newUser.connectionState = state;
+                        if (newUser.connectionState == QBRTCConnectionStateConnected) {
+                            [self.users insertObject:newUser atIndex:0];
+                            [self reloadContent];
+                        }
+                    }
+                }];
             }
-            [self reloadContent];
+        }
+        
+        if (state == QBRTCConnectionStateDisconnected ||
+            state == QBRTCConnectionStateHangUp ||
+            state == QBRTCConnectionStateRejected ||
+            state == QBRTCConnectionStateClosed ||
+            state == QBRTCConnectionStateFailed) {
+            if (self.session.opponentsIDs.count == 1) {
+                [self closeCall];
+            } else if (self.session.opponentsIDs.count > 1) {
+                
+                if (![self.disconnectedUsers containsObject:userID]) {
+                    [self.disconnectedUsers addObject:userID];
+                }
+                if (self.disconnectedUsers.count == self.session.opponentsIDs.count) {
+                    [self closeCall];
+                }
+            }
         }
     }
 }
@@ -451,8 +585,37 @@ static NSString * const kUnknownUserLabel = @"?";
  */
 
 - (void)session:(__kindof QBRTCBaseSession *)session connectedToUser:(NSNumber *)userID {
-    
     if (session == self.session) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ID == %@", userID];
+        User *user = [[self.users filteredArrayUsingPredicate:predicate] firstObject];
+        
+        if (user) {
+            user.connectionState = QBRTCConnectionStateConnected;
+            NSIndexPath *userIndexPath = [self indexPathAtUserID:user.ID];
+            OpponentCollectionViewCell *cell = (OpponentCollectionViewCell *)[self.opponentsCollectionView cellForItemAtIndexPath:userIndexPath];
+            cell.connectionState = user.connectionState;
+            
+        } else {
+            QBUUser *qbUser = [self.usersDatasource userWithID:userID.unsignedIntegerValue];
+            if (qbUser) {
+                User *user = [[User alloc] initWithID:qbUser.ID fullName:qbUser.fullName];
+                user.connectionState = QBRTCConnectionStateConnected;
+                
+                [self.users insertObject:user atIndex:0];
+                [self reloadContent];
+                
+            } else {
+                [self loadUserWithID:userID.unsignedIntegerValue completion:^(QBUUser * _Nullable user) {
+                    if (user) {
+                        User *newUser = [[User alloc] initWithID:user.ID fullName:user.fullName];
+                        newUser.connectionState = QBRTCConnectionStateConnected;
+                        
+                        [self.users insertObject:newUser atIndex:0];
+                        [self reloadContent];
+                    }
+                }];
+            }
+        }
         
         if (self.beepTimer) {
             
@@ -660,9 +823,10 @@ static inline __kindof UIView *prepareSubview(UIView *view, Class subviewClass) 
 
 - (UIView *)userViewWithUserID:(NSNumber *)userID {
     id result = self.videoViews[userID];
-
+    
     Profile *profile = [[Profile alloc] init];
-    if (self.session.conferenceType == QBRTCConferenceTypeVideo && profile.ID == userID.unsignedIntegerValue) {//Local preview
+    QBRTCConferenceType conferenceType = self.session != nil ? self.session.conferenceType : self.sessionConferenceType;
+    if (conferenceType == QBRTCConferenceTypeVideo && profile.ID == userID.unsignedIntegerValue) {//Local preview
         id result = self.videoViews[userID];
         if (result && [result isKindOfClass:[LocalVideoView class]]) {
             return self.videoViews[userID];
@@ -683,8 +847,8 @@ static inline __kindof UIView *prepareSubview(UIView *view, Class subviewClass) 
         if (result && [result isKindOfClass:[QBRTCRemoteVideoView class]] && remoteVideoTraсk) {
             [result setVideoTrack:remoteVideoTraсk];
             return result;
-          } else if (!result && remoteVideoTraсk) {
-    
+        } else if (!result && remoteVideoTraсk) {
+            
             remoteVideoView = [[QBRTCRemoteVideoView alloc] initWithFrame:CGRectMake(2.0f, 2.0f, 2.0f, 2.0f)];
             remoteVideoView.videoGravity = AVLayerVideoGravityResizeAspectFill;
             self.videoViews[userID] = remoteVideoView;

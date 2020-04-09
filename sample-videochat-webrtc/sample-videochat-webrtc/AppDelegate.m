@@ -36,8 +36,9 @@ NSString *const kAccountKey     = @"";
     [QBSettings setAuthSecret:kAuthSecret];
     [QBSettings setAccountKey:kAccountKey];
     
-    [QBSettings setLogLevel:QBLogLevelDebug];
-    [QBSettings enableXMPPLogging];
+    [QBSettings setLogLevel:QBLogLevelNothing];
+    [QBSettings disableFileLogging];
+    [QBSettings disableXMPPLogging];
     
     [QBRTCConfig setAnswerTimeInterval:kQBAnswerTimeInterval];
     [QBRTCConfig setDialingTimeInterval:kQBDialingTimeInterval];
