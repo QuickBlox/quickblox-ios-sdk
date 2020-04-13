@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         QBSettings.applicationID = CredentialsConstant.applicationID;
@@ -54,11 +54,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         QBSettings.authSecret = CredentialsConstant.authSecret
         QBSettings.accountKey = CredentialsConstant.accountKey
         QBSettings.autoReconnectEnabled = true
-        QBSettings.logLevel = QBLogLevel.debug
-        QBSettings.enableXMPPLogging()
+        QBSettings.logLevel = QBLogLevel.nothing
+        QBSettings.disableXMPPLogging()
+        QBSettings.disableFileLogging()
         QBRTCConfig.setAnswerTimeInterval(TimeIntervalConstant.answerTimeInterval)
         QBRTCConfig.setDialingTimeInterval(TimeIntervalConstant.dialingTimeInterval)
-        QBRTCConfig.setLogLevel(QBRTCLogLevel.verbose)
+        QBRTCConfig.setLogLevel(QBRTCLogLevel.nothing)
         
         if AppDelegateConstant.enableStatsReports == 1 {
             QBRTCConfig.setStatsReportTimeInterval(1.0)
@@ -68,6 +69,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         QBRTCClient.initializeRTC()
 
         return true
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        // Logging out from chat.
+        disconnect()
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -84,18 +90,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         connect { (error) in
             if let error = error {
-                SVProgressHUD.showError(withStatus: error.localizedDescription)
+                debugPrint("Connect error: \(error.localizedDescription)")
                 return
             }
             SVProgressHUD.showSuccess(withStatus: "Connected")
         }
     }
-    
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Logging out from chat.
-        disconnect()
-    }
-    
+
     //MARK: - Connect/Disconnect
     func connect(completion: QBChatCompletionBlock? = nil) {
         let currentUser = Profile()
@@ -118,5 +119,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func disconnect(completion: QBChatCompletionBlock? = nil) {
         QBChat.instance.disconnect(completionBlock: completion)
+    }
+}
+
+extension AppDelegate {
+    static var shared: AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
+    
+    var rootViewController: UIViewController {
+        return window!.rootViewController!
     }
 }

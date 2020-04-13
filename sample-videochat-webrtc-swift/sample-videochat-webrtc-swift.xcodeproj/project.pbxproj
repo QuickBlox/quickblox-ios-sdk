@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -291,13 +291,12 @@
 			path = ConferenceUserCell;
 			sourceTree = "<group>";
 		};
-		2C854A7B21C8F936003FCA64 /* CallViewController */ = {
+		2C854A7B21C8F936003FCA64 /* OpponentsFlowLayout */ = {
 			isa = PBXGroup;
 			children = (
-				2C854A7021C8F524003FCA64 /* CallViewController.swift */,
 				2C854A7C21C8F951003FCA64 /* OpponentsFlowLayout.swift */,
 			);
-			path = CallViewController;
+			path = OpponentsFlowLayout;
 			sourceTree = "<group>";
 		};
 		2C854A7E21C8F984003FCA64 /* ToolBar */ = {
@@ -411,9 +410,9 @@
 		2CFEDBEF21BEAEC100511479 /* Users */ = {
 			isa = PBXGroup;
 			children = (
+				2CFEDBF621BEB26400511479 /* UsersViewController.swift */,
 				2CFEDBF321BEB13B00511479 /* Users.storyboard */,
 				2CFEDBF221BEAEEF00511479 /* Classes */,
-				2CFEDBF121BEAEE100511479 /* UsersViewController */,
 				2CFEDBF021BEAED400511479 /* Views */,
 			);
 			path = Users;
@@ -426,14 +425,6 @@
 				2CFEDC0221BEB37D00511479 /* UserTableViewCell */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		2CFEDBF121BEAEE100511479 /* UsersViewController */ = {
-			isa = PBXGroup;
-			children = (
-				2CFEDBF621BEB26400511479 /* UsersViewController.swift */,
-			);
-			path = UsersViewController;
 			sourceTree = "<group>";
 		};
 		2CFEDBF221BEAEEF00511479 /* Classes */ = {
@@ -518,12 +509,13 @@
 		2CFEDC1321BEB7CC00511479 /* Call */ = {
 			isa = PBXGroup;
 			children = (
+				2C854A7021C8F524003FCA64 /* CallViewController.swift */,
+				2CFEDC1421BEB7EE00511479 /* Call.storyboard */,
 				2C854A8521C8FA40003FCA64 /* Views */,
 				2C854A7E21C8F984003FCA64 /* ToolBar */,
-				2C854A7B21C8F936003FCA64 /* CallViewController */,
+				2C854A7B21C8F936003FCA64 /* OpponentsFlowLayout */,
 				2C854A7821C8F886003FCA64 /* ConferenceUserCell */,
 				2C854A7521C8F850003FCA64 /* ConferenceUser */,
-				2CFEDC1421BEB7EE00511479 /* Call.storyboard */,
 			);
 			path = Call;
 			sourceTree = "<group>";
@@ -685,24 +677,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift-frameworks.sh",
-				"${PODS_ROOT}/QuickBlox/Quickblox.framework",
-				"${PODS_ROOT}/Quickblox-WebRTC/QuickbloxWebRTC.framework",
-				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quickblox.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QuickbloxWebRTC.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B45C39857CC689E6BD89EBFD /* [CP] Check Pods Manifest.lock */ = {
@@ -918,6 +901,7 @@
 				CODE_SIGN_ENTITLEMENTS = "sample-videochat-webrtc-swift/sample-videochat-webrtc-swift.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 8885H5G2YX;
 				INFOPLIST_FILE = "sample-videochat-webrtc-swift/Info.plist";
@@ -926,6 +910,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 4.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.sample-swift-videochat-webrtc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -942,6 +927,7 @@
 				CODE_SIGN_ENTITLEMENTS = "sample-videochat-webrtc-swift/sample-videochat-webrtc-swift.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8885H5G2YX;
 				INFOPLIST_FILE = "sample-videochat-webrtc-swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -949,6 +935,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 4.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.sample-swift-videochat-webrtc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
