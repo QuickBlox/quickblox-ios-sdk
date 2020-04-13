@@ -25,6 +25,11 @@ class ToolBar: UIToolbar {
     }
     
     //MARK: - Public Methods
+    func removeAllButtons() {
+        buttons.removeAll()
+        actions.removeAll()
+    }
+    
     func updateItems() {
         var items = [UIBarButtonItem]()
         let barButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)

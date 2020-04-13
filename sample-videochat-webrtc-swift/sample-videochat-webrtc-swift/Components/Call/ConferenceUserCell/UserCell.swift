@@ -71,7 +71,11 @@ class UserCell: UICollectionViewCell {
     
     var bitrate: Double = 0.0 {
         didSet {
-            bitrateLabel.text = String(format: "%.0f kbits/sec", bitrate * 1e-3)
+            if bitrate == 0.0 {
+                bitrateLabel.text = ""
+            } else if bitrate > 0.0 {
+                bitrateLabel.text = String(format: "%.0f kbits/sec", bitrate * 1e-3)
+            }
         }
     }
     

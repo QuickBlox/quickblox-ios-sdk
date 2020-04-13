@@ -15,7 +15,7 @@ struct LoginConstant {
     static let fullNameDidChange = NSLocalizedString("Full Name Did Change", comment: "")
     static let login = NSLocalizedString("Login", comment: "")
     static let checkInternet = NSLocalizedString("Please check your Internet connection", comment: "")
-    static let enterUsername = NSLocalizedString("Please enter your login and username.", comment: "")
+    static let enterUsername = NSLocalizedString("Please enter your login and Display Name.", comment: "")
     static let shouldContainAlphanumeric = NSLocalizedString("Field should contain alphanumeric characters only in a range 3 to 20. The first character must be a letter.", comment: "")
     static let shouldContainAlphanumericWithoutSpace = NSLocalizedString("Field should contain alphanumeric characters only in a range 8 to 15, without space. The first character must be a letter.", comment: "")
     static let showUsers = "ShowUsersViewController"
