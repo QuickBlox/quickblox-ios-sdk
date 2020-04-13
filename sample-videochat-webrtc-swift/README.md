@@ -35,11 +35,11 @@ Now, when we receive a VOIP Push in the background, we are forced to immediately
 let payload = ["message": "\(opponentName) is calling you.",
     "ios_voip": "1",
     "VOIPCall": "1",
-    "sessionID": session.id, - this is the session ID (String) that the call initiator created, added to payload so that the opponent can know the session ID that should arrive to him and correctly manage incoming sessions
-    "opponentsIDs": allUsersIDsString, - this is the string from the IDs of all participants in the call, separated by a comma, with the initiator in the first place, in payload, added so that the opponent could know the opponentsIDs of this session before the session
-    "contactIdentifier": allUsersNamesString, - this is the string from fullName of all call participants separated by a comma, with the initiator in the first place !!!, added to payload so that the opponent could know the names of the participants of this session before the session arrives and display them on the CallKit screen
-    "conferenceType" : conferenceTypeString - this is the string (let conferenceTypeString = conferenceType == .video? "1": “2”), added to payload so that the opponent can know the conferenceType (“video” or “audio”) of this session before the session arrives and correctly configure the CallKit screen
-    “timestamp”: timestamp - this is the string from the date of sending the VOIP Push, it's added to payload for the case when there is bad Internet  and the push is delivered for a long time and may come when the call initiator completes the call automatically. Upon receiving  of the push, we compare the date of departure and the date of receiving and if the delivery time of the push is longer than “answerTimeInterval” - do not show the call
+    "sessionID": session.id, - this is the session ID (String) that the call initiator created, added to payload so that the opponent can know the session ID that should arrive to him and correctly manage incoming sessions;
+    "opponentsIDs": allUsersIDsString, - this is the string from the IDs of all participants in the call, separated by a comma, with the initiator in the first place, in payload, added so that the opponent could know the opponentsIDs of this session before the session;
+    "contactIdentifier": allUsersNamesString, - this is the string from fullName of all call participants separated by a comma, with the initiator in the first place !!!, added to payload so that the opponent could know the names of the participants of this session before the session arrives and display them on the CallKit screen;
+    "conferenceType" : conferenceTypeString - this is the string (let conferenceTypeString = conferenceType == .video? "1": “2”), added to payload so that the opponent can know the conferenceType (“video” or “audio”) of this session before the session arrives and correctly configure the CallKit screen;
+    “timestamp”: timestamp - this is the string from the date of sending the VOIP Push, it's added to payload for the case when there is bad Internet  and the push is delivered for a long time and may come when the call initiator completes the call automatically. Upon receiving  of the push, we compare the date of departure and the date of receiving and if the delivery time of the push is longer than “answerTimeInterval” - do not show the call;
 ]
 
 # CocoaPods
