@@ -10,6 +10,7 @@
 #import "SVProgressHUD.h"
 #import "Settings.h"
 #import "Profile.h"
+#import "CallKitManager.h"
 
 const CGFloat kQBRingThickness = 1.f;
 const NSTimeInterval kQBAnswerTimeInterval = 60.f;
@@ -47,13 +48,15 @@ NSString *const kAccountKey     = @"";
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
     
     [QBRTCClient initializeRTC];
-    
+
     return YES;
 }
 
 - (void)setIsCalling:(Boolean)isCalling {
     _isCalling = isCalling;
-    if (UIApplication.sharedApplication.applicationState == UIApplicationStateBackground && self.isCalling == NO) {
+    if (UIApplication.sharedApplication.applicationState == UIApplicationStateBackground &&
+        self.isCalling == NO &&
+        [CallKitManager.instance isHasSession]) {
         [self disconnect:nil];
     }
 }
@@ -79,7 +82,7 @@ NSString *const kAccountKey     = @"";
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-        [self disconnect:nil];
+    [self disconnect:nil];
 }
 
 //MARK: - Connect/Disconnect

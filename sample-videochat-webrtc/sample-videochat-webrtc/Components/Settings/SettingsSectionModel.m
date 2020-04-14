@@ -11,7 +11,6 @@
 @interface SettingsSectionModel()
 
 @property (copy, nonatomic) NSString *title;
-//@property (strong, nonatomic) NSArray *items;
 
 @end
 
