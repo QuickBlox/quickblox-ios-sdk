@@ -36,6 +36,8 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
     ErrorDomainChat,
 };
 
+typedef void(^CallerNameCompletion)(NSString *callerName);
+
 @interface UsersViewController () <QBRTCClientDelegate, SettingsViewControllerDelegate, PKPushRegistryDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *audioCallButton;
@@ -283,6 +285,9 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
                     NSString *usersIDsString = [opponentsIDs componentsJoinedByString:@","];
                     NSString *allUsersIDsString = [NSString stringWithFormat:@"%@,%@", @(profile.ID), usersIDsString];
                     NSString *conferenceTypeString = conferenceType == QBRTCConferenceTypeVideo ? @"1" : @"2";
+                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                    formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+                    NSString *timeStamp = [formatter stringFromDate:NSDate.date];
                     
                     NSDictionary *payload = @{
                         @"message"  : [NSString stringWithFormat:@"%@ is calling you.", initiatorName],
@@ -291,7 +296,8 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
                         @"sessionID" : session.ID,
                         @"opponentsIDs" : allUsersIDsString,
                         @"contactIdentifier" : allUsersNamesString,
-                        @"conferenceType" : conferenceTypeString
+                        @"conferenceType" : conferenceTypeString,
+                        @"timestamp" : timeStamp
                     };
                     NSData *data =
                     [NSJSONSerialization dataWithJSONObject:payload
@@ -553,42 +559,10 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
                 }
                 [opponentIDs addObject:userID];
             }
-            
-            __block NSString *callerName = @"";
-            NSMutableArray *opponentNames = [NSMutableArray arrayWithCapacity:opponentIDs.count];
-            NSMutableArray *newUsers = [NSMutableArray array];
-            for (NSNumber *userID in opponentIDs) {
-                QBUUser *user = [self.dataSource userWithID:userID.unsignedIntegerValue];
-                if (user) {
-                    [opponentNames addObject:user.fullName];
-                } else {
-                    [newUsers addObject:userID.stringValue];
-                }
-            }
-            
-            if (newUsers.count) {
-                __weak __typeof(self)weakSelf = self;
-                [QBRequest usersWithIDs:newUsers page:nil successBlock:^(QBResponse * _Nonnull response, QBGeneralResponsePage * _Nonnull page, NSArray<QBUUser *> * _Nonnull users) {
-                    if (users) {
-                        [weakSelf.dataSource updateUsers:users ];
-                        for (QBUUser *user in users) {
-                            [opponentNames addObject:user.fullName];
-                        }
-                        callerName = [opponentNames componentsJoinedByString:@", "];
-                        [CallKitManager.instance updateIncomingCallWithUserIDs:opponentIDs outCallerName:callerName session:session];
-                    }
-                } errorBlock:^(QBResponse * _Nonnull response) {
-                    for (NSNumber *userID in newUsers) {
-                        [opponentNames addObject:userID.stringValue];
-                    }
-                    callerName = [opponentNames componentsJoinedByString:@", "];
-                    [CallKitManager.instance updateIncomingCallWithUserIDs:opponentIDs outCallerName:callerName session:session];
-                }];
-                
-            } else {
-                callerName = [opponentNames componentsJoinedByString:@", "];
+
+            [self prepareCallerNameForOpponentIDs:opponentIDs completion:^(NSString *callerName) {
                 [CallKitManager.instance updateIncomingCallWithUserIDs:opponentIDs outCallerName:callerName session:session];
-            }
+            }];
         }
         
     } else {
@@ -606,46 +580,14 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
             }
             [opponentIDs addObject:userID];
         }
-        
-        __block NSString *callerName = @"";
-        NSMutableArray *opponentNames = [NSMutableArray arrayWithCapacity:opponentIDs.count];
-        NSMutableArray *newUsers = [NSMutableArray array];
-        for (NSNumber *userID in opponentIDs) {
-            QBUUser *user = [self.dataSource userWithID:userID.unsignedIntegerValue];
-            if (user) {
-                [opponentNames addObject:user.fullName];
-            } else {
-                [newUsers addObject:userID.stringValue];
-            }
-        }
-        
-        if (newUsers.count) {
-            __weak __typeof(self)weakSelf = self;
-            [QBRequest usersWithIDs:newUsers page:nil successBlock:^(QBResponse * _Nonnull response, QBGeneralResponsePage * _Nonnull page, NSArray<QBUUser *> * _Nonnull users) {
-                if (users) {
-                    [weakSelf.dataSource updateUsers:users ];
-                    for (QBUUser *user in users) {
-                        [opponentNames addObject:user.fullName];
-                    }
-                    callerName = [opponentNames componentsJoinedByString:@", "];
-                    [weakSelf reportIncomingCallWithUserIDs:opponentIDs outCallerName:callerName session:session uuid:uuid];
-                }
-            } errorBlock:^(QBResponse * _Nonnull response) {
-                for (NSNumber *userID in newUsers) {
-                    [opponentNames addObject:userID.stringValue];
-                }
-                callerName = [opponentNames componentsJoinedByString:@", "];
-                [weakSelf reportIncomingCallWithUserIDs:opponentIDs outCallerName:callerName session:session uuid:uuid];
-            }];
-            
-        } else {
-            callerName = [opponentNames componentsJoinedByString:@", "];
-            [self reportIncomingCallWithUserIDs:opponentIDs outCallerName:callerName session:session uuid:uuid];
-        }
+        __weak __typeof(self)weakSelf = self;
+        [self prepareCallerNameForOpponentIDs:opponentIDs completion:^(NSString *callerName) {
+            [weakSelf reportIncomingCallWithUserIDs:opponentIDs outCallerName:callerName session:session uuid:uuid];
+        }];
     }
 }
 
-- (NSString *)prepareCallerNameForOpponentIDs:(NSArray<NSNumber *> *)opponentIDs {
+- (void)prepareCallerNameForOpponentIDs:(NSArray<NSNumber *> *)opponentIDs completion:(CallerNameCompletion)completion {
     __block NSString *callerName = @"";
     NSMutableArray *opponentNames = [NSMutableArray arrayWithCapacity:opponentIDs.count];
     NSMutableArray *newUsers = [NSMutableArray array];
@@ -662,36 +604,31 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
         __weak __typeof(self)weakSelf = self;
         [QBRequest usersWithIDs:newUsers page:nil successBlock:^(QBResponse * _Nonnull response, QBGeneralResponsePage * _Nonnull page, NSArray<QBUUser *> * _Nonnull users) {
             if (users) {
+                [weakSelf.dataSource updateUsers:users ];
                 for (QBUUser *user in users) {
                     [opponentNames addObject:user.fullName];
                 }
                 callerName = [opponentNames componentsJoinedByString:@", "];
-                //                return callerName;
+                if (completion) {
+                    completion(callerName);
+                }
             }
         } errorBlock:^(QBResponse * _Nonnull response) {
-            
-        } ];
-        dispatch_group_t loadGroup = dispatch_group_create();
-        for (NSNumber *userID in newUsers) {
-            dispatch_group_enter(loadGroup);
-            [weakSelf loadUserWithID:userID.unsignedIntegerValue completion:^(QBUUser * _Nullable user) {
-                if (user) {
-                    [opponentNames addObject:user.fullName];
-                } else {
-                    [opponentNames addObject:@(user.ID)];
-                }
-                dispatch_group_leave(loadGroup);
-            }];
-        }
-        dispatch_group_notify(loadGroup, dispatch_get_main_queue(), ^{
+            for (NSNumber *userID in newUsers) {
+                [opponentNames addObject:userID.stringValue];
+            }
             callerName = [opponentNames componentsJoinedByString:@", "];
-        });
-        return callerName;
+            if (completion) {
+                completion(callerName);
+            }
+        }];
+        
     } else {
         callerName = [opponentNames componentsJoinedByString:@", "];
-        return callerName;
+        if (completion) {
+            completion(callerName);
+        }
     }
-    //    return callerName;
 }
 
 - (void)openCallWithSession:(QBRTCSession * _Nullable)session uuid:(NSUUID *)uuid sessionConferenceType:(QBRTCConferenceType)sessionConferenceType {
@@ -713,7 +650,6 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
 
 - (void)reportIncomingCallWithUserIDs:(NSArray *)userIDs outCallerName:(NSString *)callerName session:(QBRTCSession *)session uuid:(NSUUID *)uuid {
     __weak __typeof(self)weakSelf = self;
-    
     [CallKitManager.instance reportIncomingCallWithUserIDs:userIDs outCallerName:callerName session:session sessionID:session.ID sessionConferenceType:session.conferenceType uuid:uuid onAcceptAction:^(Boolean isAccept) {
         
         __typeof(weakSelf)strongSelf = weakSelf;
@@ -746,7 +682,7 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
     self.session = nil;
     self.callUUID = nil;
     if (![QBChat instance].isConnected) {
-        [self connectToChat];
+        [self connectToChatWithSuccessCompletion:nil];
     }
     [self setupToolbarButtons];
 }
@@ -780,14 +716,32 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
 }
 
 - (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(nonnull PKPushPayload *)payload forType:(nonnull PKPushType)type withCompletionHandler:(nonnull void (^)(void))completion {
+    //in case of bad internet we check how long the VOIP Push was delivered for call(1-1)
+    //if time delivery is more than “answerTimeInterval” - return
+    if (payload.dictionaryPayload[@"timestamp"] != nil &&
+        payload.dictionaryPayload[@"opponentsIDs"] != nil) {
+        NSString *opponentsIDsString = (NSString *)payload.dictionaryPayload[@"opponentsIDs"];
+        NSArray *opponentsIDsArray = [opponentsIDsString componentsSeparatedByString:@","];
+        if (opponentsIDsArray.count == 2) {
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+            NSString *timeStampString = payload.dictionaryPayload[@"timestamp"];
+            NSDate *startCallDate = [formatter dateFromString:timeStampString];
+            NSTimeInterval timeIntervalSinceStartCall = [[NSDate date] timeIntervalSinceDate:startCallDate];
+            if (timeIntervalSinceStartCall > QBRTCConfig.answerTimeInterval) {
+                Log(@"[%@] timeIntervalSinceStartCall > QBRTCConfig.answerTimeInterval",  NSStringFromClass([UsersViewController class]));
+                return;
+            }
+        }
+    }
+    
     if (type == PKPushTypeVoIP &&
         [payload.dictionaryPayload objectForKey:kVoipEvent] != nil &&
         [UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
         __weak __typeof(self)weakSelf = self;
-        if (![QBChat instance].isConnected) {
-            [self connectToChat];
-        }
+        
         NSMutableArray<NSNumber *> *opponentsNumberIDs = [NSMutableArray array];
+        NSArray<NSString *> *opponentsIDs = nil;
         NSString *opponentsNamesString = @"incoming call. Connecting...";
         NSString *sessionID = nil;
         NSUUID *callUUID = [NSUUID UUID];
@@ -837,7 +791,26 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
                 }
             }
             opponentsNumberIDs = opponentsNumberIDsArray;
+
+            __block NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+            [opponentsNumberIDs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                NSNumber *userID = (NSNumber *)obj;
+                [tempArray addObject:userID.stringValue];
+            }];
+            opponentsIDs = tempArray.copy;
             opponentsNamesString = [allOpponentsNamesArray componentsJoinedByString:@", "];
+        }
+        
+        if (![QBChat instance].isConnected) {
+            [weakSelf connectToChatWithSuccessCompletion:^(NSError * _Nullable error) {
+                if (error == nil && opponentsIDs) {
+                    [QBRequest usersWithIDs:opponentsIDs page:nil successBlock:^(QBResponse * _Nonnull response, QBGeneralResponsePage * _Nonnull page, NSArray<QBUUser *> * _Nonnull users) {
+                        [weakSelf.dataSource updateUsers:users];
+                    } errorBlock:^(QBResponse * _Nonnull response) {
+                        Log(@"[%@] error fetch usersWithIDs",  NSStringFromClass([UsersViewController class]));
+                    }];
+                }
+            }];
         }
         
         [self setupAnswerTimerWithTimeInterval:60.0f];
@@ -885,7 +858,7 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
     }
 }
 
-- (void)connectToChat {
+- (void)connectToChatWithSuccessCompletion:(QBChatCompletionBlock)success;  {
     Profile *currentUser = [[Profile alloc] init];
     if (currentUser.isFull == NO) {
         return;
@@ -905,7 +878,13 @@ typedef NS_ENUM(NSUInteger, ErrorDomain) {
                 [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Please check your Internet connection", nil)];
                 
             }
+            if (success) {
+                success(error);
+            }
         } else {
+            if (success) {
+                success(nil);
+            }
             [SVProgressHUD dismiss];
         }
     }];

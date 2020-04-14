@@ -572,7 +572,6 @@ static NSString * const kUnknownUserLabel = @"?";
 /**
  *  Called in case when receive remote video track from opponent
  */
-
 - (void)session:(__kindof QBRTCBaseSession *)session receivedRemoteVideoTrack:(QBRTCVideoTrack *)videoTrack fromUser:(NSNumber *)userID {
     
     if (session == self.session) {
@@ -583,7 +582,6 @@ static NSString * const kUnknownUserLabel = @"?";
 /**
  *  Called in case when connection is established with opponent
  */
-
 - (void)session:(__kindof QBRTCBaseSession *)session connectedToUser:(NSNumber *)userID {
     if (session == self.session) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ID == %@", userID];

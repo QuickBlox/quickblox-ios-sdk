@@ -8,7 +8,7 @@ DEPENDENCIES:
   - Quickblox-WebRTC (~> 2.7.4)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - QuickBlox
     - Quickblox-WebRTC
 
@@ -18,4 +18,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: ffce883f5420553ab18b39ad70cfb78e6ec7108e
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4

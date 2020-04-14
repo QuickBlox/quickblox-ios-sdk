@@ -2,7 +2,7 @@
 //  Call.h
 //  sample-videochat-webrtc
 //
-//  Created by Vladimir Nybozhinsky on 3/25/20.
+//  Created by Injoit on 3/25/20.
 //  Copyright © 2020 QuickBlox Team. All rights reserved.
 //
 

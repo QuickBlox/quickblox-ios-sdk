@@ -131,8 +131,7 @@ static const NSInteger DefaultMaximumCallGroups = 1;
     
     CXEndCallAction *action = [[CXEndCallAction alloc] initWithCallUUID:currentCall.uuid];
     CXTransaction *transaction = [[CXTransaction alloc] initWithAction:action];
-    self.calls = @[];
-    
+
     dispatchOnMainThread(^{
         [self requestTransaction:transaction completion:nil];
     });
