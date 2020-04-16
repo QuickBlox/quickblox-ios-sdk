@@ -578,7 +578,6 @@ extension UsersViewController: QBRTCClientDelegate {
     private func openCall(withSession session: QBRTCSession?, uuid: UUID, sessionConferenceType: QBRTCConferenceType) {
         if hasConnectivity() {
             if let callViewController = self.storyboard?.instantiateViewController(withIdentifier: UsersSegueConstant.call) as? CallViewController {
-                invalidateAnswerTimer()
                 if let qbSession = session {
                     callViewController.session = qbSession
                 }
@@ -686,11 +685,33 @@ extension UsersViewController: PKPushRegistryDelegate {
                       didReceiveIncomingPushWith payload: PKPushPayload,
                       for type: PKPushType,
                       completion: @escaping () -> Void) {
+        
+        let application = UIApplication.shared
+        
+        //in case of bad internet we check how long the VOIP Push was delivered for call(1-1)
+        //if time delivery is more than “answerTimeInterval” - return
         if type == .voIP,
-            payload.dictionaryPayload[UsersConstant.voipEvent] != nil {
-            
-            let application = UIApplication.shared
-            if application.applicationState == .background {
+            payload.dictionaryPayload[UsersConstant.voipEvent] != nil,
+            application.applicationState == .background {
+            if let timeStampString = payload.dictionaryPayload["timestamp"] as? String,
+                let opponentsIDsString = payload.dictionaryPayload["opponentsIDs"] as? String {
+                let opponentsIDsArray = opponentsIDsString.components(separatedBy: ",")
+                if opponentsIDsArray.count == 2 {
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                    if let startCallDate = formatter.date(from: timeStampString) {
+                        if Date().timeIntervalSince(startCallDate) > QBRTCConfig.answerTimeInterval() {
+                            debugPrint("[UsersViewController] timeIntervalSinceStartCall > QBRTCConfig.answerTimeInterval")
+                            return
+                        }
+                    }
+                }
+            }
+        }
+        
+        if type == .voIP,
+            payload.dictionaryPayload[UsersConstant.voipEvent] != nil,
+            application.applicationState == .background {
                 var opponentsIDs: [String]? = nil
                 var opponentsNumberIDs: [NSNumber] = []
                 var opponentsNamesString = "incoming call. Connecting..."
@@ -698,108 +719,104 @@ extension UsersViewController: PKPushRegistryDelegate {
                 var callUUID = UUID()
                 var sessionConferenceType = QBRTCConferenceType.audio
                 self.isUpdatedPayload = false
-                
-                if let opponentsIDsString = payload.dictionaryPayload["opponentsIDs"] as? String,
-                    let allOpponentsNamesString = payload.dictionaryPayload["contactIdentifier"] as? String,
-                    let sessionIDString = payload.dictionaryPayload["sessionID"] as? String,
-                    let callUUIDPayload = UUID(uuidString: sessionIDString) {
-                    self.isUpdatedPayload = true
-                    self.sessionID = sessionIDString
-                    sessionID = sessionIDString
-                    callUUID = callUUIDPayload
-                    if let conferenceTypeString = payload.dictionaryPayload["conferenceType"] as? String {
-                        sessionConferenceType = conferenceTypeString == "1" ? QBRTCConferenceType.video : QBRTCConferenceType.audio
-                    }
-                    
-                    let profile = Profile()
-                    guard profile.isFull == true else {
-                        return
-                    }
-                    let opponentsIDsArray = opponentsIDsString.components(separatedBy: ",")
-                    opponentsIDs = opponentsIDsArray
-                    var opponentsNumberIDsArray = opponentsIDsArray.compactMap({NSNumber(value: Int($0)!)})
-                    var allOpponentsNamesArray = allOpponentsNamesString.components(separatedBy: ",")
-                    for i in 0...opponentsNumberIDsArray.count - 1 {
-                        if opponentsNumberIDsArray[i].uintValue == profile.ID {
-                            opponentsNumberIDsArray.remove(at: i)
-                            allOpponentsNamesArray.remove(at: i)
-                            break
-                        }
-                    }
-                    opponentsNumberIDs = opponentsNumberIDsArray
-                    opponentsNamesString = allOpponentsNamesArray.joined(separator: ", ")
-                    
-                    //in case of bad internet we check how long the VOIP Push was delivered for call(1-1)
-                    //if time delivery is more than “answerTimeInterval” - return
-                    if opponentsNumberIDs.count == 1 {
-                        let formatter = DateFormatter()
-                        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                        if let timeStampString = payload.dictionaryPayload["timestamp"] as? String,
-                            let startCallDate = formatter.date(from: timeStampString) {
-                            if Date().timeIntervalSince(startCallDate) > TimeIntervalConstant.answerTimeInterval {
-                                return
-                            }
-                        }
-                    }
+            
+            if let opponentsIDsString = payload.dictionaryPayload["opponentsIDs"] as? String,
+                let allOpponentsNamesString = payload.dictionaryPayload["contactIdentifier"] as? String,
+                let sessionIDString = payload.dictionaryPayload["sessionID"] as? String,
+                let callUUIDPayload = UUID(uuidString: sessionIDString) {
+                self.isUpdatedPayload = true
+                self.sessionID = sessionIDString
+                sessionID = sessionIDString
+                callUUID = callUUIDPayload
+                if let conferenceTypeString = payload.dictionaryPayload["conferenceType"] as? String {
+                    sessionConferenceType = conferenceTypeString == "1" ? QBRTCConferenceType.video : QBRTCConferenceType.audio
                 }
                 
-                if QBChat.instance.isConnected == false {
-                    connectToChat { (error) in
-                        if error == nil,
-                            let usersIDs = opponentsIDs {
-                            QBRequest.users(withIDs: usersIDs, page: nil, successBlock: { [weak self] (respose, page, users) in
-                                if users.isEmpty == false {
-                                    self?.dataSource.update(users: users)
-                                }
-                            }) { (response) in
-                                debugPrint("[UsersViewController] error fetch usersWithIDs")
-                            }
-                        }
+                let profile = Profile()
+                guard profile.isFull == true else {
+                    return
+                }
+                let opponentsIDsArray = opponentsIDsString.components(separatedBy: ",")
+                
+                var opponentsNumberIDsArray = opponentsIDsArray.compactMap({NSNumber(value: Int($0)!)})
+                var allOpponentsNamesArray = allOpponentsNamesString.components(separatedBy: ",")
+                for i in 0...opponentsNumberIDsArray.count - 1 {
+                    if opponentsNumberIDsArray[i].uintValue == profile.ID {
+                        opponentsNumberIDsArray.remove(at: i)
+                        allOpponentsNamesArray.remove(at: i)
+                        break
                     }
                 }
-                
-                self.setupAnswerTimerWithTimeInterval(UsersConstant.answerInterval)
-                DispatchQueue.main.async {
-                    CallKitManager.instance.reportIncomingCall(withUserIDs: opponentsNumberIDs,
-                                                               outCallerName: opponentsNamesString,
-                                                               session: nil,
-                                                               sessionID: sessionID,
-                                                               sessionConferenceType: sessionConferenceType,
-                                                               uuid: callUUID,
-                                                               onAcceptAction: { [weak self] (isAccept) in
-                                                                guard let self = self else {
-                                                                    return
-                                                                }
-                                                                
-                                                                if let session = self.session {
-                                                                    if isAccept == true {
-                                                                        self.openCall(withSession: session,
-                                                                                      uuid: callUUID,
-                                                                                      sessionConferenceType: sessionConferenceType)
-                                                                        debugPrint("[UsersViewController]  onAcceptAction")
-                                                                    } else {
-                                                                        session.rejectCall(["reject": "busy"])
-                                                                        debugPrint("[UsersViewController] endCallAction")
-                                                                    }
+                opponentsNumberIDs = opponentsNumberIDsArray
+                opponentsIDs = opponentsNumberIDs.compactMap({ $0.stringValue })
+                opponentsNamesString = allOpponentsNamesArray.joined(separator: ", ")
+            }
+            
+            let fetchUsersCompletion = { [weak self] (usersIDs: [String]?) -> Void in
+                guard let opponentsIDs = usersIDs else { return }
+                QBRequest.users(withIDs: opponentsIDs, page: nil, successBlock: { [weak self] (respose, page, users) in
+                    if users.isEmpty == false {
+                        self?.dataSource.update(users: users)
+                    }
+                }) { (response) in
+                    debugPrint("[UsersViewController] error fetch usersWithIDs")
+                }
+            }
+            
+            
+            if QBChat.instance.isConnected == false {
+                connectToChat { (error) in
+                    if error == nil {
+                        fetchUsersCompletion(opponentsIDs)
+                    }
+                }
+            } else {
+                fetchUsersCompletion(opponentsIDs)
+            }
+            
+            self.setupAnswerTimerWithTimeInterval(UsersConstant.answerInterval)
+            DispatchQueue.main.async {
+                CallKitManager.instance.reportIncomingCall(withUserIDs: opponentsNumberIDs,
+                                                           outCallerName: opponentsNamesString,
+                                                           session: nil,
+                                                           sessionID: sessionID,
+                                                           sessionConferenceType: sessionConferenceType,
+                                                           uuid: callUUID,
+                                                           onAcceptAction: { [weak self] (isAccept) in
+                                                            guard let self = self else {
+                                                                return
+                                                            }
+                                                            
+                                                            if let session = self.session {
+                                                                if isAccept == true {
+                                                                    self.openCall(withSession: session,
+                                                                                  uuid: callUUID,
+                                                                                  sessionConferenceType: sessionConferenceType)
+                                                                    debugPrint("[UsersViewController]  onAcceptAction")
                                                                 } else {
-                                                                    if isAccept == true {
-                                                                        self.openCall(withSession: nil,
-                                                                                      uuid: callUUID,
-                                                                                      sessionConferenceType: sessionConferenceType)
-                                                                        debugPrint("[UsersViewController]  onAcceptAction")
-                                                                    } else {
-                                                                        
-                                                                        debugPrint("[UsersViewController] endCallAction")
-                                                                    }
-                                                                    self.prepareBackgroundTask()
+                                                                    session.rejectCall(["reject": "busy"])
+                                                                    debugPrint("[UsersViewController] endCallAction")
                                                                 }
-                                                                completion()
-                                                                
-                        }, completion: { (isOpen) in
-                            self.prepareBackgroundTask()
-                            debugPrint("[UsersViewController] callKit did presented")
-                    })
-                }
+                                                            } else {
+                                                                if isAccept == true {
+                                                                    self.openCall(withSession: nil,
+                                                                                  uuid: callUUID,
+                                                                                  sessionConferenceType: sessionConferenceType)
+                                                                    debugPrint("[UsersViewController]  onAcceptAction")
+                                                                } else {
+                                                                    
+                                                                    debugPrint("[UsersViewController] endCallAction")
+                                                                }
+                                                                self.setupAnswerTimerWithTimeInterval(UsersConstant.answerInterval)
+                                                                self.prepareBackgroundTask()
+                                                            }
+                                                            completion()
+                                                            
+                    }, completion: { (isOpen) in
+                        self.setupAnswerTimerWithTimeInterval(UsersConstant.answerInterval)
+                        self.prepareBackgroundTask()
+                        debugPrint("[UsersViewController] callKit did presented")
+                })
             }
         }
     }

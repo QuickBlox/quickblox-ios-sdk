@@ -716,9 +716,13 @@ typedef void(^CallerNameCompletion)(NSString *callerName);
 }
 
 - (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(nonnull PKPushPayload *)payload forType:(nonnull PKPushType)type withCompletionHandler:(nonnull void (^)(void))completion {
+    
     //in case of bad internet we check how long the VOIP Push was delivered for call(1-1)
     //if time delivery is more than “answerTimeInterval” - return
-    if (payload.dictionaryPayload[@"timestamp"] != nil &&
+    if (type == PKPushTypeVoIP &&
+    [payload.dictionaryPayload objectForKey:kVoipEvent] != nil &&
+    [UIApplication sharedApplication].applicationState == UIApplicationStateBackground &&
+        payload.dictionaryPayload[@"timestamp"] != nil &&
         payload.dictionaryPayload[@"opponentsIDs"] != nil) {
         NSString *opponentsIDsString = (NSString *)payload.dictionaryPayload[@"opponentsIDs"];
         NSArray *opponentsIDsArray = [opponentsIDsString componentsSeparatedByString:@","];
@@ -768,12 +772,6 @@ typedef void(^CallerNameCompletion)(NSString *callerName);
             
             NSArray *opponentsIDsArray = [opponentsIDsString componentsSeparatedByString:@","];
             
-            [QBRequest usersWithIDs:opponentsIDsArray page:nil successBlock:^(QBResponse * _Nonnull response, QBGeneralResponsePage * _Nonnull page, NSArray<QBUUser *> * _Nonnull users) {
-                [weakSelf.dataSource updateUsers:users];
-            } errorBlock:^(QBResponse * _Nonnull response) {
-                Log(@"[%@] error fetch usersWithIDs",  NSStringFromClass([UsersViewController class]));
-            }];
-            
             __block NSMutableArray *tmpArray = [[NSMutableArray alloc] init];
             [opponentsIDsArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 NSString *userID = (NSString *)obj;
@@ -801,16 +799,28 @@ typedef void(^CallerNameCompletion)(NSString *callerName);
             opponentsNamesString = [allOpponentsNamesArray componentsJoinedByString:@", "];
         }
         
+        void(^fetchUsersCompletion)( NSArray<NSString *> * _Nullable) = ^(NSArray<NSString *> * _Nullable opponentsIDs) {
+            if (opponentsIDs) {
+                [QBRequest usersWithIDs:opponentsIDs page:nil successBlock:^(QBResponse * _Nonnull response, QBGeneralResponsePage * _Nonnull page, NSArray<QBUUser *> * _Nonnull users) {
+                    [weakSelf.dataSource updateUsers:users];
+                } errorBlock:^(QBResponse * _Nonnull response) {
+                    Log(@"[%@] error fetch usersWithIDs",  NSStringFromClass([UsersViewController class]));
+                }];
+            }
+        };
+        
         if (![QBChat instance].isConnected) {
             [weakSelf connectToChatWithSuccessCompletion:^(NSError * _Nullable error) {
-                if (error == nil && opponentsIDs) {
-                    [QBRequest usersWithIDs:opponentsIDs page:nil successBlock:^(QBResponse * _Nonnull response, QBGeneralResponsePage * _Nonnull page, NSArray<QBUUser *> * _Nonnull users) {
-                        [weakSelf.dataSource updateUsers:users];
-                    } errorBlock:^(QBResponse * _Nonnull response) {
-                        Log(@"[%@] error fetch usersWithIDs",  NSStringFromClass([UsersViewController class]));
-                    }];
+                if (!error) {
+                    if (fetchUsersCompletion) {
+                        fetchUsersCompletion(opponentsIDs);
+                    }
                 }
             }];
+        } else {
+            if (fetchUsersCompletion) {
+                fetchUsersCompletion(opponentsIDs);
+            }
         }
         
         [self setupAnswerTimerWithTimeInterval:60.0f];
@@ -832,9 +842,9 @@ typedef void(^CallerNameCompletion)(NSString *callerName);
                     Log(@"[%@] onAcceptAction without session",  NSStringFromClass([UsersViewController class]));
                     
                 } else {
-                    [strongSelf prepareBackgroundTask];
                     Log(@"[%@] endCallAction",  NSStringFromClass([UsersViewController class]));
                 }
+                [strongSelf prepareBackgroundTask];
                 [strongSelf setupAnswerTimerWithTimeInterval:kAnswerInterval];
             }
             
