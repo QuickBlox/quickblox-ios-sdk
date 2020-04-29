@@ -120,8 +120,8 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         QBRTCAudioSession.instance().addDelegate(self)
+        
         if self.session != nil {
             QBRTCClient.instance().add(self as QBRTCClientDelegate)
         } else {
@@ -200,7 +200,7 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         
         let audioSession = QBRTCAudioSession.instance()
         audioSession.useManualAudio = true
-        //                   audioSession.isAudioEnabled = true
+        audioSession.isAudioEnabled = true
         // disabling audio unit for local mic recording in recorder to enable it later
         session.recorder?.isLocalAudioEnabled = false
         if audioSession.isInitialized == false {
@@ -233,7 +233,7 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
             session.localMediaStream.videoTrack.videoCapture = cameraCapture
             #endif
         }
-        
+
         if session.opponentsIDs.isEmpty == false {
             let isInitiator = users[0].userID == session.initiatorID.uintValue
             if isInitiator == true {
@@ -445,8 +445,8 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     }
     
     private func userCell(userID: UInt) -> UserCell? {
-        let indexPath = userIndexPath(userID: userID)
-        guard let cell = opponentsCollectionView.cellForItem(at: indexPath) as? UserCell  else {
+       guard let indexPath = userIndexPath(userID: userID),
+        let cell = opponentsCollectionView.cellForItem(at: indexPath) as? UserCell  else {
             return nil
         }
         return cell
@@ -460,9 +460,10 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         return User(user: user)
     }
     
-    private func userIndexPath(userID: UInt) -> IndexPath {
+    private func userIndexPath(userID: UInt) -> IndexPath? {
         guard let index = users.index(where: { $0.userID == userID }), index != NSNotFound else {
-            return IndexPath(row: 0, section: 0)
+//            return IndexPath(row: 0, section: 0)
+            return nil
         }
         return IndexPath(row: index, section: 0)
     }
@@ -607,8 +608,8 @@ extension CallViewController: QBRTCClientDelegate {
             report.videoReceivedBitrateTracker.bitrate > 0.0 {
             user.bitrate = report.videoReceivedBitrateTracker.bitrate
             
-            let userIndexPath = self.userIndexPath(userID: user.userID)
-            if let cell = self.opponentsCollectionView.cellForItem(at: userIndexPath) as? UserCell {
+           if let userIndexPath = self.userIndexPath(userID: user.userID),
+            let cell = self.opponentsCollectionView.cellForItem(at: userIndexPath) as? UserCell {
                 cell.bitrate = user.bitrate
             }
         }
@@ -670,8 +671,8 @@ extension CallViewController: QBRTCClientDelegate {
             if user.connectionState != .hangUp {
                 user.connectionState = state
             }
-            let userIndexPath = self.userIndexPath(userID:userID.uintValue)
-            if let cell = self.opponentsCollectionView.cellForItem(at: userIndexPath) as? UserCell {
+           if let userIndexPath = self.userIndexPath(userID:userID.uintValue),
+            let cell = self.opponentsCollectionView.cellForItem(at: userIndexPath) as? UserCell {
                 cell.connectionState = user.connectionState
             }
         } else {
@@ -693,6 +694,7 @@ extension CallViewController: QBRTCClientDelegate {
                 })
             }
         }
+        
         let profile = Profile()
         if profile.ID == userID.uintValue {
             return
@@ -735,6 +737,27 @@ extension CallViewController: QBRTCClientDelegate {
         guard let qbSession = session as? QBRTCSession,
             qbSession == self.session else {
                 return
+        }
+        
+        var existingUser: User?
+        if let user = users.filter({ $0.userID == userID.uintValue }).first {
+            existingUser = user
+        }
+        
+        let profile = Profile()
+        let isInitiator = profile.ID == qbSession.initiatorID.uintValue
+        if isInitiator == false && existingUser == nil {
+            if let user = createConferenceUser(userID: userID.uintValue) {
+                self.users.insert(user, at: 0)
+                reloadContent()
+            } else {
+                usersDataSource?.loadUser(userID.uintValue, completion: { [weak self] (user) in
+                    if let user = self?.createConferenceUser(userID: userID.uintValue) {
+                        self?.users.insert(user, at: 0)
+                        self?.reloadContent()
+                    }
+                })
+            }
         }
         
         if let beepTimer = beepTimer {
@@ -787,8 +810,8 @@ extension CallViewController: UICollectionViewDataSource {
         var index = indexPath.row
         let conferenceType = self.session != nil ? self.session?.conferenceType : sessionConferenceType
         if conferenceType == QBRTCConferenceType.video {
-            if let selectedUserID = statsUserID {
-                let selectedIndexPath = userIndexPath(userID: selectedUserID)
+            if let selectedUserID = statsUserID,
+                let selectedIndexPath = userIndexPath(userID: selectedUserID) {
                 index = selectedIndexPath.row
             }
         }
@@ -855,6 +878,8 @@ extension CallViewController: CallKitManagerDelegate {
     func callKitManager(_ callKitManager: CallKitManager, didUpdateSession session: QBRTCSession) {
         if self.session == nil {
             QBRTCClient.instance().add(self as QBRTCClientDelegate)
+//            QBRTCAudioSession.instance().addDelegate(self)
+            CallKitManager.instance.delegate = nil
             self.session = session
             setupSession(session)
         }
