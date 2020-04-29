@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var isCalling = false {
         didSet {
             if UIApplication.shared.applicationState == .background,
-                isCalling == false {
+                isCalling == false, CallKitManager.instance.isHasSession() {
                 disconnect()
             }
         }
@@ -57,9 +57,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         QBSettings.logLevel = QBLogLevel.nothing
         QBSettings.disableXMPPLogging()
         QBSettings.disableFileLogging()
+        QBRTCConfig.setLogLevel(QBRTCLogLevel.nothing)
         QBRTCConfig.setAnswerTimeInterval(TimeIntervalConstant.answerTimeInterval)
         QBRTCConfig.setDialingTimeInterval(TimeIntervalConstant.dialingTimeInterval)
-        QBRTCConfig.setLogLevel(QBRTCLogLevel.nothing)
         
         if AppDelegateConstant.enableStatsReports == 1 {
             QBRTCConfig.setStatsReportTimeInterval(1.0)

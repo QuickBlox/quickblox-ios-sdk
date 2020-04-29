@@ -679,13 +679,24 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift-frameworks.sh",
+				"${PODS_ROOT}/QuickBlox/Quickblox.framework",
+				"${PODS_ROOT}/Quickblox-WebRTC/QuickbloxWebRTC.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quickblox.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QuickbloxWebRTC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B45C39857CC689E6BD89EBFD /* [CP] Check Pods Manifest.lock */ = {
@@ -901,7 +912,7 @@
 				CODE_SIGN_ENTITLEMENTS = "sample-videochat-webrtc-swift/sample-videochat-webrtc-swift.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 8885H5G2YX;
 				INFOPLIST_FILE = "sample-videochat-webrtc-swift/Info.plist";
@@ -927,7 +938,7 @@
 				CODE_SIGN_ENTITLEMENTS = "sample-videochat-webrtc-swift/sample-videochat-webrtc-swift.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 8885H5G2YX;
 				INFOPLIST_FILE = "sample-videochat-webrtc-swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;

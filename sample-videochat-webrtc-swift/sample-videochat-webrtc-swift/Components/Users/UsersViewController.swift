@@ -452,18 +452,14 @@ extension UsersViewController: QBRTCClientDelegate {
         
         if let currentCall = CallKitManager.instance.currentCall() {
             //open by VOIP Push
-            
-            if CallKitManager.instance.isHasSession() == false {
-                CallKitManager.instance.setupSession(session)
-            }
-            
+
+            CallKitManager.instance.setupSession(session)
             if currentCall.status == .ended {
+                CallKitManager.instance.setupSession(session)
                 CallKitManager.instance.endCall(with: currentCall.uuid)
                 session.rejectCall(["reject": "busy"])
                 prepareCloseCall()
-//            } else if currentCall.status == .active  {
-//            } else if currentCall.status == .invite {
-            } else {
+                } else {
                 var opponentIDs = [session.initiatorID]
                 let profile = Profile()
                 guard profile.isFull == true else {
@@ -691,8 +687,7 @@ extension UsersViewController: PKPushRegistryDelegate {
         //in case of bad internet we check how long the VOIP Push was delivered for call(1-1)
         //if time delivery is more than “answerTimeInterval” - return
         if type == .voIP,
-            payload.dictionaryPayload[UsersConstant.voipEvent] != nil,
-            application.applicationState == .background {
+            payload.dictionaryPayload[UsersConstant.voipEvent] != nil {
             if let timeStampString = payload.dictionaryPayload["timestamp"] as? String,
                 let opponentsIDsString = payload.dictionaryPayload["opponentsIDs"] as? String {
                 let opponentsIDsArray = opponentsIDsString.components(separatedBy: ",")
@@ -708,17 +703,17 @@ extension UsersViewController: PKPushRegistryDelegate {
                 }
             }
         }
-        
+
         if type == .voIP,
             payload.dictionaryPayload[UsersConstant.voipEvent] != nil,
             application.applicationState == .background {
-                var opponentsIDs: [String]? = nil
-                var opponentsNumberIDs: [NSNumber] = []
-                var opponentsNamesString = "incoming call. Connecting..."
-                var sessionID: String? = nil
-                var callUUID = UUID()
-                var sessionConferenceType = QBRTCConferenceType.audio
-                self.isUpdatedPayload = false
+            var opponentsIDs: [String]? = nil
+            var opponentsNumberIDs: [NSNumber] = []
+            var opponentsNamesString = "incoming call. Connecting..."
+            var sessionID: String? = nil
+            var callUUID = UUID()
+            var sessionConferenceType = QBRTCConferenceType.audio
+            self.isUpdatedPayload = false
             
             if let opponentsIDsString = payload.dictionaryPayload["opponentsIDs"] as? String,
                 let allOpponentsNamesString = payload.dictionaryPayload["contactIdentifier"] as? String,
@@ -753,77 +748,74 @@ extension UsersViewController: PKPushRegistryDelegate {
             }
             
             let fetchUsersCompletion = { [weak self] (usersIDs: [String]?) -> Void in
-                guard let opponentsIDs = usersIDs else { return }
-                QBRequest.users(withIDs: opponentsIDs, page: nil, successBlock: { [weak self] (respose, page, users) in
-                    if users.isEmpty == false {
-                        self?.dataSource.update(users: users)
+                if let opponentsIDs = usersIDs {
+                    QBRequest.users(withIDs: opponentsIDs, page: nil, successBlock: { [weak self] (respose, page, users) in
+                        if users.isEmpty == false {
+                            self?.dataSource.update(users: users)
+                        }
+                    }) { (response) in
+                        debugPrint("[UsersViewController] error fetch usersWithIDs")
                     }
-                }) { (response) in
-                    debugPrint("[UsersViewController] error fetch usersWithIDs")
                 }
             }
-            
-            
-            if QBChat.instance.isConnected == false {
-                connectToChat { (error) in
-                    if error == nil {
+
+            self.setupAnswerTimerWithTimeInterval(QBRTCConfig.answerTimeInterval())
+            CallKitManager.instance.reportIncomingCall(withUserIDs: opponentsNumberIDs,
+                                                       outCallerName: opponentsNamesString,
+                                                       session: nil,
+                                                       sessionID: sessionID,
+                                                       sessionConferenceType: sessionConferenceType,
+                                                       uuid: callUUID,
+                                                       onAcceptAction: { [weak self] (isAccept) in
+                                                        guard let self = self else {
+                                                            return
+                                                        }
+                                                        
+                                                        if let session = self.session {
+                                                            if isAccept == true {
+                                                                self.openCall(withSession: session,
+                                                                              uuid: callUUID,
+                                                                              sessionConferenceType: sessionConferenceType)
+                                                                debugPrint("[UsersViewController]  onAcceptAction")
+                                                            } else {
+                                                                session.rejectCall(["reject": "busy"])
+                                                                debugPrint("[UsersViewController] endCallAction")
+                                                            }
+                                                        } else {
+                                                            if isAccept == true {
+                                                                self.openCall(withSession: nil,
+                                                                              uuid: callUUID,
+                                                                              sessionConferenceType: sessionConferenceType)
+                                                                debugPrint("[UsersViewController]  onAcceptAction")
+                                                            } else {
+                                                                
+                                                                debugPrint("[UsersViewController] endCallAction")
+                                                            }
+                                                            self.setupAnswerTimerWithTimeInterval(UsersConstant.answerInterval)
+                                                            self.prepareBackgroundTask()
+                                                        }
+                                                        completion()
+                                                        
+                }, completion: { (isOpen) in
+                    if QBChat.instance.isConnected == false {
+                        self.connectToChat { (error) in
+                            if error == nil {
+                                fetchUsersCompletion(opponentsIDs)
+                            }
+                        }
+                    } else {
                         fetchUsersCompletion(opponentsIDs)
                     }
-                }
-            } else {
-                fetchUsersCompletion(opponentsIDs)
-            }
-            
-            self.setupAnswerTimerWithTimeInterval(UsersConstant.answerInterval)
-            DispatchQueue.main.async {
-                CallKitManager.instance.reportIncomingCall(withUserIDs: opponentsNumberIDs,
-                                                           outCallerName: opponentsNamesString,
-                                                           session: nil,
-                                                           sessionID: sessionID,
-                                                           sessionConferenceType: sessionConferenceType,
-                                                           uuid: callUUID,
-                                                           onAcceptAction: { [weak self] (isAccept) in
-                                                            guard let self = self else {
-                                                                return
-                                                            }
-                                                            
-                                                            if let session = self.session {
-                                                                if isAccept == true {
-                                                                    self.openCall(withSession: session,
-                                                                                  uuid: callUUID,
-                                                                                  sessionConferenceType: sessionConferenceType)
-                                                                    debugPrint("[UsersViewController]  onAcceptAction")
-                                                                } else {
-                                                                    session.rejectCall(["reject": "busy"])
-                                                                    debugPrint("[UsersViewController] endCallAction")
-                                                                }
-                                                            } else {
-                                                                if isAccept == true {
-                                                                    self.openCall(withSession: nil,
-                                                                                  uuid: callUUID,
-                                                                                  sessionConferenceType: sessionConferenceType)
-                                                                    debugPrint("[UsersViewController]  onAcceptAction")
-                                                                } else {
-                                                                    
-                                                                    debugPrint("[UsersViewController] endCallAction")
-                                                                }
-                                                                self.setupAnswerTimerWithTimeInterval(UsersConstant.answerInterval)
-                                                                self.prepareBackgroundTask()
-                                                            }
-                                                            completion()
-                                                            
-                    }, completion: { (isOpen) in
-                        self.setupAnswerTimerWithTimeInterval(UsersConstant.answerInterval)
-                        self.prepareBackgroundTask()
-                        debugPrint("[UsersViewController] callKit did presented")
-                })
-            }
+                    self.setupAnswerTimerWithTimeInterval(QBRTCConfig.answerTimeInterval())
+                    self.prepareBackgroundTask()
+                    debugPrint("[UsersViewController] callKit did presented")
+            })
         }
     }
     
     private func prepareBackgroundTask() {
         let application = UIApplication.shared
-        if application.applicationState != .active && self.backgroundTask == .invalid {
+        if application.applicationState == .background && self.backgroundTask == .invalid {
             self.backgroundTask = application.beginBackgroundTask(expirationHandler: {
                 application.endBackgroundTask(self.backgroundTask)
                 self.backgroundTask = UIBackgroundTaskIdentifier.invalid
