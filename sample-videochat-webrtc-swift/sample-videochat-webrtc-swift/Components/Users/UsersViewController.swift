@@ -104,6 +104,14 @@ class UsersViewController: UITableViewController {
         }
         navigationController?.isToolbarHidden = false
         isUpdatedPayload = true
+        
+        CallPermissions.check(with: .video) { granted in
+            if granted {
+                debugPrint("[UsersViewController] granted!")
+            } else {
+                debugPrint("[UsersViewController] granted canceled!")
+            }
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -682,7 +690,6 @@ extension UsersViewController: PKPushRegistryDelegate {
                       for type: PKPushType,
                       completion: @escaping () -> Void) {
         
-        let application = UIApplication.shared
         
         //in case of bad internet we check how long the VOIP Push was delivered for call(1-1)
         //if time delivery is more than “answerTimeInterval” - return
@@ -704,6 +711,7 @@ extension UsersViewController: PKPushRegistryDelegate {
             }
         }
 
+        let application = UIApplication.shared
         if type == .voIP,
             payload.dictionaryPayload[UsersConstant.voipEvent] != nil,
             application.applicationState == .background {
@@ -797,6 +805,8 @@ extension UsersViewController: PKPushRegistryDelegate {
                                                         completion()
                                                         
                 }, completion: { (isOpen) in
+                    self.prepareBackgroundTask()
+                    self.setupAnswerTimerWithTimeInterval(QBRTCConfig.answerTimeInterval())
                     if QBChat.instance.isConnected == false {
                         self.connectToChat { (error) in
                             if error == nil {
@@ -806,8 +816,6 @@ extension UsersViewController: PKPushRegistryDelegate {
                     } else {
                         fetchUsersCompletion(opponentsIDs)
                     }
-                    self.setupAnswerTimerWithTimeInterval(QBRTCConfig.answerTimeInterval())
-                    self.prepareBackgroundTask()
                     debugPrint("[UsersViewController] callKit did presented")
             })
         }

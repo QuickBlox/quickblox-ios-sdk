@@ -159,7 +159,6 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         
         if let session = self.session {
             setupSession(session)
-            
         }
     }
     
@@ -198,29 +197,6 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
             configureGUI()
         }
         
-        let audioSession = QBRTCAudioSession.instance()
-        audioSession.useManualAudio = true
-        audioSession.isAudioEnabled = true
-        // disabling audio unit for local mic recording in recorder to enable it later
-        session.recorder?.isLocalAudioEnabled = false
-        if audioSession.isInitialized == false {
-            audioSession.initialize { configuration in
-                // adding blutetooth support
-                configuration.categoryOptions.insert(.allowBluetooth)
-                configuration.categoryOptions.insert(.allowBluetoothA2DP)
-                configuration.categoryOptions.insert(.duckOthers)
-                // adding airplay support
-                configuration.categoryOptions.insert(.allowAirPlay)
-                if session.conferenceType == .video {
-                    // setting mode to video chat to enable airplay audio and speaker only
-                    configuration.mode = AVAudioSession.Mode.videoChat.rawValue
-                } else if session.conferenceType == .audio {
-                    // setting mode to video chat to enable airplay audio and speaker only
-                    configuration.mode = AVAudioSession.Mode.voiceChat.rawValue
-                }
-            }
-        }
-        
         if session.conferenceType == .video {
             #if targetEnvironment(simulator)
             // Simulator
@@ -237,8 +213,31 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         if session.opponentsIDs.isEmpty == false {
             let isInitiator = users[0].userID == session.initiatorID.uintValue
             if isInitiator == true {
+                let audioSession = QBRTCAudioSession.instance()
+                audioSession.useManualAudio = true
+                audioSession.isAudioEnabled = true
+                // disabling audio unit for local mic recording in recorder to enable it later
+                session.recorder?.isLocalAudioEnabled = false
+                if audioSession.isInitialized == false {
+                    audioSession.initialize { configuration in
+                        // adding blutetooth support
+                        configuration.categoryOptions.insert(.allowBluetooth)
+                        configuration.categoryOptions.insert(.allowBluetoothA2DP)
+                        configuration.categoryOptions.insert(.duckOthers)
+                        // adding airplay support
+                        configuration.categoryOptions.insert(.allowAirPlay)
+                        if session.conferenceType == .video {
+                            // setting mode to video chat to enable airplay audio and speaker only
+                            configuration.mode = AVAudioSession.Mode.videoChat.rawValue
+                        } else if session.conferenceType == .audio {
+                            // setting mode to video chat to enable airplay audio and speaker only
+                            configuration.mode = AVAudioSession.Mode.voiceChat.rawValue
+                        }
+                    }
+                }
                 startCall()
                 CallKitManager.instance.updateCall(with: callUUID, connectingAt: Date())
+                
             } else {
                 acceptCall()
             }
@@ -737,27 +736,6 @@ extension CallViewController: QBRTCClientDelegate {
         guard let qbSession = session as? QBRTCSession,
             qbSession == self.session else {
                 return
-        }
-        
-        var existingUser: User?
-        if let user = users.filter({ $0.userID == userID.uintValue }).first {
-            existingUser = user
-        }
-        
-        let profile = Profile()
-        let isInitiator = profile.ID == qbSession.initiatorID.uintValue
-        if isInitiator == false && existingUser == nil {
-            if let user = createConferenceUser(userID: userID.uintValue) {
-                self.users.insert(user, at: 0)
-                reloadContent()
-            } else {
-                usersDataSource?.loadUser(userID.uintValue, completion: { [weak self] (user) in
-                    if let user = self?.createConferenceUser(userID: userID.uintValue) {
-                        self?.users.insert(user, at: 0)
-                        self?.reloadContent()
-                    }
-                })
-            }
         }
         
         if let beepTimer = beepTimer {

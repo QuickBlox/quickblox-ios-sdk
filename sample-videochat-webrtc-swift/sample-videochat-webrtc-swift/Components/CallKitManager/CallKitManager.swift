@@ -31,6 +31,7 @@ struct Call {
 
 typealias CompletionBlock = (() -> Void)
 typealias CompletionActionBlock = ((Bool) -> Void)
+typealias AudioSessionInitializeBlock = ((QBRTCSession) -> Void)
 
 protocol CallKitManagerDelegate: class {
     func callKitManager(_ callKitManager: CallKitManager, didUpdateSession session: QBRTCSession)
@@ -64,10 +65,15 @@ class CallKitManager: NSObject {
     private var callController: CXCallController?
     private var actionCompletionBlock: CompletionBlock?
     private var onAcceptActionBlock: CompletionActionBlock?
+    private var audioSessionInitializeBlock: AudioSessionInitializeBlock?
     private var session: QBRTCSession? {
         didSet {
             if let session = session {
                 self.delegate?.callKitManager(self, didUpdateSession: session)
+                if let audioSessionInitializeBlock = self.audioSessionInitializeBlock {
+                    audioSessionInitializeBlock(session)
+                    self.audioSessionInitializeBlock = nil
+                }
             }
         }
     }
@@ -231,26 +237,23 @@ class CallKitManager: NSObject {
         update.hasVideo = true
         update.hasVideo = sessionConferenceType == .video
         
-        if let qbSession = session {
-            let audioSession = QBRTCAudioSession.instance()
-            audioSession.useManualAudio = true
-            // disabling audio unit for local mic recording in recorder to enable it later
-            qbSession.recorder?.isLocalAudioEnabled = false
-            if audioSession.isInitialized == false {
-                audioSession.initialize { configuration in
-                    // adding blutetooth support
-                    configuration.categoryOptions.insert(.allowBluetooth)
-                    configuration.categoryOptions.insert(.allowBluetoothA2DP)
-                    configuration.categoryOptions.insert(.duckOthers)
-                    // adding airplay support
-                    configuration.categoryOptions.insert(.allowAirPlay)
-                    if qbSession.conferenceType == .video {
-                        // setting mode to video chat to enable airplay audio and speaker only
-                        configuration.mode = AVAudioSession.Mode.videoChat.rawValue
-                    } else if qbSession.conferenceType == .audio {
-                        // setting mode to video chat to enable airplay audio and speaker only
-                        configuration.mode = AVAudioSession.Mode.voiceChat.rawValue
-                    }
+        let audioSession = QBRTCAudioSession.instance()
+        audioSession.useManualAudio = true
+        // disabling audio unit for local mic recording in recorder to enable it later
+        if audioSession.isInitialized == false {
+            audioSession.initialize { configuration in
+                // adding blutetooth support
+                configuration.categoryOptions.insert(.allowBluetooth)
+                configuration.categoryOptions.insert(.allowBluetoothA2DP)
+                configuration.categoryOptions.insert(.duckOthers)
+                // adding airplay support
+                configuration.categoryOptions.insert(.allowAirPlay)
+                if sessionConferenceType == .video {
+                    // setting mode to video chat to enable airplay audio and speaker only
+                    configuration.mode = AVAudioSession.Mode.videoChat.rawValue
+                } else if sessionConferenceType == .audio {
+                    // setting mode to video chat to enable airplay audio and speaker only
+                    configuration.mode = AVAudioSession.Mode.voiceChat.rawValue
                 }
             }
         }
@@ -459,6 +462,8 @@ extension CallKitManager: CXProviderDelegate {
                 actionCompletionBlock()
                 self.actionCompletionBlock = nil
             }
+            
+            self.audioSessionInitializeBlock = nil
         })
     }
     
@@ -475,7 +480,18 @@ extension CallKitManager: CXProviderDelegate {
     }
     
     func provider(_ provider: CXProvider, didActivate audioSession: AVAudioSession){
-        debugPrint("[CallKitManager] Activated audio session.")
+        if self.session != nil {
+            debugPrint("[CallKitManager] Activated audio session.")
+            activateAudioSession(audioSession)
+        } else {
+            self.audioSessionInitializeBlock = { [weak self] qbSession in
+                self?.activateAudioSession(audioSession)
+                debugPrint("[CallKitManager] Activated audio session in audioSessionInitializeBlock.")
+            }
+        }
+    }
+    
+    private func activateAudioSession(_ audioSession: AVAudioSession) {
         let rtcAudioSession = QBRTCAudioSession.instance()
         rtcAudioSession.audioSessionDidActivate(audioSession)
         // enabling audio now
@@ -491,5 +507,6 @@ extension CallKitManager: CXProviderDelegate {
             debugPrint("Deinitializing session in CallKit callback.")
             rtcAudioSession.deinitialize()
         }
+        self.audioSessionInitializeBlock = nil
     }
 }
