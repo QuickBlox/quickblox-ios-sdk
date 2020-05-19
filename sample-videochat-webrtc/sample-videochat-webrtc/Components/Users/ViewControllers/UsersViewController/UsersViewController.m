@@ -721,7 +721,6 @@ typedef void(^CallerNameCompletion)(NSString *callerName);
     //if time delivery is more than “answerTimeInterval” - return
     if (type == PKPushTypeVoIP &&
     [payload.dictionaryPayload objectForKey:kVoipEvent] != nil &&
-    [UIApplication sharedApplication].applicationState == UIApplicationStateBackground &&
         payload.dictionaryPayload[@"timestamp"] != nil &&
         payload.dictionaryPayload[@"opponentsIDs"] != nil) {
         NSString *opponentsIDsString = (NSString *)payload.dictionaryPayload[@"opponentsIDs"];
@@ -809,21 +808,7 @@ typedef void(^CallerNameCompletion)(NSString *callerName);
             }
         };
         
-        if (![QBChat instance].isConnected) {
-            [weakSelf connectToChatWithSuccessCompletion:^(NSError * _Nullable error) {
-                if (!error) {
-                    if (fetchUsersCompletion) {
-                        fetchUsersCompletion(opponentsIDs);
-                    }
-                }
-            }];
-        } else {
-            if (fetchUsersCompletion) {
-                fetchUsersCompletion(opponentsIDs);
-            }
-        }
-        
-        [self setupAnswerTimerWithTimeInterval:60.0f];
+        [self setupAnswerTimerWithTimeInterval:QBRTCConfig.answerTimeInterval];
         
         [CallKitManager.instance reportIncomingCallWithUserIDs:opponentsNumberIDs outCallerName:opponentsNamesString session:nil sessionID:sessionID sessionConferenceType:sessionConferenceType uuid:callUUID onAcceptAction:^(Boolean isAccept) {
             
@@ -852,7 +837,20 @@ typedef void(^CallerNameCompletion)(NSString *callerName);
         } completion:^(BOOL isOpen) {
             __weak __typeof(self)weakSelf = self;
             [weakSelf prepareBackgroundTask];
-            [weakSelf setupAnswerTimerWithTimeInterval:60.0f];
+            [weakSelf setupAnswerTimerWithTimeInterval:QBRTCConfig.answerTimeInterval];
+            if (![QBChat instance].isConnected) {
+                [weakSelf connectToChatWithSuccessCompletion:^(NSError * _Nullable error) {
+                    if (error == nil) {
+                        if (fetchUsersCompletion) {
+                            fetchUsersCompletion(opponentsIDs);
+                        }
+                    }
+                }];
+            } else {
+                if (fetchUsersCompletion) {
+                    fetchUsersCompletion(opponentsIDs);
+                }
+            }
             Log(@"[%@] callKit did presented",  NSStringFromClass([UsersViewController class]));
         }];
     }

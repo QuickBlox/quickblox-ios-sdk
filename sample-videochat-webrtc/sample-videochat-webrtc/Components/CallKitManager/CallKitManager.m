@@ -12,6 +12,8 @@
 #import "Log.h"
 #import "AppDelegate.h"
 
+typedef void(^AudioSessionInitializeBlock)(QBRTCSession *session);
+
 static const NSInteger DefaultMaximumCallsPerCallGroup = 1;
 static const NSInteger DefaultMaximumCallGroups = 1;
 
@@ -22,6 +24,7 @@ static const NSInteger DefaultMaximumCallGroups = 1;
 @property (strong, nonatomic) CXCallController *callController;
 @property (copy, nonatomic) dispatch_block_t actionCompletionBlock;
 @property (copy, nonatomic) CompletionActionBlock onAcceptActionBlock;
+@property (copy, nonatomic) AudioSessionInitializeBlock audioSessionInitializeBlock;
 @property (weak, nonatomic) QBRTCSession *session;
 @property (strong, nonatomic) NSArray<Call *> *calls;
 @end
@@ -84,6 +87,10 @@ static const NSInteger DefaultMaximumCallGroups = 1;
     _session = session;
     if ([self.delegate respondsToSelector:@selector(callKitManager:didUpdateSession:)]) {
         [self.delegate callKitManager:self didUpdateSession:session];
+    }
+    if (self.audioSessionInitializeBlock) {
+        self.audioSessionInitializeBlock(session);
+        self.audioSessionInitializeBlock = nil;
     }
 }
 
@@ -165,28 +172,26 @@ static const NSInteger DefaultMaximumCallGroups = 1;
     update.supportsDTMF = NO;
     update.hasVideo = sessionConferenceType == QBRTCConferenceTypeVideo;
     
-    if (self.session) {
-        QBRTCAudioSession *audioSession = [QBRTCAudioSession instance];
-        audioSession.useManualAudio = YES;
-        // disabling audio unit for local mic recording in recorder to enable it later
-        session.recorder.localAudioEnabled = NO;
-        if (!audioSession.isInitialized) {
-            [audioSession initializeWithConfigurationBlock:^(QBRTCAudioSessionConfiguration *configuration) {
-                // adding blutetooth support
-                configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetooth;
-                configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetoothA2DP;
-                
-                // adding airplay support
-                configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowAirPlay;
-                if (self.session.conferenceType == QBRTCConferenceTypeVideo) {
-                    // setting mode to video chat to enable airplay audio and speaker only
-                    configuration.mode = AVAudioSessionModeVideoChat;
-                } else if (self.session.conferenceType == QBRTCConferenceTypeAudio) {
-                    // setting mode to video chat to enable airplay audio and speaker only
-                    configuration.mode = AVAudioSessionModeVoiceChat;
-                }
-            }];
-        }
+    QBRTCAudioSession *audioSession = [QBRTCAudioSession instance];
+    audioSession.useManualAudio = YES;
+    // disabling audio unit for local mic recording in recorder to enable it later
+    session.recorder.localAudioEnabled = NO;
+    if (!audioSession.isInitialized) {
+        [audioSession initializeWithConfigurationBlock:^(QBRTCAudioSessionConfiguration *configuration) {
+            // adding blutetooth support
+            configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetooth;
+            configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetoothA2DP;
+            
+            // adding airplay support
+            configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowAirPlay;
+            if (sessionConferenceType == QBRTCConferenceTypeVideo) {
+                // setting mode to video chat to enable airplay audio and speaker only
+                configuration.mode = AVAudioSessionModeVideoChat;
+            } else if (sessionConferenceType == QBRTCConferenceTypeAudio) {
+                // setting mode to video chat to enable airplay audio and speaker only
+                configuration.mode = AVAudioSessionModeVoiceChat;
+            }
+        }];
     }
     
     [_provider reportNewIncomingCallWithUUID:uuid update:update completion:^(NSError * _Nullable error) {
@@ -348,6 +353,10 @@ static const NSInteger DefaultMaximumCallGroups = 1;
             weakSelf.actionCompletionBlock();
             weakSelf.actionCompletionBlock = nil;
         }
+        
+        if (self.audioSessionInitializeBlock) {
+            self.audioSessionInitializeBlock = nil;
+        }
     });
 }
 
@@ -366,7 +375,21 @@ static const NSInteger DefaultMaximumCallGroups = 1;
 }
 
 - (void)provider:(CXProvider *)__unused provider didActivateAudioSession:(AVAudioSession *)audioSession {
-    Log(@"[%@] Activated audio session.",  NSStringFromClass([CallKitManager class]));
+    if (self.session) {
+        Log(@"[%@] Activated audio session.",  NSStringFromClass([CallKitManager class]));
+        [self activateAudioSession:audioSession];
+    } else {
+        __weak __typeof(self)weakSelf = self;
+        self.audioSessionInitializeBlock = ^(QBRTCSession *session) {
+            if (session) {
+                Log(@"[%@] Activated audio session in audioSessionInitializeBlock.",  NSStringFromClass([CallKitManager class]));
+                [weakSelf activateAudioSession:audioSession];
+            }
+        };
+    }
+}
+
+- (void)activateAudioSession:(AVAudioSession *)audioSession {
     QBRTCAudioSession *rtcAudioSession = [QBRTCAudioSession instance];
     [rtcAudioSession audioSessionDidActivate:audioSession];
     // enabling audio now
@@ -381,6 +404,9 @@ static const NSInteger DefaultMaximumCallGroups = 1;
     if (rtcAudioSession.isInitialized) {
         Log(@"[%@] Deinitializing session in CallKit callback.",  NSStringFromClass([CallKitManager class]));
         [rtcAudioSession deinitialize];
+    }
+    if (self.audioSessionInitializeBlock) {
+        self.audioSessionInitializeBlock = nil;
     }
 }
 

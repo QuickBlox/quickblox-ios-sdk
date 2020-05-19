@@ -167,6 +167,7 @@ class LoginTableViewController: UITableViewController {
      */
     private func login(fullName: String, login: String, password: String = LoginConstant.defaultPassword) {
         beginConnect()
+        
         QBRequest.logIn(withUserLogin: login,
                         password: password,
                         successBlock: { [weak self] response, user in

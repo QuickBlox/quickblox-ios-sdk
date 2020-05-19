@@ -129,26 +129,6 @@ static NSString * const kUnknownUserLabel = @"?";
         [self configureGUI];
     }
     
-    QBRTCAudioSession *audioSession = [QBRTCAudioSession instance];
-    if (!audioSession.isInitialized) {
-        [audioSession initializeWithConfigurationBlock:^(QBRTCAudioSessionConfiguration *configuration) {
-            // adding blutetooth support
-            configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetooth;
-            configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetoothA2DP;
-            
-            // adding airplay support
-            configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowAirPlay;
-            
-            if (session.conferenceType == QBRTCConferenceTypeVideo) {
-                // setting mode to video chat to enable airplay audio and speaker only
-                configuration.mode = AVAudioSessionModeVideoChat;
-            } else if (session.conferenceType == QBRTCConferenceTypeAudio) {
-                // setting mode to video chat to enable airplay audio and speaker only
-                configuration.mode = AVAudioSessionModeVoiceChat;
-            }
-        }];
-    }
-    
     if (session.conferenceType == QBRTCConferenceTypeVideo) {
         
 #if TARGET_OS_SIMULATOR
@@ -167,6 +147,25 @@ static NSString * const kUnknownUserLabel = @"?";
     Profile *profile = [[Profile alloc] init];
     BOOL isInitiator = (profile.ID == self.session.initiatorID.unsignedIntegerValue);
     if (isInitiator) {
+        QBRTCAudioSession *audioSession = [QBRTCAudioSession instance];
+        if (!audioSession.isInitialized) {
+            [audioSession initializeWithConfigurationBlock:^(QBRTCAudioSessionConfiguration *configuration) {
+                // adding blutetooth support
+                configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetooth;
+                configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetoothA2DP;
+
+                // adding airplay support
+                configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowAirPlay;
+
+                if (session.conferenceType == QBRTCConferenceTypeVideo) {
+                    // setting mode to video chat to enable airplay audio and speaker only
+                    configuration.mode = AVAudioSessionModeVideoChat;
+                } else if (session.conferenceType == QBRTCConferenceTypeAudio) {
+                    // setting mode to video chat to enable airplay audio and speaker only
+                    configuration.mode = AVAudioSessionModeVoiceChat;
+                }
+            }];
+        }
         [self startCall];
         [CallKitManager.instance updateCallWithUUID:_callUUID connectingAtDate:[NSDate date]];
     } else {
@@ -419,10 +418,10 @@ static NSString * const kUnknownUserLabel = @"?";
 }
 
 // MARK: - CallKitManagerDelegate
-
 - (void)callKitManager:(CallKitManager *)callKitManager didUpdateSession:(QBRTCSession *)session {
     if (!self.session) {
         [[QBRTCClient instance] addDelegate:self];
+        [CallKitManager instance].delegate = nil;
         _session = session;
         [self setupSession:session];
     }
