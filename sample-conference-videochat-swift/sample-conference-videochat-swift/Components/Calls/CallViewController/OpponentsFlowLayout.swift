@@ -2,7 +2,7 @@
 //  OpponentsFlowLayout.swift
 //  sample-conference-videochat-swift
 //
-//  Created by Vladimir Nybozhinsky on 04.10.2018.
+//  Created by Injoit on 04.10.2018.
 //  Copyright © 2018 QuickBlox. All rights reserved.
 //
 
@@ -24,8 +24,8 @@ class OpponentsFlowLayout: UICollectionViewFlowLayout {
     }
     
     func commonInit() {
-        minimumInteritemSpacing = 2
-        minimumLineSpacing = 2
+        minimumInteritemSpacing = 0
+        minimumLineSpacing = 0
     }
     
     // MARK: UISubclassingHooks
@@ -119,9 +119,9 @@ class OpponentsFlowLayout: UICollectionViewFlowLayout {
         let originX = width * Double(slipMod).rounded()
         let originY = height * row
         
-        debugPrint(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<")
-        debugPrint(CGRect(x: originX, y: originY, width: width, height: height))
-        debugPrint(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+//        debugPrint(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+//        debugPrint(CGRect(x: originX, y: originY, width: width, height: height))
+//        debugPrint(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<")
         
         return CGRect(x: originX, y: originY, width: width, height: height)
     }

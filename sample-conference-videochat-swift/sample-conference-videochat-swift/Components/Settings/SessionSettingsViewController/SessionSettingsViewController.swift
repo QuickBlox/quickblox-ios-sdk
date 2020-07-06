@@ -2,7 +2,7 @@
 //  SessionSettingsViewController.swift
 //  sample-conference-videochat-swift
 //
-//  Created by Vladimir Nybozhinsky on 04.10.2018.
+//  Created by Injoit on 04.10.2018.
 //  Copyright © 2018 QuickBlox. All rights reserved.
 //
 
@@ -30,7 +30,6 @@ class SessionSettingsViewController: UITableViewController {
     @IBOutlet private weak var versionLabel: UILabel!
     
     //MARK: - Properties
-    private var settings = Settings.instance
     weak var delegate: SettingsViewControllerDelegate?
     
     //MARK: - Life Cycle
@@ -52,8 +51,6 @@ class SessionSettingsViewController: UITableViewController {
     
     // MARK: - Actions
     @IBAction func pressDoneBtn(_ sender: Any) {
-        settings.saveToDisk()
-        settings.applyConfig()
         dismiss(animated: true)
     }
     
@@ -82,9 +79,12 @@ class SessionSettingsViewController: UITableViewController {
             
             alertController.addAction(UIAlertAction(title: SessionSettingsConstant.yesMessage,
                                                     style: .default,
-                                                    handler: { action in
+                                                    handler: { [weak self] action in
+                                                        guard let self = self else {
+                                                            return
+                                                        }
                                                         self.delegate?.settingsViewController(self,
-                                                                        didPressLogout: cell as Any)
+                                                                                              didPressLogout: cell as Any)
             }))
             alertController.addAction(UIAlertAction(title: SessionSettingsConstant.noMessage,
                                                     style: .default,
@@ -95,6 +95,7 @@ class SessionSettingsViewController: UITableViewController {
     
     //MARK: - Internal Methods
     func detailTextForRow(atIndexPaht indexPath: IndexPath) -> String {
+        let settings = Settings()
         if indexPath.row == SessionConfigureItem.video.rawValue {
             #if targetEnvironment(simulator)
             // Simulator

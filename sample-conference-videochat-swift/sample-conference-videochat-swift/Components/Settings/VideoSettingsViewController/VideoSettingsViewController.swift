@@ -2,7 +2,7 @@
 //  VideoSettingsViewController.swift
 //  sample-conference-videochat-swift
 //
-//  Created by Vladimir Nybozhinsky on 04.10.2018.
+//  Created by Injoit on 04.10.2018.
 //  Copyright © 2018 QuickBlox. All rights reserved.
 //
 
@@ -18,6 +18,12 @@ enum VideoSettingsSectionType: Int {
 }
 
 class VideoSettingsViewController: BaseSettingsViewController {
+    
+    @objc func didTapBack(_ sender: UIBarButtonItem) {
+        applySettings()
+        navigationController?.popViewController(animated: true)
+    }
+    
     //MARK: - Overrides
     override func title(forSection section: Int) -> String {
         switch section {
@@ -36,49 +42,58 @@ class VideoSettingsViewController: BaseSettingsViewController {
     
     //MARK: - Overrides
     override func configure() {
+        let settings = Settings()
+        let backButtonItem = UIBarButtonItem(image: UIImage(named: "chevron"),
+                                             style: .plain,
+                                             target: self,
+                                             action: #selector(didTapBack(_:)))
+        navigationItem.leftBarButtonItem = backButtonItem
+        backButtonItem.tintColor = .white
+        
         //Camera position section
-        addSection(with: VideoSettingsSectionType.cameraPostion.rawValue, items: { [weak self] sectionTitle in
+        addSection(with: VideoSettingsSectionType.cameraPostion.rawValue, items: { sectionTitle in
             //Camera position section
             let switchItem = SwitchItemModel()
             switchItem.title = "Back Camera"
-            switchItem.on = self?.settings.preferredCameraPostion == .back
+            switchItem.on = settings.preferredCameraPostion == .back
             return [switchItem]
         })
         //Supported video formats section
         addSection(with: VideoSettingsSectionType.supportedFormats.rawValue, items: { [weak self] sectionTitle in
             var videoFormats = [BaseItemModel]()
-            guard let position = self?.settings.preferredCameraPostion, let videoFormatsModels = self?.videoFormatModels(withCameraPositon: position)  else {
+            let position = settings.preferredCameraPostion
+            guard let videoFormatsModels = self?.videoFormatModels(withCameraPositon: position)  else {
                 return videoFormats
             }
             videoFormats = videoFormatsModels
-            let formats = QBRTCCameraCapture.formats(with: position)
+            var formats = QBRTCCameraCapture.formats(with: position)
+            formats = formats.filter({ $0.width <= 1024 })
             //Select index path
-            let idx: Int = (formats as NSArray).index(of: self?.settings.videoFormat as Any)
+            let idx: Int = (formats as NSArray).index(of: settings.videoFormat as Any)
             self?.selectSection(VideoSettingsSectionType.supportedFormats.rawValue, index: idx)
+            
             return videoFormats
         })
         //Frame rate
-        addSection(with: VideoSettingsSectionType.videoFrameRate.rawValue, items: { [weak self] sectionTitle in
+        addSection(with: VideoSettingsSectionType.videoFrameRate.rawValue, items: { sectionTitle in
             let frameRateSlider = SliderItemModel()
             frameRateSlider.title = "30"
             frameRateSlider.minValue = 2
             frameRateSlider.maxValue = 30
-            if let currentValue = self?.settings.videoFormat.frameRate {
-                frameRateSlider.currentValue = currentValue
-            } else {
-                frameRateSlider.currentValue = 2
-            }
+            let currentValue = settings.videoFormat.frameRate
+            frameRateSlider.currentValue = currentValue
+            
             return [frameRateSlider]
         })
         //Video bandwidth
-        addSection(with: VideoSettingsSectionType.bandwidth.rawValue, items: { [weak self] sectionTitle in
+        addSection(with: VideoSettingsSectionType.bandwidth.rawValue, items: { sectionTitle in
             var currentValue = 30
             let bandwidthSlider = SliderItemModel()
             bandwidthSlider.title = "30"
             bandwidthSlider.minValue = 0
-            if let currValue = self?.settings.mediaConfiguration.videoBandwidth {
-                currentValue = currValue
-            }
+            let currValue = settings.mediaConfiguration.videoBandwidth
+            currentValue = currValue
+            
             bandwidthSlider.currentValue = UInt(bitPattern: currentValue)
             bandwidthSlider.maxValue = 2000
             return [bandwidthSlider]
@@ -106,6 +121,7 @@ class VideoSettingsViewController: BaseSettingsViewController {
     override func applySettings() {
         //APPLY SETTINGS
         //Preferred camera positon
+        let settings = Settings()
         guard let cameraPostion = model(with: 0, section: VideoSettingsSectionType.cameraPostion.rawValue) as? SwitchItemModel else {
             return }
         settings.preferredCameraPostion = cameraPostion.on ? .back : .front
@@ -129,16 +145,25 @@ class VideoSettingsViewController: BaseSettingsViewController {
                 return
         }
         settings.mediaConfiguration.videoBandwidth = Int(bandwidthSlider.currentValue)
+        
         settings.videoFormat = QBRTCVideoFormat.init(width: videoFormat.width,
                                                      height: videoFormat.height,
                                                      frameRate: frameRateSlider.currentValue,
                                                      pixelFormat: QBRTCPixelFormat.format420f)
+        
+        settings.applyConfig()
+        settings.saveToDisk()
+        reloadVideoFormatSection(for: settings.preferredCameraPostion)
     }
     
     //MARK: - Internal Methods
     func videoFormatModels(withCameraPositon cameraPosition: AVCaptureDevice.Position) -> [BaseItemModel]? {
         //Grab supported formats
-        let formats = QBRTCCameraCapture.formats(with: cameraPosition)
+        var formats = QBRTCCameraCapture.formats(with: cameraPosition) // Array of possible QBRTCVideoFormat video formats for requested position
+        if formats.isEmpty == true {
+            return nil
+        }
+        formats = formats.filter({ $0.width <= 1024 })
         var videoFormatModels = [BaseItemModel]()
         for videoFormat in formats {
             let videoFormatModel = BaseItemModel()

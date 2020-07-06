@@ -2,7 +2,7 @@
 //  QBToolBar.swift
 //  sample-conference-videochat-swift
 //
-//  Created by Vladimir Nybozhinsky on 04.10.2018.
+//  Created by Injoit on 04.10.2018.
 //  Copyright © 2018 QuickBlox. All rights reserved.
 //
 
@@ -19,25 +19,27 @@ class ToolBar: UIToolbar {
         
         setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
         setShadowImage(UIImage(), forToolbarPosition: .any)
-        //Default Gray
-        backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.3)
-        
+        //Default Clear
+        backgroundColor = .clear
     }
     
     //MARK: - Public Methods
+    func removeAllButtons() {
+        buttons.removeAll()
+        actions.removeAll()
+        updateItems()
+    }
+    
     func updateItems() {
+        self.items = [UIBarButtonItem]()
         var items = [UIBarButtonItem]()
-        let barButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        items.append(flexibleSpace)
         for button in buttons {
             let item = UIBarButtonItem(customView: button)
-            if let barItems = self.items {
-                items = items + barItems
-            }
-            items.append(barButton)
             items.append(item)
+            items.append(flexibleSpace)
         }
-        items.append(barButton)
         self.items = items
     }
     

@@ -2,7 +2,7 @@
 //  ConferenceUserCel.swift
 //  sample-conference-videochat-swift
 //
-//  Created by Vladimir Nybozhinsky on 04.10.2018.
+//  Created by Injoit on 04.10.2018.
 //  Copyright © 2018 QuickBlox. All rights reserved.
 //
 
@@ -11,89 +11,106 @@ import QuickbloxWebRTC
 
 class ConferenceUserCell: UICollectionViewCell {
     //MARK: - IBOutlets
-    @IBOutlet private weak var nameView: UIView!
+    @IBOutlet private weak var userView: UIView!
+    @IBOutlet private weak var userAvatarLabel: UILabel!
+    @IBOutlet private weak var userAvatarImageView: UIImageView!
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var containerView: UIView!
-    @IBOutlet private weak var statusLabel: UILabel!
-    @IBOutlet private weak var muteButton: UIButton!
+    @IBOutlet weak var unmuteImageViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var unmuteImageView: UIImageView!
+    @IBOutlet weak var nameLabelCenterXConstraint: NSLayoutConstraint!
+    @IBOutlet weak var videoContainerView: UIView!
+    @IBOutlet weak var unmuteOnVideoImageView: UIImageView!
     
     //MARK: - Properties
+    /**
+     *  Change Video Gravity block action.
+     */
+    var didChangeVideoGravity: ((_ isResizeAspect: Bool) -> Void)?
+    
     var videoView: UIView? {
         didSet {
             guard let view = videoView else {
                 return
             }
             
-            containerView.insertSubview(view, at: 0)
-            
+            videoContainerView.insertSubview(view, at: 0)
             
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
-            view.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
-            view.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
-            view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
+            view.leftAnchor.constraint(equalTo: videoContainerView.leftAnchor).isActive = true
+            view.rightAnchor.constraint(equalTo: videoContainerView.rightAnchor).isActive = true
+            view.topAnchor.constraint(equalTo: videoContainerView.topAnchor).isActive = true
+            view.bottomAnchor.constraint(equalTo: videoContainerView.bottomAnchor).isActive = true
             
             view.layoutIfNeeded()
         }
     }
-
-    /**
-     *  Mute user block action.
-     */
-    var didPressMuteButton: ((_ isMuted: Bool) -> Void)?
     
-    var connectionState: QBRTCConnectionState = .connecting {
+    var unMute = false {
         didSet {
-            switch connectionState {
-            case .new: statusLabel.text = "New"
-            case .pending: statusLabel.text = "Pending"
-            case .connected: statusLabel.text = "Connecting"
-            case .closed: statusLabel.text = "Closed"
-            case .hangUp: statusLabel.text = "Hung Up"
-            case .rejected: statusLabel.text = "Rejected"
-            case .noAnswer: statusLabel.text = "No Answer"
-            case .disconnectTimeout: statusLabel.text = "Time out"
-            case .disconnected: statusLabel.text = "Disconnected"
-            case .unknown: statusLabel.text = ""
-            default: statusLabel.text = ""
-            }
-            muteButton.isHidden = !(connectionState == .connected)
+            unmuteImageViewWidthConstraint.constant = unMute == true ? 0.0 : 40.0
+            nameLabelCenterXConstraint.constant = unMute == true ? 0.0 : -10.0
+            unmuteOnVideoImageView.isHidden = unMute == true
+        }
+    }
+    
+    var videoEnabled = true {
+        didSet {
+            videoContainerView.isHidden = !videoEnabled
         }
     }
     
     var name = "" {
         didSet {
             nameLabel.text = name
-            nameView.isHidden = name.isEmpty
-            nameView.backgroundColor = PlaceholderGenerator.color(index: name.count)
-            muteButton.isHidden = name.isEmpty
-            muteButton.isSelected = false
+            userAvatarLabel.text = String(name.capitalized.first ?? Character("Q"))
         }
     }
     
-    var bitrate: Double = 0.0 {
+    var userColor = UIColor.clear {
         didSet {
-            statusLabel.text = String(format: "%.0f kbits/sec", bitrate * 1e-3)
+            userAvatarLabel.backgroundColor = userColor
         }
     }
     
-    let unmutedImage = UIImage(named: "ic-qm-videocall-dynamic-off")!
-    let mutedImage = UIImage(named: "ic-qm-videocall-dynamic-on")!
+    var isResizeAspect = true {
+        didSet {
+            didChangeVideoGravity?(isResizeAspect)
+        }
+    }
     
     //MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
-        backgroundColor = UIColor.clear
-        statusLabel.backgroundColor = UIColor(red: 0.9441, green: 0.9441, blue: 0.9441, alpha: 0.350031672297297)
-        muteButton.setImage(unmutedImage, for: .normal)
-        muteButton.setImage(mutedImage, for: .selected)
-        muteButton.isHidden = true
-        muteButton.isSelected = false
+        
+        backgroundColor = .clear
+        videoContainerView.backgroundColor = .clear
+        containerView.backgroundColor = #colorLiteral(red: 0.1960526407, green: 0.1960932612, blue: 0.1960500479, alpha: 1)
+        userAvatarLabel.setRoundedLabel(cornerRadius: 30.0)
+        userAvatarImageView.setRoundedView(cornerRadius: 30.0)
+        userAvatarImageView.isHidden = true
+        videoContainerView.isHidden = true
+        unmuteOnVideoImageView.isHidden = true
+        nameLabelCenterXConstraint.constant = 0.0
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinchGesture(_ :)))
+        videoContainerView.addGestureRecognizer(pinchGesture)
     }
     
     //MARK: - Actions
-    @IBAction func didPressMuteButton(_ sender: UIButton) {
-        sender.isSelected = !sender.isSelected
-        didPressMuteButton?(sender.isSelected)
+    @objc private func pinchGesture(_ gestureRecognizer: UIPinchGestureRecognizer) {
+        guard gestureRecognizer.view != nil else { return }
+        if gestureRecognizer.state == .began {
+            let currentScale = videoContainerView.frame.size.width / videoContainerView.bounds.size.width
+            let newScale = currentScale * gestureRecognizer.scale
+            if isResizeAspect == true {
+                if newScale < currentScale {
+                    isResizeAspect = false
+                }
+            } else {
+                if newScale > currentScale {
+                    isResizeAspect = true
+                }
+            }
+        }
     }
 }

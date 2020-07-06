@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0jF-MJ-5Qm">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Enter Chat NameVC-->
+        <scene sceneID="s28-9P-nAt">
+            <objects>
+                <tableViewController storyboardIdentifier="EnterChatNameVC" id="vc2-Gx-igO" customClass="EnterChatNameVC" customModule="sample_conference_videochat_swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="zIy-Pe-MuG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.95686274509803915" green="0.96470588235294119" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <sections>
+                            <tableViewSection id="hpV-Eu-Fy9">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="102" id="Xlf-SM-XhZ">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="102"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="Xlf-SM-XhZ" id="SXK-n1-wWC">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="102"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="2Jt-Xb-Gmo">
+                                                    <rect key="frame" x="16" y="42" width="343" height="44"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="pXA-lJ-8OR"/>
+                                                    </constraints>
+                                                    <color key="textColor" red="0.199973762" green="0.2000150383" blue="0.19997116919999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                                    <connections>
+                                                        <action selector="chatNameDidChanged:" destination="vc2-Gx-igO" eventType="editingChanged" id="AnQ-22-Xhl"/>
+                                                        <outlet property="delegate" destination="vc2-Gx-igO" id="MWF-uf-84P"/>
+                                                    </connections>
+                                                </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chat Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lzc-Bo-o0a" userLabel="Login Label">
+                                                    <rect key="frame" x="16" y="16" width="343" height="15"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="15" id="sbm-Or-ccJ"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                                                    <color key="textColor" red="0.43137254899999999" green="0.43137254899999999" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Lzc-Bo-o0a" firstAttribute="leading" secondItem="SXK-n1-wWC" secondAttribute="leading" constant="16" id="BDj-sN-ven"/>
+                                                <constraint firstAttribute="trailing" secondItem="Lzc-Bo-o0a" secondAttribute="trailing" constant="16" id="FPt-FO-quE"/>
+                                                <constraint firstAttribute="trailing" secondItem="2Jt-Xb-Gmo" secondAttribute="trailing" constant="16" id="Gfb-bu-qcm"/>
+                                                <constraint firstAttribute="bottom" secondItem="2Jt-Xb-Gmo" secondAttribute="bottom" constant="15" id="Xl0-gm-oXo"/>
+                                                <constraint firstItem="2Jt-Xb-Gmo" firstAttribute="leading" secondItem="SXK-n1-wWC" secondAttribute="leading" constant="16" id="pl4-uZ-Sjk"/>
+                                                <constraint firstItem="2Jt-Xb-Gmo" firstAttribute="top" secondItem="SXK-n1-wWC" secondAttribute="top" constant="42" id="sjj-8Z-JIG"/>
+                                                <constraint firstItem="Lzc-Bo-o0a" firstAttribute="top" secondItem="SXK-n1-wWC" secondAttribute="top" constant="16" id="zUt-es-cJZ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.95651179552078247" green="0.96457701921463013" blue="0.9769250750541687" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="14" id="YrI-ET-MGK">
+                                        <rect key="frame" x="0.0" y="130" width="375" height="14"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YrI-ET-MGK" id="tZi-Ge-ZQA">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="14"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tnk-YP-F5T">
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="3"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                                                    <color key="textColor" red="0.60175979140000002" green="0.66074222329999999" blue="0.77708238360000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="Tnk-YP-F5T" secondAttribute="trailing" constant="16" id="7Ng-R4-RnC"/>
+                                                <constraint firstItem="Tnk-YP-F5T" firstAttribute="leading" secondItem="tZi-Ge-ZQA" secondAttribute="leading" constant="16" id="MMs-YU-jxL"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Tnk-YP-F5T" secondAttribute="bottom" id="YMh-Gb-SiH"/>
+                                                <constraint firstItem="Tnk-YP-F5T" firstAttribute="top" secondItem="tZi-Ge-ZQA" secondAttribute="top" id="rdl-Q6-gWe"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.95686274510000002" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="vc2-Gx-igO" id="DRE-Ck-eYZ"/>
+                            <outlet property="delegate" destination="vc2-Gx-igO" id="ReJ-IK-BCH"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="chatNameLabel" destination="Lzc-Bo-o0a" id="gqY-J8-tar"/>
+                        <outlet property="chatNameTextField" destination="2Jt-Xb-Gmo" id="cRu-JY-sFF"/>
+                        <outlet property="hintLabel" destination="Tnk-YP-F5T" id="BGk-7G-uER"/>
+                        <segue destination="X0T-IX-vU4" kind="custom" identifier="goToChat" customClass="ReplaceSegue" customModule="sample_conference_videochat_swift" customModuleProvider="target" id="GVb-kp-0u6"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wnt-a0-43H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-761" y="732"/>
+        </scene>
+        <!--New Create New DialogVC-->
+        <scene sceneID="eDJ-Qv-xkI">
+            <objects>
+                <viewController storyboardIdentifier="NewCreateNewDialogVC" id="Vel-6d-V4i" customClass="NewCreateNewDialogVC" customModule="sample_conference_videochat_swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bqL-yu-lH3"/>
+                        <viewControllerLayoutGuide type="bottom" id="NAx-zj-R6a"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zYb-68-rP3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="YFg-I8-0pr">
+                                <rect key="frame" x="0.0" y="0.0" width="317" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="SHg-gk-egJ"/>
+                                </constraints>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Vel-6d-V4i" id="CgS-vS-cSr"/>
+                                </connections>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsMultipleSelection="YES" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Rx3-a5-fmK">
+                                <rect key="frame" x="0.0" y="44" width="375" height="603"/>
+                                <color key="backgroundColor" red="0.95651179552078247" green="0.96457701921463013" blue="0.9769250750541687" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Vel-6d-V4i" id="Cjo-xU-RHa"/>
+                                    <outlet property="delegate" destination="Vel-6d-V4i" id="T8G-q3-LTa"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3C0-8u-123">
+                                <rect key="frame" x="319" y="0.0" width="56" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="56" id="sf7-kY-adP"/>
+                                </constraints>
+                                <color key="tintColor" red="0.42557775974273682" green="0.47677099704742432" blue="0.57233744859695435" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="ic_cancel"/>
+                                <connections>
+                                    <action selector="cancelSearchButtonTapped:" destination="Vel-6d-V4i" eventType="touchUpInside" id="oka-nB-cko"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="3C0-8u-123" secondAttribute="trailing" id="1EZ-QV-vbO"/>
+                            <constraint firstItem="Rx3-a5-fmK" firstAttribute="leading" secondItem="zYb-68-rP3" secondAttribute="leading" id="840-DT-LXz"/>
+                            <constraint firstItem="YFg-I8-0pr" firstAttribute="top" secondItem="bqL-yu-lH3" secondAttribute="bottom" id="Ghm-Qr-cX8"/>
+                            <constraint firstItem="Rx3-a5-fmK" firstAttribute="top" secondItem="3C0-8u-123" secondAttribute="bottom" id="Owo-as-Wze"/>
+                            <constraint firstAttribute="trailing" secondItem="Rx3-a5-fmK" secondAttribute="trailing" id="Q8U-Ut-MUS"/>
+                            <constraint firstAttribute="bottom" secondItem="Rx3-a5-fmK" secondAttribute="bottom" id="WbG-P3-2UI"/>
+                            <constraint firstItem="Rx3-a5-fmK" firstAttribute="top" secondItem="YFg-I8-0pr" secondAttribute="bottom" id="ao2-OL-V9a"/>
+                            <constraint firstItem="3C0-8u-123" firstAttribute="leading" secondItem="YFg-I8-0pr" secondAttribute="trailing" constant="2" id="e0Z-4B-teg"/>
+                            <constraint firstItem="3C0-8u-123" firstAttribute="top" secondItem="bqL-yu-lH3" secondAttribute="bottom" id="lM8-0N-bEi"/>
+                            <constraint firstItem="YFg-I8-0pr" firstAttribute="leading" secondItem="zYb-68-rP3" secondAttribute="leading" id="seP-gB-k5A"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="X47-40-6Qb"/>
+                    <connections>
+                        <outlet property="cancelSearchButton" destination="3C0-8u-123" id="0am-oV-5kP"/>
+                        <outlet property="searchBar" destination="YFg-I8-0pr" id="W8X-Nb-NX6"/>
+                        <outlet property="tableView" destination="Rx3-a5-fmK" id="wgq-pk-JRU"/>
+                        <segue destination="vc2-Gx-igO" kind="show" identifier="enterChatName" id="dsV-C5-LbM"/>
+                        <segue destination="X0T-IX-vU4" kind="custom" identifier="goToChat" customClass="ReplaceSegue" customModule="sample_conference_videochat_swift" customModuleProvider="target" id="Qeg-LQ-VSf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tGD-ra-Ns8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2" y="732"/>
+        </scene>
+        <!--ChatViewController-->
+        <scene sceneID="1co-fi-07e">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Chat" referencedIdentifier="ChatViewController" id="X0T-IX-vU4" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="OYZ-BD-dUh"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g10-Wp-ovc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="786" y="438"/>
+        </scene>
+        <!--Dialogs SelectionVC-->
+        <scene sceneID="AJV-Uf-VH1">
+            <objects>
+                <tableViewController storyboardIdentifier="DialogsSelectionVC" id="1pL-h8-Pct" customClass="DialogsSelectionVC" customModule="sample_conference_videochat_swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="fVD-y9-aLo">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.95651179549999998" green="0.96457701920000005" blue="0.97692507510000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <connections>
+                            <outlet property="dataSource" destination="1pL-h8-Pct" id="o2E-db-2r2"/>
+                            <outlet property="delegate" destination="1pL-h8-Pct" id="xnl-sc-bRT"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="Cfw-JW-59P"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SLy-c3-qc6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="873" y="-74"/>
+        </scene>
+        <!--Dialogs View Controller-->
+        <scene sceneID="CYX-bM-TUn">
+            <objects>
+                <tableViewController storyboardIdentifier="DialogsViewController" id="0jF-MJ-5Qm" customClass="DialogsViewController" customModule="sample_conference_videochat_swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="OIt-u6-Mqx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.95651179552078247" green="0.96457701921463013" blue="0.9769250750541687" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <connections>
+                            <outlet property="dataSource" destination="0jF-MJ-5Qm" id="DWd-ng-GMM"/>
+                            <outlet property="delegate" destination="0jF-MJ-5Qm" id="0eM-3K-gh5"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="dAr-0b-suU"/>
+                    <connections>
+                        <segue destination="tWq-7O-OZJ" kind="show" identifier="PresentInfoViewController" id="BIH-kV-h3d"/>
+                        <segue destination="Vel-6d-V4i" kind="show" identifier="SelectOpponents" id="PK8-SQ-rA8"/>
+                        <segue destination="zE9-sL-7JP" kind="show" identifier="showVideoConfiguration" id="pbb-wf-viG"/>
+                        <segue destination="UfM-jM-Pu4" kind="show" identifier="showAudioConfiguration" id="TR3-bg-d2J"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vEQ-EF-hRa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1" y="-74"/>
+        </scene>
+        <!--Video Configuration-->
+        <scene sceneID="Fy6-nk-3hT">
+            <objects>
+                <tableViewController title="Video Configuration" id="zE9-sL-7JP" customClass="VideoSettingsViewController" customModule="sample_conference_videochat_swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="54" sectionHeaderHeight="10" sectionFooterHeight="10" id="D5M-DL-Z7R">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="zE9-sL-7JP" id="hxe-OY-2ZB"/>
+                            <outlet property="delegate" destination="zE9-sL-7JP" id="cZQ-DJ-qX2"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Video Configuration" id="6XL-T3-9zc"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JQL-Mn-Udf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-486" y="-889"/>
+        </scene>
+        <!--Audio Configuration-->
+        <scene sceneID="85v-Ty-MMF">
+            <objects>
+                <tableViewController title="Audio Configuration" id="UfM-jM-Pu4" customClass="AudioSettingsViewController" customModule="sample_conference_videochat_swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="54" sectionHeaderHeight="18" sectionFooterHeight="18" id="NTx-tA-70z">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="UfM-jM-Pu4" id="Vxw-ta-5nY"/>
+                            <outlet property="delegate" destination="UfM-jM-Pu4" id="gFl-8m-Sph"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Audio Configuration" id="cLh-r1-tB4"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aaw-ev-y2K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="274" y="-889"/>
+        </scene>
+        <!--InfoScreen-->
+        <scene sceneID="mO6-a9-l7k">
+            <objects>
+                <viewControllerPlaceholder storyboardName="InfoScreen" id="tWq-7O-OZJ" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="duc-ak-GUu"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WwH-8v-V6x" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="550" y="-527"/>
+        </scene>
+    </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Qeg-LQ-VSf"/>
+    </inferredMetricsTieBreakers>
+    <resources>
+        <image name="ic_cancel" width="13" height="13"/>
+    </resources>
+</document>

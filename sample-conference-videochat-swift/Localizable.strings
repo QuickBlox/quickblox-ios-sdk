@@ -1,0 +1,120 @@
+/*
+ Localizable.strings
+ sample-chat-swift
+ 
+//  Created by Injoit on 2/25/19.
+ //  Copyright © 2019 Quickblox. All rights reserved.
+ */
+
+"SA_STR_OK" = "Ok";
+"SA_STR_CANCEL" = "Cancel";
+"SA_STR_LOADING" = "Loading";
+"SA_STR_LOGGED_IN" = "Logged in";
+"SA_STR_SENDING" = "Sending";
+"SA_STR_COMPLETED" = "Completed";
+"SA_STR_DELETE" = "Leave";
+"SA_STR_DELETED" = "Left";
+"SA_STR_DELETING" = "Leaving...";
+"SA_STR_WARNING" = "Warning";
+"SA_STR_BLOCK" = "Block";
+"SA_STR_UNBLOCK" = "Unblock";
+"SA_STR_LOGIN_AS" = "Login as";
+"SA_STR_LOGOUT" = "Logout";
+"SA_STR_LOGOUTING" = "Logout...";
+"SA_STR_TYPING" = "Typing...";
+"SA_STR_CONNECTING_TO_CHAT" = "Connecting to chat...";
+"SA_STR_CONNECTED" = "Connected";
+"SA_STR_DISCONNECTED" = "Disconnected";
+"SA_STR_RECONNECTED" = "Reconnected";
+"SA_STR_LOGGING_IN_AS" = "Logging in REST as ";
+"SA_STR_LOADING_DIALOG" = "Loading dialog";
+"SA_STR_UPDATING_DIALOG" = "Updating dialog";
+"SA_STR_LOADING_DIALOGS" = "Loading dialogs";
+"SA_STR_DONE" = "Done";
+"SA_STR_ADDED" = "added";
+"SA_STR_CREATE_NEW" = "created the group chat";
+"SA_STR_CALL" = "Call";
+
+// chat dialog
+"SA_STR_MESSAGE_PLACEHOLDER" = "Message";
+"SA_STR_CANT_SEND_A_MESSAGE" = "Can't send a message";
+"SA_STR_LOADING_USERS" = "Loading users";
+"SA_STR_CANT_DOWNLOAD_USERS" = "Can't download users";
+"SA_STR_CANT_DOWNLOAD_DIALOGS" = "Can't download dialogs";
+"SA_STR_DIALOG_REMOVED" = "Dialog has been removed";
+"SA_STR_FAILED_LOAD_DIALOGS" = "Failed to load dialogs";
+"SA_STR_YOU_ARE_IN_THE_BLACKLIST" = "You are in the blacklist";
+"SA_STR_FORBIDDEN" = "forbidden";
+"SA_STR_LOADING_MESSAGES" = "Loading messages";
+"SA_STR_UPLOADING_ATTACHMENT" = "Uploading attachment";
+"SA_STR_FAILED_UPLOAD_ATTACHMENT" = "Attachment failed to Upload";
+"SA_STR_ENTER_CHAT_NAME" = "Enter chat name";
+"STR_DIALOG_CREATED" = "Dialog created";
+"SA_STR_CHAT_SEND" = "Send";
+"SA_STR_LAST_ACTIVITY_DATE" = "last_activity_date";
+"SA_STR_ADD_OCCUPANTS" = "Add occupants";
+"SA_STR_CREATE" = "Create";
+"SA_STR_NEW_CHAT" = "New chat";
+"SA_STR_NEW_MESSAGE" = "New message";
+"SA_STR_USER_HAS_LEFT" = "has left";
+"SA_STR_CHAT_INFO" = "Chat info";
+
+// message text statuses
+"SA_STR_READ_STATUS" = "Read";
+"SA_STR_DELIVERED_STATUS" = "Delivered";
+"SA_STR_SEEN_STATUS" = "Seen";
+
+"SA_STR_SENT_STATUS" = "Sent";
+"SA_STR_NOT_SENT_STATUS" = "Didn't send";
+"SA_STR_SENDING_STATUS" = "Sending";
+
+"SA_STR_UNKNOWN_USER" = "Unknown";
+
+// TableViewCell identifiers
+"SA_STR_CELL_USER" = "UserTableViewCellIdentifier";
+"SA_STR_CELL_DIALOG" = "dialogcell";
+
+// Segues
+"SA_STR_SEGUE_GO_TO_INFO" = "goToInfo";
+"SA_STR_SEGUE_GO_TO_CHAT_FROM_CALL" = "goToChatFromCall";
+"SA_STR_SEGUE_GO_TO_INFO_FROM_CALL" = "goToInfoFromCall";
+"SA_STR_SEGUE_GO_TO_DIALOGS" = "goToDialogs";
+"SA_STR_SEGUE_GO_TO_CHAT" = "goToChat";
+"SA_STR_SEGUE_GO_TO_SELECT_OPPONENTS" = "goToSelectOpponents";
+"SA_STR_SEGUE_GO_TO_ADD_OPPONENTS" = "goToAddOpponents";
+"SA_STR_SEGUE_GO_TO_VIDEO_CONFIGURATION" = "showVideoConfiguration";
+"SA_STR_SEGUE_GO_TO_AUDIO_CONFIGURATION" = "showAudioConfiguration";
+"SA_STR_SEGUE_GO_TO_CALL" = "showCallScreen";
+
+// User table view cell model
+"SA_STR_PRIVATE" = "private";
+"SA_STR_GROUP" = "group";
+"SA_STR_PUBLIC_GROUP" = "public group";
+
+// Action sheet
+"SA_STR_ADDITIONAL_ACTIONS" = "Additional actions";
+"SA_STR_NOTE_YOU_WILL_NOT_RECEIVE_AMY_P2P_MESSAGES" = "Note that you will not receive any private message from this user";
+"SA_STR_NOTE_YOU_WILL_NOT_RECEIVE_AMY_GROUP_MESSAGES" = "Note that you will not receive any group chat message from this user";
+"SA_STR_DO_YOU_REALLY_WANT_TO_DELETE_SELECTED_DIALOG" = "Do you really want to leave selected dialog?";
+"SA_STR_DO_YOU_REALLY_WANT_TO_DELETE_SELECTED_DIALOGS" = "Do you really want to leave selected dialogs?";
+"SA_STR_UNBLOCK_USER_P2P_CHAT" = "Unblock user in 1-1 chat";
+"SA_STR_BLOCK_USER_P2P_CHAT" = "Block user in 1-1 chat";
+"SA_STR_UNBLOCK_USER_GROUP_CHATS" = "Unblock user in all group chats";
+"SA_STR_BLOCK_USER_GROUP_CHATS" = "Block user in all group chats";
+"SA_STR_TRY_AGAIN_MESSAGE" = "Try again";
+"SA_STR_DELETE_MESSAGE" = "Delete";
+
+// Errors
+"SA_STR_ERROR" = "Error";
+"SA_STR_ERROR_DELETING" = "Error leaving";
+"SA_STR_BAD_GATEWAY" = "Bad Gateway, please try again";
+"SA_STR_NETWORK_ERROR" = "Connection network error, please try again";
+"SA_STR_DID_NOT_CONNECT_ERROR" = "Did not connect with error:";
+"SA_STR_FAILED_TO_CONNECT_WITH_ERROR" = "Chat failed with error:";
+"SA_STR_CANNOT_CREATE_DIALOG" = "Can not create dialog";
+"SA_STR_MESSAGE_FAILED_TO_SEND" = "Message failed to send";
+
+// Push notifications
+"SA_STR_PUSH_NOTIFICATION_DIALOG_ID" = "dialog_id";
+"SA_STR_PUSH_NOTIFICATION_MESSAGE" = "message";
+"SA_STR_PUSH_NOTIFICATION_CONFERENCE_ID" = "conference_id";
