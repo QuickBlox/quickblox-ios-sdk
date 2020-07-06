@@ -2,7 +2,7 @@
 //  AudioSettingsViewController.swift
 //  sample-conference-videochat-swift
 //
-//  Created by Vladimir Nybozhinsky on 04.10.2018.
+//  Created by Injoit on 04.10.2018.
 //  Copyright © 2018 QuickBlox. All rights reserved.
 //
 
@@ -43,6 +43,12 @@ struct AudioCodecBandWidthRange {
 }
 
 class AudioSettingsViewController: BaseSettingsViewController {
+    
+    @objc func didTapBack(_ sender: UIBarButtonItem) {
+        applySettings()
+        navigationController?.popViewController(animated: true)
+    }
+    
     // MARK: - Overrides superClass Methods
     override func title(forSection section: Int) -> String? {
         switch section {
@@ -57,8 +63,16 @@ class AudioSettingsViewController: BaseSettingsViewController {
     }
     
     override func configure() {
+        let settings = Settings()
+        let backButtonItem = UIBarButtonItem(image: UIImage(named: "chevron"),
+                                             style: .plain,
+                                             target: self,
+                                             action: #selector(didTapBack(_:)))
+        navigationItem.leftBarButtonItem = backButtonItem
+        backButtonItem.tintColor = .white
+        
         //Constraints
-        addSection(with: AudioSettingsSectionType.constraints.rawValue, items: { [weak self] sectionTitle in
+        addSection(with: AudioSettingsSectionType.constraints.rawValue, items: { sectionTitle in
             //audio level control
             let switchItem = SwitchItemModel()
             switchItem.title = "Audio level control"
@@ -67,9 +81,8 @@ class AudioSettingsViewController: BaseSettingsViewController {
             switchItem.on = true
             #else
             // Device
-            if let isOn = self?.settings.mediaConfiguration.isAudioLevelControlEnabled {
-                switchItem.on = isOn
-            }
+            switchItem.on = settings.mediaConfiguration.isAudioLevelControlEnabled
+            
             #endif
             return [switchItem]
         })
@@ -91,23 +104,28 @@ class AudioSettingsViewController: BaseSettingsViewController {
             bandwidthSlider.maxValue = 510
             #else
             // Device
-            if let audioBandwidth = self?.settings.mediaConfiguration.audioBandwidth {
-                isEnabled = audioBandwidth > 0
-                let sliderMinValue = UInt(bitPattern: (bandwidthSlider.minValue))
-                let audioBandwidthValue = UInt(bitPattern: audioBandwidth)
-                bandwidthSlider.currentValue = audioBandwidth < sliderMinValue ? sliderMinValue : audioBandwidthValue
-            }
-            if let audioCodec = self?.settings.mediaConfiguration.audioCodec {
-                self?.updateBandwidthSliderModelRange(bandwidthSlider, using: audioCodec)
-            }
+            
+            let audioBandwidth = settings.mediaConfiguration.audioBandwidth
+            isEnabled = audioBandwidth > 0
+            let sliderMinValue = UInt(bitPattern: (bandwidthSlider.minValue))
+            let audioBandwidthValue = UInt(bitPattern: audioBandwidth)
+            print("audioBandwidth \(audioBandwidth)")
+            print("audioBandwidthValue \(audioBandwidthValue)")
+            print("sliderMinValue \(sliderMinValue)")
+            print("bandwidthSlider.minValue \(bandwidthSlider.minValue)")
+            
+            
+            let audioCodec = settings.mediaConfiguration.audioCodec
+            self?.updateBandwidthSliderModelRange(bandwidthSlider, using: audioCodec)
+            bandwidthSlider.currentValue = audioBandwidthValue > sliderMinValue ? audioBandwidthValue : sliderMinValue
+            
             #endif
             switchItem.on = isEnabled
-            bandwidthSlider.isDisabled = isEnabled
+            bandwidthSlider.isDisabled = !isEnabled
             return [switchItem, bandwidthSlider]
         })
     }
-
-    // MARK: - Overrides
+    
     // MARK: - Overrides SettingsCellDelegate
     override func cell(_ cell: BaseSettingsCell, didChageModel model: BaseItemModel) {
         guard let indexPath = tableView.indexPath(for: cell) else {
@@ -118,13 +136,9 @@ class AudioSettingsViewController: BaseSettingsViewController {
                 return
             }
             let switchItem = bandwidth.items[AudioBandwidthSection.enable.rawValue] as? SwitchItemModel
-            
             let bandwidthSlider = bandwidth.items[AudioBandwidthSection.bandwidth.rawValue] as? SliderItemModel
-            
             if let isEnabled = switchItem?.on, let bandwidthSlider = bandwidthSlider {
-                
-                bandwidthSlider.isDisabled = isEnabled
-                
+                bandwidthSlider.isDisabled = !isEnabled
                 if isEnabled == false {
                     bandwidthSlider.currentValue = UInt(bitPattern: bandwidthSlider.minValue)
                 }
@@ -137,6 +151,7 @@ class AudioSettingsViewController: BaseSettingsViewController {
     override func applySettings() {
         //APPLY SETTINGS
         //constraints
+        let settings = Settings()
         let constraints = section(with: AudioSettingsSectionType.constraints.rawValue)
         if let levelControlSwitch = constraints?.items.first as? SwitchItemModel {
             settings.mediaConfiguration.isAudioLevelControlEnabled = levelControlSwitch.on
@@ -153,6 +168,8 @@ class AudioSettingsViewController: BaseSettingsViewController {
         } else {
             settings.mediaConfiguration.audioBandwidth = 0
         }
+        settings.applyConfig()
+        settings.saveToDisk()
     }
     
     // MARK: - Helpers
@@ -161,19 +178,5 @@ class AudioSettingsViewController: BaseSettingsViewController {
         sliderModel?.currentValue = UInt(range.minValue)
         sliderModel?.minValue = range.minValue
         sliderModel?.maxValue = range.maxValue
-    }
-    
-    func updateBandwidthValue(for indexPath: IndexPath) {
-        let bandwidth = section(with: AudioSettingsSectionType.bandwidth.rawValue)
-        let switchItem = bandwidth?.items[AudioBandwidthSection.enable.rawValue] as? SwitchItemModel
-        let bandwidthSlider = bandwidth?.items[AudioBandwidthSection.bandwidth.rawValue] as? SliderItemModel
-        let audioCodec = model(with: indexPath.row, section: indexPath.section)
-        if let audioCodecData = audioCodec?.data as? QBRTCAudioCodec {
-            updateBandwidthSliderModelRange(bandwidthSlider, using: audioCodecData)
-        }
-        bandwidthSlider?.isDisabled = true
-        switchItem?.on = false
-        tableView.reloadSections(NSIndexSet(index: AudioSettingsSectionType.bandwidth.rawValue) as IndexSet,
-                                 with: .fade)
     }
 }
