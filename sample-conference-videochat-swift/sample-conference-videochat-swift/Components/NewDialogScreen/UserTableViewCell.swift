@@ -8,10 +8,6 @@
 
 import UIKit
 
-//protocol UserCellDelegate: class {
-//    func didTapMuteButton(_ userCell: UserTableViewCell)
-//}
-
 struct UserCellConstant {
     static let reuseIdentifier =  "UserTableViewCell"
 }
@@ -19,8 +15,6 @@ struct UserCellConstant {
 class UserTableViewCell: UITableViewCell {
     
     //MARK: - Properties
-//    weak var delegate: UserCellDelegate?
-    
     @IBOutlet weak var userAvatarImageView: UIImageView!
     @IBOutlet weak var userAvatarLabel: UILabel!
     @IBOutlet weak var userNameLabel: UILabel!
@@ -62,7 +56,6 @@ class UserTableViewCell: UITableViewCell {
     @IBAction func didTapMuteButton(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         didPressMuteButton?(sender.isSelected)
-//        delegate?.didTapMuteButton(self)
     }
     
     

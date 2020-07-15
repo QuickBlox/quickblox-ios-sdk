@@ -44,6 +44,10 @@ protocol ChildCallVCDelegate: class {
     func callVCDidClosedCallScreen(_ isClosedCall: Bool)
 }
 
+protocol CallViewControllerDelegate: class {
+    func callVC(_ callVC: CallViewController, didAddNewPublisher userID: UInt)
+}
+
 typealias CompletionBlock = (() -> Void)
 
 class CallViewController: UIViewController, QBRTCClientDelegate {
@@ -59,6 +63,7 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     //MARK: - Properties
     private var actionCompletionBlock: CompletionBlock?
     weak var delegate: ChildCallVCDelegate?
+    weak var callViewControllerDelegate: CallViewControllerDelegate?
     var dialogID: String! {
         didSet {
             self.chatDialog = chatManager.storage.dialog(withID: dialogID)
@@ -71,7 +76,6 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     private var timeDuration: TimeInterval = 0.0
     private var callTimer: Timer?
     private var listenersCount = 0
-    private var listenersIDs: Set<UInt> = []
     
     //MARK: - Internal Properties
     //Managers
@@ -134,9 +138,14 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
             session?.localMediaStream.audioTrack.isEnabled = !muteAudio
         }
     }
+    private lazy var swapCamera: CustomButton = {
+        let swapCamera = ButtonsFactory.swapCam()
+        return swapCamera
+    }()
     private var muteVideo = false {
         didSet {
             session?.localMediaStream.videoTrack.isEnabled = !muteVideo
+            swapCamera.isUserInteractionEnabled = !muteVideo
         }
     }
 
@@ -203,11 +212,6 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
         collectionViewTopConstraint.constant = -topBarHeight
         showControls()
         setupHideToolbarTimerWithTimeInterval(CallConstants.hideInterval)
-        
-        if self.usersVideoEnabled[Profile().ID] == false, let chatDialog = self.chatDialog, let conferenceID = self.conferenceID {
-            let occupantIDs = self.users.compactMap({ $0.userID })
-            self.chatManager.sendMessageCameraOn(false, occupantIDs: occupantIDs, dialog: chatDialog, roomID: conferenceID)
-        }
     }
     
     @objc func cameraEnabledNotification(_ notification: Notification?) {
@@ -351,6 +355,9 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     }
     
     func leaveFromCallAnimated(_ isAnimated: Bool, isSetupNewCall: Bool = false, completion:(() -> Void)? = nil) {
+        if isSetupNewCall == true, completion != nil {
+            actionCompletionBlock = completion
+        }
         if session?.state == QBRTCSessionState.pending {
             closeCall(withTimeout: false)
         } else if session?.state != .new {
@@ -358,9 +365,6 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
         }
         SVProgressHUD.dismiss()
         session?.leave()
-        if isSetupNewCall == true {
-            actionCompletionBlock = completion
-        }
     }
     
     func configureToolBar() {
@@ -392,12 +396,7 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
                 }
                 
                 self.muteVideo = !self.muteVideo
-                
-                if let chatDialog = self.chatDialog, let conferenceID = self.conferenceID {
-                    let occupantIDs = self.users.compactMap({ $0.userID })
-                    self.chatManager.sendMessageCameraOn(self.muteVideo == false, occupantIDs: occupantIDs, dialog: chatDialog, roomID: conferenceID)
-                }
-                
+
                 self.localVideoView?.isHidden = self.muteVideo
                 if self.localVideoView?.isHidden == true {
                     self.cameraCapture.stopSession(nil)
@@ -422,19 +421,48 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
                 guard let self = self else {
                     return
                 }
+                
                 guard let sharingVC = self.storyboard?.instantiateViewController(withIdentifier: CallConstants.sharingViewControllerIdentifier) as? SharingViewController else {
                     return
                 }
                 sharingVC.session = self.session
-                self.navigationController?.pushViewController(sharingVC, animated: true)
                 
-                if self.usersVideoEnabled[Profile().ID] == false, let chatDialog = self.chatDialog, let conferenceID = self.conferenceID {
-                    let occupantIDs = self.users.compactMap({ $0.userID })
-                    self.chatManager.sendMessageCameraOn(true, occupantIDs: occupantIDs, dialog: chatDialog, roomID: conferenceID)
+                let os = ProcessInfo().operatingSystemVersion
+                switch (os.majorVersion, os.minorVersion, os.patchVersion) {
+                case (let x, let y, let z) where x < 13 || x == 13 && y < 2 && z < 3:
+                    sharingVC.isReplayKit = false
+                    self.navigationController?.pushViewController(sharingVC, animated: true)
+                default:
+                    let alertSharingVC = UIAlertController(title: "Use ReplayKit to sharing screen?", message: nil, preferredStyle: .actionSheet)
+                    
+                    let useReplayKitAction = UIAlertAction(title: "Use ReplayKit", style: .default, handler: { action in
+                        sharingVC.isReplayKit = true
+                        self.navigationController?.pushViewController(sharingVC, animated: true)
+                    })
+                    
+                    let useOldStyleAction = UIAlertAction(title: "Use Old Style", style: .default, handler: { action in
+                        sharingVC.isReplayKit = false
+                        self.navigationController?.pushViewController(sharingVC, animated: true)
+                    })
+                    
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    
+                    alertSharingVC.addAction(useReplayKitAction)
+                    alertSharingVC.addAction(useOldStyleAction)
+                    alertSharingVC.addAction(cancelAction)
+                    
+                    if UIDevice.current.userInterfaceIdiom == .pad, let popoverController = alertSharingVC.popoverPresentationController {
+                        popoverController.permittedArrowDirections = .init(rawValue: 0)
+                        popoverController.sourceView = self.view
+                        popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+                    }
+                    
+                    self.present(alertSharingVC, animated: true, completion: nil)
+                    
                 }
             })
             
-            toolbar.add(ButtonsFactory.swapCam(), action: { [weak self] sender in
+            toolbar.add(swapCamera, action: { [weak self] sender in
                 guard let self = self else {
                     return
                 }
@@ -487,6 +515,7 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
         if segue.identifier == CallConstants.membersSegue {
             if let chatInfoViewController = segue.destination as? UsersInfoTableViewController {
                 chatInfoViewController.dialogID = self.chatDialog?.id
+                self.callViewControllerDelegate = chatInfoViewController
                 chatInfoViewController.action = ChatActions.InfoFromCall
                 let qbUsers = users.compactMap{ chatManager.storage.user(withID: $0.userID) }
                 chatInfoViewController.users = qbUsers
@@ -532,15 +561,10 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
         timerCallLabel.text = string(withTimeDuration: timeDuration)
         session?.listOnlineParticipants(completionBlock: { [weak self] publishers, listeners in
             guard let self = self else {return}
-            if self.callType == MessageType.startStream.rawValue, self.isListnerOnly == false {
-                let setOfNewListenersID = Set(listeners.compactMap({ $0.uintValue }))
-                let newListenersID = setOfNewListenersID.subtracting(self.listenersIDs)
-                if self.listenersCount != listeners.count {
-                    if let isCameraEnabled = self.usersVideoEnabled[Profile().ID], let chatDialog = self.chatDialog, let conferenceID = self.conferenceID {
-                        self.chatManager.sendMessageCameraOn(isCameraEnabled, occupantIDs: Array(newListenersID), dialog: chatDialog, roomID: conferenceID)
-                    }
-                }
-                
+            if self.callType == MessageType.startStream.rawValue,
+                self.isListnerOnly == false,
+                self.listenersCount != listeners.count {
+                self.listenersCount = listeners.count
                 let members = listeners.count == 1 ? "member" : "members"
                 DispatchQueue.main.async {
                     self.navigationItem.rightBarButtonItem?.title = "\(listeners.count) " + members
@@ -653,6 +677,7 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
         })
         
         SVProgressHUD.dismiss()
+        session = nil
         
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             appDelegate.isCalling = false
@@ -808,12 +833,7 @@ extension CallViewController: QBRTCConferenceClientDelegate {
         guard let session = session, session == self.session else {
             return
         }
-        if let isCameraEnabled = usersVideoEnabled[Profile().ID],
-            let chatDialog = self.chatDialog,
-            let conferenceID = self.conferenceID {
-            let occupantIDs = publishersList.compactMap({ $0.uintValue })
-            self.chatManager.sendMessageCameraOn(isCameraEnabled, occupantIDs: occupantIDs, dialog: chatDialog, roomID: conferenceID)
-        }
+
         for userID in publishersList {
             if Profile().ID != userID.uintValue {
                 session.subscribeToUser(withID: userID)
@@ -829,12 +849,7 @@ extension CallViewController: QBRTCConferenceClientDelegate {
         if Profile().ID != userID?.uintValue {
             session.subscribeToUser(withID: userId)
         }
-        if let isCameraEnabled = usersVideoEnabled[Profile().ID],
-            let chatDialog = self.chatDialog,
-            let conferenceID = self.conferenceID {
-            let occupantIDs = [userId.uintValue]
-            self.chatManager.sendMessageCameraOn(isCameraEnabled, occupantIDs: occupantIDs, dialog: chatDialog, roomID: conferenceID)
-        }
+
         if isListnerOnly == true {
             DispatchQueue.main.async {
                 self.streamTitleView.setupStreamTitleViewOnLive(true)
@@ -943,13 +958,18 @@ extension CallViewController: QBRTCBaseClientDelegate {
             usersAudioEnabled[userID.uintValue] = true
             usersAudioEnabled[userID.uintValue] = true
             reloadContent()
+            callViewControllerDelegate?.callVC(self, didAddNewPublisher: userID.uintValue)
         } else {
             chatManager.loadUser(userID.uintValue, completion: { [weak self] (user) in
-                if let user = self?.createConferenceUser(userID: userID.uintValue) {
-                    self?.users.insert(user, at: 0)
-                    self?.usersAudioEnabled[userID.uintValue] = true
-                    self?.usersAudioEnabled[userID.uintValue] = true
-                    self?.reloadContent()
+                guard let self = self else {
+                    return
+                }
+                if let user = self.createConferenceUser(userID: userID.uintValue) {
+                    self.users.insert(user, at: 0)
+                    self.usersAudioEnabled[userID.uintValue] = true
+                    self.usersAudioEnabled[userID.uintValue] = true
+                    self.reloadContent()
+                    self.callViewControllerDelegate?.callVC(self, didAddNewPublisher: userID.uintValue)
                 }
             })
         }

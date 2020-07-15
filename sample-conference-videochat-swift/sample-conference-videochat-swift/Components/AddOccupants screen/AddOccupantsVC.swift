@@ -316,11 +316,14 @@ class AddOccupantsVC: UIViewController {
                 filteredUsers.append(user)
             }
         }
+        
+        var removedUsers:Set<QBUUser> = []
         for user in selectedUsers {
             if occupantIDs.contains(user.id) {
-                selectedUsers.remove(user)
+                removedUsers.insert(user)
             }
         }
+        selectedUsers.subtract(removedUsers)
         
         foundUsers = foundUsers + filteredUsers
         

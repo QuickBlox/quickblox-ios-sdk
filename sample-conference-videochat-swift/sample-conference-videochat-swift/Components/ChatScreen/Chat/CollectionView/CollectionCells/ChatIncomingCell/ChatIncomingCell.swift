@@ -1,24 +1,18 @@
 //
-//  ChatCallIncomingCell.swift
-//  sample-conference-videochat-swift
+//  ChatIncomingCell.swift
+//  Swift-ChatViewController
 //
-//  Created by Injoit on 5/8/20.
-//  Copyright © 2020 QuickBlox. All rights reserved.
+//  Created by Injoit on 1/28/19.
+//  Copyright © 2019 Quickblox. All rights reserved.
 //
 
 import UIKit
-import TTTAttributedLabel
 
-class ChatCallIncomingCell: ChatCell {
-    
-    @IBOutlet weak var streamLabel: TTTAttributedLabel!
-    @IBOutlet weak var joinButton: UIButton!
-    
-    /**
-     *  Join user to conferense block action.
-     */
-    var didPressJoinButton: (() -> Void)?
-    
+/**
+ *  Chat message cell typically used for opponent's messages.
+ */
+class ChatIncomingCell: ChatCell {
+
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
@@ -34,14 +28,9 @@ class ChatCallIncomingCell: ChatCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        joinButton.setRoundView(cornerRadius: 15.0)
+
         bubbleImageView.backgroundColor = .white
-        bubbleImageView.layer.applyShadow(color: #colorLiteral(red: 0.8452011943, green: 0.8963350058, blue: 1, alpha: 1), alpha: 1.0, y: 3.0, blur: 48.0)
-    }
-    
-    @IBAction func didTapJoinButton(_ sender: UIButton) {
-        didPressJoinButton?()
+        layer.applyShadow(color: #colorLiteral(red: 0.8452011943, green: 0.8963350058, blue: 1, alpha: 1), alpha: 1.0, y: 3.0, blur: 48.0)
     }
     
     override class func layoutModel() -> ChatCellLayoutModel {

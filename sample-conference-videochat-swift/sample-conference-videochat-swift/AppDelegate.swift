@@ -14,10 +14,10 @@ import SVProgressHUD
 
 // To update the QuickBlox credentials, please see the READMe file.(You must create application in admin.quickblox.com)
 struct CredentialsConstant {
-    static let applicationID:UInt = 0
-    static let authKey = ""
-    static let authSecret = ""
-    static let accountKey = ""
+static let applicationID:UInt = 0
+static let authKey = ""
+static let authSecret = ""
+static let accountKey = ""
 }
 
 struct TimeIntervalConstant {
@@ -139,7 +139,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 //MARK: - UNUserNotificationCenterDelegate
 extension AppDelegate: UNUserNotificationCenterDelegate {
-    
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {

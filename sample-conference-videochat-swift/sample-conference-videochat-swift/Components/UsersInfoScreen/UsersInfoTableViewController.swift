@@ -89,6 +89,11 @@ class UsersInfoTableViewController: UITableViewController {
         default:
             debugPrint("default")
         }
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(chatDidBecomeOnlineUserNotification(_:)),
+                                               name: ChatViewControllerConstant.chatDidBecomeOnlineUserNotification,
+                                               object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -131,6 +136,21 @@ class UsersInfoTableViewController: UITableViewController {
             deliverMessage.id == self.message?.id {
             self.message = deliverMessage
             updateUsers()
+        }
+    }
+    
+    @objc func chatDidBecomeOnlineUserNotification(_ notification: Notification?) {
+        if let userID = notification?.userInfo?["userID"] as? UInt {
+            if let onlineUser = self.users.filter({ $0.id == userID }).first, let index = self.users.index(of: onlineUser) {
+                self.users.remove(at: index)
+                self.users.insert(onlineUser, at: 0)
+                let indexPath = IndexPath(item: index, section: 0)
+                let indexPathFirst = IndexPath(item: 0, section: 0)
+                tableView.beginUpdates()
+                tableView.deleteRows(at: [indexPath], with: .left)
+                tableView.insertRows(at: [indexPathFirst], with: .left)
+                tableView.endUpdates()
+            }
         }
     }
     
@@ -228,6 +248,8 @@ class UsersInfoTableViewController: UITableViewController {
             cell.muteButton.isEnabled = true
             if let isSelected = usersAudioEnabled[user.id] {
                 cell.muteButton.isSelected = !isSelected
+            } else {
+                cell.muteButton.isSelected = false
             }
             cell.didPressMuteButton = { [weak self] isMuted in
                 self?.didPressMuteUser?(isMuted, user.id)
@@ -280,5 +302,18 @@ extension UsersInfoTableViewController: ChatManagerDelegate {
             return
         }
         setupUsers(dialogID)
+    }
+}
+
+// MARK: - CallViewControllerDelegate
+extension UsersInfoTableViewController: CallViewControllerDelegate {
+    func callVC(_ callVC: CallViewController, didAddNewPublisher userID: UInt) {
+        if let user = chatManager.storage.user(withID: userID) {
+            users.insert(user, at: 0)
+            let indexPath = IndexPath(row: 0, section: 0)
+            tableView.beginUpdates()
+            tableView.insertRows(at: [indexPath], with: .left)
+            tableView.endUpdates()
+        }
     }
 }

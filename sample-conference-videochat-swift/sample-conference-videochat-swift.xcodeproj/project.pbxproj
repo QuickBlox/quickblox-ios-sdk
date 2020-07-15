@@ -352,8 +352,8 @@
 			isa = PBXGroup;
 			children = (
 				2C0D582121666256001FF80B /* AppDelegate.swift */,
-				2CD996B72452FC40000F3C81 /* Images.xcassets */,
 				2C4C25EC21666FED00B1E8C4 /* Components */,
+				2CD996B72452FC40000F3C81 /* Images.xcassets */,
 				2CD9973D24530187000F3C81 /* Classes */,
 				2CD996FC2452FE06000F3C81 /* InfoScreenViewController */,
 				2CCD5C02216E25EE00A52051 /* LaunchScreen.storyboard */,
@@ -665,6 +665,7 @@
 		2CD996EB2452FE06000F3C81 /* ChatScreen */ = {
 			isa = PBXGroup;
 			children = (
+				2CD9973E24530187000F3C81 /* Chat */,
 				2CD996EC2452FE06000F3C81 /* ChatViewController.swift */,
 				2CD996ED2452FE06000F3C81 /* DataSource */,
 				2CD996EF2452FE06000F3C81 /* SelectAssetsScreen */,
@@ -745,7 +746,6 @@
 			isa = PBXGroup;
 			children = (
 				2C184FA4217F6EE10062E235 /* ReuseIdentifier */,
-				2CD9973E24530187000F3C81 /* Chat */,
 				2CD9976F24530187000F3C81 /* ReplaceSegue */,
 				2CD9977124530187000F3C81 /* Views */,
 			);
@@ -1417,7 +1417,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.3;
+				MARKETING_VERSION = 4.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.sample-conference-videochat-swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1442,7 +1442,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.3;
+				MARKETING_VERSION = 4.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.sample-conference-videochat-swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

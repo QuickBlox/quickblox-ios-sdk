@@ -74,6 +74,7 @@ struct ChatViewControllerConstant {
     static let chatDidReadMessageNotification = Notification.Name(rawValue: "chatDidReadMessage")
     static let chatDidDeliverMessageNotification = Notification.Name(rawValue: "chatDidDeliverMessage")
     static let cameraEnabledMessageNotification = Notification.Name(rawValue: "cameraEnabledMessageNotification")
+    static let chatDidBecomeOnlineUserNotification = Notification.Name(rawValue: "chatDidBecomeOnlineUserNotification")
     static let noPlacesInCall = "There are no places in the call"
 }
 
@@ -134,7 +135,6 @@ class ChatViewController: UIViewController {
         }
     }
     private var dialog: QBChatDialog!
-    //    var conferenceID: String?
     /**
      *  Cell's contact request delegate.
      */
@@ -281,6 +281,19 @@ class ChatViewController: UIViewController {
         senderID = currentUser.ID
         navigationItem.titleView = titleView
         setupTitleView()
+        
+        // online/offline for group and public chats
+        dialog.onJoinOccupant = { [weak self] userID in
+            guard let self = self else {
+                return
+            }
+            if userID == self.senderID  {
+                return
+            }
+            debugPrint("onlineUsersIDs.insert userID \(userID)")
+            self.onlineUsersIDs.insert(userID)
+            self.sendNotificationBecomeOnlineUser(userID)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -373,6 +386,14 @@ class ChatViewController: UIViewController {
         } else {
            dismiss(animated: true, completion: nil)
         }
+    }
+    
+    func sendNotificationBecomeOnlineUser(_ userID: UInt) {
+        DispatchQueue.main.async(execute: {
+            NotificationCenter.default.post(name: ChatViewControllerConstant.chatDidBecomeOnlineUserNotification,
+                                            object: nil,
+                                            userInfo: ["userID" : userID])
+        })
     }
     
     //MARK: - Setup
@@ -478,14 +499,7 @@ class ChatViewController: UIViewController {
         if item.customParameters[ChatDataSourceConstant.notificationType] != nil {
             return ChatNotificationCell.self
         }
-//
-//        if item.customParameters[ChatDataSourceConstant.notificationType] as? String == "1" ||
-//            item.customParameters[ChatDataSourceConstant.notificationType] as? String == "2" ||
-//            item.customParameters[ChatDataSourceConstant.notificationType] as? String == "3" ||
-//            item.customParameters[ChatDataSourceConstant.notificationType] as? String == "6" {
-//            return ChatNotificationCell.self
-//        }
-        
+
         if item.customParameters[ChatDataSourceConstant.dateDividerKey] as? Bool == true {
             return ChatDateCell.self
         }

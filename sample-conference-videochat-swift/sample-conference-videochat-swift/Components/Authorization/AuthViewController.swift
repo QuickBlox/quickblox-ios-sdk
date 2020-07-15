@@ -377,20 +377,14 @@ class AuthViewController: UITableViewController {
         let regularExtension = LoginNameRegularExtention.username
         let predicate = NSPredicate(format: "SELF MATCHES %@", regularExtension)
         let isValid: Bool = predicate.evaluate(with: userName)
-        if isValid == true {
-            return true
-        }
-        return false
+        return isValid == true
     }
     
     private func isValidChanged(userName: String?) -> Bool {
         let regularExtension = LoginNameRegularExtention.usernameChanged
         let predicate = NSPredicate(format: "SELF MATCHES %@", regularExtension)
         let isValid: Bool = predicate.evaluate(with: userName)
-        if isValid == true {
-            return true
-        }
-        return false
+        return isValid == true
     }
     
     private func isValid(login: String?) -> Bool {
@@ -400,10 +394,7 @@ class AuthViewController: UITableViewController {
         let predicateEmail = NSPredicate(format: "SELF MATCHES %@", regularExtensionEmail)
         let isValid: Bool = predicate.evaluate(with: login)
         let isValidEmail: Bool = predicateEmail.evaluate(with: login)
-        if isValid == true || isValidEmail == true {
-            return true
-        }
-        return false
+        return isValid == true || isValidEmail == true
     }
     
     private func isValidChanged(login: String?) -> Bool {
@@ -413,10 +404,7 @@ class AuthViewController: UITableViewController {
         let predicateEmail = NSPredicate(format: "SELF MATCHES %@", regularExtensionEmail)
         let isValid: Bool = predicate.evaluate(with: login)
         let isValidEmail: Bool = predicateEmail.evaluate(with: login)
-        if isValid == true || isValidEmail == true {
-            return true
-        }
-        return false
+        return isValid == true || isValidEmail == true
     }
 }
 

@@ -283,7 +283,6 @@ class DialogsViewController: UITableViewController {
     
     //MARK: - Internal Methods
     private func hasConnectivity() -> Bool {
-        
         let status = Reachability.instance.networkConnectionStatus()
         guard status != NetworkConnectionStatus.notConnection else {
             showAlertView(LoginConstant.checkInternet, message: LoginConstant.checkInternetMessage)

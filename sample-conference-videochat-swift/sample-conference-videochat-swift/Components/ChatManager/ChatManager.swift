@@ -88,35 +88,6 @@ class ChatManager: NSObject {
         })
     }
     
-    func sendMessageCameraOn(_ isCameraEnabled: Bool,
-                             occupantIDs:[UInt],
-                             dialog: QBChatDialog,
-                             roomID: String) {
-        
-        let currentUser = Profile()
-        guard currentUser.isFull == true else {
-            return
-        }
-        
-        let systemMessage = QBChatMessage()
-        systemMessage.senderID = currentUser.ID
-        systemMessage.markable = false
-        systemMessage.dialogID = dialog.id
-        systemMessage.deliveredIDs = [NSNumber(value: currentUser.ID)]
-        systemMessage.readIDs = [NSNumber(value: currentUser.ID)]
-        systemMessage.customParameters[ChatDataSourceConstant.userID] = NSNumber(value: currentUser.ID).stringValue
-        systemMessage.customParameters[ChatDataSourceConstant.roomID] = roomID
-        systemMessage.customParameters[ChatDataSourceConstant.isCameraEnabled] = isCameraEnabled == true ? "1" : "0"
-        
-        for occupantID in occupantIDs {
-            if currentUser.ID == occupantID {
-                continue
-            }
-            systemMessage.recipientID = occupantID
-            QBChat.instance.sendSystemMessage(systemMessage)
-        }
-    }
-    
     func sendStartCallMessage(_ dialog: QBChatDialog,
                               callType: String,
                               conferenceID: String,

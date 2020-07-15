@@ -18,13 +18,6 @@ extension UIView {
         return loadNib(self)
     }
 
-//    func setupGradient(topColor: UIColor, bottomtColor: UIColor) {
-//        let gradient = CAGradientLayer()
-//        gradient.colors = [topColor.cgColor, bottomtColor.cgColor];
-//        gradient.frame = bounds;
-//        layer.insertSublayer(gradient, at: 0)
-//    }
-    
     func setRoundView(cornerRadius: CGFloat) {
         layer.cornerRadius = cornerRadius
         layer.masksToBounds = true

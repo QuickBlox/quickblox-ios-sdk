@@ -94,6 +94,26 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qhp-Hh-fSG">
                                                             <rect key="frame" x="-95" y="-39" width="240" height="128"/>
                                                             <subviews>
+                                                                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YZZ-9k-Wa1" userLabel="User Name Top View">
+                                                                    <rect key="frame" x="95" y="39" width="50" height="20"/>
+                                                                    <subviews>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w1R-06-Q1P">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="20"/>
+                                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                    </subviews>
+                                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstItem="w1R-06-Q1P" firstAttribute="top" secondItem="YZZ-9k-Wa1" secondAttribute="top" id="1A5-Db-VeD"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="w1R-06-Q1P" secondAttribute="bottom" id="ChF-tM-2ui"/>
+                                                                        <constraint firstItem="w1R-06-Q1P" firstAttribute="leading" secondItem="YZZ-9k-Wa1" secondAttribute="leading" id="NPQ-W6-Z3K"/>
+                                                                        <constraint firstAttribute="height" constant="20" id="d4s-6Q-7jy"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="w1R-06-Q1P" secondAttribute="trailing" id="hvg-Vz-DIb"/>
+                                                                    </constraints>
+                                                                </view>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unmute-opponent_videoview" translatesAutoresizingMaskIntoConstraints="NO" id="kpQ-8b-cF5">
                                                                     <rect key="frame" x="100" y="29" width="40" height="40"/>
                                                                     <constraints>
@@ -113,7 +133,10 @@
                                                         <constraint firstItem="WS0-ii-hYd" firstAttribute="leading" secondItem="HTv-bT-QBz" secondAttribute="leading" id="4E8-0h-NW4"/>
                                                         <constraint firstItem="WS0-ii-hYd" firstAttribute="centerY" secondItem="HTv-bT-QBz" secondAttribute="centerY" id="JrN-DD-WIy"/>
                                                         <constraint firstAttribute="bottom" secondItem="kpQ-8b-cF5" secondAttribute="bottom" constant="20" id="QPE-W1-GHK"/>
+                                                        <constraint firstItem="YZZ-9k-Wa1" firstAttribute="top" secondItem="HTv-bT-QBz" secondAttribute="top" id="QtB-yV-O9q"/>
                                                         <constraint firstAttribute="trailing" secondItem="WS0-ii-hYd" secondAttribute="trailing" id="huv-CX-Pp8"/>
+                                                        <constraint firstItem="YZZ-9k-Wa1" firstAttribute="leading" secondItem="HTv-bT-QBz" secondAttribute="leading" id="mlJ-Wk-tQc"/>
+                                                        <constraint firstAttribute="trailing" secondItem="YZZ-9k-Wa1" secondAttribute="trailing" id="xjk-nG-cQo"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -138,6 +161,7 @@
                                             <outlet property="unmuteOnVideoImageView" destination="kpQ-8b-cF5" id="lhR-xL-kga"/>
                                             <outlet property="userAvatarImageView" destination="2w2-eq-hEB" id="iMh-cQ-0Rw"/>
                                             <outlet property="userAvatarLabel" destination="6Zy-h9-fJ2" id="vui-lN-R7i"/>
+                                            <outlet property="userNameTopLabel" destination="w1R-06-Q1P" id="xrU-a2-wAT"/>
                                             <outlet property="userView" destination="WS0-ii-hYd" id="jav-Bh-VIL"/>
                                             <outlet property="videoContainerView" destination="qhp-Hh-fSG" id="U5v-xC-jBR"/>
                                         </connections>
