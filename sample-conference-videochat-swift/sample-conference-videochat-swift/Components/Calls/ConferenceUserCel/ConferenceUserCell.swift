@@ -14,6 +14,7 @@ class ConferenceUserCell: UICollectionViewCell {
     @IBOutlet private weak var userView: UIView!
     @IBOutlet private weak var userAvatarLabel: UILabel!
     @IBOutlet private weak var userAvatarImageView: UIImageView!
+    @IBOutlet weak var userNameTopLabel: UILabel!
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var containerView: UIView!
     @IBOutlet weak var unmuteImageViewWidthConstraint: NSLayoutConstraint!
@@ -62,6 +63,7 @@ class ConferenceUserCell: UICollectionViewCell {
     
     var name = "" {
         didSet {
+            userNameTopLabel.text = name
             nameLabel.text = name
             userAvatarLabel.text = String(name.capitalized.first ?? Character("Q"))
         }

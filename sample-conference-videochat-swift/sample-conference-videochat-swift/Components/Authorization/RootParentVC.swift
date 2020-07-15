@@ -72,6 +72,8 @@ class RootParentVC: UIViewController {
             current.view.removeFromSuperview()
             current.removeFromParent()
             current = dialogsScreen
+            
+            handlePush()
         }
     }
     

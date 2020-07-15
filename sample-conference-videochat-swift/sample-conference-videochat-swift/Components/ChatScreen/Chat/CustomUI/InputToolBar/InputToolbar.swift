@@ -147,31 +147,6 @@ class InputToolbar: UIToolbar {
         inputToolbarDelegate?.messagesInputToolbar(self, didPressRightBarButton: sender)
     }
     
-    // MARK: - Input toolbar
-//    func toggleButtons() {
-//
-//        let hasText = contentView.textView.text.isEmpty == false
-//        let hasTextAttachment = contentView.textView.hasTextAttachment()
-//        let hasDataToSend: Bool = hasText || hasTextAttachment
-//
-//        var buttonToUpdate = UIButton()
-//
-//        if sendButtonOnRight == true {
-//
-//            if let rightBarButtonItem = contentView.rightBarButtonItem {
-//                buttonToUpdate = rightBarButtonItem
-//                buttonToUpdate.isHidden = !hasDataToSend
-//                buttonToUpdate.isEnabled = contentView.textView.hasText
-//            }
-//        } else {
-//            if let leftBarButtonItem = contentView.leftBarButtonItem {
-//                buttonToUpdate = leftBarButtonItem
-//                buttonToUpdate.isHidden = !hasDataToSend
-//                buttonToUpdate.isEnabled = contentView.textView.hasText
-//            }
-//        }
-//    }
-    
     // MARK: - observing
     func addObservers() {
         leftButtonStatusObserver = contentView.observe(\ToolbarContentView.leftBarButtonItem,

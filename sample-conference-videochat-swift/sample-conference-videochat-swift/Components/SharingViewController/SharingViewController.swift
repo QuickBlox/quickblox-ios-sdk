@@ -9,27 +9,23 @@
 import UIKit
 import Quickblox
 import QuickbloxWebRTC
+import ReplayKit
 
 private let reuseIdentifier = "SharingCell"
 class SharingViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+    var isReplayKit = true
     var session: QBRTCConferenceSession?
     private var images: [String] = []
     private weak var capture: QBRTCVideoCapture?
     private var enabled = false
-    private var screenCapture: ScreenCapture?
+    private var screenCapture: QBRTCVideoCapture?
+    private var oldScreenCapture: ScreenCapture?
     private var indexPath: IndexPath?
+    private let recorder = RPScreenRecorder.shared()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let backButtonItem = UIBarButtonItem(image: UIImage(named: "chevron"),
-                                             style: .plain,
-                                             target: self,
-                                             action: #selector(didTapBack(_:)))
-        navigationItem.leftBarButtonItem = backButtonItem
-        backButtonItem.tintColor = .white
-        navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.2216441333, green: 0.4713830948, blue: 0.9869660735, alpha: 1)
         
         collectionView.isPagingEnabled = true
         images = ["pres_img_1", "pres_img_2", "pres_img_3"]
@@ -39,9 +35,14 @@ class SharingViewController: UICollectionViewController, UICollectionViewDelegat
             capture = session.localMediaStream.videoTrack.videoCapture
             
             //Switch to sharing
-            screenCapture = ScreenCapture(view: view)
-            session.localMediaStream.videoTrack.videoCapture = screenCapture
-            
+            if isReplayKit == true {
+                screenCapture = QBRTCVideoCapture()
+                session.localMediaStream.videoTrack.videoCapture = screenCapture
+                startScreenSharing()
+            } else {
+                oldScreenCapture = ScreenCapture(view: view)
+                session.localMediaStream.videoTrack.videoCapture = oldScreenCapture
+            }
         }
         collectionView.contentInset = UIEdgeInsets.zero
     }
@@ -53,11 +54,16 @@ class SharingViewController: UICollectionViewController, UICollectionViewDelegat
             enabled == false {
             session.localMediaStream.videoTrack.isEnabled = true
         }
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-
+        super.viewWillDisappear(animated)
+        
+        if isReplayKit == true {
+            stopScreenSharing()
+        }
+        
         if isMovingFromParent == true,
             enabled == false,
             let session = session {
@@ -66,9 +72,32 @@ class SharingViewController: UICollectionViewController, UICollectionViewDelegat
         }
     }
     
-    @objc func didTapBack(_ sender: UIBarButtonItem) {
-        navigationController?.navigationBar.barTintColor = UIColor.clear
-        navigationController?.popViewController(animated: true)
+    // MARK: - Internal Methods
+    private func stopScreenSharing() {
+       recorder.stopCapture { error in
+            if let error = error {
+                debugPrint("self.recorder.stopCapture \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    private func startScreenSharing() {
+        recorder.startCapture(handler: { (sampleBuffer, type, error) in
+            
+            switch type {
+            case .video :
+                let source = CMSampleBufferGetImageBuffer(sampleBuffer)
+                let videoFrame = QBRTCVideoFrame(pixelBuffer: source, videoRotation: QBRTCVideoRotation._0)
+                self.screenCapture?.send(videoFrame)
+            default:
+                break
+            }
+            
+        }) { error in
+            if let error = error {
+                debugPrint("self.recorder.startCapture \(error.localizedDescription)")
+            }
+        }
     }
     
     // MARK: <UICollectionViewDataSource>
