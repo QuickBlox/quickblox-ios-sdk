@@ -6,8 +6,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "QBRequest.h"
-#import "QBCompletionTypes.h"
+#import <Quickblox/QBRequest.h>
+#import <Quickblox/QBCompletionTypes.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

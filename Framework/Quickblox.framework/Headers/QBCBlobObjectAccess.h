@@ -5,13 +5,8 @@
 //  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 #import <Foundation/Foundation.h>
-#if __has_include("QBCEntity.h")
-#import "QBCEntity.h"
-#import "QBContentEnums.h"
-#else
-#import <QBCEntity.h>
-#import <QBContentEnums.h>
-#endif
+#import <Quickblox/QBCEntity.h>
+#import <Quickblox/QBContentEnums.h>
 
 /**
  *  QBCBlobObjectAccess class interface.

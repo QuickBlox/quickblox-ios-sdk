@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "QBChatTypes.h"
+#import <Quickblox/QBChatTypes.h>
 
 @protocol QBChatDelegate;
 

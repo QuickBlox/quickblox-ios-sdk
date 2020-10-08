@@ -6,8 +6,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "QBRequest.h"
-#import "QBCustomObjectsConsts.h"
+#import <Quickblox/QBRequest.h>
+#import <Quickblox/QBCustomObjectsConsts.h>
 
 @class QBResponsePage;
 @class QBCOCustomObject;

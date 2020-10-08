@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param error Error.
  */
-- (void)chatDidDisconnectWithError:(NSError *)error;
+- (void)chatDidDisconnectWithError:(NSError * _Nullable)error;
 
 /**
  Called whenever QBChat did accidentally disconnect.
