@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "QBRequest.h"
+#import <Quickblox/QBRequest.h>
 
 @class QBCBlob;
 @class QBCBlobObjectAccess;
