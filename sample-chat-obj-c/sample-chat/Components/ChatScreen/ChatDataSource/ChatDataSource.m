@@ -10,6 +10,7 @@
 #import "QBChatMessage+QBDateDivider.h"
 #import "NSDate+ChatDataSource.h"
 #import "DateUtils.h"
+#import "NSDate+Chat.h"
 
 NSString *const dateDividerKey = @"kQBDateDividerCustomParameterKey";
 
@@ -95,10 +96,24 @@ NSComparator messageComparator = ^(QBChatMessage *obj1, QBChatMessage *obj2) {
                 continue;
             }
             
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            
+            if ([divideDate isHasSameComponents:NSCalendarUnitYear asDate:[NSDate date]] == YES) {
+                formatter.dateFormat = @"d MMM";
+            } else {
+                formatter.dateFormat = @"d MMM, yyyy";
+            }
+            
             [self.dateDividers addObject:divideDate];
             
             QBChatMessage *dividerMessage = [QBChatMessage new];
-            dividerMessage.text = [DateUtils formattedLastSeenString:divideDate withTimePrefix:nil];
+            dividerMessage.text = [formatter stringFromDate:divideDate];
+            if ([NSCalendar.currentCalendar isDateInToday:divideDate]) {
+                dividerMessage.text = @"Today";
+            }
+            if ([NSCalendar.currentCalendar isDateInYesterday:divideDate]) {
+                dividerMessage.text = @"Yesterday";
+            }
             dividerMessage.dateSent = divideDate;
             dividerMessage.isDateDividerMessage = YES;
             

@@ -28,8 +28,8 @@
 - (void)configureFlowLayout {
     
     self.scrollDirection = UICollectionViewScrollDirectionVertical;
-    self.sectionInset = UIEdgeInsetsMake(10.0f, 4.0f, 10.0f, 4.0f);
-    self.minimumLineSpacing = 4.0f;
+    self.sectionInset = UIEdgeInsetsMake(10.0f, 0.0f, 10.0f, 0.0f);
+    self.minimumLineSpacing = 16.0f;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveApplicationMemoryWarningNotification:)
@@ -195,7 +195,7 @@
     if (CGSizeEqualToSize(layoutModel.staticContainerSize, CGSizeZero)) {
         
         //  from the cell xibs, there is a 2 point space between avatar and bubble
-        CGFloat spacingBetweenAvatarAndBubble = 2.0f;
+        CGFloat spacingBetweenAvatarAndBubble = 16.0f;
         CGFloat horizontalContainerInsets = layoutModel.containerInsets.left + layoutModel.containerInsets.right;
         CGFloat horizontalInsetsTotal = horizontalContainerInsets + spacingBetweenAvatarAndBubble;
         CGFloat maximumWidth = self.itemWidth - layoutModel.avatarSize.width - layoutModel.maxWidthMarginSpace;
@@ -209,10 +209,9 @@
                                                        dynamicSizeAtIndexPath:indexPath
                                                                      maxWidth:maximumWidth - horizontalInsetsTotal];
         CGFloat verticalContainerInsets =
-        layoutModel.containerInsets.top + layoutModel.containerInsets.bottom + layoutModel.topLabelHeight + layoutModel.bottomLabelHeight;
+        layoutModel.containerInsets.top + layoutModel.containerInsets.bottom + layoutModel.timeLabelHeight + 6.0f;
         
-        CGFloat additionalSpace =
-        layoutModel.spaceBetweenTextViewAndBottomLabel + layoutModel.spaceBetweenTopLabelAndTextView;
+        CGFloat additionalSpace = layoutModel.spaceBetweenTopLabelAndTextView;
         
         CGFloat finalWidth = dynamicSize.width + horizontalContainerInsets;
         
@@ -259,9 +258,7 @@
     
     layoutAttributes.avatarSize = layoutModel.avatarSize;
     layoutAttributes.containerInsets = layoutModel.containerInsets;
-    layoutAttributes.topLabelHeight = layoutModel.topLabelHeight;
-    layoutAttributes.bottomLabelHeight = layoutModel.bottomLabelHeight;
-    layoutAttributes.spaceBetweenTopLabelAndTextView = layoutModel.spaceBetweenTopLabelAndTextView;
+    layoutAttributes.topLabelHeight = layoutModel.timeLabelHeight;
     layoutAttributes.spaceBetweenTextViewAndBottomLabel = layoutModel.spaceBetweenTextViewAndBottomLabel;
 }
 

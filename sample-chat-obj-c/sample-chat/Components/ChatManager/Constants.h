@@ -36,7 +36,7 @@ static NSString *const kGoToEditDialogSegueIdentifier = @"goToEditDialog";
 /**
  *  DialogInfoTableViewController
  */
-static NSString *const kGoToAddOccupantsSegueIdentifier = @"goToAddOccupants";
+static NSString *const kGoToAddOccupantsSegueIdentifier = @"SelectOpponents";
 
 /**
  *  EditDialogTableViewController

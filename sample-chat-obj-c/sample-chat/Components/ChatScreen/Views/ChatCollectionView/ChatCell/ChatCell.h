@@ -19,7 +19,7 @@ struct ChatLayoutModel {
     CGSize containerSize;
     UIEdgeInsets containerInsets;
     CGFloat topLabelHeight;
-    CGFloat bottomLabelHeight;
+    CGFloat timeLabelHeight;
     CGSize staticContainerSize;
     CGFloat spaceBetweenTopLabelAndTextView;
     CGFloat spaceBetweenTextViewAndBottomLabel;
@@ -115,11 +115,14 @@ typedef struct ChatLayoutModel ChatCellLayoutModel;
  *  Doing so could result in unexpected behavior.
  */
 @property (weak, nonatomic, readonly) UIView *avatarContainerView;
+@property (weak, nonatomic, readonly) UIImageView *avatarView;
+@property (weak, nonatomic, readonly) UILabel *avatarLabel;
+@property (weak, nonatomic, readonly) TTTAttributedLabel *timeLabel;
 
 /**
- *  Property to set avatar view
+ *  Returns bubbleContainer view
  */
-@property (weak, nonatomic, readonly) ImageView *avatarView;
+@property (weak, nonatomic, readonly) UIView *previewContainer;
 
 /**
  *  Returns chat message attributed label.

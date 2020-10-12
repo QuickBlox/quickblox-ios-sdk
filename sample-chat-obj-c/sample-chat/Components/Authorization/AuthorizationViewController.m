@@ -14,11 +14,24 @@
 #import "Profile.h"
 #import "Reachability.h"
 #import "Log.h"
-#import <UserNotifications/UserNotifications.h>
+#import "UITextField+Chat.h"
+#import "UIColor+Chat.h"
+#import "NSString+Chat.h"
+#import "AppDelegate.h"
+#import "RootParentVC.h"
 
 NSString *const QB_DEFAULT_PASSWORD = @"quickblox";
 NSString *const SHOW_DIALOGS = @"ShowDialogsViewController";
 NSString *const FULL_NAME_DID_CHANGE = @"Full Name Did Change";
+NSString *const LOGIN_HINT = @"Use your email or alphanumeric characters in a range from 3 to 50. First character must be a letter.";
+NSString *const USERNAME_HINT = @"Use alphanumeric characters and spaces in a range from 3 to 20. Cannot contain more than one space in a row.";
+NSString *const CHECK_INTERNET = @"Please check your Internet connection";
+NSString *const ENTER_LOGIN_USERNAME = @"Please enter your login and display name";
+NSString *const ENTER_CHAT = @"Enter to chat";
+NSString *const LOGIN = @"Login";
+NSString *const SIGNG = @"Signg up ...";
+NSString *const LOGIN_USER = @"Login with current user ...";
+NSString *const LOGIN_CHAT = @"Login into chat ...";
 
 @interface AuthorizationViewController () <UITextFieldDelegate>
 
@@ -29,7 +42,8 @@ NSString *const FULL_NAME_DID_CHANGE = @"Full Name Did Change";
 @property (weak, nonatomic) IBOutlet UITextField *loginTextField;
 @property (weak, nonatomic) IBOutlet LoadingButton *loginButton;
 @property (assign, nonatomic) BOOL needReconnect;
-
+@property (strong, nonatomic) NSString *inputedLogin;
+@property (strong, nonatomic) NSString *inputedUsername;
 @end
 
 @implementation AuthorizationViewController
@@ -37,15 +51,24 @@ NSString *const FULL_NAME_DID_CHANGE = @"Full Name Did Change";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tableView.estimatedRowHeight = 80;
+    self.inputedLogin = @"";
+    self.inputedUsername = @"";
+    
+    self.tableView.estimatedRowHeight = 86;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     self.tableView.delaysContentTouches = NO;
     
-    self.navigationItem.title = NSLocalizedString(@"Enter to chat", nil);
+    self.navigationItem.title = NSLocalizedString(ENTER_CHAT, nil);
     
-    //add Info Screen
-    [self showInfoButton];
+    [self addInfoButton];
+    
+    [self setupViews];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -61,32 +84,66 @@ NSString *const FULL_NAME_DID_CHANGE = @"Full Name Did Change";
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
+}
+
 #pragma mark - Setup
+- (void)setupViews {
+    [self.loginTextField setPadding:12.0f isLeft:YES];
+    [self.loginTextField addShadowToTextFieldWithColor:[UIColor colorWithHexString:@"#DFEBFF"] cornerRadius:4.0f];
+    
+    [self.userNameTextField setPadding:12.0f isLeft:YES];
+    [self.userNameTextField addShadowToTextFieldWithColor:[UIColor colorWithHexString:@"#DFEBFF"] cornerRadius:4.0f];
+}
+
 - (void)defaultConfiguration {
     [self.loginButton hideLoading];
-    [self.loginButton setTitle:NSLocalizedString(@"Login", nil)
+    [self.loginButton setTitle:NSLocalizedString(LOGIN, nil)
                       forState:UIControlStateNormal];
     
     self.loginButton.enabled = NO;
-    self.userNameTextField.text = @"";
-    self.loginTextField.text = @"";
+    self.userNameTextField.text = self.inputedUsername;
+    self.loginTextField.text = self.inputedLogin;
+    self.loginButton.enabled = ([self isValidLogin:self.loginTextField.text] && [self isValidUserName:self.userNameTextField.text]);
+    self.loginDescritptionLabel.text = @"";
+    self.userNameDescriptionLabel.text = @"";
     
     [self setupInputEnabled:YES];
     
     // Reachability
-    void (^updateLoginInfo)(QBNetworkStatus status) = ^(QBNetworkStatus status) {
+    void (^updateLoginInfo)(NetworkStatus status) = ^(NetworkStatus status) {
         
-        NSString *loginInfo = (status == QBNetworkStatusNotReachable) ?
-        NSLocalizedString(@"Please check your Internet connection", nil):
-        NSLocalizedString(@"Please enter your login and username.", nil);
+        NSString *loginInfo = (status == NetworkStatusNotReachable) ?
+        NSLocalizedString(CHECK_INTERNET, nil):
+        NSLocalizedString(ENTER_LOGIN_USERNAME, nil);
         [self updateLoginInfoText:loginInfo];
     };
     
-    Reachability.instance.networkStatusBlock = ^(QBNetworkStatus status) {
+    Reachability.instance.networkStatusBlock = ^(NetworkStatus status) {
         updateLoginInfo(status);
     };
     
     updateLoginInfo(Reachability.instance.networkStatus);
+}
+
+- (AppDelegate*)shared {
+    return (AppDelegate*) [[UIApplication sharedApplication] delegate];
+}
+
+#pragma mark - KeyboardWillHideNotification
+- (void)keyboardWillHide:(NSNotification *)notification  {
+    if (self.userNameTextField.text.length == 0) {
+        self.userNameDescriptionLabel.text = @"";
+    }
+    if (self.loginTextField.text.length == 0) {
+        self.loginDescritptionLabel.text = @"";
+    }
+    [self.tableView reloadData];
 }
 
 #pragma mark - Disable / Enable inputs
@@ -111,29 +168,73 @@ NSString *const FULL_NAME_DID_CHANGE = @"Full Name Did Change";
 }
 
 #pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField.isFirstResponder) {
+        [textField resignFirstResponder];
+    }
+    return YES;
+}
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     [self validateTextField:textField];
 }
 
+- (IBAction)editingDidEnd:(UITextField *)sender {
+    [sender addShadowToTextFieldWithColor:[UIColor colorWithHexString:@"#DFEBFF"] cornerRadius:4.0f];
+}
+
+- (IBAction)editingDidBegin:(UITextField *)sender {
+    [sender addShadowToTextFieldWithColor:[UIColor colorWithHexString:@"#ACBFE2"] cornerRadius:4.0f];
+}
+
 - (IBAction)editingChanged:(UITextField *)sender {
+    if (self.userNameTextField.isFirstResponder) {
+        if (self.userNameTextField.text.length > 1 && [self.userNameTextField.text endsInWhitespaceCharacter]) {
+            if ([self.userNameTextField.text hasSuffix:@"  "]) {
+                self.userNameTextField.text = self.inputedUsername;
+            }
+        }
+    }
     [self validateTextField:sender];
     self.loginButton.enabled = [self isValidUserName:self.userNameTextField.text] && [self isValidLogin:self.loginTextField.text];
+    if (self.userNameTextField.text.length) {
+        self.inputedUsername = self.userNameTextField.text;
+    }
+    if (self.loginTextField.text.length) {
+        self.inputedLogin = self.loginTextField.text;
+    }
 }
 
 - (void)validateTextField:(UITextField *)textField {
-    if (textField == self.userNameTextField && [self isValidUserName:self.userNameTextField.text] == NO) {
+    if (textField == self.loginTextField) {
+        if ([self isValidChangedLogin:self.loginTextField.text] == NO) {
+            self.loginDescritptionLabel.text = NSLocalizedString(LOGIN_HINT, nil);
+        } else {
+            self.loginDescritptionLabel.text = @"";
+        }
         
-        self.loginDescritptionLabel.text = @"";
-        self.userNameDescriptionLabel.text =
-        NSLocalizedString(@"Field should contain alphanumeric characters only in a range 3 to 20. The first character must be a letter.", nil);
-    } else if (textField == self.loginTextField && [self isValidLogin:self.loginTextField.text] == NO) {
+        if (self.userNameTextField.text.length == 0) {
+            self.userNameDescriptionLabel.text = @"";
+        } else if ([self isValidChangedUserName:self.userNameTextField.text] == NO) {
+            self.userNameDescriptionLabel.text = NSLocalizedString(USERNAME_HINT, nil);
+        } else {
+            self.userNameDescriptionLabel.text = @"";
+        }
+    }
+    if (textField == self.userNameTextField) {
+        if ([self isValidChangedUserName:self.userNameTextField.text] == NO) {
+            self.userNameDescriptionLabel.text = NSLocalizedString(USERNAME_HINT, nil);
+        } else {
+            self.userNameDescriptionLabel.text = @"";
+        }
         
-        self.userNameDescriptionLabel.text = @"";
-        self.loginDescritptionLabel.text =
-        NSLocalizedString(@"Field should contain alphanumeric characters only in a range 8 to 15, without space. The first character must be a letter.", nil);
-    } else {
-        self.userNameDescriptionLabel.text = @"";
-        self.loginDescritptionLabel.text = self.userNameDescriptionLabel.text;
+        if (self.loginTextField.text.length == 0) {
+            self.loginDescritptionLabel.text = @"";
+        } else if ([self isValidChangedLogin:self.loginTextField.text] == NO) {
+            self.loginDescritptionLabel.text = NSLocalizedString(LOGIN_HINT, nil);
+        } else {
+            self.loginDescritptionLabel.text = @"";
+        }
     }
     
     [self.tableView beginUpdates];
@@ -151,7 +252,7 @@ NSString *const FULL_NAME_DID_CHANGE = @"Full Name Did Change";
     newUser.fullName = fullName;
     newUser.password = QB_DEFAULT_PASSWORD;
     
-    [self updateLoginInfoText:@"Signg up ..."];
+    [self updateLoginInfoText:SIGNG];
     
     __weak __typeof(self)weakSelf = self;
     [QBRequest signUp:newUser successBlock:^(QBResponse * _Nonnull response, QBUUser * _Nonnull user) {
@@ -176,34 +277,34 @@ NSString *const FULL_NAME_DID_CHANGE = @"Full Name Did Change";
 - (void)loginWithFullName:(NSString *)fullName login:(NSString *)login password:(NSString *)password {
     [self beginConnect];
     
-    [self updateLoginInfoText:@"Login with current user ..."];
+    [self updateLoginInfoText:LOGIN_USER];
     
     __weak __typeof(self)weakSelf = self;
     [QBRequest logInWithUserLogin:login
                          password:password
                      successBlock:^(QBResponse * _Nonnull response, QBUUser * _Nonnull user) {
-                         
-                         __typeof(weakSelf)strongSelf = weakSelf;
-                         
-                         [user setPassword:password];
-                         [Profile synchronizeUser:user];
-                         
-                         if ([user.fullName isEqualToString: fullName] == NO) {
-                             [strongSelf updateFullName:fullName login:login];
-                         } else {
-                             [strongSelf connectToChat:user];
-                         }
-                         
-                     } errorBlock:^(QBResponse * _Nonnull response) {
-                         __typeof(weakSelf)strongSelf = weakSelf;
-                
-                         [strongSelf handleError:response.error.error];
-                         if (response.status == QBResponseStatusCodeUnAuthorized) {
-                             // Clean profile
-                             [Profile clearProfile];
-                             [strongSelf defaultConfiguration];
-                         }
-                     }];
+        
+        __typeof(weakSelf)strongSelf = weakSelf;
+        
+        [user setPassword:password];
+        [Profile synchronizeUser:user];
+        
+        if ([user.fullName isEqualToString: fullName] == NO) {
+            [strongSelf updateFullName:fullName login:login];
+        } else {
+            [strongSelf connectToChat:user];
+        }
+        
+    } errorBlock:^(QBResponse * _Nonnull response) {
+        __typeof(weakSelf)strongSelf = weakSelf;
+        
+        [strongSelf handleError:response.error.error];
+        if (response.status == QBResponseStatusCodeUnAuthorized) {
+            // Clean profile
+            [Profile clearProfile];
+            [strongSelf defaultConfiguration];
+        }
+    }];
 }
 
 /**
@@ -216,15 +317,15 @@ NSString *const FULL_NAME_DID_CHANGE = @"Full Name Did Change";
     __weak __typeof(self)weakSelf = self;
     [QBRequest updateCurrentUser:updateUserParameter
                     successBlock:^(QBResponse * _Nonnull response, QBUUser * _Nonnull user) {
-                        __typeof(weakSelf)strongSelf = weakSelf;
-                        [strongSelf updateLoginInfoText: FULL_NAME_DID_CHANGE];
-                        [Profile updateUser:user];
-                        [strongSelf connectToChat:user];
-                        
-                    } errorBlock:^(QBResponse * _Nonnull response) {
-                        __typeof(weakSelf)strongSelf = weakSelf;
-                        [strongSelf handleError:response.error.error];
-                    }];
+        __typeof(weakSelf)strongSelf = weakSelf;
+        [strongSelf updateLoginInfoText: FULL_NAME_DID_CHANGE];
+        [Profile updateUser:user];
+        [strongSelf connectToChat:user];
+        
+    } errorBlock:^(QBResponse * _Nonnull response) {
+        __typeof(weakSelf)strongSelf = weakSelf;
+        [strongSelf handleError:response.error.error];
+    }];
 }
 
 /**
@@ -232,30 +333,33 @@ NSString *const FULL_NAME_DID_CHANGE = @"Full Name Did Change";
  */
 - (void)connectToChat:(QBUUser *)user {
     
-    [self updateLoginInfoText:@"Login into chat ..."];
+    [self updateLoginInfoText:LOGIN_CHAT];
     
     __weak __typeof(self)weakSelf = self;
-    
     [QBChat.instance connectWithUserID:user.ID
                               password:QB_DEFAULT_PASSWORD
                             completion:^(NSError * _Nullable error) {
-                                
-                                __typeof(weakSelf)strongSelf = weakSelf;
-                                
-                                if (error) {
-                                    if (error.code == QBResponseStatusCodeUnAuthorized) {
-                                        // Clean profile
-                                        [Profile clearProfile];
-                                        [strongSelf defaultConfiguration];
-                                    } else {
-                                        [strongSelf handleError:error];
-                                    }
-                                } else {
-                                    //did Login action
-                                    [self registerForRemoteNotifications];
-                                    [strongSelf performSegueWithIdentifier:SHOW_DIALOGS sender:nil];
-                                }
-                            }];
+        
+        __typeof(weakSelf)strongSelf = weakSelf;
+        
+        if (error) {
+            if (error.code == QBResponseStatusCodeUnAuthorized) {
+                // Clean profile
+                [Profile clearProfile];
+                [strongSelf defaultConfiguration];
+            } else {
+                [strongSelf handleError:error];
+            }
+        } else {
+            //did Login action
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [(RootParentVC *)[strongSelf shared].window.rootViewController showDialogsScreen];
+            });
+            self.inputedUsername = @"";
+            self.inputedLogin = @"";
+        }
+    }];
+    
 }
 
 - (void)beginConnect {
@@ -272,36 +376,11 @@ NSString *const FULL_NAME_DID_CHANGE = @"Full Name Did Change";
     }
 }
 
-- (void)registerForRemoteNotifications {
-    // Enable push notifications
-    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    
-    [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound |
-                                             UNAuthorizationOptionAlert |
-                                             UNAuthorizationOptionBadge)
-                          completionHandler:^(BOOL granted, NSError * _Nullable error) {
-                              if (error) {
-                                  Log(@"%@ registerForRemoteNotifications error: %@",NSStringFromClass([AuthorizationViewController class]),
-                                      error.localizedDescription);
-                                  return;
-                              }
-                              [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings *settings) {
-                                  if (settings.authorizationStatus != UNAuthorizationStatusAuthorized) {
-                                      return;
-                                  }
-                                  
-                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                      [[UIApplication sharedApplication] registerForRemoteNotifications];
-                                  });
-                              }];
-                          }];
-}
-
 #pragma mark - Handle errors
 - (void)handleError:(NSError *)error {
     NSString *infoText = error.localizedDescription;
     if (error.code == NSURLErrorNotConnectedToInternet) {
-        infoText = NSLocalizedString(@"Please check your Internet connection", nil);
+        infoText = NSLocalizedString(CHECK_INTERNET, nil);
     }
     [self setupInputEnabled:YES];
     [self.loginButton hideLoading];
@@ -315,23 +394,37 @@ NSString *const FULL_NAME_DID_CHANGE = @"Full Name Did Change";
 
 #pragma mark - Validation helpers
 - (BOOL)isValidUserName:(NSString *)fullName {
-    NSCharacterSet *characterSet = [NSCharacterSet whitespaceCharacterSet];
-    NSString *userName = [fullName stringByTrimmingCharactersInSet:characterSet];
-    NSString *userNameRegex = @"^[^_][\\w\\u00C0-\\u1FFF\\u2C00-\\uD7FF\\s]{2,19}$";
+    NSString *userNameRegex = @"^[a-zA-Z][a-zA-Z 0-9]{2,19}$";
     NSPredicate *userNamePredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", userNameRegex];
-    BOOL userNameIsValid = [userNamePredicate evaluateWithObject:userName];
-    
+    BOOL userNameIsValid = [userNamePredicate evaluateWithObject:fullName];
+    return userNameIsValid;
+}
+
+- (BOOL)isValidChangedUserName:(NSString *)fullName {
+    NSString *userNameRegex = @"^[a-zA-Z][a-zA-Z 0-9]{2,19}$";
+    NSPredicate *userNamePredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", userNameRegex];
+    BOOL userNameIsValid = [userNamePredicate evaluateWithObject:fullName];
     return userNameIsValid;
 }
 
 - (BOOL)isValidLogin:(NSString *)login {
-    NSCharacterSet *characterSet = [NSCharacterSet whitespaceCharacterSet];
-    NSString *tag = [login stringByTrimmingCharactersInSet:characterSet];
-    NSString *tagRegex = @"^[a-zA-Z][a-zA-Z0-9]{7,14}$";
+    NSString *tagRegex = @"^[a-zA-Z][a-zA-Z0-9]{2,49}$";
+    NSString *tagRegexEmail = @"^[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,49}$";
     NSPredicate *tagPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", tagRegex];
-    BOOL tagIsValid = [tagPredicate evaluateWithObject:tag];
-    
-    return tagIsValid;
+    NSPredicate *tagPredicateEmail = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", tagRegexEmail];
+    BOOL tagIsValid = [tagPredicate evaluateWithObject:login];
+    BOOL tagIsValidEmail = [tagPredicateEmail evaluateWithObject:login];
+    return (tagIsValid || tagIsValidEmail);
+}
+
+- (BOOL)isValidChangedLogin:(NSString *)login {
+    NSString *tagRegex = @"^[a-zA-Z][a-zA-Z0-9]{2,49}$";
+    NSString *tagRegexEmail = @"^[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,49}$";
+    NSPredicate *tagPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", tagRegex];
+    NSPredicate *tagPredicateEmail = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", tagRegexEmail];
+    BOOL tagIsValid = [tagPredicate evaluateWithObject:login];
+    BOOL tagIsValidEmail = [tagPredicateEmail evaluateWithObject:login];
+    return (tagIsValid || tagIsValidEmail);
 }
 
 @end

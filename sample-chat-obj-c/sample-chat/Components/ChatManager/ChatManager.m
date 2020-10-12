@@ -12,22 +12,18 @@
 #import "Profile.h"
 #import "Constants.h"
 #import "Log.h"
+#import "AppDelegate.h"
 
 static NSString* const kChatServiceDomain = @"com.q-municate.chatservice";
 static NSUInteger const kMessagesLimitPerDialog = 30;
+static NSUInteger const kUsersLimit = 100;
 static NSUInteger const kErrorDomaimCode = -1000;
 
 typedef void(^DialogsIterationHandler)(QBResponse *response, NSArray<QBChatDialog *> *objects , NSSet<NSNumber *> *usersIDs, Boolean stop);
 typedef void(^DialogsPage)(QBResponsePage *page);
 typedef void(^UsersPage)(QBGeneralResponsePage *page);
 
-
-@interface ChatManager ()
-
-@end
-
 @implementation ChatManager
-
 //MARK: - Life Cycle
 - (instancetype)init {
     self = [super init];
@@ -47,12 +43,11 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
     return manager;
 }
 
-//MARK: - Public Methods
+#pragma mark - Public Methods
 - (void)updateStorage {
     if ([self.delegate respondsToSelector:@selector(chatManagerWillUpdateStorage:)]) {
         [self.delegate chatManagerWillUpdateStorage:self];
     }
-    dispatch_group_t loadGroup = dispatch_group_create();
     
     if (QBChat.instance.isConnected == NO) {
         if ([self.delegate respondsToSelector:@selector(chatManager:didFailUpdateStorage:)]) {
@@ -62,23 +57,10 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
     }
     __block NSString *message;
     
-    dispatch_group_enter(loadGroup);
-    [self updateUsersWithCompletion:^(QBResponse *response) {
-        if (response) {
-            message = [self errorMessageWithResponse:response];
-        }
-        dispatch_group_leave(loadGroup);
-    }];
-    
-    dispatch_group_enter(loadGroup);
     [self updateAllDialogsWithPageLimit:kDialogsPageLimit extendedRequest:nil iterationBlock:nil completion:^(QBResponse *response) {
         if (response) {
             message = [self errorMessageWithResponse:response];
         }
-        dispatch_group_leave(loadGroup);
-    }];
-    
-    dispatch_group_notify(loadGroup, dispatch_get_main_queue(), ^{
         if (message) {
             if ([self.delegate respondsToSelector:@selector(chatManager:didFailUpdateStorage:)]) {
                 [self.delegate chatManager:self didFailUpdateStorage:message];
@@ -88,7 +70,7 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
                 [self.delegate chatManager:self didUpdateStorage:NSLocalizedString(@"SA_STR_COMPLETED", nil)];
             }
         }
-    });
+    }];
 }
 
 //MARK: - System Messages
@@ -116,33 +98,20 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
     
     
     // send system messages
-    NSOperationQueue *operationQueue = [[NSOperationQueue alloc] init];
-    operationQueue.maxConcurrentOperationCount = dialog.occupantIDs.count;
-    
-    NSBlockOperation *completionOperation = [NSBlockOperation blockOperationWithBlock:^{
-        [dialog sendMessage:message completionBlock:^(NSError * _Nullable error) {
-            if (completion) {
-                completion(error);
-            }
-        }];
-    }];
-    
-    NSBlockOperation *systemMessagesOperation = [NSBlockOperation blockOperationWithBlock:^{
-        for (NSNumber *occupantID in dialog.occupantIDs) {
-            if (currentUser.ID == occupantID.integerValue) {
-                continue;
-            }
-            systemMessage.recipientID = occupantID.unsignedIntegerValue;
-            [QBChat.instance sendSystemMessage:systemMessage completion:^(NSError * _Nullable error) {
-                if (completion) {
-                    completion(error);
-                }
-            }];
+    [dialog sendMessage:message completionBlock:^(NSError * _Nullable error) {
+        if (completion) {
+            completion(error);
         }
     }];
+    for (NSNumber *occupantID in dialog.occupantIDs) {
+        if (currentUser.ID == occupantID.integerValue) {
+            continue;
+        }
+        systemMessage.recipientID = occupantID.unsignedIntegerValue;
+        [QBChat.instance sendSystemMessage:systemMessage completion:^(NSError * _Nullable error) {
+        }];
+    }
     
-    [systemMessagesOperation addDependency:completionOperation];
-    [operationQueue addOperations:@[systemMessagesOperation, completionOperation] waitUntilFinished:NO];
 }
 
 - (void)sendAddingMessage:(NSString *)text
@@ -174,6 +143,7 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
     systemMessage.text = text;
     systemMessage.deliveredIDs = @[@(currentUser.ID)];
     systemMessage.readIDs = @[@(currentUser.ID)];
+    
     systemMessage.customParameters[@"dialog_id"] = dialog.ID;
     if (action == DialogActionTypeAdd) {
         systemMessage.customParameters[@"notification_type"] = [NSString stringWithFormat:@"%@", @(NotificationMessageTypeAdding)];
@@ -182,33 +152,20 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
     }
     
     // send system messages
-    NSOperationQueue *operationQueue = [[NSOperationQueue alloc] init];
-    operationQueue.maxConcurrentOperationCount = usersIDs.count;
-    
-    NSBlockOperation *completionOperation = [NSBlockOperation blockOperationWithBlock:^{
-        [dialog sendMessage:chatMessage completionBlock:^(NSError * _Nullable error) {
-            if (completion) {
-                completion(error);
-            }
-        }];
-    }];
-    
-    NSBlockOperation *systemMessagesOperation = [NSBlockOperation blockOperationWithBlock:^{
-        for (NSNumber *occupantID in usersIDs) {
-            if (currentUser.ID == occupantID.integerValue) {
-                continue;
-            }
-            systemMessage.recipientID = occupantID.unsignedIntegerValue;
-            [QBChat.instance sendSystemMessage:systemMessage completion:^(NSError * _Nullable error) {
-                if (completion) {
-                    completion(error);
-                }
-            }];
+    [dialog sendMessage:chatMessage completionBlock:^(NSError * _Nullable error) {
+        if (completion) {
+            completion(error);
         }
     }];
     
-    [completionOperation addDependency:systemMessagesOperation];
-    [operationQueue addOperations:@[systemMessagesOperation, completionOperation] waitUntilFinished:NO];
+    for (NSNumber *occupantID in usersIDs) {
+        if (currentUser.ID == occupantID.integerValue) {
+            continue;
+        }
+        systemMessage.recipientID = occupantID.unsignedIntegerValue;
+        [QBChat.instance sendSystemMessage:systemMessage completion:^(NSError * _Nullable error) {
+        }];
+    }
 }
 
 // MARK: - Dialogs
@@ -275,6 +232,8 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
             if (completion) {
                 completion(response, createdDialog);
             }
+            
+            
         } errorBlock:^(QBResponse * _Nonnull response) {
             if (completion) {
                 completion(response, nil);
@@ -283,15 +242,25 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
     }
 }
 
-- (void)deleteDialogWithID:(NSString *)dialogId completion:(nullable void(^)(QBResponse *response))completion {
+- (void)leaveDialogWithID:(NSString *)dialogId completion:(nullable void(^)(QBResponse *response))completion {
     QBChatDialog *dialog = [self.storage  dialogWithID:dialogId];
     NSSet *dialogsWithIDs = [NSSet setWithArray:@[dialogId]];
     
-    if (dialog) {
+    if (!dialog) {
+        if (completion) {
+            completion(nil);
+        }
+        return;
+    }
+    
+    if (dialog.type == QBChatDialogTypePrivate) {
         [QBRequest deleteDialogsWithIDs:dialogsWithIDs forAllUsers:NO successBlock:^(QBResponse * _Nonnull response, NSArray<NSString *> * _Nonnull deletedObjectsIDs, NSArray<NSString *> * _Nonnull notFoundObjectsIDs, NSArray<NSString *> * _Nonnull wrongPermissionsObjectsIDs) {
             [self.storage deleteDialogWithID:dialogId];
             if ([self.delegate respondsToSelector:@selector(chatManager:didUpdateStorage:)]) {
                 [self.delegate chatManager:self didUpdateStorage:NSLocalizedString(@"SA_STR_COMPLETED", nil)];
+            }
+            if (completion) {
+                completion(nil);
             }
         } errorBlock:^(QBResponse * _Nonnull response) {
             if (response.status == QBResponseStatusCodeNotFound || response.status == 403) {
@@ -300,6 +269,31 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
             NSString *errorMessage = [self errorMessageWithResponse:response];
             if ([self.delegate respondsToSelector:@selector(chatManager:didFailUpdateStorage:)]) {
                 [self.delegate chatManager:self didFailUpdateStorage:errorMessage];
+            }
+            if (completion) {
+                completion(response);
+            }
+        }];
+        
+    } else if (dialog.type == QBChatDialogTypeGroup) {
+        [QBRequest updateDialog:dialog successBlock:^(QBResponse * _Nonnull response, QBChatDialog * _Nonnull tDialog) {
+            [self.storage deleteDialogWithID:tDialog.ID];
+            if ([self.delegate respondsToSelector:@selector(chatManager:didUpdateStorage:)]) {
+                [self.delegate chatManager:self didUpdateStorage:NSLocalizedString(@"SA_STR_COMPLETED", nil)];
+            }
+            if (completion) {
+                completion(nil);
+            }
+        } errorBlock:^(QBResponse * _Nonnull response) {
+            if (response.status == QBResponseStatusCodeNotFound || response.status == 403) {
+                [self.storage deleteDialogWithID:dialogId];
+            }
+            NSString *errorMessage = [self errorMessageWithResponse:response];
+            if ([self.delegate respondsToSelector:@selector(chatManager:didFailUpdateStorage:)]) {
+                [self.delegate chatManager:self didFailUpdateStorage:errorMessage];
+            }
+            if (completion) {
+                completion(response);
             }
         }];
     }
@@ -322,6 +316,7 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
         if (completion) {
             completion(chatDialog);
         }
+        
     } errorBlock:^(QBResponse * _Nonnull response) {
         if (completion) {
             completion(nil);
@@ -354,19 +349,17 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
     
     QBChatDialog *dialog = [self.storage dialogWithID:dialogId];
     if (dialog) {
-        
-        
         dialog.lastMessageText = message.text;
+        dialog.lastMessageDate = message.dateSent;
         dialog.updatedAt = message.dateSent;
         if (message.senderID != currentUser.ID) {
-            dialog.unreadMessagesCount += 1;
+            dialog.unreadMessagesCount = dialog.unreadMessagesCount + 1;
         }
-        
+        Log(@"dialog.unreadMessagesCount: %@", @(dialog.unreadMessagesCount));
         if (message.attachments.count) {
             dialog.lastMessageText = @"[Attachment]";
         }
-        
-        if (message.customParameters[@"notification_type"] != nil) {
+        if (message.customParameters[@"notification_type"]) {
             NSString *typeLeave = [NSString stringWithFormat:@"%@", @(NotificationMessageTypeLeave)];
             NSString *typeAdd = [NSString stringWithFormat:@"%@", @(NotificationMessageTypeAdding)];
             if ([message.customParameters[@"notification_type"] isEqualToString: typeAdd]) {
@@ -375,7 +368,6 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
                 NSArray *strArrayIDs = [strIDs componentsSeparatedByString:@","];
                 NSMutableArray *newOccupantIDs = [NSMutableArray array];
                 NSMutableArray *missingOccupantIDs = [NSMutableArray array];
-                
                 for (NSString *strID in strArrayIDs) {
                     if ([occupantIDs containsObject: @(strID.integerValue)]) {
                         continue;
@@ -385,37 +377,35 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
                         [missingOccupantIDs addObject:@(strID.integerValue)];
                     }
                 }
-                
                 if (missingOccupantIDs.count) {
                     NSMutableArray *newUsers = [NSMutableArray array];
                     for (NSNumber *ID in missingOccupantIDs) {
                         [newUsers addObject:ID.stringValue];
                     }
-                    
                     [QBRequest usersWithIDs:newUsers
                                        page:nil
                                successBlock:^(QBResponse * _Nonnull response, QBGeneralResponsePage * _Nonnull page, NSArray<QBUUser *> * _Nonnull users) {
-                                   [self.storage updateUsers:users];
-                                   
-                                   dialog.occupantIDs = [occupantIDs arrayByAddingObjectsFromArray:newOccupantIDs];
-                                   [self.storage updateDialogs:@[dialog]];
-                                   if ([self.delegate respondsToSelector:@selector(chatManager:didUpdateChatDialog:)]) {
-                                       [self.delegate chatManager:self didUpdateChatDialog:dialog];
-                                   }
-                               } errorBlock:^(QBResponse * _Nonnull response) {
-                                   Log(@"%@ prepareDialog error: %@",NSStringFromClass([ChatManager class]),
-                                       [self errorMessageWithResponse:response]);
-                               }];
+                        [self.storage updateUsers:users];
+                        
+                        dialog.occupantIDs = [occupantIDs arrayByAddingObjectsFromArray:newOccupantIDs];
+                        [self.storage updateDialogs:@[dialog]];
+                        if ([self.delegate respondsToSelector:@selector(chatManager:didUpdateChatDialog:)]) {
+                            [self.delegate chatManager:self didUpdateChatDialog:dialog];
+                        }
+                        
+                        
+                    } errorBlock:^(QBResponse * _Nonnull response) {
+                        Log(@"%@ prepareDialog error: %@",NSStringFromClass([ChatManager class]),
+                            [self errorMessageWithResponse:response]);
+                    }];
                     
                 } else {
-                    
                     dialog.occupantIDs = [occupantIDs arrayByAddingObjectsFromArray:newOccupantIDs];
                     [self.storage updateDialogs:@[dialog]];
                     if ([self.delegate respondsToSelector:@selector(chatManager:didUpdateChatDialog:)]) {
                         [self.delegate chatManager:self didUpdateChatDialog:dialog];
                     }
                 }
-                
             } else if ([message.customParameters[@"notification_type"] isEqualToString: typeLeave]) {
                 
                 if ([dialog.occupantIDs containsObject: @(message.senderID)]) {
@@ -428,6 +418,7 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
                     if ([self.delegate respondsToSelector:@selector(chatManager:didUpdateChatDialog:)]) {
                         [self.delegate chatManager:self didUpdateChatDialog:dialog];
                     }
+                    
                 }
             }
         } else {
@@ -435,28 +426,33 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
             if ([self.delegate respondsToSelector:@selector(chatManager:didUpdateChatDialog:)]) {
                 [self.delegate chatManager:self didUpdateChatDialog:dialog];
             }
+            
         }
         
     } else {
         
         [self loadDialogWithID:dialogId completion:^(QBChatDialog * _Nonnull loadedDialog) {
-            if (loadedDialog == nil) {
+            if (loadedDialog) {
+                NSString *typeCreate = [NSString stringWithFormat:@"%@", @(NotificationMessageTypeCreate)];
+                if (message.customParameters[@"notification_type"] != nil &&
+                    [message.customParameters[@"notification_type"] isEqualToString: typeCreate]) {
+                    if (loadedDialog.type == QBChatDialogTypePrivate) {
+                        return;
+                    }
+                    loadedDialog.unreadMessagesCount = 1;
+                }
+                loadedDialog.lastMessageText = message.text;
+                if (message.attachments.count) {
+                    loadedDialog.lastMessageText = @"[Attachment]";
+                }
+                loadedDialog.updatedAt = [NSDate date];
+                [self.storage updateDialogs:@[loadedDialog]];
+                if ([self.delegate respondsToSelector:@selector(chatManager:didUpdateChatDialog:)]) {
+                    [self.delegate chatManager:self didUpdateChatDialog:loadedDialog];
+                }
+                
+            } else {
                 return;
-            }
-            loadedDialog.lastMessageText = message.text;
-            if (message.attachments.count) {
-                dialog.lastMessageText = @"[Attachment]";
-            }
-            loadedDialog.updatedAt = [NSDate date];
-            NSString *typeCreate = [NSString stringWithFormat:@"%@", @(NotificationMessageTypeCreate)];
-            if (message.customParameters[@"notification_type"] != nil &&
-                [message.customParameters[@"notification_type"] isEqualToString: typeCreate]) {
-                loadedDialog.unreadMessagesCount = 1;
-            }
-        
-            [self.storage updateDialogs:@[loadedDialog]];
-            if ([self.delegate respondsToSelector:@selector(chatManager:didUpdateChatDialog:)]) {
-                [self.delegate chatManager:self didUpdateChatDialog:loadedDialog];
             }
         }];
     }
@@ -490,18 +486,18 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
                             forPage:responsePage
                        successBlock:^(QBResponse *response, NSArray *messages, QBResponsePage *page)
      {
-         NSArray *sortedMessages = [[messages reverseObjectEnumerator] allObjects];
-         Boolean cancel = NO;
-         NSInteger numberOfMessages = sortedMessages.count;
-         cancel = numberOfMessages < page.limit ? YES : NO;
-         if (success) {
-             success(sortedMessages, cancel);
-         }
-     } errorBlock:^(QBResponse *response) {
-         if (errorHandler) {
-             errorHandler([self errorMessageWithResponse:response]);
-         }
-     }];
+        NSArray *sortedMessages = [[messages reverseObjectEnumerator] allObjects];
+        Boolean cancel = NO;
+        NSInteger numberOfMessages = sortedMessages.count;
+        cancel = numberOfMessages < page.limit ? YES : NO;
+        if (success) {
+            success(sortedMessages, cancel);
+        }
+    } errorBlock:^(QBResponse *response) {
+        if (errorHandler) {
+            errorHandler([self errorMessageWithResponse:response]);
+        }
+    }];
 }
 
 - (void)sendMessage:(QBChatMessage *)message
@@ -521,6 +517,7 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
             if (completion) {
                 completion(nil);
             }
+            
         }
     }];
 }
@@ -538,7 +535,11 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
     if   (![message.dialogID isEqualToString: dialog.ID])  {
         return;
     }
-    
+    if (![message.deliveredIDs containsObject:@(currentUser.ID)]) {
+        [QBChat.instance markAsDelivered:message completion:^(NSError * _Nullable error) {
+            
+        }];
+    }
     [QBChat.instance readMessage:message completion:^(NSError * _Nullable error) {
         
         if (error != nil) {
@@ -582,6 +583,12 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
         }
         dispatch_group_enter(readGroup);
         
+        if (![message.deliveredIDs containsObject:@(currentUser.ID)]) {
+            [QBChat.instance markAsDelivered:message completion:^(NSError * _Nullable error) {
+                
+            }];
+        }
+        
         [QBChat.instance readMessage:message completion:^(NSError * _Nullable error) {
             
             if (error == nil) {
@@ -612,6 +619,7 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
         if (completion) {
             completion(nil);
         }
+        
     });
 }
 
@@ -630,6 +638,7 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
         if (completion) {
             completion(response, updatedDialog);
         }
+        
     } errorBlock:^(QBResponse * _Nonnull response) {
         dialog.pushOccupantsIDs = @[];
         if (completion) {
@@ -668,10 +677,44 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
 
 //MARK: - Internal Methods
 //MARK: - Users
+- (void)searchUsersName:(NSString *)name
+            currentPage:(NSUInteger)currentPage
+                perPage:(NSUInteger)perPage
+             completion:(void(^)(QBResponse *response, NSArray<QBUUser *> *objects, Boolean cancel))completion {
+    QBGeneralResponsePage *page = [QBGeneralResponsePage responsePageWithCurrentPage:currentPage perPage:perPage];
+    [QBRequest usersWithFullName:name page:page successBlock:^(QBResponse * _Nonnull response, QBGeneralResponsePage * _Nonnull page, NSArray<QBUUser *> * _Nonnull users) {
+        BOOL cancel = users.count < page.perPage;
+        if (completion) {
+            completion(response, users, cancel);
+        }
+    } errorBlock:^(QBResponse * _Nonnull response) {
+        if (completion) {
+            completion(response, @[], NO);
+        }
+    }];
+}
+
+- (void)fetchUsersWithCurrentPage:(NSUInteger)currentPage
+                          perPage:(NSUInteger)perPage
+                       completion:(void(^)(QBResponse *response, NSArray<QBUUser *> *objects, Boolean cancel))completion {
+    
+    QBGeneralResponsePage *page = [QBGeneralResponsePage responsePageWithCurrentPage:currentPage perPage:perPage];
+    [QBRequest usersWithExtendedRequest:@{@"order": @"desc date last_request_at"} page:page successBlock:^(QBResponse * _Nonnull response, QBGeneralResponsePage * _Nonnull page, NSArray<QBUUser *> * _Nonnull users) {
+        BOOL cancel = users.count < page.perPage;
+        if (completion) {
+            completion(response, users, cancel);
+        }
+    } errorBlock:^(QBResponse * _Nonnull response) {
+        if (completion) {
+            completion(response, @[], NO);
+        }
+    }];
+}
+
 - (void)updateUsersWithCompletion:(void(^)(QBResponse *response))completion {
     QBGeneralResponsePage *firstPage = [QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:100];
     
-    [QBRequest usersWithExtendedRequest:@{@"order": @"desc string updated_at"} page:firstPage successBlock:^(QBResponse * _Nonnull response, QBGeneralResponsePage * _Nonnull page, NSArray<QBUUser *> * _Nonnull users) {
+    [QBRequest usersWithExtendedRequest:@{@"order": @"desc date last_request_at"} page:firstPage successBlock:^(QBResponse * _Nonnull response, QBGeneralResponsePage * _Nonnull page, NSArray<QBUUser *> * _Nonnull users) {
         [self.storage updateUsers:users];
         if (completion) {
             completion(response);
@@ -683,12 +726,46 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
     }];
 }
 
+- (void)loadUsersWithUsersIDs:(NSArray<NSString *> *)usersIDs
+                   completion:(void(^)(QBResponse *response))completion {
+    __block NSUInteger skip = 1;
+    __block void(^t_request)(QBGeneralResponsePage *usersPage);
+    void(^request)(QBGeneralResponsePage *usersPage) = ^(QBGeneralResponsePage *usersPage) {
+        
+        [QBRequest usersWithIDs:usersIDs page:usersPage successBlock:^(QBResponse * _Nonnull response, QBGeneralResponsePage * _Nonnull page, NSArray<QBUUser *> * _Nonnull users) {
+            
+            [self.storage updateUsers:users];
+            skip = skip + 1;
+            BOOL cancel = users.count < kUsersLimit ? YES : NO;
+            if (cancel == NO) {
+                t_request([QBGeneralResponsePage responsePageWithCurrentPage:skip perPage:kUsersLimit]);
+            } else {
+                
+                if (completion) {
+                    completion(response);
+                }
+                t_request = nil;
+            }
+            
+        } errorBlock:^(QBResponse * _Nonnull response) {
+            if (completion) {
+                completion(response);
+            }
+            t_request = nil;
+        }];
+        
+    };
+    t_request = [request copy];
+    request([QBGeneralResponsePage responsePageWithCurrentPage:skip perPage:kUsersLimit]);
+}
+
 //MARK: - Dialogs
 - (void)updateAllDialogsWithPageLimit:(NSInteger)limit
                       extendedRequest:(nullable NSDictionary *)extendedParameters
                        iterationBlock:(nullable DialogsIterationHandler)iterationBlock
                            completion:(void(^)(QBResponse *response))completion {
     NSDictionary *extendedRequest = [self parametersForMessages];
+    __block  NSMutableSet *usersForUpdate = [NSMutableSet set];
     __block void(^t_request)(QBResponsePage *responsePage);
     void(^request)(QBResponsePage *responsePage) = ^(QBResponsePage *responsePage) {
         
@@ -696,29 +773,36 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
                   extendedRequest:extendedRequest
                      successBlock:^(QBResponse *response, NSArray *dialogs, NSSet *dialogsUsersIDs, QBResponsePage *page)
          {
-             
-             [self.storage updateDialogs:dialogs];
-             
-             page.skip += dialogs.count;
-             BOOL cancel = page.totalEntries <= page.skip;
-             
-             if (iterationBlock != nil) {
-                 iterationBlock(response, dialogs, dialogsUsersIDs, cancel);
-             }
-             if (cancel == NO) {
-                 t_request(page);
-             } else {
-                 if (completion) {
-                     completion(response);
-                 }
-                 t_request = nil;
-             }
-         } errorBlock:^(QBResponse *response) {
-             if (completion) {
-                 completion(response);
-             }
-             t_request = nil;
-         }];
+            for (NSNumber *ID in dialogsUsersIDs) {
+                [usersForUpdate addObject:ID];
+            }
+            
+            [self.storage updateDialogs:dialogs];
+            page.skip += dialogs.count;
+            BOOL cancel = page.totalEntries <= page.skip;
+            
+            if (iterationBlock != nil) {
+                iterationBlock(response, dialogs, dialogsUsersIDs, cancel);
+            }
+            if (cancel == NO) {
+                t_request(page);
+            } else {
+                NSArray *usersIDs = [usersForUpdate allObjects];
+                [self loadUsersWithUsersIDs:usersIDs completion:^(QBResponse *response) {
+                }];
+                if (completion) {
+                    completion(response);
+                }
+                t_request = nil;
+            }
+            
+            
+        } errorBlock:^(QBResponse *response) {
+            if (completion) {
+                completion(response);
+            }
+            t_request = nil;
+        }];
     };
     t_request = [request copy];
     request([QBResponsePage responsePageWithLimit:limit]);
@@ -744,5 +828,4 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
         }
     }
 }
-
-@end;
+@end

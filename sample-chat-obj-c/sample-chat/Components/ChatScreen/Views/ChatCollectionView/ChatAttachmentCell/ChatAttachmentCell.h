@@ -8,25 +8,34 @@
 
 #import <UIKit/UIKit.h>
 #import "ChatCell.h"
+#import "AttachmentDownloadOperation.h"
+#import <Quickblox/Quickblox.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ChatAttachmentCell : ChatCell
+typedef void(^VideoURLCompletion)(NSURL *videoURl);
 
-/**
- *  Unique attachment identifier
- */
-@property (nonatomic, strong) NSString *attachmentID;
+@interface ChatAttachmentCell : ChatCell
 
 /**
  *  Sets attachment image to cell
  *
  *  @param attachmentImage UIImage object
  */
-- (void)setupAttachmentImageWithID:(NSString *)ID;
+- (void)setupAttachment:(QBChatAttachment *)attachment
+         attachmentType:(AttachmentType)attachmentType
+             completion:(_Nullable VideoURLCompletion)completion;
 
 @property (nonatomic, weak) IBOutlet UIImageView *attachmentImageView;
-
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *forwardInfoHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomInfoHeightConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *forwardedLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *playImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *typeAttachmentImageView;
+@property (weak, nonatomic) IBOutlet UILabel *attachmentNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *attachmentSizeLabel;
+@property (weak, nonatomic) IBOutlet UIView *infoTopLineView;
+@property (strong, nonatomic) NSURL *attachmentUrl;
 @end
 
 NS_ASSUME_NONNULL_END

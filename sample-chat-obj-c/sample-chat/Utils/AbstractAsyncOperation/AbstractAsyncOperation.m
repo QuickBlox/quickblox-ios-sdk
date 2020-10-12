@@ -12,10 +12,10 @@
 static inline NSString *KeyPathForState(AsyncOperationState state) {
     
     switch (state) {
-        case AsyncOperationStateStateReady:        return @"isReady";
-        case AsyncOperationStateStateExecuting:    return @"isExecuting";
-        case AsyncOperationStateStateFinished:     return @"isFinished";
-        case AsyncOperationStateStateCancelled:    return @"isCancelled";
+        case AsyncOperationStateReady:        return @"isReady";
+        case AsyncOperationStateExecuting:    return @"isExecuting";
+        case AsyncOperationStateFinished:     return @"isFinished";
+        case AsyncOperationStateCancelled:    return @"isCancelled";
     }
 }
 
@@ -58,7 +58,7 @@ static inline NSString *KeyPathForState(AsyncOperationState state) {
 }
 
 - (void)dealloc {
-        Log(@"%@, class: %@, id: %@", NSStringFromSelector(_cmd), NSStringFromClass(self.class), _operationID);
+    Log(@"%@, class: %@, id: %@", NSStringFromSelector(_cmd), NSStringFromClass(self.class), _operationID);
 }
 
 - (NSString *)description {
@@ -93,36 +93,36 @@ static inline NSString *KeyPathForState(AsyncOperationState state) {
 
 //MARK: - Control
 - (BOOL)isReady {
-    return [super isReady] && self.state == AsyncOperationStateStateReady;
+    return [super isReady] && self.state == AsyncOperationStateReady;
 }
 
 - (BOOL)isExecuting {
-    return self.state == AsyncOperationStateStateExecuting;
+    return self.state == AsyncOperationStateExecuting;
 }
 
 - (BOOL)isCancelled {
-    return self.state == AsyncOperationStateStateCancelled;
+    return self.state == AsyncOperationStateCancelled;
 }
 
 - (BOOL)isFinished {
-    return self.state == AsyncOperationStateStateFinished;
+    return self.state == AsyncOperationStateFinished;
 }
 
 - (void)start {
     @autoreleasepool {
         if (self.isCancelled) {
-            self.state = AsyncOperationStateStateFinished;
+            self.state = AsyncOperationStateFinished;
             return;
         }
         
         [self main];
-        self.state = AsyncOperationStateStateExecuting;
+        self.state = AsyncOperationStateExecuting;
     }
 }
 
 - (void)cancel {
     [super cancel];
-    self.state = AsyncOperationStateStateFinished;
+    self.state = AsyncOperationStateFinished;
 }
 
 - (BOOL)isAsynchronous {

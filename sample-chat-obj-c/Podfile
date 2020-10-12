@@ -1,14 +1,13 @@
-platform :ios, "10.2"
+platform :ios, "13.0"
 
 use_frameworks!
 
 target 'samplechat' do
     inhibit_all_warnings!
-    
     pod 'QuickBlox', '~> 2.17.4'
-#   Additional libraries:
-    pod 'SDWebImage', '~> 4.3.3'
+    # Additional libraries:
+    pod 'SDWebImage', '~> 4.4.7'
     pod 'TTTAttributedLabel', '~> 2.0.0'
-    pod 'SVProgressHUD', '~> 1.1.3'
+    pod 'SVProgressHUD'
     
 end

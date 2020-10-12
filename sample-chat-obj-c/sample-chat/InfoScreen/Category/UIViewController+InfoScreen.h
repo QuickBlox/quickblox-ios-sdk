@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (InfoScreen)
 
-- (void)showInfoButton;
+- (void)addInfoButton;
 
 @end
 

@@ -15,153 +15,261 @@
 #import "Log.h"
 #import "QBUUser+Chat.h"
 #import "UIColor+Chat.h"
+#import "TitleView.h"
+#import "UITableView+Chat.h"
+#import "Reachability.h"
+#import "UIView+Chat.h"
+#import "SVProgressHUD.h"
+#import "UIViewController+Alert.h"
 
-@interface AddOccupantsController () <ChatManagerDelegate, UITextFieldDelegate>
-@property (nonatomic, strong) NSArray<QBUUser *> *users;
-@property (nonatomic, strong) NSMutableArray<QBUUser *> *oldDialogUsers;
+NSString *const ADD_OCCUPANTS = @"Add Occupants";
+NSString *const NO_USERS_FOUND = @"No user with that name";
+const NSUInteger kPerPageUsers = 100;
+
+@interface AddOccupantsController () <ChatManagerDelegate, UISearchBarDelegate>
+//MARK: - Properties
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet UIButton *cancelSearchButton;
+
+@property (nonatomic, strong) TitleView *titleView;
+@property (nonatomic, strong) NSMutableArray<QBUUser *> *users;
+@property (nonatomic, strong) NSMutableArray<QBUUser *> *downloadedUsers;
 @property (nonatomic, strong) NSMutableSet<QBUUser *> *selectedUsers;
+@property (nonatomic, strong) NSMutableArray<QBUUser *> *foundedUsers;
 @property (nonatomic, strong) QBChatDialog *dialog;
 @property (nonatomic, strong) ChatManager *chatManager;
-@property (nonatomic, strong) UITextField *chatNameTextFeld;
-@property (nonatomic, strong) UIAlertAction *successAction;
+@property (nonatomic, assign) Boolean cancel;
+@property (nonatomic, assign) Boolean cancelFetch;
+@property (nonatomic, assign) Boolean isSearch;
+@property (nonatomic, assign) NSUInteger currentFetchPage;
+@property (nonatomic, assign) NSUInteger currentSearchPage;
 @end
 
 @implementation AddOccupantsController
-
 #pragma mark - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.selectedUsers = [NSMutableSet set];
+    self.users = [NSMutableArray array];
+    self.downloadedUsers = [NSMutableArray array];
+    self.foundedUsers = [NSMutableArray array];
+    self.cancel = NO;
+    self.cancelFetch = NO;
+    self.isSearch = NO;
+    self.currentFetchPage = 1;
+    self.currentSearchPage = 1;
+    
+    self.titleView = [[TitleView alloc] init];
+    self.navigationItem.titleView = self.titleView;
+    [self setupNavigationTitle];
     
     self.chatManager = [ChatManager instance];
     self.chatManager.delegate = self;
     
     self.dialog = [self.chatManager.storage dialogWithID:self.dialogID];
-    if (self.dialog.occupantIDs.count >= self.chatManager.storage.users.count) {
-        self.navigationItem.rightBarButtonItem.enabled = NO;
-    }
-    
-    self.oldDialogUsers = [NSMutableArray array];
-    self.selectedUsers = [NSMutableSet set];
-    
-    Profile *currentUser = [[Profile alloc] init];
-    if (currentUser.isFull) {
-        self.navigationItem.title = currentUser.fullName;
-    }
-    
-    if ([QBChat.instance isConnected]) {
-        [self.chatManager updateStorage];
-    }
     
     [self checkCreateChatButtonState];
+    
+    UINib *nibUserCell = [UINib nibWithNibName:@"UserTableViewCell" bundle:nil];
+    [self.tableView registerNib:nibUserCell forCellReuseIdentifier:@"UserTableViewCell"];
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    
+    UIBarButtonItem *createButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done"
+                                                                         style:UIBarButtonItemStylePlain
+                                                                        target:self
+                                                                        action:@selector(addOccupantsButtonPressed:)];
+    self.navigationItem.rightBarButtonItem = createButtonItem;
+    createButtonItem.tintColor = UIColor.whiteColor;
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    
+    UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"chevron"]
+                                                                       style:UIBarButtonItemStylePlain
+                                                                      target:self
+                                                                      action:@selector(didTapBack:)];
+    
+    self.navigationItem.leftBarButtonItem = backButtonItem;
+    backButtonItem.tintColor = UIColor.whiteColor;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"SA_STR_DONE", nil);
-    self.title = NSLocalizedString(@"SA_STR_ADD_OCCUPANTS", nil);
+    [self setupViews];
+    
+    // Reachability
+    void (^updateLoginInfo)(NetworkStatus status) = ^(NetworkStatus status) {
+        if (status == NetworkStatusNotReachable) {
+            [self showAlertWithTitle:NSLocalizedString(@"No Internet Connection", nil)
+                             message:NSLocalizedString(@"Make sure your device is connected to the internet", nil)
+                  fromViewController:self];
+        } else {
+            [self fetchUsers];
+        }
+    };
+    
+    Reachability.instance.networkStatusBlock = ^(NetworkStatus status) {
+        updateLoginInfo(status);
+    };
+    updateLoginInfo(Reachability.instance.networkStatus);
+}
+
+#pragma mark - Setup
+- (void)setupViews {
+    UIImageView *iconSearch = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"search"]];
+    iconSearch.frame = CGRectMake(0.0f, 0.0f, 28.0f, 28.0f);
+    iconSearch.contentMode = UIViewContentModeCenter;
+    [self.searchBar setRoundBorderEdgeColorView:0.0f borderWidth:1.0f color:nil borderColor:UIColor.whiteColor];
+    UITextField *searchTextField = [self.searchBar valueForKey:@"searchField"];
+    if (searchTextField) {
+        UILabel *systemPlaceholderLabel = [searchTextField valueForKey:@"placeholderLabel"];
+        if (systemPlaceholderLabel) {
+            
+            // Create custom placeholder label
+            UILabel *placeholderLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+            placeholderLabel.backgroundColor = UIColor.whiteColor;
+            placeholderLabel.text = @"Search";
+            placeholderLabel.font = [UIFont systemFontOfSize:15.0f weight:UIFontWeightRegular];
+            placeholderLabel.textColor = [UIColor colorWithRed:0.43f green:0.48f blue:0.57f alpha:1.0f];
+            
+            [systemPlaceholderLabel addSubview:placeholderLabel];
+            placeholderLabel.translatesAutoresizingMaskIntoConstraints = NO;
+            [placeholderLabel.leftAnchor constraintEqualToAnchor:systemPlaceholderLabel.leftAnchor].active = YES;
+            [placeholderLabel.topAnchor constraintEqualToAnchor:systemPlaceholderLabel.topAnchor].active = YES;
+            [placeholderLabel.rightAnchor constraintEqualToAnchor:systemPlaceholderLabel.rightAnchor].active = YES;
+            [placeholderLabel.bottomAnchor constraintEqualToAnchor:systemPlaceholderLabel.bottomAnchor].active = YES;
+        }
+        searchTextField.leftView = iconSearch;
+        searchTextField.backgroundColor = UIColor.whiteColor;
+        searchTextField.clearButtonMode = UITextFieldViewModeNever;
+    }
+    
+    self.searchBar.showsCancelButton = NO;
+    self.cancelSearchButton.hidden = YES;
+}
+
+- (void)setupNavigationTitle {
+    NSString *title = ADD_OCCUPANTS;
+    NSString *users = @"users";
+    if (self.selectedUsers.count == 1) {
+        users = @"user";
+    }
+    NSString *numberUsers = [NSString stringWithFormat:@"%@ %@ selected", @(self.selectedUsers.count), users];
+    [self.titleView setupTitleViewWithTitle:title subTitle:numberUsers];
 }
 
 #pragma mark - Internal Methods
-- (void)updateUsers {
-    NSArray<QBUUser *> *users = self.chatManager.storage.sortedAllUsers;
-    [self setupUsers:users];
-    [self checkCreateChatButtonState];
+- (void)fetchUsers {
+    [SVProgressHUD show];
+    __weak __typeof(self)weakSelf = self;
+    [self.chatManager fetchUsersWithCurrentPage:self.currentFetchPage
+                                        perPage:kPerPageUsers
+                                     completion:^(QBResponse * _Nonnull response, NSArray<QBUUser *> * _Nonnull users, Boolean cancel) {
+        __typeof(weakSelf)strongSelf = weakSelf;
+        [SVProgressHUD dismiss];
+        strongSelf.cancelFetch = cancel;
+        if (cancel == false) {
+            strongSelf.currentFetchPage += 1;
+        }
+        [strongSelf.downloadedUsers addObjectsFromArray:users];
+        [strongSelf setupUsers:strongSelf.downloadedUsers];
+        if (strongSelf.users.count) {
+            [strongSelf.tableView removeEmptyView];
+        } else {
+            [strongSelf.tableView setupEmptyViewWithAlert:NO_USERS_FOUND];
+        }
+    }];
 }
 
-- (void)setupUsers:(NSArray <QBUUser *> *)users {
+- (void)searchUsersName:(NSString *)text {
+    [SVProgressHUD show];
+    __weak __typeof(self)weakSelf = self;
+    [self.chatManager searchUsersName:text
+                          currentPage:self.currentSearchPage
+                              perPage:kPerPageUsers
+                           completion:^(QBResponse * _Nonnull response, NSArray<QBUUser *> * _Nonnull users, Boolean cancel) {
+        __typeof(weakSelf)strongSelf = weakSelf;
+        [SVProgressHUD dismiss];
+        strongSelf.cancel = cancel;
+        if (strongSelf.currentSearchPage == 1) {
+            [strongSelf.foundedUsers removeAllObjects];
+        }
+        if (cancel == false) {
+            strongSelf.currentSearchPage += 1;
+        }
+        [strongSelf addFoundUsers:users];
+        if (strongSelf.users.count) {
+            [strongSelf.tableView removeEmptyView];
+        } else {
+            [strongSelf.tableView setupEmptyViewWithAlert:NO_USERS_FOUND];
+        }
+    }];
+}
+
+- (void)addFoundUsers:(NSArray<QBUUser *> *)users {
     NSMutableArray<QBUUser *> *filteredUsers = [NSMutableArray array];
-    [self.oldDialogUsers removeAllObjects];
-    self.users = @[];
-    
     Profile *currentUser = [[Profile alloc] init];
     
     for (QBUUser *user in users) {
         if (user.ID == currentUser.ID) {
             continue;
         }
-        
-        if ([self.dialog.occupantIDs containsObject:@(user.ID)]) {
-            [self.oldDialogUsers addObject:user];
-        } else {
+        if (![self.dialog.occupantIDs containsObject:@(user.ID)]) {
             [filteredUsers addObject:user];
         }
     }
-    NSSet *selectedUsers = [NSSet setWithSet:self.selectedUsers];
-    for (QBUUser *user in selectedUsers) {
+    NSMutableSet<QBUUser *> *removedUsers = [NSMutableSet set];
+    for (QBUUser *user in self.selectedUsers) {
         if ([self.dialog.occupantIDs containsObject:@(user.ID)]) {
-            [self.selectedUsers removeObject:user];
+            [removedUsers addObject:user];
         }
     }
+    [self.selectedUsers minusSet:removedUsers];
     
-    self.users = [filteredUsers copy];
-    [self checkCreateChatButtonState];
+    [self.foundedUsers addObjectsFromArray:filteredUsers.copy];
+    
+    self.users = self.foundedUsers;
     [self.tableView reloadData];
+    [self checkCreateChatButtonState];
 }
 
-- (void)checkCreateChatButtonState {
-    self.navigationItem.rightBarButtonItem.enabled = self.selectedUsers.count > 0;
-}
-
-- (NSString *)systemMessageWithAction:(DialogActionType)actionType withUsers:(NSArray<QBUUser *> *)users {
-    NSString *actionMessage = actionType == DialogActionTypeCreate ?
-    NSLocalizedString(@"SA_STR_CREATE", nil) : NSLocalizedString(@"SA_STR_ADDED", nil);
+- (void)setupUsers:(NSArray <QBUUser *> *)users {
+    
+    [self.users removeAllObjects];
+    
     Profile *currentUser = [[Profile alloc] init];
-    if (currentUser.isFull == NO) {
-        return @"";
-    }
-    NSString *message = [NSString stringWithFormat:@"%@ %@ ", currentUser.fullName, actionMessage];
+    
+    NSArray *occupantIDs = self.dialog.occupantIDs;
+    
     for (QBUUser *user in users) {
-        if (!user.fullName) {
+        if (user.ID == currentUser.ID) {
             continue;
         }
-        message = [NSString stringWithFormat:@"%@%@,", message, user.fullName];
+        if (![occupantIDs containsObject:@(user.ID)]) {
+            [self.users addObject:user];
+        }
     }
-    message = [message substringToIndex:message.length - 1];
-    return message;
-}
-
-- (void)updateDialog:(QBChatDialog *)dialog withNewUsers:(NSArray<QBUUser *> *)users
-      withCompletion:(void(^)(QBResponse *response, QBChatDialog *dialog))completion {
-    NSMutableArray *mutUsersIDs = [NSMutableArray array];
+    NSMutableSet<QBUUser *> *removedUsers = [NSMutableSet set];
+    for (QBUUser *user in self.selectedUsers) {
+        if ([occupantIDs containsObject:@(user.ID)]) {
+            [removedUsers addObject:user];
+        }
+    }
+    [self.selectedUsers minusSet:removedUsers];
     
-    for (QBUUser *user in users) {
-        [mutUsersIDs addObject:@(user.ID)];
-    }
-    NSArray *usersIDs = [mutUsersIDs copy];
-    // Updates dialog with new occupants.
-    [self.chatManager joinOccupantsWithIDs:usersIDs toDialog:dialog completion:^(QBResponse * _Nonnull response, QBChatDialog * _Nonnull updatedDialog) {
-        if (!updatedDialog || response.error) {
-            [SVProgressHUD showErrorWithStatus:response.error.error.localizedDescription];
-            completion(response, nil);
-            return;
-        }
-        NSString *message = [self systemMessageWithAction:DialogActionTypeAdd withUsers:users];
-        
-        [self.chatManager sendAddingMessage:message action:DialogActionTypeAdd withUsers:usersIDs toDialog:updatedDialog completion:^(NSError * _Nullable error) {
-            if (completion) {
-                completion(response, updatedDialog);
+    if (self.selectedUsers.count) {
+        NSMutableSet *usersSet = [NSMutableSet setWithArray:self.users.copy];
+        for (QBUUser *user in self.selectedUsers) {
+            if (![usersSet containsObject:user]) {
+                [self.users insertObject:user atIndex:0];
+                [usersSet addObject:user];
             }
-        }];
-    }];
-}
-
-- (void)createChatWithName:(NSString *)name
-                     users:(NSArray<QBUUser *> *)users
-            withCompletion:(void(^)(QBResponse *response, QBChatDialog *dialog))completion {
-    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
-    // Creating group chat.
-    [self.chatManager createGroupDialogWithName:name occupants:users completion:^(QBResponse * _Nullable response, QBChatDialog * _Nullable dialog) {
-        if (response.error) {
-            [SVProgressHUD showErrorWithStatus:response.error.error.localizedDescription];
-            return;
         }
-        NSString *message = [self systemMessageWithAction:DialogActionTypeAdd withUsers:users];
-        
-        [self.chatManager sendAddingMessage:message action:DialogActionTypeCreate withUsers:dialog.occupantIDs toDialog:dialog completion:^(NSError * _Nullable error) {
-            completion(response, dialog);
-        }];
-    }];
+    }
+    
+    [self checkCreateChatButtonState];
+    [self.tableView reloadData];
 }
 
 - (void)openNewDialog:(QBChatDialog *)newDialog {
@@ -187,6 +295,28 @@
     [self performSegueWithIdentifier:NSLocalizedString(@"SA_STR_SEGUE_GO_TO_CHAT", nil) sender:newDialog.ID];
 }
 
+#pragma mark - Helpers
+- (void)checkCreateChatButtonState {
+    self.navigationItem.rightBarButtonItem.enabled = self.selectedUsers.count > 0;
+}
+
+- (NSString *)systemMessageWithUsers:(NSArray<QBUUser *> *)users {
+    NSString *actionMessage = NSLocalizedString(@"SA_STR_ADDED", nil);
+    Profile *currentUser = [[Profile alloc] init];
+    if (currentUser.isFull == NO) {
+        return @"";
+    }
+    NSString *message = [NSString stringWithFormat:@"%@ %@ ", currentUser.fullName, actionMessage];
+    for (QBUUser *user in users) {
+        if (!user.fullName) {
+            continue;
+        }
+        message = [NSString stringWithFormat:@"%@%@,", message, user.fullName];
+    }
+    message = [message substringToIndex:message.length - 1];
+    return message;
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:NSLocalizedString(@"SA_STR_SEGUE_GO_TO_CHAT", nil)]) {
         ChatViewController *chatController = [segue destinationViewController];
@@ -194,57 +324,57 @@
     }
 }
 
-- (IBAction)createChatButtonPressed:(UIButton *)sender {
-    
-    NSArray *selectedIndexes = self.tableView.indexPathsForSelectedRows;
-    NSMutableArray<QBUUser *> *mutUsers = [NSMutableArray array];
-    for (NSIndexPath *indexPath in selectedIndexes) {
-        QBUUser *user = self.users[indexPath.row];
-        [mutUsers addObject:user];
+#pragma mark - Actions
+- (void)didTapBack:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)cancelSearchButtonTapped:(id)sender {
+    self.cancelSearchButton.hidden = YES;
+    self.searchBar.text = @"";
+    [self.searchBar resignFirstResponder];
+    self.isSearch = NO;
+    self.cancel = NO;
+    [self setupUsers:self.downloadedUsers];
+}
+
+- (void)addOccupantsButtonPressed:(UIButton *)sender {
+    if (Reachability.instance.networkStatus == NetworkStatusNotReachable) {
+        [self showAlertWithTitle:NSLocalizedString(@"No Internet Connection", nil)
+                         message:NSLocalizedString(@"Make sure your device is connected to the internet", nil)
+              fromViewController:self];
+        [SVProgressHUD dismiss];
+        return;
     }
     
-    NSArray *selectedUsers = [mutUsers copy];
+    self.cancelSearchButton.hidden = YES;
+    self.searchBar.text = @"";
+    [self.searchBar resignFirstResponder];
+    self.isSearch = NO;
     
-    void(^completion)(QBResponse *, QBChatDialog *) = ^(QBResponse *response, QBChatDialog *dialog) {
-        if (dialog) {
-            for (NSIndexPath *indexPath in selectedIndexes) {
-                [self.tableView  deselectRowAtIndexPath:indexPath animated:NO];
-            }
-            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"STR_DIALOG_CREATED", nil)];
-            [self checkCreateChatButtonState];
-            [self openNewDialog:dialog];
-        } else {
-            [SVProgressHUD showErrorWithStatus:response.error.error.localizedDescription];
-        }
-    };
+    NSArray *selectedUsers = self.selectedUsers.allObjects;
     
     if (self.dialog.type == QBChatDialogTypeGroup) {
-        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
-        [self updateDialog:self.dialog withNewUsers:selectedUsers withCompletion:completion];
-    } else if (self.dialog.type == QBChatDialogTypePrivate) {
-        NSArray *dialogUsers = [selectedUsers arrayByAddingObjectsFromArray:self.oldDialogUsers];
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SA_STR_ENTER_CHAT_NAME", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
+        [SVProgressHUD show];
+        NSMutableArray *mutUsersIDs = [NSMutableArray array];
         
-        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-            self.chatNameTextFeld = textField;
-            self.chatNameTextFeld.placeholder = @"Enter Chat Name";
-            self.chatNameTextFeld.delegate = self;
-        }];
-        
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"SA_STR_CANCEL", nil) style:UIAlertActionStyleCancel handler:nil];
-        
-        self.successAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"SA_STR_OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            UITextField *textField = alertController.textFields.firstObject;
-            NSString *chatName = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        for (QBUUser *user in selectedUsers) {
+            [mutUsersIDs addObject:@(user.ID)];
+        }
+        NSArray *usersIDs = [mutUsersIDs copy];
+        // Updates dialog with new occupants.
+        [self.chatManager joinOccupantsWithIDs:usersIDs toDialog:self.dialog completion:^(QBResponse * _Nonnull response, QBChatDialog * _Nonnull updatedDialog) {
+            if (!updatedDialog || response.error) {
+                [SVProgressHUD showErrorWithStatus:response.error.error.localizedDescription];
+                return;
+            }
+            NSString *message = [self systemMessageWithUsers:selectedUsers];
             
-            [self createChatWithName:chatName users:dialogUsers withCompletion:completion];
-        }];
-        
-        self.successAction.enabled = NO;
-        [alertController addAction:cancelAction];
-        [alertController addAction:self.successAction];
-        [self presentViewController:alertController animated:NO completion:^{
-            [self checkCreateChatButtonState];
+            [self.chatManager sendAddingMessage:message action:DialogActionTypeAdd withUsers:usersIDs toDialog:updatedDialog completion:^(NSError * _Nullable error) {
+                [SVProgressHUD dismiss];
+                [self checkCreateChatButtonState];
+                [self openNewDialog:updatedDialog];
+            }];
         }];
     }
 }
@@ -255,19 +385,40 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (self.users.count == 0 && self.isSearch == YES) {
+        [self.tableView setupEmptyViewWithAlert:NO_USERS_FOUND];
+    } else {
+        [self.tableView removeEmptyView];
+    }
     return self.users.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSLocalizedString(@"SA_STR_CELL_USER", nil)];
+    UserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserTableViewCell"];
+    if (cell == nil) {
+        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"UserTableViewCell" owner:self options:nil];
+        cell = [topLevelObjects objectAtIndex:0];
+    }
     QBUUser *user = self.users[indexPath.row];
-    UIColor *color = [UIColor colorWithIndex:indexPath.row];
-    cell.colorMarker.bgColor = color;
-    cell.userDescriptionLabel.text = user.name;
+    cell.userColor = [UIColor colorWithHexString:[NSString stringWithFormat:@"#%lX",
+                                                  (unsigned long)user.ID]];
+    cell.userNameLabel.text = user.fullName.length ? user.fullName : user.login;
+    NSCharacterSet *characterSet = [NSCharacterSet whitespaceCharacterSet];
+    NSString *name = [user.fullName stringByTrimmingCharactersInSet:characterSet];
+    NSString *firstLetter = [name substringToIndex:1];
+    firstLetter = [firstLetter uppercaseString];
+    cell.userAvatarLabel.text = firstLetter;
     cell.tag = indexPath.row;
     
-    if ([self.selectedUsers containsObject:user]) {
-        [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    NSUInteger lastItemNumber = self.users.count - 1;
+    if (indexPath.row == lastItemNumber) {
+        if (self.isSearch == YES && self.cancel == NO) {
+            if (self.searchBar.text) {
+                [self searchUsersName:self.searchBar.text];
+            }
+        } else if (self.isSearch == NO && self.cancelFetch == NO) {
+            [self fetchUsers];
+        }
     }
     
     return cell;
@@ -276,6 +427,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     QBUUser *user = self.users[indexPath.row];
     [self.selectedUsers addObject:user];
+    [self setupNavigationTitle];
     [self checkCreateChatButtonState];
 }
 
@@ -284,12 +436,42 @@
     if ([self.selectedUsers containsObject:user]) {
         [self.selectedUsers removeObject:user];
     }
+    [self setupNavigationTitle];
     [self checkCreateChatButtonState];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(nonnull UITableViewCell *)cell forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    QBUUser *user = self.users[indexPath.row];
+    if ([self.selectedUsers containsObject:user]) {
+        [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    } else {
+        [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    }
+}
+
+#pragma mark UISearchBarDelegate
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    self.cancelSearchButton.hidden = NO;
+}
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    if (searchText.length > 2) {
+        self.isSearch = YES;
+        
+        [SVProgressHUD show];
+        self.currentSearchPage = 1;
+        self.cancel = NO;
+        [self searchUsersName:searchText];
+    }
+    if (searchText.length == 0) {
+        self.isSearch = NO;
+        self.cancel = NO;
+        [self setupUsers:self.downloadedUsers];
+    }
 }
 
 #pragma mark Chat Manager Delegate
 - (void)chatManagerWillUpdateStorage:(ChatManager *)chatManager {
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING_USERS", nil) maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING_USERS", nil)];
 }
 
 - (void)chatManager:(ChatManager *)chatManager didFailUpdateStorage:(NSString *)message {
@@ -298,38 +480,14 @@
 
 - (void)chatManager:(ChatManager *)chatManager didUpdateStorage:(NSString *)message {
     [SVProgressHUD showSuccessWithStatus:message];
-    [self setupUsers:chatManager.storage.sortedAllUsers];
 }
 
 - (void)chatManager:(ChatManager *)chatManager didUpdateChatDialog:(QBChatDialog *)chatDialog {
     [SVProgressHUD dismiss];
     if ([chatDialog.ID isEqualToString: self.dialogID]) {
-        [self updateUsers];
+        self.dialog = chatDialog;
+        [self setupUsers:self.users.copy];
     }
-}
-
-#pragma mark - Validation helpers
-- (BOOL)isValidChatName:(NSString *)chatName {
-    NSCharacterSet *characterSet = [NSCharacterSet whitespaceCharacterSet];
-    NSString *name = [chatName stringByTrimmingCharactersInSet:characterSet];
-    NSString *chatNameRegex = @"^[^_][\\w\\u00C0-\\u1FFF\\u2C00-\\uD7FF\\s]{2,19}$";
-    NSPredicate *chatNamePredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", chatNameRegex];
-    BOOL chatNameIsValid = [chatNamePredicate evaluateWithObject:name];
-    return chatNameIsValid;
-}
-
-- (void)validateTextField:(UITextField *)textField {
-    if (textField == self.chatNameTextFeld && [self isValidChatName:self.chatNameTextFeld.text] == NO) {
-        self.successAction.enabled = NO;
-    } else {
-        self.successAction.enabled = YES;
-    }
-}
-
-#pragma mark - UITextFieldDelegate
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    [self validateTextField:textField];
-    return YES;
 }
 
 @end

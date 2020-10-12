@@ -15,9 +15,9 @@
     ChatCellLayoutModel defaultLayoutModel = [super layoutModel];
     
     defaultLayoutModel.containerInsets = UIEdgeInsetsMake(4, 10, 4, 10);
-    defaultLayoutModel.avatarSize = CGSizeMake(0, 0);
+    defaultLayoutModel.avatarSize = CGSizeZero;
     defaultLayoutModel.topLabelHeight = 0;
-    defaultLayoutModel.bottomLabelHeight = 0;
+    defaultLayoutModel.timeLabelHeight = 0.0f;
     
     return defaultLayoutModel;
 }

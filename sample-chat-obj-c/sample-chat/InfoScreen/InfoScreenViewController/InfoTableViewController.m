@@ -9,7 +9,7 @@
 #import "InfoTableViewController.h"
 #import "InfoModel.h"
 #import "InfoTableViewCell.h"
-#import <Quickblox/QBASession.h>
+#import <Quickblox/Quickblox.h>
 
 NSString *const kInfoTableViewCellId = @"InfoTableViewCell";
 NSString *const kLogoTableViewCellId = @"QBLogoTableViewCell";
@@ -24,52 +24,76 @@ NSString *const kLogoTableViewCellId = @"QBLogoTableViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"chevron"]
+                                                                       style:UIBarButtonItemStylePlain
+                                                                      target:self
+                                                                      action:@selector(didTapBack:)];
+    
+    self.navigationItem.leftBarButtonItem = backButtonItem;
+    backButtonItem.tintColor = UIColor.whiteColor;
+    
     [self setupTableView];
+}
+
+- (void)didTapBack:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)setupTableView {
     self.infoModels = [NSMutableArray new];
     
+    NSString *appName = NSBundle.mainBundle.infoDictionary[@"CFBundleName"];
+    InfoModel *appNameModel = [[InfoModel alloc] init];
+    appNameModel.title = @"Application version";
+    appNameModel.info = [NSString stringWithFormat:@"%@", appName];
+    [self.infoModels addObject:appNameModel];
+    
     NSString *appVersion = NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"];
     InfoModel *appVersionModel = [[InfoModel alloc] init];
-    appVersionModel.title = @"Application version:";
+    appVersionModel.title = @"Application version";
     appVersionModel.info = [NSString stringWithFormat:@"%@", appVersion];
     [self.infoModels addObject:appVersionModel];
     
     InfoModel *quickBloxSdkVersionModel = [[InfoModel alloc] init];
-    quickBloxSdkVersionModel.title = @"QuickBlox SDK version:";
+    quickBloxSdkVersionModel.title = @"QuickBlox SDK version";
     quickBloxSdkVersionModel.info = [NSString stringWithFormat:@"%@", QuickbloxFrameworkVersion];
     [self.infoModels addObject:quickBloxSdkVersionModel];
     
     InfoModel *appIDModel = [[InfoModel alloc] init];
-    appIDModel.title = @"Application ID:";
+    appIDModel.title = @"Application ID";
     appIDModel.info = [NSString stringWithFormat:@"%@", @(QBSettings.applicationID)];
     [self.infoModels addObject:appIDModel];
     
     InfoModel *authKeyModel = [[InfoModel alloc] init];
-    authKeyModel.title = @"Auhtorization key:";
+    authKeyModel.title = @"Auhtorization key";
     authKeyModel.info = [NSString stringWithFormat:@"%@", QBSettings.authKey];
     [self.infoModels addObject:authKeyModel];
     
     InfoModel *authSecretModel = [[InfoModel alloc] init];
-    authSecretModel.title = @"Auhtorization secret:";
+    authSecretModel.title = @"Auhtorization secret";
     authSecretModel.info = [NSString stringWithFormat:@"%@", QBSettings.authSecret];
     [self.infoModels addObject:authSecretModel];
     
     InfoModel *accountKeyModel = [[InfoModel alloc] init];
-    accountKeyModel.title = @"Account key:";
+    accountKeyModel.title = @"Account key";
     accountKeyModel.info = [NSString stringWithFormat:@"%@", QBSettings.accountKey];
     [self.infoModels addObject:accountKeyModel];
     
     InfoModel *apiDomainModel = [[InfoModel alloc] init];
-    apiDomainModel.title = @"API domain:";
+    apiDomainModel.title = @"API domain";
     apiDomainModel.info = [NSString stringWithFormat:@"%@", QBSettings.apiEndpoint];
     [self.infoModels addObject:apiDomainModel];
     
     InfoModel *chatDomainModel = [[InfoModel alloc] init];
-    chatDomainModel.title = @"Chat domain:";
+    chatDomainModel.title = @"Chat domain";
     chatDomainModel.info = [NSString stringWithFormat:@"%@", QBSettings.chatEndpoint];
     [self.infoModels addObject:chatDomainModel];
+    
+    NSString *qaVersion = NSBundle.mainBundle.infoDictionary[@"CFBundleVersion"];
+    InfoModel *qaVersionModel = [[InfoModel alloc] init];
+    qaVersionModel.title = @"QA version";
+    qaVersionModel.info = [NSString stringWithFormat:@"%@", qaVersion];
+    [self.infoModels addObject:qaVersionModel];
     
     InfoModel *logoModel = [[InfoModel alloc] init];
     logoModel.title = @"logo";

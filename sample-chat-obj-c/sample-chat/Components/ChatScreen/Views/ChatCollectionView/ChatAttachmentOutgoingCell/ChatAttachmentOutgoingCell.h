@@ -12,6 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ChatAttachmentOutgoingCell : ChatAttachmentCell
+@property (weak, nonatomic) IBOutlet UIImageView *statusImageView;
 
 @end
 

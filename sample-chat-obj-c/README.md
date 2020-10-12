@@ -8,7 +8,7 @@ This is a code sample for [QuickBlox](http://quickblox.com/) platform. It is a g
 Welcome to QuickBlox [Credentials](https://quickblox.com/developers/5_Minute_Guide), where you can get your credentials in just 5 minutes! All you need is to:
 
 1. Register a free QuickBlox account and add your App there.
-2. Update credentials in your [Application Code](https://quickblox.com/developers/5_Minute_Guide#Update_authentication_credentials).
+2. Update credentials in your [Application Code](https://quickblox.com/developers/5_Minute_Guide#Update_authentication_credentials)
 
 # Chat Sample
 
@@ -39,7 +39,7 @@ It allows to:
 $ gem install cocoapods
 ```
 
-> CocoaPods 1.1+ is required to build project with QuickBlox 2.17+.
+> CocoaPods 1.1+ is required to build project with QuickBlox 2.17.4+.
 
 To integrate QuickBlox into the **sample-chat-objc** run the following command:
 

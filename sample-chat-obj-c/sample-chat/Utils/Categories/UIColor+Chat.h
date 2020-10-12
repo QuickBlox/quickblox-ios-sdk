@@ -35,6 +35,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIColor *)colorWithIndex:(NSInteger)index;
 
++ (UIColor *)colorWithHexString:(NSString *)hexString;
+
++ (UIColor *)mainColor;
+
 #pragma mark - Utilities
 
 /**

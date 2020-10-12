@@ -12,9 +12,7 @@
 static NSString* const kCurrentProfile = @"curentProfile";
 
 @interface Profile()
-
 @property(strong, nonatomic) QBUUser *user;
-
 @end
 
 @implementation Profile
@@ -34,12 +32,11 @@ static NSString* const kCurrentProfile = @"curentProfile";
 }
 
 + (void)synchronizeUser:(QBUUser *)user {
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:user];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:user requiringSecureCoding:NO error:nil];
     [[NSUserDefaults standardUserDefaults] setObject:data forKey:kCurrentProfile];
 }
 
 + (void)updateUser:(QBUUser *)user {
-    
     QBUUser *current = [Profile loadObject];
     
     if (current) {
@@ -61,7 +58,9 @@ static NSString* const kCurrentProfile = @"curentProfile";
 + (QBUUser *)loadObject {
     QBUUser *user = nil;
     NSData *userData = [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentProfile];
-    user = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
+    NSKeyedUnarchiver* unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:userData error:nil];
+    unarchiver.requiresSecureCoding = NO;
+    user = [unarchiver decodeTopLevelObjectForKey:NSKeyedArchiveRootObjectKey error:nil];
     return user;
 }
 
