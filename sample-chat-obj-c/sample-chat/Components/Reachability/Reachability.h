@@ -8,24 +8,24 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSUInteger, QBNetworkStatus)  {
+typedef NS_ENUM(NSUInteger, NetworkStatus)  {
     
-    QBNetworkStatusNotReachable = 0,
-    QBNetworkStatusReachableViaWiFi,
-    QBNetworkStatusReachableViaWWAN
+    NetworkStatusNotReachable = 0,
+    NetworkStatusReachableViaWiFi,
+    NetworkStatusReachableViaWWAN
 };
 
-typedef void(^QBNetworkStatusBlock)(QBNetworkStatus status);
+typedef void(^NetworkStatusBlock)(NetworkStatus status);
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Reachability : NSObject
 
-@property (copy, nonatomic, nullable)  QBNetworkStatusBlock networkStatusBlock;
+@property (copy, nonatomic, nullable)  NetworkStatusBlock networkStatusBlock;
 
 + (instancetype)instance;
 
-- (QBNetworkStatus)networkStatus;
+- (NetworkStatus)networkStatus;
 
 @end
 

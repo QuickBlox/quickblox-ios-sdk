@@ -7,8 +7,14 @@
 //
 
 #import "ChatAttachmentOutgoingCell.h"
+#import "UIView+Chat.h"
 
 @implementation ChatAttachmentOutgoingCell
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+
+    [self.previewContainer  roundCornersWithRadius:6.0f isIncoming:NO];
+}
 
 @end

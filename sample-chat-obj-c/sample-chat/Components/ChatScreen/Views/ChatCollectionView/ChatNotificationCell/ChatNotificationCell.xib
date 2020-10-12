@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment version="4144" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -26,13 +24,13 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User 1 would like to chat with you" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N2F-nz-UcD">
                                         <rect key="frame" x="0.0" y="0.0" width="239" height="51"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <color key="textColor" red="0.46666666670000001" green="0.52156862749999999" blue="0.58039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.0" green="0.77721782169999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="13"/>
+                                        <color key="textColor" red="0.42557775974273682" green="0.47677099704742432" blue="0.57233744859695435" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.94901960784313721" green="0.95686274509803915" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="N2F-nz-UcD" secondAttribute="trailing" id="GZ9-ck-DeW"/>
                                     <constraint firstItem="N2F-nz-UcD" firstAttribute="leading" secondItem="BAp-ve-ejs" secondAttribute="leading" id="R5a-u2-gtf"/>
@@ -41,7 +39,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="BAp-ve-ejs" firstAttribute="leading" secondItem="gRY-Lm-qaj" secondAttribute="leading" id="3nP-o9-Czm" userLabel="left"/>
                             <constraint firstAttribute="width" constant="239" id="JOe-Lx-Yyr"/>
@@ -49,19 +47,9 @@
                             <constraint firstAttribute="trailing" secondItem="BAp-ve-ejs" secondAttribute="trailing" id="d4k-hl-cKF" userLabel="right"/>
                             <constraint firstAttribute="bottom" secondItem="BAp-ve-ejs" secondAttribute="bottom" id="sBB-GW-xI6" userLabel="bottom"/>
                         </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                <integer key="value" value="4"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="bgColor">
-                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="arrow" value="NO"/>
-                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
             </view>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="centerX" secondItem="gRY-Lm-qaj" secondAttribute="centerX" id="N6C-Pt-Rh4"/>
                 <constraint firstAttribute="bottom" secondItem="gRY-Lm-qaj" secondAttribute="bottom" id="RMz-4e-81j"/>
@@ -78,7 +66,7 @@
                 <outlet property="messageContainerTopInsetConstraint" destination="Qap-Xw-uUp" id="quL-8X-N2d"/>
                 <outlet property="notificationLabel" destination="N2F-nz-UcD" id="BAR-Ca-pTH"/>
             </connections>
-            <point key="canvasLocation" x="-423" y="-111"/>
+            <point key="canvasLocation" x="-598.5" y="8.5"/>
         </collectionViewCell>
     </objects>
 </document>

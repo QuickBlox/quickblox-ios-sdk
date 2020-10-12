@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Chat message cell typically used for your messages.
  */
 @interface ChatOutgoingCell : ChatCell
-
+@property (weak, nonatomic) IBOutlet UIImageView *statusImageView;
 @end
 
 NS_ASSUME_NONNULL_END

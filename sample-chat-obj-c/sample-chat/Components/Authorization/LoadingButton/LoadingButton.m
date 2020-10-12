@@ -7,6 +7,7 @@
 //
 
 #import "LoadingButton.h"
+#import "UIButton+Chat.h"
 
 @interface LoadingButton()
 
@@ -22,7 +23,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    self.shapeLayer.fillColor = [[UIColor colorWithRed:0.0392 green:0.3765 blue:1.0 alpha:1.0] CGColor];
+    self.shapeLayer.fillColor = [[UIColor colorWithRed:0.6629 green:0.7224 blue:0.8180 alpha:1.0] CGColor];
     self.shapeLayer.path = [[UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:5] CGPath];
 }
 
@@ -37,6 +38,8 @@
 //MARK: - Actions
 - (void)showLoading {
     if (self.activity) return;
+    
+    [self removeShadowFromButton];
     
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
     
@@ -62,7 +65,7 @@
     self.currentText = self.currentTitle;
     [self setTitle:@"" forState:UIControlStateNormal];
     
-    UIColor *fromColor = [UIColor colorWithRed:0.0392 green:0.3765 blue:1.0 alpha:1.0];
+    UIColor *fromColor = [UIColor colorWithRed:0.22 green:0.47 blue:0.99 alpha:1.0];
     UIColor *toColor =  [UIColor colorWithRed:0.0802 green:0.616 blue:0.1214 alpha:1.0];
     
     CABasicAnimation *colorAnimation = [CABasicAnimation animationWithKeyPath:@"fillColor"];
@@ -81,7 +84,7 @@
     self.isAnimating = NO;
     
     self.shapeLayer.path = [[UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:5] CGPath];
-    self.shapeLayer.fillColor = [[UIColor colorWithRed:0.0392 green:0.3765 blue:1.0 alpha:1.0] CGColor];
+    self.shapeLayer.fillColor = [[UIColor colorWithRed:0.22 green:0.47 blue:0.99 alpha:1.0] CGColor];
     
     [self hideActivityIndicator];
     [self setTitle:self.currentText forState:UIControlStateNormal];
@@ -92,7 +95,9 @@
     if (!self.activity) {
         self.isAnimating = YES;
         self.userInteractionEnabled = NO;
-        self.activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:(UIActivityIndicatorViewStyleWhite)];
+        self.activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:(UIActivityIndicatorViewStyleMedium)];
+        self.activity.color = [UIColor whiteColor];
+        self.activity.tintColor = [UIColor whiteColor];
         [self.activity setHidden:NO];
         [self.activity startAnimating];
         [self.activity setCenter:CGPointMake(self.frame.size.width/2, self.frame.size.height/2)];
@@ -112,9 +117,11 @@
     [super setEnabled:enabled];
     
     if (enabled) {
-        self.shapeLayer.fillColor = [[UIColor colorWithRed:0.0392 green:0.3765 blue:1.0 alpha:1.0] CGColor];
+        self.shapeLayer.fillColor = [[UIColor colorWithRed:0.22 green:0.47 blue:0.99 alpha:1.0] CGColor];
+        [self addShadowToButton:4.0f color:nil];
     } else {
-        self.shapeLayer.fillColor = [[UIColor grayColor] CGColor];
+        self.shapeLayer.fillColor = [[UIColor colorWithRed:0.6629 green:0.7224 blue:0.8180 alpha:1.0] CGColor];
+        [self removeShadowFromButton];
     }
 }
 

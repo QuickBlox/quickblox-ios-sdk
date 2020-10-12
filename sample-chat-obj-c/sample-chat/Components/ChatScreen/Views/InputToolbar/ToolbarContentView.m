@@ -8,6 +8,7 @@
 
 #import "ToolbarContentView.h"
 #import "UIView+Chat.h"
+#import "CALayer+Chat.h"
 #import "ChatResources.h"
 
 const CGFloat kToolbarContentViewHorizontalSpacingDefault = 8.0f;
@@ -51,8 +52,9 @@ const CGFloat kToolbarContentViewHorizontalSpacingDefault = 8.0f;
     
     self.leftHorizontalSpacingConstraint.constant = kToolbarContentViewHorizontalSpacingDefault;
     self.rightHorizontalSpacingConstraint.constant = kToolbarContentViewHorizontalSpacingDefault;
-    
-    self.backgroundColor = [UIColor clearColor];
+    UIColor *shadowColor = [UIColor colorWithRed:0.85f green:0.90f blue:1.0f alpha:1.0f];
+    [self.layer applyShadowWithColor:shadowColor alpha:1.0f forX:0.0f forY:-2.0f blur:48.0f spread:0.0f path:nil];
+    self.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)dealloc {

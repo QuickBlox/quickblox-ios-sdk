@@ -12,6 +12,9 @@
 #import "ChatManager.h"
 #import "DialogsViewController.h"
 #import "ChatViewController.h"
+#import "RootParentVC.h"
+#import <Quickblox/Quickblox.h>
+#import "SVProgressHUD.h"
 
 // To update the QuickBlox credentials, please see the READMe file.(You must create application in admin.quickblox.com)
 const NSUInteger kApplicationID = 0;
@@ -23,10 +26,9 @@ NSString *const kAccountKey     = @"";
 
 @end
 
-@implementation AppDelegate 
+@implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
     application.applicationIconBadgeNumber = 0;
     
     // Set QuickBlox credentials (You must create application in admin.quickblox.com)
@@ -34,7 +36,6 @@ NSString *const kAccountKey     = @"";
     [QBSettings setAuthKey:kAuthKey];
     [QBSettings setAuthSecret:kAuthSecret];
     [QBSettings setAccountKey:kAccountKey];
-    
     // enabling carbons for chat
     [QBSettings setCarbonsEnabled:YES];
     
@@ -47,27 +48,11 @@ NSString *const kAccountKey     = @"";
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     center.delegate = self;
     
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    self.window.rootViewController = [[RootParentVC alloc] init];
+    [self.window makeKeyAndVisible];
+    
     return YES;
-}
-
-- (void)openChat:(NSString *)chatDialogID {
-    NSMutableArray *controllers = [NSMutableArray array];
-    
-    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-    
-    for (UIViewController *controller in navigationController.viewControllers) {
-        [controllers addObject:controller];
-        
-        if ([controller isKindOfClass:[DialogsViewController class]]) {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chat" bundle:nil];
-            ChatViewController *chatController = [storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
-            chatController.dialogID = chatDialogID;
-            [controllers addObject:chatController];
-            [navigationController setViewControllers:controllers];
-            
-            return;
-        }
-    }
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
@@ -82,7 +67,7 @@ NSString *const kAccountKey     = @"";
     [QBRequest createSubscription:subscription successBlock:nil errorBlock:nil];
 }
 
-#pragma mark - UNUserNotificationCenterDelegate iOS 10+
+#pragma mark - UNUserNotificationCenterDelegate
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center
 didReceiveNotificationResponse:(UNNotificationResponse *)response
          withCompletionHandler:(void(^)(void))completionHandler {
@@ -91,6 +76,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
     [center removeAllPendingNotificationRequests];
     
     if (UIApplication.sharedApplication.applicationState == UIApplicationStateActive) {
+        completionHandler();
         return;
     }
     
@@ -98,34 +84,34 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
     NSString *dialogID = userInfo[NSLocalizedString(@"SA_STR_PUSH_NOTIFICATION_DIALOG_ID", nil)];
     
     if (dialogID.length == 0) {
+        completionHandler();
         return;
     }
+
     // calling dispatch async for push notification handling to have priority in main queue
     dispatch_async(dispatch_get_main_queue(), ^{
         QBChatDialog *chatDialog = [ChatManager.instance.storage dialogWithID:dialogID];
-        
-        if (chatDialog) {
-            [self openChat:chatDialog.ID];
-        } else {
-            [ChatManager.instance loadDialogWithID:dialogID completion:^(QBChatDialog * _Nonnull loadedDialog) {
-                if (!loadedDialog) {
-                    return;
-                }
-                [self openChat:loadedDialog.ID];
-            }];
+        if ([self.window.rootViewController isKindOfClass:[RootParentVC class]]) {
+            RootParentVC *rootParentVC = (RootParentVC *)self.window.rootViewController;
+            if (chatDialog) {
+                rootParentVC.dialogID = dialogID;
+            } else {
+                [ChatManager.instance loadDialogWithID:dialogID completion:^(QBChatDialog * _Nonnull loadedDialog) {
+                    if (!loadedDialog) {
+                        return;
+                    }
+                    rootParentVC.dialogID = dialogID;
+                }];
+            }
         }
     });
     
     completionHandler();
 }
 
--(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     // failed to register push
     Log(@"Push failed to register with error: %@", error);
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application {
-    [ChatManager.instance disconnect:nil];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {

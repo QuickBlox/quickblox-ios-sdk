@@ -20,4 +20,13 @@
     return [squashed stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
+- (BOOL)endsInWhitespaceCharacter {
+    NSUInteger stringLength = [self length];
+    if (stringLength == 0) {
+        return NO;
+    }
+    unichar lastChar = [self characterAtIndex:stringLength-1];
+    return [[NSCharacterSet whitespaceCharacterSet] characterIsMember:lastChar];
+}
+
 @end

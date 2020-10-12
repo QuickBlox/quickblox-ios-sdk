@@ -11,7 +11,7 @@
 
 NSString *const PlaceholderDidChangeHeight = @"com.quickblox.PlaceholderDidChangeHeight";
 
-@interface PlaceHolderTextView()
+@interface PlaceHolderTextView() <UITextViewDelegate>
 
 @property (nonatomic, weak) NSLayoutConstraint *heightConstraint;
 @property (nonatomic, weak) NSLayoutConstraint *minHeightConstraint;
@@ -28,11 +28,11 @@ NSString *const PlaceholderDidChangeHeight = @"com.quickblox.PlaceholderDidChang
     
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
     
-    CGFloat cornerRadius = 6.0f;
+    CGFloat cornerRadius = 0.0f;
     
     self.backgroundColor = [UIColor whiteColor];
-    self.layer.borderWidth = 0.5f;
-    self.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.layer.borderWidth = 0.0f;
+    self.layer.borderColor = [UIColor whiteColor].CGColor;
     self.layer.cornerRadius = cornerRadius;
     
     self.scrollIndicatorInsets = UIEdgeInsetsMake(cornerRadius, 0.0f, cornerRadius, 0.0f);
@@ -45,14 +45,7 @@ NSString *const PlaceholderDidChangeHeight = @"com.quickblox.PlaceholderDidChang
     self.userInteractionEnabled = YES;
     
     [self setDefaultSettings];
-    
-    self.placeHolderColor = [[UIColor blackColor] colorWithAlphaComponent:0.3f];
-    self.selectable = YES;
-    self.font = [UIFont systemFontOfSize:16.0f];
-    self.textColor = [UIColor blackColor];
-    self.textAlignment = NSTextAlignmentNatural;
-    
-    
+
     self.contentMode = UIViewContentModeRedraw;
     self.dataDetectorTypes = UIDataDetectorTypeNone;
     self.keyboardAppearance = UIKeyboardAppearanceDefault;
@@ -61,7 +54,7 @@ NSString *const PlaceholderDidChangeHeight = @"com.quickblox.PlaceholderDidChang
     
     self.text = nil;
     
-    _placeHolder = nil;
+    _placeHolder = @"Send message";
     _placeHolderColor = [[UIColor blackColor] colorWithAlphaComponent:0.3f];
     
     [self associateConstraints];
@@ -69,7 +62,7 @@ NSString *const PlaceholderDidChangeHeight = @"com.quickblox.PlaceholderDidChang
 }
 
 - (void)setDefaultSettings {
-    self.font = [UIFont systemFontOfSize:16.0f];
+    self.font = [UIFont systemFontOfSize:15.0f];
     self.textColor = [UIColor blackColor];
     self.textAlignment = NSTextAlignmentNatural;
 }
@@ -137,6 +130,7 @@ NSString *const PlaceholderDidChangeHeight = @"com.quickblox.PlaceholderDidChang
 #pragma mark - Composer text view
 
 - (BOOL)hasText {
+    self.placeHolder = [[self.text stringByTrimingWhitespace] length] > 0 ? nil : @"Send message";
     return ([[self.text stringByTrimingWhitespace] length] > 0);
 }
 
@@ -311,6 +305,13 @@ NSString *const PlaceholderDidChangeHeight = @"com.quickblox.PlaceholderDidChang
 
 - (BOOL)becomeFirstResponder {
     return [super becomeFirstResponder];
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    if ([self viewWithTag:100]) {
+        UILabel *placeholderLabel = [self viewWithTag:100];
+        placeholderLabel.hidden = self.text.length > 0;
+    }
 }
 
 @end

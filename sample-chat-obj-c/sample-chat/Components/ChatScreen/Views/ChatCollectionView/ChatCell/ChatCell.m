@@ -10,6 +10,7 @@
 #import "ChatCellLayoutAttributes.h"
 #import "TTTAttributedLabel.h"
 #import "ChatResources.h"
+#import "UIView+Chat.h"
 
 @interface TTTAttributedLabel(PrivateAPI)
 - (TTTAttributedLabelLink *)linkAtPoint:(CGPoint)point;
@@ -19,12 +20,15 @@ static NSMutableSet *_chatCellMenuActions = nil;
 
 @interface ChatCell() <UIGestureRecognizerDelegate>
 
+@property (weak, nonatomic) IBOutlet UIImageView *avatarView;
+@property (weak, nonatomic) IBOutlet UILabel *avatarLabel;
 @property (weak, nonatomic) IBOutlet ChatContainerView *containerView;
 @property (weak, nonatomic) IBOutlet UIView *messageContainer;
+@property (weak, nonatomic) IBOutlet UIView *previewContainer;
 
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *textView;
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *topLabel;
-@property (weak, nonatomic) IBOutlet TTTAttributedLabel *bottomLabel;
+@property (weak, nonatomic) IBOutlet TTTAttributedLabel *timeLabel;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerWidthConstraint;
 
@@ -37,7 +41,6 @@ static NSMutableSet *_chatCellMenuActions = nil;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *avatarContainerViewHeightConstraint;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topLabelHeightConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomLabelHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewBottomLabelVerticalSpaceConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topLabelTextViewVerticalSpaceConstraint;
 
@@ -103,10 +106,16 @@ static NSMutableSet *_chatCellMenuActions = nil;
     _avatarContainerViewHeightConstraint.constant = 0;
     
     _topLabelHeightConstraint.constant = 0;
-    _bottomLabelHeightConstraint.constant = 0;
     
     _topLabelTextViewVerticalSpaceConstraint.constant = 0;
     _textViewBottomLabelVerticalSpaceConstraint.constant = 0;
+    
+    if (self.avatarLabel) {
+        [self.avatarLabel setRoundViewWithCornerRadius:20.0f];
+    }
+    if (self.avatarView) {
+        self.avatarView.backgroundColor = UIColor.clearColor;
+    }
     
 #if Q_DEBUG_COLORS == 0
     self.backgroundColor = [UIColor clearColor];
@@ -115,6 +124,7 @@ static NSMutableSet *_chatCellMenuActions = nil;
     self.textView.backgroundColor = [UIColor clearColor];
     self.bottomLabel.backgroundColor = [UIColor clearColor];
     self.containerView.backgroundColor = [UIColor clearColor];
+    self.previewContainer.backgroundColor = [UIColor clearColor];
 
 #endif
     
@@ -142,9 +152,6 @@ static NSMutableSet *_chatCellMenuActions = nil;
     
     [self updateConstraint:self.topLabelHeightConstraint
               withConstant:customAttributes.topLabelHeight];
-    
-    [self updateConstraint:self.bottomLabelHeightConstraint
-              withConstant:customAttributes.bottomLabelHeight];
     
     [self updateConstraint:self.messageContainerTopInsetConstraint
               withConstant:customAttributes.containerInsets.top];
@@ -188,13 +195,6 @@ static NSMutableSet *_chatCellMenuActions = nil;
         self.contentView.frame = bounds;
     }
 }
-
-- (void)setSelected:(BOOL)selected {
-    [super setSelected:selected];
-    
-    self.containerView.highlighted = selected;
-}
-
 
 //MARK: - Menu actions
 
@@ -292,11 +292,11 @@ static NSMutableSet *_chatCellMenuActions = nil;
     
     ChatCellLayoutModel defaultLayoutModel = {
         
-        .avatarSize = CGSizeMake(30, 30),
+        .avatarSize = CGSizeZero,
         .containerInsets = UIEdgeInsetsMake(4, 0, 4, 5),
         .containerSize = CGSizeZero,
-        .topLabelHeight = 22,
-        .bottomLabelHeight = 14,
+        .topLabelHeight = 15,
+        .timeLabelHeight = 15,
         .maxWidthMarginSpace = 20,
         .maxWidth = 0
     };

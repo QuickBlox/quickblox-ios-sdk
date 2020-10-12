@@ -41,14 +41,17 @@ static void * kInputToolbarKeyValueObservingContext = &kInputToolbarKeyValueObse
 
 - (void)commonInit {
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self layoutIfNeeded];
     self.isObserving = NO;
     self.sendButtonOnRight = YES;
     self.preferredDefaultHeight = 44.0f;
     ToolbarContentView *toolbarContentView = [self loadToolbarContentView];
     [self addSubview:toolbarContentView];
+    _contentView = toolbarContentView;
+    [self setShadowImage:UIImage.new forToolbarPosition:UIBarPositionAny];
     [self pinAllEdgesOfSubview:toolbarContentView];
     [self setNeedsUpdateConstraints];
-    _contentView = toolbarContentView;
+    
     [self addObservers];
     [self toggleSendButtonEnabledIsUploaded:NO];
 }
@@ -64,6 +67,7 @@ static void * kInputToolbarKeyValueObservingContext = &kInputToolbarKeyValueObse
 
 - (void)dealloc {
     [self removeObservers];
+    [self.contentView removeFromSuperview];
     _contentView = nil;
 }
 
@@ -117,20 +121,9 @@ static void * kInputToolbarKeyValueObservingContext = &kInputToolbarKeyValueObse
 }
 
 - (void)toggleSendButtonEnabledIsUploaded:(BOOL)isUploaded {
-
     BOOL hasText = [self.contentView.textView hasText];
-    BOOL hasTextAttachment = [self.contentView.textView hasTextAttachment];
-    if (self.sendButtonOnRight) {
-        
-        self.contentView.rightBarButtonItem.enabled = NO;
-        if (hasText || isUploaded) {
-            self.contentView.rightBarButtonItem.enabled = YES;
-        }
-        if (hasText) {
-            self.contentView.rightBarButtonItem.enabled = YES;
-        }
-    } else {
-        self.contentView.leftBarButtonItem.hidden = !(hasText || hasTextAttachment);
+    if (self.sendButtonOnRight || isUploaded) {
+        self.contentView.rightBarButtonItem.enabled = hasText || isUploaded;
     }
 }
 

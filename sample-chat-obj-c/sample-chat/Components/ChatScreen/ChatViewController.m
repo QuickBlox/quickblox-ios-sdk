@@ -21,25 +21,36 @@
 #import "ChatOutgoingCell.h"
 #import "ChatAttachmentOutgoingCell.h"
 #import "ChatAttachmentIncomingCell.h"
-#import "AttachmentBar.h"
+#import "AttachmentUploadBar.h"
 #import "ChatResources.h"
 #import "UIImage+Chat.h"
 #import "UIColor+Chat.h"
+#import "UIView+Chat.h"
 #import "NSString+Chat.h"
+#import "NSURL+Chat.h"
 #import "UIImage+fixOrientation.h"
 #import "DateUtils.h"
 #import "UsersInfoTableViewController.h"
 #import "AttachmentDownloadManager.h"
 #import "ZoomedAttachmentViewController.h"
-
+#import "SVProgressHUD.h"
 #import <Photos/Photos.h>
 #import <TTTAttributedLabel/TTTAttributedLabel.h>
-#import <SafariServices/SafariServices.h>
-#import <CoreTelephony/CTTelephonyNetworkInfo.h>
-#import <MobileCoreServices/MobileCoreServices.h>
-#import <CoreTelephony/CTCarrier.h>
 #import "Log.h"
 #import "QBUUser+Chat.h"
+#import "ChatPrivateTitleView.h"
+#import "ActionsMenuViewController.h"
+#import "TypingView.h"
+#import "ParentVideoVC.h"
+#import "SDImageCache.h"
+#import "CacheManager.h"
+#import "DialogsSelectionVC.h"
+#import "ChatDateCell.h"
+#import "SelectAssetsVC.h"
+#import "PhotoAsset.h"
+#import "MenuAction.h"
+#import "UIViewController+ContextMenu.h"
+#import "UIViewController+Alert.h"
 
 typedef NS_ENUM(NSUInteger, MessageStatus) {
     MessageStatusSent = 1,
@@ -50,11 +61,13 @@ typedef NS_ENUM(NSUInteger, MessageStatus) {
 static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 
 const NSUInteger kSystemInputToolbarDebugHeight = 0;
-static const NSUInteger widthPadding = 40.0f;
+static const NSUInteger widthPadding = 60.0f;
+static const CGFloat attachmentBarHeight = 100.0f;
+static const NSUInteger maxNumberLetters = 1000;
 
 @interface ChatViewController () <InputToolbarDelegate, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate, UIActionSheetDelegate, UIScrollViewDelegate, UITextViewDelegate,
-ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, ChatCollectionViewDelegateFlowLayout, AttachmentBarDelegate>
+ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, ChatCollectionViewDelegateFlowLayout, AttachmentBarDelegate, UIPopoverPresentationControllerDelegate, ChatContextMenuProtocol>
 
 @property (strong, nonatomic) QBChatDialog *dialog;
 
@@ -87,13 +100,27 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
 @property (nonatomic, strong) id observerWillActive;
 @property (assign, nonatomic) BOOL isDeviceLocked;
 
-@property (strong, nonatomic) QBChatMessage * attachmentMessage;
-@property (strong, nonatomic) AttachmentBar * attachmentBar;
+@property (strong, nonatomic) QBChatMessage *attachmentMessage;
+@property (strong, nonatomic) AttachmentUploadBar *attachmentBar;
+@property (strong, nonatomic) ChatPrivateTitleView *chatPrivateTitleView;
+@property (strong, nonatomic) UIBarButtonItem *infoItem;
 
 @property (strong, nonatomic) NSString *senderDisplayName;
 @property (assign, nonatomic) NSUInteger senderID;
 @property (assign, nonatomic) NSUInteger inputToolBarStartPosition;
 @property (assign, nonatomic) CGFloat collectionBottomConstant;
+
+@property (strong, nonatomic) TypingView *typingView;
+@property (strong, nonatomic) NSMutableSet *onlineUsersIDs;
+@property (strong, nonatomic) NSMutableSet *typingUsers;
+@property (strong, nonatomic) NSMutableSet<QBChatMessage *> *messagesForRead;
+@property (strong, nonatomic) NSTimer *privateUserIsTypingTimer;
+@property (strong, nonatomic) NSTimer *stopTimer;
+@property (assign, nonatomic) Boolean isOpponentTyping;
+@property (assign, nonatomic) Boolean isOpenPopVC;
+
+@property (strong, nonatomic) ActionsMenuViewController *popVC;
+@property (nonatomic, strong) SDImageCache *imageCache;
 
 @end
 
@@ -112,7 +139,7 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
 #pragma mark - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
     self.dataSource = [[ChatDataSource alloc] init];
     self.dataSource.delegate = self;
     
@@ -122,7 +149,24 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
     [QBChat.instance addDelegate: self];
     [self setupViewMessages];
     self.isDeviceLocked = NO;
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.dialog = [self.chatManager.storage dialogWithID:self.dialogID];
+    
+    self.onlineUsersIDs = [NSMutableSet set];
+    self.typingUsers = [NSMutableSet set];
+    self.isOpponentTyping = NO;
+    self.isOpenPopVC = NO;
+    self.typingView = [[TypingView alloc] init];
+    
+    
+    
+    UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"chevron"]
+                                                                       style:UIBarButtonItemStylePlain
+                                                                      target:self
+                                                                      action:@selector(didTapBack:)];
+    
+    self.navigationItem.leftBarButtonItem = backButtonItem;
+    backButtonItem.tintColor = UIColor.whiteColor;
+    
     //Customize your toolbar buttons
     self.inputToolbar.contentView.leftBarButtonItem = [self accessoryButtonItem];
     self.inputToolbar.contentView.rightBarButtonItem = [self sendButtonItem];
@@ -156,18 +200,17 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
     self.edgesForExtendedLayout = UIRectEdgeNone; //same UIRectEdgeNone
     self.isUploading = NO;
     self.cancel = NO;
-    self.topContentAdditionalInset = 0.0f;
+    self.topContentAdditionalInset = 28.0f;
     self.inputToolBarStartPosition = 0;
     self.collectionBottomConstant = 0.0;
+    
+    self.imageCache = SDImageCache.sharedImageCache;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     [QBChat.instance addDelegate: self];
-    if ([QBChat.instance isConnected]) {
-        [self loadMessagesWithSkip:0];
-    }
     
     self.chatManager.delegate = self;
     
@@ -179,9 +222,8 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
     self.senderDisplayName = currentUser.fullName;
     self.senderID = currentUser.ID;
     self.dialog = [self.chatManager.storage dialogWithID:self.dialogID];
-    self.title = self.dialog.name;
     
-    [self registerForNotifications:YES];
+    [self setupTitleView];
     
     self.inputToolbar.delegate = self;
     if (self.inputToolbar.contentView.textView.isFirstResponder == NO) {
@@ -191,23 +233,34 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
     [self updateCollectionViewInsets];
     self.collectionBottomConstraint.constant = self.collectionBottomConstant;
     
-    if (self.dialog.type != QBChatDialogTypePublicGroup ) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Chat Info"
-                                                                                  style:UIBarButtonItemStylePlain
-                                                                                 target:self
-                                                                                 action:@selector(didTapInfo:)];
+    if (self.dialog.type != QBChatDialogTypePublicGroup) {
+        self.infoItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"moreInfo"]
+                                                         style:UIBarButtonItemStylePlain
+                                                        target:self
+                                                        action:@selector(didTapInfo:)];
+        
+        self.navigationItem.rightBarButtonItem = self.infoItem;
+        self.infoItem.tintColor = UIColor.whiteColor;
     }
     
     //MARK: - Reachability
-    void (^updateConnectionStatus)(QBNetworkStatus status) = ^(QBNetworkStatus status) {
+    void (^updateConnectionStatus)(NetworkStatus status) = ^(NetworkStatus status) {
         
-        if (status == QBNetworkStatusNotReachable) {
+        if (status == NetworkStatusNotReachable && self.isUploading) {
             [self cancelUploadFile];
+        } else if (status == NetworkStatusNotReachable) {
+            [self showAlertWithTitle:NSLocalizedString(@"No Internet Connection", nil)
+                             message:NSLocalizedString(@"Make sure your device is connected to the internet", nil)
+                  fromViewController:self];
+        } else {
+            [self loadMessagesWithSkip:0];
         }
     };
-    Reachability.instance.networkStatusBlock = ^(QBNetworkStatus status) {
+    
+    Reachability.instance.networkStatusBlock = ^(NetworkStatus status) {
         updateConnectionStatus(status);
     };
+    
     updateConnectionStatus(Reachability.instance.networkStatus);
     
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
@@ -221,14 +274,110 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
         strongSelf.isDeviceLocked = NO;
         [strongSelf.collectionView reloadData];
     }];
+    
+    //request Online Users for group and public chats
+    [self.dialog requestOnlineUsersWithCompletionBlock:^(NSMutableArray<NSNumber *> * _Nullable onlineUsers, NSError * _Nullable error) {
+        if (onlineUsers) {
+            for (NSNumber *userID in onlineUsers) {
+                if (userID.unsignedIntValue != self.senderID) {
+                    [self.onlineUsersIDs addObject:userID];
+                }
+            }
+        } else if (error) {
+            NSLog(@"requestOnlineUsers error %@", error.localizedDescription);
+        }
+    }];
+    
+    self.dialog.onJoinOccupant = ^(NSUInteger userID) {
+        if (userID == self.senderID) {
+            return;
+        }
+        [weakSelf.onlineUsersIDs addObject:@(userID)];
+    };
+    
+    self.dialog.onLeaveOccupant = ^(NSUInteger userID) {
+        if (userID == self.senderID) {
+            return;
+        }
+        [weakSelf.onlineUsersIDs removeObject:@(userID)];
+        [weakSelf.typingUsers removeObject:@(userID)];
+        if (!weakSelf.typingUsers.count) {
+            [weakSelf hideTypingView];
+            weakSelf.isOpponentTyping = NO;
+        } else {
+            [weakSelf.typingView setupTypingViewWithOpponentUsersIDs:weakSelf.typingUsers];
+        }
+    };
+    
+    if (self.dialog.type == QBChatDialogTypePrivate) {
+        // handling typing status
+        self.dialog.onUserIsTyping = ^(NSUInteger userID) {
+            
+            if (userID == self.senderID) {
+                return;
+            }
+            [weakSelf.typingUsers addObject:@(userID)];
+            [weakSelf.typingView setupTypingViewWithOpponentUsersIDs:weakSelf.typingUsers];
+            [weakSelf showTypingView];
+            weakSelf.isOpponentTyping = YES;
+            
+            if (weakSelf.privateUserIsTypingTimer) {
+                [weakSelf.privateUserIsTypingTimer invalidate];
+                weakSelf.privateUserIsTypingTimer = nil;
+            }
+            
+            weakSelf.privateUserIsTypingTimer = [NSTimer scheduledTimerWithTimeInterval:10.0f
+                                                                                 target:weakSelf
+                                                                               selector:@selector(hideTypingView)
+                                                                               userInfo:nil
+                                                                                repeats:NO];
+        };
+        
+        // Handling user stopped typing.
+        self.dialog.onUserStoppedTyping = ^(NSUInteger userID) {
+            if (userID == self.senderID) {
+                return;
+            }
+            [weakSelf.typingUsers removeObject:@(userID)];
+            [weakSelf hideTypingView];
+            weakSelf.isOpponentTyping = NO;
+        };
+        
+    } else {
+        
+        // handling typing status for Group
+        self.dialog.onUserIsTyping = ^(NSUInteger userID) {
+            
+            if (userID == self.senderID) {
+                return;
+            }
+            [weakSelf.typingUsers addObject:@(userID)];
+            [weakSelf.typingView setupTypingViewWithOpponentUsersIDs:weakSelf.typingUsers];
+            [weakSelf showTypingView];
+            weakSelf.isOpponentTyping = YES;
+        };
+        
+        // Handling user stopped typing.
+        self.dialog.onUserStoppedTyping = ^(NSUInteger userID) {
+            if (userID == self.senderID) {
+                return;
+            }
+            [weakSelf.typingUsers removeObject:@(userID)];
+            if (!weakSelf.typingUsers.count) {
+                [weakSelf hideTypingView];
+                weakSelf.isOpponentTyping = NO;
+                
+            } else {
+                [weakSelf.typingView setupTypingViewWithOpponentUsersIDs:weakSelf.typingUsers];
+            }
+        };
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    [QBChat.instance removeDelegate: self];
-    
-    [self registerForNotifications:NO];
+    [QBChat.instance removeDelegate:self];
     
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     if (self.observerWillResignActive) {
@@ -243,13 +392,54 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
 }
 
 #pragma mark - Internal Methods
+- (void)showTypingView {
+    [self.view addSubview:self.typingView];
+    self.typingView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.typingView.leftAnchor constraintEqualToAnchor:self.inputToolbar.leftAnchor].active = YES;
+    [self.typingView.rightAnchor constraintEqualToAnchor:self.inputToolbar.rightAnchor].active = YES;
+    [self.typingView.bottomAnchor constraintEqualToAnchor:self.inputToolbar.topAnchor].active = YES;
+    [self.typingView.heightAnchor constraintEqualToConstant:self.topContentAdditionalInset].active = YES;
+    self.collectionBottomConstraint.constant = self.collectionBottomConstant + self.topContentAdditionalInset;
+}
+
+- (void)hideTypingView {
+    [self.typingView removeFromSuperview];
+    self.collectionBottomConstant = 0.0f;
+    self.collectionBottomConstraint.constant = self.collectionBottomConstant;
+    __weak __typeof(self)weakSelf = self;
+    [UIView animateWithDuration:0.3f animations:^{
+        [weakSelf.view layoutIfNeeded];
+    }];
+    self.isOpponentTyping = NO;
+    [self.privateUserIsTypingTimer invalidate];
+    self.privateUserIsTypingTimer = nil;
+}
+
+- (void)stopTyping {
+    [self.stopTimer invalidate];
+    self.stopTimer = nil;
+    [self.dialog sendUserStoppedTyping];
+}
+
+- (void)sendIsTypingStatus {
+    [self.dialog sendUserIsTyping];
+    [self.stopTimer invalidate];
+    self.stopTimer = nil;
+    
+    self.stopTimer = [NSTimer scheduledTimerWithTimeInterval:6.0f
+                                                      target:self
+                                                    selector:@selector(stopTyping)
+                                                    userInfo:nil
+                                                     repeats:NO];
+}
+
+- (void)didTapBack:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)cancelUploadFile {
     [self hideAttacnmentBar];
     self.isUploading = NO;
-    
-    if (self.attachmentMessage) {
-        self.attachmentMessage = nil;
-    }
     __weak __typeof(self)weakSelf = self;
     UIAlertController *alertController = [UIAlertController
                                           alertControllerWithTitle:NSLocalizedString(@"SA_STR_ERROR", nil)
@@ -257,8 +447,8 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
                                           preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"SA_STR_CANCEL", nil)
                                                            style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                                                               [weakSelf.inputToolbar setupBarButtonEnabledLeft:YES andRight:NO];
-                                                           }];
+        [weakSelf.inputToolbar toggleSendButtonEnabledIsUploaded:self.isUploading];
+    }];
     [alertController addAction:cancelAction];
     
     [self presentViewController:alertController animated:NO completion:nil];
@@ -287,6 +477,33 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
     return self.selectedIndexPathForMenu != nil && [[UIMenuController sharedMenuController] isMenuVisible];
 }
 
+#pragma mark - Setup
+- (void)setupTitleView {
+    if (self.dialog.type == QBChatDialogTypePrivate) {
+        NSUInteger userID = 0;
+        for (NSNumber *num in self.dialog.occupantIDs) {
+            if (num.unsignedIntegerValue != self.senderID) {
+                userID = num.unsignedIntegerValue;
+            }
+        }
+        self.chatPrivateTitleView = [[ChatPrivateTitleView alloc] init];
+        QBUUser *opponentUser = [self.chatManager.storage userWithID:userID];
+        if (opponentUser) {
+            [self.chatPrivateTitleView setupPrivateChatTitleViewWithOpponentUser:opponentUser];
+            self.navigationItem.titleView = self.chatPrivateTitleView;
+        } else {
+            [self.chatManager loadUserWithID:userID completion:^(QBUUser * _Nullable opponentUser) {
+                if (opponentUser) {
+                    [self.chatPrivateTitleView setupPrivateChatTitleViewWithOpponentUser:opponentUser];
+                    self.navigationItem.titleView = self.chatPrivateTitleView;
+                }
+            }];
+        }
+    } else {
+        self.title = self.dialog.name;
+    }
+}
+
 #pragma mark - Utility
 - (NSString *)timeStampWithDate:(NSDate *)date {
     static NSDateFormatter *dateFormatter = nil;
@@ -301,7 +518,6 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
     
     return timeStamp;
 }
-
 
 #pragma mark - Input toolbar utilities
 - (void)setToolbarBottomConstraintValue:(CGFloat)constraintValue animated:(BOOL)animated {
@@ -326,51 +542,26 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
     }
 }
 
-- (void)registerForNotifications:(BOOL)registerForNotifications {
-    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-    
-    if (registerForNotifications) {
-        [defaultCenter addObserver:self
-                          selector:@selector(didReceiveMenuWillShowNotification:)
-                              name:UIMenuControllerWillShowMenuNotification
-                            object:nil];
-        
-        [defaultCenter addObserver:self
-                          selector:@selector(didReceiveMenuWillHideNotification:)
-                              name:UIMenuControllerWillHideMenuNotification
-                            object:nil];
-    } else {
-        [defaultCenter removeObserver:self
-                                 name:UIMenuControllerWillShowMenuNotification
-                               object:nil];
-        
-        [defaultCenter removeObserver:self
-                                 name:UIMenuControllerWillHideMenuNotification
-                               object:nil];
-    }
-}
-
 - (void)loadMessagesWithSkip:(NSInteger)skip {
     [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING_MESSAGES", nil)];
     [self.chatManager messagesWithDialogID:self.dialogID
                            extendedRequest:nil
                                       skip:skip
                                    success:^(NSArray<QBChatMessage *> * _Nonnull messages, Boolean isLast) {
-                                       self.cancel = isLast;
-                                       [self.dataSource addMessages:messages];
-                                       [SVProgressHUD dismiss];
-                                   } errorHandler:^(NSString * _Nonnull error) {
-                                       if (error == NSLocalizedString(@"SA_STR_DIALOG_REMOVED", nil)) {
-                                           [self.dataSource clear];
-                                           [self.dialog clearTypingStatusBlocks];
-                                           self.inputToolbar.userInteractionEnabled = NO;
-                                           self.collectionView.scrollEnabled = NO;
-                                           [self.collectionView reloadData];
-                                           self.title = @"";
-                                           self.navigationItem.rightBarButtonItem.enabled = NO;
-                                       }
-                                       [SVProgressHUD showErrorWithStatus:error];
-                                   }];
+        self.cancel = isLast;
+        [self.dataSource addMessages:messages];
+        [SVProgressHUD dismiss];
+    } errorHandler:^(NSString * _Nonnull error) {
+        if (error == NSLocalizedString(@"SA_STR_DIALOG_REMOVED", nil)) {
+            [self.dataSource clear];
+            [self.dialog clearTypingStatusBlocks];
+            self.inputToolbar.userInteractionEnabled = NO;
+            self.collectionView.scrollEnabled = NO;
+            [self.collectionView reloadData];
+            self.title = @"";
+            self.navigationItem.rightBarButtonItem.enabled = NO;
+        }
+    }];
 }
 
 - (void)setupViewMessages {
@@ -394,13 +585,14 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
     [ChatIncomingCell registerForReuseInView:self.collectionView];
     [ChatAttachmentIncomingCell registerForReuseInView:self.collectionView];
     [ChatAttachmentOutgoingCell registerForReuseInView:self.collectionView];
+    [ChatDateCell registerForReuseInView:self.collectionView];
 }
 
 #pragma mark - Tool bar
 - (UIButton *)accessoryButtonItem {
     UIImage *accessoryImage = [ChatResources imageNamed:@"attachment_ic"];
-    UIImage *normalImage = [accessoryImage imageMaskedWithColor:[UIColor lightGrayColor]];
-    UIImage *highlightedImage = [accessoryImage imageMaskedWithColor:[UIColor darkGrayColor]];
+    UIImage *normalImage = [accessoryImage imageMaskedWithColor:[UIColor mainColor]];
+    UIImage *highlightedImage = [accessoryImage imageMaskedWithColor:[UIColor mainColor]];
     
     UIButton *accessoryButton =
     [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, accessoryImage.size.width, 32.0f)];
@@ -409,126 +601,148 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
     
     accessoryButton.contentMode = UIViewContentModeScaleAspectFit;
     accessoryButton.backgroundColor = [UIColor clearColor];
-    accessoryButton.tintColor = [UIColor lightGrayColor];
+    accessoryButton.tintColor = [UIColor mainColor];
     
     return accessoryButton;
 }
 
 - (UIButton *)sendButtonItem {
-    NSString *sendTitle = NSLocalizedString(@"Send", nil);
+    UIImage *accessoryImage = [ChatResources imageNamed:@"send"];
+    UIImage *normalImage = [accessoryImage imageMaskedWithColor:[UIColor mainColor]];
+    UIImage *highlightedImage = [accessoryImage imageMaskedWithColor:[UIColor mainColor]];
     
-    UIButton *sendButton = [[UIButton alloc] initWithFrame:CGRectZero];
-    [sendButton setTitle:sendTitle forState:UIControlStateNormal];
-    [sendButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [sendButton setTitleColor:[[UIColor blueColor] colorByDarkeningColorWithValue:0.1f] forState:UIControlStateHighlighted];
-    [sendButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
+    UIButton *sendButton =
+    [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, accessoryImage.size.width, 28.0f)];
+    [sendButton setImage:normalImage forState:UIControlStateNormal];
+    [sendButton setImage:highlightedImage forState:UIControlStateHighlighted];
     
-    sendButton.titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
-    sendButton.titleLabel.adjustsFontSizeToFitWidth = YES;
-    sendButton.titleLabel.minimumScaleFactor = 0.85f;
-    
-    sendButton.contentMode = UIViewContentModeCenter;
+    sendButton.contentMode = UIViewContentModeScaleAspectFit;
     sendButton.backgroundColor = [UIColor clearColor];
-    sendButton.tintColor = [UIColor blueColor];
-    
-    CGFloat maxHeight = 32.0f;
-    
-    CGRect sendTitleRect = [sendTitle boundingRectWithSize:CGSizeMake(1000, maxHeight)
-                                                   options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
-                                                attributes:@{ NSFontAttributeName : sendButton.titleLabel.font }
-                                                   context:nil];
-    
-    sendButton.frame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(CGRectIntegral(sendTitleRect)), maxHeight);
+    sendButton.tintColor = [UIColor mainColor];
     
     return sendButton;
 }
 
+- (void)didTapDelete {
+    if (Reachability.instance.networkStatus == NetworkStatusNotReachable) {
+        [self showAlertWithTitle:NSLocalizedString(@"No Internet Connection", nil)
+                         message:NSLocalizedString(@"Make sure your device is connected to the internet", nil)
+              fromViewController:self];
+        [SVProgressHUD dismiss];
+        return;
+    }
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SA_STR_WARNING", nil) message:NSLocalizedString(@"SA_STR_DO_YOU_REALLY_WANT_TO_DELETE_SELECTED_DIALOG", nil) preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"SA_STR_CANCEL", nil) style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *leaveAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"SA_STR_DELETE", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_DELETING", nil)];
+        
+        if (self.dialog.type == QBChatDialogTypePublicGroup) {
+            return;
+        } else if (self.dialog.type == QBChatDialogTypePrivate) {
+            [self.chatManager leaveDialogWithID:self.dialog.ID completion:^(QBResponse * _Nonnull response) {
+                [self.navigationController popViewControllerAnimated:NO];
+            }];
+        } else {
+            
+            Profile *currentUser = [[Profile alloc] init];
+            if (currentUser.isFull == NO) {
+                return;
+            }
+            
+            // group
+            self.dialog.pullOccupantsIDs = @[@(currentUser.ID).stringValue];
+            
+            NSString *message = [NSString stringWithFormat:@"%@ %@", currentUser.fullName, NSLocalizedString(@"SA_STR_USER_HAS_LEFT", nil)];
+            // Notifies occupants that user left the dialog.
+            [self.chatManager sendLeaveMessage:message toDialog:self.dialog completion:^(NSError * _Nullable error) {
+                if (error){
+                    Log(@"[%@] sendLeaveMessage error: %@",
+                        NSStringFromClass([DialogsSelectionVC class]),
+                        error.localizedDescription);
+                    [SVProgressHUD dismiss];
+                    return;
+                }
+                
+                [self.chatManager leaveDialogWithID:self.dialog.ID completion:^(QBResponse * _Nonnull response) {
+                    [self.navigationController popViewControllerAnimated:NO];
+                }];
+            }];
+        }
+    }];
+    
+    [alertController addAction:cancelAction];
+    [alertController addAction:leaveAction];
+    [self presentViewController:alertController animated:NO completion:nil];
+}
+
+- (void)forvardMessage {
+    if (!self.selectedIndexPathForMenu) {
+        return;
+    }
+    QBChatMessage *message = [self.dataSource messageWithIndexPath:self.selectedIndexPathForMenu];
+    if (message) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Dialogs" bundle:nil];
+        DialogsSelectionVC *dialogsSelectionVC = [storyboard instantiateViewControllerWithIdentifier:@"DialogsSelectionVC"];
+        dialogsSelectionVC.action = ChatActionsForward;
+        dialogsSelectionVC.message = message;
+        
+        UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:dialogsSelectionVC];
+        navVC.modalPresentationStyle = UIModalPresentationFullScreen;
+        navVC.navigationBar.barTintColor = [UIColor mainColor];
+        navVC.navigationBar.barStyle = UIBarStyleBlack;
+        navVC.navigationBar.shadowImage = [UIImage imageNamed:@"navbar-shadow"];
+        [navVC.navigationBar setTranslucent:NO];
+        navVC.navigationBar.titleTextAttributes = @{ NSForegroundColorAttributeName:UIColor.whiteColor};
+        [self presentViewController:navVC animated:NO completion:nil];
+    }
+}
+
 - (void)didTapInfo:(UIBarButtonItem *)sender {
-    [self performSegueWithIdentifier:NSLocalizedString(@"SA_STR_SEGUE_GO_TO_INFO", nil) sender:nil];
-}
-
-#pragma mark - Notifications
-- (void)didReceiveMenuWillShowNotification:(NSNotification *)notification {
     
-    if (!self.selectedIndexPathForMenu) {
-        return;
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chat" bundle:nil];
+    ActionsMenuViewController *actionsMenuVC = [storyboard instantiateViewControllerWithIdentifier:@"ActionsMenuViewController"];
+    actionsMenuVC.modalPresentationStyle = UIModalPresentationPopover;
+    UIPopoverPresentationController *presentation = actionsMenuVC.popoverPresentationController;
+    presentation.delegate = self;
+    presentation.barButtonItem = self.infoItem;
+    presentation.permittedArrowDirections = 0;
+    
+    __weak __typeof(self) weakSelf = self;
+    MenuAction *leaveChatAction = [[MenuAction alloc] initWithTitle:@"Leave Chat" handler:^{
+        __typeof(weakSelf)strongSelf = weakSelf;
+        [strongSelf didTapDelete];
+    }];
+    
+    MenuAction *chatInfoAction = [[MenuAction alloc] initWithTitle:@"Chat info" handler:^{
+        __typeof(weakSelf)strongSelf = weakSelf;
+        [strongSelf performSegueWithIdentifier:NSLocalizedString(@"SA_STR_SEGUE_GO_TO_INFO", nil) sender:@(ChatActionsChatInfo)];
+    }];
+    
+    if (self.dialog.type == QBChatDialogTypePrivate) {
+        [actionsMenuVC addAction:leaveChatAction];
+    } else {
+        [actionsMenuVC addAction:leaveChatAction];
+        [actionsMenuVC addAction:chatInfoAction];
     }
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIMenuControllerWillShowMenuNotification
-                                                  object:nil];
+    [actionsMenuVC setCancelAction:^{
+        __typeof(weakSelf)strongSelf = weakSelf;
+        [strongSelf hideKeyboard:NO];
+    }];
     
-    UIMenuController *menu = [notification object];
-    [menu setMenuVisible:NO animated:NO];
-    
-    ChatCell *selectedCell = (ChatCell *)[self.collectionView cellForItemAtIndexPath:self.selectedIndexPathForMenu];
-    CGRect selectedCellMessageBubbleFrame = [selectedCell convertRect:selectedCell.containerView.frame
-                                                               toView:self.view];
-    
-    [menu setTargetRect:selectedCellMessageBubbleFrame inView:self.view];
-    [menu setMenuVisible:YES animated:YES];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didReceiveMenuWillShowNotification:)
-                                                 name:UIMenuControllerWillShowMenuNotification
-                                               object:nil];
-}
-
-- (void)didReceiveMenuWillHideNotification:(NSNotification *)notification {
-    
-    if (!self.selectedIndexPathForMenu) {
-        return;
-    }
-    
-    //  per comment above in 'shouldShowMenuForItemAtIndexPath:'
-    //  re-enable 'selectable', thus re-enabling data detectors if present
-    //    ChatCollectionViewCell *selectedCell = (id)[self.collectionView cellForItemAtIndexPath:self.selectedIndexPathForMenu];
-    //    selectedCell.textView.selectable = YES;
-    self.selectedIndexPathForMenu = nil;
-}
-
-#pragma mark - Collection view delegate
-- (BOOL)collectionView:(ChatCollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-    self.selectedIndexPathForMenu = indexPath;
-    
-    return YES;
-}
-
-- (BOOL)collectionView:(UICollectionView *)collectionView
-      canPerformAction:(SEL)action
-    forItemAtIndexPath:(NSIndexPath *)indexPath
-            withSender:(id)sender {
-    QBChatMessage *item = [self.dataSource messageWithIndexPath:indexPath];
-    Class viewClass = [self viewClassForItem:item];
-    
-    if (viewClass == [ChatNotificationCell class]){
-        return NO;
-    }
-    
-    return YES;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView
-         performAction:(SEL)action
-    forItemAtIndexPath:(NSIndexPath *)indexPath
-            withSender:(id)sender {
-    
-    if (action != @selector(copy:)) {
-        return;
-    }
-    
-    QBChatMessage *message = [self.dataSource messageWithIndexPath:indexPath];
-    if (message.attachments.count > 0) {
-        return;
-    }
-    
-    [[UIPasteboard generalPasteboard] setString:message.text];
+    [self presentViewController:actionsMenuVC animated:NO completion:nil];
 }
 
 - (Class)viewClassForItem:(QBChatMessage *)item {
     
-    if (item.customParameters[@"notification_type"] != nil || item.isDateDividerMessage) {
+    if (item.customParameters[@"notification_type"] != nil) {
         return [ChatNotificationCell class];
+    }
+    
+    if ( item.isDateDividerMessage) {
+        return [ChatDateCell class];
     }
     
     if (item.senderID != self.senderID) {
@@ -548,139 +762,111 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
 
 #pragma mark - Strings builder
 - (NSAttributedString *)attributedStringForItem:(QBChatMessage *)messageItem {
+    if (!messageItem.text) {
+        return [[NSAttributedString alloc] initWithString:@"@"];
+    }
     
     UIColor *textColor = [messageItem senderID] == self.senderID ? [UIColor whiteColor] : [UIColor blackColor];
     if (messageItem.customParameters[@"notification_type"] != nil || messageItem.isDateDividerMessage) {
         textColor =  [UIColor blackColor];
     }
     
-    UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:17.0f] ;
+    UIFont *font = [UIFont fontWithName:@"Helvetica" size:15.0f] ;
     NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor,
                                   NSFontAttributeName:font};
-    
-    NSString *text = messageItem.text.length ? messageItem.text : @"";
-    if (messageItem.customParameters[@"notification_type"] != nil) {
-        text = [NSString stringWithFormat:@"%@\n%@", (messageItem.dateSent ? [self timeStampWithDate:messageItem.dateSent] : @""), text];
+    if (messageItem.customParameters[@"origin_sender_name"] != nil) {
+        NSString *originForwardedName = messageItem.customParameters[@"origin_sender_name"];
+        UIColor *forwardedColor = messageItem.senderID == self.senderID ? [UIColor.whiteColor colorWithAlphaComponent:0.6f] : [UIColor colorWithRed:0.41f green:0.48f blue:0.59f alpha:1.0f];
+        UIFont *fontForwarded = [UIFont systemFontOfSize:13.0f weight:UIFontWeightLight];
+        UIFont *fontForwardedName = [UIFont systemFontOfSize:13.0f weight:UIFontWeightSemibold];
+        NSDictionary *attributesForwarded = @{ NSForegroundColorAttributeName: forwardedColor,
+                                               NSFontAttributeName: fontForwarded};
+        NSDictionary *attributesForwardedName = @{ NSForegroundColorAttributeName: forwardedColor,
+                                                   NSFontAttributeName: fontForwardedName};
+        NSMutableAttributedString *textForwarded = [[NSMutableAttributedString alloc] initWithString:@"Forwarded from " attributes: attributesForwarded];
+        NSString *forwardedNameString = [NSString stringWithFormat:@"%@\n", originForwardedName];
+        NSMutableAttributedString *forwardedName = [[NSMutableAttributedString alloc] initWithString:forwardedNameString attributes: attributesForwardedName];
+        [textForwarded appendAttributedString:forwardedName];
+        [textForwarded appendAttributedString:[[NSMutableAttributedString alloc] initWithString:messageItem.text
+                                                                                     attributes:attributes]];
+        return textForwarded;
     }
-    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:text
-                                                                               attributes:attributes];
-    return string;
+    
+    return [[NSMutableAttributedString alloc] initWithString:messageItem.text
+                                                  attributes:attributes];
+}
+
+- (NSAttributedString *)forwardedAttachmentAttributedString:(NSString *)originForwardedName {
+    UIColor *forwardedColor = [UIColor colorWithRed:0.41f green:0.48f blue:0.59f alpha:1.0f];
+    UIFont *fontForwarded = [UIFont systemFontOfSize:13.0f weight:UIFontWeightLight];
+    UIFont *fontForwardedName = [UIFont systemFontOfSize:13.0f weight:UIFontWeightSemibold];
+    NSDictionary *attributesForwarded = @{ NSForegroundColorAttributeName: forwardedColor,
+                                           NSFontAttributeName: fontForwarded};
+    NSDictionary *attributesForwardedName = @{ NSForegroundColorAttributeName: forwardedColor,
+                                               NSFontAttributeName: fontForwardedName};
+    NSMutableAttributedString *textForwarded = [[NSMutableAttributedString alloc] initWithString:@"Forwarded from " attributes: attributesForwarded];
+    NSString *forwardedNameString = [NSString stringWithFormat:@"%@\n", originForwardedName];
+    NSMutableAttributedString *forwardedName = [[NSMutableAttributedString alloc] initWithString:forwardedNameString attributes: attributesForwardedName];
+    [textForwarded appendAttributedString:forwardedName];
+    
+    return textForwarded;
 }
 
 - (NSAttributedString *)topLabelAttributedStringForItem:(QBChatMessage *)messageItem {
-    
-    UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:17.0f];
-    
-    if ([messageItem senderID] == self.senderID || self.dialog.type == QBChatDialogTypePrivate) {
-        return nil;
-    }
-    
-    NSString *senderFullName = [self.chatManager.storage userWithID: messageItem.senderID].fullName;
-    NSString *senderID = [NSString stringWithFormat:@"@%lu", (unsigned long)messageItem.senderID];
-    NSString *topLabelText = senderFullName ? senderFullName : senderID;
-    
-    // setting the paragraph style lineBreakMode to NSLineBreakByTruncatingTail in order to TTTAttributedLabel
-    // cut the line in a correct way
+    UIColor *textColor = [UIColor colorWithRed:0.43f green:0.48f blue:0.57f alpha:1.0f];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
-    UIColor *color = [UIColor colorWithRed:0 green:122.0f / 255.0f blue:1.0f alpha:1.000];
-    NSDictionary *attributes = @{ NSForegroundColorAttributeName:color,
+    paragraphStyle.lineBreakMode = NSLineBreakByClipping;
+    UIFont *font = [UIFont systemFontOfSize:13.0f weight:UIFontWeightSemibold];
+    NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor,
                                   NSFontAttributeName:font,
                                   NSParagraphStyleAttributeName: paragraphStyle};
+    NSString *topLabelString = @"";
     
-    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:topLabelText attributes:attributes];
-    
-    return string;
-}
-
-- (NSAttributedString *)bottomLabelAttributedStringForItem:(QBChatMessage *)messageItem {
-    
-    UIColor *textColor = [UIColor colorWithWhite:0.0f alpha:0.7f];
     if ([messageItem senderID] == self.senderID) {
-        [UIColor colorWithWhite:1.0f alpha:0.7f];
+        topLabelString = @"You";
+    } else {
+        NSString *senderFullName = [self.chatManager.storage userWithID: messageItem.senderID].fullName;
+        NSString *senderID = [NSString stringWithFormat:@"@%lu", (unsigned long)messageItem.senderID];
+        topLabelString = senderFullName ? senderFullName : senderID;
     }
     
-    UIFont *font = [UIFont systemFontOfSize:13.0f];
-    
+    return [[NSMutableAttributedString alloc] initWithString:topLabelString attributes:attributes];;
+}
+
+- (NSAttributedString *)timeLabelAttributedStringForItem:(QBChatMessage *)messageItem {
+    UIColor *textColor = [UIColor colorWithRed:0.43f green:0.48f blue:0.57f alpha:1.0f];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-    
-    paragraphStyle.minimumLineHeight = font.lineHeight;
-    paragraphStyle.maximumLineHeight = font.lineHeight;
-    
+    UIFont *font = [UIFont systemFontOfSize:13.0f weight:UIFontWeightRegular];
     NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor,
                                   NSFontAttributeName:font,
                                   NSParagraphStyleAttributeName: paragraphStyle};
     
-    NSString *text = messageItem.dateSent ? [self timeStampWithDate:messageItem.dateSent] : @"";
-    if ([messageItem senderID] == self.senderID) {
-        text = [NSString stringWithFormat:@"%@\n%@", text, [self statusStringFromMessage:messageItem]];
-    }
-    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:text
-                                                                               attributes:attributes];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = formatter.dateFormat = @"HH:mm";
+    NSString *text = [formatter stringFromDate:messageItem.dateSent];
     
-    return string;
+    return [[NSMutableAttributedString alloc] initWithString:text
+                                                  attributes:attributes];
 }
 
-- (NSString *)statusStringFromMessage:(QBChatMessage *)message {
-    
+- (UIImage *)statusImageFromMessage:(QBChatMessage *)message {
     NSMutableArray* readIDs = [message.readIDs mutableCopy];
     [readIDs removeObject:@(self.senderID)];
     NSMutableArray* deliveredIDs = [message.deliveredIDs mutableCopy];
     [deliveredIDs removeObject:@(self.senderID)];
     
-    [deliveredIDs removeObjectsInArray:readIDs];
-    
-    if (readIDs.count > 0 || deliveredIDs.count > 0) {
-        NSMutableString* statusString = [NSMutableString string];
-        
-        NSMutableArray* readLogins = [NSMutableArray array];
-        for (NSNumber* readID in readIDs) {
-            QBUUser *user = [self.chatManager.storage userWithID: [readID unsignedIntegerValue]];
-            if (user.name.length) {
-                if ([readLogins containsObject:user.name]) {
-                    continue;
-                }
-                [readLogins addObject:user.name];
-            } else {
-                NSString *unkownUserLogin = [@"@%@" stringByAppendingString:[readID stringValue]];
-                [readLogins addObject:unkownUserLogin];
-            }
+    if (readIDs.count > 0) {
+        UIColor *readColor = [UIColor colorWithRed:0.22 green:0.47 blue:0.99f alpha:1.0f];
+        if (@available(iOS 13.0, *)) {
+            return [[UIImage imageNamed:@"delivered"] imageWithTintColor:readColor];
+        } else {
+            return [[UIImage imageNamed:@"delivered"] imageMaskedWithColor:readColor];
         }
-        
-        if (readLogins.count) {
-            NSString *status = NSLocalizedString(@"SA_STR_READ_STATUS", nil);
-            if (message.attachments.count > 0) {
-                status = NSLocalizedString(@"SA_STR_SEEN_STATUS", nil);
-            }
-            [statusString appendFormat:@"%@: %@", status, [readLogins componentsJoinedByString:@", "]];
-        }
-        
-        NSMutableArray* deliveredLogins = [NSMutableArray array];
-        for (NSNumber* deliveredID in deliveredIDs) {
-            QBUUser *user = [self.chatManager.storage userWithID: [deliveredID unsignedIntegerValue]];
-            if (user.name.length) {
-                if ([deliveredLogins containsObject:user.name] || [readLogins containsObject:user.name]) {
-                    continue;
-                }
-                [deliveredLogins addObject:user.name];
-            } else {
-                NSString *unkownUserLogin = [@"@%@" stringByAppendingString:[deliveredID stringValue]];
-                [deliveredLogins addObject:unkownUserLogin];
-            }
-        }
-        
-        if (deliveredLogins.count) {
-            if (readLogins.count) {
-                [statusString appendString:@"\n"];
-            }
-            NSString *status = NSLocalizedString(@"SA_STR_DELIVERED_STATUS", nil);
-            [statusString appendFormat:@"%@: %@", status, [deliveredLogins componentsJoinedByString:@", "]];
-        }
-        NSString *string = [statusString copy];
-        return string.length > 0 ? string :  NSLocalizedString(@"SA_STR_SENT_STATUS", nil);
+    } else if (deliveredIDs.count > 0) {
+        return [UIImage imageNamed:@"delivered"];
     }
-    return NSLocalizedString(@"SA_STR_SENT_STATUS", nil);
+    return [UIImage imageNamed:@"sent"];
 }
 
 #pragma mark - UIImagePickerController
@@ -699,7 +885,7 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
 
 #pragma mark - AttachmentBar
 - (void)showAttachmentBarWith:(UIImage *)image {
-    self.attachmentBar = [[AttachmentBar alloc] init];
+    self.attachmentBar = [[NSBundle mainBundle] loadNibNamed:@"AttachmentUploadBar" owner:nil options:nil].firstObject;
     self.attachmentBar.delegate = self;
     [self.view addSubview:self.attachmentBar];
     
@@ -707,23 +893,19 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
     [self.attachmentBar.leftAnchor constraintEqualToAnchor:self.inputToolbar.leftAnchor].active = YES;
     [self.attachmentBar.rightAnchor constraintEqualToAnchor:self.inputToolbar.rightAnchor].active = YES;
     [self.attachmentBar.bottomAnchor constraintEqualToAnchor:self.inputToolbar.topAnchor].active = YES;
-    [self.attachmentBar.heightAnchor constraintEqualToConstant:100.0f].active = YES;
-    
-    self.attachmentBar.contentMode = UIViewContentModeScaleAspectFill;
-    self.attachmentBar.layer.borderWidth = 0.5f;
-    self.attachmentBar.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-    self.attachmentBar.layer.masksToBounds = YES;
-    self.attachmentBar.clipsToBounds = YES;
+    [self.attachmentBar.heightAnchor constraintEqualToConstant:attachmentBarHeight].active = YES;
     [self.attachmentBar uploadAttachmentImage:image pickerControllerSourceType:self.pickerController.sourceType];
-    
-    self.collectionBottomConstant = 100.0f;
+    self.collectionBottomConstant = attachmentBarHeight;
+    self.collectionBottomConstraint.constant = self.collectionBottomConstant;
     self.isUploading = YES;
-    [self.inputToolbar setupBarButtonEnabledLeft:NO andRight:NO];
+    [self.inputToolbar toggleSendButtonEnabledIsUploaded:self.isUploading];
 }
 
 - (void)hideAttacnmentBar {
+    self.isUploading = NO;
+    [self.inputToolbar toggleSendButtonEnabledIsUploaded:self.isUploading];
     [self.attachmentBar removeFromSuperview];
-    self.attachmentBar = nil;
+    self.attachmentBar.attachmentImageView.image = nil;
     
     self.collectionBottomConstant = 0.0f;
     self.collectionBottomConstraint.constant = self.collectionBottomConstant;
@@ -736,6 +918,16 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
 
 #pragma mark - AttachmentMessage
 - (void)didPressSendButton:(UIButton *)button {
+    if (Reachability.instance.networkStatus == NetworkStatusNotReachable) {
+        [self showAlertWithTitle:NSLocalizedString(@"No Internet Connection", nil)
+                         message:NSLocalizedString(@"Make sure your device is connected to the internet", nil)
+              fromViewController:self];
+        [SVProgressHUD dismiss];
+        [self.inputToolbar toggleSendButtonEnabledIsUploaded:self.isUploading];
+        return;
+    }
+    
+    [self stopTyping];
     if (self.attachmentMessage) {
         [self hideAttacnmentBar];
         
@@ -767,7 +959,6 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
             return;
         }
         [strongSelf.dataSource addMessage:message];
-        [strongSelf.chatManager updateDialogWith:message.dialogID withMessage:message];
         [strongSelf finishSendingMessageAnimated:YES];
     }];
 }
@@ -797,14 +988,6 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
     if (self.attachmentMessage) {
         self.attachmentMessage = nil;
     }
-    
-    if (self.isUploading) {
-        [self.inputToolbar setupBarButtonEnabledLeft:NO andRight:NO];
-    } else {
-        [self.inputToolbar setupBarButtonEnabledLeft:YES andRight:NO];
-    }
-    
-    
     
     [[NSNotificationCenter defaultCenter] postNotificationName:UITextViewTextDidChangeNotification object:textView];
     
@@ -838,26 +1021,6 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
     return NO;
 }
 
-- (BOOL)canMakeACall {
-    BOOL canMakeACall = NO;
-    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]]) {
-        // Check if iOS Device supports phone calls
-        CTTelephonyNetworkInfo *netInfo = [[CTTelephonyNetworkInfo alloc] init];
-        CTCarrier *carrier = [netInfo subscriberCellularProvider];
-        NSString *mnc = [carrier mobileNetworkCode];
-        // User will get an alert error when they will try to make a phone call in airplane mode.
-        if (([mnc length] == 0)) {
-            // Device cannot place a call at this time.  SIM might be removed.
-        } else {
-            // iOS Device is capable for making calls
-            canMakeACall = YES;
-        }
-    } else {
-        // iOS Device is not capable for making calls
-    }
-    return canMakeACall;
-}
-
 - (CGRect)scrollTopRect {
     return CGRectMake(0.0,
                       self.collectionView.contentSize.height - CGRectGetHeight(self.collectionView.bounds),
@@ -880,69 +1043,97 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
 }
 
 - (void)didPressAccessoryButton:(UIButton *)sender {
-    UIAlertController *alertController = [UIAlertController
-                                          alertControllerWithTitle:nil
-                                          message:nil
-                                          preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    __weak __typeof(self) weakSelf = self;
-    dispatch_block_t handler = ^{
-        [self checkAuthorizationStatusWithCompletion:^(BOOL granted) {
-            typeof(weakSelf) strongSelf = weakSelf;
-            
-            if (granted) {
-                [strongSelf presentViewController:self.pickerController
-                                         animated:YES
-                                       completion:nil];
-            } else {
-                [strongSelf showAlertForAccess];
-            }
-        }];
+    if (self.isUploading) {
+        [self showAlertWithTitle:@"You can send 1 attachment per message" message:nil
+              fromViewController:self];
+    } else {
+        UIAlertController *alertController = [UIAlertController
+                                              alertControllerWithTitle:nil
+                                              message:nil
+                                              preferredStyle:UIAlertControllerStyleActionSheet];
         
-    };
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Camera", nil)
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction * _Nonnull __unused action) {
-                                                          weakSelf.pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-                                                          handler();
-                                                      }]];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Photo Library", nil)
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction * _Nonnull __unused action) {
-                                                          weakSelf.pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                                                          handler();
-                                                      }]];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
-                                                        style:UIAlertActionStyleCancel
-                                                      handler:nil]];
-    
-    if (alertController.popoverPresentationController) {
-        // iPad support
-        alertController.popoverPresentationController.sourceView = sender;
-        alertController.popoverPresentationController.sourceRect = sender.bounds;
+        __weak __typeof(self) weakSelf = self;
+        
+        void(^handlerWithSourceType)(UIImagePickerControllerSourceType sourceType) = ^(UIImagePickerControllerSourceType sourceType){
+            [self checkAuthorizationStatusWithSourceType:sourceType completion:^(BOOL granted) {
+                typeof(weakSelf) strongSelf = weakSelf;
+                
+                if (granted) {
+                    if (sourceType == UIImagePickerControllerSourceTypeCamera) {
+                        [strongSelf presentViewController:self.pickerController
+                                                 animated:YES
+                                               completion:nil];
+                        
+                    } else if (sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
+                        [strongSelf showAllAssets];
+                    }
+                } else {
+                    [strongSelf showAlertForAccess];
+                }
+            }];
+        };
+        
+        
+#if TARGET_OS_SIMULATOR
+        NSLog(@"targetEnvironment simulator");
+#else
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Camera", nil)
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * _Nonnull __unused action) {
+            weakSelf.pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+            handlerWithSourceType(UIImagePickerControllerSourceTypeCamera);
+        }]];
+#endif
+        
+        
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Photo", nil)
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * _Nonnull __unused action) {
+            weakSelf.pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            handlerWithSourceType(UIImagePickerControllerSourceTypePhotoLibrary);
+        }]];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                            style:UIAlertActionStyleCancel
+                                                          handler:nil]];
+        
+        if (alertController.popoverPresentationController) {
+            // iPad support
+            alertController.popoverPresentationController.sourceView = sender;
+            alertController.popoverPresentationController.sourceRect = sender.bounds;
+        }
+        [self presentViewController:alertController animated:YES completion:NULL];
     }
-    
-    [self presentViewController:alertController animated:YES completion:NULL];
 }
 
-- (void)checkAuthorizationStatusWithCompletion:(void (^)(BOOL granted))completion {
+- (void)showAllAssets {
+    SelectAssetsVC *selectAssetsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SelectAssetsVC"];
+    selectAssetsVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    __weak __typeof(self) weakSelf = self;
+    selectAssetsVC.selectedImage = ^(UIImage *image) {
+        if (image) {
+            [weakSelf showAttachmentBarWith:image];
+        }
+    };
+    [self presentViewController:selectAssetsVC animated:NO completion:nil];
+}
+
+- (void)checkAuthorizationStatusWithSourceType:(UIImagePickerControllerSourceType)sourceType completion:(void (^)(BOOL granted))completion {
     BOOL granted = NO;
     
-    if (self.pickerController.sourceType == UIImagePickerControllerSourceTypeCamera) {
+    if (sourceType == UIImagePickerControllerSourceTypeCamera) {
         AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
         switch (status) {
             case AVAuthorizationStatusNotDetermined: {
                 [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo
                                          completionHandler:^(BOOL granted) {
-                                             dispatch_async(dispatch_get_main_queue(), ^{
-                                                 if (completion) {
-                                                     completion(granted);
-                                                 }
-                                             });
-                                         }];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (completion) {
+                            completion(granted);
+                        }
+                    });
+                }];
                 return;
             }
             case AVAuthorizationStatusRestricted:
@@ -953,7 +1144,7 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
                 break;
             }
         }
-    } else if (self.pickerController.sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
+    } else if (sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
         PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
         switch (status) {
             case PHAuthorizationStatusAuthorized: {
@@ -1002,11 +1193,11 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction * _Nonnull __unused action)
                                 {
-                                    [[UIApplication sharedApplication]
-                                     openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]
-                                     options:@{}
-                                     completionHandler:nil];
-                                }]];
+        [[UIApplication sharedApplication]
+         openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]
+         options:@{}
+         completionHandler:nil];
+    }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                         style:UIAlertActionStyleCancel
@@ -1020,8 +1211,8 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
     
     [coordinator animateAlongsideTransition:nil
                                  completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-                                     [self updateCollectionViewInsets];
-                                 }];
+        [self updateCollectionViewInsets];
+    }];
     
     if (self.inputToolbar.contentView.textView.isFirstResponder && self.splitViewController) {
         if(!self.splitViewController.isCollapsed) {
@@ -1049,6 +1240,18 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
     if ([segue.identifier isEqualToString:NSLocalizedString(@"SA_STR_SEGUE_GO_TO_INFO", nil)]) {
         UsersInfoTableViewController *usersInfoViewController = segue.destinationViewController;
         usersInfoViewController.dialogID = self.dialogID;
+        ChatActions action = (ChatActions)([sender unsignedIntValue]);
+        usersInfoViewController.action = action;
+        if (self.selectedIndexPathForMenu) {
+            QBChatMessage *message = [self.dataSource messageWithIndexPath:self.selectedIndexPathForMenu];
+            if (message) {
+                usersInfoViewController.message = message;
+                if (action) {
+                    usersInfoViewController.dataSource = self.dataSource;
+                }
+            }
+        }
+        
     }
 }
 
@@ -1143,32 +1346,181 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
     
     QBChatMessage *messageItem = [self.dataSource messageWithIndexPath:indexPath];
     
+    if (messageItem.senderID != self.senderID) {
+        if (![messageItem.readIDs containsObject:@(self.senderID)]) {
+            
+            if (![QBChat.instance isConnected]) {
+                [self.messagesForRead addObject:messageItem];
+            } else {
+                [self.chatManager readMessage:messageItem dialog:self.dialog completion:^(NSError * _Nullable error) {
+                    if (!error) {
+                        NSMutableArray *readIDs = [messageItem.readIDs mutableCopy];
+                        [readIDs addObject:@(self.senderID)];
+                        [messageItem setReadIDs: [readIDs copy]];
+                        [self.dataSource updateMessage:messageItem];
+                    }
+                }];
+            }
+        }
+    }
+    
+    if ([cell isKindOfClass:[ChatDateCell class]])  {
+        ChatDateCell *dateCell = (ChatDateCell *)cell;
+        dateCell.userInteractionEnabled = NO;
+        dateCell.dateLabel.text = [[self attributedStringForItem:messageItem] string];
+        return;
+    }
+    
     if ([cell isKindOfClass:[ChatNotificationCell class]]) {
-        [(ChatNotificationCell *)cell notificationLabel].attributedText = [self attributedStringForItem:messageItem];
+        [(ChatNotificationCell *)cell notificationLabel].text = [self attributedStringForItem:messageItem].string;
         cell.userInteractionEnabled = NO;
-        cell.backgroundColor = [UIColor clearColor];
         return;
     }
     
     if ([cell isKindOfClass:[ChatCell class]]) {
         ChatCell *chatCell = (ChatCell *)cell;
+        
+        NSAttributedString *userNameAttributedString = [self topLabelAttributedStringForItem:messageItem];
+        NSString *userName = userNameAttributedString.string;
+        NSCharacterSet *characterSet = [NSCharacterSet whitespaceCharacterSet];
+        NSString *name = [userName stringByTrimmingCharactersInSet:characterSet];
         if ([cell isKindOfClass:[ChatIncomingCell class]] || [cell isKindOfClass:[ChatOutgoingCell class]]) {
             chatCell.textView.enabledTextCheckingTypes = self.enableTextCheckingTypes;
         }
+        if ([cell isKindOfClass:[ChatIncomingCell class]] && self.dialog.type != QBChatDialogTypePrivate) {
+            NSString *firstLetter = [name substringToIndex:1];
+            chatCell.avatarLabel.text = [firstLetter uppercaseString];
+            chatCell.avatarLabel.backgroundColor = [UIColor colorWithHexString:[NSString stringWithFormat:@"#%lX",
+                                                                                (unsigned long)messageItem.senderID]];
+        }
+        chatCell.topLabel.text = name;
+        chatCell.timeLabel.text = [self timeLabelAttributedStringForItem:messageItem];
+        
+        if ([cell isKindOfClass:[ChatOutgoingCell class]]) {
+            ChatOutgoingCell *chatOutgoingCell = (ChatOutgoingCell *)cell;
+            chatOutgoingCell.statusImageView.image = [self statusImageFromMessage:messageItem];
+        }
+        
+        if (chatCell.textView ) {
+            chatCell.textView.text = [self attributedStringForItem:messageItem];
+        }
         
         chatCell.delegate = self;
-        chatCell.topLabel.text = [self topLabelAttributedStringForItem:messageItem];
-        chatCell.textView.text = [self attributedStringForItem:messageItem];
-        chatCell.bottomLabel.text = [self bottomLabelAttributedStringForItem:messageItem];
     }
     
+    
     if ([cell isKindOfClass:[ChatAttachmentCell class]]) {
-        ChatAttachmentCell *chatAttachmentCell = (ChatAttachmentCell *)cell;
+        ChatAttachmentCell *attachmentCell = (ChatAttachmentCell *)cell;
         cell.userInteractionEnabled = YES;
         QBChatAttachment *attachment = messageItem.attachments.firstObject;
-        chatAttachmentCell.attachmentID = attachment.ID;
-        if (attachment && attachment.ID && [attachment.type isEqualToString:@"image"]) {
-            [chatAttachmentCell setupAttachmentImageWithID:attachment.ID];
+        NSString *attachmentID = attachment.ID;
+        
+        if ([attachmentCell isKindOfClass:[ChatAttachmentIncomingCell class]] && self.dialog.type != QBChatDialogTypePrivate) {
+            ChatAttachmentIncomingCell *attachmentIncomingCell  = (ChatAttachmentIncomingCell *)cell;
+            NSAttributedString *userNameAttributedString = [self topLabelAttributedStringForItem:messageItem];
+            NSString *userName = userNameAttributedString.string;
+            NSCharacterSet *characterSet = [NSCharacterSet whitespaceCharacterSet];
+            NSString *name = [userName stringByTrimmingCharactersInSet:characterSet];
+            NSString *firstLetter = [name substringToIndex:1];
+            attachmentIncomingCell.avatarLabel.text = [firstLetter uppercaseString];
+            attachmentIncomingCell.avatarLabel.backgroundColor = [UIColor colorWithHexString:[NSString stringWithFormat:@"#%lX",
+                                                                                              (unsigned long)messageItem.senderID]];
+        }
+        NSString *originForwardName = messageItem.customParameters[@"origin_sender_name"];
+        if (originForwardName) {
+            attachmentCell.forwardInfoHeightConstraint.constant = 35.0f;
+            attachmentCell.forwardedLabel.attributedText = [self forwardedAttachmentAttributedString:originForwardName];
+        } else {
+            attachmentCell.forwardInfoHeightConstraint.constant = 0.0f;
+        }
+        
+        if ([attachmentCell isKindOfClass:[ChatAttachmentOutgoingCell class]]) {
+            ChatAttachmentOutgoingCell *attachmentOutgoingCell  = (ChatAttachmentOutgoingCell *)cell;
+            attachmentOutgoingCell.statusImageView.image = [self statusImageFromMessage:messageItem];
+        }
+        
+        if ([attachment.type isEqualToString:@"image"]) {
+            attachmentCell.bottomInfoHeightConstraint.constant = 0.0f;
+            attachmentCell.typeAttachmentImageView.image = [UIImage imageNamed:@"image_attachment"];
+            [attachmentCell setupAttachment:attachment attachmentType:AttachmentTypeImage completion:nil];
+            
+        } else if ([attachment.type isEqualToString:@"video"]) {
+            attachmentCell.bottomInfoHeightConstraint.constant = 60.0f;
+            attachmentCell.playImageView.hidden = NO;
+            attachmentCell.attachmentNameLabel.text = attachment.name;
+            if (attachment.customParameters[@"size"]) {
+                NSString *size = attachment.customParameters[@"size"];
+                double sizeMB = [size doubleValue];
+                attachmentCell.attachmentSizeLabel.text = [NSString stringWithFormat:@"%.02f MB", sizeMB/1048576];
+            }
+            NSString *appendingPathComponent = [NSString stringWithFormat:@"%@_%@", attachmentID, attachment.name];
+            NSString *path = [NSString stringWithFormat:@"%@/%@", CacheManager.instance.cachesDirectory, appendingPathComponent];
+            NSURL *videoURL = [NSURL fileURLWithPath:path];
+            
+            if ([NSFileManager.defaultManager fileExistsAtPath:path]) {
+                attachmentCell.attachmentUrl = videoURL;
+                if ([self.imageCache imageFromCacheForKey:attachmentID]) {
+                    UIImage *image = [self.imageCache imageFromCacheForKey:attachmentID];
+                    attachmentCell.attachmentImageView.image = image;
+                } else {
+                    [videoURL getThumbnailImageFromVideoUrlWithCompletion:^(UIImage * _Nullable thumbnailImage) {
+                        if (thumbnailImage) {
+                            attachmentCell.attachmentImageView.image = thumbnailImage;
+                            [self.imageCache storeImage:thumbnailImage forKey:attachmentID toDisk:NO completion:^{
+                            }];
+                        }
+                    }];
+                }
+            } else {
+                attachmentCell.typeAttachmentImageView.image = [UIImage imageNamed:@"video_attachment"];
+                [attachmentCell setupAttachment:attachment attachmentType:AttachmentTypeVideo completion:^(NSURL * _Nonnull videoURl) {
+                    if (videoURL) {
+                        attachmentCell.attachmentUrl = videoURL;
+                    }
+                }];
+            }
+        } else if ([attachment.type isEqualToString:@"file"]) {
+            attachmentCell.attachmentNameLabel.text = attachment.name;
+            attachmentCell.bottomInfoHeightConstraint.constant = 60.0f;
+            attachmentCell.attachmentImageView.backgroundColor = UIColor.whiteColor;
+            attachmentCell.infoTopLineView.backgroundColor = [UIColor colorWithRed:0.85f green:0.89f blue:0.97f alpha:1.0f];
+            attachmentCell.typeAttachmentImageView.image = [UIImage imageNamed:@"file"];
+            if (attachment.customParameters[@"size"]) {
+                NSString *size = attachment.customParameters[@"size"];
+                double sizeMB = [size doubleValue];
+                attachmentCell.attachmentSizeLabel.text = [NSString stringWithFormat:@"%.02f MB", sizeMB/1048576];
+            }
+            NSString *appendingPathComponent = [NSString stringWithFormat:@"%@_%@", attachmentID, attachment.name];
+            NSString *path = [NSString stringWithFormat:@"%@/%@", CacheManager.instance.cachesDirectory, appendingPathComponent];
+            NSURL *fileURL = [NSURL fileURLWithPath:path];
+            
+            if ([NSFileManager.defaultManager fileExistsAtPath:path]) {
+                attachmentCell.attachmentUrl = fileURL;
+                if ([self.imageCache imageFromCacheForKey:attachmentID]) {
+                    UIImage *image = [self.imageCache imageFromCacheForKey:attachmentID];
+                    attachmentCell.attachmentImageView.image = image;
+                    attachmentCell.typeAttachmentImageView.image = nil;
+                    attachmentCell.attachmentImageView.contentMode = UIViewContentModeScaleAspectFit;
+                } else {
+                    if ([attachment.name hasSuffix:@"pdf"]) {
+                        [fileURL imageFromPDFfromURLWithCompletion:^(UIImage * _Nullable thumbnailImage) {
+                            if (thumbnailImage) {
+                                attachmentCell.attachmentImageView.image = thumbnailImage;
+                                attachmentCell.typeAttachmentImageView.image = nil;
+                                attachmentCell.attachmentImageView.contentMode = UIViewContentModeScaleAspectFit;
+                                [self.imageCache storeImage:thumbnailImage forKey:attachmentID toDisk:NO completion:^{
+                                }];
+                            }
+                        }];
+                    }
+                }
+            } else {
+                [attachmentCell setupAttachment:attachment attachmentType:AttachmentTypeVideo completion:^(NSURL * _Nonnull fileURL) {
+                    if (fileURL) {
+                        attachmentCell.attachmentUrl = fileURL;
+                    }
+                }];
+            }
         }
     }
 }
@@ -1182,14 +1534,32 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
     }
     
     QBChatMessage *message = [self.dataSource messageWithIndexPath:indexPath];
-    
-    if (![message.readIDs containsObject:@(self.senderID)]) {
-        [self.chatManager readMessages:@[message] dialog:self.dialog completion:^(NSError * _Nullable error) {
-            if (error != nil) {
-                Log(@"%@ readMessages error: %@",NSStringFromClass([ChatViewController class]),
-                    error.localizedDescription);
-            }
-        }];
+    if (self.isDeviceLocked) {
+        return;
+    }
+    if (message.senderID != self.senderID) {
+        if (![self.chatManager.storage userWithID:message.senderID]){
+            [self.chatManager loadUserWithID:message.senderID completion:^(QBUUser * _Nullable user) {
+                if ([cell isKindOfClass:[ChatCell class]]) {
+                    ChatCell *chatCell = (ChatCell *)cell;
+                    NSAttributedString *userNameAttributedString = [self topLabelAttributedStringForItem:message];
+                    NSString *userName = userNameAttributedString.string;
+                    NSCharacterSet *characterSet = [NSCharacterSet whitespaceCharacterSet];
+                    NSString *name = [userName stringByTrimmingCharactersInSet:characterSet];
+                    if ([cell isKindOfClass:[ChatIncomingCell class]] || [cell isKindOfClass:[ChatOutgoingCell class]]) {
+                        chatCell.textView.enabledTextCheckingTypes = self.enableTextCheckingTypes;
+                    }
+                    if ([cell isKindOfClass:[ChatIncomingCell class]] && self.dialog.type != QBChatDialogTypePrivate) {
+                        NSString *firstLetter = [name substringToIndex:1];
+                        chatCell.avatarLabel.text = [firstLetter uppercaseString];
+                        chatCell.avatarLabel.backgroundColor = [UIColor colorWithHexString:[NSString stringWithFormat:@"#%lX",
+                                                                                            (unsigned long)message.senderID]];
+                    }
+                    chatCell.topLabel.text = name;
+                    
+                }
+            }];
+        }
     }
 }
 
@@ -1197,71 +1567,21 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
   didEndDisplayingCell:(nonnull UICollectionViewCell *)cell
     forItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     if ([cell isKindOfClass:[ChatAttachmentCell class]]) {
-        ChatAttachmentCell *chatAttachmentCell = (ChatAttachmentCell *)cell;
-        if (chatAttachmentCell.attachmentID) {
-            AttachmentDownloadManager *attachmentDownloadManager = [[AttachmentDownloadManager alloc] init];
-            [attachmentDownloadManager slowDownloadAttachmentWithID:chatAttachmentCell.attachmentID];
+        QBChatMessage *item = [self.dataSource messageWithIndexPath:indexPath];
+        if (!item) {
+            return;
         }
+        QBChatAttachment *attachment = item.attachments.firstObject;
+        if (!attachment) {
+            return;
+        }
+        NSString *attachmentID = attachment.ID;
+        AttachmentDownloadManager *attachmentDownloadManager = [[AttachmentDownloadManager alloc] init];
+        [attachmentDownloadManager slowDownloadAttachmentWithID:attachmentID];
     }
 }
 
 #pragma mark - Collection view delegate flow layout
-- (CGSize)collectionView:(ChatCollectionView *)collectionView
-  dynamicSizeAtIndexPath:(NSIndexPath *)indexPath
-                maxWidth:(CGFloat)maxWidth {
-    QBChatMessage *item = [self.dataSource messageWithIndexPath:indexPath];
-    Class viewClass = [self viewClassForItem:item];
-    
-    CGSize size = CGSizeZero;
-    if (viewClass == [ChatAttachmentIncomingCell class]) {
-        size = CGSizeMake(MIN(200, maxWidth), 200);
-    } else if (viewClass == [ChatAttachmentOutgoingCell class]) {
-        NSAttributedString *attributedString = [self bottomLabelAttributedStringForItem:item];
-        CGSize bottomLabelSize = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
-                                                                  withConstraints:CGSizeMake(MIN(200, maxWidth), CGFLOAT_MAX)
-                                                           limitedToNumberOfLines:0];
-        size = CGSizeMake(MIN(200, maxWidth), 200 + ceilf(bottomLabelSize.height));
-    } else if (viewClass == [ChatNotificationCell class]) {
-        NSAttributedString *attributedString = [self attributedStringForItem:item];
-        size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
-                                                withConstraints:CGSizeMake(maxWidth, CGFLOAT_MAX)
-                                         limitedToNumberOfLines:0];
-    } else {
-        NSAttributedString *attributedString = [self attributedStringForItem:item];
-        size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
-                                                withConstraints:CGSizeMake(maxWidth, CGFLOAT_MAX)
-                                         limitedToNumberOfLines:0];
-    }
-    return size;
-}
-
-- (CGFloat)collectionView:(ChatCollectionView *)collectionView minWidthAtIndexPath:(NSIndexPath *)indexPath {
-    
-    QBChatMessage *item = [self.dataSource messageWithIndexPath:indexPath];
-    
-    CGSize size = CGSizeZero;
-    size = [TTTAttributedLabel sizeThatFitsAttributedString:[self bottomLabelAttributedStringForItem:item]
-                                            withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
-                                     limitedToNumberOfLines:0];
-    
-    if (self.dialog.type != QBChatDialogTypePrivate) {
-        CGSize topLabelSize = [TTTAttributedLabel sizeThatFitsAttributedString:[self topLabelAttributedStringForItem:item]
-                                                               withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
-                                                        limitedToNumberOfLines:0];
-        if (topLabelSize.width > size.width) {
-            size = topLabelSize;
-        }
-    }
-    
-    return size.width;
-}
-
-- (NSString *)collectionView:(ChatCollectionView *)collectionView
-           itemIdAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    QBChatMessage *item = [self.dataSource messageWithIndexPath:indexPath];
-    return item.ID;
-}
-
 - (CGSize)collectionView:(ChatCollectionView *)collectionView
                   layout:(ChatCollectionViewFlowLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -1271,23 +1591,141 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
 - (ChatCellLayoutModel)collectionView:(ChatCollectionView *)collectionView
                layoutModelAtIndexPath:(NSIndexPath *)indexPath {
     QBChatMessage *item = [self.dataSource messageWithIndexPath:indexPath];
-    Class class = [self viewClassForItem:item];
-    ChatCellLayoutModel layoutModel = [class layoutModel];
-    CGSize constraintsSize = CGSizeMake(self.collectionView.frame.size.width - widthPadding, CGFLOAT_MAX);
-    CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:[self bottomLabelAttributedStringForItem:item]
-                                                   withConstraints:constraintsSize
-                                            limitedToNumberOfLines:0];
-    layoutModel.bottomLabelHeight = floorf(size.height);
-    layoutModel.topLabelHeight = 22.0f;
+    Class cellClass = [self viewClassForItem:item];
+    ChatCellLayoutModel layoutModel = [cellClass layoutModel];
     
-    if (self.dialog.type == QBChatDialogTypePrivate ||
-        class == ChatOutgoingCell.self ||
-        class == ChatAttachmentOutgoingCell.self ) {
-        layoutModel.avatarSize = CGSizeZero;
-        layoutModel.topLabelHeight = 0.0f;
+    layoutModel.avatarSize = CGSizeZero;
+    layoutModel.maxWidthMarginSpace = 20.0f;
+    
+    if (cellClass == ChatIncomingCell.self || cellClass == ChatAttachmentIncomingCell.self) {
+        
+        if (self.dialog.type != QBChatDialogTypePrivate) {
+            layoutModel.avatarSize = CGSizeMake(40.0f, 40.0f);
+        } else {
+            layoutModel.avatarSize = CGSizeZero;
+            CGFloat left = cellClass == ChatIncomingCell.self ? 10.0f : 0.0f;
+            layoutModel.containerInsets = UIEdgeInsetsMake(0.0f, left, 16.0f, 16.0f);
+        }
     }
     
+    layoutModel.spaceBetweenTopLabelAndTextView = 12.0f;
+    
     return layoutModel;
+}
+
+- (CGFloat)collectionView:(ChatCollectionView *)collectionView minWidthAtIndexPath:(NSIndexPath *)indexPath {
+    
+    QBChatMessage *item = [self.dataSource messageWithIndexPath:indexPath];
+    
+    CGFloat frameWidth = self.collectionView.frame.size.width;
+    CGSize constraintsSize = CGSizeMake(frameWidth - widthPadding, CGFLOAT_MAX);
+    
+    NSAttributedString *dateAttributedString = [self timeLabelAttributedStringForItem:item];
+    
+    CGSize sizeDateAttributedString = [TTTAttributedLabel sizeThatFitsAttributedString:dateAttributedString
+                                                                       withConstraints:constraintsSize
+                                                                limitedToNumberOfLines:1];
+    NSAttributedString *nameAttributedString = [self topLabelAttributedStringForItem:item];
+    CGSize topLabelSize = [TTTAttributedLabel sizeThatFitsAttributedString:nameAttributedString
+                                                           withConstraints:constraintsSize
+                                                    limitedToNumberOfLines:1];
+    
+    if (item.senderID == self.senderID) {
+        CGFloat statusWidth = 46.0f;
+        return topLabelSize.width + sizeDateAttributedString.width + statusWidth;
+    }
+    
+    CGFloat topLabelWidth = topLabelSize.width + sizeDateAttributedString.width + 6.0f;
+    
+    return topLabelWidth > 86.0f ? topLabelWidth : 86.0f;
+}
+
+- (CGSize)collectionView:(ChatCollectionView *)collectionView
+  dynamicSizeAtIndexPath:(NSIndexPath *)indexPath
+                maxWidth:(CGFloat)maxWidth {
+    QBChatMessage *item = [self.dataSource messageWithIndexPath:indexPath];
+    Class viewClass = [self viewClassForItem:item];
+    
+    CGSize size = CGSizeZero;
+    NSAttributedString *attributedString = [self attributedStringForItem:item];
+    if (viewClass == [ChatAttachmentIncomingCell class] || viewClass == [ChatAttachmentOutgoingCell class]) {
+        size = CGSizeMake(MIN(260, maxWidth), 180);
+        
+    } else if (viewClass == [ChatNotificationCell class]) {
+        size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
+                                                withConstraints:CGSizeMake(maxWidth, CGFLOAT_MAX)
+                                         limitedToNumberOfLines:0];
+    } else {
+        size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
+                                                withConstraints:CGSizeMake(maxWidth, CGFLOAT_MAX)
+                                         limitedToNumberOfLines:0];
+    }
+    return size;
+}
+
+
+
+- (NSString *)collectionView:(ChatCollectionView *)collectionView
+           itemIdAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    QBChatMessage *item = [self.dataSource messageWithIndexPath:indexPath];
+    return item.ID;
+}
+
+#pragma mark - Collection view delegate - ContextMenu
+- (UITargetedPreview *)targetedPreviewForConfiguration:(UIContextMenuConfiguration *)configuration {
+    
+    ChatCell *selectedCell = (ChatCell *)[self.collectionView cellForItemAtIndexPath:self.selectedIndexPathForMenu];
+    UIPreviewParameters *parameters = [[UIPreviewParameters alloc] init];
+    parameters.backgroundColor = [UIColor clearColor];
+    
+    CGFloat cornerRadius = [selectedCell isKindOfClass:[ChatAttachmentCell class]] ? 6.0f : 20.0f;
+    
+    UIRectCorner roundingCorners = UIRectCornerBottomLeft | UIRectCornerTopLeft | UIRectCornerTopRight;;
+    
+    QBChatMessage *message = [self.dataSource messageWithIndexPath:self.selectedIndexPathForMenu];
+    if (message.senderID != self.senderID) {
+        roundingCorners = UIRectCornerTopLeft | UIRectCornerTopRight | UIRectCornerBottomRight;
+    }
+    
+    parameters.visiblePath = [UIBezierPath bezierPathWithRoundedRect:selectedCell.previewContainer.bounds
+                                                   byRoundingCorners:roundingCorners
+                                                         cornerRadii:CGSizeMake(cornerRadius, cornerRadius)];
+    
+    UITargetedPreview *targetedPreview = [[UITargetedPreview alloc] initWithView:selectedCell.previewContainer parameters:parameters];
+    
+    return targetedPreview;
+}
+
+- (UITargetedPreview *)collectionView:(UICollectionView *)collectionView previewForHighlightingContextMenuWithConfiguration:(UIContextMenuConfiguration *)configuration {
+    return [self targetedPreviewForConfiguration:configuration];
+}
+
+- (UITargetedPreview *)collectionView:(UICollectionView *)collectionView previewForDismissingContextMenuWithConfiguration:(UIContextMenuConfiguration *)configuration {
+    return [self targetedPreviewForConfiguration:configuration];
+}
+
+- (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {
+    self.selectedIndexPathForMenu = indexPath;
+    
+    QBChatMessage *message = [self.dataSource messageWithIndexPath:self.selectedIndexPathForMenu];
+    
+    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:nil actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+        ChatCell *cell = (ChatCell *)[self.collectionView cellForItemAtIndexPath:self.selectedIndexPathForMenu];
+        if ([cell isKindOfClass:[ChatAttachmentCell class]]) {
+            ChatAttachmentCell *chatAttachmentCell = (ChatAttachmentCell *)cell;
+            QBChatMessage *item = [self.dataSource messageWithIndexPath:self.selectedIndexPathForMenu];
+            QBChatAttachment *attachment = item.attachments.firstObject;
+            
+            if (attachment && attachment.ID && [attachment.type isEqualToString:@"file"]) {
+                return [self chatContextMenuOutgoing:YES forCell:chatAttachmentCell];
+            }
+        }
+        if (self.dialog.type == QBChatDialogTypePrivate || message.senderID != self.senderID) {
+            return [self chatContextMenuOutgoing:NO forCell:nil];
+        } else {
+            return [self chatContextMenuOutgoing:YES forCell:nil];
+        }
+    }];
 }
 
 #pragma mark - Text view delegate
@@ -1297,6 +1735,7 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
     }
     
     if (self.automaticallyScrollsToMostRecentMessage) {
+        self.collectionBottomConstraint.constant = self.collectionBottomConstant;
         [self scrollToBottomAnimated:YES];
     }
 }
@@ -1305,21 +1744,77 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
     if (textView != self.inputToolbar.contentView.textView) {
         return;
     }
-    if (self.isUploading || self.attachmentMessage) {
-        [self.inputToolbar setupBarButtonEnabledLeft:NO andRight:YES];
-    } else {
-        [self.inputToolbar setupBarButtonEnabledLeft:YES andRight:YES];
+    if ([textView.text hasPrefix:@" "]) {
+        textView.text = [textView.text substringFromIndex:1];
     }
+    
+    if (textView.text.length > maxNumberLetters) {
+        textView.text = [textView.text substringToIndex:NSMaxRange([textView.text rangeOfComposedCharacterSequenceAtIndex:maxNumberLetters - 1])];
+    }
+    
+    [self sendIsTypingStatus];
+    [self.inputToolbar toggleSendButtonEnabledIsUploaded:self.isUploading];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    if (textView != self.inputToolbar.contentView.textView) {
+        return;
+    }
+    [self stopTyping];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if (textView != self.inputToolbar.contentView.textView) {
+        return NO;
+    }
+    return YES;
 }
 
 #pragma mark - ChatCellDelegate
 - (void)chatCellDidTapContainer:(ChatCell *)cell {
     if ([cell isKindOfClass:[ChatAttachmentCell class]]) {
         ChatAttachmentCell *chatAttachmentCell = (ChatAttachmentCell *)cell;
-        UIImage *attachmentImage = chatAttachmentCell.attachmentImageView.image;
-        if (attachmentImage) {
-            [self openAttachmentImage:attachmentImage];
+        NSIndexPath *indexPath = [self.collectionView indexPathForCell:chatAttachmentCell];
+        QBChatMessage *item = [self.dataSource messageWithIndexPath:indexPath];
+        QBChatAttachment *attachment = item.attachments.firstObject;
+        
+        if (attachment && attachment.ID && [attachment.type isEqualToString:@"image"]) {
+            UIImage *attachmentImage = chatAttachmentCell.attachmentImageView.image;
+            if (attachmentImage) {
+                ZoomedAttachmentViewController *zoomedVC = [[ZoomedAttachmentViewController alloc] initWithImage:attachmentImage];
+                UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:zoomedVC];
+                navVC.modalPresentationStyle = UIModalPresentationFullScreen;
+                [self presentViewController:navVC animated:NO completion:nil];
+            }
+        } else if (attachment && attachment.ID && [attachment.type isEqualToString:@"video"]) {
+            NSString *appendingPathComponent = [NSString stringWithFormat:@"%@_%@", attachment.ID, attachment.name];
+            NSString *path = [NSString stringWithFormat:@"%@/%@", CacheManager.instance.cachesDirectory, appendingPathComponent];
+            NSURL *videoURL = [NSURL fileURLWithPath:path];
+            if ([NSFileManager.defaultManager fileExistsAtPath:videoURL.path]) {
+                ParentVideoVC *parentVideoVC = [[ParentVideoVC alloc] initWithVideoUrl:videoURL];
+                parentVideoVC.title = attachment.name;
+                UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:parentVideoVC];
+                navVC.modalPresentationStyle = UIModalPresentationFullScreen;
+                [self presentViewController:navVC animated:NO completion:nil];
+            }
         }
+    }
+}
+
+- (void)saveFileAttachmentFromChatAttachmentCell:(ChatAttachmentCell *)chatAttachmentCell {
+    NSString *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
+    NSString *destinationPath = [NSString stringWithFormat:@"%@/%@", documentsPath, chatAttachmentCell.attachmentUrl.lastPathComponent];
+    
+    if ([NSFileManager.defaultManager fileExistsAtPath:destinationPath]) {
+        [NSFileManager.defaultManager removeItemAtPath:destinationPath error:nil];
+    }
+    
+    NSError *error = nil;
+    [NSFileManager.defaultManager copyItemAtPath:chatAttachmentCell.attachmentUrl.path toPath:destinationPath error:&error];
+    if (error) {
+        [SVProgressHUD showErrorWithStatus:@"Save error"];
+    } else {
+        [SVProgressHUD showSuccessWithStatus:@"Saved!"];
     }
 }
 
@@ -1328,67 +1823,6 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
     zoomedVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     zoomedVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self presentViewController:zoomedVC animated:YES completion:nil];
-}
-
-- (void)chatCell:(ChatCell *)__unused cell
-didTapOnTextCheckingResult:(NSTextCheckingResult *)textCheckingResult {
-    
-    switch (textCheckingResult.resultType) {
-        case NSTextCheckingTypeLink: {
-            if ([SFSafariViewController class] != nil &&
-                // SFSafariViewController supporting only http and https schemes
-                ([textCheckingResult.URL.scheme.lowercaseString isEqualToString:@"http"] ||
-                 [textCheckingResult.URL.scheme.lowercaseString isEqualToString:@"https"])) {
-                    SFSafariViewController *controller = [[SFSafariViewController alloc]
-                                                          initWithURL:textCheckingResult.URL
-                                                          entersReaderIfAvailable:NO];
-                    
-                    [self presentViewController:controller animated:YES completion:nil];
-                } else if ([[UIApplication sharedApplication] canOpenURL:textCheckingResult.URL]) {
-                    [[UIApplication sharedApplication] openURL:textCheckingResult.URL
-                                                       options:@{}
-                                             completionHandler:nil];
-                }
-            break;
-        }
-        case NSTextCheckingTypePhoneNumber: {
-            if ([self canMakeACall] == NO) {
-                [SVProgressHUD showInfoWithStatus:NSLocalizedString(@"Your Device can't make a phone call", nil)
-                                         maskType:SVProgressHUDMaskTypeNone];
-                break;
-            }
-            
-            NSString *urlString = [NSString stringWithFormat:@"tel:%@", textCheckingResult.phoneNumber];
-            NSURL *url = [NSURL URLWithString:urlString];
-            
-            [self.view endEditing:YES];
-            
-            UIAlertController *alertController = [UIAlertController
-                                                  alertControllerWithTitle:nil
-                                                  message:textCheckingResult.phoneNumber
-                                                  preferredStyle:UIAlertControllerStyleAlert];
-            
-            [alertController addAction:[UIAlertAction
-                                        actionWithTitle:NSLocalizedString(@"SA_STR_CANCEL", nil)
-                                        style:UIAlertActionStyleCancel
-                                        handler:nil]];
-            
-            [alertController addAction:[UIAlertAction
-                                        actionWithTitle:NSLocalizedString(@"SA_STR_CALL", nil)
-                                        style:UIAlertActionStyleDefault
-                                        handler:^(UIAlertAction * _Nonnull __unused action) {
-                                            [[UIApplication sharedApplication] openURL:url
-                                                                               options:@{}
-                                                                     completionHandler:nil];
-                                        }]];
-            
-            [self presentViewController:alertController animated:YES completion:nil];
-            
-            break;
-        }
-            
-        default: break;
-    }
 }
 
 #pragma mark - QBChatDelegate
@@ -1401,6 +1835,9 @@ didTapOnTextCheckingResult:(NSTextCheckingResult *)textCheckingResult {
     QBChatMessage *currentMessage = [self.dataSource messageWithID:messageID];
     if (currentMessage) {
         NSMutableArray *readIDs = [currentMessage.readIDs mutableCopy];
+        if ([readIDs containsObject:@(readerID)]) {
+            return;
+        }
         [readIDs addObject:@(readerID)];
         [currentMessage setReadIDs: [readIDs copy]];
         [self.dataSource updateMessage:currentMessage];
@@ -1415,6 +1852,9 @@ didTapOnTextCheckingResult:(NSTextCheckingResult *)textCheckingResult {
     if (currentMessage) {
         QBChatMessage *currentMessage = [self.dataSource messageWithID:messageID];
         NSMutableArray *deliveredIDs = [currentMessage.deliveredIDs mutableCopy];
+        if ([deliveredIDs containsObject:@(userID)]) {
+            return;
+        }
         [deliveredIDs addObject:@(userID)];
         [currentMessage setDeliveredIDs: [deliveredIDs copy]];
         [self.dataSource updateMessage:currentMessage];
@@ -1422,13 +1862,13 @@ didTapOnTextCheckingResult:(NSTextCheckingResult *)textCheckingResult {
 }
 
 - (void)chatDidReceiveMessage:(QBChatMessage *)message {
-    if ([message.dialogID isEqualToString: self.dialogID]) {
+    if ([message.dialogID isEqualToString: self.dialogID] && message.senderID != self.senderID) {
         [self.dataSource addMessage:message];
     }
 }
 
 - (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromDialogID:(NSString *)dialogID {
-    if ([dialogID isEqualToString: self.dialogID]) {
+    if ([dialogID isEqualToString: self.dialogID] && message.senderID != self.senderID) {
         [self.dataSource addMessage:message];
     }
 }
@@ -1446,24 +1886,66 @@ didTapOnTextCheckingResult:(NSTextCheckingResult *)textCheckingResult {
 }
 
 - (void)refreshAndReadMessages {
+    
+    if (self.messagesForRead.count) {
+        NSArray *messages = [self.messagesForRead allObjects];
+        [self.chatManager readMessages:messages dialog:self.dialog completion:^(NSError * _Nullable error) {
+            [self.messagesForRead removeAllObjects];
+        }];
+    }
+    
     [self loadMessagesWithSkip:0];
 }
 
-#pragma mark - AttachmentBarDelegate
-- (void)attachmentBar:(AttachmentBar *)attachmentBar didUpLoadAttachment:(QBChatAttachment *)attachment {
-    self.attachmentMessage = [self createAttachmentMessageWith:attachment];
-    self.isUploading = NO;
-    [self.inputToolbar setupBarButtonEnabledLeft:NO andRight:YES];
+#pragma mark - AttachmentBarDelegateUIPopoverPresentationControllerDelegate
+- (void)attachmentBarFailedUpLoadImage:(AttachmentUploadBar *)attachmentBar {
+    [self cancelUploadFile];
 }
 
-- (void)attachmentBar:(AttachmentBar *)attachmentBar didTapCancelButton:(UIButton *)sender {
+- (void)attachmentBar:(AttachmentUploadBar *)attachmentBar didUpLoadAttachment:(QBChatAttachment *)attachment {
+    self.attachmentMessage = [self createAttachmentMessageWith:attachment];
+    [self.inputToolbar toggleSendButtonEnabledIsUploaded:self.isUploading];
+}
+
+- (void)attachmentBar:(AttachmentUploadBar *)attachmentBar didTapCancelButton:(UIButton *)sender {
     self.attachmentMessage = nil;
-    [self.inputToolbar setupBarButtonEnabledLeft:YES andRight:NO];
     [self hideAttacnmentBar];
 }
 
-- (void)attachmentBarFailedUpLoadImage:(AttachmentBar *)attachmentBar {
-    [self cancelUploadFile];
+#pragma mark - ChatConextMenuProtocol
+- (void)forwardAction {
+    if (!self.selectedIndexPathForMenu) {
+        return;
+    }
+    QBChatMessage *message = [self.dataSource messageWithIndexPath:self.selectedIndexPathForMenu];
+    if (message) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Dialogs" bundle:nil];
+        DialogsSelectionVC *dialogsSelectionVC = [storyboard instantiateViewControllerWithIdentifier:@"DialogsSelectionVC"];
+        dialogsSelectionVC.action = ChatActionsForward;
+        dialogsSelectionVC.message = message;
+        
+        UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:dialogsSelectionVC];
+        navVC.modalPresentationStyle = UIModalPresentationFullScreen;
+        navVC.navigationBar.barTintColor = [UIColor mainColor];
+        navVC.navigationBar.barStyle = UIBarStyleBlack;
+        navVC.navigationBar.shadowImage = [UIImage imageNamed:@"navbar-shadow"];
+        [navVC.navigationBar setTranslucent:NO];
+        navVC.navigationBar.titleTextAttributes = @{ NSForegroundColorAttributeName:UIColor.whiteColor};
+        [self presentViewController:navVC animated:NO completion:nil];
+    }
+}
+
+- (void)deliveredToAction {
+    [self performSegueWithIdentifier:NSLocalizedString(@"SA_STR_SEGUE_GO_TO_INFO", nil) sender:@(ChatActionsDeliveredTo)];
+}
+
+- (void)viewedByAction {
+    [self performSegueWithIdentifier:NSLocalizedString(@"SA_STR_SEGUE_GO_TO_INFO", nil) sender:@(ChatActionsViewedBy)];
+}
+
+#pragma mark - UIPopoverPresentationControllerDelegate
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
+    return UIModalPresentationNone;
 }
 
 @end

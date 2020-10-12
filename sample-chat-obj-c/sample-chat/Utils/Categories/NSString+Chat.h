@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return clean string
  */
 - (NSString *)stringByTrimingWhitespace;
+- (BOOL)endsInWhitespaceCharacter;
 
 @end
 

@@ -11,10 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, AsyncOperationState) {
-    AsyncOperationStateStateReady,
-    AsyncOperationStateStateExecuting,
-    AsyncOperationStateStateFinished,
-    AsyncOperationStateStateCancelled
+    AsyncOperationStateReady,
+    AsyncOperationStateExecuting,
+    AsyncOperationStateFinished,
+    AsyncOperationStateCancelled
 };
 
 @interface AbstractAsyncOperation : NSOperation

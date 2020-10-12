@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,6 +26,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param subview The subview to which the receiver will be pinned.
  */
 - (void)pinAllEdgesOfSubview:(UIView *)subview;
+
+- (void)setRoundBorderEdgeColorView:(CGFloat)cornerRadius borderWidth:(CGFloat)borderWidth color:(nullable UIColor *)color borderColor:(UIColor *)borderColor;
+- (void)roundTopCornersWithRadius:(CGFloat)radius;
+- (void)setRoundViewWithCornerRadius:(CGFloat)cornerRadius;
+- (void)roundCornersWithRadius:(CGFloat)radius isIncoming:(Boolean)isIncoming;
 
 @end
 

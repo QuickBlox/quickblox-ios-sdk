@@ -37,10 +37,10 @@
 }
 
 - (QBChatDialog *)dialogWithID:(NSString *)dialogID {
-    for (QBChatDialog *dialog in self.dialogs) {
-        if ([dialog.ID isEqualToString:dialogID]) {
-            return dialog;
-        }
+    NSPredicate *predicateDialog = [NSPredicate predicateWithFormat:@"ID == %@", dialogID];
+    QBChatDialog *localDialog = [[self.dialogs filteredArrayUsingPredicate:predicateDialog] firstObject];
+    if (localDialog) {
+        return localDialog;
     }
     return nil;
 }
@@ -54,19 +54,20 @@
 - (void)updateDialogs:(NSArray<QBChatDialog*> *)dialogs {
     for (QBChatDialog *chatDialog in dialogs) {
         NSAssert(chatDialog.type != 0, @"Chat type is not defined");
+        NSAssert(chatDialog.ID != nil, @"Chat ID is not defined");
         
         QBChatDialog *dialog = [self updateDialog:chatDialog];
+        
         // Autojoin to the group chat
-        if (dialog.isJoined) {
-            continue;
+        if (dialog.type != QBChatDialogTypePrivate && dialog.isJoined == NO) {
+            [dialog joinWithCompletionBlock:^(NSError *error) {
+                if (error) {
+                    Log(@"[%@] updateDialogs error: %@",
+                        NSStringFromClass([ChatStorage class]),
+                        error.localizedDescription);
+                }
+            }];
         }
-        [dialog joinWithCompletionBlock:^(NSError *error) {
-            if (error) {
-                Log(@"[%@] updateDialogs error: %@",
-                    NSStringFromClass([ChatStorage class]),
-                    error.localizedDescription);
-            }
-        }];
     }
 }
 
@@ -90,9 +91,8 @@
 
 - (NSArray<QBUUser*> *)usersWithDialogID:(NSString *)dialogID {
     NSMutableArray<QBUUser *> *users = [NSMutableArray array];
-    
-    NSPredicate *predicateDialog = [NSPredicate predicateWithFormat:@"ID == %@", dialogID];
-    QBChatDialog *localDialog = [[self.dialogs filteredArrayUsingPredicate:predicateDialog] firstObject];
+
+    QBChatDialog *localDialog = [self dialogWithID:dialogID];
     if (localDialog) {
         for (NSNumber * ID in localDialog.occupantIDs) {
             NSPredicate *predicateUser = [NSPredicate predicateWithFormat:@"ID == %@", ID];
@@ -106,18 +106,28 @@
 }
 
 - (NSArray<QBUUser*> *)sortedAllUsers {
-    NSSortDescriptor *usersSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"updatedAt" ascending:NO];
+    NSSortDescriptor *usersSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"lastRequestAt" ascending:NO];
     NSArray *sortedUsers = [self.users sortedArrayUsingDescriptors:@[usersSortDescriptor]];
     
     return sortedUsers;
 }
 
 #pragma mark - Internal Methods
+- (void)markMessagesAsDeliveredForDialogID:(NSString *)dialogID {
+    [QBRequest markMessagesAsDelivered:nil dialogID:dialogID successBlock:^(QBResponse * _Nonnull response) {
+        Log(@"[%@] dialog.markMessages as Delivered success!!!",
+            NSStringFromClass([ChatStorage class]));
+    } errorBlock:^(QBResponse * _Nonnull response) {
+        Log(@"[%@] dialog.markMessages as Delivered error: %@",
+            NSStringFromClass([ChatStorage class]),
+            response.error.error.localizedDescription);
+    }];
+}
+
 - (QBChatDialog *)updateDialog:(QBChatDialog *)dialog {
     NSAssert(dialog.type != 0, @"Chat type is not defined");
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ID == %@", dialog.ID];
-    QBChatDialog *localDialog = [[self.dialogs filteredArrayUsingPredicate:predicate] firstObject];
+    QBChatDialog *localDialog = [self dialogWithID:dialog.ID];
     
     if (localDialog) {
         localDialog.updatedAt = dialog.updatedAt;
@@ -138,7 +148,7 @@
 }
 
 - (NSArray<QBUUser*> *)sortedUsers:(NSArray<QBUUser*> *)users {
-    NSSortDescriptor *usersSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"updatedAt" ascending:NO];
+    NSSortDescriptor *usersSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"lastRequestAt" ascending:NO];
     NSArray *sortedUsers = [users sortedArrayUsingDescriptors:@[usersSortDescriptor]];
     
     return sortedUsers;
@@ -150,7 +160,7 @@
     if (localUser) {
         //Update local User
         localUser.fullName = user.fullName;
-        localUser.updatedAt = user.updatedAt;
+        localUser.lastRequestAt = user.lastRequestAt;
         return;
     }
     [self.users addObject:user];

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ChatStorage.h"
+#import <Quickblox/Quickblox.h>
 
 typedef NS_ENUM(NSUInteger, NotificationMessageType) {
     NotificationMessageTypeCreate = 1,
@@ -54,27 +55,36 @@ typedef void(^MessagesErrorHandler)(NSString *error);
                completion:(QBChatCompletionBlock)completion;
 - (void)createGroupDialogWithName:(NSString *)name
                         occupants:(NSArray<QBUUser *> *)occupants
-                   completion:(nullable DialogCompletion)completion;
+                       completion:(nullable DialogCompletion)completion;
 - (void)createPrivateDialogWithOpponent:(QBUUser *)opponent
-                         completion:(nullable DialogCompletion)completion;
-- (void)deleteDialogWithID:(NSString *)dialogId completion:(nullable void(^)(QBResponse * response))completion;
+                             completion:(nullable DialogCompletion)completion;
+- (void)leaveDialogWithID:(NSString *)dialogId completion:(nullable void(^)(QBResponse *response))completion;
 - (void)loadDialogWithID:(NSString *)dialogId completion:(void(^)(QBChatDialog *loadedDialog))completion;
 - (void)updateDialogWith:(NSString *)dialogId withMessage:(QBChatMessage *)message;
 - (void)messagesWithDialogID:(NSString *)dialogId
              extendedRequest:(nullable NSDictionary *)extendedParameters
                         skip:(NSInteger)skip
-           success:(nullable MessagesCompletion)success
+                     success:(nullable MessagesCompletion)success
                 errorHandler:(nullable MessagesErrorHandler)errorHandler;
 - (void)sendMessage:(QBChatMessage *)message toDialog:(QBChatDialog *)dialog completion:(QBChatCompletionBlock)completion;
 - (void)readMessages:(NSArray<QBChatMessage*> *)messages
               dialog:(QBChatDialog *)dialog
-              completion:(QBChatCompletionBlock)completion;
-- (void)readMessage:(QBChatMessage *)message
-              dialog:(QBChatDialog *)dialog
           completion:(QBChatCompletionBlock)completion;
+- (void)readMessage:(QBChatMessage *)message
+             dialog:(QBChatDialog *)dialog
+         completion:(QBChatCompletionBlock)completion;
+- (void)searchUsersName:(NSString *)name
+            currentPage:(NSUInteger)currentPage
+                perPage:(NSUInteger)perPage
+             completion:(void(^)(QBResponse *response, NSArray<QBUUser *> *objects, Boolean cancel))completion;
+- (void)fetchUsersWithCurrentPage:(NSUInteger)currentPage
+                          perPage:(NSUInteger)perPage
+                       completion:(void(^)(QBResponse *response, NSArray<QBUUser *> *objects, Boolean cancel))completion;
 - (void)loadUserWithID:(NSUInteger)ID completion:(void(^)(QBUUser * _Nullable user))completion;
+- (void)loadUsersWithUsersIDs:(NSArray<NSString *> *)usersIDs
+                   completion:(void(^)(QBResponse *response))completion;
 - (void)joinOccupantsWithIDs:(NSArray<NSNumber*> *)ids toDialog:(QBChatDialog *)dialog
-              completion:(void(^)(QBResponse *response, QBChatDialog *updatedDialog))completion;
+                  completion:(void(^)(QBResponse *response, QBChatDialog *updatedDialog))completion;
 - (void)connect:(nullable QBChatCompletionBlock)completion;
 - (void)disconnect:(nullable QBChatCompletionBlock)completion;
 

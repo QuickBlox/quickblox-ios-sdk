@@ -11,7 +11,7 @@
 
 @implementation UIViewController (InfoScreen)
 
-- (void)showInfoButton {
+- (void)addInfoButton {
     BOOL needAdd = YES;
     for (UIBarButtonItem *barButton in self.navigationItem.rightBarButtonItems) {
         if ([barButton respondsToSelector:@selector(didTapInfoButton:)]) {
@@ -28,6 +28,7 @@
                                     target:self
                                     action:@selector(didTapInfoButton:)];
     infoButtonItem.imageInsets = UIEdgeInsetsMake(2.0f, 4.0f, -4.0f, -4.0f);
+    infoButtonItem.tintColor = UIColor.whiteColor;
     if (self.navigationItem.rightBarButtonItems.count == 0) {
         self.navigationItem.rightBarButtonItem = infoButtonItem;
     } else if (self.navigationItem.rightBarButtonItems.count > 0) {

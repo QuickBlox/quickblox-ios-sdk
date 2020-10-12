@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AddOccupantsController : UITableViewController
+@interface AddOccupantsController : UIViewController
 @property (strong, nonatomic) NSString *dialogID;
 @end
 
