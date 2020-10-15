@@ -1,5 +1,5 @@
 
-platform :ios, "11.2"
+platform :ios, "13.0"
 
 use_frameworks!
 inhibit_all_warnings!
@@ -8,7 +8,7 @@ target 'sample-chat-swift' do
 
     pod 'QuickBlox', '~> 2.17.4'
     pod 'SVProgressHUD'
-    pod 'TTTAttributedLabel', '~> 2.0.0'
     pod 'SDWebImage', '~> 4.4.7'
+    pod 'TTTAttributedLabel', '~> 2.0.0'
 
 end

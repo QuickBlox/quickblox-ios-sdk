@@ -74,7 +74,7 @@ extension UIImage {
             return UIImage()
         }
         let image = UIImage(cgImage: newCGImage)
-
+        
         return image
     }
 }

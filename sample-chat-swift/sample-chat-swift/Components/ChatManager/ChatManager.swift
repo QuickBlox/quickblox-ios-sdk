@@ -9,6 +9,30 @@
 import UIKit
 import Quickblox
 
+enum UIUserInterfaceIdiom : Int
+{
+  case Unspecified
+  case Phone
+  case Pad
+}
+
+struct ScreenSize
+{
+  static let SCREEN_WIDTH         = UIScreen.main.bounds.size.width
+  static let SCREEN_HEIGHT        = UIScreen.main.bounds.size.height
+  static let SCREEN_MAX_LENGTH    = max(ScreenSize.SCREEN_WIDTH, ScreenSize.SCREEN_HEIGHT)
+  static let SCREEN_MIN_LENGTH    = min(ScreenSize.SCREEN_WIDTH, ScreenSize.SCREEN_HEIGHT)
+}
+
+struct DeviceType
+{
+  static let IS_IPHONE_4_OR_LESS  = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.SCREEN_MAX_LENGTH < 568.0
+  static let IS_IPHONE_5          = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.SCREEN_MAX_LENGTH == 568.0
+  static let IS_IPHONE_6          = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.SCREEN_MAX_LENGTH == 667.0
+  static let IS_IPHONE_6P         = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.SCREEN_MAX_LENGTH == 736.0
+  static let IS_IPAD              = UIDevice.current.userInterfaceIdiom == .pad && ScreenSize.SCREEN_MAX_LENGTH == 1024.0
+}
+
 enum MessageType : String {
     case createGroupDialog = "1"
     case addUsersToGroupDialog = "2"
@@ -138,7 +162,7 @@ class ChatManager: NSObject {
         
         let IDs = usersIDs.map({ $0.stringValue }).joined(separator: ",")
         
-        guard let occupantIDs = dialog.occupantIDs else {
+        guard dialog.occupantIDs != nil else {
             return
         }
         
@@ -163,6 +187,7 @@ class ChatManager: NSObject {
         systemMessage.text = text
         systemMessage.deliveredIDs = [(NSNumber(value: currentUser.ID))]
         systemMessage.readIDs = [(NSNumber(value: currentUser.ID))]
+
         if action == .create {
             systemMessage.customParameters["notification_type"] = MessageType.createGroupDialog.rawValue
         } else if action == .add {
@@ -173,24 +198,13 @@ class ChatManager: NSObject {
         dialog.send(chatMessage, completionBlock: { error in
             completion(error)
         })
-        if action == .create {
-            for occupantID in usersIDs {
-                if currentUser.ID == occupantID.intValue {
-                    continue
-                }
-                systemMessage.recipientID = occupantID.uintValue
-                QBChat.instance.sendSystemMessage(systemMessage)
+        for occupantID in usersIDs {
+            if currentUser.ID == occupantID.intValue {
+                continue
             }
-        } else if action == .add {
-            for occupantID in occupantIDs {
-                if currentUser.ID == occupantID.intValue {
-                    continue
-                }
-                systemMessage.recipientID = occupantID.uintValue
-                QBChat.instance.sendSystemMessage(systemMessage)
-            }
+            systemMessage.recipientID = occupantID.uintValue
+            QBChat.instance.sendSystemMessage(systemMessage)
         }
-        
     }
     
     //MARK: - Users
@@ -218,7 +232,7 @@ class ChatManager: NSObject {
     
     func fetchUsers(currentPage: UInt, perPage: UInt, completion: @escaping (_ response: QBResponse?, _ objects: [QBUUser], _ cancel: Bool) -> Void) {
         let page = QBGeneralResponsePage(currentPage: currentPage, perPage: perPage)
-        QBRequest.users(withExtendedRequest: ["order": "desc date updated_at"],
+        QBRequest.users(withExtendedRequest: ["order": "desc date last_request_at"],
                         page: page,
                         successBlock: { (response, page, users) in
                             let cancel = users.count < page.perPage
@@ -269,7 +283,7 @@ class ChatManager: NSObject {
                 return
             }
             let dialog = QBChatDialog(dialogID: nil, type: .private)
-            dialog.occupantIDs = [NSNumber(value: opponent.id), NSNumber(value:currentUser.ID)]
+            dialog.occupantIDs = [NSNumber(value: opponent.id)]
             QBRequest.createDialog(dialog, successBlock: { response, createdDialog in
                 self.storage.update(dialogs:[createdDialog])
                 //Notify about create new dialog
@@ -417,17 +431,19 @@ class ChatManager: NSObject {
                 guard let dialog = dialog else {
                     return
                 }
-                dialog.lastMessageText = message.text
-                dialog.updatedAt = Date()
                 if let notificationType = message.customParameters["notification_type"] as? String {
+                    if dialog.type == .private {
+                        return
+                    }
                     switch(notificationType) {
                     case MessageType.createGroupDialog.rawValue: dialog.unreadMessagesCount = 1
                     case MessageType.addUsersToGroupDialog.rawValue:break
                     case MessageType.leaveGroupDialog.rawValue:break
-                        
                     default: break
                     }
                 }
+                dialog.lastMessageText = message.text
+                dialog.updatedAt = Date()
                 self.storage.update(dialogs:[dialog])
                 self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
             })
@@ -435,16 +451,15 @@ class ChatManager: NSObject {
     }
     
     func updateDialog(with dialogID: String, with message: QBChatMessage) {
-        let userSender = storage.user(withID: message.senderID)
-        if userSender == nil {
+        if storage.user(withID: message.senderID) != nil {
+            prepareDialog(with: dialogID, with: message)
+        } else {
             QBRequest.user(withID: message.senderID, successBlock: { response, user in
                 self.storage.update(users:[user])
                 self.prepareDialog(with: dialogID, with: message)
             }, errorBlock: { response in
                 debugPrint("[ChatManager] updateDialog error: \(self.errorMessage(response: response) ?? "")")
             })
-        } else {
-            prepareDialog(with: dialogID, with: message)
         }
     }
     
@@ -512,6 +527,7 @@ class ChatManager: NSObject {
             }
         }
         QBChat.instance.read(message) { error in
+            debugPrint("[ChatManager] error \(error.debugDescription)")
             if error == nil {
                 // updating dialog
                 if dialog.unreadMessagesCount > 0 {
@@ -524,7 +540,6 @@ class ChatManager: NSObject {
                 self.storage.update(dialogs: [dialog])
                 self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
                 completion?(nil)
-                
             }
         }
     }
@@ -622,7 +637,7 @@ class ChatManager: NSObject {
     //MARK: - Users
     private func updateUsers(completion: @escaping (_ response: QBResponse?) -> Void) {
         let firstPage = QBGeneralResponsePage(currentPage: 1, perPage: 100)
-        QBRequest.users(withExtendedRequest: ["order": "desc date updated_at"],
+        QBRequest.users(withExtendedRequest: ["order": "desc date last_request_at"],
                         page: firstPage,
                         successBlock: { (response, page, users) in
                             self.storage.update(users:users)
@@ -633,8 +648,8 @@ class ChatManager: NSObject {
         })
     }
     
-    private func loadUsers(_ usersIDs: [String],
-                           completion: @escaping (_ response: QBResponse?) -> Void) {
+    private func loadUsers(_ usersIDs: [String], completion: @escaping (_ response: QBResponse?) -> Void) {
+
         var skip: UInt = 1
         var t_request: UsersPage?
         let request: UsersPage? = { usersPage in
@@ -692,7 +707,7 @@ class ChatManager: NSObject {
                                     let usersIDs = usersForUpdate.map({ $0.stringValue })
                                     self.loadUsers(usersIDs) { (response) in
                                         if let response = response {
-                                            debugPrint(self.errorMessage(response: response) ?? "")
+                                            debugPrint("[ChatManager] loadUsers error: \(self.errorMessage(response: response) ?? "")")
                                         }
                                     }
                                     completion(response)
@@ -712,16 +727,6 @@ class ChatManager: NSObject {
     private func parametersForMessages() -> [String : String] {
         let parameters = ["sort_desc": "date_sent", "mark_as_read": "0"]
         return parameters
-    }
-    
-    //MARK: - Helpers
-    func color(_ index: Int) -> UIColor {
-        let colors = [#colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1), #colorLiteral(red: 0.3035047352, green: 0.8693258762, blue: 0.4432001114, alpha: 1), #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1), #colorLiteral(red: 0.02297698334, green: 0.6430568099, blue: 0.603818357, alpha: 1), #colorLiteral(red: 0.5244195461, green: 0.3333674073, blue: 0.9113605022, alpha: 1), #colorLiteral(red: 0, green: 0.5694751143, blue: 1, alpha: 1), #colorLiteral(red: 0.839125216, green: 0.871129334, blue: 0.3547145724, alpha: 1), #colorLiteral(red: 0.09088832885, green: 0.7803853154, blue: 0.8577881455, alpha: 1), #colorLiteral(red: 1, green: 0.3950406728, blue: 0.0543332563, alpha: 1), #colorLiteral(red: 1, green: 0.5161726656, blue: 0.9950085603, alpha: 1), #colorLiteral(red: 1, green: 0.01143101626, blue: 0.09927682555, alpha: 1)]
-        if index >= 0 {
-            return colors[index % 10]
-        } else {
-            return .black
-        }
     }
     
     //Handle Error

@@ -13,7 +13,6 @@ extension PHAsset {
     func fetchImage(contentMode: PHImageContentMode,
                     targetSize: CGSize,
                     completionHandler : @escaping ((_ image : UIImage?) -> Void)) {
-        var image: UIImage?
         let options = PHImageRequestOptions()
         options.version = .original
         options.isSynchronous = true
@@ -21,7 +20,6 @@ extension PHAsset {
             if let fetchedImage = fetchedImage {
                 completionHandler(fetchedImage)
             } else {
-                print(info![PHImageErrorKey])
                 completionHandler(nil)
             }
         }

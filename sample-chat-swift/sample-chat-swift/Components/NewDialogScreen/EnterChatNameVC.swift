@@ -10,15 +10,14 @@ import UIKit
 
 struct EnterChatNameConstant {
     static let nameHint = NSLocalizedString("Must be in a range from 3 to 20 characters.", comment: "")
-    static let chatname = "^[^_][\\w\\u00C0-\\u1FFF\\u2C00-\\uD7FF\\s]{2,19}$"
+    static let chatname = "^[^_]{3,19}$"
 }
 
 class EnterChatNameVC: UITableViewController {
     @IBOutlet weak var chatNameTextField: UITextField!
     @IBOutlet weak var chatNameLabel: UILabel!
     @IBOutlet weak var hintLabel: UILabel!
-    
-    private var titleView = TitleView()
+
     var selectedUsers: [QBUUser] = []
     private let chatManager = ChatManager.instance
     
@@ -44,8 +43,7 @@ class EnterChatNameVC: UITableViewController {
         navigationItem.rightBarButtonItem = createButtonItem
         createButtonItem.tintColor = .white
         
-        navigationItem.titleView = titleView
-        setupNavigationTitle()
+        title = "New Chat"
         
         setupViews()
         
@@ -54,6 +52,12 @@ class EnterChatNameVC: UITableViewController {
             let notConnection = status == .notConnection
             if notConnection == true {
                 self?.showAlertView(LoginConstant.checkInternet, message: LoginConstant.checkInternetMessage)
+            } else {
+                ChatManager.instance.connect { (error) in
+                    if let _ = error {
+                        SVProgressHUD.showError(withStatus: "QBChat is not Connected")
+                    }
+                }
             }
         }
         Reachability.instance.networkStatusBlock = { status in
@@ -64,12 +68,6 @@ class EnterChatNameVC: UITableViewController {
     
     
     //MARK - Setup
-    private func setupNavigationTitle() {
-        let title = CreateNewDialogConstant.newChat
-        let numberUsers = "\(selectedUsers.count) users selected"
-        titleView.setupTitleView(title: title, subTitle: numberUsers)
-    }
-    
     private func setupViews() {
         chatNameTextField.becomeFirstResponder()
         hintLabel.text = ""

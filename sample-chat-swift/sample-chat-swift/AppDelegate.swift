@@ -21,6 +21,7 @@ struct CredentialsConstant {
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    var isLaunched = false
     
     func application(
         _ application: UIApplication,
@@ -33,13 +34,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         QBSettings.authKey = CredentialsConstant.authKey
         QBSettings.authSecret = CredentialsConstant.authSecret
         QBSettings.accountKey = CredentialsConstant.accountKey
+
         // enabling carbons for chat
-        QBSettings.carbonsEnabled = false
+        QBSettings.carbonsEnabled = true
         // Enables Quickblox REST API calls debug console output.
         QBSettings.logLevel = .debug
         // Enables detailed XMPP logging in console output.
         QBSettings.enableXMPPLogging()
         QBSettings.disableFileLogging()
+        QBSettings.autoReconnectEnabled = true
         
         let center = UNUserNotificationCenter.current()
         center.delegate = self
@@ -58,7 +61,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Logging in to chat.
-        registerForRemoteNotifications()
         ChatManager.instance.connect { (error) in
             if let _ = error {
                 return
@@ -66,11 +68,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Logging out from chat.
-        ChatManager.instance.disconnect()
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        if isLaunched == true {
+            ChatManager.instance.connect { (error) in
+                if let _ = error {
+                    return
+                }
+            }
+        }
     }
     
+    func applicationWillResignActive(_ application: UIApplication) {
+        ChatManager.instance.disconnect()
+    }
+
     //MARK: - UNUserNotification
     func application(_ application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -91,7 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        debugPrint("Unable to register for remote notifications: \(error.localizedDescription)")
+        debugPrint("[AppDelegate] Unable to register for remote notifications: \(error.localizedDescription)")
     }
     
     private func registerForRemoteNotifications() {
@@ -130,42 +141,19 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             dialogID.isEmpty == false else {
                 return
         }
-        // calling dispatch async for push notification handling to have priority in main queue
         DispatchQueue.main.async {
-            
-            if let chatDialog = ChatManager.instance.storage.dialog(withID: dialogID) {
-                self.openChat(chatDialog)
+            if ChatManager.instance.storage.dialog(withID: dialogID) != nil {
+                self.rootViewController.dialogID = dialogID
             } else {
                 ChatManager.instance.loadDialog(withID: dialogID, completion: { (loadedDialog: QBChatDialog?) -> Void in
-                    guard let dialog = loadedDialog else {
+                    guard loadedDialog != nil else {
                         return
                     }
-                    self.openChat(dialog)
+                    self.rootViewController.dialogID = dialogID
                 })
             }
         }
         completionHandler()
-    }
-    
-    //MARK: Help
-    func openChat(_ chatDialog: QBChatDialog) {
-        guard let window = window,
-            let navigationController = window.rootViewController as? UINavigationController else {
-                return
-        }
-        var controllers = [UIViewController]()
-        
-        for controller in navigationController.viewControllers {
-            controllers.append(controller)
-            if controller is DialogsViewController {
-                let storyboard = UIStoryboard(name: "Chat", bundle: nil)
-                let chatController = storyboard.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
-                chatController.dialogID = chatDialog.id
-                controllers.append(chatController)
-                navigationController.setViewControllers(controllers, animated: true)
-                return
-            }
-        }
     }
 }
 

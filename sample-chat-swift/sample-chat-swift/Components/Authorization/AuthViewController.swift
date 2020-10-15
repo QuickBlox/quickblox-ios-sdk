@@ -8,7 +8,6 @@
 
 import UIKit
 import Quickblox
-import UserNotifications
 
 struct LoginConstant {
     static let notSatisfyingDeviceToken = "Invalid parameter not satisfying: deviceToken != nil"
@@ -17,7 +16,7 @@ struct LoginConstant {
     static let login = NSLocalizedString("Login", comment: "")
     static let checkInternet = NSLocalizedString("No Internet Connection", comment: "")
     static let checkInternetMessage = NSLocalizedString("Make sure your device is connected to the internet", comment: "")
-    static let enterUsername = NSLocalizedString("Please enter your login and username", comment: "")
+    static let enterUsername = NSLocalizedString("Enter your login and display name", comment: "")
     static let loginHint = NSLocalizedString("Use your email or alphanumeric characters in a range from 3 to 50. First character must be a letter.", comment: "")
     static let usernameHint = NSLocalizedString("Use alphanumeric characters and spaces in a range from 3 to 20. Cannot contain more than one space in a row.", comment: "")
     static let defaultPassword = "quickblox"
@@ -40,7 +39,7 @@ struct LoginStatusConstant {
 
 struct LoginNameRegularExtention {
     static let username = "^[a-zA-Z][a-zA-Z 0-9]{2,19}$"
-    static let usernameChanged = "^[a-zA-Z]+([_ -]?[a-zA-Z 0-9]){2,19}$"
+    static let usernameChanged = "^[a-zA-Z][a-zA-Z 0-9]{2,19}$"
     static let login = "^[a-zA-Z][a-zA-Z0-9]{2,49}$"
     static let loginEmail = "^[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,49}$"
     static let loginChanged = "^[a-zA-Z][a-zA-Z0-9]{2,49}$"
@@ -84,7 +83,7 @@ class AuthViewController: UITableViewController {
         tableView.keyboardDismissMode = .onDrag
         tableView.delaysContentTouches = false
         navigationItem.title = LoginConstant.enterToChat
-        showInfoButton()
+        addInfoButton()
         setupViews()
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
@@ -95,17 +94,12 @@ class AuthViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     
-            
         defaultConfiguration()
         
         //MARK: - Reachability
         let updateLoginInfo: ((_ status: NetworkConnectionStatus) -> Void)? = { [weak self] status in
             let notConnection = status == .notConnection
             let loginInfo = notConnection ? LoginConstant.checkInternet : LoginConstant.enterUsername
-            let profile = Profile()
-            if profile.isFull == true, notConnection == false {
-                self?.login(fullName: profile.fullName, login: profile.login)
-            }
             self?.infoText = loginInfo
         }
         
@@ -121,7 +115,7 @@ class AuthViewController: UITableViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    //MARK - Setup keyboardWillHideNotification
+    //MARK - keyboardWillHideNotification
     @objc func keyboardWillHide(notification: Notification) {
         if userNameTextField.text?.isEmpty == true {
             userNameDescriptionLabel.text = ""
@@ -239,9 +233,6 @@ class AuthViewController: UITableViewController {
      *  login
      */
     private func login(fullName: String, login: String, password: String = LoginConstant.defaultPassword) {
-        if QBChat.instance.isConnected == true {
-            ChatManager.instance.disconnect()
-        }
         beginConnect()
         QBRequest.logIn(withUserLogin: login,
                         password: password,
@@ -293,27 +284,38 @@ class AuthViewController: UITableViewController {
      */
     private func connectToChat(user: QBUUser) {
         infoText = LoginStatusConstant.intoChat
-        QBChat.instance.connect(withUserID: user.id,
-                                password: LoginConstant.defaultPassword,
-                                completion: { [weak self] error in
-                                    guard let self = self else { return }
-                                    if let error = error {
-                                        if error._code == QBResponseStatusCode.unAuthorized.rawValue {
-                                            // Clean profile
-                                            Profile.clearProfile()
-                                            self.defaultConfiguration()
+        if QBChat.instance.isConnected == true {
+            //did Login action
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+                AppDelegate.shared.rootViewController.goToDialogsScreen()
+                self.inputedUsername = nil
+                self.inputedLogin = nil
+            }
+        } else {
+            QBChat.instance.connect(withUserID: user.id,
+                                    password: LoginConstant.defaultPassword,
+                                    completion: { [weak self] error in
+                                        guard let self = self else { return }
+                                        if let error = error {
+                                            if error._code == QBResponseStatusCode.unAuthorized.rawValue {
+                                                // Clean profile
+                                                Profile.clearProfile()
+                                                self.defaultConfiguration()
+                                            } else {
+                                                self.showAlertView(LoginConstant.checkInternet, message: LoginConstant.checkInternetMessage)
+                                                self.handleError(error, domain: ErrorDomain.logIn)
+                                            }
                                         } else {
-                                            self.showAlertView(LoginConstant.checkInternet, message: LoginConstant.checkInternetMessage)
-                                            self.handleError(error, domain: ErrorDomain.logIn)
+                                            //did Login action
+                                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+                                                AppDelegate.shared.rootViewController.goToDialogsScreen()
+                                                self.inputedUsername = nil
+                                                self.inputedLogin = nil
+                                            }
                                         }
-                                    } else {
-                                        self.registerForRemoteNotifications()
-                                        //did Login action
-                                        AppDelegate.shared.rootViewController.goToDialogsScreen()
-                                        self.inputedUsername = nil
-                                        self.inputedLogin = nil
-                                    }
-        })
+                                    })
+            
+        }
     }
     
     private func beginConnect() {
@@ -330,8 +332,9 @@ class AuthViewController: UITableViewController {
                 loginDescritptionLabel.text = ""
             }
             
-            if userNameTextField.text?.isEmpty == true
-                || isValidChanged(userName: userNameTextField.text) == false {
+            if userNameTextField.text?.isEmpty == true {
+                userNameDescriptionLabel.text = ""
+            } else if isValidChanged(userName: userNameTextField.text) == false {
                 userNameDescriptionLabel.text = LoginConstant.usernameHint
             } else {
                 userNameDescriptionLabel.text = ""
@@ -344,8 +347,9 @@ class AuthViewController: UITableViewController {
                 userNameDescriptionLabel.text = ""
             }
             
-            if loginTextField.text?.isEmpty == true
-                || isValidChanged(login: loginTextField.text) == false {
+            if loginTextField.text?.isEmpty == true {
+                loginDescritptionLabel.text = ""
+            } else if isValidChanged(login: loginTextField.text) == false {
                 loginDescritptionLabel.text = LoginConstant.loginHint
             } else {
                 loginDescritptionLabel.text = ""
@@ -354,24 +358,6 @@ class AuthViewController: UITableViewController {
         
         tableView.beginUpdates()
         tableView.endUpdates()
-    }
-    
-    private func registerForRemoteNotifications() {
-        let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.sound, .alert, .badge], completionHandler: { granted, error in
-            if let error = error {
-                debugPrint("[AuthorizationViewController] registerForRemoteNotifications error: \(error.localizedDescription)")
-                return
-            }
-            center.getNotificationSettings(completionHandler: { settings in
-                if settings.authorizationStatus != .authorized {
-                    return
-                }
-                DispatchQueue.main.async(execute: {
-                    UIApplication.shared.registerForRemoteNotifications()
-                })
-            })
-        })
     }
     
     // MARK: - Handle errors
@@ -393,40 +379,27 @@ class AuthViewController: UITableViewController {
     
     //MARK: - Validation helpers
     private func isValid(userName: String?) -> Bool {
-        let characterSet = CharacterSet.whitespaces
-        let trimmedText = userName?.trimmingCharacters(in: characterSet)
         let regularExtension = LoginNameRegularExtention.username
         let predicate = NSPredicate(format: "SELF MATCHES %@", regularExtension)
-        let isValid: Bool = predicate.evaluate(with: trimmedText)
-        if isValid == true {
-            return true
-        }
-        return false
+        let isValid: Bool = predicate.evaluate(with: userName)
+        return isValid == true
     }
     
     private func isValidChanged(userName: String?) -> Bool {
         let regularExtension = LoginNameRegularExtention.usernameChanged
         let predicate = NSPredicate(format: "SELF MATCHES %@", regularExtension)
         let isValid: Bool = predicate.evaluate(with: userName)
-        if isValid == true {
-            return true
-        }
-        return false
+        return isValid == true
     }
 
     private func isValid(login: String?) -> Bool {
-        let characterSet = CharacterSet.whitespaces
-        let trimmedText = login?.trimmingCharacters(in: characterSet)
         let regularExtension = LoginNameRegularExtention.login
         let regularExtensionEmail = LoginNameRegularExtention.loginEmail
         let predicate = NSPredicate(format: "SELF MATCHES %@", regularExtension)
         let predicateEmail = NSPredicate(format: "SELF MATCHES %@", regularExtensionEmail)
-        let isValid: Bool = predicate.evaluate(with: trimmedText)
-        let isValidEmail: Bool = predicateEmail.evaluate(with: trimmedText)
-        if isValid == true || isValidEmail == true {
-            return true
-        }
-        return false
+        let isValid: Bool = predicate.evaluate(with: login)
+        let isValidEmail: Bool = predicateEmail.evaluate(with: login)
+        return isValid == true || isValidEmail == true
     }
     
     private func isValidChanged(login: String?) -> Bool {
@@ -436,10 +409,7 @@ class AuthViewController: UITableViewController {
         let predicateEmail = NSPredicate(format: "SELF MATCHES %@", regularExtensionEmail)
         let isValid: Bool = predicate.evaluate(with: login)
         let isValidEmail: Bool = predicateEmail.evaluate(with: login)
-        if isValid == true || isValidEmail == true {
-            return true
-        }
-        return false
+        return isValid == true || isValidEmail == true
     }
 }
 

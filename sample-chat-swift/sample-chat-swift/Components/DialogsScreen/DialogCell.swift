@@ -2,14 +2,19 @@
 //  DialogCell.swift
 //  sample-chat-swift
 //
-//  Created by Injoit on 9/30/19.
-//  Copyright © 2019 Quickblox. All rights reserved.
+//  Created by Injoit on 13.08.2020.
+//  Copyright © 2020 quickBlox. All rights reserved.
 //
 
 import UIKit
 
+struct DialogCellConstant {
+   static let reuseIdentifier =  "DialogCell"
+}
+
 class DialogCell: UITableViewCell {
-    
+
+    //MARK: - IBOutlets
     @IBOutlet weak var checkBoxImageView: UIImageView!
     @IBOutlet weak var checkBoxView: UIView!
     @IBOutlet weak var lastMessageDateLabel: UILabel!
@@ -21,12 +26,13 @@ class DialogCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        
         checkBoxImageView.contentMode = .scaleAspectFit
         unreadMessageCounterHolder.layer.cornerRadius = 12.0
         dialogAvatarLabel.setRoundedLabel(cornerRadius: 20.0)
     }
-    
+
+    // MARK: - Overrides
     override func prepareForReuse() {
         super.prepareForReuse()
         

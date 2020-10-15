@@ -76,35 +76,29 @@ class PDFViewController: UIViewController {
     
     @objc private func didTapInfo(_ sender: UIBarButtonItem) {
         let chatStoryboard = UIStoryboard(name: "Chat", bundle: nil)
-        guard let popVC = chatStoryboard.instantiateViewController(withIdentifier: "ChatPopVC") as? ChatPopVC else {
+        guard let actionsMenuVC = chatStoryboard.instantiateViewController(withIdentifier: "ActionsMenuViewController") as? ActionsMenuViewController else {
             return
         }
-        popVC.actions = [.SaveAttachment]
-        popVC.modalPresentationStyle = .popover
-        let chatPopOverVc = popVC.popoverPresentationController
-        chatPopOverVc?.delegate = self
-        chatPopOverVc?.barButtonItem = infoItem
-        chatPopOverVc?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
-        popVC.selectedAction = { [weak self] selectedAction in
-            guard let _ = selectedAction else {
-                return
+        actionsMenuVC.modalPresentationStyle = .popover
+        let presentation = actionsMenuVC.popoverPresentationController
+        presentation?.delegate = self
+        presentation?.barButtonItem = infoItem
+        presentation?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+        let saveAttachmentAction = MenuAction(title: "Save attachment") {
+            let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            let destinationURL = documentsPath.appendingPathComponent(self.pdfUrl.lastPathComponent)
+            try? FileManager.default.removeItem(at: destinationURL)
+            do {
+                try FileManager.default.copyItem(at: self.pdfUrl, to: destinationURL)
+                SVProgressHUD.showSuccess(withStatus: "Saved!")
+            } catch let error {
+                SVProgressHUD.showError(withStatus: "Save error")
+                debugPrint("[PDFViewController] Copy Error: \(error.localizedDescription)")
             }
-            self?.saveFile()
         }
-        present(popVC, animated: false)
-    }
-    
-    private func saveFile() {
-        let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let destinationURL = documentsPath.appendingPathComponent(pdfUrl.lastPathComponent)
-        try? FileManager.default.removeItem(at: destinationURL)
-        do {
-            try FileManager.default.copyItem(at: pdfUrl, to: destinationURL)
-            SVProgressHUD.showSuccess(withStatus: "Saved!")
-        } catch let error {
-            SVProgressHUD.showError(withStatus: "Save error")
-            print("Copy Error: \(error.localizedDescription)")
-        }
+        actionsMenuVC.addAction(saveAttachmentAction)
+        
+        present(actionsMenuVC, animated: false)
     }
 }
 

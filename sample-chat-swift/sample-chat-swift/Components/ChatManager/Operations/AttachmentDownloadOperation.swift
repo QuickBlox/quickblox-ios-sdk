@@ -66,26 +66,25 @@ final class AttachmentDownloadOperation: AsyncOperation {
                 self?.successHandler?(image, nil, ID)
             } else {
                 let fileData = fileData as NSData
-//                let fileName = ID
                 let fileName = ID + "_" + attachmentName
                 let filePath = NSTemporaryDirectory() + fileName
                 let fileURL = URL(fileURLWithPath: filePath)
                 if  fileData.write(to: fileURL, atomically: true) == true {
                     self?.successHandler?(nil, fileURL, ID)
                 } else {
-                    print("failure")
+                    debugPrint("[AttachmentDownloadOperation] failure")
                 }
             }
             self?.state = .finished
-            }, statusBlock: { [weak self] (request: QBRequest, status: QBRequestStatus?) in
-                guard let status = status else {
-                    return
-                }
-                let progress = CGFloat(status.percentOfCompletion)
-                self?.progressHandler?(progress, ID)
-            }, errorBlock: { [weak self] (response: QBResponse) in
-                self?.errorHandler?(response.error?.error, ID)
-                self?.state = .finished
+        }, statusBlock: { [weak self] (request: QBRequest, status: QBRequestStatus?) in
+            guard let status = status else {
+                return
+            }
+            let progress = CGFloat(status.percentOfCompletion)
+            self?.progressHandler?(progress, ID)
+        }, errorBlock: { [weak self] (response: QBResponse) in
+            self?.errorHandler?(response.error?.error, ID)
+            self?.state = .finished
         })
     }
 }

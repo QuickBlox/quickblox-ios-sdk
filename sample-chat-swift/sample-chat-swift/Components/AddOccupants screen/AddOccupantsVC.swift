@@ -79,17 +79,20 @@ class AddOccupantsVC: UIViewController {
         
         //MARK: - Reachability
         let updateConnectionStatus: ((_ status: NetworkConnectionStatus) -> Void)? = { [weak self] status in
+            guard let self = self else {
+                return
+            }
             let notConnection = status == .notConnection
             if notConnection == true {
-                self?.showAlertView(LoginConstant.checkInternet, message: LoginConstant.checkInternetMessage)
+                self.showAlertView(LoginConstant.checkInternet, message: LoginConstant.checkInternetMessage)
             }
             if notConnection == false {
-                if self?.isSearch == false {
-                    self?.fetchUsers()
+                if self.isSearch == false {
+                    self.fetchUsers()
                     
                 } else {
-                    if let searchText = self?.searchText, searchText.count > 2 {
-                        self?.searchUsers(searchText)
+                    if self.searchText.count > 2 {
+                        self.searchUsers(self.searchText)
                     }
                 }
             }
@@ -281,11 +284,13 @@ class AddOccupantsVC: UIViewController {
                 self.users.append(user)
             }
         }
+        var removedUsers:Set<QBUUser> = []
         for user in selectedUsers {
             if occupantIDs.contains(user.id) {
-                selectedUsers.remove(user)
+                removedUsers.insert(user)
             }
         }
+        selectedUsers.subtract(removedUsers)
         
         if selectedUsers.isEmpty == false {
             var usersSet = Set(users)
@@ -318,11 +323,14 @@ class AddOccupantsVC: UIViewController {
                 filteredUsers.append(user)
             }
         }
+
+        var removedUsers:Set<QBUUser> = []
         for user in selectedUsers {
             if occupantIDs.contains(user.id) {
-                selectedUsers.remove(user)
+                removedUsers.insert(user)
             }
         }
+        selectedUsers.subtract(removedUsers)
         
         foundUsers = foundUsers + filteredUsers
         
@@ -421,10 +429,7 @@ extension AddOccupantsVC: UISearchBarDelegate {
     
     private func searchUsers(_ name: String) {
         chatManager.searchUsers(name, currentPage: currentSearchPage, perPage: CreateNewDialogConstant.perPage) { [weak self] response, users, cancel in
-            if let resposeError = response {
-                self?.showAlertView(nil, message: resposeError.error?.error?.localizedDescription)
-                return
-            }
+
             SVProgressHUD.dismiss()
             self?.cancel = cancel
             if self?.currentSearchPage == 1 {
@@ -449,10 +454,7 @@ extension AddOccupantsVC: UISearchBarDelegate {
             return
         }
         chatManager.fetchUsers(currentPage: currentFetchPage, perPage: CreateNewDialogConstant.perPage) { [weak self] response, users, cancel in
-            if let responseError = response {
-                self?.showAlertView(nil, message: responseError.error?.error?.localizedDescription)
-                return
-            }
+
             SVProgressHUD.dismiss()
             self?.cancelFetch = cancel
             if cancel == false {
@@ -475,9 +477,10 @@ extension AddOccupantsVC: UISearchBarDelegate {
 extension AddOccupantsVC: ChatManagerDelegate {
     func chatManager(_ chatManager: ChatManager, didUpdateChatDialog chatDialog: QBChatDialog) {
         SVProgressHUD.dismiss()
-        if chatDialog.id == self.dialogID {
-            self.dialog = chatManager.storage.dialog(withID: dialogID)
+        if chatDialog.id == dialogID {
+            dialog = chatDialog
             setupUsers(self.users)
+            
         }
     }
     

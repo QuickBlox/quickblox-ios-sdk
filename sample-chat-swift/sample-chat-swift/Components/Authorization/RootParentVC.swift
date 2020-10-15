@@ -8,9 +8,18 @@
 
 import UIKit
 
+class DialogsNavigationController: UINavigationController { }
+
 class RootParentVC: UIViewController {
-    private var current: UIViewController
+    //MARK: - Properties
+    var current: UIViewController
+    var dialogID: String? {
+        didSet {
+            handlePush()
+        }
+    }
     
+    //MARK: - Life Cycle
     init() {
         let storyboard = UIStoryboard(name: "Authorization", bundle: nil)
         current = storyboard.instantiateViewController(withIdentifier: "SplashScreenVC") as! SplashScreenVC
@@ -24,49 +33,59 @@ class RootParentVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addChild(current)
-        current.view.frame = view.bounds
-        view.addSubview(current.view)
-        current.didMove(toParent: self)
+        changeCurrentViewController(current)
     }
     
+    // MARK: - Public Methods
     func showLoginScreen() {
         let storyboard = UIStoryboard(name: "Authorization", bundle: nil)
         let authNavVC = storyboard.instantiateViewController(withIdentifier: "AuthNavVC") as! UINavigationController
         
-        addChild(authNavVC)
-        authNavVC.view.frame = view.bounds
-        view.addSubview(authNavVC.view)
-        authNavVC.didMove(toParent: self)
-        
-        current.willMove(toParent: nil)
-        current.view.removeFromSuperview()
-        current.removeFromParent()
-        current = authNavVC
+        changeCurrentViewController(authNavVC)
     }
     
     func goToDialogsScreen() {
         let storyboard = UIStoryboard(name: "Dialogs", bundle: nil)
-        let dialogsVC = storyboard.instantiateViewController(withIdentifier: "DialogsViewController") as! DialogsViewController
-        let dialogsScreen = UINavigationController(rootViewController: dialogsVC)
-        dialogsScreen.navigationBar.barTintColor = #colorLiteral(red: 0.2216441333, green: 0.4713830948, blue: 0.9869660735, alpha: 1)
-        dialogsScreen.navigationBar.barStyle = .black
-        dialogsScreen.navigationBar.shadowImage = UIImage()
-        dialogsScreen.navigationBar.isTranslucent = false
-        dialogsScreen.navigationBar.tintColor = .white
-        dialogsScreen.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        
-        addChild(dialogsScreen)
-        dialogsScreen.view.frame = view.bounds
-        view.addSubview(dialogsScreen.view)
-        dialogsScreen.didMove(toParent: self)
-        
-        current.willMove(toParent: nil)
-        current.view.removeFromSuperview()
-        current.removeFromParent()
-        current = dialogsScreen
+        if let dialogsVC = storyboard.instantiateViewController(withIdentifier: "DialogsViewController") as? DialogsViewController {
+            let dialogsScreen = DialogsNavigationController(rootViewController: dialogsVC)
+            dialogsScreen.navigationBar.barTintColor = #colorLiteral(red: 0.2216441333, green: 0.4713830948, blue: 0.9869660735, alpha: 1)
+            dialogsScreen.navigationBar.barStyle = .black
+            dialogsScreen.navigationBar.shadowImage = UIImage()
+            dialogsScreen.navigationBar.isTranslucent = false
+            dialogsScreen.navigationBar.tintColor = .white
+            dialogsScreen.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+            
+            changeCurrentViewController(dialogsScreen)
+
+            handlePush()
+        }
     }
     
+    //MARK: - Internal Methods
+    private func changeCurrentViewController(_ newCurrentViewController: UIViewController) {
+            addChild(newCurrentViewController)
+            newCurrentViewController.view.frame = view.bounds
+            view.addSubview(newCurrentViewController.view)
+            newCurrentViewController.didMove(toParent: self)
+            
+            if current == newCurrentViewController {
+                return
+            }
+            current.willMove(toParent: nil)
+            current.view.removeFromSuperview()
+            current.removeFromParent()
+            current = newCurrentViewController
+        }
+    
+    private func handlePush() {
+        if let dialogsNavigationController = current as? DialogsNavigationController, let dialogID = dialogID  {
+            dialogsNavigationController.popToRootViewController(animated: false)
+            (dialogsNavigationController.topViewController as? DialogsViewController)?.openChatWithDialogID(dialogID)
+            self.dialogID = nil
+        }
+    }
+    
+    //MARK - Setup
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }

@@ -134,21 +134,28 @@ class ChatDataSource {
                 
                 let formatter = DateFormatter()
                 
-                if divideDate.hasSame([.year], as: Date()) == true {
+                 if divideDate.hasSame([.year], as: Date()) == true {
                     formatter.dateFormat = "d MMM"
                 } else {
                     formatter.dateFormat = "d MMM, yyyy"
                 }
                 
                 self.dividers.insert(divideDate)
-
+                
                 let dividerMessage = QBChatMessage()
-                dividerMessage.text = formatter.string(from: divideDate)
+                
+                if Calendar.current.isDateInToday(divideDate) == true {
+                    dividerMessage.text = "Today"
+                } else if Calendar.current.isDateInYesterday(divideDate) == true {
+                    dividerMessage.text = "Yesterday"
+                } else {
+                    dividerMessage.text = formatter.string(from: divideDate)
+                }
                 dividerMessage.dateSent = divideDate
                 dividerMessage.customParameters[ChatDataSourceConstant.dateDividerKey] = true
                 messagesArray.append(dividerMessage)
             }
-            
+
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else {
                     return

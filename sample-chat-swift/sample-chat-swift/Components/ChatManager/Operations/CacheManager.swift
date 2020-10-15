@@ -14,12 +14,12 @@ public enum Result<T> {
 }
 
 class CacheManager {
-
+    
     static let shared = CacheManager()
     private let fileManager = FileManager.default
     lazy var cachesDirectoryUrl: URL = {
-
-    let cachesDirectoryUrl = self.fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first!
+        
+        let cachesDirectoryUrl = self.fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first!
         return cachesDirectoryUrl
     }()
     
@@ -33,27 +33,27 @@ class CacheManager {
                     try fileManager.removeItem(at: file)
                 }
                 catch let error {
-                    debugPrint("Ooops! Something went wrong: \(error)")
+                    debugPrint("[CacheManager] clearCache error: \(error)")
                 }
-
+                
             }
         } catch let error {
-            print(error.localizedDescription)
+            debugPrint("[CacheManager] error \(error.localizedDescription)")
         }
     }
-
+    
     func getFileWith(stringUrl: String, completionHandler: @escaping (Result<URL>) -> Void ) {
-
+        
         let file = directoryFor(stringUrl: stringUrl)
-
+        
         //return file path if already exists in cache directory
         guard !fileManager.fileExists(atPath: file.path)  else {
             completionHandler(Result.success(file))
             return
         }
-
+        
         DispatchQueue.global().async {
-
+            
             if let videoData = NSData(contentsOf: URL(string: stringUrl)!) {
                 videoData.write(to: file, atomically: true)
                 DispatchQueue.main.async {
@@ -62,15 +62,15 @@ class CacheManager {
             } else {
                 DispatchQueue.main.async {
                     let error = NSError(domain: "SomeErrorDomain", code: -2001 /* some error code */, userInfo: ["description": "Can't download video"])
-
+                    
                     completionHandler(Result.failure(error))
                 }
             }
         }
     }
-
+    
     private func directoryFor(stringUrl: String) -> URL {
-
+        
         let fileURL = URL(string: stringUrl)!.lastPathComponent
         let file = cachesDirectoryUrl.appendingPathComponent(fileURL)
         return file
