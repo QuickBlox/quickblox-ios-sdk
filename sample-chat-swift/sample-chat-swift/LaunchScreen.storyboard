@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="y2N-t5-UAO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="y2N-t5-UAO">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -34,6 +34,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="h05-Nl-qgy"/>
                         <color key="backgroundColor" red="0.22164413329999999" green="0.47138309480000001" blue="0.98696607349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="T85-IC-R6p" firstAttribute="centerX" secondItem="8jH-Hk-wTq" secondAttribute="centerX" id="5QL-AS-a9x"/>
@@ -41,7 +42,6 @@
                             <constraint firstItem="j62-NF-P7E" firstAttribute="centerX" secondItem="8jH-Hk-wTq" secondAttribute="centerX" id="O7O-GG-Eiz"/>
                             <constraint firstItem="T85-IC-R6p" firstAttribute="centerY" secondItem="8jH-Hk-wTq" secondAttribute="centerY" id="SjS-Wm-IMh"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="h05-Nl-qgy"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CR3-rA-SB2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

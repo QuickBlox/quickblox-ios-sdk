@@ -19,7 +19,7 @@ class DialogsSelectionVC: UITableViewController {
     private var dialogs: [QBChatDialog] = []
     private var selectedPaths = Set<IndexPath>()
     private var titleView = TitleView()
-    var action: ChatActions?
+    var action: ChatAction?
     var message: QBChatMessage?
     internal var senderID: UInt = 0
     
@@ -33,6 +33,7 @@ class DialogsSelectionVC: UITableViewController {
         }
         senderID = currentUser.ID
         
+        tableView.register(UINib(nibName: DialogCellConstant.reuseIdentifier, bundle: nil), forCellReuseIdentifier: DialogCellConstant.reuseIdentifier)
         navigationItem.titleView = titleView
         setupNavigationTitle()
         
@@ -172,7 +173,7 @@ class DialogsSelectionVC: UITableViewController {
                     // Notifies occupants that user left the dialog.
                     self.chatManager.sendLeaveMessage(message, to: dialog, completion: { (error) in
                         if let error = error {
-                            debugPrint("[DialogsViewController] sendLeaveMessage error: \(error.localizedDescription)")
+                            debugPrint("[DialogsSelectionVC] sendLeaveMessage error: \(error.localizedDescription)")
                             SVProgressHUD.dismiss()
                             return
                         }
@@ -212,7 +213,7 @@ class DialogsSelectionVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DialogCell",
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: DialogCellConstant.reuseIdentifier,
                                                        for: indexPath) as? DialogCell else {
                                                         return UITableViewCell()
         }
@@ -224,34 +225,26 @@ class DialogsSelectionVC: UITableViewController {
         let chatDialog = dialogs[indexPath.row]
         let cellModel = DialogTableViewCellModel(dialog: chatDialog)
         
-        if action == ChatActions.Delete, chatDialog.type == .publicGroup {
+        tableView.allowsMultipleSelection = true
+        cell.checkBoxView.isHidden = false
+        cell.unreadMessageCounterLabel.isHidden = true
+        cell.unreadMessageCounterHolder.isHidden = true
+        cell.lastMessageDateLabel.isHidden = true
+        
+        if self.selectedPaths.contains(indexPath) {
+            cell.contentView.backgroundColor = UIColor(red:0.85, green:0.89, blue:0.97, alpha:1)
+            cell.checkBoxImageView.isHidden = false
+            cell.checkBoxView.setRoundBorderEdgeColorView(cornerRadius: 4.0,
+                                                          borderWidth: 0.0,
+                                                          color: UIColor(red:0.22, green:0.47, blue:0.99, alpha:1),
+                                                          borderColor: UIColor(red:0.22, green:0.47, blue:0.99, alpha:1))
+        } else {
             cell.contentView.backgroundColor = .clear
             cell.checkBoxView.backgroundColor = .clear
-            cell.checkBoxView.isHidden = true
+            cell.checkBoxView.setRoundBorderEdgeColorView(cornerRadius: 4.0,
+                                                          borderWidth: 1.0,
+                                                          borderColor: UIColor(red:0.42, green:0.48, blue:0.57, alpha:1))
             cell.checkBoxImageView.isHidden = true
-            cell.lastMessageDateLabel.isHidden = true
-        } else {
-            tableView.allowsMultipleSelection = true
-            cell.checkBoxView.isHidden = false
-            cell.unreadMessageCounterLabel.isHidden = true
-            cell.unreadMessageCounterHolder.isHidden = true
-            cell.lastMessageDateLabel.isHidden = true
-            
-            if self.selectedPaths.contains(indexPath) {
-                cell.contentView.backgroundColor = UIColor(red:0.85, green:0.89, blue:0.97, alpha:1)
-                cell.checkBoxImageView.isHidden = false
-                cell.checkBoxView.setRoundBorderEdgeColorView(cornerRadius: 4.0,
-                                                              borderWidth: 0.0,
-                                                              color: UIColor(red:0.22, green:0.47, blue:0.99, alpha:1),
-                                                              borderColor: UIColor(red:0.22, green:0.47, blue:0.99, alpha:1))
-            } else {
-                cell.contentView.backgroundColor = .clear
-                cell.checkBoxView.backgroundColor = .clear
-                cell.checkBoxView.setRoundBorderEdgeColorView(cornerRadius: 4.0,
-                                                         borderWidth: 1.0,
-                                                         borderColor: UIColor(red:0.42, green:0.48, blue:0.57, alpha:1))
-                cell.checkBoxImageView.isHidden = true
-            }
         }
         
         cell.dialogLastMessage.text = chatDialog.lastMessageText
@@ -264,48 +257,41 @@ class DialogsSelectionVC: UITableViewController {
         cell.dialogAvatarLabel.text = String(cellModel.textLabelText.stringByTrimingWhitespace().capitalized.first ?? Character("C"))
         
         return cell
+        
     }
     
     // MARK: - UITableViewDelegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let dialog = dialogs[indexPath.row]
-        if let action = action, action == .Delete,
-            dialog.type == .publicGroup {
-            let alertController = UIAlertController(title: "You cannot leave \(dialog.name ?? "Public chat")".localized,
-                                                    message: nil,
-                                                    preferredStyle: .alert)
-            
-            let cancelAction = UIAlertAction(title: "SA_STR_CANCEL".localized, style: .cancel, handler: nil)
-            alertController.addAction(cancelAction)
-            present(alertController, animated: true, completion: nil)
-            return
-        }
-        if selectedPaths.contains(indexPath) {
-            selectedPaths.remove(indexPath)
-        } else {
-            selectedPaths.insert(indexPath)
-        }
-        checkNavRightBarButtonEnabled()
-        setupNavigationTitle()
-        tableView.reloadData()
+        handleSelectRowAtIndexPath(indexPath)
     }
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        
+        handleSelectRowAtIndexPath(indexPath)
+    }
+    
+    private func handleSelectRowAtIndexPath(_ indexPath: IndexPath) {
         let dialog = dialogs[indexPath.row]
         if let action = action, action == .Delete,
             dialog.type == .publicGroup {
-            return
-        }
-        if selectedPaths.contains(indexPath) {
-            selectedPaths.remove(indexPath)
+            DispatchQueue.main.async {
+                let alertController = UIAlertController(title: "You cannot leave \(dialog.name ?? "Public chat")".localized,
+                                                        message: nil,
+                                                        preferredStyle: .alert)
+                
+                let cancelAction = UIAlertAction(title: "SA_STR_CANCEL".localized, style: .cancel, handler: nil)
+                alertController.addAction(cancelAction)
+                self.present(alertController, animated: true, completion: nil)
+            }
         } else {
-            selectedPaths.insert(indexPath)
+            if selectedPaths.contains(indexPath) {
+                selectedPaths.remove(indexPath)
+            } else {
+                selectedPaths.insert(indexPath)
+            }
+            checkNavRightBarButtonEnabled()
+            setupNavigationTitle()
+            tableView.reloadData()
         }
-        checkNavRightBarButtonEnabled()
-        setupNavigationTitle()
-        tableView.reloadData()
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -358,7 +344,7 @@ class DialogsSelectionVC: UITableViewController {
                 // Notifies occupants that user left the dialog.
                 self.chatManager.sendLeaveMessage(message, to: dialog, completion: { (error) in
                     if let error = error {
-                        debugPrint("[DialogsViewController] sendLeaveMessage error: \(error.localizedDescription)")
+                        debugPrint("[DialogsSelectionVC] sendLeaveMessage error: \(error.localizedDescription)")
                         SVProgressHUD.dismiss()
                         return
                     }
@@ -400,9 +386,9 @@ class DialogsSelectionVC: UITableViewController {
         if let action = action, action == .Delete {
             title = DialogsConstant.deleteChats
         }
-        var chats = "chat"
-        if selectedPaths.count > 1 {
-            chats = "chats"
+        var chats = "chats"
+        if selectedPaths.count == 1 {
+            chats = "chat"
         }
         
         let numberChats = "\(selectedPaths.count) \(chats) selected"

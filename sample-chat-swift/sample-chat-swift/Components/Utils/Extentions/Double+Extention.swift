@@ -17,10 +17,10 @@ extension Double {
 extension UInt {
     func generateColor() -> UIColor {
         let hexString = String(format:"%llX", self)
-        var hexInt: UInt32 = 0
+        var hexInt: UInt64 = 0
         let scanner = Scanner(string: hexString)
         scanner.charactersToBeSkipped = CharacterSet(charactersIn: "#")
-        scanner.scanHexInt32(&hexInt)
+        scanner.scanHexInt64(&hexInt)
 
         let redColor = CGFloat((hexInt & 0xff0000) >> 16) / 255.0
         let greenColor = CGFloat((hexInt & 0xff00) >> 8) / 255.0

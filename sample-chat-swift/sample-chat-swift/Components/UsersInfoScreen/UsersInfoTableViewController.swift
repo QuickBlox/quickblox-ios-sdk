@@ -25,9 +25,10 @@ class UsersInfoTableViewController: UITableViewController {
             self.dialog = chatManager.storage.dialog(withID: dialogID)
         }
     }
+    var dataSource: ChatDataSource?
     var currentUser = Profile()
     var message: QBChatMessage?
-    var action: ChatActions?
+    var action: ChatAction?
     private var titleView = TitleView()
     private var dialog: QBChatDialog!
     var users : [QBUUser] = []
@@ -40,12 +41,30 @@ class UsersInfoTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        // online/offline for group and public chats
+        dialog.onJoinOccupant = { [weak self] userID in
+            guard let self = self else {
+                return
+            }
+            if let onlineUser = self.users.filter({ $0.id == userID }).first, let index = self.users.index(of: onlineUser) {
+                self.users.remove(at: index)
+                self.users.insert(onlineUser, at: 0)
+                let indexPath = IndexPath(item: index, section: 0)
+                let indexPathFirst = IndexPath(item: 0, section: 0)
+                self.tableView.beginUpdates()
+                self.tableView.deleteRows(at: [indexPath], with: .left)
+                self.tableView.insertRows(at: [indexPathFirst], with: .left)
+                self.tableView.endUpdates()
+            }
+        }
+        
         navigationItem.titleView = titleView
         
         tableView.register(UINib(nibName: UserCellConstant.reuseIdentifier, bundle: nil),
                            forCellReuseIdentifier: UserCellConstant.reuseIdentifier)
         
         chatManager.delegate = self
+        QBChat.instance.addDelegate(self)
 
         setupUsers(dialogID)
         
@@ -57,31 +76,13 @@ class UsersInfoTableViewController: UITableViewController {
         backButtonItem.tintColor = .white
         
         navigationItem.rightBarButtonItem = addUsersItem
-        if action == ChatActions.ChatInfo {
+        if action == ChatAction.ChatInfo {
             addUsersItem.tintColor = .white
             addUsersItem.isEnabled = true
         } else {
             addUsersItem.tintColor = .clear
             addUsersItem.isEnabled = false
         }
-        
-        if action == .ViewedBy {
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(chatDidReadMessageNotification(_:)),
-                                                   name: ChatViewControllerConstant.chatDidReadMessageNotification,
-                                                   object: nil)
-        } else if action == .DeliveredTo {
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(chatDidDeliverMessageNotification(_:)),
-                                                   name: ChatViewControllerConstant.chatDidDeliverMessageNotification,
-                                                   object: nil)
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        NotificationCenter.default.removeObserver(self)
     }
     
     //MARK: - Internal Methods
@@ -98,22 +99,6 @@ class UsersInfoTableViewController: UITableViewController {
     }
     
     //MARK: - Actions
-    @objc func chatDidReadMessageNotification(_ notification: Notification?) {
-        if let readedMessage = notification?.userInfo?["message"] as? QBChatMessage,
-            readedMessage.id == self.message?.id {
-            self.message = readedMessage
-            updateUsers()
-        }
-    }
-    
-    @objc func chatDidDeliverMessageNotification(_ notification: Notification?) {
-        if let deliverMessage = notification?.userInfo?["message"] as? QBChatMessage,
-            deliverMessage.id == self.message?.id {
-            self.message = deliverMessage
-            updateUsers()
-        }
-    }
-    
     @objc func didTapBack(_ sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
     }
@@ -124,7 +109,7 @@ class UsersInfoTableViewController: UITableViewController {
     
     //MARK: - Internal Methods
     private func updateUsers() {
-        guard let occupantIDs = dialog.occupantIDs  else {
+        guard let occupantIDs = dialog.occupantIDs else {
             return
         }
         if occupantIDs.isEmpty == false {
@@ -145,6 +130,9 @@ class UsersInfoTableViewController: UITableViewController {
                 if let readIDs = message.readIDs,
                     readIDs.isEmpty == false {
                     for readID in readIDs {
+                        if readID.uintValue == currentUser.ID {
+                            continue
+                        }
                         if let user = chatManager.storage.user(withID: readID.uintValue) {
                             readUsers.append(user)
                         }
@@ -157,6 +145,9 @@ class UsersInfoTableViewController: UITableViewController {
                 if let deliveredIDs = message.deliveredIDs,
                     deliveredIDs.isEmpty == false {
                     for deliveredID in deliveredIDs {
+                        if deliveredID.uintValue == currentUser.ID {
+                            continue
+                        }
                         if let user = chatManager.storage.user(withID: deliveredID.uintValue) {
                             deliveredUsers.append(user)
                         }
@@ -167,6 +158,7 @@ class UsersInfoTableViewController: UITableViewController {
         }
         setupNavigationTitleByAction()
         tableView.reloadData()
+        SVProgressHUD.dismiss()
     }
     
     //MARK: - Overrides
@@ -196,10 +188,12 @@ class UsersInfoTableViewController: UITableViewController {
         }
         let user = self.users[indexPath.row]
         cell.userColor = user.id.generateColor()
+        let userName = user.fullName ?? user.login ?? "QB user"
         if currentUser.ID == user.id {
-            cell.userNameLabel.text = "You"
+
+            cell.userNameLabel.text = userName + " (You)"
         } else {
-            cell.userNameLabel.text = user.fullName ?? user.login
+            cell.userNameLabel.text = userName
         }
         
         cell.userAvatarLabel.text = String(user.fullName?.capitalized.first ?? Character("U"))
@@ -240,5 +234,41 @@ extension UsersInfoTableViewController: ChatManagerDelegate {
             return
         }
         setupUsers(dialogID)
+    }
+}
+
+//MARK: - QBChatDelegate
+extension UsersInfoTableViewController: QBChatDelegate {
+    func chatDidReadMessage(withID messageID: String, dialogID: String, readerID: UInt) {
+        if Profile().ID == readerID
+            || dialogID != self.dialogID
+            || action != ChatAction.ViewedBy
+            || messageID != self.message?.id {
+            return
+        }
+        guard let dataSource = dataSource,let message = dataSource.messageWithID(messageID),
+            message.readIDs?.contains(NSNumber(value: readerID)) == false else {
+            return
+        }
+        message.readIDs?.append(NSNumber(value: readerID))
+        dataSource.updateMessage(message)
+        self.message = message
+        updateUsers()
+    }
+    
+    func chatDidDeliverMessage(withID messageID: String, dialogID: String, toUserID userID: UInt) {
+        if Profile().ID == userID
+            || dialogID != self.dialogID
+            || action != ChatAction.DeliveredTo
+            || messageID != self.message?.id {
+            return
+        }
+        
+        guard let message = self.message, message.deliveredIDs?.contains(NSNumber(value: userID)) == false else {
+            return
+        }
+        message.deliveredIDs?.append(NSNumber(value: userID))
+        self.message = message
+        updateUsers()
     }
 }

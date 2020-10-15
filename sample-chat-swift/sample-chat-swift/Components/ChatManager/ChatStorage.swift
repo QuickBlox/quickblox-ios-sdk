@@ -117,7 +117,7 @@ class ChatStorage {
     
     func sortedAllUsers() -> [QBUUser] {
         let sortedUsers = users.sorted(by: {
-            guard let firstUpdatedAt = $0.updatedAt, let secondUpdatedAt = $1.updatedAt else {
+            guard let firstUpdatedAt = $0.lastRequestAt, let secondUpdatedAt = $1.lastRequestAt else {
                 return false
             }
             return firstUpdatedAt > secondUpdatedAt
@@ -159,10 +159,10 @@ class ChatStorage {
     
     private func sorted(users: [QBUUser]) -> [QBUUser] {
         let sortedUsers = users.sorted(by: {
-            guard let firstUpdatedAt = $0.updatedAt, let secondUpdatedAt = $1.updatedAt else {
+            guard let firstUpdatedAt = $0.lastRequestAt, let secondUpdatedAt = $1.lastRequestAt else {
                 return false
             }
-            return firstUpdatedAt < secondUpdatedAt
+            return firstUpdatedAt > secondUpdatedAt
         })
         return sortedUsers
     }
@@ -171,7 +171,7 @@ class ChatStorage {
         if let localUser = users.filter({ $0.id == user.id }).first {
             //Update local User
             localUser.fullName = user.fullName
-            localUser.updatedAt = user.updatedAt
+            localUser.lastRequestAt = user.lastRequestAt
             return
         }
         users.append(user)

@@ -54,7 +54,7 @@ class ZoomedAttachmentViewController: UIViewController {
     
     //MARK: - Actions
     @objc private func goBackAction(_ sender: UITapGestureRecognizer) {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: false, completion: nil)
     }
     
     @objc func didTapBack(_ sender: UIBarButtonItem) {
@@ -63,22 +63,36 @@ class ZoomedAttachmentViewController: UIViewController {
     
     @objc private func didTapInfo(_ sender: UIBarButtonItem) {
         let chatStoryboard = UIStoryboard(name: "Chat", bundle: nil)
-        guard let popVC = chatStoryboard.instantiateViewController(withIdentifier: "ChatPopVC") as? ChatPopVC else {
+        guard let actionsMenuVC = chatStoryboard.instantiateViewController(withIdentifier: "ActionsMenuViewController") as? ActionsMenuViewController else {
             return
         }
-        popVC.actions = [.SaveAttachment]
-        popVC.modalPresentationStyle = .popover
-        let chatPopOverVc = popVC.popoverPresentationController
-        chatPopOverVc?.delegate = self
-        chatPopOverVc?.barButtonItem = infoItem
-        chatPopOverVc?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
-        popVC.selectedAction = { [weak self] selectedAction in
-            guard let _ = selectedAction else {
+        actionsMenuVC.modalPresentationStyle = .popover
+        let presentation = actionsMenuVC.popoverPresentationController
+        presentation?.delegate = self
+        presentation?.barButtonItem = infoItem
+        presentation?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+        
+        let saveAttachmentAction = MenuAction(title: "Save attachment") { 
+            guard let image = self.zoomImageView.image else {
                 return
             }
-            self?.saveImage()
+            PHPhotoLibrary.requestAuthorization
+                { [weak self] (status) -> Void in
+                    switch (status)
+                    {
+                    case .authorized:
+                        UIImageWriteToSavedPhotosAlbum(image, self, #selector(self?.image(_:didFinishSavingWithError:contextInfo:)), nil)
+                    case .denied:
+                        // Permission Denied
+                        debugPrint("[ZoomedAttachmentViewController] User denied")
+                    default:
+                        debugPrint("[ZoomedAttachmentViewController] Restricted")
+                    }
+            }
         }
-        present(popVC, animated: false)
+        actionsMenuVC.addAction(saveAttachmentAction)
+        
+        present(actionsMenuVC, animated: false)
     }
     
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
@@ -86,25 +100,6 @@ class ZoomedAttachmentViewController: UIViewController {
             SVProgressHUD.showError(withStatus: "Save error")
         } else {
             SVProgressHUD.showSuccess(withStatus: "Saved!")
-        }
-    }
-    
-    func saveImage() {
-        guard let image = zoomImageView.image else {
-            return
-        }
-        PHPhotoLibrary.requestAuthorization
-            { [weak self] (status) -> Void in
-                switch (status)
-                {
-                case .authorized:
-                        UIImageWriteToSavedPhotosAlbum(image, self, #selector(self?.image(_:didFinishSavingWithError:contextInfo:)), nil)
-                case .denied:
-                    // Permission Denied
-                    debugPrint("User denied")
-                default:
-                    debugPrint("Restricted")
-                }
         }
     }
 }

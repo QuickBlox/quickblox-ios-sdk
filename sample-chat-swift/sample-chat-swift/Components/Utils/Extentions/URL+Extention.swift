@@ -23,7 +23,7 @@ extension URL {
                     completion(thumbImage)
                 }
             } catch {
-                print(error.localizedDescription)
+                debugPrint("[extension URL] error \(error.localizedDescription)")
                 DispatchQueue.main.async {
                     completion(nil)
                 }

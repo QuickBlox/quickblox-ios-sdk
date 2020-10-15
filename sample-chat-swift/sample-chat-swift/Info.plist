@@ -53,6 +53,8 @@
 	<string>This app wants to save pictures &amp; videos to your library.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app wants to use your picture &amp; video library.</string>
+	<key>PHPhotoLibraryPreventAutomaticLimitedAccessAlert</key>
+	<true/>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

@@ -7,19 +7,23 @@
 //
 
 import UIKit
-import UserNotifications
+//import UserNotifications
 
 class SplashScreenVC: UIViewController {
+    //MARK: - IBOutlets
     @IBOutlet weak var loginInfoLabel: UILabel!
+    
+    //MARK: - Properties
     private var infoText = "" {
         didSet {
             loginInfoLabel.text = infoText
         }
     }
-
+    
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let profile = Profile()
         if profile.isFull == false {
             AppDelegate.shared.rootViewController.showLoginScreen()
@@ -46,32 +50,33 @@ class SplashScreenVC: UIViewController {
         updateLoginInfo?(Reachability.instance.networkConnectionStatus())
     }
     
+    //MARK: - Internal Methods
     /**
-        *  login
-        */
-       private func login(fullName: String, login: String, password: String = LoginConstant.defaultPassword) {
-           QBRequest.logIn(withUserLogin: login,
-                           password: password,
-                           successBlock: { [weak self] response, user in
-                               guard let self = self else {
-                                   return
-                               }
-                               
-                               user.password = password
-                               Profile.synchronize(user)
-                                self.connectToChat(user: user)
-                               
-               }, errorBlock: { [weak self] response in
-                   self?.handleError(response.error?.error, domain: ErrorDomain.logIn)
-                   if response.status == QBResponseStatusCode.unAuthorized {
-                       // Clean profile
-                       Profile.clearProfile()
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
-                        AppDelegate.shared.rootViewController.showLoginScreen()
-                    }
-                   }
-                
-           })
+     *  login
+     */
+    private func login(fullName: String, login: String, password: String = LoginConstant.defaultPassword) {
+        QBRequest.logIn(withUserLogin: login,
+                        password: password,
+                        successBlock: { [weak self] response, user in
+                            guard let self = self else {
+                                return
+                            }
+                            
+                            user.password = password
+                            Profile.synchronize(user)
+                            self.connectToChat(user: user)
+                            
+                        }, errorBlock: { [weak self] response in
+                            self?.handleError(response.error?.error, domain: ErrorDomain.logIn)
+                            if response.status == QBResponseStatusCode.unAuthorized {
+                                // Clean profile
+                                Profile.clearProfile()
+                                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+                                    AppDelegate.shared.rootViewController.showLoginScreen()
+                                }
+                            }
+                            
+                        })
     }
     
     /**
@@ -79,44 +84,32 @@ class SplashScreenVC: UIViewController {
      */
     private func connectToChat(user: QBUUser) {
         infoText = LoginStatusConstant.intoChat
-        QBChat.instance.connect(withUserID: user.id,
-                                password: LoginConstant.defaultPassword,
-                                completion: { [weak self] error in
-                                    guard let self = self else { return }
-                                    if let error = error {
-                                        if error._code == QBResponseStatusCode.unAuthorized.rawValue {
-                                            // Clean profile
-                                            Profile.clearProfile()
-                                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) { AppDelegate.shared.rootViewController.showLoginScreen()
+        if QBChat.instance.isConnected == true {
+            //did Login action
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+                AppDelegate.shared.rootViewController.goToDialogsScreen()
+            }
+        } else {
+            QBChat.instance.connect(withUserID: user.id,
+                                    password: LoginConstant.defaultPassword,
+                                    completion: { [weak self] error in
+                                        guard self != nil else { return }
+                                        if let error = error {
+                                            if error._code == QBResponseStatusCode.unAuthorized.rawValue {
+                                                // Clean profile
+                                                Profile.clearProfile()
+                                                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) { AppDelegate.shared.rootViewController.showLoginScreen()
+                                                }
+                                            }
+                                            
+                                        } else {
+                                            //did Login action
+                                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+                                                AppDelegate.shared.rootViewController.goToDialogsScreen()
                                             }
                                         }
-                                        
-                                    } else {
-                                        self.registerForRemoteNotifications()
-                                        //did Login action
-                                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
-                                            AppDelegate.shared.rootViewController.goToDialogsScreen()
-                                        }
-                                    }
-        })
-    }
-    
-    private func registerForRemoteNotifications() {
-        let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.sound, .alert, .badge], completionHandler: { granted, error in
-            if let error = error {
-                debugPrint("[AuthorizationViewController] registerForRemoteNotifications error: \(error.localizedDescription)")
-                return
-            }
-            center.getNotificationSettings(completionHandler: { settings in
-                if settings.authorizationStatus != .authorized {
-                    return
-                }
-                DispatchQueue.main.async(execute: {
-                    UIApplication.shared.registerForRemoteNotifications()
-                })
-            })
-        })
+                                    })
+        }
     }
     
     // MARK: - Handle errors
