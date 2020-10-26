@@ -150,6 +150,24 @@ NS_ASSUME_NONNULL_BEGIN
                             errorBlock:(nullable qb_response_block_t)errorBlock;
 
 /**
+ Update message text.
+ 
+ @note Updates message text only on server.
+ 
+ @param messagesID message ID.
+ @param text Updated message text.
+ @param dialogID dialog ID.
+ @param successBlock Block with response instance if the request is succeeded.
+ @param errorBlock Block with response instance if the request is failed.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (QBRequest *)updateMessageWithID:(NSString *)messageID
+                              text:(NSString *)text
+                          dialogID:(NSString *)dialogID
+                      successBlock:(nullable qb_response_block_t)successBlock
+                        errorBlock:(nullable qb_response_block_t)errorBlock;
+
+/**
  Delete existent chat messages completely for all users
  @param messageIDs The IDs of messages to delete.
  @param forAllUsers Delete message for the current user or remove it for all users.
