@@ -28,7 +28,9 @@ NSString *const DEFAULT_PASSWORD = @"quickblox";
     
     Profile *profile = [[Profile alloc] init];
     if (!profile.isFull) {
-        [(RootParentVC *)[self shared].window.rootViewController showLoginScreen];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [(RootParentVC *)[self shared].window.rootViewController showLoginScreen];
+        });
     }
 }
 

@@ -24,6 +24,7 @@ class LoadingButton: UIButton {
     
     lazy private var activity: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+        activity.color = .white
         activity.hidesWhenStopped = true
         return activity
     }()

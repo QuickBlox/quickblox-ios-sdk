@@ -26,7 +26,9 @@ class SplashScreenVC: UIViewController {
         
         let profile = Profile()
         if profile.isFull == false {
-            AppDelegate.shared.rootViewController.showLoginScreen()
+            DispatchQueue.main.async {
+                AppDelegate.shared.rootViewController.showLoginScreen()
+            }
         }
     }
     
