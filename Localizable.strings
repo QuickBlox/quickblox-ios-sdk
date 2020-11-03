@@ -2,10 +2,9 @@
  Localizable.strings
  sample-chat-swift
  
- Created by Anton Sokolchenko on 4/24/15.
- Copyright (c) 2015 quickblox. All rights reserved.
+//  Created by Injoit on 2/25/19.
+ //  Copyright © 2019 Quickblox. All rights reserved.
  */
-
 
 "SA_STR_OK" = "Ok";
 "SA_STR_CANCEL" = "Cancel";
@@ -29,6 +28,7 @@
 "SA_STR_RECONNECTED" = "Reconnected";
 "SA_STR_LOGGING_IN_AS" = "Logging in REST as ";
 "SA_STR_LOADING_DIALOG" = "Loading dialog";
+"SA_STR_UPDATING_DIALOG" = "Updating dialog";
 "SA_STR_LOADING_DIALOGS" = "Loading dialogs";
 "SA_STR_DONE" = "Done";
 "SA_STR_ADDED" = "added";
@@ -41,11 +41,13 @@
 "SA_STR_LOADING_USERS" = "Loading users";
 "SA_STR_CANT_DOWNLOAD_USERS" = "Can't download users";
 "SA_STR_CANT_DOWNLOAD_DIALOGS" = "Can't download dialogs";
+"SA_STR_DIALOG_REMOVED" = "Dialog has been removed";
 "SA_STR_FAILED_LOAD_DIALOGS" = "Failed to load dialogs";
 "SA_STR_YOU_ARE_IN_THE_BLACKLIST" = "You are in the blacklist";
 "SA_STR_FORBIDDEN" = "forbidden";
 "SA_STR_LOADING_MESSAGES" = "Loading messages";
 "SA_STR_UPLOADING_ATTACHMENT" = "Uploading attachment";
+"SA_STR_FAILED_UPLOAD_ATTACHMENT" = "Attachment failed to Upload";
 "SA_STR_ENTER_CHAT_NAME" = "Enter chat name";
 "STR_DIALOG_CREATED" = "Dialog created";
 "SA_STR_CHAT_SEND" = "Send";
@@ -54,7 +56,7 @@
 "SA_STR_CREATE" = "Create";
 "SA_STR_NEW_CHAT" = "New chat";
 "SA_STR_NEW_MESSAGE" = "New message";
-"SA_STR_USER_HAS_LEFT" = "has left dialog.";
+"SA_STR_USER_HAS_LEFT" = "has left";
 "SA_STR_CHAT_INFO" = "Chat info";
 
 // message text statuses
