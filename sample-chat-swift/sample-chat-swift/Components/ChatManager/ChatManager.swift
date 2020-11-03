@@ -348,6 +348,16 @@ class ChatManager: NSObject {
                                 completion(nil)
                                 return
                             }
+                            let usersIDs: Set<NSNumber> = Set(self.storage.users.map({ NSNumber(value: $0.id) }))
+                            let usersForDownload = dialogsUsersIDs.subtracting(usersIDs)
+                            if usersForDownload.isEmpty == false {
+                                let downloadUsersIDs = usersForDownload.map({ $0.stringValue })
+                                self.loadUsers(downloadUsersIDs) { (response) in
+                                    if let error = response?.error?.error {
+                                        debugPrint("[ChatManager] loadUsers error: \(error.localizedDescription)")
+                                    }
+                                }
+                            }
                             self.storage.update(dialogs:[chatDialog])
                             completion(chatDialog)
         }, errorBlock: { response in
@@ -706,8 +716,8 @@ class ChatManager: NSObject {
      
                                     let usersIDs = usersForUpdate.map({ $0.stringValue })
                                     self.loadUsers(usersIDs) { (response) in
-                                        if let response = response {
-                                            debugPrint("[ChatManager] loadUsers error: \(self.errorMessage(response: response) ?? "")")
+                                        if let error = response?.error?.error {
+                                            debugPrint("[ChatManager] loadUsers error: \(error.localizedDescription)")
                                         }
                                     }
                                     completion(response)

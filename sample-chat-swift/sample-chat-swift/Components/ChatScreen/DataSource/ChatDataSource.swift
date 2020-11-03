@@ -34,6 +34,8 @@ class ChatDataSource {
     weak var delegate: ChatDataSourceDelegate?
     private(set) var messages: [QBChatMessage] = []
     
+    var messagesForRead: Set<QBChatMessage> = []
+    
     var loadMessagesCount: Int {
         return messages.filter({
             guard let isDividerMessage = ($0.customParameters[ChatDataSourceConstant.dateDividerKey]) as? Bool else {

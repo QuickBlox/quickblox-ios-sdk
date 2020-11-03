@@ -78,12 +78,18 @@ class DialogsSelectionVC: UITableViewController {
     }
     
     @objc func didTapSend(_ sender: UIBarButtonItem) {
+        if Reachability.instance.networkConnectionStatus() == .notConnection {
+            SVProgressHUD.dismiss()
+            showAlertView(LoginConstant.checkInternet, message: LoginConstant.checkInternetMessage)
+            return
+        }
         guard let originMessage = message else {
             return
         }
         
         let sendGroup = DispatchGroup()
 
+        sender.isEnabled = false
         SVProgressHUD.show()
         
         for indexPath in self.selectedPaths {
@@ -115,6 +121,7 @@ class DialogsSelectionVC: UITableViewController {
             chatManager.send(forwardedMessage, to: dialog) { (error) in
                 sendGroup.leave()
                 if let error = error {
+                    sender.isEnabled = true
                     debugPrint("[DialogsSelectionVC] sendMessage error: \(error.localizedDescription)")
                     return
                 }
@@ -133,15 +140,17 @@ class DialogsSelectionVC: UITableViewController {
             return
         }
         
+        let alertMessage = self.selectedPaths.count == 1 ? "SA_STR_DO_YOU_REALLY_WANT_TO_DELETE_SELECTED_DIALOG".localized : "SA_STR_DO_YOU_REALLY_WANT_TO_DELETE_SELECTED_DIALOGS".localized
+        
         let alertController = UIAlertController(title: "SA_STR_WARNING".localized,
-                                                message: "SA_STR_DO_YOU_REALLY_WANT_TO_DELETE_SELECTED_DIALOGS".localized,
+                                                message: alertMessage,
                                                 preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: "SA_STR_CANCEL".localized, style: .cancel, handler: nil)
         
         let leaveAction = UIAlertAction(title: "SA_STR_DELETE".localized, style: .default) { (action:UIAlertAction) in
             SVProgressHUD.show(withStatus: "SA_STR_DELETING".localized)
-            
+            sender.isEnabled = false
             let deleteGroup = DispatchGroup()
 
             for indexPath in self.selectedPaths {
@@ -173,6 +182,7 @@ class DialogsSelectionVC: UITableViewController {
                     // Notifies occupants that user left the dialog.
                     self.chatManager.sendLeaveMessage(message, to: dialog, completion: { (error) in
                         if let error = error {
+                            sender.isEnabled = true
                             debugPrint("[DialogsSelectionVC] sendLeaveMessage error: \(error.localizedDescription)")
                             SVProgressHUD.dismiss()
                             return

@@ -87,9 +87,11 @@ class AddOccupantsVC: UIViewController {
                 self.showAlertView(LoginConstant.checkInternet, message: LoginConstant.checkInternetMessage)
             }
             if notConnection == false {
+                if QBChat.instance.isConnected == false{
+                    self.chatManager.connect()
+                }
                 if self.isSearch == false {
                     self.fetchUsers()
-                    
                 } else {
                     if self.searchText.count > 2 {
                         self.searchUsers(self.searchText)
@@ -178,7 +180,7 @@ class AddOccupantsVC: UIViewController {
         searchBar.text = ""
         searchBar.resignFirstResponder()
         isSearch = false
-        
+        sender.isEnabled = false
         let selectedUsers = Array(self.selectedUsers)
         
         if dialog.type == .group {
@@ -189,6 +191,7 @@ class AddOccupantsVC: UIViewController {
             chatManager.joinOccupants(withIDs: newUsersIDs, to: dialog) { [weak self] (response, dialog) -> Void in
                 guard response?.error == nil else {
                     SVProgressHUD.showError(withStatus: response?.error?.error?.localizedDescription)
+                    sender.isEnabled = true
                     return
                 }
                 guard let dialog = dialog,
@@ -428,8 +431,8 @@ extension AddOccupantsVC: UISearchBarDelegate {
     }
     
     private func searchUsers(_ name: String) {
+        SVProgressHUD.show()
         chatManager.searchUsers(name, currentPage: currentSearchPage, perPage: CreateNewDialogConstant.perPage) { [weak self] response, users, cancel in
-
             SVProgressHUD.dismiss()
             self?.cancel = cancel
             if self?.currentSearchPage == 1 {
@@ -453,8 +456,8 @@ extension AddOccupantsVC: UISearchBarDelegate {
             showAlertView(LoginConstant.checkInternet, message: LoginConstant.checkInternetMessage)
             return
         }
+        SVProgressHUD.show()
         chatManager.fetchUsers(currentPage: currentFetchPage, perPage: CreateNewDialogConstant.perPage) { [weak self] response, users, cancel in
-
             SVProgressHUD.dismiss()
             self?.cancelFetch = cancel
             if cancel == false {

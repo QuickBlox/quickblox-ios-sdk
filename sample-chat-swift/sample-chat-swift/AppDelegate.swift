@@ -21,7 +21,6 @@ struct CredentialsConstant {
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    var isLaunched = false
     
     func application(
         _ application: UIApplication,
@@ -34,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         QBSettings.authKey = CredentialsConstant.authKey
         QBSettings.authSecret = CredentialsConstant.authSecret
         QBSettings.accountKey = CredentialsConstant.accountKey
-
+        
         // enabling carbons for chat
         QBSettings.carbonsEnabled = true
         // Enables Quickblox REST API calls debug console output.
@@ -61,27 +60,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Logging in to chat.
-        ChatManager.instance.connect { (error) in
-            if let _ = error {
-                return
-            }
-        }
+        ChatManager.instance.connect()
     }
     
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        if isLaunched == true {
-            ChatManager.instance.connect { (error) in
-                if let _ = error {
-                    return
-                }
-            }
-        }
-    }
-    
-    func applicationWillResignActive(_ application: UIApplication) {
-        ChatManager.instance.disconnect()
-    }
-
     //MARK: - UNUserNotification
     func application(_ application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -104,24 +85,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         debugPrint("[AppDelegate] Unable to register for remote notifications: \(error.localizedDescription)")
     }
-    
-    private func registerForRemoteNotifications() {
-        let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.sound, .alert, .badge], completionHandler: { granted, error in
-            if let error = error {
-                debugPrint("[AppDelegate] requestAuthorization error: \(error.localizedDescription)")
-                return
-            }
-            center.getNotificationSettings(completionHandler: { settings in
-                if settings.authorizationStatus != .authorized {
-                    return
-                }
-                DispatchQueue.main.async(execute: {
-                    UIApplication.shared.registerForRemoteNotifications()
-                })
-            })
-        })
-    }
 }
 
 //MARK: - UNUserNotificationCenterDelegate
@@ -132,14 +95,16 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
         if UIApplication.shared.applicationState == .active {
+            completionHandler()
             return
         }
         center.removeAllDeliveredNotifications()
         center.removeAllPendingNotificationRequests()
         
         guard let dialogID = userInfo["SA_STR_PUSH_NOTIFICATION_DIALOG_ID".localized] as? String,
-            dialogID.isEmpty == false else {
-                return
+              dialogID.isEmpty == false else {
+            completionHandler()
+            return
         }
         DispatchQueue.main.async {
             if ChatManager.instance.storage.dialog(withID: dialogID) != nil {

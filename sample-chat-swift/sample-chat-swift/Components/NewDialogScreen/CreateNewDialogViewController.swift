@@ -75,17 +75,23 @@ class CreateNewDialogViewController: UIViewController {
         
         //MARK: - Reachability
         let updateConnectionStatus: ((_ status: NetworkConnectionStatus) -> Void)? = { [weak self] status in
+            guard let self = self else {
+                return
+            }
             let notConnection = status == .notConnection
             if notConnection == true {
-                self?.showAlertView(LoginConstant.checkInternet, message: LoginConstant.checkInternetMessage)
+                self.showAlertView(LoginConstant.checkInternet, message: LoginConstant.checkInternetMessage)
             }
             if notConnection == false {
-                if self?.isSearch == false {
-                    self?.fetchUsers()
+                if QBChat.instance.isConnected == false{
+                    self.chatManager.connect()
+                }
+                if self.isSearch == false {
+                    self.fetchUsers()
                     
                 } else {
-                    if let searchText = self?.searchText, searchText.count > 2 {
-                        self?.searchUsers(searchText)
+                    if self.searchText.count > 2 {
+                        self.searchUsers(self.searchText)
                     }
                 }
             }
@@ -385,7 +391,6 @@ extension CreateNewDialogViewController: UISearchBarDelegate {
     private func fetchUsers() {
         SVProgressHUD.show()
         chatManager.fetchUsers(currentPage: currentFetchPage, perPage: CreateNewDialogConstant.perPage) { [weak self] response, users, cancel in
-
             SVProgressHUD.dismiss()
             self?.cancelFetch = cancel
             if cancel == false {

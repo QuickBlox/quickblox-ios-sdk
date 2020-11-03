@@ -111,8 +111,6 @@ class ChatViewController: UIViewController, ChatContextMenu {
      */
     internal var currentUserID: UInt = 0
     
-    private var messagesForRead: [QBChatMessage] = []
-    
     private var onlineUsersIDs: Set<UInt> = []
     private var typingUsers: Set<UInt> = []
     /**
@@ -253,8 +251,6 @@ class ChatViewController: UIViewController, ChatContextMenu {
         
         QBChat.instance.addDelegate(self)
         
-        loadMessages()
-        
         selectedIndexPathForMenu = nil
         
         willResignActiveBlock = NotificationCenter.default.addObserver(forName: UIApplication.willResignActiveNotification,
@@ -280,12 +276,28 @@ class ChatViewController: UIViewController, ChatContextMenu {
         
         //MARK: - Reachability
         let updateConnectionStatus: ((_ status: NetworkConnectionStatus) -> Void)? = { [weak self] status in
-            let notConnection = status == .notConnection
-            if notConnection == true, self?.isUploading == true {
-                self?.cancelUploadFile()
+            guard let self = self else {
+                return
             }
-            if notConnection == true {
-                self?.showAlertView(LoginConstant.checkInternet, message: LoginConstant.checkInternetMessage)
+            let notConnection = status == .notConnection
+            if notConnection == true, self.isUploading == true {
+                self.cancelUploadFile()
+            } else if notConnection == true {
+                self.showAlertView(LoginConstant.checkInternet, message: LoginConstant.checkInternetMessage)
+            } else {
+                if QBChat.instance.isConnected == false {
+                    self.chatManager.connect()
+                }
+                // Autojoin to the group chat
+                if self.dialog.type != .private, self.dialog.isJoined() == false {
+                    self.dialog.join(completionBlock: { error in
+                        guard let error = error else {
+                            return
+                        }
+                        debugPrint("[ChatViewController] dialog.join error: \(error.localizedDescription)")
+                    })
+                }
+                self.loadMessages()
             }
         }
         Reachability.instance.networkStatusBlock = { status in
@@ -424,9 +436,11 @@ class ChatViewController: UIViewController, ChatContextMenu {
     }
     
     private func loadMessages(with skip: Int = 0) {
+        SVProgressHUD.show()
         chatManager.messages(withID: dialogID, skip: skip, limit: ChatManagerConstant.messagesLimitPerDialog, successCompletion: { [weak self] (messages, cancel) in
             self?.cancel = cancel
             self?.dataSource.addMessages(messages)
+            SVProgressHUD.dismiss()
         }, errorHandler: { [weak self] (error) in
             if error == ChatManagerConstant.notFound {
                 self?.dataSource.clear()
@@ -710,7 +724,7 @@ class ChatViewController: UIViewController, ChatContextMenu {
         }
         
         let alertController = UIAlertController(title: "SA_STR_WARNING".localized,
-                                                message: "SA_STR_DO_YOU_REALLY_WANT_TO_DELETE_SELECTED_DIALOGS".localized,
+                                                message: "SA_STR_DO_YOU_REALLY_WANT_TO_DELETE_SELECTED_DIALOG".localized,
                                                 preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: "SA_STR_CANCEL".localized, style: .cancel, handler: nil)
@@ -718,6 +732,7 @@ class ChatViewController: UIViewController, ChatContextMenu {
         let leaveAction = UIAlertAction(title: "SA_STR_DELETE".localized, style: .default) { (action:UIAlertAction) in
             
             SVProgressHUD.show(withStatus: "SA_STR_DELETING".localized)
+            self.infoItem.isEnabled = false
             
             guard let dialogID = self.dialog.id else {
                 SVProgressHUD.dismiss()
@@ -740,6 +755,7 @@ class ChatViewController: UIViewController, ChatContextMenu {
                 // Notifies occupants that user left the dialog.
                 self.chatManager.sendLeaveMessage(message, to: self.dialog, completion: { (error) in
                     if let error = error {
+                        self.infoItem.isEnabled = true
                         debugPrint("[ChatViewController] sendLeaveMessage error: \(error.localizedDescription)")
                         SVProgressHUD.dismiss()
                         return
@@ -1392,15 +1408,17 @@ extension ChatViewController: ChatCollectionViewDataSource {
             return
         }
         
-        if message.senderID != currentUserID {
-            
-            if chatManager.storage.user(withID: message.senderID) == nil {
-                ChatManager.instance.loadUser(message.senderID) { [weak self] (user) in
-                    if let userName = self?.topLabelAttributedString(forItem: message)?.string {
-                        chatCell.avatarLabel.text = String(userName.capitalized.first ?? Character("QB"))
-                        chatCell.avatarLabel.backgroundColor = message.senderID.generateColor()
-                    }
-                }
+        if (cell is ChatIncomingCell || cell is ChatAttachmentIncomingCell) && dialog.type != .private,
+           chatManager.storage.user(withID: message.senderID) == nil {
+            ChatManager.instance.loadUser(message.senderID) { (user) in
+                guard let loadedUser = user,
+                      let userName = loadedUser.fullName,
+                      userName.isEmpty == false else {return}
+                
+                chatCell.topLabel.text = userName
+                chatCell.avatarLabel.text = String(userName.capitalized.first ?? Character("QB"))
+                chatCell.avatarLabel.backgroundColor = message.senderID.generateColor()
+                self.collectionView.reloadItems(at: [indexPath])
             }
         }
     }
@@ -1429,9 +1447,14 @@ extension ChatViewController: ChatCollectionViewDataSource {
         
         if message.readIDs?.contains(NSNumber(value: currentUserID)) == false {
             if QBChat.instance.isConnected == false {
-                messagesForRead.append(message)
+                dataSource.messagesForRead.insert(message)
             } else {
-                chatManager.read(message, dialog: dialog, completion: nil)
+                chatManager.read(message, dialog: dialog) { [weak self] (error) in
+                    guard let self = self else {return}
+                    message.readIDs?.append(NSNumber(value: self.currentUserID))
+                    self.dataSource.updateMessage(message)
+                    self.dataSource.messagesForRead.remove(message)
+                }
             }
         }
         
@@ -1456,13 +1479,14 @@ extension ChatViewController: ChatCollectionViewDataSource {
             chatCell.textView.enabledTextCheckingTypes = enableTextCheckingTypes
         }
         
+        let username = topLabelAttributedString(forItem: message)
+        chatCell.topLabel.text = username
         if (cell is ChatIncomingCell || cell is ChatAttachmentIncomingCell) && dialog.type != .private {
-            let userName = topLabelAttributedString(forItem: message)?.string
+            let userName = username?.string
             chatCell.avatarLabel.text = String(userName?.capitalized.first ?? Character("QB"))
             chatCell.avatarLabel.backgroundColor = message.senderID.generateColor()
         }
-        
-        chatCell.topLabel.text = topLabelAttributedString(forItem: message)
+
         chatCell.timeLabel.text = timeLabelAttributedString(forItem: message)
         if let chatOutgoingCell = chatCell as? ChatOutgoingCell {
             chatOutgoingCell.setupStatusImage(statusImageForMessage(message: message))
@@ -1830,13 +1854,26 @@ extension ChatViewController: QBChatDelegate {
     
     //MARK - Help
     private func refreshAndReadMessages() {
-        if messagesForRead.isEmpty == false {
-            let messages = Array(messagesForRead)
-            chatManager.read(messages, dialog: dialog) { (error) in
-                self.messagesForRead = []
+        // Autojoin to the group chat
+        if dialog.type != .private, dialog.isJoined() == false {
+            dialog.join(completionBlock: { error in
+                guard let error = error else {
+                    return
+                }
+                debugPrint("[ChatViewController] dialog.join error: \(error.localizedDescription)")
+            })
+        }
+        if dataSource.messagesForRead.isEmpty == false {
+            let messages = Array(dataSource.messagesForRead)
+            for message in messages {
+                chatManager.read(message, dialog: dialog) { [weak self] (error) in
+                    guard let self = self else {return}
+                    message.readIDs?.append(NSNumber(value: self.currentUserID))
+                    self.dataSource.updateMessage(message)
+                    self.dataSource.messagesForRead.remove(message)
+                }
             }
         }
-        SVProgressHUD.show(withStatus: "SA_STR_LOADING_MESSAGES".localized)
         loadMessages()
     }
 }
