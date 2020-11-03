@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import UserNotifications
 
 class SplashScreenVC: UIViewController {
     //MARK: - IBOutlets

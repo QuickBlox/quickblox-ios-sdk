@@ -89,6 +89,7 @@
 "SA_STR_NOTE_YOU_WILL_NOT_RECEIVE_AMY_P2P_MESSAGES" = "Note that you will not receive any private message from this user";
 "SA_STR_NOTE_YOU_WILL_NOT_RECEIVE_AMY_GROUP_MESSAGES" = "Note that you will not receive any group chat message from this user";
 "SA_STR_DO_YOU_REALLY_WANT_TO_DELETE_SELECTED_DIALOG" = "Do you really want to leave selected dialog?";
+"SA_STR_DO_YOU_REALLY_WANT_TO_DELETE_SELECTED_DIALOGS" = "Do you really want to leave selected dialogs?";
 "SA_STR_UNBLOCK_USER_P2P_CHAT" = "Unblock user in 1-1 chat";
 "SA_STR_BLOCK_USER_P2P_CHAT" = "Block user in 1-1 chat";
 "SA_STR_UNBLOCK_USER_GROUP_CHATS" = "Unblock user in all group chats";

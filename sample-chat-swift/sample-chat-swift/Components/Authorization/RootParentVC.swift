@@ -78,10 +78,36 @@ class RootParentVC: UIViewController {
         }
     
     private func handlePush() {
-        if let dialogsNavigationController = current as? DialogsNavigationController, let dialogID = dialogID  {
-            dialogsNavigationController.popToRootViewController(animated: false)
-            (dialogsNavigationController.topViewController as? DialogsViewController)?.openChatWithDialogID(dialogID)
-            self.dialogID = nil
+        if let dialogsNavigationController = current as? DialogsNavigationController, let dialogID = dialogID {
+            let openChatWithDialogID: ((_ dialogID: String) -> Void) = { [weak self] status in
+                if let dialog = ChatManager.instance.storage.dialog(withID: dialogID) {
+                    // Autojoin to the group chat
+                    if dialog.type != .private, dialog.isJoined() == false {
+                        dialog.join(completionBlock: { error in
+                            guard let error = error else {
+                                return
+                            }
+                            debugPrint("[RootParentVC] dialog.join error: \(error.localizedDescription)")
+                        })
+                    }
+                }
+                dialogsNavigationController.popToRootViewController(animated: false)
+                (dialogsNavigationController.topViewController as? DialogsViewController)?.openChatWithDialogID(dialogID)
+                self?.dialogID = nil
+            }
+            
+            if ChatManager.instance.storage.dialog(withID: dialogID) != nil {
+                //open chat with dialogID
+                openChatWithDialogID(dialogID)
+            } else {
+                ChatManager.instance.loadDialog(withID: dialogID, completion: { (loadedDialog: QBChatDialog?) -> Void in
+                    guard loadedDialog != nil else {
+                        return
+                    }
+                    //open chat with dialogID
+                    openChatWithDialogID(dialogID)
+                })
+            }
         }
     }
     

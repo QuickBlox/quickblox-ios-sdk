@@ -84,9 +84,6 @@ class DialogsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            appDelegate.isLaunched = true
-        }
         tableView.register(UINib(nibName: DialogCellConstant.reuseIdentifier, bundle: nil), forCellReuseIdentifier: DialogCellConstant.reuseIdentifier)
         setupNavigationBar()
         setupNavigationTitle()
@@ -114,6 +111,9 @@ class DialogsViewController: UITableViewController {
             if notConnection == true {
                 self.showAlertView(LoginConstant.checkInternet, message: LoginConstant.checkInternetMessage)
             } else {
+                if QBChat.instance.isConnected == false {
+                    self.chatManager.connect()
+                }
                 self.chatManager.updateStorage()
             }
         }

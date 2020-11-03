@@ -17,7 +17,7 @@ class EnterChatNameVC: UITableViewController {
     @IBOutlet weak var chatNameTextField: UITextField!
     @IBOutlet weak var chatNameLabel: UILabel!
     @IBOutlet weak var hintLabel: UILabel!
-
+    
     var selectedUsers: [QBUUser] = []
     private let chatManager = ChatManager.instance
     
@@ -126,29 +126,30 @@ class EnterChatNameVC: UITableViewController {
         
         if selectedUsers.count > 1 {
             let chatName = chatNameTextField.text ?? "New Group Chat"
-            
+            sender.isEnabled = false
             SVProgressHUD.show()
             chatManager.storage.update(users: selectedUsers)
             
             chatManager.createGroupDialog(withName: chatName,
                                           photo: nil,
                                           occupants: selectedUsers) { [weak self] (response, dialog) -> Void in
-                                            
-                                            guard response?.error == nil,
-                                                let dialog = dialog,
-                                                let dialogOccupants = dialog.occupantIDs else {
-                                                    SVProgressHUD.showError(withStatus: response?.error?.error?.localizedDescription)
-                                                    return
-                                            }
-                                            if let message = self?.messageText(withChatName: chatName) {
-                                                self?.chatManager.sendAddingMessage(message, action: .create, withUsers: dialogOccupants, to: dialog, completion: { (error) in
-                                                    
-                                                    SVProgressHUD.showSuccess(withStatus: "STR_DIALOG_CREATED".localized)
-                                                    
-                                                    self?.openNewDialog(dialog)
-                                                })
-                                                
-                                            }
+                
+                guard response?.error == nil,
+                      let dialog = dialog,
+                      let dialogOccupants = dialog.occupantIDs else {
+                    SVProgressHUD.showError(withStatus: response?.error?.error?.localizedDescription)
+                    sender.isEnabled = true
+                    return
+                }
+                if let message = self?.messageText(withChatName: chatName) {
+                    self?.chatManager.sendAddingMessage(message, action: .create, withUsers: dialogOccupants, to: dialog, completion: { (error) in
+                        
+                        SVProgressHUD.showSuccess(withStatus: "STR_DIALOG_CREATED".localized)
+                        
+                        self?.openNewDialog(dialog)
+                    })
+                    
+                }
             }
         }
     }
@@ -156,8 +157,8 @@ class EnterChatNameVC: UITableViewController {
     private func messageText(withChatName chatName: String) -> String {
         let actionMessage = "SA_STR_CREATE_NEW".localized
         guard let current = QBSession.current.currentUser,
-            let fullName = current.fullName else {
-                return ""
+              let fullName = current.fullName else {
+            return ""
         }
         return "\(fullName) \(actionMessage) \"\(chatName)\""
     }
@@ -175,8 +176,8 @@ class EnterChatNameVC: UITableViewController {
             if $0 is DialogsViewController {
                 let storyboard = UIStoryboard(name: "Chat", bundle: nil)
                 guard let chatController = storyboard.instantiateViewController(withIdentifier: "ChatViewController")
-                    as? ChatViewController else {
-                        return
+                        as? ChatViewController else {
+                    return
                 }
                 chatController.dialogID = newDialog.id
                 newStack.append(chatController)
@@ -207,7 +208,7 @@ class EnterChatNameVC: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
-
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if hintLabel.text?.isEmpty == true, indexPath.row == 1 {
             return 6
