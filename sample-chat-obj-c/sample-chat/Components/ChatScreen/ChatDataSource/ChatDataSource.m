@@ -17,6 +17,7 @@ NSString *const dateDividerKey = @"kQBDateDividerCustomParameterKey";
 @interface ChatDataSource()
 
 @property (strong, nonatomic) NSMutableArray *messages;
+@property (strong, nonatomic) NSMutableSet<QBChatMessage *> *messagesForRead;
 @property (strong, nonatomic) NSMutableSet *dateDividers;
 @property (strong, nonatomic) dispatch_queue_t serialQueue;
 
@@ -52,6 +53,7 @@ NSComparator messageComparator = ^(QBChatMessage *obj1, QBChatMessage *obj2) {
         _serialQueue = dispatch_queue_create("com.chatvc.datasource.queue", DISPATCH_QUEUE_SERIAL);
         _dateDividers = [NSMutableSet set];
         _messages = [NSMutableArray array];
+        _messagesForRead = [NSMutableSet set];
     }
     
     return self;
@@ -283,6 +285,23 @@ NSComparator messageComparator = ^(QBChatMessage *obj1, QBChatMessage *obj2) {
 // MARK: - Clear
 - (void)clear {
     [self.messages removeAllObjects];
+}
+
+// MARK: - Messages For Read
+- (NSArray *)allMessagesForRead {
+    return [self.messagesForRead allObjects];
+}
+
+- (void)addMessageForRead:(QBChatMessage *)message {
+    [self.messagesForRead addObject:message];
+}
+
+- (NSInteger)messagesForReadCount {
+    return self.messagesForRead.count;
+}
+
+- (void)removeMessageForRead:(QBChatMessage *)message {
+    [self.messagesForRead removeObject:message];
 }
 
 

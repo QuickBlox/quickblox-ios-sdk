@@ -1445,7 +1445,9 @@ extension ChatViewController: ChatCollectionViewDataSource {
             return
         }
         
-        if message.readIDs?.contains(NSNumber(value: currentUserID)) == false {
+        if message.senderID != currentUserID,
+           cell is ChatNotificationCell == false,
+           message.readIDs?.contains(NSNumber(value: currentUserID)) == false {
             if QBChat.instance.isConnected == false {
                 dataSource.messagesForRead.insert(message)
             } else {

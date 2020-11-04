@@ -10,6 +10,7 @@
 #import "SplashScreenVC.h"
 #import "DialogsViewController.h"
 #import "UIColor+Chat.h"
+#import "ChatManager.h"
 
 @interface DialogsNavigationController: UINavigationController
 @end
@@ -100,6 +101,11 @@
 //MARK: - Internal Methods
 - (void)handlePush {
     if ([self.current isKindOfClass:[DialogsNavigationController class]] && self.dialogID) {
+        // Autojoin to the group chat
+        QBChatDialog *dialog = [ChatManager.instance.storage dialogWithID:self.dialogID];
+        if (dialog.type != QBChatDialogTypePrivate && dialog.isJoined == NO) {
+            [dialog joinWithCompletionBlock:nil];
+        }
         DialogsNavigationController *dialogsNavigationController = (DialogsNavigationController *)self.current;
         [dialogsNavigationController popToRootViewControllerAnimated:NO];
         if ([dialogsNavigationController.topViewController isKindOfClass:[DialogsViewController class]]) {

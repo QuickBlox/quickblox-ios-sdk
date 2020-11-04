@@ -1091,10 +1091,9 @@
 			};
 			buildConfigurationList = BFE6FB6D180E8EF100E64AC4 /* Build configuration list for PBXProject "sample-chat" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				Base,
 				en,
 			);
@@ -1368,7 +1367,7 @@
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 4.0.4;
+				MARKETING_VERSION = 4.0.5;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.test-samplechat-objc";
@@ -1517,7 +1516,7 @@
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 4.0.4;
+				MARKETING_VERSION = 4.0.5;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.test-samplechat-objc";
@@ -1553,7 +1552,7 @@
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 4.0.4;
+				MARKETING_VERSION = 4.0.5;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.test-samplechat-objc";
