@@ -351,7 +351,7 @@ const NSUInteger kPerPageUsers = 100;
     self.searchBar.text = @"";
     [self.searchBar resignFirstResponder];
     self.isSearch = NO;
-    
+    sender.enabled = NO;
     NSArray *selectedUsers = self.selectedUsers.allObjects;
     
     if (self.dialog.type == QBChatDialogTypeGroup) {
@@ -365,6 +365,7 @@ const NSUInteger kPerPageUsers = 100;
         // Updates dialog with new occupants.
         [self.chatManager joinOccupantsWithIDs:usersIDs toDialog:self.dialog completion:^(QBResponse * _Nonnull response, QBChatDialog * _Nonnull updatedDialog) {
             if (!updatedDialog || response.error) {
+                sender.enabled = YES;
                 [SVProgressHUD showErrorWithStatus:response.error.error.localizedDescription];
                 return;
             }

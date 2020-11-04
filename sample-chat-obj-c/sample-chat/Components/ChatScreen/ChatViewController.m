@@ -113,7 +113,6 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
 @property (strong, nonatomic) TypingView *typingView;
 @property (strong, nonatomic) NSMutableSet *onlineUsersIDs;
 @property (strong, nonatomic) NSMutableSet *typingUsers;
-@property (strong, nonatomic) NSMutableSet<QBChatMessage *> *messagesForRead;
 @property (strong, nonatomic) NSTimer *privateUserIsTypingTimer;
 @property (strong, nonatomic) NSTimer *stopTimer;
 @property (assign, nonatomic) Boolean isOpponentTyping;
@@ -561,6 +560,7 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
             self.title = @"";
             self.navigationItem.rightBarButtonItem.enabled = NO;
         }
+        [SVProgressHUD dismiss];
     }];
 }
 
@@ -637,7 +637,7 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"SA_STR_CANCEL", nil) style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *leaveAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"SA_STR_DELETE", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_DELETING", nil)];
-        
+        self.infoItem.enabled = NO;
         if (self.dialog.type == QBChatDialogTypePublicGroup) {
             return;
         } else if (self.dialog.type == QBChatDialogTypePrivate) {
@@ -658,6 +658,7 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
             // Notifies occupants that user left the dialog.
             [self.chatManager sendLeaveMessage:message toDialog:self.dialog completion:^(NSError * _Nullable error) {
                 if (error){
+                    self.infoItem.enabled = YES;
                     Log(@"[%@] sendLeaveMessage error: %@",
                         NSStringFromClass([DialogsSelectionVC class]),
                         error.localizedDescription);
@@ -1346,11 +1347,11 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
     
     QBChatMessage *messageItem = [self.dataSource messageWithIndexPath:indexPath];
     
-    if (messageItem.senderID != self.senderID) {
+    if (messageItem.senderID != self.senderID && ![cell isKindOfClass:[ChatNotificationCell class]]) {
         if (![messageItem.readIDs containsObject:@(self.senderID)]) {
-            
+
             if (![QBChat.instance isConnected]) {
-                [self.messagesForRead addObject:messageItem];
+                [self.dataSource addMessageForRead:messageItem];
             } else {
                 [self.chatManager readMessage:messageItem dialog:self.dialog completion:^(NSError * _Nullable error) {
                     if (!error) {
@@ -1358,6 +1359,7 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
                         [readIDs addObject:@(self.senderID)];
                         [messageItem setReadIDs: [readIDs copy]];
                         [self.dataSource updateMessage:messageItem];
+                        [self.dataSource removeMessageForRead:messageItem];
                     }
                 }];
             }
@@ -1537,7 +1539,10 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
     if (self.isDeviceLocked) {
         return;
     }
-    if (message.senderID != self.senderID) {
+    
+    if (([cell isKindOfClass:[ChatIncomingCell class]]
+         || [cell isKindOfClass:[ChatAttachmentIncomingCell class]])
+        && self.dialog.type != QBChatDialogTypePrivate) {
         if (![self.chatManager.storage userWithID:message.senderID]){
             [self.chatManager loadUserWithID:message.senderID completion:^(QBUUser * _Nullable user) {
                 if ([cell isKindOfClass:[ChatCell class]]) {
@@ -1886,14 +1891,31 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
 }
 
 - (void)refreshAndReadMessages {
-    
-    if (self.messagesForRead.count) {
-        NSArray *messages = [self.messagesForRead allObjects];
-        [self.chatManager readMessages:messages dialog:self.dialog completion:^(NSError * _Nullable error) {
-            [self.messagesForRead removeAllObjects];
+    // Autojoin to the group chat
+    if (self.dialog.type != QBChatDialogTypePrivate && !self.dialog.isJoined) {
+        [self.dialog joinWithCompletionBlock:^(NSError *error) {
+            if (error) {
+                Log(@"[%@] dialog join error: %@",
+                    NSStringFromClass([ChatViewController class]),
+                    error.localizedDescription);
+            }
         }];
     }
-    
+    if ([self.dataSource messagesForReadCount] > 0) {
+        NSArray *messages = [self.dataSource allMessagesForRead];
+        
+        for (QBChatMessage *message in messages) {
+            [self.chatManager readMessage:message dialog:self.dialog completion:^(NSError * _Nullable error) {
+                if (!error) {
+                    NSMutableArray *readIDs = [message.readIDs mutableCopy];
+                    [readIDs addObject:@(QBChat.instance.currentUser.ID)];
+                    [message setReadIDs: [readIDs copy]];
+                    [self.dataSource updateMessage:message];
+                    [self.dataSource removeMessageForRead:message];
+                }
+            }];
+        }
+    }
     [self loadMessagesWithSkip:0];
 }
 

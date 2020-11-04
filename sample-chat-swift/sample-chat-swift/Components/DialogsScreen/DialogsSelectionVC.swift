@@ -86,12 +86,11 @@ class DialogsSelectionVC: UITableViewController {
         guard let originMessage = message else {
             return
         }
+        SVProgressHUD.show()
+        sender.isEnabled = false
         
         let sendGroup = DispatchGroup()
 
-        sender.isEnabled = false
-        SVProgressHUD.show()
-        
         for indexPath in self.selectedPaths {
             let dialog = self.dialogs[indexPath.row]
             guard let dialogID = dialog.id else {

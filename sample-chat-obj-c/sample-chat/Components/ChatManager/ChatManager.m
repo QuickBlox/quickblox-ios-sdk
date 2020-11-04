@@ -310,6 +310,7 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
             }
             return;
         }
+        
         QBChatDialog *chatDialog = dialogs.firstObject;
         
         [self.storage updateDialogs:@[chatDialog]];

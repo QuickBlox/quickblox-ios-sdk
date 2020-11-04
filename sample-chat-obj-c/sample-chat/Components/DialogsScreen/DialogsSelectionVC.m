@@ -94,14 +94,16 @@ NSString *const KEY_MESSAGE_FORWARDED = @"origin_sender_name";
     }
     
     [SVProgressHUD show];
+    sender.enabled = NO;
     
     dispatch_group_t sendGroup = dispatch_group_create();
-    
+
     for (NSIndexPath *indexPath in self.selectedPaths) {
         QBChatDialog *dialog = self.dialogs[indexPath.row];
         if (!dialog) {
             continue;
         }
+
         dispatch_group_enter(sendGroup);
         QBChatMessage *forwardedMessage = [QBChatMessage markableMessage];
         forwardedMessage.senderID = self.senderID;
@@ -132,7 +134,7 @@ NSString *const KEY_MESSAGE_FORWARDED = @"origin_sender_name";
         [self.chatManager sendMessage:forwardedMessage toDialog:dialog completion:^(NSError * _Nullable error) {
             dispatch_group_leave(sendGroup);
             if (error) {
-                
+                sender.enabled = YES;
             }
         }];
     }
@@ -156,13 +158,13 @@ NSString *const KEY_MESSAGE_FORWARDED = @"origin_sender_name";
     
     dispatch_group_t deleteGroup = dispatch_group_create();
     
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SA_STR_WARNING", nil) message:NSLocalizedString(@"SA_STR_DO_YOU_REALLY_WANT_TO_DELETE_SELECTED_DIALOG", nil) preferredStyle:UIAlertControllerStyleAlert];
+    NSString *alertMessage = self.selectedPaths.count == 1 ? NSLocalizedString(@"SA_STR_DO_YOU_REALLY_WANT_TO_DELETE_SELECTED_DIALOG", nil) : NSLocalizedString(@"SA_STR_DO_YOU_REALLY_WANT_TO_DELETE_SELECTED_DIALOGS", nil);
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SA_STR_WARNING", nil) message:alertMessage preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"SA_STR_CANCEL", nil) style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *leaveAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"SA_STR_DELETE", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_DELETING", nil)];
-        
-        
+        sender.enabled = NO;
         
         for (NSIndexPath *indexPath in self.selectedPaths) {
             QBChatDialog *dialog = self.dialogs[indexPath.row];

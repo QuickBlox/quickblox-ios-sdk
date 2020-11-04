@@ -127,12 +127,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     // Login to QuickBlox Chat
-    [ChatManager.instance connect:^(NSError * _Nullable error) {
-        if (error) {
-            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-            return;
-        }
-    }];
+    [ChatManager.instance connect:nil];
 }
 
 @end

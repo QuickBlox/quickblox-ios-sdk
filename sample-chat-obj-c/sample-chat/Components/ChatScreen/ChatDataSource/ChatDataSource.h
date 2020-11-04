@@ -45,6 +45,12 @@ typedef NS_ENUM(NSInteger, DataSourceActionType) {
 
 - (NSInteger)loadMessagesCount;
 
+- (NSArray *)allMessagesForRead;
+
+- (void)addMessageForRead:(QBChatMessage *)message;
+- (void)removeMessageForRead:(QBChatMessage *)message;
+- (NSInteger)messagesForReadCount;
+
 /**
  *  Messages count.
  *

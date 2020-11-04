@@ -137,7 +137,7 @@ NSString *const NAME_REGEX = @"^[^_]{3,19}$";
         [self.chatManager.storage updateUsers:self.selectedUsers];
         
         NSString *chatName = self.chatNameTextField.text;
-        
+        sender.enabled = NO;
         [self.chatManager createGroupDialogWithName:chatName occupants:self.selectedUsers completion:^(QBResponse * _Nullable response, QBChatDialog * _Nullable createdDialog) {
             if (response.error) {
                 [SVProgressHUD showErrorWithStatus:response.error.error.localizedDescription];
