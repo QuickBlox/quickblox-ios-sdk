@@ -10,7 +10,7 @@ DEPENDENCIES:
   - SVProgressHUD (~> 2.2.5)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - QuickBlox
     - Quickblox-WebRTC
     - SVProgressHUD
@@ -22,4 +22,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 239f42c44e4ea66fd92bda6f4580983f55328397
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.9.3

@@ -982,6 +982,8 @@ class ChatViewController: UIViewController {
                 }
             case .denied, .restricted:
                 accessDenied(sourceType)
+            case .limited:
+                showAllAssets()
             }
         }
     }
@@ -1933,7 +1935,7 @@ extension ChatViewController: ChatCellDelegate {
         case NSTextCheckingResult.CheckingType.phoneNumber:
             if canMakeACall() == false {
                 
-                SVProgressHUD.show(withStatus: "Your Device can't make a phone call".localized)
+                SVProgressHUD.showError(withStatus: "Your Device can't make a phone call".localized)
                 break
             }
             view.endEditing(true)
@@ -1958,24 +1960,24 @@ extension ChatViewController: ChatCellDelegate {
     }
     
     private func canMakeACall() -> Bool {
-        var canMakeACall = false
-        if let url = URL.init(string: "tel://"), UIApplication.shared.canOpenURL(url) == true {
+        if let url = URL(string: "tel://"), UIApplication.shared.canOpenURL(url) == true {
             // Check if iOS Device supports phone calls
-            let networkInfo = CTTelephonyNetworkInfo()
-            guard let carrier = networkInfo.subscriberCellularProvider else {
+            guard let carrier = CTTelephonyNetworkInfo().serviceSubscriberCellularProviders?.first?.value,
+                  let mobileNetworkCode = carrier.mobileNetworkCode else {
                 return false
             }
-            let mobileNetworkCode = carrier.mobileNetworkCode
-            if mobileNetworkCode?.isEmpty == true {
+            
+            if mobileNetworkCode.isEmpty == true {
                 // Device cannot place a call at this time.  SIM might be removed.
+                return false
             } else {
                 // iOS Device is capable for making calls
-                canMakeACall = true
+                return true
             }
         } else {
             // iOS Device is not capable for making calls
+            return false
         }
-        return canMakeACall
     }
 }
 

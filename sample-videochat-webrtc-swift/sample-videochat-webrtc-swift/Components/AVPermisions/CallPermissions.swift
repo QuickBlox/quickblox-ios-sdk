@@ -20,7 +20,7 @@ struct CallErrorConstant {
 
 class CallPermissions {
     //MARK: - Class Methods
-    class func check(with conferenceType: QBRTCConferenceType, completion: @escaping PermissionBlock) {
+    class func check(with conferenceType: QBRTCConferenceType, completion: @escaping (_ granted: Bool) -> Void ) {
         
         #if targetEnvironment(simulator)
         completion(true)
@@ -48,7 +48,7 @@ class CallPermissions {
         })
     }
     
-    class func requestPermissionToMicrophone(withCompletion completion: @escaping PermissionBlock) {
+    class func requestPermissionToMicrophone(withCompletion completion: @escaping (_ granted: Bool) -> Void ) {
         AVAudioSession.sharedInstance().requestRecordPermission({ granted in
             DispatchQueue.main.async(execute: {
                 completion(granted)
@@ -56,7 +56,7 @@ class CallPermissions {
         })
     }
     
-    class func requestPermissionToCamera(withCompletion completion: @escaping PermissionBlock) {
+    class func requestPermissionToCamera(withCompletion completion: @escaping (_ granted: Bool) -> Void ) {
         let mediaType = AVMediaType.video
         let authStatus = AVCaptureDevice.authorizationStatus(for: mediaType)
         switch authStatus {

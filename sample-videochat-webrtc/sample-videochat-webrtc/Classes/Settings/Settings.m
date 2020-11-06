@@ -29,12 +29,11 @@ static NSString * const kMediaConfigKey = @"mediaConfig";
 
     // saving to disk
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSData *videFormatData = [NSKeyedArchiver archivedDataWithRootObject:self.videoFormat];
-    NSData *mediaConfig = [NSKeyedArchiver archivedDataWithRootObject:self.mediaConfiguration];
-    
-    [defaults setInteger:self.preferredCameraPostion forKey:kPreferredCameraPosition];
+    NSData *videFormatData = [NSKeyedArchiver archivedDataWithRootObject:self.videoFormat requiringSecureCoding:NO error:nil];
     [defaults setObject:videFormatData forKey:kVideoFormatKey];
+    NSData *mediaConfig = [NSKeyedArchiver archivedDataWithRootObject:self.mediaConfiguration requiringSecureCoding:NO error:nil];
     [defaults setObject:mediaConfig forKey:kMediaConfigKey];
+    [defaults setInteger:self.preferredCameraPostion forKey:kPreferredCameraPosition];
     
     [defaults synchronize];
 }
@@ -60,23 +59,20 @@ static NSString * const kMediaConfigKey = @"mediaConfig";
     
     NSData *videoFormatData = [defaults objectForKey:kVideoFormatKey];
     if (videoFormatData) {
-        
-        self.videoFormat = [NSKeyedUnarchiver unarchiveObjectWithData:videoFormatData];
-        
-    }
-    else {
-
+        NSKeyedUnarchiver* unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:videoFormatData error:nil];
+        unarchiver.requiresSecureCoding = NO;
+        self.videoFormat  = [unarchiver decodeTopLevelObjectForKey:NSKeyedArchiveRootObjectKey error:nil];
+    } else {
         self.videoFormat = [QBRTCVideoFormat defaultFormat];
     }
     
     NSData *mediaConfigData = [defaults objectForKey:kMediaConfigKey];
     
     if (mediaConfigData) {
-        self.mediaConfiguration = [NSKeyedUnarchiver unarchiveObjectWithData:mediaConfigData];
-        [self applyConfig];
-    }
-    else {
-        
+        NSKeyedUnarchiver* unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:mediaConfigData error:nil];
+        unarchiver.requiresSecureCoding = NO;
+        self.mediaConfiguration  = [unarchiver decodeTopLevelObjectForKey:NSKeyedArchiveRootObjectKey error:nil];
+    } else {
         self.mediaConfiguration = [QBRTCMediaStreamConfiguration defaultConfiguration];
     }
 }
