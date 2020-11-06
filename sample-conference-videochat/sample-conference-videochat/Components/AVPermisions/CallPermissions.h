@@ -10,11 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface QBAVCallPermissions : NSObject
+typedef void(^GrantedPermissionBlock)(BOOL granted);
+
+@interface CallPermissions : NSObject
 
 + (void)checkPermissionsWithConferenceType:(QBRTCConferenceType)conferenceType
-                                completion:(PermissionBlock)completion;
+                                completion:(GrantedPermissionBlock)completion;
 
 @end
-
 NS_ASSUME_NONNULL_END

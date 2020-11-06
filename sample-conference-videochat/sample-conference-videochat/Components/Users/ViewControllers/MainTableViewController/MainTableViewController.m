@@ -15,7 +15,7 @@
 #import "QBDataFetcher.h"
 #import "UsersViewController.h"
 #import "CallViewController.h"
-#import "QBAVCallPermissions.h"
+#import "CallPermissions.h"
 #import "UIViewController+InfoScreen.h"
 
 typedef NS_ENUM(NSUInteger, CallSenderValue) {
@@ -311,7 +311,7 @@ static NSString * const kSceneSegueAuth = @"SceneSegueAuth";
     if ([self hasConnectivity]) {
         
         if (conferenceType > 0) {
-            [QBAVCallPermissions checkPermissionsWithConferenceType:conferenceType completion:^(BOOL granted) {
+            [CallPermissions checkPermissionsWithConferenceType:conferenceType completion:^(BOOL granted) {
                 
                 if (granted) {
                     
