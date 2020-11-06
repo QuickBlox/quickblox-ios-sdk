@@ -11,7 +11,7 @@
 @implementation CallPermissions
 
 + (void)checkPermissionsWithConferenceType:(QBRTCConferenceType)conferenceType
-                                completion:(PermissionBlock)completion {
+                                completion:(GrantedPermissionBlock)completion {
     
 #if TARGET_OS_SIMULATOR
     completion(YES);
@@ -70,7 +70,7 @@
 #endif
 }
 
-+ (void)requestPermissionToMicrophoneWithCompletion:(PermissionBlock)completion {
++ (void)requestPermissionToMicrophoneWithCompletion:(GrantedPermissionBlock)completion {
     
     [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
         if (completion) {
@@ -79,7 +79,7 @@
     }];
 }
 
-+ (void)requestPermissionToCameraWithCompletion:(PermissionBlock)completion {
++ (void)requestPermissionToCameraWithCompletion:(GrantedPermissionBlock)completion {
     
     NSString *mediaType = AVMediaTypeVideo;
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];

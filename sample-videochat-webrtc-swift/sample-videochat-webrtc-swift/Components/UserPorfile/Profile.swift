@@ -30,9 +30,13 @@ class Profile: NSObject  {
     }
     
     class func synchronize(_ user: QBUUser) {
-        let data = NSKeyedArchiver.archivedData(withRootObject: user)
-        let userDefaults = UserDefaults.standard
-        userDefaults.set(data, forKey: UserProfileConstant.curentProfile)
+        do {
+            let data = try NSKeyedArchiver.archivedData(withRootObject: user, requiringSecureCoding: false)
+            let userDefaults = UserDefaults.standard
+            userDefaults.set(data, forKey: UserProfileConstant.curentProfile)
+        } catch {
+            print("Couldn't write file to UserDefaults")
+        }
     }
     
     class func update(_ user: QBUUser) {
@@ -53,14 +57,18 @@ class Profile: NSObject  {
     }
     
    //MARK: - Internal Class Methods
-   private class func loadObject() -> QBUUser? {
+    private class func loadObject() -> QBUUser? {
         let userDefaults = UserDefaults.standard
-        guard let decodedUser  = userDefaults.object(forKey: UserProfileConstant.curentProfile) as? Data,
-            let user = NSKeyedUnarchiver.unarchiveObject(with: decodedUser) as? QBUUser else {
-                return nil
+        guard let decodedUser  = userDefaults.object(forKey: UserProfileConstant.curentProfile) as? Data else { return nil }
+        do {
+            if let user = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(decodedUser) as? QBUUser {
+                return user
+            }
+        } catch {
+            print("Couldn't read file from UserDefaults")
+            return nil
         }
-        
-        return user
+        return nil
     }
     
     //MARK - Properties

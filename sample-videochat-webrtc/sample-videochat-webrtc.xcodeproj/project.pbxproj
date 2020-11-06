@@ -18,9 +18,9 @@
 		2C5551B02237DE2100BB3CAF /* Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5551AF2237DE2100BB3CAF /* Log.m */; };
 		2C6C7053223A95DE00BFE9FA /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C7052223A95DE00BFE9FA /* User.m */; };
 		2C6F882A224E76F200A0DEB5 /* Info.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C6F8829224E76F200A0DEB5 /* Info.xcassets */; };
+		2C907A7125559636001EEEBC /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C907A7025559636001EEEBC /* CoreServices.framework */; };
 		2CF9DC65242B9D76009CF0CD /* Call.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF9DC64242B9D76009CF0CD /* Call.m */; };
 		55CF63A81A3AFF2500FE8D19 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CF63A71A3AFF2500FE8D19 /* SystemConfiguration.framework */; };
-		55E156AF1AD6C41C00C62699 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E156AE1AD6C41C00C62699 /* MobileCoreServices.framework */; };
 		55F6BDCA1A3F21CC0080C326 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F6BDC91A3F21CC0080C326 /* GLKit.framework */; };
 		55F6BDCC1A3F21F10080C326 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F6BDCB1A3F21F10080C326 /* CFNetwork.framework */; };
 		B5C86CACA3C21AA0DE85575F /* Pods_sample_videochat_webrtc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C98F5434DEF34B0AD2198BB8 /* Pods_sample_videochat_webrtc.framework */; };
@@ -125,6 +125,7 @@
 		2C6C7051223A95DE00BFE9FA /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		2C6C7052223A95DE00BFE9FA /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		2C6F8829224E76F200A0DEB5 /* Info.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Info.xcassets; sourceTree = "<group>"; };
+		2C907A7025559636001EEEBC /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		2CF9DC63242B9D76009CF0CD /* Call.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Call.h; sourceTree = "<group>"; };
 		2CF9DC64242B9D76009CF0CD /* Call.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Call.m; sourceTree = "<group>"; };
 		55CF63A71A3AFF2500FE8D19 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -270,8 +271,8 @@
 				FB4490581BFB8B2E00A8233D /* Accelerate.framework in Frameworks */,
 				FB4490521BFB8ADD00A8233D /* libresolv.tbd in Frameworks */,
 				FB4490501BFB8AD000A8233D /* libxml2.2.tbd in Frameworks */,
+				2C907A7125559636001EEEBC /* CoreServices.framework in Frameworks */,
 				FB5764E01B42A00F00501049 /* VideoToolbox.framework in Frameworks */,
-				55E156AF1AD6C41C00C62699 /* MobileCoreServices.framework in Frameworks */,
 				55F6BDCC1A3F21F10080C326 /* CFNetwork.framework in Frameworks */,
 				55F6BDCA1A3F21CC0080C326 /* GLKit.framework in Frameworks */,
 				55CF63A81A3AFF2500FE8D19 /* SystemConfiguration.framework in Frameworks */,
@@ -407,6 +408,7 @@
 		AB35EE3F551E29A444EB63EF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C907A7025559636001EEEBC /* CoreServices.framework */,
 				FB4490571BFB8B2E00A8233D /* Accelerate.framework */,
 				FB4490551BFB8AFF00A8233D /* CoreMedia.framework */,
 				FB4490531BFB8AF300A8233D /* CoreGraphics.framework */,
@@ -946,7 +948,7 @@
 		55E076DB1A30817800118D23 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1210;
 				ORGANIZATIONNAME = "QuickBlox Team";
 				TargetAttributes = {
 					55E076E21A30817800118D23 = {
@@ -1215,6 +1217,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1240,7 +1243,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -1269,6 +1272,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1288,7 +1292,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1324,7 +1328,7 @@
 					"\"$(SDKROOT)/usr/include/libxml2\"",
 				);
 				INFOPLIST_FILE = "sample-videochat-webrtc/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 4.0.5;
@@ -1371,7 +1375,7 @@
 					"\"$(SDKROOT)/usr/include/libxml2\"",
 				);
 				INFOPLIST_FILE = "sample-videochat-webrtc/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 4.0.5;
