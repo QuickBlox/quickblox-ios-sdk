@@ -6,12 +6,12 @@
 //  Copyright © 2016 QuickBlox Team. All rights reserved.
 //
 
-#import "QBAVCallPermissions.h"
+#import "CallPermissions.h"
 
-@implementation QBAVCallPermissions
+@implementation CallPermissions
 
 + (void)checkPermissionsWithConferenceType:(QBRTCConferenceType)conferenceType
-                                completion:(PermissionBlock)completion {
+                                completion:(GrantedPermissionBlock)completion {
     
 #if (TARGET_IPHONE_SIMULATOR)
     completion(YES);
@@ -69,7 +69,7 @@
     }];
 }
 
-+ (void)requestPermissionToMicrophoneWithCompletion:(PermissionBlock)completion {
++ (void)requestPermissionToMicrophoneWithCompletion:(GrantedPermissionBlock)completion {
     
     [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
         if (completion) {
@@ -78,7 +78,7 @@
     }];
 }
 
-+ (void)requestPermissionToCameraWithCompletion:(PermissionBlock)completion {
++ (void)requestPermissionToCameraWithCompletion:(GrantedPermissionBlock)completion {
     
     NSString *mediaType = AVMediaTypeVideo;
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];

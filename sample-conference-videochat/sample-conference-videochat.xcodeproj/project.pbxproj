@@ -20,7 +20,7 @@
 		E381C7DE1E7830DB00ACF58D /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E381C74E1E7830DB00ACF58D /* Auth.storyboard */; };
 		E381C7DF1E7830DB00ACF58D /* LoginTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E381C7521E7830DB00ACF58D /* LoginTableViewController.m */; };
 		E381C7E01E7830DB00ACF58D /* QBLoadingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E381C7561E7830DB00ACF58D /* QBLoadingButton.m */; };
-		E381C7E11E7830DB00ACF58D /* QBAVCallPermissions.m in Sources */ = {isa = PBXBuildFile; fileRef = E381C7591E7830DB00ACF58D /* QBAVCallPermissions.m */; };
+		E381C7E11E7830DB00ACF58D /* CallPermissions.m in Sources */ = {isa = PBXBuildFile; fileRef = E381C7591E7830DB00ACF58D /* CallPermissions.m */; };
 		E381C7E21E7830DB00ACF58D /* Call.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E381C75B1E7830DB00ACF58D /* Call.storyboard */; };
 		E381C7E31E7830DB00ACF58D /* CallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E381C75E1E7830DB00ACF58D /* CallViewController.m */; };
 		E381C7E41E7830DB00ACF58D /* LocalVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = E381C7611E7830DB00ACF58D /* LocalVideoView.m */; };
@@ -105,8 +105,8 @@
 		E381C7521E7830DB00ACF58D /* LoginTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewController.m; sourceTree = "<group>"; };
 		E381C7551E7830DB00ACF58D /* QBLoadingButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBLoadingButton.h; sourceTree = "<group>"; };
 		E381C7561E7830DB00ACF58D /* QBLoadingButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBLoadingButton.m; sourceTree = "<group>"; };
-		E381C7581E7830DB00ACF58D /* QBAVCallPermissions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBAVCallPermissions.h; sourceTree = "<group>"; };
-		E381C7591E7830DB00ACF58D /* QBAVCallPermissions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBAVCallPermissions.m; sourceTree = "<group>"; };
+		E381C7581E7830DB00ACF58D /* CallPermissions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallPermissions.h; sourceTree = "<group>"; };
+		E381C7591E7830DB00ACF58D /* CallPermissions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallPermissions.m; sourceTree = "<group>"; };
 		E381C75B1E7830DB00ACF58D /* Call.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Call.storyboard; sourceTree = "<group>"; };
 		E381C75D1E7830DB00ACF58D /* CallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallViewController.h; sourceTree = "<group>"; };
 		E381C75E1E7830DB00ACF58D /* CallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallViewController.m; sourceTree = "<group>"; };
@@ -394,8 +394,8 @@
 		E381C7571E7830DB00ACF58D /* AVPermisions */ = {
 			isa = PBXGroup;
 			children = (
-				E381C7581E7830DB00ACF58D /* QBAVCallPermissions.h */,
-				E381C7591E7830DB00ACF58D /* QBAVCallPermissions.m */,
+				E381C7581E7830DB00ACF58D /* CallPermissions.h */,
+				E381C7591E7830DB00ACF58D /* CallPermissions.m */,
 			);
 			path = AVPermisions;
 			sourceTree = "<group>";
@@ -994,7 +994,7 @@
 				E381C7EF1E7830DB00ACF58D /* QMRootViewControllerSegue.m in Sources */,
 				E381C7DF1E7830DB00ACF58D /* LoginTableViewController.m in Sources */,
 				E381C7F21E7830DB00ACF58D /* BaseSettingsViewController.m in Sources */,
-				E381C7E11E7830DB00ACF58D /* QBAVCallPermissions.m in Sources */,
+				E381C7E11E7830DB00ACF58D /* CallPermissions.m in Sources */,
 				E381C8071E7830DB00ACF58D /* DialogsDataSource.m in Sources */,
 				E381C8091E7830DB00ACF58D /* PlaceholderGenerator.m in Sources */,
 				E381C7FA1E7830DB00ACF58D /* SettingsSectionModel.m in Sources */,
