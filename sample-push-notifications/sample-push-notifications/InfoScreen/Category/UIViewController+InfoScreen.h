@@ -1,8 +1,8 @@
 //
 //  UIViewController+InfoScreen.h
-//  sample-conference-videochat
+//  sample-push-notifications
 //
-//  Created by Vladimir Nybozhinsky on 1/2/19.
+//  Created by Injoit on 1/2/19.
 //  Copyright © 2019 Quickblox. All rights reserved.
 //
 
@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (InfoScreen)
 
-- (void)showInfoButton;
+- (void)addInfoButton;
 
 @end
 

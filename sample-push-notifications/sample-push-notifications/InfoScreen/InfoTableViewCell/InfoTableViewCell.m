@@ -1,8 +1,8 @@
 //
 //  InfoTableViewCell.m
-//  sample-conference-videochat
+//  sample-push-notifications
 //
-//  Created by Vladimir Nybozhinsky on 12/30/18.
+//  Created by Injoit on 12/30/18.
 //  Copyright © 2018 Quickblox. All rights reserved.
 //
 

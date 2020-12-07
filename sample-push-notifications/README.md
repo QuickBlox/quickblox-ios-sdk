@@ -1,26 +1,48 @@
-<h1> QuickBlox iOS Messages Sample </h1>
+# Overview
+QuickBlox iOS Sample Push Notifications (ObjC)
 
-<h2> Introduction </h2>
+This is a code sample for [QuickBlox](http://quickblox.com/) platform. It is a great way for developers using the QuickBlox platform to verify that APNS/VOIP push notifications are configured correctly in your app and to learn how to integrate APNS/VOIP push notifications into your app.
 
-This is a code sample for [QuickBlox](http://quickblox.com/) platform. It is a great way for developers using QuickBlox platform to learn how to integrate Push Notifications into yours apps. 
+# Credentials
 
-<h2> Sample description </h2>
+Welcome to QuickBlox [Credentials](https://docs.quickblox.com/docs/ios-quick-start), where you can get your credentials in just 5 minutes! All you need is to:
 
-<img src="http://files.quickblox.com/messages_sample1.png" border="5" alt="Push notifications" width="300"> 
+1. Register a free QuickBlox account and add your App there.
+2. Update credentials in your application code.[Chat](https://docs.quickblox.com/docs/ios-quick-start)
 
-This is an iOS sample project that demonstrates how to work with [Messages](http://quickblox.com/developers/SimpleSample-messages_users-ios) QuickBlox module.
+# Push Notifications Sample
 
-It allows to send and receive push notifications.
+This Sample demonstrates how to work with [Push](https://docs.quickblox.com/docs/ios-push-notifications) QuickBlox module. 
 
-Features:
-<ul>
-<li> Subscribes user for Push Notifications. </li>
-<li> Send Text Push Notification to particular user. </li>
-<li> Displays list of received Push Notifications. </li>
-</ul>
+It allows:
 
-<h2> Documentation </h2>
-
-Original sample description & setup guide - [QuickBlox iOS Messages Sample](http://quickblox.com/developers/SimpleSample-messages_users-ios)
+1. Authenticate with Quickblox REST.
+2. Send notifications and alerts to users at any time through an API or easy-to-use admin panel.
+3. Subscribes user for Push Notifications(APNS and VOIP).
+4. Send Text Push Notification to particular user.
+5. Displays list of received Push Notifications
 
 
+# CocoaPods
+
+[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
+
+```bash
+$ gem install cocoapods
+```
+
+> CocoaPods 1.1+ is required to build project with QuickBlox 2.17.7+.
+
+To integrate QuickBlox into the **sample-Push-Notifications-objc** run the following command:
+
+```bash
+$ pod install
+```
+Additional libraries used via [CocoaPods](https://cocoapods.org):
+
+* [SVProgressHUD](https://github.com/TransitApp/SVProgressHUD.git/)
+* [TTTAttributedLabel](https://github.com/TTTAttributedLabel/TTTAttributedLabel.git)
+
+# Documentation
+
+Original sample description & setup guide - [iOS Sample Push Notifications](https://docs.quickblox.com/docs/ios-push-notifications)

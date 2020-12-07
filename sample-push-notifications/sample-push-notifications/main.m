@@ -1,8 +1,8 @@
 //
 //  main.m
-//  sample-messages
+//  sample-push-notifications
 //
-//  Created by Quickblox Team on 6/11/15.
+//  Created by Injoit on 6/11/15.
 //  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 
