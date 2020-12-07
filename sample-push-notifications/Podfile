@@ -1,8 +1,7 @@
 # Uncomment this line to define a global platform for your project
- platform :ios, '9.0'
+ platform :ios, '13.0'
 
 target 'sample-push-notifications' do
     pod 'SVProgressHUD'
+    pod 'QuickBlox', '~> 2.17.7'
 end
-
-

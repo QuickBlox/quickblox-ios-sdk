@@ -1,8 +1,8 @@
 //
 //  InfoTableViewController.m
-//  sample-conference-videochat
+//  sample-push-notifications
 //
-//  Created by Vladimir Nybozhinsky on 12/30/18.
+//  Created by Injoit on 12/30/18.
 //  Copyright © 2018 Quickblox. All rights reserved.
 //
 
@@ -24,12 +24,29 @@ NSString *const kLogoTableViewCellId = @"QBLogoTableViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"chevron"]
+                                                                       style:UIBarButtonItemStylePlain
+                                                                      target:self
+                                                                      action:@selector(didTapBack:)];
+    
+    self.navigationItem.leftBarButtonItem = backButtonItem;
+    backButtonItem.tintColor = UIColor.whiteColor;
+    
     [self setupTableView];
 }
 
-- (void)setupTableView
-{
+- (void)didTapBack:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)setupTableView {
     self.infoModels = [NSMutableArray new];
+    
+    NSString *appName = NSBundle.mainBundle.infoDictionary[@"CFBundleName"];
+    InfoModel *appNameModel = [[InfoModel alloc] init];
+    appNameModel.title = @"Application version";
+    appNameModel.info = [NSString stringWithFormat:@"%@", appName];
+    [self.infoModels addObject:appNameModel];
     
     NSString *appVersion = NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"];
     InfoModel *appVersionModel = [[InfoModel alloc] init];
@@ -66,6 +83,12 @@ NSString *const kLogoTableViewCellId = @"QBLogoTableViewCell";
     chatDomainModel.title = @"Chat domain:";
     chatDomainModel.info = [NSString stringWithFormat:@"%@", QBSettings.chatEndpoint];
     [self.infoModels addObject:chatDomainModel];
+    
+    NSString *qaVersion = NSBundle.mainBundle.infoDictionary[@"CFBundleVersion"];
+    InfoModel *qaVersionModel = [[InfoModel alloc] init];
+    qaVersionModel.title = @"QA version";
+    qaVersionModel.info = [NSString stringWithFormat:@"%@", qaVersion];
+    [self.infoModels addObject:qaVersionModel];
     
     InfoModel *logoModel = [[InfoModel alloc] init];
     logoModel.title = @"logo";

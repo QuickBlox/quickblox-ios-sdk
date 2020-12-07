@@ -1,8 +1,8 @@
 //
 //  UIViewController+InfoScreen.m
-//  sample-conference-videochat
+//  sample-push-notifications
 //
-//  Created by Vladimir Nybozhinsky on 1/2/19.
+//  Created by Injoit on 1/2/19.
 //  Copyright © 2019 Quickblox. All rights reserved.
 //
 
@@ -11,7 +11,7 @@
 
 @implementation UIViewController (InfoScreen)
 
-- (void)showInfoButton {
+- (void)addInfoButton {
     BOOL needAdd = YES;
     for (UIBarButtonItem *barButton in self.navigationItem.rightBarButtonItems) {
         if ([barButton respondsToSelector:@selector(didTapInfoButton:)]) {
@@ -19,7 +19,7 @@
         }
     }
     
-    if (needAdd == false) {
+    if (needAdd == NO) {
         return;
     }
     UIBarButtonItem *infoButtonItem =
@@ -27,7 +27,14 @@
                                      style:UIBarButtonItemStylePlain
                                     target:self
                                     action:@selector(didTapInfoButton:)];
-        self.navigationItem.leftBarButtonItem = infoButtonItem;
+    infoButtonItem.tintColor = UIColor.whiteColor;
+    if (self.navigationItem.rightBarButtonItems.count == 0) {
+        self.navigationItem.rightBarButtonItem = infoButtonItem;
+    } else if (self.navigationItem.rightBarButtonItems.count > 0) {
+        NSMutableArray* rightBarButtonItems = self.navigationItem.rightBarButtonItems.mutableCopy;
+        [rightBarButtonItems addObject:infoButtonItem];
+        self.navigationItem.rightBarButtonItems = rightBarButtonItems;
+    }
 }
 
 - (void)didTapInfoButton:(UIBarButtonItem *)sender {

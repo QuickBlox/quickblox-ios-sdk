@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="B5R-FC-Poo">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="B5R-FC-Poo">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
         <scene sceneID="Nv2-Wj-PJh">
             <objects>
-                <navigationController id="B5R-FC-Poo" sceneMemberID="viewController">
+                <navigationController modalPresentationStyle="fullScreen" id="B5R-FC-Poo" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="9Xs-D0-DHa">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -26,26 +23,26 @@
             </objects>
             <point key="canvasLocation" x="-340" y="263"/>
         </scene>
-        <!--View Controller-->
+        <!--Push View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PushViewController" id="vXZ-lx-hvc" customClass="PushViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Received Push Notifications:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Br4-Ve-LdU">
-                                <rect key="frame" x="24" y="218" width="180" height="17"/>
+                                <rect key="frame" x="28" y="242" width="180" height="17"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <color key="textColor" red="0.42745098039215684" green="0.42745098039215684" blue="0.44705882352941173" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sn0-sY-Ky2" customClass="SAMTextView">
-                                <rect key="frame" x="0.0" y="104" width="375" height="88"/>
+                                <rect key="frame" x="0.0" y="128" width="414" height="88"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="88" id="9EI-4F-JvN"/>
@@ -54,28 +51,28 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Kh2-dY-Tk9">
-                                <rect key="frame" x="0.0" y="240" width="375" height="419"/>
+                                <rect key="frame" x="0.0" y="264" width="414" height="590"/>
                                 <color key="separatorColor" red="0.69019607843137254" green="0.69019607843137254" blue="0.69019607843137254" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="TSX-4F-tGo">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="0.69019607843137254" green="0.69019607843137254" blue="0.69019607843137254" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="b5N-ba-mjn">
-                                    <rect key="frame" x="0.0" y="67" width="375" height="1"/>
+                                    <rect key="frame" x="0.0" y="101" width="414" height="1"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="0.69019607843137254" green="0.69019607843137254" blue="0.69019607843137254" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PushMessageCellIdentifier" textLabel="xrH-gB-NFA" style="IBUITableViewCellStyleDefault" id="mEH-Rm-Rf3">
-                                        <rect key="frame" x="0.0" y="23" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="29" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mEH-Rm-Rf3" id="wvg-mJ-1jL">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xrH-gB-NFA">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="43"/>
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -90,6 +87,16 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="yQl-Uw-aL2"/>
                                 </connections>
                             </tableView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="zl5-as-0MF">
+                                <rect key="frame" x="0.0" y="88" width="414" height="32"/>
+                                <segments>
+                                    <segment title="APNS"/>
+                                    <segment title="VOiP"/>
+                                </segments>
+                                <connections>
+                                    <action selector="pushTypeDidChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="0he-MH-u3o"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -97,8 +104,11 @@
                             <constraint firstItem="Br4-Ve-LdU" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="8" id="NfD-hq-6cc"/>
                             <constraint firstItem="Kh2-dY-Tk9" firstAttribute="top" secondItem="Br4-Ve-LdU" secondAttribute="bottom" constant="5" id="TQt-rn-ZB8"/>
                             <constraint firstItem="Kh2-dY-Tk9" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="VeC-Df-frP"/>
+                            <constraint firstItem="zl5-as-0MF" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="Vkj-5c-Nat"/>
                             <constraint firstItem="sn0-sY-Ky2" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="40" id="XfD-Pq-ry3"/>
+                            <constraint firstAttribute="trailing" secondItem="zl5-as-0MF" secondAttribute="trailing" id="cqi-Nq-h29"/>
                             <constraint firstItem="Br4-Ve-LdU" firstAttribute="top" secondItem="sn0-sY-Ky2" secondAttribute="bottom" constant="26" id="e1f-IH-Qt1"/>
+                            <constraint firstItem="zl5-as-0MF" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="guW-l6-Ywv"/>
                             <constraint firstItem="sn0-sY-Ky2" firstAttribute="trailing" secondItem="Kh2-dY-Tk9" secondAttribute="trailing" id="m6b-0o-G7H"/>
                             <constraint firstAttribute="trailing" secondItem="Kh2-dY-Tk9" secondAttribute="trailing" id="tNX-3X-gFY"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="Kh2-dY-Tk9" secondAttribute="bottom" constant="8" id="xcY-fk-GxV"/>
@@ -107,22 +117,6 @@
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="7J0-9y-ldr">
                         <nil key="title"/>
-                        <view key="titleView" contentMode="scaleToFill" id="MH9-Pt-LDW">
-                            <rect key="frame" x="68" y="6" width="240" height="33"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Push Notification Sample" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmm-Rv-HHx">
-                                    <rect key="frame" x="21" y="6" width="199" height="21"/>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="centerY" secondItem="fmm-Rv-HHx" secondAttribute="centerY" constant="0.25" id="XHK-nu-DFi"/>
-                                <constraint firstAttribute="centerX" secondItem="fmm-Rv-HHx" secondAttribute="centerX" constant="-0.5" id="eDl-Jp-vuT"/>
-                            </constraints>
-                        </view>
                         <barButtonItem key="rightBarButtonItem" title="Send" id="2CY-0a-Duu">
                             <connections>
                                 <action selector="sendPush:" destination="vXZ-lx-hvc" id="ByB-1y-AMa"/>
@@ -131,6 +125,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="pushMessageTextView" destination="sn0-sY-Ky2" id="zM7-G2-LKv"/>
+                        <outlet property="segmentedControl" destination="zl5-as-0MF" id="cRh-Hl-WLO"/>
                         <outlet property="sendPushButton" destination="2CY-0a-Duu" id="7LH-k5-xNP"/>
                         <outlet property="tableView" destination="Kh2-dY-Tk9" id="tc0-Da-ros"/>
                     </connections>
