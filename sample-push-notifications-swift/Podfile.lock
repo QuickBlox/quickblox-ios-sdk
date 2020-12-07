@@ -1,0 +1,21 @@
+PODS:
+  - QuickBlox (2.17.7)
+  - SVProgressHUD (1.1.3)
+
+DEPENDENCIES:
+  - QuickBlox (~> 2.17.7)
+  - SVProgressHUD
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - SVProgressHUD
+  trunk:
+    - QuickBlox
+
+SPEC CHECKSUMS:
+  QuickBlox: 1eff4b1f4ccaf83cdb4cd23ca904fda4b6680094
+  SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
+
+PODFILE CHECKSUM: af8472e75fdc33a6b4be31143fe0b64185dbc859
+
+COCOAPODS: 1.9.3
