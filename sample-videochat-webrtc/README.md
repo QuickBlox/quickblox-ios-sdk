@@ -52,7 +52,7 @@ $ gem install cocoapods
 
 > CocoaPods 1.1+ is required to build project with QuickBlox 2.17.7+ and Quickblox-WebRTC 2.7.4+.
 
-To integrate QuickBlox and Quickblox-WebRTC into the **sample-videochat-webrtc-swift** run the following command:
+To integrate QuickBlox and Quickblox-WebRTC into the **sample-videochat-webrtc-objc** run the following command:
 
 ```bash
 $ pod install
