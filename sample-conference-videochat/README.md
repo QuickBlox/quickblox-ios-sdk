@@ -45,4 +45,4 @@ Additional libraries used via [CocoaPods](https://cocoapods.org):
 * [SVProgressHUD](https://github.com/TransitApp/SVProgressHUD.git/)
 
 # Examples and implementations
-**sample-conference-videochat-swift** is a great example of our QuickbloxWebRTC [Conference](https://docs.quickblox.com/docs/ios-video-conference)
+**sample-conference-videochat-objc** is a great example of our QuickbloxWebRTC [Conference](https://docs.quickblox.com/docs/ios-video-conference)
