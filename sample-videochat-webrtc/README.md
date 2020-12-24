@@ -1,17 +1,17 @@
 # Overview
-The VideoChat code sample allows you to easily add video calling and audio calling features into your iOS app. Enable a video call function similar to FaceTime or Skype using this code sample as a basis.
+The VideoChat code sample allows you to easily add video calling and audio calling features into your iOS app with [QuickBlox](https://quickblox.com). Enable a video call function similar to FaceTime or Skype using this code sample as a basis.
 
-It is built on the top of WebRTC technology. 
+It is based on WebRTC technology.
 
 This code sample is written in *Objective-C* lang.
 The same is also available in [Swift](https://github.com/QuickBlox/quickblox-ios-sdk/blob/master/sample-videochat-webrtc-swift) lang.
 
 # Credentials
 
-Welcome to QuickBlox [Credentials](https://quickblox.com/developers/5_Minute_Guide), where you can get your credentials in just 5 minutes! All you need is to:
+Welcome to QuickBlox [Credentials](https://docs.quickblox.com/docs/ios-quick-start), where you can get your credentials in just 5 minutes! All you need is to:
 
 1. Register a free QuickBlox account and add your App there.
-2. Update credentials in your [Application code](https://quickblox.com/developers/5_Minute_Guide#Update_authentication_credentials).
+2. Update credentials in your [Application Code](https://docs.quickblox.com/docs/ios-setup#initialize-quickblox-sdk).
 
 # Main features
 * 1-1 video calling
@@ -21,13 +21,11 @@ Welcome to QuickBlox [Credentials](https://quickblox.com/developers/5_Minute_Gui
 * Display bitrate
 * Switch video input device (camera) 
 * [CallKit](https://developer.apple.com/documentation/callkit) supported
-* Push Notifications when calling offline users
 * WebRTC Stats reports
-* Call recording
 * H264,VP8,H264High video codecs supported
 * Lots of different settings related to call quality 
 
-Original sample description & setup guide - [Sample-webrtc-ios](https://quickblox.com/developers/Sample-webrtc-ios)
+Original sample description & setup guide - [Sample-webrtc-ios](https://docs.quickblox.com/docs/ios-video-calling)
 
 # The Сhanges VOIP on iOS 13
 
@@ -52,7 +50,7 @@ let payload = ["message": "\(opponentName) is calling you.",
 $ gem install cocoapods
 ```
 
-> CocoaPods 1.1+ is required to build project with QuickBlox 2.17.4+ and Quickblox-WebRTC 2.7.4+.
+> CocoaPods 1.1+ is required to build project with QuickBlox 2.17.7+ and Quickblox-WebRTC 2.7.4+.
 
 To integrate QuickBlox and Quickblox-WebRTC into the **sample-videochat-webrtc-objc** run the following command:
 

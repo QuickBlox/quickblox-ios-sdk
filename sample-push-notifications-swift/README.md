@@ -1,14 +1,14 @@
 # Overview
 QuickBlox iOS Sample Push Notifications (Swift)
 
-This is a code sample for [QuickBlox](http://quickblox.com/) platform. It is a great way for developers using the QuickBlox platform to verify that APNS/VOIP push notifications are configured correctly in your app and to learn how to integrate APNS/VOIP push notifications into your app.
+This is a code sample for [QuickBlox](https://quickblox.com) platform. It is a great way for developers using the QuickBlox platform to verify that APNS/VOIP push notifications are configured correctly in your app and to learn how to integrate APNS/VOIP push notifications into your app.
 
 # Credentials
 
 Welcome to QuickBlox [Credentials](https://docs.quickblox.com/docs/ios-quick-start), where you can get your credentials in just 5 minutes! All you need is to:
 
 1. Register a free QuickBlox account and add your App there.
-2. Update credentials in your application code.[Chat](https://docs.quickblox.com/docs/ios-quick-start)
+2. Update credentials in your application code.[Quick Start](https://docs.quickblox.com/docs/ios-quick-start)
 
 # Push Notifications Sample
 

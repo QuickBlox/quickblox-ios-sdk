@@ -13,7 +13,7 @@ WebRTC SDK:
 QuickBlox - Communication & cloud backend platform which brings superpowers to your mobile apps.
 
 QuickBlox is a suite of communication features & data services (APIs, SDKs, code samples, admin panel, tutorials) which help digital agencies, mobile developers and publishers to add great functionality to smartphone applications. 
-Please read full iOS SDK documentation on the [QuickBlox website, iOS section](http://quickblox.com/developers/IOS).
+Please read full iOS SDK documentation on the [QuickBlox website, iOS section](https://docs.quickblox.com/docs/ios-quick-start?_ga=2.107897026.1986875218.1608722440-1427694596.1606991610).
 
 # QuickBlox iOS Samples
 
@@ -61,11 +61,11 @@ Choose sample you want to try, open it, launch. That's all.
 
 ## Documentation
 
-* [Project page on QuickBlox developers section](http://quickblox.com/developers/IOS)
+* [Project page on QuickBlox developers section](https://docs.quickblox.com/docs/ios-quick-start)
 * [Framework reference in AppleDoc format](http://cocoadocs.org/docsets/QuickBlox/)
 
 Detailed information for each sample is also available in *README.md* of each sample folder.
 
 ## See also
 
-* [QuickBlox REST API](http://quickblox.com/developers/Overview)
+* [QuickBlox REST API](https://docs.quickblox.com/reference/overview)
