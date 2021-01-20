@@ -1,118 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0jF-MJ-5Qm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0jF-MJ-5Qm">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Enter Chat NameVC-->
-        <scene sceneID="s28-9P-nAt">
+        <scene sceneID="S0l-ck-8nI">
             <objects>
-                <tableViewController storyboardIdentifier="EnterChatNameVC" id="vc2-Gx-igO" customClass="EnterChatNameVC" customModule="sample_conference_videochat_swift" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="zIy-Pe-MuG">
+                <viewController storyboardIdentifier="EnterChatNameVC" id="wUv-kc-CRC" customClass="EnterChatNameVC" customModule="sample_conference_videochat_swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="F2s-vw-iZa"/>
+                        <viewControllerLayoutGuide type="bottom" id="G7B-lq-bHD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Gk8-Df-BOF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.95686274509803915" green="0.96470588235294119" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <sections>
-                            <tableViewSection id="hpV-Eu-Fy9">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="102" id="Xlf-SM-XhZ">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="102"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="Xlf-SM-XhZ" id="SXK-n1-wWC">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="102"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="2Jt-Xb-Gmo">
-                                                    <rect key="frame" x="16" y="42" width="343" height="44"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="44" id="pXA-lJ-8OR"/>
-                                                    </constraints>
-                                                    <color key="textColor" red="0.199973762" green="0.2000150383" blue="0.19997116919999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
-                                                    <connections>
-                                                        <action selector="chatNameDidChanged:" destination="vc2-Gx-igO" eventType="editingChanged" id="AnQ-22-Xhl"/>
-                                                        <outlet property="delegate" destination="vc2-Gx-igO" id="MWF-uf-84P"/>
-                                                    </connections>
-                                                </textField>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chat Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lzc-Bo-o0a" userLabel="Login Label">
-                                                    <rect key="frame" x="16" y="16" width="343" height="15"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="15" id="sbm-Or-ccJ"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
-                                                    <color key="textColor" red="0.43137254899999999" green="0.43137254899999999" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="Lzc-Bo-o0a" firstAttribute="leading" secondItem="SXK-n1-wWC" secondAttribute="leading" constant="16" id="BDj-sN-ven"/>
-                                                <constraint firstAttribute="trailing" secondItem="Lzc-Bo-o0a" secondAttribute="trailing" constant="16" id="FPt-FO-quE"/>
-                                                <constraint firstAttribute="trailing" secondItem="2Jt-Xb-Gmo" secondAttribute="trailing" constant="16" id="Gfb-bu-qcm"/>
-                                                <constraint firstAttribute="bottom" secondItem="2Jt-Xb-Gmo" secondAttribute="bottom" constant="15" id="Xl0-gm-oXo"/>
-                                                <constraint firstItem="2Jt-Xb-Gmo" firstAttribute="leading" secondItem="SXK-n1-wWC" secondAttribute="leading" constant="16" id="pl4-uZ-Sjk"/>
-                                                <constraint firstItem="2Jt-Xb-Gmo" firstAttribute="top" secondItem="SXK-n1-wWC" secondAttribute="top" constant="42" id="sjj-8Z-JIG"/>
-                                                <constraint firstItem="Lzc-Bo-o0a" firstAttribute="top" secondItem="SXK-n1-wWC" secondAttribute="top" constant="16" id="zUt-es-cJZ"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.95651179552078247" green="0.96457701921463013" blue="0.9769250750541687" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="14" id="YrI-ET-MGK">
-                                        <rect key="frame" x="0.0" y="130" width="375" height="14"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YrI-ET-MGK" id="tZi-Ge-ZQA">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="14"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tnk-YP-F5T">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="3"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
-                                                    <color key="textColor" red="0.60175979140000002" green="0.66074222329999999" blue="0.77708238360000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="Tnk-YP-F5T" secondAttribute="trailing" constant="16" id="7Ng-R4-RnC"/>
-                                                <constraint firstItem="Tnk-YP-F5T" firstAttribute="leading" secondItem="tZi-Ge-ZQA" secondAttribute="leading" constant="16" id="MMs-YU-jxL"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Tnk-YP-F5T" secondAttribute="bottom" id="YMh-Gb-SiH"/>
-                                                <constraint firstItem="Tnk-YP-F5T" firstAttribute="top" secondItem="tZi-Ge-ZQA" secondAttribute="top" id="rdl-Q6-gWe"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.95686274510000002" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="vc2-Gx-igO" id="DRE-Ck-eYZ"/>
-                            <outlet property="delegate" destination="vc2-Gx-igO" id="ReJ-IK-BCH"/>
-                        </connections>
-                    </tableView>
-                    <connections>
-                        <outlet property="chatNameLabel" destination="Lzc-Bo-o0a" id="gqY-J8-tar"/>
-                        <outlet property="chatNameTextField" destination="2Jt-Xb-Gmo" id="cRu-JY-sFF"/>
-                        <outlet property="hintLabel" destination="Tnk-YP-F5T" id="BGk-7G-uER"/>
-                        <segue destination="X0T-IX-vU4" kind="custom" identifier="goToChat" customClass="ReplaceSegue" customModule="sample_conference_videochat_swift" customModuleProvider="target" id="GVb-kp-0u6"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Wnt-a0-43H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Afr-jR-pp0"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="icy-tu-EQI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-761" y="732"/>
+            <point key="canvasLocation" x="326" y="812"/>
         </scene>
-        <!--New Create New DialogVC-->
+        <!--Create New Dialog View Controller-->
         <scene sceneID="eDJ-Qv-xkI">
             <objects>
-                <viewController storyboardIdentifier="NewCreateNewDialogVC" id="Vel-6d-V4i" customClass="NewCreateNewDialogVC" customModule="sample_conference_videochat_swift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateNewDialogViewController" id="Vel-6d-V4i" customClass="CreateNewDialogViewController" customModule="sample_conference_videochat_swift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bqL-yu-lH3"/>
                         <viewControllerLayoutGuide type="bottom" id="NAx-zj-R6a"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="zYb-68-rP3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="YFg-I8-0pr">
@@ -128,7 +52,7 @@
                                 </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsMultipleSelection="YES" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Rx3-a5-fmK">
-                                <rect key="frame" x="0.0" y="44" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                                 <color key="backgroundColor" red="0.95651179552078247" green="0.96457701921463013" blue="0.9769250750541687" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
@@ -136,7 +60,7 @@
                                     <outlet property="delegate" destination="Vel-6d-V4i" id="T8G-q3-LTa"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3C0-8u-123">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3C0-8u-123">
                                 <rect key="frame" x="319" y="0.0" width="56" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="56" id="sf7-kY-adP"/>
@@ -167,28 +91,17 @@
                         <outlet property="cancelSearchButton" destination="3C0-8u-123" id="0am-oV-5kP"/>
                         <outlet property="searchBar" destination="YFg-I8-0pr" id="W8X-Nb-NX6"/>
                         <outlet property="tableView" destination="Rx3-a5-fmK" id="wgq-pk-JRU"/>
-                        <segue destination="vc2-Gx-igO" kind="show" identifier="enterChatName" id="dsV-C5-LbM"/>
-                        <segue destination="X0T-IX-vU4" kind="custom" identifier="goToChat" customClass="ReplaceSegue" customModule="sample_conference_videochat_swift" customModuleProvider="target" id="Qeg-LQ-VSf"/>
+                        <segue destination="wUv-kc-CRC" kind="show" identifier="enterChatName" id="tgL-O5-j6T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tGD-ra-Ns8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2" y="732"/>
+            <point key="canvasLocation" x="-487" y="812"/>
         </scene>
-        <!--ChatViewController-->
-        <scene sceneID="1co-fi-07e">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Chat" referencedIdentifier="ChatViewController" id="X0T-IX-vU4" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="OYZ-BD-dUh"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="g10-Wp-ovc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="786" y="438"/>
-        </scene>
-        <!--Dialogs SelectionVC-->
+        <!--Dialogs Selection View Controller-->
         <scene sceneID="AJV-Uf-VH1">
             <objects>
-                <tableViewController storyboardIdentifier="DialogsSelectionVC" id="1pL-h8-Pct" customClass="DialogsSelectionVC" customModule="sample_conference_videochat_swift" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="DialogsSelectionViewController" id="1pL-h8-Pct" customClass="DialogsSelectionViewController" customModule="sample_conference_videochat_swift" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="fVD-y9-aLo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -203,7 +116,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SLy-c3-qc6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="873" y="-74"/>
+            <point key="canvasLocation" x="327" y="63"/>
         </scene>
         <!--Dialogs View Controller-->
         <scene sceneID="CYX-bM-TUn">
@@ -222,21 +135,18 @@
                     <navigationItem key="navigationItem" id="dAr-0b-suU"/>
                     <connections>
                         <segue destination="tWq-7O-OZJ" kind="show" identifier="PresentInfoViewController" id="BIH-kV-h3d"/>
-                        <segue destination="Vel-6d-V4i" kind="show" identifier="SelectOpponents" id="PK8-SQ-rA8"/>
-                        <segue destination="zE9-sL-7JP" kind="show" identifier="showVideoConfiguration" id="pbb-wf-viG"/>
-                        <segue destination="UfM-jM-Pu4" kind="show" identifier="showAudioConfiguration" id="TR3-bg-d2J"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vEQ-EF-hRa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1" y="-74"/>
+            <point key="canvasLocation" x="-487" y="63"/>
         </scene>
         <!--Video Configuration-->
         <scene sceneID="Fy6-nk-3hT">
             <objects>
-                <tableViewController title="Video Configuration" id="zE9-sL-7JP" customClass="VideoSettingsViewController" customModule="sample_conference_videochat_swift" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="VideoSettingsViewController" title="Video Configuration" id="zE9-sL-7JP" customClass="VideoSettingsViewController" customModule="sample_conference_videochat_swift" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="54" sectionHeaderHeight="10" sectionFooterHeight="10" id="D5M-DL-Z7R">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections/>
@@ -249,16 +159,16 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JQL-Mn-Udf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-486" y="-889"/>
+            <point key="canvasLocation" x="-487" y="-889"/>
         </scene>
         <!--Audio Configuration-->
         <scene sceneID="85v-Ty-MMF">
             <objects>
-                <tableViewController title="Audio Configuration" id="UfM-jM-Pu4" customClass="AudioSettingsViewController" customModule="sample_conference_videochat_swift" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="AudioSettingsViewController" title="Audio Configuration" id="UfM-jM-Pu4" customClass="AudioSettingsViewController" customModule="sample_conference_videochat_swift" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="54" sectionHeaderHeight="18" sectionFooterHeight="18" id="NTx-tA-70z">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                         <sections/>
                         <connections>
                             <outlet property="dataSource" destination="UfM-jM-Pu4" id="Vxw-ta-5nY"/>
@@ -282,10 +192,13 @@
             <point key="canvasLocation" x="550" y="-527"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="Qeg-LQ-VSf"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="ic_cancel" width="13" height="13"/>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

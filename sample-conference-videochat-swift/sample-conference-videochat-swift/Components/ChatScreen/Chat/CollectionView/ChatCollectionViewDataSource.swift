@@ -31,7 +31,7 @@ protocol ChatCollectionViewDataSource: UICollectionViewDataSource {
      *
      *  @warning You must not return `0` from this method. This value must be unique.
      */
-    var senderID: UInt { get set }
+    var currentUserID: UInt { get set }
     /**
      *  Asks the data source for the message data that corresponds to the specified item at indexPath in the collectionView.
      *

@@ -59,23 +59,32 @@ class ParentVideoVC: UIViewController {
     }
     
     @objc private func didTapInfo(_ sender: UIBarButtonItem) {
-        let chatStoryboard = UIStoryboard(name: "Chat", bundle: nil)
-        guard let popVC = chatStoryboard.instantiateViewController(withIdentifier: "ChatPopVC") as? ChatPopVC else {
-            return
-        }
-        popVC.actions = [.SaveAttachment]
-        popVC.modalPresentationStyle = .popover
-        let chatPopOverVc = popVC.popoverPresentationController
-        chatPopOverVc?.delegate = self
-        chatPopOverVc?.barButtonItem = infoItem
-        chatPopOverVc?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
-        popVC.selectedAction = { [weak self] selectedAction in
-            guard let _ = selectedAction else {
-                return
+        guard let actionsMenuVC = ScreenFactory().makeActionsMenuOutput() else { return }
+        actionsMenuVC.typeActionsMenuVC = .mediaInfo
+        actionsMenuVC.modalPresentationStyle = .overFullScreen
+        
+        let saveAttachmentAction = MenuAction(title: "Save attachment", action: .saveAttachment) { [weak self] (action) in
+            PHPhotoLibrary.requestAuthorization
+                { [weak self] (status) -> Void in
+                    switch (status)
+                    {
+                    case .authorized:
+                        if let videoURL = self?.videoURL, UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(videoURL.relativePath) == true {
+                            UISaveVideoAtPathToSavedPhotosAlbum(videoURL.relativePath, self, #selector(self?.video(_:didFinishSavingWithError:contextInfo:)), nil)
+                        } else {
+                            self?.showAlertView("Save error", message: "Video is not compatible With Photos Album")
+                        }
+                    case .denied:
+                        // Permission Denied
+                        debugPrint("User denied")
+                    default:
+                        debugPrint("Restricted")
+                    }
             }
-            self?.saveVideo()
         }
-        present(popVC, animated: false)
+        actionsMenuVC.addAction(saveAttachmentAction)
+        
+        present(actionsMenuVC, animated: false)
     }
     
     @objc func video(_ videoPath: String, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
@@ -84,26 +93,6 @@ class ParentVideoVC: UIViewController {
             SVProgressHUD.showError(withStatus: "Save error")
         } else {
             SVProgressHUD.showSuccess(withStatus: "Saved!")
-        }
-    }
-    
-   private func saveVideo() {
-        PHPhotoLibrary.requestAuthorization
-            { [weak self] (status) -> Void in
-                switch (status)
-                {
-                case .authorized:
-                    if let videoURL = self?.videoURL, UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(videoURL.relativePath) == true {
-                        UISaveVideoAtPathToSavedPhotosAlbum(videoURL.relativePath, self, #selector(self?.video(_:didFinishSavingWithError:contextInfo:)), nil)
-                    } else {
-                        self?.showAlertView("Save error", message: "Video is not compatible With Photos Album")
-                    }
-                case .denied:
-                    // Permission Denied
-                    debugPrint("User denied")
-                default:
-                    debugPrint("Restricted")
-                }
         }
     }
 }

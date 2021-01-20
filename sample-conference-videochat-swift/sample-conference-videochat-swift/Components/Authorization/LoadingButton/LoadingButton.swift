@@ -9,8 +9,8 @@
 import UIKit
 
 struct LoadingButtonColorConstant {
-    static let blueColor = UIColor(red:0.22, green:0.47, blue:0.99, alpha:1)
-    static let greenColor = UIColor(red: 0.0802, green: 0.616, blue: 0.1214, alpha: 1.0)
+    static let blueColor = #colorLiteral(red: 0.2235294118, green: 0.4713830948, blue: 0.9869660735, alpha: 1)
+    static let greenColor = #colorLiteral(red: 0, green: 0.5628422499, blue: 0.3188166618, alpha: 1)
     static let grayColor = #colorLiteral(red: 0.6628920436, green: 0.7223827243, blue: 0.8180354238, alpha: 1)
 }
 
@@ -23,7 +23,8 @@ class LoadingButton: UIButton {
     }()
     
     lazy private var activity: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(style: .white)
+        let activity = UIActivityIndicatorView(style: .medium)
+        activity.color = .white
         activity.hidesWhenStopped = true
         return activity
     }()

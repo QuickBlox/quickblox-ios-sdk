@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -60,13 +61,25 @@
                                         <color key="textColor" red="0.42557775974273682" green="0.47677099704742432" blue="0.57233744859695435" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="highlightedColor" red="0.4255777597" green="0.47677099699999997" blue="0.57233744860000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Message Text" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ct-WW-zaC" customClass="TTTAttributedLabel">
-                                        <rect key="frame" x="0.0" y="33" width="123" height="42"/>
-                                        <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.25098040699958801" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HB2-dP-vgi" userLabel="Preview Container">
+                                        <rect key="frame" x="-16" y="21" width="155" height="66"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Message Text" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ct-WW-zaC" customClass="TTTAttributedLabel">
+                                                <rect key="frame" x="16" y="0.0" width="123" height="66"/>
+                                                <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.25098040699958801" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="8ct-WW-zaC" firstAttribute="leading" secondItem="HB2-dP-vgi" secondAttribute="leading" constant="16" id="0Ba-QS-Z3K"/>
+                                            <constraint firstAttribute="bottom" secondItem="8ct-WW-zaC" secondAttribute="bottom" id="4HD-xK-FPF"/>
+                                            <constraint firstItem="8ct-WW-zaC" firstAttribute="top" secondItem="HB2-dP-vgi" secondAttribute="top" id="6rK-8j-A5J"/>
+                                            <constraint firstAttribute="trailing" secondItem="8ct-WW-zaC" secondAttribute="trailing" constant="16" id="bnB-3D-zAZ"/>
+                                        </constraints>
+                                    </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="33:33" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sp9-fQ-dGT" customClass="TTTAttributedLabel">
                                         <rect key="frame" x="94" y="0.0" width="37" height="15"/>
                                         <constraints>
@@ -80,13 +93,14 @@
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="HB2-dP-vgi" firstAttribute="top" secondItem="cBa-gJ-Bzq" secondAttribute="top" constant="21" id="1JX-9T-yLZ"/>
                                     <constraint firstItem="FVl-fR-cgk" firstAttribute="leading" secondItem="cBa-gJ-Bzq" secondAttribute="leading" id="1M0-Jz-tpk"/>
                                     <constraint firstItem="sp9-fQ-dGT" firstAttribute="top" secondItem="cBa-gJ-Bzq" secondAttribute="top" id="Ghx-nX-yNH"/>
                                     <constraint firstItem="FVl-fR-cgk" firstAttribute="top" secondItem="cBa-gJ-Bzq" secondAttribute="top" identifier="incCellTopLabelTopToMsgContainerTop" id="Jke-hK-Vbu"/>
-                                    <constraint firstAttribute="bottom" secondItem="8ct-WW-zaC" secondAttribute="bottom" id="Jsk-MS-k4U"/>
                                     <constraint firstItem="sp9-fQ-dGT" firstAttribute="leading" secondItem="FVl-fR-cgk" secondAttribute="trailing" constant="1" id="Nmv-aO-rB2"/>
-                                    <constraint firstItem="8ct-WW-zaC" firstAttribute="leading" secondItem="cBa-gJ-Bzq" secondAttribute="leading" id="tCN-xM-TxH"/>
-                                    <constraint firstAttribute="trailing" secondItem="8ct-WW-zaC" secondAttribute="trailing" id="wRx-hQ-Tcs"/>
+                                    <constraint firstAttribute="trailing" secondItem="HB2-dP-vgi" secondAttribute="trailing" constant="-16" id="btV-oC-mp9"/>
+                                    <constraint firstAttribute="bottom" secondItem="HB2-dP-vgi" secondAttribute="bottom" constant="-12" id="gGf-nk-vgb"/>
+                                    <constraint firstItem="HB2-dP-vgi" firstAttribute="leading" secondItem="cBa-gJ-Bzq" secondAttribute="leading" constant="-16" id="zcE-00-nqf"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -96,7 +110,6 @@
                             <constraint firstAttribute="width" constant="163" id="JJF-la-T3e"/>
                             <constraint firstAttribute="trailing" secondItem="sp9-fQ-dGT" secondAttribute="trailing" constant="8" id="PEd-xv-lHA"/>
                             <constraint firstAttribute="bottom" secondItem="cBa-gJ-Bzq" secondAttribute="bottom" identifier="incCellContainerBottomToMsgContainerBottom" id="V2F-O3-LZU"/>
-                            <constraint firstItem="8ct-WW-zaC" firstAttribute="top" secondItem="lux-vg-6Z5" secondAttribute="top" constant="33" id="ZPj-4w-ghO"/>
                             <constraint firstAttribute="trailing" secondItem="cBa-gJ-Bzq" secondAttribute="trailing" constant="16" identifier="incCellContainerTrailingToMsgContainerTrailing" id="bIP-2g-9Q4"/>
                             <constraint firstItem="cBa-gJ-Bzq" firstAttribute="top" secondItem="lux-vg-6Z5" secondAttribute="top" identifier="incCellMsgContainerTopToContainerTop" id="hyM-CH-TM3"/>
                         </constraints>
@@ -123,6 +136,7 @@
                 <outlet property="messageContainerLeftInsetConstraint" destination="Iyk-PP-Jxf" id="6yv-bl-rMS"/>
                 <outlet property="messageContainerRightInsetConstraint" destination="bIP-2g-9Q4" id="t8Z-Ks-HyG"/>
                 <outlet property="messageContainerTopInsetConstraint" destination="hyM-CH-TM3" id="93f-Lo-sit"/>
+                <outlet property="previewContainer" destination="HB2-dP-vgi" id="shQ-Gq-dqO"/>
                 <outlet property="textView" destination="8ct-WW-zaC" id="n9s-Sr-jAx"/>
                 <outlet property="timeLabel" destination="sp9-fQ-dGT" id="k4G-Mb-pzW"/>
                 <outlet property="topLabel" destination="FVl-fR-cgk" id="ghS-jF-uJl"/>
@@ -131,4 +145,20 @@
             <point key="canvasLocation" x="14" y="87"/>
         </collectionViewCell>
     </objects>
+    <designables>
+        <designable name="8ct-WW-zaC">
+            <size key="intrinsicContentSize" width="96" height="18"/>
+        </designable>
+        <designable name="FVl-fR-cgk">
+            <size key="intrinsicContentSize" width="65" height="16"/>
+        </designable>
+        <designable name="sp9-fQ-dGT">
+            <size key="intrinsicContentSize" width="37" height="16"/>
+        </designable>
+    </designables>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

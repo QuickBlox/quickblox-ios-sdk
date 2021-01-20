@@ -15,7 +15,10 @@ enum ChatDataSourceAction: Int {
     case remove
 }
 
-struct ChatDataSourceConstant {
+struct Key {
+    static let dialogId = "dialog_id"
+    static let newOccupantsIds = "new_occupants_ids"
+    static let saveToHistory = "save_to_history"
     static let dateDividerKey = "kQBDateDividerCustomParameterKey"
     static let forwardedMessage = "origin_sender_name"
     static let notificationType = "notification_type"
@@ -42,7 +45,7 @@ class ChatDataSource {
     
     var loadMessagesCount: Int {
         return messages.filter({
-            guard let isDividerMessage = ($0.customParameters[ChatDataSourceConstant.dateDividerKey]) as? Bool else {
+            guard let isDividerMessage = ($0.customParameters[Key.dateDividerKey]) as? Bool else {
                 return true
             }
             return isDividerMessage == false }).count
@@ -117,7 +120,7 @@ class ChatDataSource {
             
             for message in messages {
                 
-                if message.customParameters[ChatDataSourceConstant.dateDividerKey] as? Bool == true {
+                if message.customParameters[Key.dateDividerKey] as? Bool == true {
                     continue
                 }
                 
@@ -158,7 +161,7 @@ class ChatDataSource {
                     dividerMessage.text = formatter.string(from: divideDate)
                 }
                 dividerMessage.dateSent = divideDate
-                dividerMessage.customParameters[ChatDataSourceConstant.dateDividerKey] = true
+                dividerMessage.customParameters[Key.dateDividerKey] = true
                 messagesArray.append(dividerMessage)
             }
             
@@ -187,7 +190,7 @@ class ChatDataSource {
             var messagesArray: [QBChatMessage] = []
             
             for message in messages {
-                if message.customParameters[ChatDataSourceConstant.dateDividerKey] as? Bool == true {
+                if message.customParameters[Key.dateDividerKey] as? Bool == true {
                     continue
                 }
                 
@@ -232,7 +235,7 @@ class ChatDataSource {
                 }
                 
                 let currentDividerMessage = currentDayMessages.filter{
-                    return $0.customParameters[ChatDataSourceConstant.dateDividerKey] as? Bool == true
+                    return $0.customParameters[Key.dateDividerKey] as? Bool == true
                     }.first
                 
                 guard let dividerMessage = currentDividerMessage, let dividerID = dividerMessage.id else {
@@ -272,7 +275,7 @@ class ChatDataSource {
             var messagesArray: [QBChatMessage] = []
             
             for message in messages {
-                if message.customParameters[ChatDataSourceConstant.dateDividerKey] as? Bool == true {
+                if message.customParameters[Key.dateDividerKey] as? Bool == true {
                     continue
                 }
                 

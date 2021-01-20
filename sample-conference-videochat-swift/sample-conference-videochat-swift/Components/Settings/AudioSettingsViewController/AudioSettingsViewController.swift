@@ -109,12 +109,6 @@ class AudioSettingsViewController: BaseSettingsViewController {
             isEnabled = audioBandwidth > 0
             let sliderMinValue = UInt(bitPattern: (bandwidthSlider.minValue))
             let audioBandwidthValue = UInt(bitPattern: audioBandwidth)
-            print("audioBandwidth \(audioBandwidth)")
-            print("audioBandwidthValue \(audioBandwidthValue)")
-            print("sliderMinValue \(sliderMinValue)")
-            print("bandwidthSlider.minValue \(bandwidthSlider.minValue)")
-            
-            
             let audioCodec = settings.mediaConfiguration.audioCodec
             self?.updateBandwidthSliderModelRange(bandwidthSlider, using: audioCodec)
             bandwidthSlider.currentValue = audioBandwidthValue > sliderMinValue ? audioBandwidthValue : sliderMinValue

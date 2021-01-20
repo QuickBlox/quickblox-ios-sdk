@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,23 +23,35 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UGA-Lo-mbI" userLabel="Message Container">
                                 <rect key="frame" x="24" y="0.0" width="133" height="74"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NickName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8u-4h-IEt" customClass="TTTAttributedLabel">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8u-4h-IEt" customClass="TTTAttributedLabel">
                                         <rect key="frame" x="0.0" y="0.0" width="94" height="15"/>
                                         <color key="backgroundColor" red="0.5758987968" green="0.63260070530000001" blue="0.69994870580000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="15" id="jn0-9Z-0kV"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                        <color key="textColor" red="0.4255777597" green="0.47677099699999997" blue="0.57233744860000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message Text" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gwl-pf-rea" customClass="TTTAttributedLabel">
-                                        <rect key="frame" x="0.0" y="33" width="133" height="41"/>
-                                        <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4F2-ue-EZN" userLabel="Preview Container">
+                                        <rect key="frame" x="-16" y="21" width="165" height="65"/>
+                                        <subviews>
+                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message Text" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gwl-pf-rea" customClass="TTTAttributedLabel">
+                                                <rect key="frame" x="16" y="0.0" width="133" height="65"/>
+                                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="gwl-pf-rea" firstAttribute="top" secondItem="4F2-ue-EZN" secondAttribute="top" id="Adc-8M-KJS"/>
+                                            <constraint firstAttribute="bottom" secondItem="gwl-pf-rea" secondAttribute="bottom" id="C5E-Ek-0ur"/>
+                                            <constraint firstItem="gwl-pf-rea" firstAttribute="leading" secondItem="4F2-ue-EZN" secondAttribute="leading" constant="16" id="D3z-1l-RqY"/>
+                                            <constraint firstAttribute="trailing" secondItem="gwl-pf-rea" secondAttribute="trailing" constant="16" id="Um2-Zb-02Y"/>
+                                        </constraints>
+                                    </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16:44" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KM3-Oj-tba" customClass="TTTAttributedLabel">
                                         <rect key="frame" x="104" y="0.0" width="37" height="15"/>
                                         <constraints>
@@ -52,15 +65,15 @@
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="gwl-pf-rea" firstAttribute="top" secondItem="UGA-Lo-mbI" secondAttribute="top" constant="33" id="6oa-vY-ASm"/>
                                     <constraint firstItem="h8u-4h-IEt" firstAttribute="top" secondItem="UGA-Lo-mbI" secondAttribute="top" id="8e2-5S-Ujx"/>
-                                    <constraint firstAttribute="trailing" secondItem="gwl-pf-rea" secondAttribute="trailing" id="QfX-pq-WZO"/>
-                                    <constraint firstAttribute="bottom" secondItem="gwl-pf-rea" secondAttribute="bottom" id="Vsf-jR-xMm"/>
+                                    <constraint firstItem="4F2-ue-EZN" firstAttribute="top" secondItem="UGA-Lo-mbI" secondAttribute="top" constant="21" id="FHp-ej-oTF"/>
+                                    <constraint firstAttribute="trailing" secondItem="4F2-ue-EZN" secondAttribute="trailing" constant="-16" id="H2m-c1-nfd"/>
                                     <constraint firstAttribute="trailing" secondItem="KM3-Oj-tba" secondAttribute="trailing" constant="-8" id="YCj-Ni-ojE"/>
                                     <constraint firstItem="h8u-4h-IEt" firstAttribute="leading" secondItem="UGA-Lo-mbI" secondAttribute="leading" id="YZh-4h-6cg"/>
-                                    <constraint firstItem="gwl-pf-rea" firstAttribute="leading" secondItem="UGA-Lo-mbI" secondAttribute="leading" id="a4H-De-zTz"/>
                                     <constraint firstItem="KM3-Oj-tba" firstAttribute="leading" secondItem="h8u-4h-IEt" secondAttribute="trailing" constant="10" id="bIN-ho-SQh"/>
                                     <constraint firstItem="KM3-Oj-tba" firstAttribute="top" secondItem="UGA-Lo-mbI" secondAttribute="top" id="kaF-mB-ATA"/>
+                                    <constraint firstAttribute="bottom" secondItem="4F2-ue-EZN" secondAttribute="bottom" constant="-12" id="udc-o5-8bH"/>
+                                    <constraint firstItem="4F2-ue-EZN" firstAttribute="leading" secondItem="UGA-Lo-mbI" secondAttribute="leading" constant="-16" id="zmV-DN-p3D"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -89,6 +102,7 @@
                 <outlet property="messageContainerLeftInsetConstraint" destination="2zB-2f-LVM" id="kGc-e1-KOg"/>
                 <outlet property="messageContainerRightInsetConstraint" destination="Z9y-IH-V4D" id="WDS-pc-1fb"/>
                 <outlet property="messageContainerTopInsetConstraint" destination="yAE-KH-OnU" id="5QA-di-wKz"/>
+                <outlet property="previewContainer" destination="4F2-ue-EZN" id="Czw-wn-9HL"/>
                 <outlet property="textView" destination="gwl-pf-rea" id="y5I-qm-hyU"/>
                 <outlet property="timeLabel" destination="KM3-Oj-tba" id="ZH7-8H-7tE"/>
                 <outlet property="topLabel" destination="h8u-4h-IEt" id="hdo-Lk-tvT"/>
@@ -96,4 +110,20 @@
             <point key="canvasLocation" x="-36" y="-8.0959520239880067"/>
         </collectionViewCell>
     </objects>
+    <designables>
+        <designable name="KM3-Oj-tba">
+            <size key="intrinsicContentSize" width="40" height="18"/>
+        </designable>
+        <designable name="gwl-pf-rea">
+            <size key="intrinsicContentSize" width="96" height="18"/>
+        </designable>
+        <designable name="h8u-4h-IEt">
+            <size key="intrinsicContentSize" width="25" height="16"/>
+        </designable>
+    </designables>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

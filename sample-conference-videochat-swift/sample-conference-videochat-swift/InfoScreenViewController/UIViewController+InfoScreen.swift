@@ -10,7 +10,7 @@ import UIKit
 
 extension UIViewController {
     
-    func showInfoButton() {
+    func addInfoButton() {
         var needAdd = true
         if let rightBarButtonItems = navigationItem.rightBarButtonItems {
             for barButton in rightBarButtonItems {
@@ -41,8 +41,7 @@ extension UIViewController {
     }
     
     @objc private func didTapInfoButton(sender: UIBarButtonItem) {
-        let infoStoryboard =  UIStoryboard(name: "InfoScreen", bundle: nil)
-        let infoController = infoStoryboard.instantiateViewController(withIdentifier: "InfoTableViewController")
+        guard let infoController = ScreenFactory().makeInfoUpOutput() else { return }
         navigationController?.pushViewController(infoController, animated: true)
     }
 }

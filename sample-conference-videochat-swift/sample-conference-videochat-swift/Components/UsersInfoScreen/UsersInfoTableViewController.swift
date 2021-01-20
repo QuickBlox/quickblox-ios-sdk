@@ -16,6 +16,10 @@ struct UsersInfoConstant {
     static let viewed = "Message viewed by"
 }
 
+enum MessageStage {
+    case delivered, viewed
+}
+
 class UsersInfoTableViewController: UITableViewController {
     
     //MARK: - Properties
@@ -35,11 +39,11 @@ class UsersInfoTableViewController: UITableViewController {
     
     var currentUser = Profile()
     var message: QBChatMessage?
-    var action: ChatActions?
+    var action: ChatAction?
     private var titleView = TitleView()
     private var dialog: QBChatDialog!
     var users: [QBUUser] = []
-    var usersAudioEnabled: [UInt: Bool] = [:]
+    var usersStates: [UInt: UserTracksStates] = [:]
     let chatManager = ChatManager.instance
     private lazy var addUsersItem = UIBarButtonItem(image: UIImage(named: "add_user"),
                                                     style: .plain,
@@ -48,6 +52,23 @@ class UsersInfoTableViewController: UITableViewController {
     //MARK: - Life Cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // online/offline for group and public chats
+        dialog.onJoinOccupant = { [weak self] userID in
+            guard let self = self else {
+                return
+            }
+            if let onlineUser = self.users.filter({ $0.id == userID }).first, let index = self.users.index(of: onlineUser) {
+                self.users.remove(at: index)
+                self.users.insert(onlineUser, at: 0)
+                let indexPath = IndexPath(item: index, section: 0)
+                let indexPathFirst = IndexPath(item: 0, section: 0)
+                self.tableView.beginUpdates()
+                self.tableView.deleteRows(at: [indexPath], with: .left)
+                self.tableView.insertRows(at: [indexPathFirst], with: .left)
+                self.tableView.endUpdates()
+            }
+        }
         
         navigationItem.titleView = titleView
         
@@ -68,32 +89,16 @@ class UsersInfoTableViewController: UITableViewController {
         navigationItem.rightBarButtonItem = addUsersItem
         
         switch action {
-        case .InfoFromCall:
+        case .infoFromCall:
             addUsersItem.tintColor = .clear
             addUsersItem.isEnabled = false
             debugPrint("InfoFromCall")
-        case .ChatInfo, .ChatFromCall:
+        case .chatInfo, .chatFromCall:
             addUsersItem.tintColor = .white
             addUsersItem.isEnabled = true
-        case .ViewedBy:
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(chatDidReadMessageNotification(_:)),
-                                                   name: ChatViewControllerConstant.chatDidReadMessageNotification,
-                                                   object: nil)
-        case .DeliveredTo:
-            setupUsers(dialogID)
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(chatDidDeliverMessageNotification(_:)),
-                                                   name: ChatViewControllerConstant.chatDidDeliverMessageNotification,
-                                                   object: nil)
         default:
             debugPrint("default")
         }
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(chatDidBecomeOnlineUserNotification(_:)),
-                                               name: ChatViewControllerConstant.chatDidBecomeOnlineUserNotification,
-                                               object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -104,13 +109,9 @@ class UsersInfoTableViewController: UITableViewController {
     
     //MARK: - Internal Methods
     private func setupNavigationTitleByAction() {
-        var title = dialog.name ?? ""
+        let title = dialog.name ?? ""
         var members = " members"
-        if action == .ViewedBy {
-            title = UsersInfoConstant.viewed
-        } else if action == .DeliveredTo {
-            title = UsersInfoConstant.delivered
-        } else if action == ChatActions.InfoFromCall {
+        if action == .infoFromCall {
             navigationController?.navigationBar.barStyle = .black
             navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.2216441333, green: 0.4713830948, blue: 0.9869660735, alpha: 1)
             navigationController?.navigationBar.tintColor = .white
@@ -123,37 +124,6 @@ class UsersInfoTableViewController: UITableViewController {
     }
     
     //MARK: - Actions
-    @objc func chatDidReadMessageNotification(_ notification: Notification?) {
-        if let readedMessage = notification?.userInfo?["message"] as? QBChatMessage,
-            readedMessage.id == self.message?.id {
-            self.message = readedMessage
-            updateUsers()
-        }
-    }
-    
-    @objc func chatDidDeliverMessageNotification(_ notification: Notification?) {
-        if let deliverMessage = notification?.userInfo?["message"] as? QBChatMessage,
-            deliverMessage.id == self.message?.id {
-            self.message = deliverMessage
-            updateUsers()
-        }
-    }
-    
-    @objc func chatDidBecomeOnlineUserNotification(_ notification: Notification?) {
-        if let userID = notification?.userInfo?["userID"] as? UInt {
-            if let onlineUser = self.users.filter({ $0.id == userID }).first, let index = self.users.index(of: onlineUser) {
-                self.users.remove(at: index)
-                self.users.insert(onlineUser, at: 0)
-                let indexPath = IndexPath(item: index, section: 0)
-                let indexPathFirst = IndexPath(item: 0, section: 0)
-                tableView.beginUpdates()
-                tableView.deleteRows(at: [indexPath], with: .left)
-                tableView.insertRows(at: [indexPathFirst], with: .left)
-                tableView.endUpdates()
-            }
-        }
-    }
-    
     @objc func didTapBack(_ sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
     }
@@ -173,43 +143,12 @@ class UsersInfoTableViewController: UITableViewController {
     }
     
     private func setupUsers(_ dialogID: String) {
-        guard currentUser.isFull == true else {
-            return
-        }
-        if action != ChatActions.InfoFromCall {
+        if action != .infoFromCall {
             chatManager.delegate = self
             self.users = chatManager.storage.users(with: dialogID)
+            setupNavigationTitleByAction()
+            tableView.reloadData()
         }
-        
-        if let message = message, let action = action {
-            if action == .ViewedBy {
-                var readUsers: [QBUUser] = []
-                //check and add users who read the message
-                if let readIDs = message.readIDs,
-                    readIDs.isEmpty == false {
-                    for readID in readIDs {
-                        if let user = chatManager.storage.user(withID: readID.uintValue) {
-                            readUsers.append(user)
-                        }
-                    }
-                }
-                self.users = readUsers
-            } else if action == .DeliveredTo {
-                var deliveredUsers: [QBUUser] = []
-                //check and add users who read the message
-                if let deliveredIDs = message.deliveredIDs,
-                    deliveredIDs.isEmpty == false {
-                    for deliveredID in deliveredIDs {
-                        if let user = chatManager.storage.user(withID: deliveredID.uintValue) {
-                            deliveredUsers.append(user)
-                        }
-                    }
-                }
-                self.users = deliveredUsers
-            }
-        }
-        setupNavigationTitleByAction()
-        tableView.reloadData()
     }
     
     //MARK: - Overrides
@@ -219,9 +158,6 @@ class UsersInfoTableViewController: UITableViewController {
                 return
             }
             addOccupantsVC.dialogID = dialogID
-            if action == ChatActions.ChatFromCall {
-                addOccupantsVC.action = ChatActions.ChatFromCall
-            }
         }
     }
     
@@ -243,10 +179,10 @@ class UsersInfoTableViewController: UITableViewController {
         let user = self.users[indexPath.row]
         cell.userColor = user.id.generateColor()
         
-        if action == ChatActions.InfoFromCall {
+        if action == ChatAction.infoFromCall {
             cell.muteButton.isHidden = false
             cell.muteButton.isEnabled = true
-            if let isSelected = usersAudioEnabled[user.id] {
+            if let isSelected = usersStates[user.id]?.isEnabledSound {
                 cell.muteButton.isSelected = !isSelected
             } else {
                 cell.muteButton.isSelected = false
@@ -280,7 +216,7 @@ class UsersInfoTableViewController: UITableViewController {
 
 // MARK: - ChatManagerDelegate
 extension UsersInfoTableViewController: ChatManagerDelegate {
-    func chatManager(_ chatManager: ChatManager, didUpdateChatDialog chatDialog: QBChatDialog, isOnCall: Bool?) {
+    func chatManager(_ chatManager: ChatManager, didUpdateChatDialog chatDialog: QBChatDialog) {
         if chatDialog.id == dialogID {
             updateUsers()
         }
@@ -305,9 +241,9 @@ extension UsersInfoTableViewController: ChatManagerDelegate {
     }
 }
 
-// MARK: - CallViewControllerDelegate
-extension UsersInfoTableViewController: CallViewControllerDelegate {
-    func callVC(_ callVC: CallViewController, didAddNewPublisher userID: UInt) {
+// MARK: - BaseCallViewControllerDelegate
+extension UsersInfoTableViewController: BaseCallViewControllerDelegate {
+    func callVC(_ callVC: BaseCallViewController, didAddNewPublisher userID: UInt) {
         if let user = chatManager.storage.user(withID: userID) {
             users.insert(user, at: 0)
             let indexPath = IndexPath(row: 0, section: 0)

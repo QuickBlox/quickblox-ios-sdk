@@ -44,7 +44,7 @@ class AddOccupantsVC: UIViewController {
         }
     }
     
-    var action: ChatActions?
+    var action: ChatAction?
     private var dialog: QBChatDialog!
     
     override func viewDidLoad() {
@@ -55,17 +55,17 @@ class AddOccupantsVC: UIViewController {
         
         chatManager.delegate = self
         
-        checkCreateChatButtonState()
+        checkAddUsersButtonState()
         
         tableView.register(UINib(nibName: UserCellConstant.reuseIdentifier, bundle: nil), forCellReuseIdentifier: UserCellConstant.reuseIdentifier)
         tableView.keyboardDismissMode = .onDrag
         
-        let createButtonItem = UIBarButtonItem(title: "Done",
+        let addUsersButtonItem = UIBarButtonItem(title: "Done",
                                                style: .plain,
                                                target: self,
-                                               action: #selector(createChatButtonPressed(_:)))
-        navigationItem.rightBarButtonItem = createButtonItem
-        createButtonItem.tintColor = .white
+                                               action: #selector(addUsersButtonPressed(_:)))
+        navigationItem.rightBarButtonItem = addUsersButtonItem
+        addUsersButtonItem.tintColor = .white
         navigationItem.rightBarButtonItem?.isEnabled = false
         
         let backButtonItem = UIBarButtonItem(image: UIImage(named: "chevron"),
@@ -151,7 +151,7 @@ class AddOccupantsVC: UIViewController {
         titleView.setupTitleView(title: title, subTitle: numberUsers)
     }
     
-    private func checkCreateChatButtonState() {
+    private func checkAddUsersButtonState() {
         navigationItem.rightBarButtonItem?.isEnabled = selectedUsers.isEmpty == true ? false : true
     }
     
@@ -169,89 +169,43 @@ class AddOccupantsVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc func createChatButtonPressed(_ sender: UIBarButtonItem) {
-        if Reachability.instance.networkConnectionStatus() == .notConnection {
-            showAlertView(LoginConstant.checkInternet, message: LoginConstant.checkInternetMessage)
-            return
-        }
-        
-        if QBChat.instance.isConnected == false {
-            SVProgressHUD.showSuccess(withStatus: "QBChat is not Connected")
-            return
-        }
-        
+    @objc func addUsersButtonPressed(_ sender: UIBarButtonItem) {
         cancelSearchButton.isHidden = true
         searchBar.text = ""
         searchBar.resignFirstResponder()
         isSearch = false
-        
+        sender.isEnabled = false
         let selectedUsers = Array(self.selectedUsers)
         
-        if dialog.type == .group {
-            SVProgressHUD.show()
-            chatManager.storage.update(users: selectedUsers)
-            let newUsersIDs = selectedUsers.map{ NSNumber(value: $0.id) }
-            // Updates dialog with new occupants.
-            chatManager.joinOccupants(withIDs: newUsersIDs, to: dialog) { [weak self] (response, dialog) -> Void in
-                guard response?.error == nil else {
-                    SVProgressHUD.showError(withStatus: response?.error?.error?.localizedDescription)
-                    return
-                }
-                guard let dialog = dialog,
-                    let message = self?.messageTextWithUsers(selectedUsers) else {
-                        return
-                }
-                self?.chatManager.sendAddingMessage(message, action: .add, withUsers: newUsersIDs, to: dialog, completion: { (error) in
-                    SVProgressHUD.showSuccess(withStatus: "STR_DIALOG_CREATED".localized)
-                    
-                    self?.checkCreateChatButtonState()
-                    self?.openNewDialog(dialog)
-                })
+        SVProgressHUD.show()
+        chatManager.storage.update(users: selectedUsers)
+        let newUsersIDs = selectedUsers.map{ NSNumber(value: $0.id) }
+        // Updates dialog with new occupants.
+        chatManager.joinOccupants(withIDs: newUsersIDs, to: dialog) { [weak self] (response, dialog) -> Void in
+            guard let dialog = dialog,
+                  let dialogID = dialog.id else {
+                sender.isEnabled = true
+                return
             }
+            self?.openDialog(dialogID)
         }
     }
-    
-    private func messageTextWithUsers(_ users: [QBUUser]) -> String {
-        let actionMessage = "SA_STR_ADDED".localized
-        guard let current = QBSession.current.currentUser,
-            let fullName = current.fullName else {
-                return ""
-        }
-        var message = "\(fullName) \(actionMessage)"
-        for user in users {
-            guard let userFullName = user.fullName else {
-                continue
-            }
-            message += " \(userFullName),"
-        }
-        message = String(message.dropLast())
-        return message
-    }
-    
-    private func openNewDialog(_ newDialog: QBChatDialog) {
+
+    private func openDialog(_ dialogID: String) {
         guard let navigationController = navigationController else {
             return
         }
         let controllers = navigationController.viewControllers
         var newStack = [UIViewController]()
-
         //change stack by replacing view controllers after ChatVC with ChatVC
         controllers.forEach{
             newStack.append($0)
-                if $0 is ChatViewController {
-                    navigationController.setViewControllers(newStack, animated: true)
-                    return
-                }
-        }
-        //else perform segue
-        self.performSegue(withIdentifier: "SA_STR_SEGUE_GO_TO_CHAT".localized, sender: newDialog.id)
-    }
-    
-    //MARK: - Overrides
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "SA_STR_SEGUE_GO_TO_CHAT".localized {
-            if let chatVC = segue.destination as? ChatViewController {
-                chatVC.dialogID = sender as? String
+            if $0 is ChatViewController,
+               let chatVC = $0 as? ChatViewController {
+                chatVC.dialogID = dialogID
+                navigationController.setViewControllers(newStack, animated: true)
+                chatVC.sendAddOccupantsMessages(Array(self.selectedUsers), action: .add)
+                return
             }
         }
     }
@@ -296,7 +250,49 @@ class AddOccupantsVC: UIViewController {
         }
         
         tableView.reloadData()
-        checkCreateChatButtonState()
+        checkAddUsersButtonState()
+    }
+    
+    private func searchUsers(_ name: String) {
+        SVProgressHUD.show()
+        chatManager.searchUsers(name, currentPage: currentSearchPage, perPage: CreateNewDialogConstant.perPage) { [weak self] response, users, cancel in
+            SVProgressHUD.dismiss()
+            self?.cancel = cancel
+            if self?.currentSearchPage == 1 {
+                self?.foundUsers = []
+            }
+            if cancel == false {
+                self?.currentSearchPage += 1
+            }
+            self?.addFoundUsers(users)
+            if users.isEmpty == false {
+                self?.tableView.removeEmptyView()
+            } else {
+                self?.tableView.setupEmptyView(AddOccupantsConstant.noUsers)
+            }
+        }
+    }
+    
+    private func fetchUsers() {
+        if Reachability.instance.networkConnectionStatus() == .notConnection {
+            showAlertView(LoginConstant.checkInternet, message: LoginConstant.checkInternetMessage)
+            return
+        }
+        SVProgressHUD.show()
+        chatManager.fetchUsers(currentPage: currentFetchPage, perPage: CreateNewDialogConstant.perPage) { [weak self] response, users, cancel in
+            SVProgressHUD.dismiss()
+            self?.cancelFetch = cancel
+            if cancel == false {
+                self?.currentFetchPage += 1
+            }
+             self?.downloadedUsers.append(contentsOf: users)
+            self?.setupUsers(self?.downloadedUsers ?? [QBUUser]())
+            if users.isEmpty == false {
+                self?.tableView.removeEmptyView()
+            } else {
+                self?.tableView.setupEmptyView(AddOccupantsConstant.noUsers)
+            }
+        }
     }
     
     private func addFoundUsers(_ users: [QBUUser]) {
@@ -329,7 +325,7 @@ class AddOccupantsVC: UIViewController {
         
         self.users = foundUsers
         tableView.reloadData()
-        checkCreateChatButtonState()
+        checkAddUsersButtonState()
     }
 }
 
@@ -376,7 +372,7 @@ extension AddOccupantsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = self.users[indexPath.row]
         selectedUsers.insert(user)
-        checkCreateChatButtonState()
+        checkAddUsersButtonState()
         setupNavigationTitle()
     }
     
@@ -385,7 +381,7 @@ extension AddOccupantsVC: UITableViewDelegate, UITableViewDataSource {
         if selectedUsers.contains(user) {
             selectedUsers.remove(user)
         }
-        checkCreateChatButtonState()
+        checkAddUsersButtonState()
         setupNavigationTitle()
     }
     
@@ -419,64 +415,14 @@ extension AddOccupantsVC: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         cancelSearchButton.isHidden = false
     }
-    
-    private func searchUsers(_ name: String) {
-        chatManager.searchUsers(name, currentPage: currentSearchPage, perPage: CreateNewDialogConstant.perPage) { [weak self] response, users, cancel in
-            if let responseError = response, let errorMessage = responseError.error?.reasons?["message"] as? String {
-                self?.showAlertView(nil, message: errorMessage.localized)
-            }
-            SVProgressHUD.dismiss()
-            self?.cancel = cancel
-            if self?.currentSearchPage == 1 {
-                self?.foundUsers = []
-            }
-            if cancel == false {
-                self?.currentSearchPage += 1
-            }
-            if users.isEmpty == false {
-                self?.tableView.removeEmptyView()
-                self?.addFoundUsers(users)
-            } else {
-                self?.addFoundUsers(users)
-                self?.tableView.setupEmptyView(AddOccupantsConstant.noUsers)
-            }
-        }
-    }
-    
-    private func fetchUsers() {
-        if Reachability.instance.networkConnectionStatus() == .notConnection {
-            showAlertView(LoginConstant.checkInternet, message: LoginConstant.checkInternetMessage)
-            return
-        }
-        
-        chatManager.fetchUsers(currentPage: currentFetchPage, perPage: CreateNewDialogConstant.perPage) { [weak self] response, users, cancel in
-            if let responseError = response, let errorMessage = responseError.error?.reasons?["message"] as? String {
-                self?.showAlertView(nil, message: errorMessage.localized)
-            }
-            SVProgressHUD.dismiss()
-            self?.cancelFetch = cancel
-            if cancel == false {
-                self?.currentFetchPage += 1
-            }
-            if users.isEmpty == false {
-                self?.tableView.removeEmptyView()
-                self?.downloadedUsers.append(contentsOf: users)
-                self?.setupUsers(self?.downloadedUsers ?? [QBUUser]())
-            } else {
-                self?.downloadedUsers.append(contentsOf: users)
-                self?.setupUsers(self?.downloadedUsers ?? [QBUUser]())
-                self?.tableView.setupEmptyView(AddOccupantsConstant.noUsers)
-            }
-        }
-    }
 }
 
 // MARK: - ChatManagerDelegate
 extension AddOccupantsVC: ChatManagerDelegate {
-    func chatManager(_ chatManager: ChatManager, didUpdateChatDialog chatDialog: QBChatDialog, isOnCall: Bool?) {
+    func chatManager(_ chatManager: ChatManager, didUpdateChatDialog chatDialog: QBChatDialog) {
         SVProgressHUD.dismiss()
         if chatDialog.id == self.dialogID {
-            self.dialog = chatManager.storage.dialog(withID: dialogID)
+            self.dialog = chatDialog
             setupUsers(self.users)
         }
     }
@@ -493,4 +439,3 @@ extension AddOccupantsVC: ChatManagerDelegate {
         SVProgressHUD.showSuccess(withStatus: message)
     }
 }
-

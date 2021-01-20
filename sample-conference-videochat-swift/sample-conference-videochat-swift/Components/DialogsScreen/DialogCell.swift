@@ -12,18 +12,8 @@ struct DialogCellConstant {
    static let reuseIdentifier =  "DialogCell"
 }
 
-protocol DialogCellDelegate: class {
-    func dialogCellDidJoinToConference(_ dialogCell: DialogCell)
-}
-
 class DialogCell: UITableViewCell {
-    
-    //MARK: - Properties
-    weak var delegate: DialogCellDelegate?
-    
     //MARK: - IBOutlets
-    @IBOutlet weak var joinButton: UIButton!
-    @IBOutlet weak var streamImageView: UIImageView!
     @IBOutlet weak var checkBoxImageView: UIImageView!
     @IBOutlet weak var checkBoxView: UIView!
     @IBOutlet weak var lastMessageDateLabel: UILabel!
@@ -39,12 +29,6 @@ class DialogCell: UITableViewCell {
         checkBoxImageView.contentMode = .scaleAspectFit
         unreadMessageCounterHolder.layer.cornerRadius = 12.0
         dialogAvatarLabel.setRoundedLabel(cornerRadius: 20.0)
-        joinButton.layer.cornerRadius = 4.0
-    }
-    
-    // MARK: - Actions
-    @IBAction func didTapJoinButton(_ sender: UIButton) {
-        delegate?.dialogCellDidJoinToConference(self)
     }
     
     // MARK: - Overrides
