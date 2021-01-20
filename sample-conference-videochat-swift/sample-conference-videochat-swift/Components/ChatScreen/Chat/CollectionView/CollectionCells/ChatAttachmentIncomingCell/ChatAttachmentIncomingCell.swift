@@ -13,7 +13,7 @@ class ChatAttachmentIncomingCell: ChatAttachmentCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        attachmentContainerView.roundCorners(radius: 6, isIncoming: true)
+        previewContainer.roundCorners(radius: 6, isIncoming: true)
     }
     
     override class func layoutModel() -> ChatCellLayoutModel {

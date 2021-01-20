@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -50,7 +51,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1rv-oZ-ov9" userLabel="Message Container">
                                 <rect key="frame" x="16" y="3" width="138" height="197"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xBH-LN-YGc">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xBH-LN-YGc" userLabel="Preview Container">
                                         <rect key="frame" x="0.0" y="20" width="138" height="177"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NrP-KH-4cx">
@@ -66,7 +67,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="wr2-Fx-bP7" firstAttribute="top" secondItem="NrP-KH-4cx" secondAttribute="top" constant="10" id="2wa-Q4-mmy"/>
                                                     <constraint firstAttribute="height" constant="35" id="IwD-yd-tGV"/>
@@ -97,7 +98,7 @@
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="saB-yU-uRY">
                                                         <rect key="frame" x="0.0" y="0.0" width="138" height="1"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="REG-ab-xbG"/>
                                                         </constraints>
@@ -144,7 +145,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="RS3-FV-09X" firstAttribute="centerY" secondItem="Fa7-ju-G0X" secondAttribute="centerY" id="3sS-GZ-YSl"/>
                                             <constraint firstItem="NrP-KH-4cx" firstAttribute="leading" secondItem="xBH-LN-YGc" secondAttribute="leading" id="9dE-If-3CS"/>
@@ -219,7 +220,6 @@
             </constraints>
             <size key="customSize" width="252" height="200"/>
             <connections>
-                <outlet property="attachmentContainerView" destination="xBH-LN-YGc" id="NT2-Xc-yXi"/>
                 <outlet property="attachmentImageView" destination="Fa7-ju-G0X" id="NWz-eZ-fhZ"/>
                 <outlet property="attachmentInfoView" destination="GZD-cE-Sos" id="Ydj-Bt-zl4"/>
                 <outlet property="attachmentNameLabel" destination="AhM-Rw-2lH" id="B5v-IA-guX"/>
@@ -241,6 +241,7 @@
                 <outlet property="messageContainerRightInsetConstraint" destination="tJS-yu-Sgw" id="mas-Uw-MQM"/>
                 <outlet property="messageContainerTopInsetConstraint" destination="JYn-ad-AzN" id="kBu-AD-ojU"/>
                 <outlet property="playImageView" destination="VeJ-vn-xj3" id="7vS-v4-0g5"/>
+                <outlet property="previewContainer" destination="xBH-LN-YGc" id="zkz-GA-Bvt"/>
                 <outlet property="progressView" destination="RS3-FV-09X" id="akU-LA-rdR"/>
                 <outlet property="timeLabel" destination="4Tj-AD-mYY" id="XW7-bg-cGp"/>
                 <outlet property="topLabel" destination="pgQ-H7-Y5u" id="56f-VT-nrf"/>
@@ -250,7 +251,18 @@
             <point key="canvasLocation" x="204.80000000000001" y="475.86206896551727"/>
         </collectionViewCell>
     </objects>
+    <designables>
+        <designable name="4Tj-AD-mYY">
+            <size key="intrinsicContentSize" width="35" height="16"/>
+        </designable>
+        <designable name="pgQ-H7-Y5u">
+            <size key="intrinsicContentSize" width="63" height="16"/>
+        </designable>
+    </designables>
     <resources>
         <image name="play" width="28" height="28"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

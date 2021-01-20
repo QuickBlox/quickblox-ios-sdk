@@ -13,23 +13,10 @@ import UIKit
  */
 class ChatIncomingCell: ChatCell {
 
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        
-        let roundingCorners:UIRectCorner = [.topLeft, .topRight, .bottomRight]
-        let layer = CAShapeLayer()
-        layer.frame = bubbleImageView.layer.bounds
-        let bPath = UIBezierPath(roundedRect: bubbleImageView.bounds,
-                                 byRoundingCorners: roundingCorners,
-                                 cornerRadii: CGSize(width: 20, height: 20))
-        layer.path = bPath.cgPath
-        bubbleImageView.layer.mask = layer
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-
-        bubbleImageView.backgroundColor = .white
+        
+        previewContainer.backgroundColor = .white
         layer.applyShadow(color: #colorLiteral(red: 0.8452011943, green: 0.8963350058, blue: 1, alpha: 1), alpha: 1.0, y: 3.0, blur: 48.0)
     }
     
@@ -40,5 +27,16 @@ class ChatIncomingCell: ChatCell {
         defaultLayoutModel.avatarSize = CGSize(width: 40.0, height: 40.0)
         
         return defaultLayoutModel
+    }
+    
+    override func layoutSubviews() {
+        let roundingCorners:UIRectCorner = [.topLeft, .topRight, .bottomRight]
+        let layer = CAShapeLayer()
+        layer.frame = previewContainer.layer.bounds
+        let bPath = UIBezierPath(roundedRect: previewContainer.bounds,
+                                 byRoundingCorners: roundingCorners,
+                                 cornerRadii: CGSize(width: 20, height: 20))
+        layer.path = bPath.cgPath
+        previewContainer.layer.mask = layer
     }
 }

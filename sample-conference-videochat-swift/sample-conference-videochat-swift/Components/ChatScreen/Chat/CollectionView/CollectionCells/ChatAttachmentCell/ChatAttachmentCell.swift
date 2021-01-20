@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import SDWebImage
 import Quickblox
 import SVProgressHUD
 
@@ -21,7 +22,6 @@ class ChatAttachmentCell: ChatCell {
     @IBOutlet weak var attachmentInfoView: UIView!
     @IBOutlet weak var attachmentNameLabel: UILabel!
     @IBOutlet weak var attachmentSizeLabel: UILabel!
-    @IBOutlet weak var attachmentContainerView: UIView!
     @IBOutlet weak var bottomInfoHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var infoTopLineView: UIView!
     /**
@@ -38,7 +38,7 @@ class ChatAttachmentCell: ChatCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        attachmentContainerView.layer.applyShadow(color: #colorLiteral(red: 0.8452011943, green: 0.8963350058, blue: 1, alpha: 1), alpha: 1.0, y: 3.0, blur: 48.0)
+        previewContainer.layer.applyShadow(color: #colorLiteral(red: 0.8452011943, green: 0.8963350058, blue: 1, alpha: 1), alpha: 1.0, y: 3.0, blur: 48.0)
         attachmentImageView.backgroundColor = #colorLiteral(red: 0.7999122739, green: 0.8000505567, blue: 0.799903512, alpha: 1)
         attachmentImageView.contentMode = .scaleAspectFill
         infoTopLineView.backgroundColor = .clear
@@ -79,7 +79,100 @@ class ChatAttachmentCell: ChatCell {
     }
     
     //MARK: - Actions
-    func setupAttachment(_ attachment: QBChatAttachment, attachmentType: AttachmentType, completion:((_ videoURL: URL?)-> Void)? = nil) {
+    func setupAttachment(_ attachment: QBChatAttachment) {
+        guard let ID = attachment.id else {
+            return
+        }
+        
+        attachmentID = ID
+        
+        if attachment.type == "image" {
+            self.bottomInfoHeightConstraint.constant = 0.0
+            self.typeAttachmentImageView.image = #imageLiteral(resourceName: "image_attachment")
+            self.setupAttachment(attachment, attachmentType: .Image)
+            
+        } else if attachment.type == "video" {
+            self.bottomInfoHeightConstraint.constant = 60.0
+            self.playImageView.isHidden = false
+            self.attachmentNameLabel.text = attachment.name
+            if let size = attachment.customParameters?["size"],
+               let sizeMB = Double(size) {
+                self.attachmentSizeLabel.text = String(format: "%.02f", sizeMB/1048576) + " MB"
+            }
+            let videoURL = CacheManager.shared.cachesDirectoryUrl.appendingPathComponent(attachmentID + "_" + (attachment.name ?? "video.mp4"))
+            if FileManager.default.fileExists(atPath: videoURL.path) == true {
+                self.attachmentUrl = videoURL
+                if let image = SDImageCache.shared().imageFromCache(forKey: attachmentID) {
+                    self.attachmentImageView.image = image
+                } else {
+                    
+                    videoURL.getThumbnailImageFromVideoUrl { image in
+                        if let image = image {
+                            self.attachmentImageView.image = image
+                            SDImageCache.shared().store(image, forKey: ID, toDisk: false) {
+                                
+                            }
+                        }
+                    }
+                }
+            } else {
+                self.typeAttachmentImageView.image = #imageLiteral(resourceName: "video_attachment")
+                self.setupAttachment(attachment, attachmentType: .Video) { videoURL in
+                    if let videoURL = videoURL {
+                        self.attachmentUrl = videoURL
+                    }
+                }
+            }
+        } else if attachment.type == "file" {
+            self.attachmentNameLabel.text = attachment.name
+            self.bottomInfoHeightConstraint.constant = 60.0
+            self.attachmentImageView.backgroundColor = .white
+            self.infoTopLineView.backgroundColor = #colorLiteral(red: 0.8495520949, green: 0.8889414668, blue: 0.9678996205, alpha: 1)
+            self.typeAttachmentImageView.image = #imageLiteral(resourceName: "file")
+            if let size = attachment.customParameters?["size"],
+               let sizeMB = Double(size) {
+                self.attachmentSizeLabel.text = String(format: "%.02f", sizeMB/1048576) + " MB"
+            }
+            var fileURL = URL(fileURLWithPath: "")
+            if attachment.name?.hasSuffix("pdf") == true {
+                fileURL = CacheManager.shared.cachesDirectoryUrl.appendingPathComponent(attachmentID + "_" + (attachment.name ?? "file.pdf"))
+                
+            } else if attachment.name?.hasSuffix("mp3") == true {
+                fileURL = CacheManager.shared.cachesDirectoryUrl.appendingPathComponent(attachmentID + "_" + (attachment.name ?? "file.mp3"))
+            }
+            if FileManager.default.fileExists(atPath: fileURL.path) == true {
+                self.attachmentUrl = fileURL
+                self.isUserInteractionEnabled = true
+                if let image = SDImageCache.shared().imageFromCache(forKey: attachmentID) {
+                    self.attachmentImageView.image = image
+                    self.typeAttachmentImageView.image = nil
+                    self.attachmentImageView.contentMode = .scaleAspectFit
+                } else {
+                    if attachment.name?.hasSuffix("pdf") == true {
+                        fileURL.drawPDFfromURL { image in
+                            self.attachmentImageView.image = image
+                            self.typeAttachmentImageView.image = nil
+                            self.attachmentImageView.contentMode = .scaleAspectFit
+                            SDImageCache.shared().store(image, forKey: ID, toDisk: false) {
+                            }
+                        }
+                    } else if attachment.name?.hasSuffix("mp3") == true {
+                        
+                    }
+                }
+            } else {
+                self.setupAttachment(attachment, attachmentType: .File) { fileURL in
+                    if let fileURL = fileURL {
+                        self.attachmentUrl = fileURL
+                    }
+                }
+            }
+        }
+    }
+    
+   private func setupAttachment(_ attachment: QBChatAttachment,
+                         attachmentType: AttachmentType,
+                         completion:((_ videoURL: URL?)-> Void)? = nil) {
         guard let ID = attachment.id else {
             return
         }
@@ -91,7 +184,10 @@ class ChatAttachmentCell: ChatCell {
                   attachmentName = name
         }
         
-        attachmentDownloadManager.downloadAttachment(attachmentID, attachmentName: attachmentName, attachmentType: attachmentType, progressHandler: { [weak self] (progress, ID) in
+        attachmentDownloadManager.downloadAttachment(attachmentID,
+                                                     attachmentName: attachmentName,
+                                                     attachmentType: attachmentType,
+                                                     progressHandler: { [weak self] (progress, ID) in
             if self?.attachmentID != ID {
                 return
             }
@@ -122,7 +218,9 @@ class ChatAttachmentCell: ChatCell {
     }
     
     //MARK: - Internal Methods
-    private func setupCellWithAttachment(_ attachmentImage: UIImage?, attachment: QBChatAttachment, attachmentType: AttachmentType) {
+    private func setupCellWithAttachment(_ attachmentImage: UIImage?,
+                                         attachment: QBChatAttachment,
+                                         attachmentType: AttachmentType) {
         self.isUserInteractionEnabled = true
         self.progressView.isHidden = true
         attachmentNameLabel.text = attachment.name

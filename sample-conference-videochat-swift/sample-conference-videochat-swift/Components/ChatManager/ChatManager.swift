@@ -19,6 +19,11 @@ enum MessageType : String {
     case closedCall = "6"
 }
 
+struct ConferenceTypeName {
+    static let startConference = "Conference started"
+    static let startStream = "Stream started"
+}
+
 struct ChatManagerConstant {
     static let messagesLimitPerDialog = 30
     static let usersLimit: UInt = 100
@@ -33,7 +38,7 @@ protocol ChatManagerDelegate: class {
     func chatManagerWillUpdateStorage(_ chatManager: ChatManager)
     func chatManager(_ chatManager: ChatManager, didFailUpdateStorage message: String)
     func chatManager(_ chatManager: ChatManager, didUpdateStorage message: String)
-    func chatManager(_ chatManager: ChatManager, didUpdateChatDialog chatDialog: QBChatDialog, isOnCall: Bool?)
+    func chatManager(_ chatManager: ChatManager, didUpdateChatDialog chatDialog: QBChatDialog)
 }
 
 typealias DialogsIterationHandler = (_ response: QBResponse?,
@@ -41,13 +46,15 @@ typealias DialogsIterationHandler = (_ response: QBResponse?,
     _ usersIDs: Set<NSNumber>?,
     _ stop: Bool?) -> Void
 typealias DialogsPage = (_ page: QBResponsePage) -> Void
-typealias DialogCompletion = (_ response: QBResponse?, _ dialog: QBChatDialog?) -> Void
+typealias DialogCompletion = (_ error: Error?, _ dialog: QBChatDialog?) -> Void
 
 typealias UsersIterationHandler = (_ response: QBResponse?, _ objects: [QBUUser]?, _ stop: Bool?) -> Void
 typealias UsersPage = (_ page: QBGeneralResponsePage) -> Void
 
 typealias MessagesCompletion = ( _ messages: [QBChatMessage],
     _ isLast: Bool) -> Void
+
+typealias SendMessageCompletion = (_ error: Error?, _ message: QBChatMessage?) -> Void
 
 typealias MessagesErrorHandler = (_ error: String?) -> Void
 
@@ -56,7 +63,6 @@ class ChatManager: NSObject {
     //MARK: - Properties
     
     weak var delegate: ChatManagerDelegate?
-    
     var storage = ChatStorage()
     
     //MARK: - Life Cycle
@@ -88,11 +94,13 @@ class ChatManager: NSObject {
         })
     }
     
-    func sendStartCallMessage(_ dialog: QBChatDialog,
-                              callType: String,
-                              conferenceID: String,
+    func sendStartConferenceMessage(_ conferenceInfo: ConferenceInfo,
                               completion: @escaping QBChatCompletionBlock) {
         
+        guard let dialog = storage.dialog(withID: conferenceInfo.chatDialogID) else {
+            return
+        }
+
         let currentUser = Profile()
         guard currentUser.isFull == true else {
             return
@@ -103,25 +111,30 @@ class ChatManager: NSObject {
         message.markable = true
         message.deliveredIDs = [(NSNumber(value: currentUser.ID))]
         message.readIDs = [(NSNumber(value: currentUser.ID))]
-        message.customParameters["save_to_history"] = true
-        message.customParameters[ChatDataSourceConstant.conferenceID] = conferenceID
-        if callType == MessageType.startConference.rawValue {
-            message.text = "Conference started"
-            message.customParameters[ChatDataSourceConstant.notificationType] = MessageType.startConference.rawValue
-        } else if callType == MessageType.startStream.rawValue {
-            message.text = "Stream started"
-            message.customParameters[ChatDataSourceConstant.notificationType] = MessageType.startStream.rawValue
+        message.customParameters[Key.saveToHistory] = true
+        message.customParameters[Key.conferenceID] = conferenceInfo.conferenceID
+        if conferenceInfo.callType == MessageType.startConference.rawValue {
+            message.text = ConferenceTypeName.startConference
+            message.customParameters[Key.notificationType] = MessageType.startConference.rawValue
+        } else if conferenceInfo.callType == MessageType.startStream.rawValue {
+            message.text = ConferenceTypeName.startStream
+            message.customParameters[Key.notificationType] = MessageType.startStream.rawValue
         }
+        message.dateSent = Date()
         
         dialog.send(message, completionBlock: { error in
-            completion(error)
+            if let error = error {
+                SVProgressHUD.showError(withStatus: "sendStartConferenceMessage error " + error.localizedDescription)
+                completion(error)
+            }
+            completion(nil)
         })
     }
     
     func sendCloseCallMessage(_ text: String,
                               to dialog: QBChatDialog,
                               completion: @escaping QBChatCompletionBlock) {
-        
+
         let currentUser = Profile()
         guard currentUser.isFull == true else {
             return
@@ -133,8 +146,9 @@ class ChatManager: NSObject {
         message.markable = true
         message.deliveredIDs = [(NSNumber(value: currentUser.ID))]
         message.readIDs = [(NSNumber(value: currentUser.ID))]
-        message.customParameters["save_to_history"] = true
-        message.customParameters[ChatDataSourceConstant.notificationType] = MessageType.closedCall.rawValue
+        message.customParameters[Key.saveToHistory] = true
+        message.customParameters[Key.notificationType] = MessageType.closedCall.rawValue
+        message.dateSent = Date()
         
         dialog.send(message, completionBlock: { error in
             completion(error)
@@ -144,7 +158,7 @@ class ChatManager: NSObject {
     func sendLeaveMessage(_ text: String,
                           to dialog: QBChatDialog,
                           completion: @escaping QBChatCompletionBlock) {
-        
+
         let currentUser = Profile()
         guard currentUser.isFull == true else {
             return
@@ -156,8 +170,9 @@ class ChatManager: NSObject {
         message.markable = true
         message.deliveredIDs = [(NSNumber(value: currentUser.ID))]
         message.readIDs = [(NSNumber(value: currentUser.ID))]
-        message.customParameters["save_to_history"] = true
-        message.customParameters[ChatDataSourceConstant.notificationType] = MessageType.leaveGroupDialog.rawValue
+        message.customParameters[Key.saveToHistory] = true
+        message.customParameters[Key.notificationType] = MessageType.leaveGroupDialog.rawValue
+        message.dateSent = Date()
         
         let systemMessage = QBChatMessage()
         systemMessage.senderID = currentUser.ID
@@ -165,22 +180,25 @@ class ChatManager: NSObject {
         systemMessage.text = text
         systemMessage.deliveredIDs = [(NSNumber(value: currentUser.ID))]
         systemMessage.readIDs = [(NSNumber(value: currentUser.ID))]
-        systemMessage.customParameters[ChatDataSourceConstant.notificationType] = MessageType.leaveGroupDialog.rawValue
-        systemMessage.customParameters["dialog_id"] = dialog.id
+        systemMessage.customParameters[Key.notificationType] = MessageType.leaveGroupDialog.rawValue
+        systemMessage.customParameters[Key.dialogId] = dialog.id
         
-        guard let occupantIDs = dialog.occupantIDs else {
-            return
-        }
-        
-        dialog.send(message, completionBlock: { error in
-            completion(error)
-        })
-        for occupantID in occupantIDs {
-            if currentUser.ID == occupantID.intValue {
-                continue
+        dialog.requestOnlineUsers { (occupantIDs, error) in
+            if let occupantIDs = occupantIDs as? [NSNumber] {
+                for occupantID in occupantIDs {
+                    if currentUser.ID == occupantID.intValue {
+                        continue
+                    }
+                    systemMessage.recipientID = occupantID.uintValue
+                    QBChat.instance.sendSystemMessage(systemMessage)
+                }
             }
-            systemMessage.recipientID = occupantID.uintValue
-            QBChat.instance.sendSystemMessage(systemMessage)
+            dialog.send(message, completionBlock: { error in
+                if let error = error {
+                    completion(error)
+                }
+                completion(nil)
+            })
         }
     }
     
@@ -188,17 +206,14 @@ class ChatManager: NSObject {
                            action: DialogAction,
                            withUsers usersIDs: [NSNumber],
                            to dialog: QBChatDialog,
-                           completion: @escaping QBChatCompletionBlock) {
+                           completion: @escaping SendMessageCompletion) {
+
         let currentUser = Profile()
         guard currentUser.isFull == true else {
             return
         }
         
         let IDs = usersIDs.map({ $0.stringValue }).joined(separator: ",")
-        
-        guard dialog.occupantIDs != nil else {
-            return
-        }
         
         let chatMessage = QBChatMessage()
         chatMessage.senderID = currentUser.ID
@@ -207,13 +222,14 @@ class ChatManager: NSObject {
         chatMessage.readIDs = [(NSNumber(value: currentUser.ID))]
         chatMessage.text = text
         chatMessage.markable = true
-        chatMessage.customParameters["save_to_history"] = true
+        chatMessage.customParameters[Key.saveToHistory] = true
         if action == .create {
-            chatMessage.customParameters[ChatDataSourceConstant.notificationType] = MessageType.createGroupDialog.rawValue
+            chatMessage.customParameters[Key.notificationType] = MessageType.createGroupDialog.rawValue
         } else if action == .add {
-            chatMessage.customParameters[ChatDataSourceConstant.notificationType] = MessageType.addUsersToGroupDialog.rawValue
-            chatMessage.customParameters["new_occupants_ids"] = IDs
+            chatMessage.customParameters[Key.notificationType] = MessageType.addUsersToGroupDialog.rawValue
+            chatMessage.customParameters[Key.newOccupantsIds] = IDs
         }
+        chatMessage.dateSent = Date()
         
         let systemMessage = QBChatMessage()
         systemMessage.senderID = currentUser.ID
@@ -222,15 +238,20 @@ class ChatManager: NSObject {
         systemMessage.deliveredIDs = [(NSNumber(value: currentUser.ID))]
         systemMessage.readIDs = [(NSNumber(value: currentUser.ID))]
         if action == .create {
-            systemMessage.customParameters[ChatDataSourceConstant.notificationType] = MessageType.createGroupDialog.rawValue
+            systemMessage.customParameters[Key.notificationType] = MessageType.createGroupDialog.rawValue
         } else if action == .add {
-            systemMessage.customParameters[ChatDataSourceConstant.notificationType] = MessageType.addUsersToGroupDialog.rawValue
+            systemMessage.customParameters[Key.notificationType] = MessageType.addUsersToGroupDialog.rawValue
         }
-        systemMessage.customParameters["dialog_id"] = dialog.id
+        systemMessage.customParameters[Key.dialogId] = dialog.id
         
         dialog.send(chatMessage, completionBlock: { error in
-            completion(error)
+            if let error = error {
+                completion(error, chatMessage)
+                return
+            }
+            completion(nil, chatMessage)
         })
+        
         for occupantID in usersIDs {
             if currentUser.ID == occupantID.intValue {
                 continue
@@ -287,29 +308,31 @@ class ChatManager: NSObject {
         
         chatDialog.name = name
         chatDialog.occupantIDs = occupants.map({ NSNumber(value: $0.id) })
-        chatDialog.data = ["class_name": "Call", "onCall": false, "startCallDateTime": "", "endCallDateTime": ""]
         
         QBRequest.createDialog(chatDialog, successBlock: { response, dialog in
+            
+            self.storage.update(dialogs:[dialog])
+            //Notify about create new dialog
+            let dialogName = dialog.name ?? ""
+            self.delegate?.chatManager(self, didUpdateStorage: "SA_STR_CREATE_NEW".localized + dialogName)
+            
             dialog.join(completionBlock: { (error) in
-                if error != nil {
-                    completion?(response, nil)
+                if let error = error {
+                    debugPrint("[ChatManager] dialog join error: \(error)")
+                    completion?(error, dialog)
                     return
                 }
-                self.storage.update(dialogs:[dialog])
-                debugPrint("[ChatManager] createGroupDialog error: \(self.errorMessage(response: response) ?? "")")
-                //Notify about create new dialog
-                let dialogName = dialog.name ?? ""
-                self.delegate?.chatManager(self, didUpdateStorage: "SA_STR_CREATE_NEW".localized + dialogName)
-                completion?(response, dialog)
+                completion?(nil, dialog)
             })
         }, errorBlock: { response in
             debugPrint("[ChatManager] createGroupDialog error: \(self.errorMessage(response: response) ?? "")")
-            completion?(response, nil)
+            completion?(response.error?.error, nil)
         })
     }
     
-    func leaveDialog(withID dialogId: String, completion: ((QBResponse?) -> Void)? = nil) {
+    func leaveDialog(withID dialogId: String, completion: ((String?) -> Void)? = nil) {
         guard let dialog = storage.dialog(withID: dialogId) else {
+            completion?("Dialogue not found")
             return
         }
         
@@ -343,7 +366,7 @@ class ChatManager: NSObject {
                 }
                 let errorMessage = self.errorMessage(response: response)
                 self.delegate?.chatManager(self, didFailUpdateStorage: errorMessage ?? "")
-                completion?(response)
+                completion?(errorMessage)
             }
         case .publicGroup:
             break
@@ -362,10 +385,10 @@ class ChatManager: NSObject {
                             }
                             self.storage.update(dialogs:[chatDialog])
                             completion(chatDialog)
-        }, errorBlock: { response in
-            completion(nil)
-            debugPrint("[ChatManager] loadDialog error: \(self.errorMessage(response: response) ?? "")")
-        })
+                          }, errorBlock: { response in
+                            completion(nil)
+                            debugPrint("[ChatManager] loadDialog error: \(self.errorMessage(response: response) ?? "")")
+                          })
     }
     
     private func prepareDialog(with dialogID: String, with message: QBChatMessage) {
@@ -375,7 +398,7 @@ class ChatManager: NSObject {
             dialog.lastMessageDate = message.dateSent
             dialog.lastMessageText = message.text
             if currentUser.isFull == true,
-                message.senderID != currentUser.ID {
+               message.senderID != currentUser.ID {
                 dialog.unreadMessagesCount = dialog.unreadMessagesCount + 1
             }
             
@@ -385,34 +408,13 @@ class ChatManager: NSObject {
             if let notificationType = message.customParameters["notification_type"] as? String {
                 
                 switch(notificationType) {
-                case MessageType.startConference.rawValue:
-                    let formatter = DateFormatter()
-                    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                    let startCallDate = formatter.string(from: message.dateSent ?? Date())
-                    dialog.data = ["class_name": "Call", "onCall": true, "startCallDateTime": startCallDate, "endCallDateTime": ""]
+                case MessageType.startConference.rawValue, MessageType.startStream.rawValue, MessageType.closedCall.rawValue:
                     self.storage.update(dialogs:[dialog])
-                    self.delegate?.chatManager(self, didUpdateChatDialog: dialog, isOnCall: true)
-                case MessageType.startStream.rawValue:
-                    let formatter = DateFormatter()
-                    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                    let startCallDate = formatter.string(from: message.dateSent ?? Date())
-                    dialog.data = ["class_name": "Call", "onCall": true, "startCallDateTime": startCallDate, "endCallDateTime": ""]
-                    self.storage.update(dialogs:[dialog])
-                    self.delegate?.chatManager(self, didUpdateChatDialog: dialog, isOnCall: true)
-                case MessageType.closedCall.rawValue:
-                    let formatter = DateFormatter()
-                    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                    let endCallDate = formatter.string(from: message.dateSent ?? Date())
-                    var dialogData = dialog.data
-                    dialogData?["endCallDateTime"] = endCallDate
-                    dialogData?["onCall"] = false
-                    dialog.data = dialogData
-                    self.storage.update(dialogs:[dialog])
-                    self.delegate?.chatManager(self, didUpdateChatDialog: dialog, isOnCall: true)
+                    self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
                 case MessageType.createGroupDialog.rawValue: break
                 case MessageType.addUsersToGroupDialog.rawValue:
                     if let occupantIDs = dialog.occupantIDs,
-                        let strIDs = message.customParameters["new_occupants_ids"] as? String {
+                       let strIDs = message.customParameters[Key.newOccupantsIds] as? String {
                         let strArray: [String] = strIDs.components(separatedBy: ",")
                         
                         var newOccupantIDs: [NSNumber] = []
@@ -436,7 +438,7 @@ class ChatManager: NSObject {
                                 self.storage.update(users: newUsers)
                                 dialog.occupantIDs = occupantIDs + newOccupantIDs
                                 self.storage.update(dialogs:[dialog])
-                                self.delegate?.chatManager(self, didUpdateChatDialog: dialog, isOnCall: nil)
+                                self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
                                 
                             }, errorBlock: { response in
                                 debugPrint("[ChatManager] loadUsers error: \(self.errorMessage(response: response) ?? "")")
@@ -444,23 +446,23 @@ class ChatManager: NSObject {
                         } else {
                             dialog.occupantIDs = occupantIDs + newOccupantIDs
                             self.storage.update(dialogs:[dialog])
-                            self.delegate?.chatManager(self, didUpdateChatDialog: dialog, isOnCall: nil)
+                            self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
                         }
                     }
                 case MessageType.leaveGroupDialog.rawValue:
                     if var occupantIDs = dialog.occupantIDs,
-                        occupantIDs.contains(NSNumber(value: message.senderID)) == true {
+                       occupantIDs.contains(NSNumber(value: message.senderID)) == true {
                         occupantIDs = occupantIDs.filter({ $0.uintValue != message.senderID })
                         dialog.occupantIDs = occupantIDs
                         self.storage.update(dialogs:[dialog])
-                        self.delegate?.chatManager(self, didUpdateChatDialog: dialog, isOnCall: nil)
+                        self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
                     }
                 default: break
                     
                 }
             } else {
                 self.storage.update(dialogs:[dialog])
-                self.delegate?.chatManager(self, didUpdateChatDialog: dialog, isOnCall: nil)
+                self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
             }
         } else {
             loadDialog(withID: dialogID, completion: { dialog in
@@ -481,16 +483,8 @@ class ChatManager: NSObject {
                 dialog.lastMessageText = message.text
                 dialog.updatedAt = Date()
                 self.storage.update(dialogs:[dialog])
-                self.delegate?.chatManager(self, didUpdateChatDialog: dialog, isOnCall: nil)
+                self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
             })
-        }
-    }
-    
-    func setDialogOnCall(_ dialog: QBChatDialog, callType: String, conferenceID: String) {
-        self.sendStartCallMessage(dialog, callType: callType, conferenceID: conferenceID) { (error) in
-            if let error = error {
-                debugPrint("[ChatManager] sendStartCallMessage error: \(error.localizedDescription)")
-            }
         }
     }
     
@@ -546,10 +540,11 @@ class ChatManager: NSObject {
         dialog.send(message) { (error) in
             if let error = error {
                 completion?(error)
+                return
             }
             dialog.updatedAt = Date()
             self.storage.update(dialogs: [dialog])
-            self.delegate?.chatManager(self, didUpdateChatDialog: dialog, isOnCall: nil)
+            self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
             completion?(nil)
         }
     }
@@ -557,6 +552,7 @@ class ChatManager: NSObject {
     func read(_ message: QBChatMessage,
               dialog: QBChatDialog,
               completion: QBChatCompletionBlock?) {
+
         let currentUser = Profile()
         if currentUser.isFull == false {
             completion?(nil)
@@ -581,7 +577,7 @@ class ChatManager: NSObject {
                     UIApplication.shared.applicationIconBadgeNumber = badgeNumber - 1
                 }
                 self.storage.update(dialogs: [dialog])
-                self.delegate?.chatManager(self, didUpdateChatDialog: dialog, isOnCall: nil)
+                self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
                 completion?(nil)
                 
             }
@@ -591,6 +587,7 @@ class ChatManager: NSObject {
     func read(_ messages: [QBChatMessage],
               dialog: QBChatDialog,
               completion: QBChatCompletionBlock?) {
+
         let currentUser = Profile()
         if currentUser.isFull == false {
             completion?(nil)
@@ -626,7 +623,7 @@ class ChatManager: NSObject {
         }
         readGroup.notify(queue: DispatchQueue.main) {
             self.storage.update(dialogs: [dialog])
-            self.delegate?.chatManager(self, didUpdateChatDialog: dialog, isOnCall: nil)
+            self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
             completion?(nil)
         }
     }
@@ -636,7 +633,6 @@ class ChatManager: NSObject {
         let pushOccupantsIDs = ids.map({ $0.stringValue })
         chatDialog.pushOccupantsIDs = pushOccupantsIDs
         QBRequest.update(chatDialog, successBlock: { response, updatedDialog in
-            
             chatDialog.pushOccupantsIDs = []
             self.storage.update(dialogs:[updatedDialog])
             completion(response, updatedDialog)
@@ -649,7 +645,6 @@ class ChatManager: NSObject {
     //MARK: - Connect/Disconnect
     func connect(completion: QBChatCompletionBlock? = nil) {
         let currentUser = Profile()
-        
         guard currentUser.isFull == true else {
             completion?(NSError(domain: ChatManagerConstant.chatServiceDomain,
                                 code: ChatManagerConstant.errorDomaimCode,
@@ -661,7 +656,6 @@ class ChatManager: NSObject {
         if QBChat.instance.isConnected == true {
             completion?(nil)
         } else {
-            QBSettings.autoReconnectEnabled = true
             QBChat.instance.connect(withUserID: currentUser.ID,
                                     password: currentUser.password,
                                     completion: completion)
@@ -771,16 +765,6 @@ class ChatManager: NSObject {
     private func parametersForMessages() -> [String : String] {
         let parameters = ["sort_desc": "date_sent", "mark_as_read": "0"]
         return parameters
-    }
-    
-    //MARK: - Helpers
-    func color(_ index: Int) -> UIColor {
-        let colors = [#colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1), #colorLiteral(red: 0.3035047352, green: 0.8693258762, blue: 0.4432001114, alpha: 1), #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1), #colorLiteral(red: 0.02297698334, green: 0.6430568099, blue: 0.603818357, alpha: 1), #colorLiteral(red: 0.5244195461, green: 0.3333674073, blue: 0.9113605022, alpha: 1), #colorLiteral(red: 0, green: 0.5694751143, blue: 1, alpha: 1), #colorLiteral(red: 0.839125216, green: 0.871129334, blue: 0.3547145724, alpha: 1), #colorLiteral(red: 0.09088832885, green: 0.7803853154, blue: 0.8577881455, alpha: 1), #colorLiteral(red: 1, green: 0.3950406728, blue: 0.0543332563, alpha: 1), #colorLiteral(red: 1, green: 0.5161726656, blue: 0.9950085603, alpha: 1), #colorLiteral(red: 1, green: 0.01143101626, blue: 0.09927682555, alpha: 1)]
-        if index >= 0 {
-            return colors[index % 10]
-        } else {
-            return .black
-        }
     }
     
     //Handle Error

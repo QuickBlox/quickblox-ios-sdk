@@ -150,7 +150,7 @@ ChatCellProtocol {
    *  Doing so could result in unexpected behavior.
    */
     @IBOutlet weak var containerView: ChatContainerView!
-    @IBOutlet private weak var messageContainer: UIView!
+    @IBOutlet weak var messageContainer: UIView!
     /**
      *  Property to set avatar label
      */
@@ -171,6 +171,7 @@ ChatCellProtocol {
             avatarContainerViewHeightConstraint.constant = 0.0
         }
     }
+    @IBOutlet weak var previewContainer: UIView!
   /**
    *  Returns chat message attributed label.
    *

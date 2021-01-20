@@ -14,6 +14,15 @@ class ToolBar: UIToolbar {
     private var actions: [(_ sender: UIButton?) -> Void] = []
     
     //MARK: - Life Circle
+    
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
+        
+        setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
+        setShadowImage(UIImage(), forToolbarPosition: .any)
+        //Default Clear
+        backgroundColor = .clear
+    }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         

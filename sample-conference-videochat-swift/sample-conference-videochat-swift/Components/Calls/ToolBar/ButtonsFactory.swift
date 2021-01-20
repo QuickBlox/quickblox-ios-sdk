@@ -51,8 +51,8 @@ class ButtonsFactory {
     }
     
     class func screenShare() -> CustomButton {
-        let button: CustomButton = self.button(withFrame: ButtonsFactoryConstants.rect, backgroundColor: ButtonsFactoryConstants.backgroundColor, selectedColor: ButtonsFactoryConstants.backgroundColor, selectedTitle: "Screen share", unSelectedTitle: "Screen share")
-        button.iconView = self.iconView(withNormalImage: "screensharing_ic", selectedImage: "screensharing_ic")
+        let button: CustomButton = self.button(withFrame: ButtonsFactoryConstants.rect, backgroundColor: ButtonsFactoryConstants.backgroundColor, selectedColor: ButtonsFactoryConstants.selectedColor, selectedTitle: "Stop sharing", unSelectedTitle: "Screen share")
+        button.iconView = self.iconView(withNormalImage: "screensharing_ic", selectedImage: "screenshare_selected")
         return button
     }
     

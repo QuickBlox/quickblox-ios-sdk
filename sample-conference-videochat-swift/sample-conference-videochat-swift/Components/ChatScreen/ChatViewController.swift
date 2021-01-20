@@ -29,38 +29,25 @@ var messageTimeDateFormatter: DateFormatter {
     return Static.instance
 }
 
-struct CallSettings {
-    var callType: String
-    var chatDialogID: String
-    var conferenceID: String
-    var initiatorID: UInt
-    var isSendMessage: Bool
-}
-
 enum MessageStatus: Int {
     case sent
     case sending
     case notSent
 }
 
-enum ChatActions: String {
-    case UserProfile
-    case StartConference
-    case StartStream
-    case LeaveChat
-    case ChatInfo
-    case AppInfo
-    case ChatFromCall
-    case InfoFromCall
-    case Edit
-    case Delete
-    case Forward
-    case DeliveredTo
-    case ViewedBy
-    case SaveAttachment
-    case Logout
-    case VideoConfig
-    case AudioConfig
+enum ChatAction: String {
+    case userProfile
+    case startConference
+    case startStream
+    case leaveChat
+    case chatInfo
+    case appInfo
+    case chatFromCall
+    case infoFromCall
+    case saveAttachment
+    case logout
+    case videoConfig
+    case audioConfig
 }
 
 struct ChatViewControllerConstant {
@@ -70,32 +57,22 @@ struct ChatViewControllerConstant {
     static let messagePadding: CGFloat = 40.0
     static let attachmentBarHeight: CGFloat = 100.0
     static let maxNumberСharacters: Int = 1000
-    static let streamViewHeight: CGFloat = 44.0
-    static let chatDidReadMessageNotification = Notification.Name(rawValue: "chatDidReadMessage")
-    static let chatDidDeliverMessageNotification = Notification.Name(rawValue: "chatDidDeliverMessage")
-    static let cameraEnabledMessageNotification = Notification.Name(rawValue: "cameraEnabledMessageNotification")
-    static let chatDidBecomeOnlineUserNotification = Notification.Name(rawValue: "chatDidBecomeOnlineUserNotification")
     static let noPlacesInCall = "There are no places in the call"
 }
 
 struct ActionMessage {
     let messageID: String
-    let action: ChatActions
+    let action: ChatAction
 }
 
-protocol ChildChatVCDelegate: class {
-    func chatVC(_ chatVC:ChatViewController, didOpenCallScreenWithSettings settings: CallSettings?)
-}
-
-class ChatViewController: UIViewController {
-    
+class ChatViewController: UIViewController, ChatView, ChatContextMenu {
     //MARK: - IBOutlets
-    @IBOutlet private weak var collectionView: ChatCollectionView!
+    @IBOutlet weak var collectionView: ChatCollectionView!
     /**
      *  Returns the input toolbar view object managed by this view controller.
      *  This view controller is the toolbar's delegate.
      */
-    @IBOutlet private weak var inputToolbar: InputToolbar!
+    @IBOutlet weak var inputToolbar: InputToolbar!
     
     
     //MARK: - Private IBOutlets
@@ -108,7 +85,11 @@ class ChatViewController: UIViewController {
                                                 action:#selector(didTapInfo(_:)))
     
     //MARK: - Properties
-    weak var delegate: ChildChatVCDelegate?
+    var didOpenCallScreenWithSettings: ((ConferenceSettings?) -> Void)?
+    var didCloseChatVC: (() -> Void)?
+    
+    var didAddUsers: (() -> Void)?
+    
     private lazy var dataSource: ChatDataSource = {
         let dataSource = ChatDataSource()
         dataSource.delegate = self
@@ -118,20 +99,17 @@ class ChatViewController: UIViewController {
     private var offsetY: CGFloat = 0.0
     
     private var isDeviceLocked = false
-    
     private var isUploading = false
     private var attachmentMessage: QBChatMessage?
     private var actionMessage: ActionMessage?
-    
-    var openNewCallWithCallType:((_ callType: String, _ conferenceID: String, _ initiatorID: UInt) -> Void)?
-    
-    var action: ChatActions?
+
+    var action: ChatAction?
     /**
      *  This property is required when creating a ChatViewController.
      */
     var dialogID: String! {
         didSet {
-            self.dialog = chatManager.storage.dialog(withID: dialogID)
+            dialog = chatManager.storage.dialog(withID: dialogID)
         }
     }
     private var dialog: QBChatDialog!
@@ -152,7 +130,7 @@ class ChatViewController: UIViewController {
      *  All message data objects returned by `collectionView:messageDataForItemAtIndexPath:` are
      *  checked against this identifier. This value must not be `nil`.
      */
-    internal var senderID: UInt = 0
+    internal var currentUserID: UInt = 0
     
     private var onlineUsersIDs: Set<UInt> = []
     private var typingUsers: Set<UInt> = []
@@ -235,29 +213,20 @@ class ChatViewController: UIViewController {
         }
         return inputToolbar
     }()
-    
-    private var popVC: ChatPopVC?
-    
+
     private lazy var attachmentBar: AttachmentUploadBar = {
         let attachmentBar = AttachmentUploadBar.loadNib()
         return attachmentBar
     }()
     
     private var titleView = TitleView()
-
-    private lazy var coverTableView: CoverTableView = {
-        let coverTableView = CoverTableView.loadNib()
-        return coverTableView
-    }()
-
-    private var isOpenPopVC = false
     
     private var attachmentDownloadManager = AttachmentDownloadManager()
     
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        QBChat.instance.addDelegate(self)
+
         setupViewMessages()
         dataSource.delegate = self
         inputToolbar.inputToolbarDelegate = self
@@ -278,7 +247,8 @@ class ChatViewController: UIViewController {
             return
         }
         
-        senderID = currentUser.ID
+        
+        currentUserID = currentUser.ID
         navigationItem.titleView = titleView
         setupTitleView()
         
@@ -287,45 +257,40 @@ class ChatViewController: UIViewController {
             guard let self = self else {
                 return
             }
-            if userID == self.senderID  {
+            if userID == self.currentUserID  {
                 return
             }
-            debugPrint("onlineUsersIDs.insert userID \(userID)")
             self.onlineUsersIDs.insert(userID)
-            self.sendNotificationBecomeOnlineUser(userID)
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        chatManager.delegate = self
         QBChat.instance.addDelegate(self)
+        chatManager.delegate = self
 
-        if QBChat.instance.isConnected == false {
-               ChatManager.instance.connect { (error) in
-                if error != nil {
-                    SVProgressHUD.showSuccess(withStatus: "QBChat is not Connected")
-                }
-            }
+        if QBChat.instance.isConnected == true,
+           let didAddUsers = self.didAddUsers {
+            didAddUsers()
+            self.didAddUsers = nil
         }
         
         loadMessages()
-        
-        SVProgressHUD.dismiss()
         
         selectedIndexPathForMenu = nil
         
         willResignActiveBlock = NotificationCenter.default.addObserver(forName: UIApplication.willResignActiveNotification,
                                                                        object: nil,
                                                                        queue: nil) { [weak self] (notification) in
-                                                                        self?.isDeviceLocked = true
+            self?.isDeviceLocked = true
         }
         willActiveBlock = NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification,
                                                                  object: nil,
                                                                  queue: nil) { [weak self] (notification) in
-                                                                    self?.isDeviceLocked = false
-                                                                    self?.collectionView.reloadData()
+            self?.isDeviceLocked = false
+            self?.collectionView.reloadData()
+            self?.loadMessages()
         }
         
         if inputToolbar.contentView.textView.isFirstResponder == false {
@@ -333,7 +298,7 @@ class ChatViewController: UIViewController {
         }
         updateCollectionViewInsets()
         collectionBottomConstraint.constant = collectionBottomConstant
-
+        
         if dialog.type != .publicGroup {
             navigationItem.rightBarButtonItem = infoItem
         }
@@ -346,6 +311,18 @@ class ChatViewController: UIViewController {
             }
             if notConnection == true {
                 self?.showAlertView(LoginConstant.checkInternet, message: LoginConstant.checkInternetMessage)
+            } else {
+                if QBChat.instance.isConnected == false, QBChat.instance.isConnecting == false {
+                    self?.chatManager.connect()
+                }
+                if self?.dialog.isJoined() == false {
+                    self?.dialog.join(completionBlock: { error in
+                        guard let error = error else {
+                            return
+                        }
+                        debugPrint("[ChatVC 2] dialog.join error: \(error.localizedDescription)")
+                    })
+                }
             }
         }
         Reachability.instance.networkStatusBlock = { status in
@@ -353,7 +330,7 @@ class ChatViewController: UIViewController {
         }
         updateConnectionStatus?(Reachability.instance.networkConnectionStatus())
         
-        self.actionMessage = nil
+        actionMessage = nil
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -368,32 +345,12 @@ class ChatViewController: UIViewController {
             willActiveBlock = nil
         }
         NotificationCenter.default.removeObserver(self)
-        if openNewCallWithCallType != nil {
-            openNewCallWithCallType = nil
-        }
         // clearing typing status blocks
         dialog.clearTypingStatusBlocks()
     }
     
     deinit {
         debugPrint("[ChatViewController] deinit!!!!!")
-    }
-    
-    //MARK: - Internal Methods
-    @objc func didTapBack(_ sender: UIBarButtonItem) {
-        if action == ChatActions.ChatFromCall {
-            delegate?.chatVC(self, didOpenCallScreenWithSettings: nil)
-        } else {
-           dismiss(animated: true, completion: nil)
-        }
-    }
-    
-    func sendNotificationBecomeOnlineUser(_ userID: UInt) {
-        DispatchQueue.main.async(execute: {
-            NotificationCenter.default.post(name: ChatViewControllerConstant.chatDidBecomeOnlineUserNotification,
-                                            object: nil,
-                                            userInfo: ["userID" : userID])
-        })
     }
     
     //MARK: - Setup
@@ -472,7 +429,215 @@ class ChatViewController: UIViewController {
         }
     }
     
+    // MARK - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "SA_STR_SEGUE_GO_TO_INFO".localized {
+            if let chatInfoViewController = segue.destination as? UsersInfoTableViewController {
+                chatInfoViewController.dialogID = dialogID
+                chatInfoViewController.action = sender as? ChatAction
+                if action == ChatAction.chatFromCall {
+                    chatInfoViewController.action = ChatAction.chatFromCall
+                }
+            }
+        }
+    }
+    
     //MARK: - Actions
+    @objc private func didTapInfo(_ sender: UIBarButtonItem) {
+        guard let actionsMenuVC = ScreenFactory().makeActionsMenuOutput() else { return }
+        actionsMenuVC.typeActionsMenuVC = .chatInfo
+        actionsMenuVC.modalPresentationStyle = .overFullScreen
+
+        let chatInfoAction = MenuAction(title: "Chat info", action: .chatInfo) { [weak self] (action) in
+            self?.performSegue(withIdentifier: "SA_STR_SEGUE_GO_TO_INFO".localized, sender: ChatAction.chatInfo)
+        }
+        
+        if action == .chatFromCall {
+            actionsMenuVC.addAction(chatInfoAction)
+            
+        } else {
+            
+            let startStreamAction = MenuAction(title: "Start Stream", action: .startStream) { [weak self] (action) in
+                self?.startStreaming()
+            }
+            let leaveChatAction = MenuAction(title: "Leave Chat", action: .leaveChat) { [weak self] (action) in
+                self?.didTapDelete()
+            }
+            if dialog.occupantIDs!.count > 12 {
+                actionsMenuVC.addAction(startStreamAction)
+                actionsMenuVC.addAction(chatInfoAction)
+                actionsMenuVC.addAction(leaveChatAction)
+            } else {
+                
+                let startConferenceAction = MenuAction(title: "Start Conference", action: .startConference) { [weak self] (action) in
+                    self?.startConference()
+                }
+                
+                actionsMenuVC.addAction(startConferenceAction)
+                actionsMenuVC.addAction(startStreamAction)
+                actionsMenuVC.addAction(chatInfoAction)
+                actionsMenuVC.addAction(leaveChatAction)
+            }
+        }
+        
+        actionsMenuVC.cancelAction = {
+            self.hideKeyboard(animated: false)
+        }
+        
+        present(actionsMenuVC, animated: false)
+    }
+    
+    private func didTapDelete() {
+        if QBChat.instance.isConnected == false {
+            if QBChat.instance.isConnecting == false {
+                chatManager.connect()
+            }
+            return
+        }
+        
+        let alertController = UIAlertController(title: "Warning",
+                                                message: "Do you really want to leave selected dialog?",
+                                                preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        let leaveAction = UIAlertAction(title: "Leave", style: .default) { (action:UIAlertAction) in
+            
+            SVProgressHUD.show(withStatus: "Leaving...")
+            self.infoItem.isEnabled = false
+            
+            guard let dialogID = self.dialog.id else {
+                SVProgressHUD.dismiss()
+                return
+            }
+            
+            if self.dialog.type == .private {
+                self.chatManager.leaveDialog(withID: dialogID)
+                self.didCloseChatVC?()
+            } else {
+                
+                let currentUser = Profile()
+                guard currentUser.isFull == true else {
+                    return
+                }
+                // group
+                self.dialog.pullOccupantsIDs = [NSNumber(value: currentUser.ID).stringValue]
+                
+                let message = "\(currentUser.fullName) " + "has left"
+                // Notifies occupants that user left the dialog.
+                self.chatManager.sendLeaveMessage(message, to: self.dialog, completion: { (error) in
+                    if let error = error {
+                        self.infoItem.isEnabled = true
+                        debugPrint("[ChatViewController] sendLeaveMessage error: \(error.localizedDescription)")
+                        SVProgressHUD.dismiss()
+                        return
+                    }
+                    self.chatManager.leaveDialog(withID: dialogID)
+                    self.didCloseChatVC?()
+                })
+            }
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(leaveAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    @objc func didTapBack(_ sender: UIBarButtonItem) {
+        action == ChatAction.chatFromCall ? didOpenCallScreenWithSettings?(nil) : didCloseChatVC?()
+    }
+    
+    func sendAddOccupantsMessages(_ selectedUsers: [QBUUser], action: DialogAction) {
+        guard let dialog = dialog,
+              let dialogOccupants = dialog.occupantIDs,
+              let dialogName = dialog.name else {
+            return
+        }
+        setupTitleView()
+        let usersIDs = action == .add ? selectedUsers.map{ NSNumber(value: $0.id) } : dialogOccupants
+        let message = action == .add ? messageText(withUsers: selectedUsers) : messageText(withChatName: dialogName)
+        
+        let sendAddingMessage: () -> Void = { [weak self]  in
+            guard let self = self else {return}
+            ChatManager.instance.sendAddingMessage(message, action: action, withUsers: usersIDs, to: dialog, completion: { (error, chatMessage) in
+                guard let chatMessage = chatMessage else {
+                    SVProgressHUD.showError(withStatus: error?.localizedDescription)
+                    return
+                }
+                self.dataSource.addMessage(chatMessage)
+            })
+        }
+        didAddUsers = {
+            sendAddingMessage()
+        }
+    }
+    
+    // MARK: Conference methods
+    private func startConference() {
+        if QBChat.instance.isConnected == false {
+            if QBChat.instance.isConnecting == false {
+                chatManager.connect()
+            }
+            showAlertView("AlertDialog", message: "Please wait for a connection to the chat as it now is in the progress")
+            inputToolbar.toggleSendButtonEnabled(isUploaded: self.isUploading)
+            SVProgressHUD.dismiss()
+            return
+        }
+        
+        let conferenceInfo = ConferenceInfo(callType: MessageType.startConference.rawValue, chatDialogID: dialogID, conferenceID: dialogID, initiatorID: currentUserID)
+        let settings = ConferenceSettings(conferenceInfo: conferenceInfo,
+                                          isSendMessage: true)
+        joinDialogWithCallSettings(settings)
+    }
+    
+    private func joinConference(_ settings: ConferenceSettings) {
+        if action == ChatAction.chatFromCall {
+            didOpenCallScreenWithSettings?(settings)
+            return
+        }
+        joinDialogWithCallSettings(settings)
+    }
+    
+    // MARK: Streaming methods
+    private func startStreaming() {
+        if QBChat.instance.isConnected == false {
+            if QBChat.instance.isConnecting == false {
+                chatManager.connect()
+            }
+            showAlertView("AlertDialog", message: "Please wait for a connection to the chat as it now is in the progress")
+            inputToolbar.toggleSendButtonEnabled(isUploaded: self.isUploading)
+            SVProgressHUD.dismiss()
+            return
+        }
+        
+        let timeStamp = Int((Date().timeIntervalSince1970 * 1000.0).rounded())
+        let streamID = NSNumber(value: Profile().ID).stringValue + "_" + "\(timeStamp)"
+        let conferenceInfo = ConferenceInfo(callType: MessageType.startStream.rawValue, chatDialogID: dialogID, conferenceID: streamID, initiatorID: currentUserID)
+        let streamingSettings = ConferenceSettings(conferenceInfo: conferenceInfo,
+                                                   isSendMessage: true)
+        joinDialogWithCallSettings(streamingSettings)
+    }
+    
+    private func joinStream(_ settings: ConferenceSettings) {
+        if action == ChatAction.chatFromCall {
+            didOpenCallScreenWithSettings?(settings)
+            return
+        }
+        joinDialogWithCallSettings(settings)
+    }
+    
+    // MARK: - Internal Methods
+    private func joinDialogWithCallSettings(_ settings: ConferenceSettings) {
+        if currentUserID != settings.conferenceInfo.initiatorID, settings.conferenceInfo.callType == MessageType.startStream.rawValue {
+            // will join to conferences as the listener
+            didOpenCallScreenWithSettings?(settings)
+        } else {
+            CallPermissions.check(with: .video, presentingViewController: self) { [weak self] granted in
+                guard let self = self,  granted == true else { return }
+                self.didOpenCallScreenWithSettings?(settings)
+            }
+        }
+    }
+    
     private func cancelUploadFile() {
         hideAttacnmentBar()
         isUploading = false
@@ -487,24 +652,24 @@ class ChatViewController: UIViewController {
     }
     
     private func viewClass(forItem item: QBChatMessage) -> ChatReusableViewProtocol.Type {
-        if item.customParameters[ChatDataSourceConstant.notificationType] as? MessageType.RawValue == MessageType.startConference.rawValue ||
-        item.customParameters[ChatDataSourceConstant.notificationType] as? MessageType.RawValue == MessageType.startStream.rawValue {
-            if item.senderID != senderID {
+        if item.customParameters[Key.notificationType] as? MessageType.RawValue == MessageType.startConference.rawValue ||
+            item.customParameters[Key.notificationType] as? MessageType.RawValue == MessageType.startStream.rawValue {
+            if item.senderID != currentUserID {
                 return ChatCallIncomingCell.self
             } else {
                 return ChatCallOutgoingCell.self
             }
         }
         
-        if item.customParameters[ChatDataSourceConstant.notificationType] != nil {
+        if item.customParameters[Key.notificationType] != nil {
             return ChatNotificationCell.self
         }
-
-        if item.customParameters[ChatDataSourceConstant.dateDividerKey] as? Bool == true {
+        
+        if item.customParameters[Key.dateDividerKey] as? Bool == true {
             return ChatDateCell.self
         }
         let hasAttachment = item.attachments?.isEmpty == false
-        if item.senderID != senderID {
+        if item.senderID != currentUserID {
             return hasAttachment ? ChatAttachmentIncomingCell.self : ChatIncomingCell.self
         } else {
             return hasAttachment ? ChatAttachmentOutgoingCell.self : ChatOutgoingCell.self
@@ -515,13 +680,13 @@ class ChatViewController: UIViewController {
         guard let text = messageItem.text  else {
             return NSAttributedString(string: "@")
         }
-        let textColor = messageItem.senderID == senderID ? UIColor.white : .black
+        let textColor = messageItem.senderID == currentUserID ? UIColor.white : .black
         
         let font = UIFont(name: "Helvetica", size: 15)
         let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: textColor,
                                                          .font: font as Any]
-        if let originForwardedName = messageItem.customParameters[ChatDataSourceConstant.forwardedMessage] as? String {
-            let forwardedColor = messageItem.senderID == senderID ? UIColor.white.withAlphaComponent(0.6) : #colorLiteral(red: 0.4091697037, green: 0.4803909063, blue: 0.5925986171, alpha: 1)
+        if let originForwardedName = messageItem.customParameters[Key.forwardedMessage] as? String {
+            let forwardedColor = messageItem.senderID == currentUserID ? UIColor.white.withAlphaComponent(0.6) : #colorLiteral(red: 0.4091697037, green: 0.4803909063, blue: 0.5925986171, alpha: 1)
             let fontForwarded = UIFont.systemFont(ofSize: 13, weight: .light)
             let fontForwardedName = UIFont.systemFont(ofSize: 13, weight: .semibold)
             let attributesForwarded: [NSAttributedString.Key: Any] = [.foregroundColor: forwardedColor,
@@ -534,9 +699,9 @@ class ChatViewController: UIViewController {
             textForwarded.append(NSAttributedString(string: text, attributes: attributes))
             return textForwarded
         }
-        if messageItem.customParameters[ChatDataSourceConstant.notificationType] as? String == MessageType.startConference.rawValue ||
-        messageItem.customParameters[ChatDataSourceConstant.notificationType] as? String == MessageType.startStream.rawValue {
-            if let callType = messageItem.customParameters[ChatDataSourceConstant.notificationType] as? String {
+        if messageItem.customParameters[Key.notificationType] as? String == MessageType.startConference.rawValue ||
+            messageItem.customParameters[Key.notificationType] as? String == MessageType.startStream.rawValue {
+            if let callType = messageItem.customParameters[Key.notificationType] as? String {
                 let callStatusText = callType == MessageType.startConference.rawValue ? "Conference started" : "Stream started"
                 let callStatusName = NSMutableAttributedString(string: callStatusText, attributes: attributes)
                 return callStatusName
@@ -562,20 +727,14 @@ class ChatViewController: UIViewController {
     private func topLabelAttributedString(forItem messageItem: QBChatMessage) -> NSAttributedString? {
         let paragrpahStyle = NSMutableParagraphStyle()
         paragrpahStyle.lineBreakMode = .byClipping
-        let color = #colorLiteral(red: 0.4255777597, green: 0.476770997, blue: 0.5723374486, alpha: 1)
+        let color = #colorLiteral(red: 0.4274509804, green: 0.4784313725, blue: 0.5725490196, alpha: 1)
         let font = UIFont.systemFont(ofSize: 13.0, weight: .semibold)
         let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: color,
                                                          .font: font as Any,
                                                          .paragraphStyle: paragrpahStyle]
-        var topLabelString = ""
-        if messageItem.senderID == senderID {
-            topLabelString = "You"
-        } else {
-            if let fullName = chatManager.storage.user(withID: messageItem.senderID)?.fullName {
-                topLabelString = fullName
-            } else {
-                return nil
-            }
+        var topLabelString =  "Unknown QBUser"
+        if let fullName = chatManager.storage.user(withID: messageItem.senderID)?.fullName {
+            topLabelString = fullName
         }
         
         return NSAttributedString(string: topLabelString, attributes: attributes)
@@ -596,206 +755,31 @@ class ChatViewController: UIViewController {
         
         return NSAttributedString(string: text, attributes: attributes)
     }
-    
-    private func statusImageForMessage(message: QBChatMessage) -> UIImage {
-        var statusString = ""
-        var readLogins: [String] = []
-        //check and add users who read the message
-        if let readIDs = message.readIDs?.filter({ $0 != NSNumber(value: senderID) }),
-            readIDs.isEmpty == false {
-            for readID in readIDs {
-                guard let user = chatManager.storage.user(withID: readID.uintValue) else {
-                    let userLogin = "@\(readID)"
-                    readLogins.append(userLogin)
-                    continue
-                }
-                let userName = user.fullName ?? user.login ?? ""
-                if readLogins.contains(userName) {
-                    continue
-                }
-                readLogins.append(userName)
-            }
-            statusString += message.attachments?.isEmpty == false ? "SA_STR_SEEN_STATUS".localized : "SA_STR_READ_STATUS".localized;
-            statusString += ": " + readLogins.joined(separator: ", ")
-            if #available(iOS 13.0, *) {
-                return #imageLiteral(resourceName: "delivered").withTintColor(#colorLiteral(red: 0.2216441333, green: 0.4713830948, blue: 0.9869660735, alpha: 1))
-            } else {
-                return #imageLiteral(resourceName: "delivered").imageMasked(color: #colorLiteral(red: 0.2216441333, green: 0.4713830948, blue: 0.9869660735, alpha: 1))!
-            }
+
+    private func messageText(withUsers users: [QBUUser]) -> String {
+        let actionMessage = "SA_STR_ADDED".localized
+        guard let current = QBSession.current.currentUser,
+              let fullName = current.fullName else {
+            return ""
         }
-        //check and add users to whom the message was delivered
-        if let deliveredIDs = message.deliveredIDs?.filter({ $0 != NSNumber(value: senderID) }) {
-            var deliveredLogins: [String] = []
-            for deliveredID in deliveredIDs {
-                guard let user = chatManager.storage.user(withID: deliveredID.uintValue) else {
-                    let userLogin = "@\(deliveredID)"
-                    if readLogins.contains(userLogin) == false {
-                        deliveredLogins.append(userLogin)
-                    }
-                    continue
-                }
-                let userName = user.fullName ?? user.login ?? ""
-                if readLogins.contains(userName) {
-                    continue
-                }
-                if deliveredLogins.contains(userName) {
-                    continue
-                }
-                
-                deliveredLogins.append(userName)
+        var message = "\(fullName) \(actionMessage)"
+        for user in users {
+            guard let userFullName = user.fullName else {
+                continue
             }
-            if deliveredLogins.isEmpty == false {
-                if statusString.isEmpty == false {
-                    statusString += "\n"
-                }
-                statusString += "SA_STR_DELIVERED_STATUS".localized + ": " + deliveredLogins.joined(separator: ", ")
-                return #imageLiteral(resourceName: "delivered")
-            }
+            message += " \(userFullName),"
         }
-        return UIImage(named: "sent")!
+        message = String(message.dropLast())
+        return message
     }
     
-    @objc private func didTapInfo(_ sender: UIBarButtonItem) {
-        guard let popVC = storyboard?.instantiateViewController(withIdentifier: "ChatPopVC") as? ChatPopVC else {
-            return
+    private func messageText(withChatName chatName: String) -> String {
+        let actionMessage = "SA_STR_CREATE_NEW".localized
+        guard let current = QBSession.current.currentUser,
+              let fullName = current.fullName else {
+            return ""
         }
-        popVC.typePopVC = .chatInfo
-        if action == ChatActions.ChatFromCall {
-            popVC.actions = [.ChatInfo]
-        } else {
-            popVC.actions = dialog.occupantIDs!.count > 12 ? [.StartStream, .ChatInfo, .LeaveChat] : [.StartConference, .StartStream, .ChatInfo, .LeaveChat]
-        }
-        
-        popVC.modalPresentationStyle = .popover
-        let chatPopOverVc = popVC.popoverPresentationController
-        chatPopOverVc?.delegate = self
-        chatPopOverVc?.barButtonItem = infoItem
-        chatPopOverVc?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
-        popVC.selectedAction = { [weak self] selectedAction in
-            guard let action = selectedAction else {
-                return
-            }
-            self?.hideKeyboard(animated: false)
-            self?.handleAction(action)
-        }
-        present(popVC, animated: false)
-    }
-    
-    private func handleAction(_ action: ChatActions) {
-        switch action {
-        case .StartConference:
-            let settings = CallSettings(callType: MessageType.startConference.rawValue, chatDialogID: dialogID, conferenceID: dialogID, initiatorID: senderID, isSendMessage: true)
-            joinDialogWithCallSettings(settings)
-        case .StartStream:
-            let timeStamp = Int((Date().timeIntervalSince1970 * 1000.0).rounded())
-            let streamID = NSNumber(value: Profile().ID).stringValue + "_" + "\(timeStamp)"
-            joinDialogWithCallSettings(CallSettings(callType: MessageType.startStream.rawValue, chatDialogID: dialogID, conferenceID: streamID, initiatorID: senderID, isSendMessage: true))
-        case .LeaveChat: didTapDelete()
-        case .ChatInfo: performSegue(withIdentifier: "SA_STR_SEGUE_GO_TO_INFO".localized, sender: ChatActions.ChatInfo)
-        case .Forward: forvardMessage()
-        case .DeliveredTo: performSegue(withIdentifier: "SA_STR_SEGUE_GO_TO_INFO".localized, sender: ChatActions.DeliveredTo)
-        case .ViewedBy: performSegue(withIdentifier: "SA_STR_SEGUE_GO_TO_INFO".localized, sender: ChatActions.ViewedBy)
-        default: break
-        }
-    }
-    
-    //MARK - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "SA_STR_SEGUE_GO_TO_INFO".localized {
-            if let chatInfoViewController = segue.destination as? UsersInfoTableViewController {
-                chatInfoViewController.dialogID = dialogID
-                if let selectedIndexPathForMenu = selectedIndexPathForMenu,
-                    let message = dataSource.messageWithIndexPath(selectedIndexPathForMenu) {
-                    chatInfoViewController.message = message
-                    if let action = sender as? ChatActions {
-                        self.actionMessage = ActionMessage(messageID: message.id!, action: action)
-                    }
-                }
-                chatInfoViewController.action = sender as? ChatActions
-                if action == ChatActions.ChatFromCall {
-                    chatInfoViewController.action = ChatActions.ChatFromCall
-                }
-            }
-        }
-    }
-    
-    // MARK: - Internal Methods
-    private func joinDialogWithCallSettings(_ settings: CallSettings) {
-        if Reachability.instance.networkConnectionStatus() == .notConnection {
-            showAlertView(LoginConstant.checkInternet, message: LoginConstant.checkInternetMessage)
-            inputToolbar.toggleSendButtonEnabled(isUploaded: self.isUploading)
-            SVProgressHUD.dismiss()
-            return
-        }
-        
-        if senderID != settings.initiatorID, settings.callType == MessageType.startStream.rawValue {
-            // will join to conferences as the listener
-            delegate?.chatVC(self, didOpenCallScreenWithSettings: settings)
-        } else {
-            CallPermissions.check(with: .video) { [weak self] granted in
-                guard let self = self,  granted == true else { return }
-                self.delegate?.chatVC(self, didOpenCallScreenWithSettings: settings)
-            }
-        }
-    }
-    
-    private func didTapDelete() {
-        if Reachability.instance.networkConnectionStatus() == .notConnection {
-            showAlertView(LoginConstant.checkInternet, message: LoginConstant.checkInternetMessage)
-            SVProgressHUD.dismiss()
-            return
-        }
-        if QBChat.instance.isConnected == true {
-            let alertController = UIAlertController(title: "SA_STR_WARNING".localized,
-                                                    message: "SA_STR_DO_YOU_REALLY_WANT_TO_DELETE_SELECTED_DIALOGS".localized,
-                                                    preferredStyle: .alert)
-            
-            let cancelAction = UIAlertAction(title: "SA_STR_CANCEL".localized, style: .cancel, handler: nil)
-            
-            let leaveAction = UIAlertAction(title: "SA_STR_DELETE".localized, style: .default) { (action:UIAlertAction) in
-                
-                SVProgressHUD.show(withStatus: "SA_STR_DELETING".localized)
-                
-                guard let dialogID = self.dialog.id else {
-                    SVProgressHUD.dismiss()
-                    return
-                }
-                
-                if self.dialog.type == .private {
-                    self.chatManager.leaveDialog(withID: dialogID)
-                    self.navigationController?.popViewController(animated: true)
-                } else {
-                    
-                    let currentUser = Profile()
-                    guard currentUser.isFull == true else {
-                        return
-                    }
-                    // group
-                    self.dialog.pullOccupantsIDs = [NSNumber(value: currentUser.ID).stringValue]
-                    
-                    let message = "\(currentUser.fullName) " + "SA_STR_USER_HAS_LEFT".localized
-                    // Notifies occupants that user left the dialog.
-                    self.chatManager.sendLeaveMessage(message, to: self.dialog, completion: { (error) in
-                        if let error = error {
-                            debugPrint("[ChatViewController] sendLeaveMessage error: \(error.localizedDescription)")
-                            SVProgressHUD.dismiss()
-                            return
-                        }
-                        self.chatManager.leaveDialog(withID: dialogID)
-                        self.navigationController?.popViewController(animated: true)
-                    })
-                }
-            }
-            alertController.addAction(cancelAction)
-            alertController.addAction(leaveAction)
-            present(alertController, animated: true, completion: nil)
-        } else {
-            ChatManager.instance.connect {(error) in
-                if error != nil {
-                    SVProgressHUD.showSuccess(withStatus: "QBChat is not Connected")
-                }
-            }
-        }
+        return "\(fullName) \(actionMessage) \"\(chatName)\""
     }
     
     /**
@@ -874,6 +858,7 @@ class ChatViewController: UIViewController {
     }
     
     private func loadMessages(with skip: Int = 0) {
+        SVProgressHUD.show(withStatus: "SA_STR_LOADING_MESSAGES".localized)
         chatManager.messages(withID: dialogID, skip: skip, limit: ChatManagerConstant.messagesLimitPerDialog, successCompletion: { [weak self] (messages, cancel) in
             self?.cancel = cancel
             self?.dataSource.addMessages(messages)
@@ -888,6 +873,7 @@ class ChatViewController: UIViewController {
                     self?.title = ""
                     self?.navigationItem.rightBarButtonItem?.isEnabled = false
                 }
+                SVProgressHUD.dismiss()
         })
     }
     
@@ -913,15 +899,13 @@ class ChatViewController: UIViewController {
                 return
             }
             DispatchQueue.main.async {
-                guard let selectAssetsVC = self.storyboard?.instantiateViewController(withIdentifier: "SelectAssetsVC") as? SelectAssetsVC else {
+                guard let selectAssetsVC = ScreenFactory().makeSelectAssetsOutput() else {
                     return
                 }
                 selectAssetsVC.modalPresentationStyle = .overCurrentContext
                 selectAssetsVC.selectedAssetCompletion = { [weak self] selectedAsset in
                     if let selectedAsset = selectedAsset {
-                        DispatchQueue.main.async {
-                            self?.showAttachmentBar(with: selectedAsset, attachmentType: .Image)
-                        }
+                        self?.showAttachmentBar(with: selectedAsset, attachmentType: .Image)
                     }
                 }
                 self.present(selectAssetsVC, animated: false)
@@ -957,9 +941,7 @@ class ChatViewController: UIViewController {
             case .notDetermined:
                 AVCaptureDevice.requestAccess(for: .video) { (granted) in
                     if granted {
-                        DispatchQueue.main.async {
-                            show(pickerController)
-                        }
+                        show(pickerController)
                     } else {
                         accessDenied(sourceType)
                     }
@@ -1019,17 +1001,26 @@ class ChatViewController: UIViewController {
     private func createAttachmentMessage(with attachment: QBChatAttachment) -> QBChatMessage {
         let message = QBChatMessage.markable()
         message.text = "[Attachment]"
-        message.senderID = senderID
+        message.senderID = currentUserID
         message.dialogID = dialogID
-        message.deliveredIDs = [(NSNumber(value: senderID))]
-        message.readIDs = [(NSNumber(value: senderID))]
+        message.deliveredIDs = [(NSNumber(value: currentUserID))]
+        message.readIDs = [(NSNumber(value: currentUserID))]
         message.dateSent = Date()
-        message.customParameters["save_to_history"] = true
+        message.customParameters[Key.saveToHistory] = true
         message.attachments = [attachment]
         return message
     }
     
     private func didPressSend(_ button: UIButton) {
+        if QBChat.instance.isConnected == false {
+            if QBChat.instance.isConnecting == false {
+                chatManager.connect()
+            }
+            showAlertView("AlertDialog", message: "Please wait for a connection to the chat as it now is in the progress")
+            inputToolbar.toggleSendButtonEnabled(isUploaded: self.isUploading)
+            SVProgressHUD.dismiss()
+            return
+        }
         if let attacmentMessage = attachmentMessage {
             send(withAttachmentMessage: attacmentMessage)
         }
@@ -1046,37 +1037,36 @@ class ChatViewController: UIViewController {
     private func send(withMessageText text: String) {
         let message = QBChatMessage.markable()
         message.text = text
-        message.senderID = senderID
+        message.senderID = currentUserID
         message.dialogID = dialogID
-        message.deliveredIDs = [(NSNumber(value: senderID))]
-        message.readIDs = [(NSNumber(value: senderID))]
+        message.deliveredIDs = [(NSNumber(value: currentUserID))]
+        message.readIDs = [(NSNumber(value: currentUserID))]
         message.dateSent = Date()
-        message.customParameters["save_to_history"] = true
+        message.customParameters[Key.saveToHistory] = true
         sendMessage(message: message)
     }
     
     private func sendMessage(message: QBChatMessage) {
-        if Reachability.instance.networkConnectionStatus() == .notConnection {
-            showAlertView(LoginConstant.checkInternet, message: LoginConstant.checkInternetMessage)
-            inputToolbar.toggleSendButtonEnabled(isUploaded: self.isUploading)
-            SVProgressHUD.dismiss()
-            return
-        }
-        if QBChat.instance.isConnected == true {
-                    chatManager.send(message, to: dialog) { [weak self] (error) in
-                if let error = error {
-                    debugPrint("[ChatViewController] sendMessage error: \(error.localizedDescription)")
-                    return
-                }
-                self?.dataSource.addMessage(message)
-                self?.finishSendingMessage(animated: true)
+        chatManager.send(message, to: dialog) { [weak self] (error) in
+            guard let self = self else {
+                return
             }
-        } else {
-            ChatManager.instance.connect { (error) in
-                if error != nil {
-                    SVProgressHUD.showSuccess(withStatus: "QBChat is not Connected")
-                }
+            if let error = error {
+                self.showAlertView("AlertDialog", message: "Please wait for a connection to the chat as it now is in the progress")
+                self.dialog.join(completionBlock: { error in
+                    guard let error = error else {
+                        return
+                    }
+                    debugPrint("[ChatVC 3] dialog.join error: \(error.localizedDescription)")
+                })
+                self.chatManager.connect()
+                self.inputToolbar.toggleSendButtonEnabled(isUploaded: self.isUploading)
+                SVProgressHUD.dismiss()
+                debugPrint("[ChatViewController] sendMessage error: \(error.localizedDescription)")
+                return
             }
+            self.dataSource.addMessage(message)
+            self.finishSendingMessage(animated: true)
         }
     }
     
@@ -1092,23 +1082,21 @@ class ChatViewController: UIViewController {
         return text
     }
     
-    private func forvardMessage() {
-        guard let selectedIndexPathForMenu = selectedIndexPathForMenu,
-            let message = dataSource.messageWithIndexPath(selectedIndexPathForMenu) else {
-                return
+    internal func saveFileAttachment(fromCell cell: ChatAttachmentCell) {
+        guard let url = cell.attachmentUrl else {
+            return
         }
-        let storyboard = UIStoryboard(name: "Dialogs", bundle: nil)
-        if let dialogsSelection = storyboard.instantiateViewController(withIdentifier: "DialogsSelectionVC") as? DialogsSelectionVC {
-            dialogsSelection.action = ChatActions.Forward
-            dialogsSelection.message = message
-            
-            let navVC = UINavigationController(rootViewController: dialogsSelection)
-            navVC.navigationBar.barTintColor = #colorLiteral(red: 0.2216441333, green: 0.4713830948, blue: 0.9869660735, alpha: 1)
-            navVC.navigationBar.barStyle = .black
-            navVC.navigationBar.shadowImage = UIImage(named: "navbar-shadow")
-            navVC.navigationBar.isTranslucent = false
-            navVC.modalPresentationStyle = .fullScreen
-            present(navVC, animated: false)
+        let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let destinationURL = documentsPath.appendingPathComponent(url.lastPathComponent)
+        // delete original copy
+        try? FileManager.default.removeItem(at: destinationURL)
+        // copy from temp to Document
+        do {
+            try FileManager.default.copyItem(at: url, to: destinationURL)
+            SVProgressHUD.showSuccess(withStatus: "Saved!")
+        } catch let error {
+            SVProgressHUD.showError(withStatus: "Save error")
+            debugPrint("[ChatViewController] Copy Error: \(error.localizedDescription)")
         }
     }
     
@@ -1265,104 +1253,56 @@ extension ChatViewController: InputToolbarDelegate {
     }
 }
 
-//MARK: - UICollectionViewDelegate
+//MARK: - UICollectionViewDelegate - ContextMenu
 extension ChatViewController: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-    
-    private func prepareDarkView(_ transparentDarkView: DarkenedHoleView,
-                                 inputToolbarDarkView: UIView,
-                                 bottomDarkView: UIView,
-                                 forCell selectedCell: ChatCell) {
+    private func targetedPreview(for configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
         
-        transparentDarkView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.2616348735)
-        inputToolbarDarkView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.2616348735)
-        bottomDarkView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.2616348735)
-        view.addSubview(transparentDarkView)
-        transparentDarkView.translatesAutoresizingMaskIntoConstraints = false
-        transparentDarkView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        transparentDarkView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        transparentDarkView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        transparentDarkView.bottomAnchor.constraint(equalTo: inputToolbar.topAnchor).isActive = true
-        
-        view.addSubview(inputToolbarDarkView)
-        inputToolbarDarkView.translatesAutoresizingMaskIntoConstraints = false
-        inputToolbarDarkView.leftAnchor.constraint(equalTo: inputToolbar.leftAnchor).isActive = true
-        inputToolbarDarkView.rightAnchor.constraint(equalTo: inputToolbar.rightAnchor).isActive = true
-        inputToolbarDarkView.topAnchor.constraint(equalTo: inputToolbar.topAnchor).isActive = true
-        inputToolbarDarkView.bottomAnchor.constraint(equalTo: inputToolbar.bottomAnchor).isActive = true
-        
-        if inputToolbar.contentView.textView.isFirstResponder == true  {
-            let topBarHeight = UIApplication.shared.statusBarFrame.size.height +
-                (self.navigationController?.navigationBar.frame.height ?? 0.0)
-            bottomDarkView.frame = CGRect(x: 0,
-                                          y: inputToolbar.frame.maxY + topBarHeight,
-                                          width: self.view.frame.size.width,
-                                          height: UIScreen.main.bounds.height - inputToolbar.frame.minY)
-            
-            let button = UIButton()
-            button.addTarget(self, action: #selector(removePopVC(_:)), for: .touchUpInside)
-            bottomDarkView.addSubview(button)
-            button.translatesAutoresizingMaskIntoConstraints = false
-            button.leftAnchor.constraint(equalTo: bottomDarkView.leftAnchor).isActive = true
-            button.rightAnchor.constraint(equalTo: bottomDarkView.rightAnchor).isActive = true
-            button.topAnchor.constraint(equalTo: bottomDarkView.topAnchor).isActive = true
-            button.bottomAnchor.constraint(equalTo: bottomDarkView.bottomAnchor).isActive = true
-            bottomDarkView.layer.zPosition = CGFloat(Float.greatestFiniteMagnitude)
-            guard let lastWindow = UIApplication.shared.windows.last else {
-                return
-            }
-            lastWindow.addSubview(bottomDarkView)
+        guard let selectedIndexPath = selectedIndexPathForMenu,
+              let attachmentCell = collectionView.cellForItem(at: selectedIndexPath) as? ChatAttachmentCell,
+              let message = dataSource.messageWithIndexPath(selectedIndexPath),
+              let attachment = message.attachments?.first,
+              attachment.type == "file" else {
+            return nil
         }
         
-        var bubbleView = UIView()
-        var correctY: CGFloat = 0.0
-        if selectedCell is ChatIncomingCell || selectedCell is ChatOutgoingCell {
-            transparentDarkView.isHasAttachmeht = false
-            correctY = 21.0
-            bubbleView = selectedCell.bubbleImageView
-            if selectedCell is ChatIncomingCell {
-                transparentDarkView.isIncoming = true
-            } else if selectedCell is ChatOutgoingCell {
-                transparentDarkView.isIncoming = false
-            }
-        } else if let selectedCell = selectedCell as? ChatAttachmentCell {
-            transparentDarkView.isHasAttachmeht = true
-            correctY = 20.0
-            bubbleView = selectedCell.attachmentContainerView
-            if selectedCell is ChatAttachmentIncomingCell {
-                transparentDarkView.isIncoming = true
-            } else if selectedCell is ChatAttachmentOutgoingCell {
-                transparentDarkView.isIncoming = false
-            }
-        }
+        let parameters = UIPreviewParameters()
+        parameters.backgroundColor = .clear
         
-        let transparentHoleView = UIView(frame: bubbleView.bounds)
-        transparentDarkView.transparentHoleView = transparentHoleView
-        let centerPointBubble =  CGPoint(x: bubbleView.bounds.midX, y: bubbleView.frame.midY - correctY)
-        let centerPointY = bubbleView.convert(centerPointBubble, to: transparentDarkView)
-        let centerPointX = bubbleView.convert(centerPointBubble, to: collectionView)
-        let centerPoint =  CGPoint(x: centerPointX.x, y: centerPointY.y)
-        transparentDarkView.transparentHoleView?.center = centerPoint
-    }
-    
-    @objc private func removePopVC(_ sender: UIButton) {
-        isOpenPopVC = false
-        self.popVC?.dismiss(animated: true)
+        let roundingCorners: UIRectCorner = message.senderID == currentUserID ? [.bottomLeft, .topLeft, .topRight] : [.topLeft, .topRight, .bottomRight]
+        let cornerRadius = 6.0
+        
+        parameters.visiblePath = UIBezierPath(roundedRect: attachmentCell.previewContainer.bounds,
+                                              byRoundingCorners:  roundingCorners,
+                                              cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
+        
+        return UITargetedPreview(view: attachmentCell.previewContainer, parameters: parameters)
     }
     
     func collectionView(_ collectionView: UICollectionView,
-                        canPerformAction action: Selector,
-                        forItemAt indexPath: IndexPath,
-                        withSender sender: Any?) -> Bool {
-        
-        return false
+                        previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        return targetedPreview(for: configuration)
     }
     
-    func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+    func collectionView(_ collectionView: UICollectionView,
+                        previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        return targetedPreview(for: configuration)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        
+        selectedIndexPathForMenu = indexPath
+        
+        guard let  message = dataSource.messageWithIndexPath(indexPath),
+              let attachmentCell = collectionView.cellForItem(at: indexPath) as? ChatAttachmentCell,
+              let attachment = message.attachments?.first,
+              attachment.type == "file" else {
+            return nil
+        }
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+                return self.chatContextMenu(forCell: attachmentCell)
+        }
     }
 }
 
@@ -1422,15 +1362,21 @@ extension ChatViewController: ChatCollectionViewDataSource {
             return
         }
         
-        if message.senderID != senderID {
-            
-            if let _ = chatManager.storage.user(withID: message.senderID) {
-            } else {
-                ChatManager.instance.loadUser(message.senderID)
-            }
-            
-            if message.readIDs?.contains(NSNumber(value: senderID)) == false {
-                chatManager.read(message, dialog: dialog, completion: nil)
+        guard let chatCell = cell as? ChatCell else {
+            return
+        }
+        
+        if (cell is ChatIncomingCell || cell is ChatAttachmentIncomingCell),
+           chatManager.storage.user(withID: message.senderID) == nil {
+            ChatManager.instance.loadUser(message.senderID) { (user) in
+                guard let loadedUser = user,
+                      let userName = loadedUser.fullName,
+                      userName.isEmpty == false else {return}
+                
+                chatCell.topLabel.text = userName
+                chatCell.avatarLabel.text = String(userName.capitalized.first ?? Character("QB"))
+                chatCell.avatarLabel.backgroundColor = message.senderID.generateColor()
+                self.collectionView.reloadItems(at: [indexPath])
             }
         }
     }
@@ -1453,58 +1399,63 @@ extension ChatViewController: ChatCollectionViewDataSource {
                                 configureCell cell: UICollectionViewCell,
                                 for indexPath: IndexPath) {
         
-        guard let item = dataSource.messageWithIndexPath(indexPath) else {
+        guard let message = dataSource.messageWithIndexPath(indexPath) else {
             return
         }
         
         if let dateCell = cell as? ChatDateCell {
             dateCell.isUserInteractionEnabled = false
-            dateCell.dateLabel.text = attributedString(forItem: item)?.string ?? ""
+            dateCell.dateLabel.text = attributedString(forItem: message)?.string ?? ""
             return
         }
         
         if let notificationCell = cell as? ChatNotificationCell {
             notificationCell.isUserInteractionEnabled = false
-            notificationCell.notificationLabel.text = attributedString(forItem: item)?.string
+            notificationCell.notificationLabel.text = attributedString(forItem: message)?.string
             return
         }
         
         if let callCell = cell as? ChatCallIncomingCell {
-            callCell.streamLabel.text = attributedString(forItem: item)?.string ?? ""
-            let userName = topLabelAttributedString(forItem: item)?.string
+            callCell.streamLabel.text = attributedString(forItem: message)?.string ?? ""
+            let userName = topLabelAttributedString(forItem: message)?.string
             callCell.avatarLabel.text = String(userName?.capitalized.first ?? Character("Q"))
-            callCell.avatarLabel.backgroundColor = item.senderID.generateColor()
-            callCell.topLabel.text = topLabelAttributedString(forItem: item)
-            callCell.timeLabel.text = timeLabelAttributedString(forItem: item)
-            guard let callType = item.customParameters[ChatDataSourceConstant.notificationType] as? String, let conferenceID = item.customParameters[ChatDataSourceConstant.conferenceID] as? String else {
-                return
+            callCell.avatarLabel.backgroundColor = message.senderID.generateColor()
+            callCell.topLabel.text = topLabelAttributedString(forItem: message)
+            callCell.timeLabel.text = timeLabelAttributedString(forItem: message)
+            guard let callType = message.customParameters[Key.notificationType] as? String,
+                let conferenceID = message.customParameters[Key.conferenceID] as? String else {
+                    return
             }
             callCell.didPressJoinButton = { [weak self] in
                 guard let self = self else {return}
-                
-                if self.action == ChatActions.ChatFromCall {
-                    self.delegate?.chatVC(self, didOpenCallScreenWithSettings: CallSettings(callType: callType, chatDialogID: self.dialogID, conferenceID: conferenceID, initiatorID: item.senderID, isSendMessage: false))
+                let conferenceInfo = ConferenceInfo(callType: callType, chatDialogID: self.dialogID, conferenceID: conferenceID, initiatorID: message.senderID)
+                let callSettings = ConferenceSettings(conferenceInfo: conferenceInfo,
+                                                      isSendMessage: false)
+                if callType == MessageType.startConference.rawValue {
+                    self.joinConference(callSettings)
                 } else {
-                    self.joinDialogWithCallSettings(CallSettings(callType: callType, chatDialogID: self.dialogID, conferenceID: conferenceID, initiatorID: item.senderID, isSendMessage: false))
+                    self.joinStream(callSettings)
                 }
             }
             return
         }
         
         if let callCell = cell as? ChatCallOutgoingCell {
-            callCell.streamLabel.text = attributedString(forItem: item)?.string ?? ""
-            callCell.topLabel.text = topLabelAttributedString(forItem: item)
-            callCell.timeLabel.text = timeLabelAttributedString(forItem: item)
-            guard let callType = item.customParameters[ChatDataSourceConstant.notificationType] as? String, let conferenceID = item.customParameters[ChatDataSourceConstant.conferenceID] as? String else {
-                return
+            callCell.streamLabel.text = attributedString(forItem: message)?.string ?? ""
+            callCell.timeLabel.text = timeLabelAttributedString(forItem: message)
+            guard let callType = message.customParameters[Key.notificationType] as? String,
+                let conferenceID = message.customParameters[Key.conferenceID] as? String else {
+                    return
             }
             callCell.didPressJoinButton = { [weak self] in
                 guard let self = self else {return}
-                
-                if self.action == ChatActions.ChatFromCall {
-                    self.delegate?.chatVC(self, didOpenCallScreenWithSettings: CallSettings(callType: callType, chatDialogID: self.dialogID, conferenceID: conferenceID, initiatorID: item.senderID, isSendMessage: false))
+                let conferenceInfo = ConferenceInfo(callType: callType, chatDialogID: self.dialogID, conferenceID: conferenceID, initiatorID: message.senderID)
+                let callSettings = ConferenceSettings(conferenceInfo: conferenceInfo,
+                                                      isSendMessage: false)
+                if callType == MessageType.startConference.rawValue {
+                    self.joinConference(callSettings)
                 } else {
-                    self.joinDialogWithCallSettings(CallSettings(callType: callType, chatDialogID: self.dialogID, conferenceID: conferenceID, initiatorID: item.senderID, isSendMessage: false))
+                    self.joinStream(callSettings)
                 }
             }
             return
@@ -1514,130 +1465,43 @@ extension ChatViewController: ChatCollectionViewDataSource {
             return
         }
         
+        chatCell.delegate = self
+        
         if cell is ChatIncomingCell
             || cell is ChatOutgoingCell {
             chatCell.textView.enabledTextCheckingTypes = enableTextCheckingTypes
         }
-        
-        if cell is ChatIncomingCell, dialog.type != .private {
-            let userName = topLabelAttributedString(forItem: item)?.string
-            chatCell.avatarLabel.text = String(userName?.capitalized.first ?? Character("Q"))
-            chatCell.avatarLabel.backgroundColor = item.senderID.generateColor()
+
+        if (cell is ChatIncomingCell || cell is ChatAttachmentIncomingCell) && dialog.type != .private {
+            let username = topLabelAttributedString(forItem: message)
+            chatCell.topLabel.text = username
+            let userName = username?.string
+            chatCell.avatarLabel.text = String(userName?.capitalized.first ?? Character("QB"))
+            chatCell.avatarLabel.backgroundColor = message.senderID.generateColor()
         }
         
-        chatCell.topLabel.text = topLabelAttributedString(forItem: item)
-        chatCell.timeLabel.text = timeLabelAttributedString(forItem: item)
+        chatCell.timeLabel.text = timeLabelAttributedString(forItem: message)
         
         if let textView = chatCell.textView {
             if cell is ChatCallIncomingCell {
                 return
             }
-            textView.text = attributedString(forItem: item)
+            textView.text = attributedString(forItem: message)
         }
         
-        chatCell.delegate = self
-        
         if let attachmentCell = cell as? ChatAttachmentCell {
-            guard let attachment = item.attachments?.first,
-                let attachmentID = attachment.id else {
-                    return
+            guard let attachment = message.attachments?.first else {
+                return
             }
             
-            if attachmentCell is ChatAttachmentIncomingCell, dialog.type != .private {
-                let userName = topLabelAttributedString(forItem: item)?.string
-                attachmentCell.avatarLabel.text = String(userName?.capitalized.first ?? Character("Q"))
-                attachmentCell.avatarLabel.backgroundColor = item.senderID.generateColor()
-            }
-            
-            if let originForwardName = item.customParameters[ChatDataSourceConstant.forwardedMessage] as? String {
+            if let originForwardName = message.customParameters[Key.forwardedMessage] as? String {
                 attachmentCell.forwardInfoHeightConstraint.constant = 35.0
                 attachmentCell.forwardedLabel.attributedText = forwardedAttachmentAttributedString(forOriginName: originForwardName)
             } else {
                 attachmentCell.forwardInfoHeightConstraint.constant = 0.0
             }
-            
-            if attachment.type == "image" {
-                attachmentCell.bottomInfoHeightConstraint.constant = 0.0
-                attachmentCell.typeAttachmentImageView.image = #imageLiteral(resourceName: "image_attachment")
-                attachmentCell.setupAttachment(attachment, attachmentType: .Image)
-                
-            } else if attachment.type == "video" {
-                attachmentCell.bottomInfoHeightConstraint.constant = 60.0
-                attachmentCell.playImageView.isHidden = false
-                attachmentCell.attachmentNameLabel.text = attachment.name
-                if let size = attachment.customParameters?["size"],
-                    let sizeMB = Double(size) {
-                    attachmentCell.attachmentSizeLabel.text = String(format: "%.02f", sizeMB/1048576) + " MB"
-                }
-                let videoURL = CacheManager.shared.cachesDirectoryUrl.appendingPathComponent(attachmentID + "_" + (attachment.name ?? "video.mp4"))
-                if FileManager.default.fileExists(atPath: videoURL.path) == true {
-                    attachmentCell.attachmentUrl = videoURL
-                    if let image = SDImageCache.shared().imageFromCache(forKey: attachmentID) {
-                        attachmentCell.attachmentImageView.image = image
-                    } else {
-                        
-                        videoURL.getThumbnailImageFromVideoUrl { image in
-                            if let image = image {
-                                attachmentCell.attachmentImageView.image = image
-                                SDImageCache.shared().store(image, forKey: attachmentID, toDisk: false) {
-                                    
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    attachmentCell.typeAttachmentImageView.image = #imageLiteral(resourceName: "video_attachment")
-                    attachmentCell.setupAttachment(attachment, attachmentType: .Video) { videoURL in
-                        if let videoURL = videoURL {
-                            attachmentCell.attachmentUrl = videoURL
-                        }
-                    }
-                }
-            } else if attachment.type == "file" {
-                attachmentCell.attachmentNameLabel.text = attachment.name
-                attachmentCell.bottomInfoHeightConstraint.constant = 60.0
-                attachmentCell.attachmentImageView.backgroundColor = .white
-                attachmentCell.infoTopLineView.backgroundColor = #colorLiteral(red: 0.8495520949, green: 0.8889414668, blue: 0.9678996205, alpha: 1)
-                attachmentCell.typeAttachmentImageView.image = #imageLiteral(resourceName: "file")
-                if let size = attachment.customParameters?["size"],
-                    let sizeMB = Double(size) {
-                    attachmentCell.attachmentSizeLabel.text = String(format: "%.02f", sizeMB/1048576) + " MB"
-                }
-                var fileURL = URL(fileURLWithPath: "")
-                if attachment.name?.hasSuffix("pdf") == true {
-                    fileURL = CacheManager.shared.cachesDirectoryUrl.appendingPathComponent(attachmentID + "_" + (attachment.name ?? "file.pdf"))
-                    
-                } else if attachment.name?.hasSuffix("mp3") == true {
-                    fileURL = CacheManager.shared.cachesDirectoryUrl.appendingPathComponent(attachmentID + "_" + (attachment.name ?? "file.mp3"))
-                }
-                if FileManager.default.fileExists(atPath: fileURL.path) == true {
-                    attachmentCell.attachmentUrl = fileURL
-                    attachmentCell.isUserInteractionEnabled = true
-                    if let image = SDImageCache.shared().imageFromCache(forKey: attachmentID) {
-                        attachmentCell.attachmentImageView.image = image
-                        attachmentCell.typeAttachmentImageView.image = nil
-                        attachmentCell.attachmentImageView.contentMode = .scaleAspectFit
-                    } else {
-                        if attachment.name?.hasSuffix("pdf") == true {
-                            fileURL.drawPDFfromURL { image in
-                                attachmentCell.attachmentImageView.image = image
-                                attachmentCell.typeAttachmentImageView.image = nil
-                                attachmentCell.attachmentImageView.contentMode = .scaleAspectFit
-                                SDImageCache.shared().store(image, forKey: attachmentID, toDisk: false) {
-                                }
-                            }
-                        } else if attachment.name?.hasSuffix("mp3") == true {
-                            
-                        }
-                    }
-                } else {
-                    attachmentCell.setupAttachment(attachment, attachmentType: .File) { fileURL in
-                        if let fileURL = fileURL {
-                            attachmentCell.attachmentUrl = fileURL
-                        }
-                    }
-                }
-            }
+
+            attachmentCell.setupAttachment(attachment)
         }
     }
 }
@@ -1768,10 +1632,10 @@ extension ChatViewController: UITextViewDelegate {
         if textView.text.hasPrefix(" ") {
             textView.text = String(textView.text.dropFirst())
         }
-        
         if textView.text.count > ChatViewControllerConstant.maxNumberСharacters {
-            textView.text = String(textView.text.dropLast())
+            textView.text = String(textView.text.prefix(ChatViewControllerConstant.maxNumberСharacters - 1))
         }
+        
         inputToolbar.toggleSendButtonEnabled(isUploaded: isUploading)
     }
     
@@ -1785,7 +1649,6 @@ extension ChatViewController: UITextViewDelegate {
         if textView != inputToolbar.contentView.textView {
             return false
         }
-        
         return true
     }
     
@@ -1862,56 +1725,6 @@ extension ChatViewController: ChatCellDelegate {
                     present(navVC, animated: false)
                 }
             }
-            else if attachment.type == "file" {
-                
-                guard let popVC = storyboard?.instantiateViewController(withIdentifier: "ChatPopVC") as? ChatPopVC else {
-                    return
-                }
-                popVC.actions = [.SaveAttachment]
-                popVC.modalPresentationStyle = .popover
-                let chatPopOverVc = popVC.popoverPresentationController
-                chatPopOverVc?.delegate = self
-                chatPopOverVc?.sourceView = attachmentCell.contentView
-                chatPopOverVc?.sourceRect = CGRect(x: attachmentCell.contentView.bounds.midX,
-                                                   y: attachmentCell.contentView.bounds.midY,
-                                                   width: 0,
-                                                   height: 0)
-                chatPopOverVc?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
-                
-                let transparentDarkView = DarkenedHoleView()
-                let bottomDarkView = UIView()
-                let inputToolbarDarkView = UIView()
-                
-                popVC.selectedAction = { selectedAction in
-                    transparentDarkView.removeFromSuperview()
-                    transparentDarkView.transparentHoleView = nil
-                    bottomDarkView.removeFromSuperview()
-                    inputToolbarDarkView.removeFromSuperview()
-                    guard let action = selectedAction, action == .SaveAttachment else {
-                        return
-                    }
-                    guard let url = attachmentCell.attachmentUrl else {
-                        return
-                    }
-                    let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-                    let destinationURL = documentsPath.appendingPathComponent(url.lastPathComponent)
-                    // delete original copy
-                    try? FileManager.default.removeItem(at: destinationURL)
-                    // copy from temp to Document
-                    do {
-                        try FileManager.default.copyItem(at: url, to: destinationURL)
-                        SVProgressHUD.showSuccess(withStatus: "Saved!")
-                    } catch let error {
-                        SVProgressHUD.showError(withStatus: "Save error")
-                        print("Copy Error: \(error.localizedDescription)")
-                    }
-                }
-                prepareDarkView(transparentDarkView,
-                                inputToolbarDarkView: inputToolbarDarkView,
-                                bottomDarkView: bottomDarkView,
-                                forCell: attachmentCell)
-                present(popVC, animated: false)
-            }
         }
     }
     
@@ -1934,7 +1747,6 @@ extension ChatViewController: ChatCellDelegate {
             }
         case NSTextCheckingResult.CheckingType.phoneNumber:
             if canMakeACall() == false {
-                
                 SVProgressHUD.showError(withStatus: "Your Device can't make a phone call".localized)
                 break
             }
@@ -1984,7 +1796,7 @@ extension ChatViewController: ChatCellDelegate {
 //MARK: - QBChatDelegate
 extension ChatViewController: QBChatDelegate {
     func chatDidReadMessage(withID messageID: String, dialogID: String, readerID: UInt) {
-        if senderID == readerID || dialogID != self.dialogID {
+        if currentUserID == readerID || dialogID != self.dialogID {
             return
         }
         guard let message = dataSource.messageWithID(messageID) else {
@@ -1995,7 +1807,7 @@ extension ChatViewController: QBChatDelegate {
     }
     
     func chatDidDeliverMessage(withID messageID: String, dialogID: String, toUserID userID: UInt) {
-        if senderID == userID || dialogID != self.dialogID {
+        if currentUserID == userID || dialogID != self.dialogID {
             return
         }
         guard let message = dataSource.messageWithID(messageID) else {
@@ -2005,36 +1817,51 @@ extension ChatViewController: QBChatDelegate {
         dataSource.updateMessage(message)
     }
     
-    func chatDidReceive(_ message: QBChatMessage) {
-        if message.dialogID != self.dialogID {
-            return
-        }
-        if message.senderID != senderID {
-            dataSource.addMessage(message)
-        }
-    }
-    
     func chatRoomDidReceive(_ message: QBChatMessage, fromDialogID dialogID: String) {
         if dialogID != self.dialogID {
             return
         }
-        if message.senderID != senderID || message.customParameters[ChatDataSourceConstant.notificationType] as? String == MessageType.startConference.rawValue ||
-            message.customParameters[ChatDataSourceConstant.notificationType] as? String == MessageType.startStream.rawValue {
+        
+        if message.customParameters[Key.notificationType] as? String == MessageType.startConference.rawValue ||
+            message.customParameters[Key.notificationType] as? String == MessageType.startStream.rawValue {
             dataSource.addMessage(message)
+            return
         }
+
+        if currentUserID == message.senderID {
+            return
+        }
+        
+        dataSource.addMessage(message)
     }
     
     func chatDidConnect() {
-        refreshAndReadMessages()
+        refreshMessages()
     }
     
     func chatDidReconnect() {
-        refreshAndReadMessages()
+        refreshMessages()
     }
     
     //MARK - Help
-    private func refreshAndReadMessages() {
-        SVProgressHUD.show(withStatus: "SA_STR_LOADING_MESSAGES".localized)
+    private func refreshMessages() {
+        // Autojoin to the group chat
+        if dialog.isJoined() == false {
+            dialog.join(completionBlock: { error in
+                if let error = error {
+                    debugPrint("[ChatViewController] dialog.join error: \(error.localizedDescription)")
+                }
+                if let didAddUsers = self.didAddUsers {
+                    didAddUsers()
+                    self.didAddUsers = nil
+                }
+            })
+        } else {
+            if let didAddUsers = self.didAddUsers {
+                didAddUsers()
+                self.didAddUsers = nil
+            }
+        }
         loadMessages()
     }
 }
@@ -2056,16 +1883,9 @@ extension ChatViewController: AttachmentBarDelegate {
     }
 }
 
-//MARK: - UIPopoverPresentationControllerDelegate
-extension ChatViewController: UIPopoverPresentationControllerDelegate {
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
-}
-
 //MARK: - QBChatDelegate
 extension ChatViewController: ChatManagerDelegate {
-    func chatManager(_ chatManager: ChatManager, didUpdateChatDialog chatDialog: QBChatDialog, isOnCall: Bool?) {
+    func chatManager(_ chatManager: ChatManager, didUpdateChatDialog chatDialog: QBChatDialog) {
         guard chatDialog.id == self.dialog.id else {
             return
         }

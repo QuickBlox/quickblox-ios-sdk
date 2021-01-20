@@ -154,7 +154,7 @@ class AttachmentUploadBar: UIView {
                                             attachment.name = uploadedBlob.name
                                             attachment.type = "image"
                                             attachment["size"] = "\(uploadedBlob.size)"
-                                            
+
                                             self.progressBar.isHidden = true
                                             self.cancelButton.isHidden = false
                                             self.delegate?.attachmentBar(self, didUpLoadAttachment: attachment)
@@ -188,5 +188,4 @@ class AttachmentUploadBar: UIView {
         cancelButton.isHidden = true
         delegate?.attachmentBar(self, didTapCancelButton: sender)
     }
-    
 }

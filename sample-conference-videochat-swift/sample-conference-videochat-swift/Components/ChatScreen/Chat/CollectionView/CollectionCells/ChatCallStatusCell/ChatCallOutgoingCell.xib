@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,14 +23,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ojp-I7-af9" userLabel="Message Container">
                                 <rect key="frame" x="24" y="0.0" width="147" height="74"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NickName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4uA-cw-LNd" customClass="TTTAttributedLabel">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4uA-cw-LNd" customClass="TTTAttributedLabel">
                                         <rect key="frame" x="0.0" y="0.0" width="108" height="15"/>
                                         <color key="backgroundColor" red="0.5758987968" green="0.63260070530000001" blue="0.69994870580000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="15" id="iDb-Ca-ltf"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                        <color key="textColor" red="0.4255777597" green="0.47677099699999997" blue="0.57233744860000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message Text" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YaN-Y2-jm8" customClass="TTTAttributedLabel">
@@ -47,7 +47,7 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cc9-iN-cos">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cc9-iN-cos">
                                         <rect key="frame" x="90" y="38.5" width="65" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -104,12 +104,12 @@
                     </view>
                 </subviews>
             </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="HGz-3h-6mC" secondAttribute="bottom" id="CS0-UT-Wb7"/>
                 <constraint firstAttribute="top" secondItem="HGz-3h-6mC" secondAttribute="top" id="TsH-uM-Vw0"/>
                 <constraint firstAttribute="trailing" secondItem="HGz-3h-6mC" secondAttribute="trailing" constant="10" id="ViJ-9Z-8oZ"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <connections>
                 <outlet property="containerView" destination="HGz-3h-6mC" id="AK9-J6-qRp"/>
                 <outlet property="containerWidthConstraint" destination="eU4-F8-6ci" id="u5b-tS-nyV"/>
@@ -128,4 +128,16 @@
             <point key="canvasLocation" x="132" y="133"/>
         </collectionViewCell>
     </objects>
+    <designables>
+        <designable name="4uA-cw-LNd">
+            <size key="intrinsicContentSize" width="25" height="16"/>
+        </designable>
+        <designable name="PUo-dp-HLv"/>
+        <designable name="YaN-Y2-jm8">
+            <size key="intrinsicContentSize" width="96" height="18"/>
+        </designable>
+        <designable name="ccw-SK-vCO">
+            <size key="intrinsicContentSize" width="40" height="18"/>
+        </designable>
+    </designables>
 </document>

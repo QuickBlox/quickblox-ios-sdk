@@ -12,6 +12,6 @@ class ChatAttachmentOutgoingCell: ChatAttachmentCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        attachmentContainerView.roundCorners(radius: 6, isIncoming: false)
+        previewContainer.roundCorners(radius: 6, isIncoming: false)
     }
 }
