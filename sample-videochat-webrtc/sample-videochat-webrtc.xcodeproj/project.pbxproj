@@ -929,7 +929,6 @@
 				55E076E01A30817800118D23 /* Frameworks */,
 				55E076E11A30817800118D23 /* Resources */,
 				FB415B9E1D80043400AD4C08 /* Embed Frameworks */,
-				E329E0781E38AD8900E0A183 /* ShellScript */,
 				E329E07B1E38AEE800E0A183 /* ShellScript */,
 				DF6080DB82D5F9E493B6D362 /* [CP] Embed Pods Frameworks */,
 			);
@@ -1061,19 +1060,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-sample-videochat-webrtc/Pods-sample-videochat-webrtc-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		E329E0781E38AD8900E0A183 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "bash \"${PODS_ROOT}/QuickBlox/Quickblox.framework/strip-framework.sh\"\n";
 		};
 		E329E07B1E38AEE800E0A183 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
