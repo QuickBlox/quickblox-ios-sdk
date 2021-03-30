@@ -1,7 +1,7 @@
 PODS:
-  - QuickBlox (2.17.8)
-  - Quickblox-WebRTC (2.7.4):
-    - QuickBlox (>= 2.17.2)
+  - QuickBlox (2.17.10)
+  - Quickblox-WebRTC (2.7.6):
+    - QuickBlox (>= 2.7)
   - SDWebImage (4.4.7):
     - SDWebImage/Core (= 4.4.7)
   - SDWebImage/Core (4.4.7)
@@ -9,28 +9,28 @@ PODS:
   - TTTAttributedLabel (2.0.0)
 
 DEPENDENCIES:
-  - QuickBlox (~> 2.17.7)
-  - Quickblox-WebRTC (~> 2.7.4)
+  - QuickBlox (~> 2.17.10)
+  - Quickblox-WebRTC (~> 2.7.6)
   - SDWebImage (~> 4.4.7)
   - SVProgressHUD
   - TTTAttributedLabel (~> 2.0.0)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
-    - Quickblox-WebRTC
     - SDWebImage
     - SVProgressHUD
     - TTTAttributedLabel
   trunk:
     - QuickBlox
+    - Quickblox-WebRTC
 
 SPEC CHECKSUMS:
-  QuickBlox: 81f2ee97fcae215ce87d1ed5338388c7deba2d63
-  Quickblox-WebRTC: cd1a5159c2ddb5b0feaf00b7a38b5551743eb067
+  QuickBlox: 49d85c6e1782993fb2383001301b788a8d7dcad3
+  Quickblox-WebRTC: 162d2421d91cfb3d4f7e01f87e095633ca52bb1d
   SDWebImage: c10d14a8883ebd89664f02a422006f66a85c0c5d
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: a6198a538264821446210a304f8439ede4a72de1
+PODFILE CHECKSUM: 7ca5a38d29a13a4636213a0f0742c786b493de33
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.1

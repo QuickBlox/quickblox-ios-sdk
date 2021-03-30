@@ -9,10 +9,10 @@
 #import "AppDelegate.h"
 #import <QuickBlox/QuickBlox.h>
 
-const NSUInteger kApplicationID = 72448;
-NSString *const kAuthKey        = @"f4HYBYdeqTZ7KNb";
-NSString *const kAuthSecret     = @"ZC7dK39bOjVc-Z8";
-NSString *const kAccountKey     = @"C4_z7nuaANnBYmsG_k98";
+const NSUInteger kApplicationID = 0;
+NSString *const kAuthKey        = @"";
+NSString *const kAuthSecret     = @"";
+NSString *const kAccountKey     = @"";
 
 typedef void (^CompletionHandlerType)(void);
 

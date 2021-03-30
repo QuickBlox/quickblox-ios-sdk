@@ -32,7 +32,6 @@
 		2C99272A2240F88C007A0C42 /* InfoScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C9927242240F88C007A0C42 /* InfoScreen.storyboard */; };
 		2C99272F2240FC1C007A0C42 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C99272E2240FC1B007A0C42 /* Main.storyboard */; };
 		2C992732224101F8007A0C42 /* PushTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C992731224101F8007A0C42 /* PushTextView.swift */; };
-		FB67BA1FA88F2CE072E658F3 /* Pods_sample_push_notifications_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3A28AF7EFC4901B7FB57195 /* Pods_sample_push_notifications_swift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,9 +64,6 @@
 		2C9927242240F88C007A0C42 /* InfoScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = InfoScreen.storyboard; sourceTree = "<group>"; };
 		2C99272E2240FC1B007A0C42 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		2C992731224101F8007A0C42 /* PushTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushTextView.swift; sourceTree = "<group>"; };
-		749F6578DF0D82F0737B461B /* Pods-sample-push-notifications-swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-push-notifications-swift.release.xcconfig"; path = "Target Support Files/Pods-sample-push-notifications-swift/Pods-sample-push-notifications-swift.release.xcconfig"; sourceTree = "<group>"; };
-		DBD504378E32287F18A77623 /* Pods-sample-push-notifications-swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-push-notifications-swift.debug.xcconfig"; path = "Target Support Files/Pods-sample-push-notifications-swift/Pods-sample-push-notifications-swift.debug.xcconfig"; sourceTree = "<group>"; };
-		F3A28AF7EFC4901B7FB57195 /* Pods_sample_push_notifications_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sample_push_notifications_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,21 +71,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB67BA1FA88F2CE072E658F3 /* Pods_sample_push_notifications_swift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		08B8409495A995A2B18B75DC /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				F3A28AF7EFC4901B7FB57195 /* Pods_sample_push_notifications_swift.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		2C3DA153255C62E600D69191 /* Authorization */ = {
 			isa = PBXGroup;
 			children = (
@@ -152,7 +139,6 @@
 				2C9926F52240F053007A0C42 /* sample-push-notifications-swift */,
 				2C9926F42240F053007A0C42 /* Products */,
 				8179B551BC5C9B5B3B20EEF5 /* Pods */,
-				08B8409495A995A2B18B75DC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -258,8 +244,6 @@
 		8179B551BC5C9B5B3B20EEF5 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				DBD504378E32287F18A77623 /* Pods-sample-push-notifications-swift.debug.xcconfig */,
-				749F6578DF0D82F0737B461B /* Pods-sample-push-notifications-swift.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -271,11 +255,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2C9927052240F054007A0C42 /* Build configuration list for PBXNativeTarget "sample-push-notifications-swift" */;
 			buildPhases = (
-				F38A8E06709F8FC07F6BCCA3 /* [CP] Check Pods Manifest.lock */,
 				2C9926EF2240F053007A0C42 /* Sources */,
 				2C9926F02240F053007A0C42 /* Frameworks */,
 				2C9926F12240F053007A0C42 /* Resources */,
-				C58737B98DD190AF0FD0F4D2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -346,48 +328,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		C58737B98DD190AF0FD0F4D2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-sample-push-notifications-swift/Pods-sample-push-notifications-swift-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-sample-push-notifications-swift/Pods-sample-push-notifications-swift-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-sample-push-notifications-swift/Pods-sample-push-notifications-swift-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F38A8E06709F8FC07F6BCCA3 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-sample-push-notifications-swift-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2C9926EF2240F053007A0C42 /* Sources */ = {
@@ -538,7 +478,6 @@
 		};
 		2C9927062240F054007A0C42 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DBD504378E32287F18A77623 /* Pods-sample-push-notifications-swift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "sample-push-notifications-swift/sample-push-notifications-swift.entitlements";
@@ -564,7 +503,6 @@
 		};
 		2C9927072240F054007A0C42 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 749F6578DF0D82F0737B461B /* Pods-sample-push-notifications-swift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "sample-push-notifications-swift/sample-push-notifications-swift.entitlements";

@@ -1,5 +1,5 @@
 PODS:
-  - QuickBlox (2.17.7)
+  - QuickBlox (2.17.10)
   - SDWebImage (4.4.8):
     - SDWebImage/Core (= 4.4.8)
   - SDWebImage/Core (4.4.8)
@@ -7,7 +7,7 @@ PODS:
   - TTTAttributedLabel (2.0.0)
 
 DEPENDENCIES:
-  - QuickBlox (~> 2.17.7)
+  - QuickBlox (~> 2.17.10)
   - SDWebImage (~> 4.4.7)
   - SVProgressHUD
   - TTTAttributedLabel (~> 2.0.0)
@@ -21,11 +21,11 @@ SPEC REPOS:
     - SVProgressHUD
 
 SPEC CHECKSUMS:
-  QuickBlox: 1eff4b1f4ccaf83cdb4cd23ca904fda4b6680094
+  QuickBlox: 49d85c6e1782993fb2383001301b788a8d7dcad3
   SDWebImage: 783af2c3fa36291a250030c4752ee370a9a51d13
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: e7aea3af8b0983869ea9b47c81018deb1670e7ec
+PODFILE CHECKSUM: e236321c763baa92a0ca480214c9050a8e24215f
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.1
