@@ -6,6 +6,10 @@ DEPENDENCIES:
   - HCSStarRatingView (from `https://github.com/hugocampossousa/HCSStarRatingView.git`)
   - SVProgressHUD
 
+SPEC REPOS:
+  trunk:
+    - SVProgressHUD
+
 EXTERNAL SOURCES:
   HCSStarRatingView:
     :git: https://github.com/hugocampossousa/HCSStarRatingView.git
@@ -19,6 +23,6 @@ SPEC CHECKSUMS:
   HCSStarRatingView: 1d18f79654735514cd6f00e6d90e38cb6320dc31
   SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
 
-PODFILE CHECKSUM: e8cf652d4620409f5961fb717814c77f2979aa92
+PODFILE CHECKSUM: 33540cbb44d5aaf2975e68baadf287f605506ca9
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.10.1

@@ -98,7 +98,7 @@
 		2CAFC6892271C6C1001852B8 /* ZoomedAttachmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAFC6882271C6C1001852B8 /* ZoomedAttachmentViewController.m */; };
 		2CB4122623ED81C0007E6C13 /* AttachmentUploadBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB4122523ED81C0007E6C13 /* AttachmentUploadBar.xib */; };
 		2CB6424823E198E100C8E319 /* RootParentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6424723E198E100C8E319 /* RootParentVC.m */; };
-		2CC758A51B0F0EB300999187 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		2CC758A51B0F0EB300999187 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
 		2CE4588523ED867000ECA9DF /* CircularProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE4588423ED867000ECA9DF /* CircularProgressBar.m */; };
 		2CE4588823ED9EFF00ECA9DF /* CALayer+Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE4588723ED9EFF00ECA9DF /* CALayer+Chat.m */; };
 		2CEBB41522454D8000A5E7BD /* Info.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CEBB41422454D8000A5E7BD /* Info.xcassets */; };
@@ -121,7 +121,6 @@
 		BFE6FBBE180E9E8B00E64AC4 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FBBD180E9E8A00E64AC4 /* Accelerate.framework */; };
 		BFE6FBC0180E9E9000E64AC4 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FBBF180E9E9000E64AC4 /* CoreVideo.framework */; };
 		BFE6FBC2180E9E9600E64AC4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FBC1180E9E9600E64AC4 /* AVFoundation.framework */; };
-		EDC57DC6C4530EC57C991206 /* Pods_samplechat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68991EF29BB165FE677A44EF /* Pods_samplechat.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -323,10 +322,7 @@
 		2CF8553A22AFF2ED003EE649 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		584B33AE1C2AF4490041B431 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = ../Localizable.strings; sourceTree = "<group>"; };
 		586DC8F81D9E59C3002A9D4A /* samplechat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = samplechat.entitlements; path = ../samplechat.entitlements; sourceTree = "<group>"; };
-		68991EF29BB165FE677A44EF /* Pods_samplechat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_samplechat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		86A716661B9EF0820019C42A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		A6A6DE8B06738DD8125623EE /* Pods-samplechat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-samplechat.debug.xcconfig"; path = "Target Support Files/Pods-samplechat/Pods-samplechat.debug.xcconfig"; sourceTree = "<group>"; };
-		BE156A007D22709891DD6CC6 /* Pods-samplechat.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-samplechat.qa.xcconfig"; path = "Target Support Files/Pods-samplechat/Pods-samplechat.qa.xcconfig"; sourceTree = "<group>"; };
 		BFE6FB72180E8EF100E64AC4 /* samplechat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = samplechat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE6FB75180E8EF100E64AC4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BFE6FB77180E8EF100E64AC4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -343,7 +339,6 @@
 		BFE6FBBD180E9E8A00E64AC4 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		BFE6FBBF180E9E9000E64AC4 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		BFE6FBC1180E9E9600E64AC4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		BFFFBC8306C3EB7F4B44FD75 /* Pods-samplechat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-samplechat.release.xcconfig"; path = "Target Support Files/Pods-samplechat/Pods-samplechat.release.xcconfig"; sourceTree = "<group>"; };
 		E06A6BE81D11550800431316 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -364,7 +359,6 @@
 				BFE6FBB0180E9E5300E64AC4 /* CFNetwork.framework in Frameworks */,
 				BFE6FB7A180E8EF100E64AC4 /* UIKit.framework in Frameworks */,
 				BFE6FB76180E8EF100E64AC4 /* Foundation.framework in Frameworks */,
-				EDC57DC6C4530EC57C991206 /* Pods_samplechat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -964,9 +958,6 @@
 		B21C52539D94D97EB802FAAC /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A6A6DE8B06738DD8125623EE /* Pods-samplechat.debug.xcconfig */,
-				BFFFBC8306C3EB7F4B44FD75 /* Pods-samplechat.release.xcconfig */,
-				BE156A007D22709891DD6CC6 /* Pods-samplechat.qa.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1008,7 +999,6 @@
 				BFE6FB75180E8EF100E64AC4 /* Foundation.framework */,
 				BFE6FB77180E8EF100E64AC4 /* CoreGraphics.framework */,
 				BFE6FB79180E8EF100E64AC4 /* UIKit.framework */,
-				68991EF29BB165FE677A44EF /* Pods_samplechat.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1047,12 +1037,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BFE6FBA7180E8EF100E64AC4 /* Build configuration list for PBXNativeTarget "samplechat" */;
 			buildPhases = (
-				27D6B5AB486662550D56D4CA /* [CP] Check Pods Manifest.lock */,
 				BFE6FB6E180E8EF100E64AC4 /* Sources */,
 				BFE6FB6F180E8EF100E64AC4 /* Frameworks */,
 				BFE6FB70180E8EF100E64AC4 /* Resources */,
 				583978A11D48A6D4009E970B /* Embed Frameworks */,
-				F482B560068A1BD81E32B3C6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1136,55 +1124,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		27D6B5AB486662550D56D4CA /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-samplechat-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F482B560068A1BD81E32B3C6 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-samplechat/Pods-samplechat-frameworks.sh",
-				"${PODS_ROOT}/QuickBlox/Quickblox.framework",
-				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/TTTAttributedLabel/TTTAttributedLabel.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quickblox.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TTTAttributedLabel.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-samplechat/Pods-samplechat-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		BFE6FB6E180E8EF100E64AC4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -1255,7 +1194,7 @@
 				2C2C513623EC688B00E32E0E /* SelectAssetCell.m in Sources */,
 				2C980DE922315DF90055E46E /* DialogTableViewCell.m in Sources */,
 				2C980DED22315DF90055E46E /* Reachability.m in Sources */,
-				2CC758A51B0F0EB300999187 /* (null) in Sources */,
+				2CC758A51B0F0EB300999187 /* BuildFile in Sources */,
 				2C980E0122315DF90055E46E /* ChatNotificationCell.m in Sources */,
 				2CAF996C2415479800886214 /* ChatDateCell.m in Sources */,
 				2C4E340E24178874005ED572 /* PhotoAsset.m in Sources */,
@@ -1345,7 +1284,6 @@
 		};
 		86AB9BAA1B57F1B2000C830A /* QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BE156A007D22709891DD6CC6 /* Pods-samplechat.qa.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = samplechat.entitlements;
@@ -1494,7 +1432,6 @@
 		};
 		BFE6FBA8180E8EF100E64AC4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A6A6DE8B06738DD8125623EE /* Pods-samplechat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = samplechat.entitlements;
@@ -1530,7 +1467,6 @@
 		};
 		BFE6FBA9180E8EF100E64AC4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BFFFBC8306C3EB7F4B44FD75 /* Pods-samplechat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = samplechat.entitlements;

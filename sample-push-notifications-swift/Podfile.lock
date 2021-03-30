@@ -1,9 +1,9 @@
 PODS:
-  - QuickBlox (2.17.7)
+  - QuickBlox (2.17.10)
   - SVProgressHUD (1.1.3)
 
 DEPENDENCIES:
-  - QuickBlox (~> 2.17.7)
+  - QuickBlox (~> 2.17.10)
   - SVProgressHUD
 
 SPEC REPOS:
@@ -13,9 +13,9 @@ SPEC REPOS:
     - QuickBlox
 
 SPEC CHECKSUMS:
-  QuickBlox: 1eff4b1f4ccaf83cdb4cd23ca904fda4b6680094
+  QuickBlox: 49d85c6e1782993fb2383001301b788a8d7dcad3
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
 
-PODFILE CHECKSUM: af8472e75fdc33a6b4be31143fe0b64185dbc859
+PODFILE CHECKSUM: 46a46c6f1bc23ea5c1d88b17f8f0f9748e2a9526
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.1

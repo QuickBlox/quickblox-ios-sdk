@@ -13,7 +13,6 @@
 		2CE203C021DD292100017F18 /* InfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE203B921DD292000017F18 /* InfoTableViewController.m */; };
 		2CE203C121DD292100017F18 /* InfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE203BD21DD292000017F18 /* InfoModel.m */; };
 		2CE203C421DD297400017F18 /* UIViewController+InfoScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE203C321DD297400017F18 /* UIViewController+InfoScreen.m */; };
-		D941D0AE9B5D0F8AB626F9F2 /* Pods_sample_conference_videochat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F249EB9DFBEAA86083416A90 /* Pods_sample_conference_videochat.framework */; };
 		E381C7DB1E7830DB00ACF58D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E381C7481E7830DB00ACF58D /* AppDelegate.m */; };
 		E381C7DC1E7830DB00ACF58D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E381C7491E7830DB00ACF58D /* Assets.xcassets */; };
 		E381C7DD1E7830DB00ACF58D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E381C74A1E7830DB00ACF58D /* LaunchScreen.storyboard */; };
@@ -92,7 +91,6 @@
 		2CE203BD21DD292000017F18 /* InfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoModel.m; sourceTree = "<group>"; };
 		2CE203C221DD297400017F18 /* UIViewController+InfoScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+InfoScreen.h"; sourceTree = "<group>"; };
 		2CE203C321DD297400017F18 /* UIViewController+InfoScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+InfoScreen.m"; sourceTree = "<group>"; };
-		4C74244DA13601734ADBFC45 /* Pods-sample-conference-videochat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-conference-videochat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-sample-conference-videochat/Pods-sample-conference-videochat.debug.xcconfig"; sourceTree = "<group>"; };
 		E381BD921E719E5300ACF58D /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		E381BD941E719E5A00ACF58D /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		E381BD961E719E5F00ACF58D /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
@@ -217,8 +215,6 @@
 		E3A631CC1E55F0D100B5E524 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E3A631CE1E55F0D700B5E524 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		E3A631D01E55F0DD00B5E524 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
-		EA9B86E162639431C7FB5FB9 /* Pods-sample-conference-videochat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-conference-videochat.release.xcconfig"; path = "Pods/Target Support Files/Pods-sample-conference-videochat/Pods-sample-conference-videochat.release.xcconfig"; sourceTree = "<group>"; };
-		F249EB9DFBEAA86083416A90 /* Pods_sample_conference_videochat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sample_conference_videochat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,7 +230,6 @@
 				E3969D6E1E7FF37D0037D99C /* libxml2.2.tbd in Frameworks */,
 				E3969D6C1E7FF3790037D99C /* libresolv.tbd in Frameworks */,
 				E3969D6A1E7FF3740037D99C /* Accelerate.framework in Frameworks */,
-				D941D0AE9B5D0F8AB626F9F2 /* Pods_sample_conference_videochat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,15 +299,6 @@
 				2CE203BD21DD292000017F18 /* InfoModel.m */,
 			);
 			path = InfoModel;
-			sourceTree = "<group>";
-		};
-		D890A473946590D6B537865C /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				4C74244DA13601734ADBFC45 /* Pods-sample-conference-videochat.debug.xcconfig */,
-				EA9B86E162639431C7FB5FB9 /* Pods-sample-conference-videochat.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		E381C7461E7830DB00ACF58D /* sample-conference-videochat */ = {
@@ -764,7 +750,6 @@
 				E381C7461E7830DB00ACF58D /* sample-conference-videochat */,
 				E3A631A61E55E1DA00B5E524 /* Products */,
 				E3A631C71E55F0C100B5E524 /* Frameworks */,
-				D890A473946590D6B537865C /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -795,7 +780,6 @@
 				E3A631CC1E55F0D100B5E524 /* Foundation.framework */,
 				E3A631CA1E55F0CA00B5E524 /* Security.framework */,
 				E3A631C81E55F0C100B5E524 /* libicucore.tbd */,
-				F249EB9DFBEAA86083416A90 /* Pods_sample_conference_videochat.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -807,12 +791,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E3A631BC1E55E1DA00B5E524 /* Build configuration list for PBXNativeTarget "sample-conference-videochat" */;
 			buildPhases = (
-				D9699BE9C88743A422D3CA40 /* [CP] Check Pods Manifest.lock */,
 				E3A631A11E55E1DA00B5E524 /* Sources */,
 				E3A631A21E55E1DA00B5E524 /* Frameworks */,
 				E3A631A31E55E1DA00B5E524 /* Resources */,
-				E3A631D41E55F18000B5E524 /* Run Script */,
-				2F362B2610E3C7200AD25D73 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -887,69 +868,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		2F362B2610E3C7200AD25D73 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-sample-conference-videochat/Pods-sample-conference-videochat-frameworks.sh",
-				"${PODS_ROOT}/QuickBlox/Quickblox.framework",
-				"${PODS_ROOT}/Quickblox-WebRTC/QuickbloxWebRTC.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quickblox.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QuickbloxWebRTC.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-sample-conference-videochat/Pods-sample-conference-videochat-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D9699BE9C88743A422D3CA40 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-sample-conference-videochat-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E3A631D41E55F18000B5E524 /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "bash \"${PODS_ROOT}/Quickblox-WebRTC/QuickbloxWebRTC.framework/strip-framework.sh\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E3A631A11E55E1DA00B5E524 /* Sources */ = {
@@ -1132,7 +1050,6 @@
 		};
 		E3A631BD1E55E1DA00B5E524 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4C74244DA13601734ADBFC45 /* Pods-sample-conference-videochat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "sample-conference-videochat/sample-conference-videochat.entitlements";
@@ -1172,7 +1089,6 @@
 		};
 		E3A631BE1E55E1DA00B5E524 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EA9B86E162639431C7FB5FB9 /* Pods-sample-conference-videochat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "sample-conference-videochat/sample-conference-videochat.entitlements";
