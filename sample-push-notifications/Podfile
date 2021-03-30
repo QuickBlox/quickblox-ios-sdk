@@ -3,5 +3,5 @@
 
 target 'sample-push-notifications' do
     pod 'SVProgressHUD'
-    pod 'QuickBlox', '~> 2.17.7'
+    pod 'QuickBlox', '~> 2.17.10'
 end

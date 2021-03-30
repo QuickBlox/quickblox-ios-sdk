@@ -1,10 +1,10 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '10.0'
+platform :ios, '12.0'
 
 target 'sample-videochat-webrtc' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
-  pod 'QuickBlox', '~> 2.17.4'
-  pod 'Quickblox-WebRTC', '~> 2.7.4'
+  pod 'QuickBlox', '~> 2.17.10'
+  pod 'Quickblox-WebRTC', '~> 2.7.6'
 
 end

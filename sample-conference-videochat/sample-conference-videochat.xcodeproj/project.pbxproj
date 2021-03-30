@@ -811,7 +811,6 @@
 				E3A631A11E55E1DA00B5E524 /* Sources */,
 				E3A631A21E55E1DA00B5E524 /* Frameworks */,
 				E3A631A31E55E1DA00B5E524 /* Resources */,
-				E3A27F241E6D6B9300C72880 /* ShellScript */,
 				E3A631D41E55F18000B5E524 /* Run Script */,
 				2F362B2610E3C7200AD25D73 /* [CP] Embed Pods Frameworks */,
 			);
@@ -935,19 +934,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
-		};
-		E3A27F241E6D6B9300C72880 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "bash \"${PODS_ROOT}/QuickBlox/Quickblox.framework/strip-framework.sh\"\n";
 		};
 		E3A631D41E55F18000B5E524 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1167,7 +1153,7 @@
 					"\"$(SDKROOT)/usr/include/libxml2\"",
 				);
 				INFOPLIST_FILE = "sample-conference-videochat/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = "$(inherited)";
@@ -1206,7 +1192,7 @@
 					"\"$(SDKROOT)/usr/include/libxml2\"",
 				);
 				INFOPLIST_FILE = "sample-conference-videochat/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = "$(inherited)";

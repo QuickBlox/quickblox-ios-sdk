@@ -3,15 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		2C61CD8B1B9DEB2400622035 /* AddNewMovieHeaderFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C61CD8A1B9DEB2400622035 /* AddNewMovieHeaderFooterView.xib */; };
 		2C61CD8E1B9DEBBC00622035 /* AddNewMovieHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C61CD8D1B9DEBBC00622035 /* AddNewMovieHeaderFooterView.m */; };
 		2CED4A771B9D769600B6862C /* SAMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CED4A761B9D769600B6862C /* SAMTextView.m */; };
-		583978AA1D48A83B009E970B /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF3D71B285ED000078084 /* Quickblox.framework */; };
-		583978AB1D48A83B009E970B /* Quickblox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF3D71B285ED000078084 /* Quickblox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3A7C8DA8260DE45700840AAB /* Quickblox.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A7C8DA7260DE45700840AAB /* Quickblox.xcframework */; };
+		3A7C8DA9260DE45700840AAB /* Quickblox.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A7C8DA7260DE45700840AAB /* Quickblox.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BF0CF3AE1B28599E00078084 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF3AD1B28599E00078084 /* main.m */; };
 		BF0CF3B11B28599E00078084 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF3B01B28599E00078084 /* AppDelegate.m */; };
 		BF0CF3B41B28599E00078084 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF3B31B28599E00078084 /* MainViewController.m */; };
@@ -35,13 +35,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		583978AC1D48A83C009E970B /* Embed Frameworks */ = {
+		3A7C8DAA260DE45700840AAB /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				583978AB1D48A83B009E970B /* Quickblox.framework in Embed Frameworks */,
+				3A7C8DA9260DE45700840AAB /* Quickblox.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -55,6 +55,7 @@
 		2C61CD8D1B9DEBBC00622035 /* AddNewMovieHeaderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewMovieHeaderFooterView.m; sourceTree = "<group>"; };
 		2CED4A751B9D769600B6862C /* SAMTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMTextView.h; sourceTree = "<group>"; };
 		2CED4A761B9D769600B6862C /* SAMTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMTextView.m; sourceTree = "<group>"; };
+		3A7C8DA7260DE45700840AAB /* Quickblox.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Quickblox.xcframework; path = ../Framework/Quickblox.xcframework; sourceTree = "<group>"; };
 		583978A81D48A834009E970B /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		604DE2DD0512F98ED41BF77B /* Pods-sample-custom_objects.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-custom_objects.release.xcconfig"; path = "Pods/Target Support Files/Pods-sample-custom_objects/Pods-sample-custom_objects.release.xcconfig"; sourceTree = "<group>"; };
 		8F9CE1D6B776B3633EB6DE27 /* libPods-sample-custom_objectsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-sample-custom_objectsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,8 +97,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF0CF3EE1B28646500078084 /* libxml2.2.dylib in Frameworks */,
-				583978AA1D48A83B009E970B /* Quickblox.framework in Frameworks */,
 				BF0CF3EC1B28646000078084 /* libresolv.9.dylib in Frameworks */,
+				3A7C8DA8260DE45700840AAB /* Quickblox.xcframework in Frameworks */,
 				BF0CF3EA1B28645B00078084 /* libz.1.2.5.dylib in Frameworks */,
 				BF0CF3E81B28645600078084 /* Security.framework in Frameworks */,
 				BF0CF3E61B28645100078084 /* QuartzCore.framework in Frameworks */,
@@ -180,6 +181,7 @@
 		D44C08A129FE092205A709F9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3A7C8DA7260DE45700840AAB /* Quickblox.xcframework */,
 				583978A81D48A834009E970B /* QuickLook.framework */,
 				BF0CF3D71B285ED000078084 /* Quickblox.framework */,
 				BF0CF3ED1B28646500078084 /* libxml2.2.dylib */,
@@ -207,9 +209,9 @@
 				BF0CF3A41B28599E00078084 /* Sources */,
 				BF0CF3A51B28599E00078084 /* Frameworks */,
 				BF0CF3A61B28599E00078084 /* Resources */,
-				583978AC1D48A83C009E970B /* Embed Frameworks */,
 				FD1E1D25EB9CA6FD4DC21BE7 /* [CP] Embed Pods Frameworks */,
 				443FE97A2C149F07CC7A887C /* [CP] Copy Pods Resources */,
+				3A7C8DAA260DE45700840AAB /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -232,7 +234,6 @@
 					BF0CF3A71B28599E00078084 = {
 						CreatedOnToolsVersion = 6.3.2;
 						DevelopmentTeam = 8885H5G2YX;
-						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -241,6 +242,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -462,7 +464,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "ed0e21e0-7272-4a26-98b9-5978e5bd3681";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -475,22 +476,25 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
-				DEVELOPMENT_TEAM = 8885H5G2YX;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
 					"\"$(SRCROOT)/../Framework\"",
 				);
 				INFOPLIST_FILE = "sample-custom_objects/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3dc52ffd-2a6b-4451-a075-274af5251dd0";
-				PROVISIONING_PROFILE_SPECIFIER = "XC: *";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -501,23 +505,26 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Injoit LTD (8885H5G2YX)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Injoit LTD (8885H5G2YX)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
-				DEVELOPMENT_TEAM = 8885H5G2YX;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
 					"\"$(SRCROOT)/../Framework\"",
 				);
 				INFOPLIST_FILE = "sample-custom_objects/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3ee53e90-c6a8-4f57-bf4b-41c1766e3f91";
-				PROVISIONING_PROFILE_SPECIFIER = "Sample Custom Objects AdHoc";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
