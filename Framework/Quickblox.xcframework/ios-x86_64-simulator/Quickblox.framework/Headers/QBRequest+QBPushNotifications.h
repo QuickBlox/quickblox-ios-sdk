@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "QBRequest.h"
+#import <QuickBlox/QBRequest.h>
 
 @class QBMPushToken;
 @class QBMSubscription;

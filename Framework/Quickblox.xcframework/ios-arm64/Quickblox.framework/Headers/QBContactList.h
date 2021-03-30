@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "QBContactListItem.h"
+#import <QuickBlox/QBContactListItem.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

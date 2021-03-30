@@ -6,11 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#if __has_include("QBCEntity.h")
-#import "QBCEntity.h"
-#else
-#import <QBCEntity.h>
-#endif
+#import <QuickBlox/QBCEntity.h>
 
 
 NS_ASSUME_NONNULL_BEGIN

@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "QBChatTypes.h"
+#import <QuickBlox/QBChatTypes.h>
 
 @protocol QBChatDelegate;
 
@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeAllDelegates;
 
 /** Returns array of all delegates. */
-- (NSArray<id <QBChatDelegate>> *)delegates;
+- (NSArray<id<QBChatDelegate>> *)delegates;
 
 @end
 

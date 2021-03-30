@@ -6,8 +6,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "QBCEntity.h"
-#import "QBPushNotificationsEnums.h"
+#import <QuickBlox/QBCEntity.h>
+#import <QuickBlox/QBPushNotificationsEnums.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
