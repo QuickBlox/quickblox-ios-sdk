@@ -31,21 +31,34 @@ It allows to:
 * New dialog view.
 * Edit dialog view.
 
-# CocoaPods
+# Quick Start
 
-[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
+To run a code sample, follow the steps below:
 
-```bash
-$ gem install cocoapods
+1. Install [CocoaPods](https://cocoapods.org) to manage project dependencies.
+
 ```
-
-> CocoaPods 1.1+ is required to build project with QuickBlox 2.17+.
-
-To integrate QuickBlox into the **sample-chat-swift** run the following command:
-
-```bash
+bash
+$ sudo gem install cocoapods
+```
+2. Clone repository with the sample code.
+3. Open a terminal and enter the command below in your project path to integrate QuickBlox into the sample.
+```
+bash
 $ pod install
 ```
+4. [Get application credentials](https://docs.quickblox.com/docs/ios-quick-start#get-application-credentials) and get applicationID ,authKey, authSecret, and accountKey.
+5. Put the received credentials in AppDelegate file located in the root directory of your project.
+
+```
+QBSettings.applicationID = 92
+QBSettings.authKey = "wJHdOcQSxXQGWx5"
+QBSettings.authSecret = "BTFsj7Rtt27DAmT"
+QBSettings.accountKey = "7yvNe17TnjNUqDoPwfqp"
+```
+6. Run the code sample.
+
+
 Additional libraries used via [CocoaPods](https://cocoapods.org):
 
 * [SVProgressHUD](https://github.com/TransitApp/SVProgressHUD.git/)
