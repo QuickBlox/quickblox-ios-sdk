@@ -6,7 +6,7 @@ It is based on WebRTC technology.
 This code sample is written in *Objective-C* lang.
 The same is also available in [Swift](https://github.com/QuickBlox/quickblox-ios-sdk/blob/master/sample-videochat-webrtc-swift) lang.
 
-# Get application Credentials
+# Get Application Credentials
 
 QuickBlox application includes everything that brings messaging right into your application - chat, video calling, users, push notifications, etc. To create a QuickBlox application, follow the steps below:
 
