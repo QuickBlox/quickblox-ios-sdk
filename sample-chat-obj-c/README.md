@@ -3,12 +3,14 @@
 
 This is a code sample for [QuickBlox](https://quickblox.com) platform. It is a great way for developers using QuickBlox platform to learn how to integrate private and group chat, add text and image attachments sending into your application.
 
-# Credentials
+# Get application Credentials
 
-Welcome to QuickBlox [Credentials](https://docs.quickblox.com/docs/ios-quick-start), where you can get your credentials in just 5 minutes! All you need is to:
+QuickBlox application includes everything that brings messaging right into your application - chat, video calling, users, push notifications, etc. To create a QuickBlox application, follow the steps below:
 
-1. Register a free QuickBlox account and add your App there.
-2. Update credentials in your [Application Code](https://docs.quickblox.com/docs/ios-setup#get-application-credentials)
+1. Register a new account following this [link](https://admin.quickblox.com/signup). Type in your email and password to sign in. You can also sign in with your Google or Github accounts.
+2. Create the app clicking New app button.
+3. Configure the app. Type in the information about your organization into corresponding fields and click Add button.
+4. Go to Dashboard => YOUR_APP => Overview section and copy your Application ID, Authorization Key, Authorization Secret, and Account Key .
 
 # Chat Sample
 
@@ -31,7 +33,7 @@ It allows to:
 * New dialog view.
 * Edit dialog view.
 
-# Quick Start
+# Run Chat Sample
 
 To run a code sample, follow the steps below:
 
@@ -47,7 +49,7 @@ $ sudo gem install cocoapods
 bash
 $ pod install
 ```
-4. [Get application credentials](https://docs.quickblox.com/docs/ios-quick-start#get-application-credentials) and get applicationID ,authKey, authSecret, and accountKey.
+4. [Get application credentials](#get-application-credentials).
 5. Put the received credentials in AppDelegate file located in the root directory of your project.
 
 ```
@@ -63,7 +65,3 @@ Additional libraries used via [CocoaPods](https://cocoapods.org):
 * [SVProgressHUD](https://github.com/TransitApp/SVProgressHUD.git/)
 * [SDWebImage](https://github.com/rs/SDWebImage.git)
 * [TTTAttributedLabel](https://github.com/TTTAttributedLabel/TTTAttributedLabel.git)
-
-# Documentation
-
-Original sample description & setup guide - [iOS Chat Sample](https://docs.quickblox.com/docs/ios-chat)

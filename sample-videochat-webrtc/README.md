@@ -6,12 +6,14 @@ It is based on WebRTC technology.
 This code sample is written in *Objective-C* lang.
 The same is also available in [Swift](https://github.com/QuickBlox/quickblox-ios-sdk/blob/master/sample-videochat-webrtc-swift) lang.
 
-# Credentials
+# Get application Credentials
 
-Welcome to QuickBlox [Credentials](https://docs.quickblox.com/docs/ios-quick-start), where you can get your credentials in just 5 minutes! All you need is to:
+QuickBlox application includes everything that brings messaging right into your application - chat, video calling, users, push notifications, etc. To create a QuickBlox application, follow the steps below:
 
-1. Register a free QuickBlox account and add your App there.
-2. Update credentials in your [Application Code](https://docs.quickblox.com/docs/ios-setup#initialize-quickblox-sdk).
+1. Register a new account following this [link](https://admin.quickblox.com/signup). Type in your email and password to sign in. You can also sign in with your Google or Github accounts.
+2. Create the app clicking New app button.
+3. Configure the app. Type in the information about your organization into corresponding fields and click Add button.
+4. Go to Dashboard => YOUR_APP => Overview section and copy your Application ID, Authorization Key, Authorization Secret, and Account Key .
 
 # Main features
 * 1-1 video calling
@@ -24,8 +26,6 @@ Welcome to QuickBlox [Credentials](https://docs.quickblox.com/docs/ios-quick-sta
 * WebRTC Stats reports
 * H264,VP8,H264High video codecs supported
 * Lots of different settings related to call quality 
-
-Original sample description & setup guide - [Sample-webrtc-ios](https://docs.quickblox.com/docs/ios-video-calling)
 
 # The Сhanges VOIP on iOS 13
 
@@ -42,7 +42,7 @@ let payload = ["message": "\(opponentName) is calling you.",
     “timestamp”: timestamp - this is the string from the date of sending the VOIP Push, it's added to payload for the case when there is bad Internet  and the push is delivered for a long time and may come when the call initiator completes the call automatically. Upon receiving  of the push, we compare the date of departure and the date of receiving and if the delivery time of the push is longer than “answerTimeInterval” - do not show the call;
 ]
 
-# Quick Start
+# Run Video Chat Sample
 
 To run a code sample, follow the steps below:
 
@@ -58,7 +58,7 @@ $ sudo gem install cocoapods
 bash
 $ pod install
 ```
-4. [Get application credentials](https://docs.quickblox.com/docs/ios-quick-start#get-application-credentials) and get applicationID ,authKey, authSecret, and accountKey.
+4. [Get application credentials](#get-application-credentials).
 5. Put the received credentials in AppDelegate file located in the root directory of your project.
 
 ```
@@ -72,7 +72,3 @@ $ pod install
 Additional libraries used via [CocoaPods](https://cocoapods.org):
 
 * [SVProgressHUD](https://github.com/TransitApp/SVProgressHUD.git/)
-
-# Documentation
-
-Original sample description & setup guide - [iOS Video Chat Sample](https://docs.quickblox.com/docs/ios-quick-start#video-chat-sample)
