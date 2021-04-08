@@ -4,7 +4,7 @@ QuickBlox iOS Sample Chat (Swift)
 
 This is a code sample for [QuickBlox](https://quickblox.com) platform. It is a great way for developers using QuickBlox platform to learn how to integrate private and group chat, add text and image attachments sending into your application.
 
-# Get application Credentials
+# Get Application Credentials
 
 QuickBlox application includes everything that brings messaging right into your application - chat, video calling, users, push notifications, etc. To create a QuickBlox application, follow the steps below:
 
