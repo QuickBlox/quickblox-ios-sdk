@@ -11,9 +11,9 @@ The same is also available in [Objective-C](https://github.com/QuickBlox/quickbl
 QuickBlox application includes everything that brings messaging right into your application - chat, video calling, users, push notifications, etc. To create a QuickBlox application, follow the steps below:
 
 1. Register a new account following this [link](https://admin.quickblox.com/signup). Type in your email and password to sign in. You can also sign in with your Google or Github accounts.
-2. Create the app clicking New app button.
-3. Configure the app. Type in the information about your organization into corresponding fields and click Add button.
-4. Go to Dashboard => YOUR_APP => Overview section and copy your Application ID, Authorization Key, Authorization Secret, and Account Key .
+2. Create the app clicking **New app** button.
+3. Configure the app. Type in the information about your organization into corresponding fields and click **Add** button.
+4. Go to **Dashboard => *YOUR_APP* => Overview** section and copy your **Application ID**,  **Authorization Key**,  **Authorization Secret**,  and **Account Key** .
 
 # Main features
 * 1-1 video calling
@@ -59,7 +59,7 @@ bash
 $ pod install
 ```
 4. [Get application credentials](#get-application-credentials).
-5. Put the received credentials in AppDelegate file located in the root directory of your project.
+5. Put the received credentials in ```AppDelegate``` file located in the root directory of your project.
 
 ```
 QBSettings.applicationID = 92
