@@ -1,7 +1,8 @@
 //
 //  BaseSettingsViewController.h
-//  sample-videochat-webrtc-old
+//  sample-conference-videochat
 //
+//  Created by Injoit on 25.06.15.
 //  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
@@ -23,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @see Settings
  */
-@property (strong, nonatomic) Settings *settings;
+//@property (strong, nonatomic) Settings *settings;
 
 /**
  *  Sections models.

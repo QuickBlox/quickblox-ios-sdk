@@ -1,13 +1,12 @@
 //
 //  SessionSettingsViewController.m
-//  sample-videochat-webrtc
+//  sample-conference-videochat
 //
-//  Created by Andrey Ivanov on 25.06.15.
+//  Created by Injoit on 25.06.15.
 //  Copyright (c) 2015 QuickBlox Team. All rights reserved.
 //
 
 #import "SessionSettingsViewController.h"
-#import "UsersDataSource.h"
 #import "Settings.h"
 
 @interface SessionSettingsViewController()
@@ -27,9 +26,7 @@ typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.settings = Settings.instance;
-    
+
     NSString *appVersion = NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"];
     NSString *appBuild = NSBundle.mainBundle.infoDictionary[@"CFBundleVersion"];
     NSString *version = [NSString stringWithFormat:
@@ -49,9 +46,10 @@ typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
 #pragma mark - Actions
 
 - (IBAction)pressDoneBtn:(id)sender {
-    
-    [[Settings instance] saveToDisk];
-    [[Settings instance] applyConfig];
+    //APPLY SETTINGS
+    Settings *settings = [[Settings alloc] init];
+    [settings applyConfig];
+    [settings saveToDisk];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

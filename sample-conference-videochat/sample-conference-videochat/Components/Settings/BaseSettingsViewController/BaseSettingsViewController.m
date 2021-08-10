@@ -1,14 +1,12 @@
 //
 //  BaseSettingsViewController.m
-//  sample-videochat-webrtc-old
+//  sample-conference-videochat
 //
+//  Created by Injoit on 25.06.15.
 //  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
 #import "BaseSettingsViewController.h"
-
-#import "Settings.h"
-
 #import "SettingCell.h"
 #import "SettingSliderCell.h"
 #import "SettingSwitchCell.h"
@@ -23,19 +21,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.settings = [Settings instance];
+
     self.selectedIndexes = [NSMutableDictionary dictionary];
     self.sections = [NSMutableDictionary dictionary];
     
     [self configure];
     [self registerNibs];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    
-    [self applySettings];
 }
 
 // MARK: Public

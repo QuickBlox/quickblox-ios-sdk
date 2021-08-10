@@ -1,6 +1,6 @@
 //
 //  main.m
-//  sample-multiconference-videochat
+//  sample-conference-videochat
 //
 //  Copyright (c) 2017 QuickBlox. All rights reserved.
 //

@@ -1,6 +1,4 @@
-# Overview
-
-QuickBlox iOS Conference Sample (Objective-C)
+QuickBlox iOS Conference Sample (ObjC)
 
 This is sample code for the [QuickBlox](https://quickblox.com). This is a great way for developers using the QuickBlox platform to implement Conference to your application.
 QuickBlox provides the Multiparty Video Conferencing solution which allows to setup video conference between 10-12 people. It's built on top of WebRTC SFU technologies.
@@ -33,9 +31,9 @@ This Sample demonstrates how to work with [Conference](https://docs.quickblox.co
 $ gem install cocoapods
 ```
 
-> CocoaPods 1.1+ is required to build project with QuickBlox 2.17.7+ and Quickblox-WebRTC 2.7.4+.
+> CocoaPods 1.1+ is required to build project with QuickBlox 2.17.10+ and Quickblox-WebRTC 2.7.6+.
 
-To integrate QuickBlox and Quickblox-WebRTC into the **sample-videochat-webrtc-swift** run the following command:
+To integrate QuickBlox and Quickblox-WebRTC into the **sample-conference-videochat** run the following command:
 
 ```bash
 $ pod install
@@ -45,4 +43,4 @@ Additional libraries used via [CocoaPods](https://cocoapods.org):
 * [SVProgressHUD](https://github.com/TransitApp/SVProgressHUD.git/)
 
 # Examples and implementations
-**sample-conference-videochat-objc** is a great example of our QuickbloxWebRTC [Conference](https://docs.quickblox.com/docs/ios-video-conference)
+**sample-conference-videochat-swift** is a great example of our QuickbloxWebRTC [Conference](https://docs.quickblox.com/docs/ios-video-conference)
