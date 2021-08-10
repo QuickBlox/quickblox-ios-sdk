@@ -1,8 +1,8 @@
 //
 //  Settings.h
-//  sample-videochat-webrtc
+//  sample-conference-videochat
 //
-//  Created by Andrey Ivanov on 25.06.15.
+//  Created by Injoit on 25.06.15.
 //  Copyright (c) 2015 QuickBlox Team. All rights reserved.
 //
 
@@ -13,8 +13,6 @@
 @property (strong, nonatomic) QBRTCVideoFormat *videoFormat;
 @property (strong, nonatomic) QBRTCMediaStreamConfiguration *mediaConfiguration;
 @property (assign, nonatomic) AVCaptureDevicePosition preferredCameraPostion;
-
-+ (instancetype)instance;
 
 - (void)saveToDisk;
 - (void)applyConfig;

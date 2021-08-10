@@ -1,8 +1,8 @@
 //
 //  SettingsSectionModel.h
-//  sample-videochat-webrtc
+//  sample-conference-videochat
 //
-//  Created by Andrey Ivanov on 30/09/15.
+//  Created by Injoit on 30/09/15.
 //  Copyright © 2015 QuickBlox Team. All rights reserved.
 //
 

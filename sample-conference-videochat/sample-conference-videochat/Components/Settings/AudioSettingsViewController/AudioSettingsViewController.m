@@ -1,8 +1,8 @@
 //
 //  AudioSettingsViewController.m
-//  sample-videochat-webrtc
+//  sample-conference-videochat
 //
-//  Created by Andrey Ivanov on 25.06.15.
+//  Created by Injoit on 25.06.15.
 //  Copyright (c) 2015 QuickBlox Team. All rights reserved.
 //
 
@@ -69,7 +69,22 @@ static inline struct AudioCodecBandWidthRange audioCodecRangeForCodec(QBRTCAudio
     return nil;
 }
 
+- (void)didTapBack:(UIButton *)sender {
+    [self applySettings];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)configure {
+    
+    UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"chevron"]
+                                                                       style:UIBarButtonItemStylePlain
+                                                                      target:self
+                                                                      action:@selector(didTapBack:)];
+    
+    self.navigationItem.leftBarButtonItem = backButtonItem;
+    backButtonItem.tintColor = UIColor.whiteColor;
+    
+    Settings *settings = [[Settings alloc] init];
     
     __weak __typeof(self)weakSelf = self;
     
@@ -79,10 +94,11 @@ static inline struct AudioCodecBandWidthRange audioCodecRangeForCodec(QBRTCAudio
         //audio level control
         SwitchItemModel *switchItem = [[SwitchItemModel alloc] init];
         switchItem.title = @"Audio level control";
-        switchItem.on = weakSelf.settings.mediaConfiguration.audioLevelControlEnabled;
+        switchItem.on = settings.mediaConfiguration.audioLevelControlEnabled;
         
         return @[switchItem];
     }];
+    
     //Bandwidth
     [self addSectionWith:AudioSettingsSectionBandwidth items:^NSArray *(NSString *sectionTitle) {
         
@@ -90,13 +106,13 @@ static inline struct AudioCodecBandWidthRange audioCodecRangeForCodec(QBRTCAudio
         SwitchItemModel *switchItem = [[SwitchItemModel alloc] init];
         switchItem.title = @"Enable";
         
-        BOOL isEnabled = (weakSelf.settings.mediaConfiguration.audioBandwidth > 0);
+        BOOL isEnabled = (settings.mediaConfiguration.audioBandwidth > 0);
         switchItem.on = isEnabled;
         
         SliderItemModel *bandwidthSlider = [[SliderItemModel alloc] init];
         bandwidthSlider.title = @"30";
-        [weakSelf updateBandwidthSliderModelRange:bandwidthSlider usingCodec:weakSelf.settings.mediaConfiguration.audioCodec];
-        bandwidthSlider.currentValue = weakSelf.settings.mediaConfiguration.audioBandwidth < bandwidthSlider.minValue ? bandwidthSlider.minValue : weakSelf.settings.mediaConfiguration.audioBandwidth;
+        [weakSelf updateBandwidthSliderModelRange:bandwidthSlider usingCodec:settings.mediaConfiguration.audioCodec];
+        bandwidthSlider.currentValue = settings.mediaConfiguration.audioBandwidth > bandwidthSlider.minValue ? settings.mediaConfiguration.audioBandwidth : bandwidthSlider.minValue;
         
         bandwidthSlider.disable = !isEnabled;
         
@@ -137,29 +153,14 @@ static inline struct AudioCodecBandWidthRange audioCodecRangeForCodec(QBRTCAudio
     sliderModel.maxValue = range.maxValue;
 }
 
-- (void)updateBandwidthValueForIndexPath:(NSIndexPath *)indexPath {
-    
-    SettingsSectionModel *bandwidth = [self sectionWith:AudioSettingsSectionBandwidth];
-    SwitchItemModel *switchItem = bandwidth.items[AudioBandwidthSectionEnable];
-    SliderItemModel *bandwidthSlider = bandwidth.items[AudioBandwidthSectionBandwidth];
-    BaseItemModel *audioCodec = [self modelWithIndex:indexPath.row section:indexPath.section];
-    [self updateBandwidthSliderModelRange:bandwidthSlider usingCodec:(QBRTCAudioCodec)[(NSNumber *)audioCodec.data integerValue]];
-    
-    bandwidthSlider.disable = YES;
-    switchItem.on = NO;
-    
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:AudioSettingsSectionBandwidth]
-                  withRowAnimation:UITableViewRowAnimationFade];
-}
-
 - (void)applySettings {
     
     //APPLY SETTINGS
-    
+    Settings *settings = [[Settings alloc] init];
     //constraints
     SettingsSectionModel *constraints = [self sectionWith:AudioSettingsSectionConstraints];
     SwitchItemModel *levelControlSwitch = constraints.items.firstObject;
-    self.settings.mediaConfiguration.audioLevelControlEnabled = levelControlSwitch.on;
+    settings.mediaConfiguration.audioLevelControlEnabled = levelControlSwitch.on;
     
     //bandwidth
     SettingsSectionModel *bandwidth = [self sectionWith:AudioSettingsSectionBandwidth];
@@ -168,11 +169,14 @@ static inline struct AudioCodecBandWidthRange audioCodecRangeForCodec(QBRTCAudio
     if (isEnabled) {
         
         SliderItemModel *bandwidthSlider = bandwidth.items[AudioBandwidthSectionBandwidth];
-        self.settings.mediaConfiguration.audioBandwidth = bandwidthSlider.currentValue;
+        settings.mediaConfiguration.audioBandwidth = bandwidthSlider.currentValue;
     }
     else {
-        self.settings.mediaConfiguration.audioBandwidth = 0;
+        settings.mediaConfiguration.audioBandwidth = 0;
     }
+    
+    [settings applyConfig];
+    [settings saveToDisk];
 }
 
 @end

@@ -1,8 +1,8 @@
 //
 //  CornerView.m
-//  QBRTCChatSemple
+//  sample-conference-videochat
 //
-//  Created by Andrey Ivanov on 11.12.14.
+//  Created by Injoit on 11.12.14.
 //  Copyright (c) 2014 QuickBlox Team. All rights reserved.
 //
 

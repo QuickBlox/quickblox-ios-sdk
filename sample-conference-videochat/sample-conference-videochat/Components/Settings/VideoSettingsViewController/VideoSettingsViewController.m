@@ -1,8 +1,8 @@
 //
 //  SettingsViewController.m
-//  sample-videochat-webrtc
+//  sample-conference-videochat
 //
-//  Created by Andrey Ivanov on 21.06.15.
+//  Created by Injoit on 21.06.15.
 //  Copyright (c) 2015 QuickBlox Team. All rights reserved.
 //
 
@@ -47,6 +47,8 @@ typedef NS_ENUM(NSUInteger, VideoSettingsSectionType) {
     //Grab supported formats
     
     NSArray *formats = [QBRTCCameraCapture formatsWithPosition:cameraPosition];
+    NSPredicate *formatsPredicate = [NSPredicate predicateWithFormat:@"width <= %i", 1024];
+    formats = [formats filteredArrayUsingPredicate:formatsPredicate];
     
     NSMutableArray *videoFormatModels = [NSMutableArray arrayWithCapacity:formats.count];
     for (QBRTCVideoFormat *videoFormat in formats) {
@@ -60,7 +62,21 @@ typedef NS_ENUM(NSUInteger, VideoSettingsSectionType) {
     return videoFormatModels;
 }
 
+- (void)didTapBack:(UIButton *)sender {
+    [self applySettings];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)configure {
+    Settings *settings = [[Settings alloc] init];
+    
+    UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"chevron"]
+                                                                       style:UIBarButtonItemStylePlain
+                                                                      target:self
+                                                                      action:@selector(didTapBack:)];
+    
+    self.navigationItem.leftBarButtonItem = backButtonItem;
+    backButtonItem.tintColor = UIColor.whiteColor;
     
     //Camera position section
     __weak __typeof(self)weakSelf = self;
@@ -70,19 +86,22 @@ typedef NS_ENUM(NSUInteger, VideoSettingsSectionType) {
         SwitchItemModel *switchItem = [[SwitchItemModel alloc] init];
         switchItem.title = @"Back Camera";
         
-        switchItem.on = (weakSelf.settings.preferredCameraPostion == AVCaptureDevicePositionBack);
+        switchItem.on = (settings.preferredCameraPostion == AVCaptureDevicePositionBack);
         
         return @[switchItem];
     }];
     //Supported video formats section
     [self addSectionWith:VideoSettingsSectionSupportedFormats items:^NSArray *(NSString *sectionTitle) {
         
-        AVCaptureDevicePosition position = weakSelf.settings.preferredCameraPostion;
+        AVCaptureDevicePosition position = settings.preferredCameraPostion;
         NSArray *videoFormats = [weakSelf videoFormatModelsWithCameraPositon:position];
         
         NSArray *formats = [QBRTCCameraCapture formatsWithPosition:position];
+        NSPredicate *formatsPredicate = [NSPredicate predicateWithFormat:@"width <= %i", 1024];
+        formats = [formats filteredArrayUsingPredicate:formatsPredicate];
+
         //Select index path
-        NSUInteger idx = [formats indexOfObject:weakSelf.settings.videoFormat];
+        NSUInteger idx = [formats indexOfObject:settings.videoFormat];
         [weakSelf selectSection:VideoSettingsSectionSupportedFormats index:idx];
         
         return videoFormats;
@@ -93,7 +112,7 @@ typedef NS_ENUM(NSUInteger, VideoSettingsSectionType) {
         SliderItemModel *frameRateSlider = [[SliderItemModel alloc] init];
         frameRateSlider.title = @"30";
         frameRateSlider.minValue = 2;
-        frameRateSlider.currentValue = weakSelf.settings.videoFormat.frameRate;
+        frameRateSlider.currentValue = settings.videoFormat.frameRate;
         frameRateSlider.maxValue = 30;
         
         return @[frameRateSlider];
@@ -104,7 +123,7 @@ typedef NS_ENUM(NSUInteger, VideoSettingsSectionType) {
         SliderItemModel *bandwidthSlider = [[SliderItemModel alloc] init];
         bandwidthSlider.title = @"30";
         bandwidthSlider.minValue = 0;
-        bandwidthSlider.currentValue = weakSelf.settings.mediaConfiguration.videoBandwidth;
+        bandwidthSlider.currentValue = settings.mediaConfiguration.videoBandwidth;
         bandwidthSlider.maxValue = 2000;
         
         return @[bandwidthSlider];
@@ -132,11 +151,11 @@ typedef NS_ENUM(NSUInteger, VideoSettingsSectionType) {
 #pragma mark - SettingsCellDelegate
 
 - (void)cell:(BaseSettingsCell *)cell didChageModel:(BaseItemModel *)model {
-    
+#if !(TARGET_IPHONE_SIMULATOR)
     if ([model isKindOfClass:[SwitchItemModel class]]) {
-        
         [self reloadVideoFormatSectionForPosition:((SwitchItemModel *)model).on ? AVCaptureDevicePositionBack : AVCaptureDevicePositionFront];
     }
+#endif
 }
 
 #pragma mark - Helpers
@@ -147,7 +166,9 @@ typedef NS_ENUM(NSUInteger, VideoSettingsSectionType) {
     
     SettingsSectionModel *section = [self sectionWith:VideoSettingsSectionSupportedFormats];
     section.items = videoFormatModels;
-    NSArray *formats = [QBRTCCameraCapture formatsWithPosition:position];
+    
+    NSArray<QBRTCVideoFormat *> *formats = [QBRTCCameraCapture formatsWithPosition:position];
+    
     
     NSString *title = [self titleForSection:VideoSettingsSectionSupportedFormats];
     NSIndexPath *oldIdnexPath = self.selectedIndexes[title];
@@ -171,15 +192,10 @@ typedef NS_ENUM(NSUInteger, VideoSettingsSectionType) {
 - (void)applySettings {
     
     //APPLY SETTINGS
-    
+    Settings *settings = [[Settings alloc] init];
     //Preferred camera positon
     SwitchItemModel *cameraPostion = (id)[self modelWithIndex:0 section:VideoSettingsSectionCameraPostion];
-    self.settings.preferredCameraPostion = cameraPostion.on ? AVCaptureDevicePositionBack : AVCaptureDevicePositionFront;
-    
-    //Supported format
-    NSIndexPath *supportedFormatIndexPath = [self indexPathAtSection:VideoSettingsSectionSupportedFormats];
-    BaseItemModel *format = [self modelWithIndex:supportedFormatIndexPath.row section:supportedFormatIndexPath.section];
-    QBRTCVideoFormat *videoFormat = format.data;
+    settings.preferredCameraPostion = cameraPostion.on ? AVCaptureDevicePositionBack : AVCaptureDevicePositionFront;
     
     //Frame rate
     SettingsSectionModel *frameRate = [self sectionWith:VideoSettingsSectionVideoFrameRate];
@@ -189,13 +205,24 @@ typedef NS_ENUM(NSUInteger, VideoSettingsSectionType) {
     SettingsSectionModel *bandwidth = [self sectionWith:VideoSettingsSectionBandwidth];
     SliderItemModel *bandwidthSlider = bandwidth.items.firstObject;
     
-    self.settings.mediaConfiguration.videoBandwidth = bandwidthSlider.currentValue;
+    settings.mediaConfiguration.videoBandwidth = bandwidthSlider.currentValue;
     
-    self.settings.videoFormat =
+    //Supported format
+#if !(TARGET_IPHONE_SIMULATOR)
+    NSIndexPath *supportedFormatIndexPath = [self indexPathAtSection:VideoSettingsSectionSupportedFormats];
+    BaseItemModel *format = [self modelWithIndex:supportedFormatIndexPath.row section:supportedFormatIndexPath.section];
+    QBRTCVideoFormat *videoFormat = format.data;
+    
+    settings.videoFormat =
     [QBRTCVideoFormat videoFormatWithWidth:videoFormat.width
                                     height:videoFormat.height
                                  frameRate:frameRateSlider.currentValue
                                pixelFormat:QBRTCPixelFormat420f];
+    [self reloadVideoFormatSectionForPosition:settings.preferredCameraPostion];
+#endif
+    [settings applyConfig];
+    [settings saveToDisk];
+    
 }
 
 @end

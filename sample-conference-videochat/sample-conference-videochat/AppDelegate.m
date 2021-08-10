@@ -1,6 +1,6 @@
 //
 //  AppDelegate.m
-//  sample-multiconference-videochat
+//  sample-conference-videochat
 //
 //  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
@@ -8,9 +8,14 @@
 #import "AppDelegate.h"
 #import "SVProgressHUD.h"
 #import "Settings.h"
+#import <Quickblox/Quickblox.h>
+#import "Log.h"
+#import "ChatManager.h"
+#import "PresenterViewController.h"
+#import "Profile.h"
 
-const NSTimeInterval kQBAnswerTimeInterval = 60.0f;
-const NSTimeInterval kQBDialingTimeInterval = 5.0f;
+const NSTimeInterval answerTimeInterval = 30.0f;
+const NSTimeInterval dialingTimeInterval = 5.0f;
 
 #define ENABLE_STATS_REPORTS 1
 
@@ -20,12 +25,15 @@ NSString *const kAuthKey        = @"";
 NSString *const kAuthSecret     = @"";
 NSString *const kAccountKey     = @"";
 
-@implementation AppDelegate
+@interface AppDelegate ()
 
+@end
+
+@implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+
     self.window.backgroundColor = [UIColor whiteColor];
     
     [QBSettings setApplicationID:kApplicationID];
@@ -35,9 +43,10 @@ NSString *const kAccountKey     = @"";
     
     [QBSettings setLogLevel:QBLogLevelNothing];
     [QBSettings disableXMPPLogging];
+    QBSettings.autoReconnectEnabled = YES;
     
-    [QBRTCConfig setAnswerTimeInterval:kQBAnswerTimeInterval];
-    [QBRTCConfig setDialingTimeInterval:kQBDialingTimeInterval];
+    [QBRTCConfig setAnswerTimeInterval:answerTimeInterval];
+    [QBRTCConfig setDialingTimeInterval:dialingTimeInterval];
     [QBRTCConfig setLogLevel:QBRTCLogLevelVerbose];
     
     [QBRTCConfig setConferenceEndpoint:@""];
@@ -50,38 +59,97 @@ NSString *const kAccountKey     = @"";
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
     
     [QBRTCClient initializeRTC];
-    
-    // loading settings
-    [Settings instance];
+
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    self.window.rootViewController = [[PresenterViewController alloc] init];
+    [self.window makeKeyAndVisible];
     
     return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSUserDefaults *userDefaults = NSUserDefaults.standardUserDefaults;
+    NSData *lastToken = [userDefaults objectForKey:kToken];
+    if ([lastToken isEqualToData:deviceToken]) {
+        return;
+    }
+    
+    [userDefaults setObject:deviceToken forKey:kToken];
+    [userDefaults setBool:YES forKey:kNeedUpdateToken];
+    
+    if ([ChatManager.instance tokenHasExpired]) {
+        return;
+    }
+    __weak __typeof(self)weakSelf = self;
+    [self deleteLastSubscriptionWithCompletion:^{
+        [weakSelf createSubscriptionWithToken:deviceToken];
+    }];   
 }
 
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    // failed to register push
+    Log(@"Push failed to register with error: %@", error);
+}
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    application.applicationIconBadgeNumber = 0;
+    
+    // Logout from chat
+    [ChatManager.instance disconnect:nil];
 }
-
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    // Login to QuickBlox Chat
+    [ChatManager.instance connect:nil];
 }
 
+- (void)createSubscriptionWithToken:(NSData *)token {
+    NSString *deviceUUID = UIDevice.currentDevice.identifierForVendor.UUIDString;
+    
+    QBMSubscription *subscription = [QBMSubscription subscription];
+    subscription.notificationChannel = QBMNotificationChannelAPNS;
+    subscription.deviceUDID = deviceUUID;
+    subscription.deviceToken = token;
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [QBRequest createSubscription:subscription
+                     successBlock:^(QBResponse *response, NSArray *objects) {
+        QBMSubscription *newSubscription = nil;
+        for (QBMSubscription *subscription in objects) {
+            if (subscription.notificationChannel == QBMNotificationChannelAPNS &&
+                [subscription.deviceUDID isEqualToString:deviceUUID]) {
+                newSubscription = subscription;
+            }
+        }
+        
+        [NSUserDefaults.standardUserDefaults setObject:@(newSubscription.ID) forKey:kSubscriptionID];
+        [NSUserDefaults.standardUserDefaults setBool:NO forKey:kNeedUpdateToken];
+        Log(@"[%@] Create Subscription request - Success",  NSStringFromClass(AppDelegate.class));
+    } errorBlock:^(QBResponse * _Nonnull response) {
+        Log(@"[%@] Create Subscription request - Error",  NSStringFromClass(AppDelegate.class));
+    }];
 }
 
-
-- (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+- (void)deleteLastSubscriptionWithCompletion:(void(^)(void))completion {
+    NSNumber *lastSubscriptionId = [NSUserDefaults.standardUserDefaults objectForKey:kSubscriptionID];
+    if (lastSubscriptionId == nil) {
+        if (completion) { completion(); }
+        return;
+    }
+    
+    [QBRequest deleteSubscriptionWithID:lastSubscriptionId.unsignedIntValue
+                           successBlock:^(QBResponse * _Nonnull response) {
+        [NSUserDefaults.standardUserDefaults removeObjectForKey:kSubscriptionID];
+        Log(@"[%@] Delete Subscription request - Success",  NSStringFromClass(AppDelegate.class));
+        if (completion) { completion(); }
+    } errorBlock:^(QBResponse * _Nonnull response) {
+        Log(@"[%@] Delete Subscription request - Error",  NSStringFromClass(AppDelegate.class));
+        if (completion) { completion(); }
+    }];
 }
-
 
 @end
