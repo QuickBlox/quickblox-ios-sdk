@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="fuc-fU-z59">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Users View Controller-->
+        <scene sceneID="YVG-DX-wTU">
+            <objects>
+                <viewController storyboardIdentifier="UsersViewController" id="fuc-fU-z59" customClass="UsersViewController" customModule="sample_videochat_webrtc_swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bQX-kr-g5b"/>
+                        <viewControllerLayoutGuide type="bottom" id="H8t-fy-E0e"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lrb-ib-MKq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YpY-J7-EgR" customClass="SearchBarView" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="s3G-A9-GLS"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tVa-Br-7sC" customClass="CallGradientView" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="375" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zg6-0n-vkE" userLabel="Video Call Button">
+                                        <rect key="frame" x="331" y="16" width="28" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="VDh-8a-jma"/>
+                                            <constraint firstAttribute="width" constant="28" id="Wky-H9-F85"/>
+                                        </constraints>
+                                        <state key="normal" image="ic_video_call"/>
+                                        <connections>
+                                            <action selector="didPressVideoCall:" destination="fuc-fU-z59" eventType="touchUpInside" id="5Pb-WZ-caS"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GsS-Gf-Tg0" userLabel="Audio Call Button">
+                                        <rect key="frame" x="283" y="14" width="32" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="2hk-vO-b4O"/>
+                                            <constraint firstAttribute="width" constant="32" id="44B-hz-mCg"/>
+                                        </constraints>
+                                        <state key="normal" image="ic_audio_call"/>
+                                        <connections>
+                                            <action selector="didPressAudioCall:" destination="fuc-fU-z59" eventType="touchUpInside" id="FwR-AU-vuI"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Zg6-0n-vkE" secondAttribute="trailing" constant="16" id="AXQ-oE-qqB"/>
+                                    <constraint firstItem="Zg6-0n-vkE" firstAttribute="leading" secondItem="GsS-Gf-Tg0" secondAttribute="trailing" constant="16" id="ZWy-OL-qYx"/>
+                                    <constraint firstItem="Zg6-0n-vkE" firstAttribute="centerY" secondItem="tVa-Br-7sC" secondAttribute="centerY" id="b7Z-Se-oOe"/>
+                                    <constraint firstAttribute="height" constant="60" id="kKI-Ou-xcc"/>
+                                    <constraint firstItem="GsS-Gf-Tg0" firstAttribute="centerY" secondItem="tVa-Br-7sC" secondAttribute="centerY" id="yOc-Br-QBg"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" estimatedRowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="heW-yl-QJQ">
+                                <rect key="frame" x="0.0" y="104" width="375" height="563"/>
+                                <color key="backgroundColor" red="0.95651179549999998" green="0.96457701920000005" blue="0.97692507510000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserTableViewCell" id="wK5-Zp-JbU" customClass="UserTableViewCell" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="24.5" width="375" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wK5-Zp-JbU" id="0Eu-aD-5gf">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="heW-yl-QJQ" secondAttribute="trailing" id="523-8M-qAW"/>
+                            <constraint firstAttribute="trailing" secondItem="YpY-J7-EgR" secondAttribute="trailing" id="AHt-zs-vAL"/>
+                            <constraint firstItem="tVa-Br-7sC" firstAttribute="top" secondItem="YpY-J7-EgR" secondAttribute="bottom" id="KTv-Yz-Gje"/>
+                            <constraint firstItem="YpY-J7-EgR" firstAttribute="top" secondItem="bQX-kr-g5b" secondAttribute="bottom" id="XtS-VX-G4S"/>
+                            <constraint firstItem="H8t-fy-E0e" firstAttribute="top" secondItem="heW-yl-QJQ" secondAttribute="bottom" id="e15-ta-KtA"/>
+                            <constraint firstAttribute="trailing" secondItem="tVa-Br-7sC" secondAttribute="trailing" id="lo9-Qe-mUY"/>
+                            <constraint firstItem="tVa-Br-7sC" firstAttribute="leading" secondItem="lrb-ib-MKq" secondAttribute="leading" id="sg0-Lw-GVu"/>
+                            <constraint firstItem="YpY-J7-EgR" firstAttribute="leading" secondItem="lrb-ib-MKq" secondAttribute="leading" id="six-Zv-Caz"/>
+                            <constraint firstItem="heW-yl-QJQ" firstAttribute="top" secondItem="tVa-Br-7sC" secondAttribute="bottom" id="xZc-vs-BGD"/>
+                            <constraint firstItem="heW-yl-QJQ" firstAttribute="leading" secondItem="lrb-ib-MKq" secondAttribute="leading" id="z3y-d7-OH1"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="eeB-0B-MEi">
+                        <barButtonItem key="leftBarButtonItem" image="exit" id="gTg-4f-V8a">
+                            <inset key="imageInsets" minX="-6" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="didTapLogout:" destination="fuc-fU-z59" id="tdN-Um-Bzo"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="audioCallButton" destination="GsS-Gf-Tg0" id="2qk-K6-Jsc"/>
+                        <outlet property="gradientView" destination="tVa-Br-7sC" id="Dn6-xk-QEj"/>
+                        <outlet property="logoutButton" destination="gTg-4f-V8a" id="eO2-VP-Egq"/>
+                        <outlet property="searchBarView" destination="YpY-J7-EgR" id="YKC-2M-faA"/>
+                        <outlet property="usersView" destination="heW-yl-QJQ" id="s5C-29-6di"/>
+                        <outlet property="videoCallButton" destination="Zg6-0n-vkE" id="tVB-hA-YIz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hrc-ME-NWK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1751.2" y="303.59820089955025"/>
+        </scene>
+        <!--Selected Users Count Alert-->
+        <scene sceneID="EbM-xK-Jop">
+            <objects>
+                <viewController storyboardIdentifier="SelectedUsersCountAlert" id="Kjf-Kr-ZtT" customClass="SelectedUsersCountAlert" customModule="sample_videochat_webrtc_swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ehG-Rv-KF5"/>
+                        <viewControllerLayoutGuide type="bottom" id="zoq-J9-uEB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EVa-XB-08v">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a8X-iu-PLo">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <connections>
+                                    <action selector="tapCancelButton:" destination="Kjf-Kr-ZtT" eventType="touchUpInside" id="XiF-f2-Qqg"/>
+                                </connections>
+                            </button>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dQD-cf-lc0">
+                                <rect key="frame" x="12" y="112" width="351" height="44"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can select no more than 3 users." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EcF-Xb-bCh" customClass="PaddingLabel" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="351" height="44"/>
+                                        <color key="backgroundColor" red="0.1960526407" green="0.19609326120000001" blue="0.1960500479" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.1960526407" green="0.19609326120000001" blue="0.1960500479" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="EcF-Xb-bCh" secondAttribute="bottom" id="J5M-07-q4I"/>
+                                    <constraint firstItem="EcF-Xb-bCh" firstAttribute="top" secondItem="dQD-cf-lc0" secondAttribute="top" id="QMZ-3G-xwT"/>
+                                    <constraint firstAttribute="height" constant="44" id="fLz-Lx-kVW"/>
+                                    <constraint firstAttribute="trailing" secondItem="EcF-Xb-bCh" secondAttribute="trailing" id="oCh-hD-rFV"/>
+                                    <constraint firstItem="EcF-Xb-bCh" firstAttribute="leading" secondItem="dQD-cf-lc0" secondAttribute="leading" id="v4Z-YZ-fwi"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="dQD-cf-lc0" secondAttribute="trailing" constant="12" id="71S-iJ-bxQ"/>
+                            <constraint firstAttribute="trailing" secondItem="a8X-iu-PLo" secondAttribute="trailing" id="B0E-H7-h3F"/>
+                            <constraint firstItem="dQD-cf-lc0" firstAttribute="leading" secondItem="EVa-XB-08v" secondAttribute="leading" constant="12" id="K9U-2N-CP6"/>
+                            <constraint firstItem="zoq-J9-uEB" firstAttribute="top" secondItem="a8X-iu-PLo" secondAttribute="bottom" id="Ma2-ml-zcW"/>
+                            <constraint firstItem="a8X-iu-PLo" firstAttribute="leading" secondItem="EVa-XB-08v" secondAttribute="leading" id="bW8-4g-K1L"/>
+                            <constraint firstItem="dQD-cf-lc0" firstAttribute="top" secondItem="EVa-XB-08v" secondAttribute="topMargin" constant="112" id="dDj-a7-myf"/>
+                            <constraint firstItem="a8X-iu-PLo" firstAttribute="top" secondItem="ehG-Rv-KF5" secondAttribute="bottom" id="mW1-fo-5Uu"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="alertLabel" destination="EcF-Xb-bCh" id="7jt-WB-Dnd"/>
+                        <outlet property="alertView" destination="dQD-cf-lc0" id="Vdp-og-EWr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pcb-Nu-DJ4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2460" y="-87"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="exit" width="20" height="22"/>
+        <image name="ic_audio_call" width="23" height="24"/>
+        <image name="ic_video_call" width="28" height="18"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

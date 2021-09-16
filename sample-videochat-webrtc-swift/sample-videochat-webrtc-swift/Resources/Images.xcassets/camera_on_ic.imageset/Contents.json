@@ -1,23 +1,23 @@
 {
   "images" : [
     {
+      "filename" : "Cam off.png",
       "idiom" : "universal",
-      "filename" : "camera-on-vc.png",
       "scale" : "1x"
     },
     {
+      "filename" : "Cam off@2x.png",
       "idiom" : "universal",
-      "filename" : "camera-on-vc@2x.png",
       "scale" : "2x"
     },
     {
+      "filename" : "Cam off@3x.png",
       "idiom" : "universal",
-      "filename" : "camera-on-vc@3x.png",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="InputContainer" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="97"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="HEp-iA-TNq" userLabel="Login Text Field">
+                    <rect key="frame" x="16" y="26" width="382" height="44"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="kGS-3z-3h5"/>
+                    </constraints>
+                    <color key="textColor" red="0.199973762" green="0.2000150383" blue="0.19997116919999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                    <connections>
+                        <action selector="editingChanged:" destination="iN0-l3-epB" eventType="editingChanged" id="Tg9-9W-MVQ"/>
+                        <action selector="editingDidBegin:" destination="iN0-l3-epB" eventType="editingDidBegin" id="XvL-Tf-obs"/>
+                        <action selector="editingDidEnd:" destination="iN0-l3-epB" eventType="editingDidEnd" id="rQc-c0-dYt"/>
+                        <outlet property="delegate" destination="iN0-l3-epB" id="2UM-aS-MQM"/>
+                    </connections>
+                </textField>
+                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4JG-tY-Zpc" userLabel="Login Label">
+                    <rect key="frame" x="16" y="0.0" width="382" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="gAA-sI-Bp9"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                    <color key="textColor" red="0.43137254899999999" green="0.43137254899999999" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tnQ-Ln-81d" userLabel="Hint Label">
+                    <rect key="frame" x="16" y="81" width="382" height="0.0"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" id="MC4-gx-Wah"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                    <color key="textColor" red="0.60175979140000002" green="0.66074222329999999" blue="0.77708238360000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <constraints>
+                <constraint firstItem="4JG-tY-Zpc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="2aW-IL-1m6"/>
+                <constraint firstAttribute="top" secondItem="4JG-tY-Zpc" secondAttribute="top" id="BQq-mp-lFu"/>
+                <constraint firstAttribute="bottom" secondItem="tnQ-Ln-81d" secondAttribute="bottom" constant="16" id="Dxm-yr-lrQ"/>
+                <constraint firstItem="tnQ-Ln-81d" firstAttribute="top" secondItem="HEp-iA-TNq" secondAttribute="bottom" constant="11" id="Oep-JP-X9c"/>
+                <constraint firstItem="HEp-iA-TNq" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="26" id="Tyu-Yv-Css"/>
+                <constraint firstAttribute="trailing" secondItem="HEp-iA-TNq" secondAttribute="trailing" constant="16" id="VMd-co-wC4"/>
+                <constraint firstItem="HEp-iA-TNq" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="Xxu-Gb-mvm"/>
+                <constraint firstAttribute="trailing" secondItem="4JG-tY-Zpc" secondAttribute="trailing" constant="16" id="ZoP-WE-7oZ"/>
+                <constraint firstItem="tnQ-Ln-81d" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="fup-IC-rfu"/>
+                <constraint firstAttribute="trailing" secondItem="tnQ-Ln-81d" secondAttribute="trailing" constant="16" id="hiV-XB-eNJ"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="hintLabel" destination="tnQ-Ln-81d" id="KQS-MS-fBE"/>
+                <outlet property="inputTextfield" destination="HEp-iA-TNq" id="ROX-hK-Axl"/>
+                <outlet property="titleLabel" destination="4JG-tY-Zpc" id="8Pe-4S-v4E"/>
+            </connections>
+            <point key="canvasLocation" x="-16" y="-204"/>
+        </view>
+    </objects>
+</document>

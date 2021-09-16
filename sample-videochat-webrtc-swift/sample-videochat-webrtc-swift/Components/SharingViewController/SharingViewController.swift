@@ -9,92 +9,119 @@
 import UIKit
 import Quickblox
 import QuickbloxWebRTC
+import ReplayKit
 
-private let reuseIdentifier = "SharingCell"
-class SharingViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    
-    var session: QBRTCSession?
+struct SharingConstant {
+    static let reuseIdentifier = "SharingCell"
+}
+
+class SharingViewController: UIViewController {
+    //MARK: - IBOutlets
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var actionsBar: CallActionsBar!
+    @IBOutlet weak var bottomView: CallGradientView! {
+        didSet {
+            bottomView.setupGradient(firstColor: UIColor.black.withAlphaComponent(0.0),
+                                     secondColor: UIColor.black.withAlphaComponent(0.7))
+        }
+    }
+
+    //MARK: - Properties
     private var images: [String] = []
-    private weak var capture: QBRTCVideoCapture?
-    private var enabled = false
-    private var screenCapture: ScreenCapture?
-    private var indexPath: IndexPath?
-    
+    var media: MediaRouter!
+
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        actionsBar.setup(withActions: [
+            (.share, action: { [weak self] sender in
+                guard let self = self else {
+                    return
+                }
+                let recorder = RPScreenRecorder.shared()
+                recorder.stopCapture { [weak self] error in
+                    if let error = error {
+                        debugPrint("\(#function) recorder stopCapture error \(error.localizedDescription)")
+                    }
+                    DispatchQueue.main.async {
+                        self?.media.sharingEnabled = false
+                        self?.navigationController?.popViewController(animated: false)
+                    }
+                }
+            })
+        ])
         
-        collectionView.isPagingEnabled = true
+        actionsBar.select(true, type: .share)
+        
         images = ["pres_img_1", "pres_img_2", "pres_img_3"]
-        view.backgroundColor = .black
-        if let session = session {
-            enabled = session.localMediaStream.videoTrack.isEnabled
-            capture = session.localMediaStream.videoTrack.videoCapture
-            
-            //Switch to sharing
-            screenCapture = ScreenCapture(view: view)
-            session.localMediaStream.videoTrack.videoCapture = screenCapture
-            
-        }
-        collectionView.contentInset = UIEdgeInsets.zero
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if let session = session,
-            enabled == false {
-            session.localMediaStream.videoTrack.isEnabled = true
+
+        startSharing()
+    }
+
+    //MARK: - Private Methods
+    private func startSharing() {
+        RPScreenRecorder.shared().startCapture { [weak self] (sampleBuffer, type, error) in
+            guard let self = self else { return }
+            if error != nil {
+                debugPrint("\(#function) Capture error: ", error as Any)
+                return
+            }
+
+            switch type {
+            case .video :
+                if let source = CMSampleBufferGetImageBuffer(sampleBuffer) {
+                    self.media.sendScreenContent(source)
+                }
+            default:
+                break
+            }
+
+        } completionHandler: { [weak self] (error) in
+            guard let self = self else { return }
+            if let error = error {
+                debugPrint("\(#function) recorder startCapture error: \(error.localizedDescription)")
+                return
+            }
+            DispatchQueue.main.async {
+                let videoFormat = VideoFormat(width: UInt(UIScreen.main.bounds.width),
+                                              height: UInt(UIScreen.main.bounds.height),
+                                              fps: 12)
+                self.media.startScreenSharing(withFormat: videoFormat)
+                self.collectionView.reloadData()
+            }
         }
     }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        if isMovingFromParent == true,
-            enabled == false,
-            let session = session {
-            session.localMediaStream.videoTrack.isEnabled = false
-            session.localMediaStream.videoTrack.videoCapture = capture
-        }
-    }
-    
-    // MARK: <UICollectionViewDataSource>
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+}
+
+// MARK: <UICollectionViewDataSource>
+extension SharingViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
     }
-    
-    override func collectionView(_ collectionView: UICollectionView,
+
+    func collectionView(_ collectionView: UICollectionView,
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier,
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SharingConstant.reuseIdentifier,
                                                             for: indexPath) as? SharingCell else {
-                                                                return UICollectionViewCell()
+            return UICollectionViewCell()
         }
         cell.imageName = images[indexPath.row]
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
+
         return collectionView.bounds.size
-    }
-    
-    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
-        if let indexPath = collectionView.indexPathsForVisibleItems.first {
-            self.indexPath = indexPath
-        }
-        collectionView.collectionViewLayout.invalidateLayout()
-    }
-    
-    override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
-        guard let indexPath = indexPath else {
-            return
-        }
-        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
-        self.indexPath = nil
     }
 }

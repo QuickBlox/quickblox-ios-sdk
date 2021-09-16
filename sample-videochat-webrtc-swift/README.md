@@ -61,7 +61,7 @@ $ pod install
 4. [Get application credentials](#get-application-credentials).
 5. Put the received credentials in ```AppDelegate``` file located in the root directory of your project.
 
-```
+```json
 QBSettings.applicationID = 92
 QBSettings.authKey = "wJHdOcQSxXQGWx5"
 QBSettings.authSecret = "BTFsj7Rtt27DAmT"

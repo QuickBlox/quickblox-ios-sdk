@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB" customClass="SelectedUserView" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="120" height="26"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ian Perez" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1vA-sG-sBf">
+                    <rect key="frame" x="8" y="0.0" width="83" height="26"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.42352941176470588" green="0.47843137254901957" blue="0.5725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="38e-dJ-LBg">
+                    <rect key="frame" x="94" y="0.0" width="26" height="26"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="26" id="BOf-yN-NF4"/>
+                        <constraint firstAttribute="height" constant="26" id="rLj-7W-4aJ"/>
+                    </constraints>
+                    <color key="tintColor" red="0.42352941179999998" green="0.47843137250000001" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" image="ic_cancel"/>
+                    <connections>
+                        <action selector="cancelButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="c0k-hk-SFF"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="1vA-sG-sBf" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="Ccw-ke-iNR"/>
+                <constraint firstAttribute="bottom" secondItem="1vA-sG-sBf" secondAttribute="bottom" id="E9d-7j-921"/>
+                <constraint firstItem="1vA-sG-sBf" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="V3t-3b-uVE"/>
+                <constraint firstAttribute="trailing" secondItem="38e-dJ-LBg" secondAttribute="trailing" id="aj6-NO-8NE"/>
+                <constraint firstItem="38e-dJ-LBg" firstAttribute="leading" secondItem="1vA-sG-sBf" secondAttribute="trailing" constant="3" id="eGC-bL-xQY"/>
+                <constraint firstItem="38e-dJ-LBg" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="gs3-yx-f2C"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="cancelButton" destination="38e-dJ-LBg" id="DeE-fb-bLa"/>
+                <outlet property="nameLabel" destination="1vA-sG-sBf" id="y2x-eR-4ky"/>
+            </connections>
+            <point key="canvasLocation" x="-206" y="108"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_cancel" width="13" height="13"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

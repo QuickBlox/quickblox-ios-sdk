@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ActionsMenuView" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HVB-bp-Pcu">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <connections>
+                        <action selector="tapCancelButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="CaG-oW-OsH"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rBe-lb-sW4" userLabel="ContainerView">
+                    <rect key="frame" x="218" y="73" width="154" height="182"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Mez-dk-pdo">
+                            <rect key="frame" x="0.0" y="3" width="154" height="176"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <connections>
+                                <outlet property="dataSource" destination="iN0-l3-epB" id="xxy-Z5-j5g"/>
+                                <outlet property="delegate" destination="iN0-l3-epB" id="7qV-nG-Pbc"/>
+                            </connections>
+                        </tableView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="HVB-bp-Pcu" secondAttribute="trailing" id="G72-gA-p4o"/>
+                <constraint firstItem="HVB-bp-Pcu" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Ngv-PU-XMa"/>
+                <constraint firstItem="HVB-bp-Pcu" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="Tn2-sR-Rfy"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="leading" secondItem="HVB-bp-Pcu" secondAttribute="leading" id="kK9-hp-yks"/>
+            </constraints>
+            <connections>
+                <outlet property="cancelButton" destination="HVB-bp-Pcu" id="7ci-eP-fvT"/>
+                <outlet property="containerView" destination="rBe-lb-sW4" id="ec4-bF-QFh"/>
+                <outlet property="tableView" destination="Mez-dk-pdo" id="5F2-Fb-Cgd"/>
+            </connections>
+            <point key="canvasLocation" x="-90" y="100"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
