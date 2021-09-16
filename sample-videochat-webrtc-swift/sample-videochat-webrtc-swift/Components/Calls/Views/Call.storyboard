@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Video Call View Controller-->
+        <scene sceneID="5ye-dT-wNh">
+            <objects>
+                <viewController storyboardIdentifier="VideoCallViewController" id="kxl-2w-2bD" customClass="VideoCallViewController" customModule="sample_videochat_webrtc_swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="S1s-gB-T9Q"/>
+                        <viewControllerLayoutGuide type="bottom" id="hoz-yb-WSU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="LFd-FF-nH7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="UtM-ey-Fcs">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Ujl-98-1hg">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="409"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="zOr-Q2-45d">
+                                        <rect key="frame" x="0.0" y="409" width="414" height="409"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.1960526407" green="0.19609326120000001" blue="0.1960500479" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q2x-5x-gWG" userLabel="Header View" customClass="CallGradientView" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                                <subviews>
+                                    <button opaque="NO" alpha="0.29999999999999999" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hid-Ub-Lg1">
+                                        <rect key="frame" x="294" y="50" width="120" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="gzJ-4D-7Zr"/>
+                                            <constraint firstAttribute="width" constant="120" id="tzU-ol-kPW"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="-36" maxY="0.0"/>
+                                        <state key="normal" title="Stats">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="didTapStatsButton:" destination="kxl-2w-2bD" eventType="touchUpInside" id="ddh-87-STv"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="3hf-iz-p2I"/>
+                                    <constraint firstItem="hid-Ub-Lg1" firstAttribute="top" secondItem="q2x-5x-gWG" secondAttribute="top" constant="50" id="kyF-H3-X4J"/>
+                                    <constraint firstAttribute="trailing" secondItem="hid-Ub-Lg1" secondAttribute="trailing" id="uX1-UO-gIc"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9al-C3-8MG" userLabel="Bottom View" customClass="CallGradientView" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="662" width="414" height="200"/>
+                                <subviews>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cbq-Kq-5l1" userLabel="Timer Call Label">
+                                        <rect key="frame" x="169.5" y="26" width="75" height="20"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="75" id="HnO-AN-mT7"/>
+                                            <constraint firstAttribute="height" constant="20" id="oZz-TU-Qtt"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9WO-lA-txC" customClass="CallActionsBar" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="74" width="414" height="96"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="96" id="ors-bF-dtw"/>
+                                        </constraints>
+                                        <items/>
+                                        <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </toolbar>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="Ear-nD-buH"/>
+                                    <constraint firstItem="9WO-lA-txC" firstAttribute="top" secondItem="9al-C3-8MG" secondAttribute="top" constant="74" id="FRg-m0-ICu"/>
+                                    <constraint firstItem="Cbq-Kq-5l1" firstAttribute="centerX" secondItem="9al-C3-8MG" secondAttribute="centerX" id="S4N-qo-eYW"/>
+                                    <constraint firstItem="9WO-lA-txC" firstAttribute="top" secondItem="Cbq-Kq-5l1" secondAttribute="bottom" constant="28" id="SG2-Iu-Fu9"/>
+                                    <constraint firstAttribute="trailing" secondItem="9WO-lA-txC" secondAttribute="trailing" id="bEa-j3-6QX"/>
+                                    <constraint firstItem="9WO-lA-txC" firstAttribute="leading" secondItem="9al-C3-8MG" secondAttribute="leading" id="jAv-z4-DfR"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.066534853127389146" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="q2x-5x-gWG" firstAttribute="leading" secondItem="LFd-FF-nH7" secondAttribute="leading" id="96o-2y-Edz"/>
+                            <constraint firstItem="hoz-yb-WSU" firstAttribute="top" secondItem="9al-C3-8MG" secondAttribute="bottom" id="M4o-Eb-dpM"/>
+                            <constraint firstAttribute="trailing" secondItem="UtM-ey-Fcs" secondAttribute="trailing" id="k0t-ah-Bo2"/>
+                            <constraint firstItem="UtM-ey-Fcs" firstAttribute="top" secondItem="S1s-gB-T9Q" secondAttribute="bottom" id="kLk-Gs-kbe"/>
+                            <constraint firstItem="q2x-5x-gWG" firstAttribute="top" secondItem="LFd-FF-nH7" secondAttribute="top" id="lyF-Of-rgR"/>
+                            <constraint firstItem="UtM-ey-Fcs" firstAttribute="leading" secondItem="LFd-FF-nH7" secondAttribute="leading" id="qs8-eJ-2q7"/>
+                            <constraint firstItem="hoz-yb-WSU" firstAttribute="top" secondItem="UtM-ey-Fcs" secondAttribute="bottom" id="rKB-yU-Zj4"/>
+                            <constraint firstAttribute="trailing" secondItem="9al-C3-8MG" secondAttribute="trailing" id="uGk-SW-49h"/>
+                            <constraint firstAttribute="trailing" secondItem="q2x-5x-gWG" secondAttribute="trailing" id="vJ3-fP-bmO"/>
+                            <constraint firstItem="9al-C3-8MG" firstAttribute="leading" secondItem="LFd-FF-nH7" secondAttribute="leading" id="zxo-wJ-WEF"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <navigationItem key="navigationItem" id="wei-5o-qHB"/>
+                    <connections>
+                        <outlet property="actionsBar" destination="9WO-lA-txC" id="Aal-WC-3Pw"/>
+                        <outlet property="bottomStackView" destination="zOr-Q2-45d" id="d88-cQ-YhT"/>
+                        <outlet property="bottomView" destination="9al-C3-8MG" id="Q5u-mY-Yeb"/>
+                        <outlet property="headerView" destination="q2x-5x-gWG" id="Jpj-ff-23Y"/>
+                        <outlet property="statsButton" destination="hid-Ub-Lg1" id="VIg-Rd-cJc"/>
+                        <outlet property="timerCallLabel" destination="Cbq-Kq-5l1" id="i7E-Qh-gzF"/>
+                        <outlet property="topStackView" destination="Ujl-98-1hg" id="xdN-OI-JHG"/>
+                        <outlet property="vStackView" destination="UtM-ey-Fcs" id="FbD-Iu-w00"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hc3-yZ-kCn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3618.4000000000001" y="310.79460269865069"/>
+        </scene>
+        <!--Audio Call View Controller-->
+        <scene sceneID="8UH-wZ-IcA">
+            <objects>
+                <viewController storyboardIdentifier="AudioCallViewController" id="Wpm-Ud-a52" customClass="AudioCallViewController" customModule="sample_videochat_webrtc_swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lSA-8n-FQr"/>
+                        <viewControllerLayoutGuide type="bottom" id="t9G-q1-P8b"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="S1Y-7c-ZeL">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="5N4-q7-1MU">
+                                <rect key="frame" x="0.0" y="84" width="414" height="296"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="fJY-Ng-cFA">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="296"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="296" id="gQW-K5-8hN"/>
+                                </constraints>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IhD-3Q-dzn" userLabel="Header View" customClass="CallGradientView" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                                <subviews>
+                                    <button opaque="NO" alpha="0.30000001192092896" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="loP-5j-Qm9">
+                                        <rect key="frame" x="294" y="50" width="120" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="120" id="dDz-3C-Whb"/>
+                                            <constraint firstAttribute="height" constant="44" id="dhU-8X-Khr"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="-36" maxY="0.0"/>
+                                        <state key="normal" title="Stats">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="didTapStatsButton:" destination="Wpm-Ud-a52" eventType="touchUpInside" id="DE4-z8-FV7"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="loP-5j-Qm9" firstAttribute="top" secondItem="IhD-3Q-dzn" secondAttribute="top" constant="50" id="0b2-JQ-Ogp"/>
+                                    <constraint firstAttribute="height" constant="100" id="Bab-jE-Ajm"/>
+                                    <constraint firstAttribute="trailing" secondItem="loP-5j-Qm9" secondAttribute="trailing" id="E1a-un-x9U"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IFH-iS-e3X" userLabel="Bottom View">
+                                <rect key="frame" x="0.0" y="662" width="414" height="200"/>
+                                <subviews>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="plm-Tj-QMC" userLabel="Timer Call Label">
+                                        <rect key="frame" x="169.5" y="26" width="75" height="20"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="75" id="NXJ-yw-Lzu"/>
+                                            <constraint firstAttribute="height" constant="20" id="VYF-vY-Gdy"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nvl-aP-B6G" customClass="CallActionsBar" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="74" width="414" height="96"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="96" id="ENt-VK-7aW"/>
+                                        </constraints>
+                                        <items/>
+                                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </toolbar>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="plm-Tj-QMC" firstAttribute="centerX" secondItem="IFH-iS-e3X" secondAttribute="centerX" id="JuN-wT-2KK"/>
+                                    <constraint firstAttribute="height" constant="200" id="MeE-Jt-3VX"/>
+                                    <constraint firstItem="nvl-aP-B6G" firstAttribute="top" secondItem="plm-Tj-QMC" secondAttribute="bottom" constant="28" id="jeA-u0-I1b"/>
+                                    <constraint firstItem="nvl-aP-B6G" firstAttribute="top" secondItem="IFH-iS-e3X" secondAttribute="top" constant="74" id="n03-Wm-EPS"/>
+                                    <constraint firstItem="nvl-aP-B6G" firstAttribute="leading" secondItem="IFH-iS-e3X" secondAttribute="leading" id="qdb-3G-1fX"/>
+                                    <constraint firstAttribute="trailing" secondItem="nvl-aP-B6G" secondAttribute="trailing" id="zIy-QW-yLZ"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.1960526407" green="0.19609326120000001" blue="0.1960500479" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="IFH-iS-e3X" firstAttribute="leading" secondItem="S1Y-7c-ZeL" secondAttribute="leading" id="40G-aQ-cy1"/>
+                            <constraint firstItem="5N4-q7-1MU" firstAttribute="leading" secondItem="S1Y-7c-ZeL" secondAttribute="leading" id="ESl-z5-paC"/>
+                            <constraint firstAttribute="trailing" secondItem="IhD-3Q-dzn" secondAttribute="trailing" id="Pqh-ZI-Xq8"/>
+                            <constraint firstItem="IhD-3Q-dzn" firstAttribute="top" secondItem="S1Y-7c-ZeL" secondAttribute="top" id="QbR-qF-3a5"/>
+                            <constraint firstItem="t9G-q1-P8b" firstAttribute="top" secondItem="IFH-iS-e3X" secondAttribute="bottom" id="VH4-kN-u56"/>
+                            <constraint firstItem="IhD-3Q-dzn" firstAttribute="leading" secondItem="S1Y-7c-ZeL" secondAttribute="leading" id="aYU-Ig-Slw"/>
+                            <constraint firstItem="5N4-q7-1MU" firstAttribute="top" secondItem="lSA-8n-FQr" secondAttribute="bottom" constant="40" id="h40-6J-oW5"/>
+                            <constraint firstAttribute="trailing" secondItem="5N4-q7-1MU" secondAttribute="trailing" id="nIg-Fv-hoR"/>
+                            <constraint firstAttribute="trailing" secondItem="IFH-iS-e3X" secondAttribute="trailing" id="v4X-J8-GV2"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <navigationItem key="navigationItem" id="1hu-Kw-QuM"/>
+                    <connections>
+                        <outlet property="actionsBar" destination="nvl-aP-B6G" id="IV2-SQ-9Bj"/>
+                        <outlet property="statsButton" destination="loP-5j-Qm9" id="aT0-J3-bm4"/>
+                        <outlet property="timerCallLabel" destination="plm-Tj-QMC" id="ARX-BU-kcv"/>
+                        <outlet property="topStackView" destination="fJY-Ng-cFA" id="YKz-BH-yGC"/>
+                        <outlet property="vStackView" destination="5N4-q7-1MU" id="qIs-gA-fz7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6rE-te-Yi0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3617" y="-364"/>
+        </scene>
+        <!--Sharing View Controller-->
+        <scene sceneID="Wxb-dF-5CM">
+            <objects>
+                <viewController storyboardIdentifier="SharingViewController" id="PqS-hL-Vf5" customClass="SharingViewController" customModule="sample_videochat_webrtc_swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GwH-pX-Bfb"/>
+                        <viewControllerLayoutGuide type="bottom" id="QqJ-Yk-kdi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Wbu-cD-z6b">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="vv3-cv-nMl">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="7td-wr-pfr">
+                                    <size key="itemSize" width="100" height="100"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SharingCell" id="ZMe-AL-jRL" customClass="SharingCell" customModule="sample_videochat_webrtc_swift">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pres_img_3" translatesAutoresizingMaskIntoConstraints="NO" id="zcX-aD-AOu">
+                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="zcX-aD-AOu" secondAttribute="trailing" id="9wB-DV-L3y"/>
+                                            <constraint firstItem="zcX-aD-AOu" firstAttribute="leading" secondItem="ZMe-AL-jRL" secondAttribute="leading" id="DSh-3q-m6U"/>
+                                            <constraint firstItem="zcX-aD-AOu" firstAttribute="top" secondItem="ZMe-AL-jRL" secondAttribute="top" id="gVI-Yk-1Q8"/>
+                                            <constraint firstAttribute="bottom" secondItem="zcX-aD-AOu" secondAttribute="bottom" id="yet-QD-1xq"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imagePreview" destination="zcX-aD-AOu" id="pqJ-ur-d7h"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="PqS-hL-Vf5" id="9yo-3j-B1b"/>
+                                    <outlet property="delegate" destination="PqS-hL-Vf5" id="wha-z1-TBe"/>
+                                </connections>
+                            </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XP7-NJ-efG" userLabel="Bottom View" customClass="CallGradientView" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="742" width="414" height="120"/>
+                                <subviews>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uPm-dO-f0e" customClass="CallActionsBar" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="96" id="9cQ-pJ-YeY"/>
+                                        </constraints>
+                                        <items/>
+                                        <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </toolbar>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="9Ib-Cn-NFh"/>
+                                    <constraint firstAttribute="trailing" secondItem="uPm-dO-f0e" secondAttribute="trailing" id="Ep1-yl-KD0"/>
+                                    <constraint firstItem="uPm-dO-f0e" firstAttribute="top" secondItem="XP7-NJ-efG" secondAttribute="top" id="Hpj-IM-tf4"/>
+                                    <constraint firstItem="uPm-dO-f0e" firstAttribute="leading" secondItem="XP7-NJ-efG" secondAttribute="leading" id="jyX-Eq-lhn"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="XP7-NJ-efG" secondAttribute="trailing" id="0h0-T3-3V8"/>
+                            <constraint firstAttribute="trailing" secondItem="vv3-cv-nMl" secondAttribute="trailing" id="4ee-As-MdJ"/>
+                            <constraint firstItem="vv3-cv-nMl" firstAttribute="leading" secondItem="Wbu-cD-z6b" secondAttribute="leading" id="Ngg-Zn-UbD"/>
+                            <constraint firstAttribute="bottom" secondItem="vv3-cv-nMl" secondAttribute="bottom" id="QS4-bl-ChQ"/>
+                            <constraint firstItem="vv3-cv-nMl" firstAttribute="top" secondItem="Wbu-cD-z6b" secondAttribute="top" id="XUg-74-bkw"/>
+                            <constraint firstItem="QqJ-Yk-kdi" firstAttribute="top" secondItem="XP7-NJ-efG" secondAttribute="bottom" id="dFi-J9-AAj"/>
+                            <constraint firstItem="XP7-NJ-efG" firstAttribute="leading" secondItem="Wbu-cD-z6b" secondAttribute="leading" id="dge-Lo-StL"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="actionsBar" destination="uPm-dO-f0e" id="yF5-Ym-pBw"/>
+                        <outlet property="bottomView" destination="XP7-NJ-efG" id="DBa-D7-q1A"/>
+                        <outlet property="collectionView" destination="vv3-cv-nMl" id="4Yr-cZ-CEM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eSt-hq-KI0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4355" y="311"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="pres_img_3" width="320.5" height="359"/>
+    </resources>
+</document>

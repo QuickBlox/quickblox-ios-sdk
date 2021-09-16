@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="StatsView" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Uh-yw-IS9" userLabel="Back Button">
+                    <rect key="frame" x="0.0" y="44" width="100" height="64"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="Fmi-kU-jLW"/>
+                        <constraint firstAttribute="height" constant="64" id="pgi-V4-IDV"/>
+                    </constraints>
+                    <inset key="imageEdgeInsets" minX="-34" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" image="chevron"/>
+                    <connections>
+                        <action selector="didTapBack:" destination="iN0-l3-epB" eventType="touchUpInside" id="2x9-u4-nTK"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yGL-8o-Cue" userLabel="Participant Button">
+                    <rect key="frame" x="286" y="44" width="120" height="64"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="64" id="JHb-Nu-438"/>
+                        <constraint firstAttribute="width" constant="120" id="TT1-Ew-zLa"/>
+                    </constraints>
+                    <state key="normal" title="participant">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="didTapRarticipant:" destination="iN0-l3-epB" eventType="touchUpInside" id="iZD-XF-Spw"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading stats report..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFA-FH-Fi1">
+                    <rect key="frame" x="17" y="104" width="380" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" systemColor="systemGreenColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="0.0" alpha="0.70353085612962618" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="2Uh-yw-IS9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="9uo-nw-u0K"/>
+                <constraint firstItem="2Uh-yw-IS9" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="44" id="Gx8-Mn-DUD"/>
+                <constraint firstItem="yGL-8o-Cue" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="44" id="Sek-0e-zJb"/>
+                <constraint firstAttribute="trailing" secondItem="yGL-8o-Cue" secondAttribute="trailing" constant="8" id="cYV-Op-3sB"/>
+                <constraint firstItem="qFA-FH-Fi1" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="60" id="mPT-VW-5AS"/>
+                <constraint firstItem="qFA-FH-Fi1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="17" id="pha-cU-BhV"/>
+                <constraint firstAttribute="trailing" secondItem="qFA-FH-Fi1" secondAttribute="trailing" constant="17" id="ueb-tc-0xQ"/>
+            </constraints>
+            <connections>
+                <outlet property="backButton" destination="2Uh-yw-IS9" id="gfC-ux-jDM"/>
+                <outlet property="participantButton" destination="yGL-8o-Cue" id="GuO-Kc-wMs"/>
+                <outlet property="statsLabel" destination="qFA-FH-Fi1" id="bi9-aF-e8Y"/>
+            </connections>
+            <point key="canvasLocation" x="-74" y="100"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="chevron" width="12" height="21"/>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

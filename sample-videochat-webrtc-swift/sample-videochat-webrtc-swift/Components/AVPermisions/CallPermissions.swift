@@ -20,8 +20,7 @@ struct CallErrorConstant {
 
 class CallPermissions {
     //MARK: - Class Methods
-    class func check(with conferenceType: QBRTCConferenceType, completion: @escaping (_ granted: Bool) -> Void ) {
-        
+    class func check(with conferenceType: QBRTCConferenceType, presentingViewController: UIViewController, completion: @escaping (_ granted: Bool) -> Void) {
         #if targetEnvironment(simulator)
         completion(true)
         return
@@ -30,7 +29,8 @@ class CallPermissions {
         self.requestPermissionToMicrophone(withCompletion: { granted in
             guard granted == true else {
                 showAlert(withTitle: CallErrorConstant.microphoneErrorTitle,
-                          message: CallErrorConstant.microphoneErrorMessage)
+                          message: CallErrorConstant.microphoneErrorMessage,
+                          presentingViewController: presentingViewController)
                 completion(granted)
                 return
             }
@@ -40,15 +40,19 @@ class CallPermissions {
                 requestPermissionToCamera(withCompletion: { videoGranted in
                     if videoGranted == false {
                         showAlert(withTitle: CallErrorConstant.cameraErrorTitle,
-                                  message: CallErrorConstant.cameraErrorMessage)
+                                  message: CallErrorConstant.cameraErrorMessage,
+                                  presentingViewController: presentingViewController)
+                        
                     }
                     completion(videoGranted)
                 })
+            @unknown default:
+                fatalError("unknown conferenceType")
             }
         })
     }
     
-    class func requestPermissionToMicrophone(withCompletion completion: @escaping (_ granted: Bool) -> Void ) {
+    class func requestPermissionToMicrophone(withCompletion completion: @escaping (_ granted: Bool) -> Void) {
         AVAudioSession.sharedInstance().requestRecordPermission({ granted in
             DispatchQueue.main.async(execute: {
                 completion(granted)
@@ -56,7 +60,7 @@ class CallPermissions {
         })
     }
     
-    class func requestPermissionToCamera(withCompletion completion: @escaping (_ granted: Bool) -> Void ) {
+    class func requestPermissionToCamera(withCompletion completion: @escaping (_ granted: Bool) -> Void) {
         let mediaType = AVMediaType.video
         let authStatus = AVCaptureDevice.authorizationStatus(for: mediaType)
         switch authStatus {
@@ -70,13 +74,17 @@ class CallPermissions {
             completion(false)
         case .authorized:
             completion(true)
+        @unknown default:
+            fatalError("unknown authStatus")
         }
     }
     
     // MARK: - Helpers
     // showing error alert with a suggestion
     // to go to the settings
-    class func showAlert(withTitle title: String?, message: String?) {
+    class func showAlert(withTitle title: String?,
+                         message: String?,
+                         presentingViewController: UIViewController) {
         let alertController = UIAlertController(title: title,
                                                 message: message,
                                                 preferredStyle: .alert)
@@ -88,7 +96,7 @@ class CallPermissions {
                                                     if let url = URL(string: UIApplication.openSettingsURLString) {
                                                         UIApplication.shared.open(url, options: [:])
                                                     }
-        }))
-        UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true)
+                                                }))
+        presentingViewController.present(alertController, animated: true)
     }
 }

@@ -1,23 +1,23 @@
 {
   "images" : [
     {
+      "filename" : "Swap cam.png",
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "camera-switch.png"
+      "scale" : "1x"
     },
     {
+      "filename" : "Swap cam@2x.png",
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "camera-switch@1x.png"
+      "scale" : "2x"
     },
     {
+      "filename" : "Swap cam@3x.png",
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "camera-switch@2x.png"
+      "scale" : "3x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

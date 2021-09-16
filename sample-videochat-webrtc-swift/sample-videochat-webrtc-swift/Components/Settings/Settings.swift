@@ -38,7 +38,7 @@ class Settings {
             defaults.set(mediaConfig, forKey: SettingsConstants.mediaConfigKey)
             defaults.synchronize()
         } catch {
-            print("Couldn't write file to UserDefaults")
+            debugPrint("\(#function) Couldn't write file to UserDefaults")
         }
     }
     
@@ -63,7 +63,7 @@ class Settings {
                 mediaConfiguration = data as? QBRTCMediaStreamConfiguration ?? QBRTCMediaStreamConfiguration.default()
             }
         } catch {
-            print("Couldn't read file from UserDefaults")
+            debugPrint("\(#function) Couldn't read file from UserDefaults")
         }
         applyConfig()
     }
