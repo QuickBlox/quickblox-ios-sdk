@@ -17,20 +17,13 @@ class CallPayload: NSObject {
     }
     
     var missed: Bool {
-        if members.count > 1 {
-            return false
+        if members.count < 1 {
+            return true
         }
         
-        if timestamp.isEmpty {
-            return false
-        }
-        
-        if let startTimeInterval = Double(timestamp) {
-            let timeIntervalNow = (Date().timeIntervalSince1970 * 1000.0).rounded()
-            return startTimeInterval - timeIntervalNow > QBRTCConfig.answerTimeInterval()
-        }
-        
-        return false
+        guard let startTimeInterval = Double(timestamp) else { return true }
+        let timeIntervalNow = (Date().timeIntervalSince1970 * 1000.0).rounded()
+        return (timeIntervalNow - startTimeInterval) / 1000 > QBRTCConfig.answerTimeInterval()
     }
     
     var hasVideo: Bool {
