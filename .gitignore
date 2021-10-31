@@ -16,3 +16,6 @@ profile
 DerivedData
 .idea/
 Pods/
+# SPM Support
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+/.build
