@@ -17,13 +17,23 @@ QuickBlox application includes everything that brings messaging right into your 
 
 This Sample demonstrates how to work with [Chat](https://docs.quickblox.com/docs/ios-chat) QuickBlox module. 
 
+# Features
+
 It allows to:
 
-1. Authenticate with Quickblox Chat and REST.
+1. Login/logout with Quickblox Chat and REST.
 2. Receive and display list of dialogs.
 3. Modify dialog by adding occupants.
-4. Real-time chat messaging and attachment's handling.
-5. [Push notification](https://docs.quickblox.com/docs/ios-push-notifications) receiving functionality.
+4. Create and leave a 1-to-1 and group chat.
+5. Real-time send and receive message/attachment.
+6. Display users who have received/read the message.
+7. Mark messages as read/delivered.
+8. Send typing indicators
+9. List and delete chats
+10. Display chat history
+11. Display a list with chat participants
+12. Send/receive push notifications [Push notification](https://docs.quickblox.com/docs/ios-push-notifications) receiving functionality.
+13. Subscribe/unsubscribe device to push notifications [Push notification](https://docs.quickblox.com/docs/ios-push-notifications) receiving functionality.
 
 # Views
 
