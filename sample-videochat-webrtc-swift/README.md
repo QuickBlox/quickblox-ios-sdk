@@ -15,17 +15,28 @@ QuickBlox application includes everything that brings messaging right into your 
 3. Configure the app. Type in the information about your organization into corresponding fields and click **Add** button.
 4. Go to **Dashboard => *YOUR_APP* => Overview** section and copy your **Application ID**,  **Authorization Key**,  **Authorization Secret**,  and **Account Key** .
 
-# Main features
-* 1-1 video calling
-* Group video calling
-* Screen sharing
-* Mute/Unmute audio/video streams
-* Display bitrate
-* Switch video input device (camera) 
-* [CallKit](https://developer.apple.com/documentation/callkit) supported
-* WebRTC Stats reports
-* H264,VP8,H264High video codecs supported
-* Lots of different settings related to call quality 
+# Features
+
+It allows to:
+
+1. Login/logout with Quickblox Chat and REST.
+2. Display a list of users.
+3. Make and receive 1-to-1 and group audio call.
+4. Make and receive 1-to-1 and group video call.
+5. Search for users to make a call with.
+6. Mute/unmute the microphone.
+7. Display the list of call participants and their statuses.
+8. Share a screen.
+9. Switch camera.
+10. See call timer.
+11. Receive call stats report.
+12. Change setting (media settings, answer time interval, etc.).
+13. Switch speaker.
+14. Display bitrate. 
+15. [CallKit](https://developer.apple.com/documentation/callkit) supported.
+16. WebRTC Stats reports.
+20. Send/receive VOIP push notifications [Push notification](https://docs.quickblox.com/docs/ios-push-notifications) receiving functionality.
+21. Subscribe/unsubscribe device to VOIP push notifications [Push notification](https://docs.quickblox.com/docs/ios-push-notifications). 
 
 # The Сhanges VOIP on iOS 13
 

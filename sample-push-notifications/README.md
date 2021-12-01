@@ -14,13 +14,17 @@ Welcome to QuickBlox [Credentials](https://docs.quickblox.com/docs/ios-quick-sta
 
 This Sample demonstrates how to work with [Push](https://docs.quickblox.com/docs/ios-push-notifications) QuickBlox module. 
 
-It allows:
+# Features
 
-1. Authenticate with Quickblox REST.
-2. Send notifications and alerts to users at any time through an API or easy-to-use admin panel.
-3. Subscribes user for Push Notifications(APNS and VOIP).
-4. Send Text Push Notification to particular user.
-5. Displays list of received Push Notifications
+It allows to:
+
+1. Login/logout with Quickblox Chat and REST.
+2. Send instant notifications.
+3. Send recurring notifications.
+4. Send scheduled notifications.
+5. Subscribe a device for APNS and VOIP push notifications [Push notification](https://docs.quickblox.com/docs/ios-push-notifications).
+6. Send a text push notification to a user [Push notification](https://docs.quickblox.com/docs/ios-push-notifications) receiving functionality.
+7. Display a list of received push notifications.
 
 
 # CocoaPods
