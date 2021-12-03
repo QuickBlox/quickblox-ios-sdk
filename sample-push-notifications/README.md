@@ -22,8 +22,8 @@ It allows to:
 2. Send instant notifications.
 3. Send recurring notifications.
 4. Send scheduled notifications.
-5. Subscribe a device for APNS and VOIP push notifications [Push notification](https://docs.quickblox.com/docs/ios-push-notifications).
-6. Send a text push notification to a user [Push notification](https://docs.quickblox.com/docs/ios-push-notifications) receiving functionality.
+5. Subscribe a device for APNS and VOIP [push notification](https://docs.quickblox.com/docs/ios-push-notifications).
+6. Send a text [push notification](https://docs.quickblox.com/docs/ios-push-notifications) to a user.
 7. Display a list of received push notifications.
 
 

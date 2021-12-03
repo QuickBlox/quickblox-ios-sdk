@@ -23,27 +23,21 @@ This Sample demonstrates how to work with [Conference](https://docs.quickblox.co
 
 It allows to:
 
-1. Login/logout with Quickblox Chat and REST.
-2. Receive and display list of dialogs.
-3. Modify dialog by adding occupants.
-4. Create and leave a group chat.
-5. Real-time send and receive text messages and attachments.
-6. List and delete chats
-7. Display chat history
-8. Display a list with chat participants
-9. Create a conference room.
-10. Leave a conference room.
-11. Add a new member to a conference room
-12. Participate in a  conference call as a streamer/watcher.
-13. Enable/disable audio stream from an opponent
-14. Switch camera
-15. Enable/disable camera
-16. Mute/unmute the microphone
-17. Display the number of chat members
-18. Share a screen
-19. Change media settings
-20. Send/receive push notifications [Push notification](https://docs.quickblox.com/docs/ios-push-notifications) receiving functionality.
-21. Subscribe/unsubscribe device to push notifications [Push notification](https://docs.quickblox.com/docs/ios-push-notifications) receiving functionality.
+1. Login/logout.
+2. Create a conference room.
+3. Leave a conference room.
+4. Add a new member to a conference room
+5. Participate in a  conference call as a streamer/watcher.
+6. Send and receive text messages and attachments.
+7. Enable/disable audio stream from an opponent
+8. Switch camera
+9. Enable/disable camera
+10. Mute/unmute the microphone
+11. Display the number of chat members
+12. Share a screen
+13. Change media settings
+14. Send/receive [push notification](https://docs.quickblox.com/docs/ios-push-notifications).
+15. Subscribe/unsubscribe device to [push notification](https://docs.quickblox.com/docs/ios-push-notifications).
 
 # CocoaPods
 

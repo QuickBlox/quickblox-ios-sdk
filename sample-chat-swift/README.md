@@ -32,8 +32,8 @@ It allows to:
 9. List and delete chats
 10. Display chat history
 11. Display a list with chat participants
-12. Send/receive push notifications [Push notification](https://docs.quickblox.com/docs/ios-push-notifications) receiving functionality.
-13. Subscribe/unsubscribe device to push notifications [Push notification](https://docs.quickblox.com/docs/ios-push-notifications) receiving functionality.
+12. Send/receive [push notification](https://docs.quickblox.com/docs/ios-push-notifications).
+13. Subscribe/unsubscribe device to [push notification](https://docs.quickblox.com/docs/ios-push-notifications).
 
 # Views
 

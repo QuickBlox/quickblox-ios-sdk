@@ -35,8 +35,8 @@ It allows to:
 14. Display bitrate. 
 15. [CallKit](https://developer.apple.com/documentation/callkit) supported.
 16. WebRTC Stats reports.
-20. Send/receive VOIP push notifications [Push notification](https://docs.quickblox.com/docs/ios-push-notifications) receiving functionality.
-21. Subscribe/unsubscribe device to VOIP push notifications [Push notification](https://docs.quickblox.com/docs/ios-push-notifications). 
+17. Send/receive VOIP [push notification](https://docs.quickblox.com/docs/ios-push-notifications).
+18. Subscribe/unsubscribe device to VOIP [push notification](https://docs.quickblox.com/docs/ios-push-notifications). 
 
 # The Сhanges VOIP on iOS 13
 
