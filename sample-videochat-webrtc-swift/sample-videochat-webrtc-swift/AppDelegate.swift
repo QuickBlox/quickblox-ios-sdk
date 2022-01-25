@@ -40,10 +40,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         QBSettings.authSecret = CredentialsConstant.authSecret
         QBSettings.accountKey = CredentialsConstant.accountKey
         QBSettings.autoReconnectEnabled = true
-        QBSettings.logLevel = QBLogLevel.nothing
+        QBSettings.logLevel = .nothing
         QBSettings.disableXMPPLogging()
         QBSettings.disableFileLogging()
-        QBRTCConfig.setLogLevel(QBRTCLogLevel.nothing)
+        QBRTCConfig.setLogLevel(.nothing)
         QBRTCConfig.setAnswerTimeInterval(TimeIntervalConstant.answerTimeInterval)
         QBRTCConfig.setDialingTimeInterval(TimeIntervalConstant.dialingTimeInterval)
         
@@ -53,6 +53,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.clear)
         QBRTCClient.initializeRTC()
+        
+        let settings = Settings()
+        settings.mediaConfiguration.videoCodec = .VP8
+        settings.saveToDisk()
+        settings.applyConfig()
         
         let storyboard = UIStoryboard(name: "Authorization", bundle: nil)
         let root: UINavigationController = storyboard.instantiateViewController(identifier: "AuthNavVC")

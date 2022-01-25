@@ -45,6 +45,11 @@ NSString *const kAccountKey     = @"";
     [QBRTCConfig setDialingTimeInterval:kQBDialingTimeInterval];
     [QBRTCConfig setStatsReportTimeInterval:1.f];
     
+    Settings *settings = [[Settings alloc] init];
+    settings.mediaConfiguration.videoCodec = QBRTCVideoCodecVP8;
+    [settings saveToDisk];
+    [settings applyConfig];
+    
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
     
     [QBRTCClient initializeRTC];
