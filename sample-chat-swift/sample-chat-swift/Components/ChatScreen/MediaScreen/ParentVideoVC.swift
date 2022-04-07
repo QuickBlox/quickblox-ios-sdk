@@ -11,10 +11,6 @@ import AVKit
 import Photos
 
 class ParentVideoVC: UIViewController {
-    private lazy var infoItem = UIBarButtonItem(image: UIImage(named: "moreInfo"),
-                                                style: .plain,
-                                                target: self,
-                                                action:#selector(didTapInfo(_:)))
     var videoURL: URL?
     let vc = AVPlayerViewController()
     
@@ -29,15 +25,30 @@ class ParentVideoVC: UIViewController {
         navigationItem.leftBarButtonItem = backButtonItem
         backButtonItem.tintColor = .white
         
+        let saveAttachmentAction = UIAction(title: "Save attachment") { [weak self]  action in
+            PHPhotoLibrary.requestAuthorization
+                { [weak self] (status) -> Void in
+                    switch (status)
+                    {
+                    case .authorized:
+                        if let videoURL = self?.videoURL, UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(videoURL.relativePath) == true {
+                            UISaveVideoAtPathToSavedPhotosAlbum(videoURL.relativePath, self, #selector(self?.video(_:didFinishSavingWithError:contextInfo:)), nil)
+                        } else {
+                            self?.showAlertView("Save error", message: "Video is not compatible With Photos Album", handler: nil)
+                        }
+                    case .denied:
+                        // Permission Denied
+                        debugPrint("[ParentVideoVC] User denied")
+                    default:
+                        debugPrint("[ParentVideoVC] Restricted")
+                    }
+            }
+        }
+        let menu = UIMenu(title: "", children: [saveAttachmentAction])
+        let infoItem = UIBarButtonItem(image: UIImage(named: "moreInfo"),
+                                                    menu: menu)
         navigationItem.rightBarButtonItem = infoItem
         infoItem.tintColor = .white
-        
-        navigationController?.navigationBar.barTintColor = .black
-        navigationController?.navigationBar.barStyle = .black
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
 
         guard let videoURL = videoURL else {
             return
@@ -57,54 +68,12 @@ class ParentVideoVC: UIViewController {
         dismiss(animated: false, completion: nil)
     }
     
-    @objc private func didTapInfo(_ sender: UIBarButtonItem) {
-        let chatStoryboard = UIStoryboard(name: "Chat", bundle: nil)
-        guard let actionsMenuVC = chatStoryboard.instantiateViewController(withIdentifier: "ActionsMenuViewController") as? ActionsMenuViewController else {
-            return
-        }
-        actionsMenuVC.modalPresentationStyle = .popover
-        let presentation = actionsMenuVC.popoverPresentationController
-        presentation?.delegate = self
-        presentation?.barButtonItem = infoItem
-        presentation?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
-        
-        let saveAttachmentAction = MenuAction(title: "Save attachment") {
-            PHPhotoLibrary.requestAuthorization
-                { [weak self] (status) -> Void in
-                    switch (status)
-                    {
-                    case .authorized:
-                        if let videoURL = self?.videoURL, UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(videoURL.relativePath) == true {
-                            UISaveVideoAtPathToSavedPhotosAlbum(videoURL.relativePath, self, #selector(self?.video(_:didFinishSavingWithError:contextInfo:)), nil)
-                        } else {
-                            self?.showAlertView("Save error", message: "Video is not compatible With Photos Album")
-                        }
-                    case .denied:
-                        // Permission Denied
-                        debugPrint("[ParentVideoVC] User denied")
-                    default:
-                        debugPrint("[ParentVideoVC] Restricted")
-                    }
-            }
-        }
-        actionsMenuVC.addAction(saveAttachmentAction)
-        
-        present(actionsMenuVC, animated: false)
-    }
-    
     @objc func video(_ videoPath: String, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
             debugPrint("[ParentVideoVC] Save error \(error.localizedDescription)")
-            SVProgressHUD.showError(withStatus: "Save error")
+            showAnimatedAlertView(nil, message: "Save error")
         } else {
-            SVProgressHUD.showSuccess(withStatus: "Saved!")
+            showAnimatedAlertView(nil, message: "Saved!")
         }
-    }
-}
-
-//MARK: - UIPopoverPresentationControllerDelegate
-extension ParentVideoVC: UIPopoverPresentationControllerDelegate {
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
     }
 }

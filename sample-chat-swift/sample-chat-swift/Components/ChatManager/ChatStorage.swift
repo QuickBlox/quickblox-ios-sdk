@@ -20,6 +20,33 @@ class ChatStorage {
         self.users = []
     }
     
+    func users(_ usersIDs: [NSNumber], completion: DownloadUsersCompletion?) {
+        var members: [UInt: QBUUser] = [:]
+        var newUsersIDs: [String] = []
+        usersIDs.forEach { (userID) in
+            if let user = users.first(where: { $0.id == userID.uintValue }) {
+                members[userID.uintValue] = user
+            } else {
+                newUsersIDs.append(userID.stringValue)
+            }
+        }
+        if newUsersIDs.isEmpty {
+            completion?(Array(members.values), nil)
+            return
+        }
+        let page = QBGeneralResponsePage(currentPage: 1, perPage: ChatManagerConstant.usersLimit)
+        QBRequest.users(withIDs: newUsersIDs, page: page, successBlock: { [weak self] (response, page, users) in
+            guard let self = self else {
+                completion?(Array(members.values), nil)
+                return
+            }
+            self.users.append(contentsOf: users)
+            completion?(Array(members.values) + users, nil)
+        }, errorBlock: { (response) in
+            completion?(Array(members.values), response.error?.error)
+        })
+    }
+
     func privateDialog(opponentID: UInt) -> QBChatDialog? {
         let dialogs = self.dialogs.filter({
             guard let occupantIDs = $0.occupantIDs else {
@@ -57,30 +84,36 @@ class ChatStorage {
         })
     }
     
-    func update(dialogs: [QBChatDialog]) {
+    func update(dialogs: [QBChatDialog], completion: (() -> Void)? = nil) {
         for chatDialog in dialogs {
             assert(chatDialog.type.rawValue != 0, "Chat type is not defined")
             assert(chatDialog.id != nil, "Chat ID is not defined")
-            
+
             let dialog = update(dialog:chatDialog)
             
             // Autojoin to the group chat
-            if dialog.type != .private, dialog.isJoined() == false {
-                dialog.join(completionBlock: { error in
-                    guard let error = error else {
-                        return
-                    }
-                    debugPrint("[ChatStorage] dialog.join error: \(error.localizedDescription)")
-                })
+            if dialog.type == .private {
+                continue
             }
+            if dialog.isJoined() {
+                continue
+            }
+            dialog.join(completionBlock: { error in
+                if let error = error {
+                    debugPrint("[ChatStorage] dialog.join error: \(error.localizedDescription)")
+                }
+            })
         }
+        completion?()
     }
     
-    func deleteDialog(withID ID: String) {
-        guard let index = dialogs.index(where: { $0.id == ID }) else {
+    func deleteDialog(withID ID: String, completion: (() -> Void)? = nil) {
+        guard let index = dialogs.firstIndex(where: { $0.id == ID }) else {
+            completion?()
             return
         }
         dialogs.remove(at: index)
+        completion?()
     }
     
     func user(withID ID: UInt) -> QBUUser? {
@@ -115,6 +148,16 @@ class ChatStorage {
         return sorted(users: users)
     }
     
+    func users(withIDs userIDs: [NSNumber]) -> [QBUUser] {
+        var users: [QBUUser] = []
+        for ID in userIDs {
+            if let user = self.user(withID: ID.uintValue) {
+                users.append(user)
+            }
+        }
+        return sorted(users: users)
+    }
+    
     func sortedAllUsers() -> [QBUUser] {
         let sortedUsers = users.sorted(by: {
             guard let firstUpdatedAt = $0.lastRequestAt, let secondUpdatedAt = $1.lastRequestAt else {
@@ -123,6 +166,14 @@ class ChatStorage {
             return firstUpdatedAt > secondUpdatedAt
         })
         return sortedUsers
+    }
+    
+    func existingUsersIDs() -> Set<NSNumber> {
+        if users.isEmpty == true {
+            return Set()
+        }
+        let usersIDs = users.map({ NSNumber(value: $0.id) })
+        return Set(usersIDs)
     }
     
     //MARK: - Internal Methods

@@ -1,6 +1,6 @@
 //
 //  UIViewController+InfoScreen.swift
-//  sample-videochat-swift
+//  sample-chat-swift
 //
 //  Created by Injoit on 1/28/19.
 //  Copyright © 2019 Quickblox. All rights reserved.
@@ -41,8 +41,9 @@ extension UIViewController {
     }
     
     @objc private func didTapInfoButton(sender: UIBarButtonItem) {
-        let infoStoryboard =  UIStoryboard(name: "InfoScreen", bundle: nil)
-        let infoController = infoStoryboard.instantiateViewController(withIdentifier: "InfoTableViewController")
+        guard let infoController = Screen.infoTableViewController() else {
+            return
+        }
         navigationController?.pushViewController(infoController, animated: true)
     }
 }

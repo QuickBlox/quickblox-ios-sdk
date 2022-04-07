@@ -10,11 +10,6 @@ import UIKit
 import Photos
 
 class ZoomedAttachmentViewController: UIViewController {
-    
-    private lazy var infoItem = UIBarButtonItem(image: UIImage(named: "moreInfo"),
-                                                style: .plain,
-                                                target: self,
-                                                action:#selector(didTapInfo(_:)))
     //MARK: - Properties
     let zoomImageView = UIImageView()
     
@@ -29,15 +24,30 @@ class ZoomedAttachmentViewController: UIViewController {
         navigationItem.leftBarButtonItem = backButtonItem
         backButtonItem.tintColor = .white
         
+        let saveAttachmentAction = UIAction(title: "Save attachment") { [weak self]  action in
+            guard let self = self else { return }
+            guard let image = self.zoomImageView.image else {
+                return
+            }
+            PHPhotoLibrary.requestAuthorization
+                { [weak self] (status) -> Void in
+                    switch (status)
+                    {
+                    case .authorized:
+                        UIImageWriteToSavedPhotosAlbum(image, self, #selector(self?.image(_:didFinishSavingWithError:contextInfo:)), nil)
+                    case .denied:
+                        // Permission Denied
+                        debugPrint("[ZoomedAttachmentViewController] User denied")
+                    default:
+                        debugPrint("[ZoomedAttachmentViewController] Restricted")
+                    }
+            }
+        }
+        let menu = UIMenu(title: "", children: [saveAttachmentAction])
+        let infoItem = UIBarButtonItem(image: UIImage(named: "moreInfo"),
+                                                    menu: menu)
         navigationItem.rightBarButtonItem = infoItem
         infoItem.tintColor = .white
-        
-        navigationController?.navigationBar.barTintColor = .black
-        navigationController?.navigationBar.barStyle = .black
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
         view.backgroundColor = .black
         zoomImageView.contentMode = .scaleAspectFit
@@ -61,52 +71,11 @@ class ZoomedAttachmentViewController: UIViewController {
         dismiss(animated: false, completion: nil)
     }
     
-    @objc private func didTapInfo(_ sender: UIBarButtonItem) {
-        let chatStoryboard = UIStoryboard(name: "Chat", bundle: nil)
-        guard let actionsMenuVC = chatStoryboard.instantiateViewController(withIdentifier: "ActionsMenuViewController") as? ActionsMenuViewController else {
-            return
-        }
-        actionsMenuVC.modalPresentationStyle = .popover
-        let presentation = actionsMenuVC.popoverPresentationController
-        presentation?.delegate = self
-        presentation?.barButtonItem = infoItem
-        presentation?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
-        
-        let saveAttachmentAction = MenuAction(title: "Save attachment") { 
-            guard let image = self.zoomImageView.image else {
-                return
-            }
-            PHPhotoLibrary.requestAuthorization
-                { [weak self] (status) -> Void in
-                    switch (status)
-                    {
-                    case .authorized:
-                        UIImageWriteToSavedPhotosAlbum(image, self, #selector(self?.image(_:didFinishSavingWithError:contextInfo:)), nil)
-                    case .denied:
-                        // Permission Denied
-                        debugPrint("[ZoomedAttachmentViewController] User denied")
-                    default:
-                        debugPrint("[ZoomedAttachmentViewController] Restricted")
-                    }
-            }
-        }
-        actionsMenuVC.addAction(saveAttachmentAction)
-        
-        present(actionsMenuVC, animated: false)
-    }
-    
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if error != nil {
-            SVProgressHUD.showError(withStatus: "Save error")
+            showAnimatedAlertView(nil, message: "Save error")
         } else {
-            SVProgressHUD.showSuccess(withStatus: "Saved!")
+            showAnimatedAlertView(nil, message: "Saved!")
         }
-    }
-}
-
-//MARK: - UIPopoverPresentationControllerDelegate
-extension ZoomedAttachmentViewController: UIPopoverPresentationControllerDelegate {
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
     }
 }

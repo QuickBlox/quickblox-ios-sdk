@@ -29,13 +29,4 @@ extension UITableView {
     func removeEmptyView() {
         self.backgroundView = nil
     }
-    
-    func addShadowToTableView(color: UIColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)) {
-        self.backgroundColor = .white
-        self.layer.masksToBounds = false
-        self.layer.shadowOffset = CGSize(width: 0, height: 12)
-        self.layer.shadowColor = UIColor(red:0.22, green:0.47, blue:0.99, alpha:0.5).cgColor
-        self.layer.shadowOpacity = 1
-        self.layer.shadowRadius = 11
-    }
 }

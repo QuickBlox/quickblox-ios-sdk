@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol AttachmentBarDelegate: class {
+protocol AttachmentBarDelegate: AnyObject {
     func attachmentBarFailedUpLoadImage(_ attachmentBar: AttachmentUploadBar);
     func attachmentBar(_ attachmentBar: AttachmentUploadBar, didUpLoadAttachment  attachment: QBChatAttachment)
     func attachmentBar(_ attachmentBar: AttachmentUploadBar, didTapCancelButton: UIButton)
@@ -58,8 +58,8 @@ class AttachmentUploadBar: UIView {
                                                 let attachment = QBChatAttachment()
                                                 attachment.id = uploadedBlob.uid
                                                 attachment.name = uploadedBlob.name
-                                                attachment.type = "video"
-                                                attachment["size"] = "\(uploadedBlob.size)"
+                                                attachment.type = AttachmentType.Video.rawValue
+                                                attachment[Key.attachmentSize] = "\(uploadedBlob.size)"
                                                 
                                                 self.progressBar.isHidden = true
                                                 self.cancelButton.isHidden = false
@@ -90,8 +90,8 @@ class AttachmentUploadBar: UIView {
                                                 let attachment = QBChatAttachment()
                                                 attachment.id = uploadedBlob.uid
                                                 attachment.name = uploadedBlob.name
-                                                attachment.type = "file"
-                                                attachment["size"] = "\(uploadedBlob.size)"
+                                                attachment.type = AttachmentType.File.rawValue
+                                                attachment[Key.attachmentSize] = "\(uploadedBlob.size)"
                                                 
                                                 self.progressBar.isHidden = true
                                                 self.cancelButton.isHidden = false
@@ -151,8 +151,8 @@ class AttachmentUploadBar: UIView {
                                             let attachment = QBChatAttachment()
                                             attachment.id = uploadedBlob.uid
                                             attachment.name = uploadedBlob.name
-                                            attachment.type = "image"
-                                            attachment["size"] = "\(uploadedBlob.size)"
+                                            attachment.type = AttachmentType.Image.rawValue
+                        attachment[Key.attachmentSize] = "\(uploadedBlob.size)"
                                             
                                             self.progressBar.isHidden = true
                                             self.cancelButton.isHidden = false

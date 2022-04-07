@@ -14,13 +14,20 @@ enum ChatDataSourceAction: Int {
     case remove
 }
 
-struct ChatDataSourceConstant {
+struct Key {
+    static let dialogId = "dialog_id"
+    static let newOccupantsIds = "new_occupants_ids"
+    static let saveToHistory = "save_to_history"
     static let dateDividerKey = "kQBDateDividerCustomParameterKey"
     static let forwardedMessage = "origin_sender_name"
+    static let attachmentSize = "size"
     static let notificationType = "notification_type"
+    static let userID = "user_id"
+    static let today = "Today"
+    static let yesterday = "Yesterday"
 }
 
-protocol ChatDataSourceDelegate: class {
+protocol ChatDataSourceDelegate: AnyObject {
     func chatDataSource(_ chatDataSource: ChatDataSource,
                         willChangeWithMessageIDs IDs: [String])
     
@@ -33,15 +40,13 @@ class ChatDataSource {
     //MARK: - Properties
     weak var delegate: ChatDataSourceDelegate?
     private(set) var messages: [QBChatMessage] = []
-    
-    var messagesForRead: Set<QBChatMessage> = []
-    
+
     var loadMessagesCount: Int {
         return messages.filter({
-            guard let isDividerMessage = ($0.customParameters[ChatDataSourceConstant.dateDividerKey]) as? Bool else {
+            if $0.isDateDividerMessage {
                 return true
             }
-            return isDividerMessage == false }).count
+            return false }).count
     }
     
     private var dividers: Set<Date> = []
@@ -72,7 +77,7 @@ class ChatDataSource {
      *  @return NSIndexPath instance that conforms message or nil if not found
      */
     func messageIndexPath(_ message: QBChatMessage) -> IndexPath? {
-        let objectIndex = messages.index{ $0 === message }
+        let objectIndex = messages.firstIndex{ $0 === message }
         guard let index = objectIndex else {
             return nil
         }
@@ -106,62 +111,35 @@ class ChatDataSource {
     
     func addMessages(_ messages: [QBChatMessage]) {
         serialQueue.async { [weak self] in
-            guard let self = self else {
-                return
-            }
+            guard let self = self else { return }
             var messagesArray: [QBChatMessage] = []
             
             for message in messages {
-                
-                if message.customParameters[ChatDataSourceConstant.dateDividerKey] as? Bool == true {
+                guard let messageDateSent = message.dateSent else { continue }
+                let divideDate = Calendar.current.startOfDay(for: messageDateSent)
+                if self.isExistMessage(message) == true, message.isDateDividerMessage {
+                    if message.text == Key.today || message.text == Key.yesterday {
+                        self.prepareDividerMessage(message, divideDate: divideDate)
+                    }
                     continue
                 }
-                
-                if self.isExistMessage(message) == true {
-                    continue
-                }
-                
-                guard let messageDateSent = message.dateSent else {
-                    debugPrint("[ChatDataSource] addMessages: message must have dateSent!")
-                    continue
-                }
+                if message.isDateDividerMessage { continue }
+                if self.isExistMessage(message) == true { continue }
                 
                 messagesArray.append(message)
                 
-                let divideDate = Calendar.current.startOfDay(for: messageDateSent)
-                
-                if self.dividers.contains(divideDate) {
-                    continue
-                }
-                
-                let formatter = DateFormatter()
-                
-                 if divideDate.hasSame([.year], as: Date()) == true {
-                    formatter.dateFormat = "d MMM"
-                } else {
-                    formatter.dateFormat = "d MMM, yyyy"
-                }
-                
+                if self.dividers.contains(divideDate) { continue }
                 self.dividers.insert(divideDate)
                 
                 let dividerMessage = QBChatMessage()
-                
-                if Calendar.current.isDateInToday(divideDate) == true {
-                    dividerMessage.text = "Today"
-                } else if Calendar.current.isDateInYesterday(divideDate) == true {
-                    dividerMessage.text = "Yesterday"
-                } else {
-                    dividerMessage.text = formatter.string(from: divideDate)
-                }
+                self.prepareDividerMessage(dividerMessage, divideDate: divideDate)
                 dividerMessage.dateSent = divideDate
-                dividerMessage.customParameters[ChatDataSourceConstant.dateDividerKey] = true
+                dividerMessage.customParameters[Key.dateDividerKey] = true
                 messagesArray.append(dividerMessage)
             }
-
+            
             DispatchQueue.main.async { [weak self] in
-                guard let self = self else {
-                    return
-                }
+                guard let self = self else { return }
                 self.delegate?.chatDataSource(self,
                                               changeWithMessages: messagesArray,
                                               action: .add)
@@ -183,7 +161,7 @@ class ChatDataSource {
             var messagesArray: [QBChatMessage] = []
             
             for message in messages {
-                if message.customParameters[ChatDataSourceConstant.dateDividerKey] as? Bool == true {
+                if message.isDateDividerMessage {
                     continue
                 }
                 
@@ -228,7 +206,7 @@ class ChatDataSource {
                 }
                 
                 let currentDividerMessage = currentDayMessages.filter{
-                    return $0.customParameters[ChatDataSourceConstant.dateDividerKey] as? Bool == true
+                    return $0.isDateDividerMessage
                     }.first
                 
                 guard let dividerMessage = currentDividerMessage, let dividerID = dividerMessage.id else {
@@ -268,7 +246,7 @@ class ChatDataSource {
             var messagesArray: [QBChatMessage] = []
             
             for message in messages {
-                if message.customParameters[ChatDataSourceConstant.dateDividerKey] as? Bool == true {
+                if message.isDateDividerMessage {
                     continue
                 }
                 
@@ -339,12 +317,29 @@ class ChatDataSource {
     }
     
     //MARK: - Internal Methods
+    private func prepareDividerMessage(_ dividerMessage: QBChatMessage, divideDate: Date) {
+        let formatter = DateFormatter()
+        if divideDate.hasSame([.year], as: Date()) == true {
+            formatter.dateFormat = "d MMM"
+        } else {
+            formatter.dateFormat = "d MMM, yyyy"
+        }
+        
+        if Calendar.current.isDateInToday(divideDate) == true {
+            dividerMessage.text = "Today"
+        } else if Calendar.current.isDateInYesterday(divideDate) == true {
+            dividerMessage.text = "Yesterday"
+        } else {
+            dividerMessage.text = formatter.string(from: divideDate)
+        }
+    }
+    
     private func messagesIndexPaths(_ messages: [QBChatMessage]) -> [IndexPath] {
         return messages.compactMap{ messageIndexPath($0) }
     }
     
     private func messageInsertIndex(_ message: QBChatMessage) -> Int {
-        let index = messages.index(where: { (item) -> Bool in
+        let index = messages.firstIndex(where: { (item) -> Bool in
             item.dateSent! <= message.dateSent!
         })
         return index ?? messages.endIndex

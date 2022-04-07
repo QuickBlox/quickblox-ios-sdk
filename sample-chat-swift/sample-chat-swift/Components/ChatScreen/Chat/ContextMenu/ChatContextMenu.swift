@@ -17,7 +17,6 @@ protocol ChatContextMenu {
 
 extension ChatContextMenu {
     func chatContextMenu(forSender isSender: Bool, forCell cell: ChatAttachmentCell? = nil) -> UIMenu {
-        
         if let chatAttachmentCell = cell {
             let saveAttachmentAction = UIAction(title: "Save Attachment") { action in
                 self.saveFileAttachment(fromCell: chatAttachmentCell)
