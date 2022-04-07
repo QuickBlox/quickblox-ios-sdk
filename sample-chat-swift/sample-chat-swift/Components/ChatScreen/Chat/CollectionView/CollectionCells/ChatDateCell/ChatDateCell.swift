@@ -26,7 +26,7 @@ class ChatDateCell: ChatCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        dateBackgroundView.setRoundView(cornerRadius: 11)
+        dateBackgroundView.rounded(cornerRadius: 11)
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         dateBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         let constraints = [

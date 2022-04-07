@@ -11,11 +11,6 @@ import PDFKit
 
 @available(iOS 11.0, *)
 class PDFViewController: UIViewController {
-    
-    private lazy var infoItem = UIBarButtonItem(image: UIImage(named: "moreInfo"),
-                                                style: .plain,
-                                                target: self,
-                                                action:#selector(didTapInfo(_:)))
     private let pdfUrl: URL
     private let document: PDFDocument!
     private var pdfView = PDFView()
@@ -41,15 +36,24 @@ class PDFViewController: UIViewController {
         navigationItem.leftBarButtonItem = backButtonItem
         backButtonItem.tintColor = .white
         
+        let saveAttachmentAction = UIAction(title: "Save attachment") { [weak self]  action in
+            guard let self = self else { return }
+            let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            let destinationURL = documentsPath.appendingPathComponent(self.pdfUrl.lastPathComponent)
+            try? FileManager.default.removeItem(at: destinationURL)
+            do {
+                try FileManager.default.copyItem(at: self.pdfUrl, to: destinationURL)
+                self.showAnimatedAlertView(nil, message: "Saved!")
+            } catch let error {
+                self.showAnimatedAlertView(nil, message: "Save error")
+                debugPrint("[PDFViewController] Copy Error: \(error.localizedDescription)")
+            }
+        }
+        let menu = UIMenu(title: "", children: [saveAttachmentAction])
+        let infoItem = UIBarButtonItem(image: UIImage(named: "moreInfo"),
+                                                    menu: menu)
         navigationItem.rightBarButtonItem = infoItem
         infoItem.tintColor = .white
-        
-        navigationController?.navigationBar.barTintColor = .black
-        navigationController?.navigationBar.barStyle = .black
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
         view.backgroundColor = .black
         
@@ -72,38 +76,5 @@ class PDFViewController: UIViewController {
     //MARK: - Actions
     @objc func didTapBack(_ sender: UIBarButtonItem) {
         dismiss(animated: false, completion: nil)
-    }
-    
-    @objc private func didTapInfo(_ sender: UIBarButtonItem) {
-        let chatStoryboard = UIStoryboard(name: "Chat", bundle: nil)
-        guard let actionsMenuVC = chatStoryboard.instantiateViewController(withIdentifier: "ActionsMenuViewController") as? ActionsMenuViewController else {
-            return
-        }
-        actionsMenuVC.modalPresentationStyle = .popover
-        let presentation = actionsMenuVC.popoverPresentationController
-        presentation?.delegate = self
-        presentation?.barButtonItem = infoItem
-        presentation?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
-        let saveAttachmentAction = MenuAction(title: "Save attachment") {
-            let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            let destinationURL = documentsPath.appendingPathComponent(self.pdfUrl.lastPathComponent)
-            try? FileManager.default.removeItem(at: destinationURL)
-            do {
-                try FileManager.default.copyItem(at: self.pdfUrl, to: destinationURL)
-                SVProgressHUD.showSuccess(withStatus: "Saved!")
-            } catch let error {
-                SVProgressHUD.showError(withStatus: "Save error")
-                debugPrint("[PDFViewController] Copy Error: \(error.localizedDescription)")
-            }
-        }
-        actionsMenuVC.addAction(saveAttachmentAction)
-        
-        present(actionsMenuVC, animated: false)
-    }
-}
-
-extension PDFViewController: UIPopoverPresentationControllerDelegate {
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
     }
 }

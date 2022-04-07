@@ -14,8 +14,4 @@
 @import SystemConfiguration;
 @import MobileCoreServices;
 @import Quickblox;
-
-@import SVProgressHUD;
-
-@import TTTAttributedLabel;
 #endif

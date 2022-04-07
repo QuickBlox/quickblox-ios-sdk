@@ -32,8 +32,8 @@ It allows to:
 9. List and delete chats
 10. Display chat history
 11. Display a list with chat participants
-12. Send/receive [push notification](https://docs.quickblox.com/docs/ios-push-notifications).
-13. Subscribe/unsubscribe device to [push notification](https://docs.quickblox.com/docs/ios-push-notifications).
+12. Send/receive push notifications [Push notification](https://docs.quickblox.com/docs/ios-push-notifications) receiving functionality.
+13. Subscribe/unsubscribe device to push notifications [Push notification](https://docs.quickblox.com/docs/ios-push-notifications) receiving functionality.
 
 # Views
 
@@ -70,10 +70,3 @@ QBSettings.authSecret = "BTFsj7Rtt27DAmT"
 QBSettings.accountKey = "7yvNe17TnjNUqDoPwfqp"
 ```
 6. Run the code sample.
-
-
-Additional libraries used via [CocoaPods](https://cocoapods.org):
-
-* [SVProgressHUD](https://github.com/TransitApp/SVProgressHUD.git/)
-* [SDWebImage](https://github.com/rs/SDWebImage.git)
-* [TTTAttributedLabel](https://github.com/TTTAttributedLabel/TTTAttributedLabel.git)

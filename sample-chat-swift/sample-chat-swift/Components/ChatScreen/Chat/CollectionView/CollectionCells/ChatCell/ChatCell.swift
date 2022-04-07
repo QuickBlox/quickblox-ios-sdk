@@ -1,13 +1,12 @@
 //
 //  ChatCell.swift
-//  Swift-ChatViewController
+//  sample-chat-swift
 //
 //  Created by Injoit on 1/28/19.
 //  Copyright © 2019 Quickblox. All rights reserved.
 //
 
 import UIKit
-import TTTAttributedLabel
 
 
 struct ChatCellLayoutModel {
@@ -170,7 +169,7 @@ ChatCellProtocol {
    *  its frame, nor should you remove this view from the cell or remove any of its subviews.
    *  Doing so could result in unexpected behavior.
    */
-    @IBOutlet weak var textView: TTTAttributedLabel!
+    @IBOutlet weak var textView: UILabel!
   /**
    *  Returns top chat message attributed label.
    *
@@ -178,7 +177,7 @@ ChatCellProtocol {
    *  its frame, nor should you remove this view from the cell or remove any of its subviews.
    *  Doing so could result in unexpected behavior.
    */
-    @IBOutlet weak var topLabel: TTTAttributedLabel!
+    @IBOutlet weak var topLabel: UILabel!
   /**
    *  Returns bottom chat message attributed label.
    *
@@ -187,7 +186,7 @@ ChatCellProtocol {
    *  Doing so could result in unexpected behavior.
    */
     
-    @IBOutlet weak var timeLabel: TTTAttributedLabel!
+    @IBOutlet weak var timeLabel: UILabel!
   @IBOutlet private weak var containerWidthConstraint: NSLayoutConstraint!
   @IBOutlet private weak var messageContainerTopInsetConstraint: NSLayoutConstraint!
   @IBOutlet private weak var messageContainerLeftInsetConstraint: NSLayoutConstraint!
@@ -244,20 +243,20 @@ ChatCellProtocol {
     return String(describing:self).components(separatedBy: ".").last!
   }
 
-  class func layoutModel() -> ChatCellLayoutModel {
-    
-    let containerInsets = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 4.0, right: 5.0)
-    
-    let defaultLayoutModel = ChatCellLayoutModel(avatarSize: CGSize(width: 0.0, height: 0.0),
-                                                   containerInsets: containerInsets,
-                                                   topLabelHeight: 15.0,
-                                                   timeLabelHeight: 15.0,
-                                                   maxWidth: 0.0,
-                                                   containerSize: .zero,
-                                                   maxWidthMarginSpace: 20.0)
-
-    return defaultLayoutModel
-  }
+    class func layoutModel() -> ChatCellLayoutModel {
+        
+        let containerInsets = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 4.0, right: 5.0)
+        
+        let defaultLayoutModel = ChatCellLayoutModel(avatarSize: CGSize(width: 0.0, height: 0.0),
+                                                     containerInsets: containerInsets,
+                                                     topLabelHeight: 15.0,
+                                                     timeLabelHeight: 15.0,
+                                                     maxWidth: 0.0,
+                                                     containerSize: .zero,
+                                                     maxWidthMarginSpace: 20.0,
+                                                     spaceBetweenTopLabelAndTextView: 12.0)
+        return defaultLayoutModel
+    }
   
   class func registerForReuse(inView dataView: Any) {
     let cellIdentifier = cellReuseIdentifier()
@@ -280,8 +279,6 @@ ChatCellProtocol {
     super.awakeFromNib()
     
     contentView.isOpaque = true
-    translatesAutoresizingMaskIntoConstraints = false
-    
     messageContainerTopInsetConstraint?.constant = 0
     messageContainerLeftInsetConstraint?.constant = 0
     messageContainerBottomInsetConstraint?.constant = 0
@@ -310,23 +307,6 @@ ChatCellProtocol {
   @objc func handleTapGesture(_ tap: UITapGestureRecognizer?) {
     
     let touchPt: CGPoint? = tap?.location(in: self)
-    let touchView: UIView? = tap?.view?.hitTest(touchPt ?? CGPoint.zero, with: nil)
-    
-    if (touchView is TTTAttributedLabel) {
-      
-      let label = touchView as? TTTAttributedLabel
-      let translatedPoint = label?.convert(touchPt ?? CGPoint.zero, from: tap?.view)
-      
-      let labelLink: TTTAttributedLabelLink? = label?.link(at: translatedPoint!)
-      
-      if (labelLink?.result.numberOfRanges ?? 0) > 0 {
-        
-        if let _ = delegate?.chatCell!(self, didTapOn: (labelLink?.result)!) {
-          delegate?.chatCell!(self, didTapOn: (labelLink?.result)!)
-        }
-        return
-      }
-    }
     
     if containerView.frame.contains(touchPt!) {
         delegate?.chatCellDidTapContainer(self)
@@ -401,38 +381,64 @@ ChatCellProtocol {
       delegate?.chatCellDidTapAvatar(self)
   }
   
-  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-    
-    let touchPt: CGPoint = touch.location(in: gestureRecognizer.view)
-    
-    if (gestureRecognizer is UILongPressGestureRecognizer) {
-      
-      if (touch.view is TTTAttributedLabel) {
-        
-        let label = touch.view as? TTTAttributedLabel
-        let translatedPoint: CGPoint? = label?.convert(touchPt, from: gestureRecognizer.view)
-        
-        
-        let labelLink: TTTAttributedLabelLink? = label?.link(at: translatedPoint!)
-        
-        if (labelLink?.result.numberOfRanges ?? 0) > 0 {
-          
-          return false
-        }
-      }
-      
-      return containerView.frame.contains(touchPt)
-    }
-    
-    return true
-  }
-  
   //MARK: - Menu actions
-  
   override class func responds(to aSelector: Selector) -> Bool {
     if chatCellMenuActions.contains(NSStringFromSelector(aSelector)) {
       return true
     }
     return super.responds(to: aSelector)
   }
+}
+
+extension ChatCell {
+    func configure(with message: QBChatMessage, dialogType:QBChatDialogType) {
+        if let dateCell = self as? ChatDateCell {
+            dateCell.isUserInteractionEnabled = false
+            dateCell.dateLabel.text = message.messageText().string
+            delegate = nil
+            return
+        }
+        
+        if let notificationCell = self as? ChatNotificationCell {
+            notificationCell.isUserInteractionEnabled = false
+            notificationCell.notificationLabel.text = message.messageText().string
+            delegate = nil
+            return
+        }
+        
+        let username = message.topLabelText()
+        topLabel.text = username.string
+        if (self is ChatIncomingCell || self is ChatAttachmentIncomingCell) && dialogType != .private {
+            let userName = username.string
+            avatarLabel.text = String(userName.capitalized.first ?? Character("QB"))
+            avatarLabel.backgroundColor = message.senderID.generateColor()
+        }
+        
+        timeLabel.text = message.timeLabelText().string
+        if let chatOutgoingCell = self as? ChatOutgoingCell {
+            chatOutgoingCell.setupStatusImage(message.statusImage())
+        }
+        
+        if let textView = textView {
+            textView.attributedText = message.messageText()
+        }
+        
+        if let attachmentCell = self as? ChatAttachmentCell {
+            guard let attachment = message.attachments?.first else {
+                return
+            }
+            if message.isForwardedMessage == true {
+                attachmentCell.forwardedLabel.attributedText = message.forwardedText()
+                attachmentCell.forwardInfoHeightConstraint.constant = 35.0
+            } else {
+                attachmentCell.forwardInfoHeightConstraint.constant = 0.0
+            }
+            if attachmentCell is ChatAttachmentOutgoingCell {
+                if let attachmentCell = attachmentCell as? ChatAttachmentOutgoingCell {
+                    attachmentCell.setupStatusImage(message.statusImage())
+                }
+            }
+            attachmentCell.setupAttachment(attachment)
+        }
+    }
 }

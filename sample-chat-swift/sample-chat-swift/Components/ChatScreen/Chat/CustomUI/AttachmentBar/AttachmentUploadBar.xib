@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -31,6 +31,7 @@
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CPy-6Z-bbA">
                     <rect key="frame" x="74" y="12" width="24" height="24"/>
+                    <color key="backgroundColor" red="0.53197487113402064" green="0.53197487113402064" blue="0.53197487113402064" alpha="0.38148384353741499" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="hKW-vE-eGu"/>
                         <constraint firstAttribute="width" constant="24" id="jmg-bF-NM1"/>
@@ -42,6 +43,7 @@
                     </connections>
                 </button>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="ltd-16-S5f" firstAttribute="centerX" secondItem="42o-hV-6uf" secondAttribute="centerX" id="8GP-ai-uCr"/>
@@ -52,7 +54,6 @@
                 <constraint firstItem="CPy-6Z-bbA" firstAttribute="top" secondItem="42o-hV-6uf" secondAttribute="top" constant="2" id="t4p-Pt-Iu5"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="attachmentImageView" destination="42o-hV-6uf" id="MPj-RT-42T"/>
                 <outlet property="cancelButton" destination="CPy-6Z-bbA" id="20y-zh-Qf4"/>

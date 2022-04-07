@@ -16,13 +16,15 @@ class SelectAssetCell: UICollectionViewCell {
     @IBOutlet weak var checkBoxImageView: UIImageView!
     @IBOutlet weak var checkBoxView: UIView!
     
+    var representedAssetIdentifier: String!
+    
     //MARK: - Overrides
     override func awakeFromNib() {
         checkBoxView.backgroundColor = UIColor.white.withAlphaComponent(0.35)
         checkBoxView.setRoundBorderEdgeColorView(cornerRadius: 4.0,
                                             borderWidth: 1.0,
                                             borderColor: UIColor.white)
-        videoTypeView.setRoundView(cornerRadius: 3)
+        videoTypeView.rounded(cornerRadius: 3)
         videoTypeView.isHidden = true
         assetImageView.contentMode = .scaleAspectFill
     }

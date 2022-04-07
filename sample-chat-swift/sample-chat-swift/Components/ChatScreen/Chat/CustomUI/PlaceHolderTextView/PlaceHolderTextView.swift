@@ -1,6 +1,6 @@
 //
 //  PlaceHolderTextView.swift
-//  Swift-ChatViewController
+//  sample-chat-swift
 //
 //  Created by Injoit on 1/28/19.
 //  Copyright © 2019 Quickblox. All rights reserved.
@@ -19,7 +19,7 @@ struct PlaceHolderConstant {
 /**
  *  A delegate object used to notify the receiver of paste events from a `PlaceHolderTextView`.
  */
-protocol PlaceHolderTextViewPasteDelegate: class {
+protocol PlaceHolderTextViewPasteDelegate: AnyObject {
     /**
      *  Asks the delegate whether or not the `textView` should use the original implementation of `-[UITextView paste]`.
      *

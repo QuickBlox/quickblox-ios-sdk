@@ -10,14 +10,6 @@ import Foundation
 import UIKit
 import AVKit
 
-enum AttachmentType {
-    case Image
-    case Video
-    case Camera
-    case File
-    case Error
-}
-
 typealias ErrorHandler = (_ error: Error?, _ ID: String) -> Void
 typealias SuccessHandler = (_ image: UIImage?, _ videoUrl: URL?, _ ID: String) -> Void
 typealias ProgressHandler = (_ progress: CGFloat, _ ID: String) -> Void
@@ -63,14 +55,27 @@ final class AttachmentDownloadOperation: AsyncOperation {
         self.state = .executing
         QBRequest.downloadFile(withUID: ID, successBlock: { [weak self] (response: QBResponse, fileData: Data)  in
             if attachmentType == .Image, let image = UIImage(data: fileData) {
-                self?.successHandler?(image, nil, ID)
+                let fixImage = image.fixOrientation()
+                CacheManager.shared.store(fixImage, for: ID)
+                self?.successHandler?(fixImage.fixOrientation(), nil, ID)
             } else {
                 let fileData = fileData as NSData
                 let fileName = ID + "_" + attachmentName
                 let filePath = NSTemporaryDirectory() + fileName
                 let fileURL = URL(fileURLWithPath: filePath)
                 if  fileData.write(to: fileURL, atomically: true) == true {
-                    self?.successHandler?(nil, fileURL, ID)
+                    CacheManager.shared.getFileWith(stringUrl: fileURL.absoluteString) { result in
+                        switch result {
+                        case .success(let fileURl):
+                            fileURl.getThumbnailImage { thumbnailImage in
+                                CacheManager.shared.store(thumbnailImage, for: ID)
+                                self?.successHandler?(thumbnailImage, fileURl, ID)
+                            }
+                        case .failure(let error):
+                            debugPrint(error, "[AttachmentDownloadManager]  failure in the Cache of video")
+                            self?.successHandler?(nil, nil, ID)
+                        }
+                    }
                 } else {
                     debugPrint("[AttachmentDownloadOperation] failure")
                 }

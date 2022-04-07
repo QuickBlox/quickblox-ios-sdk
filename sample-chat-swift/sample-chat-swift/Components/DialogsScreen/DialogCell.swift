@@ -13,7 +13,6 @@ struct DialogCellConstant {
 }
 
 class DialogCell: UITableViewCell {
-
     //MARK: - IBOutlets
     @IBOutlet weak var checkBoxImageView: UIImageView!
     @IBOutlet weak var checkBoxView: UIView!

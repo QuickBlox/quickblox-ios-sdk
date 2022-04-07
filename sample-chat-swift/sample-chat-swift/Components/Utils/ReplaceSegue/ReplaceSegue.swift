@@ -23,7 +23,7 @@ class ReplaceSegue : UIStoryboardSegue {
             return
         }
         
-        guard let sourceViewControllerIndex = mutableVC.index(of: sourceViewController) else {
+        guard let sourceViewControllerIndex = mutableVC.firstIndex(of: sourceViewController) else {
             debugPrint("[ReplaceSegue] Error: no index for source view controller")
             return
         }
