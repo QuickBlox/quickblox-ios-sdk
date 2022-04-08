@@ -1,6 +1,6 @@
 //
 //  UITextField+Chat.m
-//  samplechat
+//  sample-chat
 //
 //  Created by Injoit on 1/24/20.
 //  Copyright © 2020 Quickblox. All rights reserved.
@@ -22,7 +22,7 @@
     }
 }
 
-- (void)addShadowToTextFieldWithColor:(UIColor *) color cornerRadius: (CGFloat)cornerRadius {
+- (void)addShadow:(UIColor *) color cornerRadius: (CGFloat)cornerRadius {
     self.backgroundColor = UIColor.whiteColor;
     self.layer.masksToBounds = false;
     self.layer.shadowColor = color.CGColor;

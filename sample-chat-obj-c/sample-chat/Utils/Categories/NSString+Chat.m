@@ -1,6 +1,6 @@
 //
 //  NSString+Chat.m
-//  samplechat
+//  sample-chat
 //
 //  Created by Injoit on 2/25/19.
 //  Copyright © 2019 Quickblox. All rights reserved.
@@ -20,13 +20,29 @@
     return [squashed stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
-- (BOOL)endsInWhitespaceCharacter {
-    NSUInteger stringLength = [self length];
-    if (stringLength == 0) {
-        return NO;
+- (BOOL)validateWithRegexes:(NSArray <NSString *> *)regexes {
+    for (NSString *regex in regexes) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+        if ([predicate evaluateWithObject:self]) {
+            return true;
+        }
     }
-    unichar lastChar = [self characterAtIndex:stringLength-1];
-    return [[NSCharacterSet whitespaceCharacterSet] characterIsMember:lastChar];
+    return false;
+}
+
+- (NSString *)firstLetter {
+    NSCharacterSet *characterSet = [NSCharacterSet whitespaceCharacterSet];
+    NSString *name = [self stringByTrimmingCharactersInSet:characterSet];
+    NSMutableString * firstLetter = [NSMutableString string];
+    NSString * firstChar = [name substringWithRange:[name rangeOfComposedCharacterSequenceAtIndex:0]];
+    [firstLetter appendString:[firstChar uppercaseString]];
+    return firstLetter.copy;
+}
+
+- (CGFloat)stringWidth {
+    UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    dateLabel.text = self;
+    return dateLabel.intrinsicContentSize.width;
 }
 
 @end

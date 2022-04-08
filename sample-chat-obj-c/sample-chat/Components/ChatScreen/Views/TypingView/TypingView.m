@@ -1,6 +1,6 @@
 //
 //  TypingView.m
-//  samplechat
+//  sample-chat
 //
 //  Created by Injoit on 2/11/20.
 //  Copyright © 2020 Quickblox. All rights reserved.

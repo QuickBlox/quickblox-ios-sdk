@@ -1,6 +1,6 @@
 //
 //  UITableView+Chat.m
-//  samplechat
+//  sample-chat
 //
 //  Created by Injoit on 04.02.2020.
 //  Copyright © 2020 Quickblox. All rights reserved.
@@ -32,9 +32,9 @@
     self.backgroundView = nil;
    }
    
-- (void)addShadowToTableViewWithShadowColor:(UIColor *)shadowColor {
-    self.backgroundColor = UIColor.whiteColor;
-    self.layer.masksToBounds = NO;
+- (void)addShadowWithColor:(UIColor *)shadowColor {
+    self.backgroundColor = UIColor.clearColor;
+    self.layer.masksToBounds = YES;
     self.layer.shadowOffset = CGSizeMake(0, 12.0f);
     self.layer.shadowColor = shadowColor.CGColor;
     self.layer.shadowOpacity = 1.0f;

@@ -6,7 +6,7 @@
 	<string>development</string>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>$(AppIdentifierPrefix)com.quickblox.test-samplechat-objc</string>
+		<string>$(AppIdentifierPrefix)com.quickblox.chats</string>
 	</array>
 </dict>
 </plist>

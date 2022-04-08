@@ -1,6 +1,6 @@
 //
 //  ChatDataSource.h
-//  samplechat
+//  sample-chat
 //
 //  Created by Injoit on 2/25/19.
 //  Copyright © 2019 Quickblox. All rights reserved.
@@ -46,10 +46,14 @@ typedef NS_ENUM(NSInteger, DataSourceActionType) {
 - (NSInteger)loadMessagesCount;
 
 - (NSArray *)allMessagesForRead;
-
 - (void)addMessageForRead:(QBChatMessage *)message;
 - (void)removeMessageForRead:(QBChatMessage *)message;
 - (NSInteger)messagesForReadCount;
+
+- (NSArray *)allDraftMessages;
+- (void)addDraftMessage:(QBChatMessage *)message;
+- (void)removeDraftMessage:(QBChatMessage *)message;
+- (NSInteger)draftMessagesCount;
 
 /**
  *  Messages count.

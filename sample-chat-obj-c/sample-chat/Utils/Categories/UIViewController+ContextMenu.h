@@ -1,6 +1,6 @@
 //
 //  UIViewController+ContextMenu.h
-//  samplechat
+//  sample-chat
 //
 //  Created by Injoit on 28.09.2020.
 //  Copyright © 2020 Quickblox. All rights reserved.

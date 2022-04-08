@@ -1,6 +1,6 @@
 //
 //  ChatAttachmentCell.h
-//  samplechat
+//  sample-chat
 //
 //  Created by Injoit on 2/25/19.
 //  Copyright © 2019 Quickblox. All rights reserved.
@@ -22,10 +22,6 @@ typedef void(^VideoURLCompletion)(NSURL *videoURl);
  *
  *  @param attachmentImage UIImage object
  */
-- (void)setupAttachment:(QBChatAttachment *)attachment
-         attachmentType:(AttachmentType)attachmentType
-             completion:(_Nullable VideoURLCompletion)completion;
-
 @property (nonatomic, weak) IBOutlet UIImageView *attachmentImageView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *forwardInfoHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomInfoHeightConstraint;
@@ -36,6 +32,7 @@ typedef void(^VideoURLCompletion)(NSURL *videoURl);
 @property (weak, nonatomic) IBOutlet UILabel *attachmentSizeLabel;
 @property (weak, nonatomic) IBOutlet UIView *infoTopLineView;
 @property (strong, nonatomic) NSURL *attachmentUrl;
+- (void)setupAttachment:(QBChatAttachment *)attachment;
 @end
 
 NS_ASSUME_NONNULL_END

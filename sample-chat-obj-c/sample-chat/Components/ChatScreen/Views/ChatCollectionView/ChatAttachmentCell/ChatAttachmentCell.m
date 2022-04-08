@@ -1,6 +1,6 @@
 //
 //  ChatAttachmentCell.m
-//  samplechat
+//  sample-chat
 //
 //  Created by Injoit on 2/25/19.
 //  Copyright © 2019 Quickblox. All rights reserved.
@@ -10,6 +10,9 @@
 #import "AttachmentDownloadManager.h"
 #import "CircularProgressBar.h"
 #import "CALayer+Chat.h"
+#import "ImageCache.h"
+#import "NSURL+Chat.h"
+#import "QBChatAttachment+Chat.h"
 
 @interface ChatAttachmentCell()
 
@@ -71,12 +74,90 @@
     return defaultLayoutModel;
 }
 
-- (void)setupAttachment:(QBChatAttachment *)attachment attachmentType:(AttachmentType)attachmentType completion:(_Nullable VideoURLCompletion)completion {
+- (void)setupAttachment:(QBChatAttachment *)attachment {
     if (!attachment.ID) {
         return;
     }
-    
     self.attachmentID = attachment.ID;
+    
+    if ([attachment.type isEqualToString:@"image"]) {
+        self.bottomInfoHeightConstraint.constant = 0.0f;
+        self.typeAttachmentImageView.image = [UIImage imageNamed:@"image_attachment"];
+        [self setupAttachment:attachment attachmentType:AttachmentTypeImage completion:nil];
+    } else if ([attachment.type isEqualToString:@"video"]) {
+        self.bottomInfoHeightConstraint.constant = 60.0f;
+        self.playImageView.hidden = NO;
+        self.attachmentNameLabel.text = attachment.name;
+        if (attachment.customParameters[@"size"]) {
+            NSString *size = attachment.customParameters[@"size"];
+            double sizeMB = [size doubleValue];
+            self.attachmentSizeLabel.text = [NSString stringWithFormat:@"%.02f MB", sizeMB/1048576];
+        }
+        NSURL *videoURL = [attachment cachedURL];
+        if ([NSFileManager.defaultManager fileExistsAtPath:videoURL.path]) {
+            self.attachmentUrl = videoURL;
+            if ([ImageCache.instance imageFromCacheForKey:self.attachmentID]) {
+                UIImage *image = [ImageCache.instance imageFromCacheForKey:self.attachmentID];
+                self.attachmentImageView.image = image;
+            } else {
+                [videoURL getThumbnailImageFromVideoUrlWithCompletion:^(UIImage *thumbnailImage) {
+                    if (thumbnailImage) {
+                        self.attachmentImageView.image = thumbnailImage;
+                        [ImageCache.instance storeImage:thumbnailImage forKey:self.attachmentID];
+                    }
+                }];
+            }
+        } else {
+            self.typeAttachmentImageView.image = [UIImage imageNamed:@"video_attachment"];
+            [self setupAttachment:attachment attachmentType:AttachmentTypeVideo completion:^(NSURL * _Nonnull videoURl) {
+                if (videoURL) {
+                    self.attachmentUrl = videoURL;
+                }
+            }];
+        }
+    } else if ([attachment.type isEqualToString:@"file"]) {
+        self.attachmentNameLabel.text = attachment.name;
+        self.bottomInfoHeightConstraint.constant = 60.0f;
+        self.attachmentImageView.backgroundColor = UIColor.whiteColor;
+        self.infoTopLineView.backgroundColor = [UIColor colorWithRed:0.85f green:0.89f blue:0.97f alpha:1.0f];
+        self.typeAttachmentImageView.image = [UIImage imageNamed:@"file"];
+        if (attachment.customParameters[@"size"]) {
+            NSString *size = attachment.customParameters[@"size"];
+            double sizeMB = [size doubleValue];
+            self.attachmentSizeLabel.text = [NSString stringWithFormat:@"%.02f MB", sizeMB/1048576];
+        }
+        NSURL *fileURL = [attachment cachedURL];
+        if ([NSFileManager.defaultManager fileExistsAtPath:fileURL.path]) {
+            self.attachmentUrl = fileURL;
+            if ([ImageCache.instance imageFromCacheForKey:self.attachmentID]) {
+                UIImage *image = [ImageCache.instance imageFromCacheForKey:self.attachmentID];
+                self.attachmentImageView.image = image;
+                self.typeAttachmentImageView.image = nil;
+                self.attachmentImageView.contentMode = UIViewContentModeScaleAspectFit;
+            } else {
+                if ([attachment.name hasSuffix:@"pdf"]) {
+                    [fileURL imageFromPDFfromURLWithCompletion:^(UIImage *thumbnailImage) {
+                        if (thumbnailImage) {
+                            self.attachmentImageView.image = thumbnailImage;
+                            self.typeAttachmentImageView.image = nil;
+                            self.attachmentImageView.contentMode = UIViewContentModeScaleAspectFit;
+                            [ImageCache.instance storeImage:thumbnailImage forKey:self.attachmentID];
+                        }
+                    }];
+                }
+            }
+        } else {
+            [self setupAttachment:attachment attachmentType:AttachmentTypeVideo completion:^(NSURL * _Nonnull fileURL) {
+                if (fileURL) {
+                    self.attachmentUrl = fileURL;
+                }
+            }];
+        }
+    }
+}
+
+- (void)setupAttachment:(QBChatAttachment *)attachment attachmentType:(AttachmentType)attachmentType completion:(_Nullable VideoURLCompletion)completion {
+
     NSString *attachmentName = @"Attachment";
     if (attachment.name) {
         attachmentName = attachment.name;

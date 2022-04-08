@@ -1,6 +1,6 @@
 //
 //  NSURL+Chat.m
-//  samplechat
+//  sample-chat
 //
 //  Created by Injoit on 06.03.2020.
 //  Copyright © 2020 Quickblox. All rights reserved.
@@ -10,7 +10,7 @@
 #import <Photos/Photos.h>
 
 @implementation NSURL (Chat)
-- (void)getThumbnailImageFromVideoUrlWithCompletion:(void(^)(UIImage * _Nullable image))completion {
+- (void)getThumbnailImageFromVideoUrlWithCompletion:(void(^)(UIImage *image))completion {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         AVAsset *avAsset = [AVAsset assetWithURL:self];
@@ -22,11 +22,14 @@
         if (error) {
             if (completion) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    completion(nil);
+                    completion([UIImage imageNamed:@"video_attachment"]);
                 });
             }
         } else {
             UIImage *thumbImage = [[UIImage alloc] initWithCGImage:cgThumbImage];
+            if (!thumbImage) {
+                thumbImage = [UIImage imageNamed:@"video_attachment"];
+            }
             if (completion) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     completion(thumbImage);
@@ -36,7 +39,7 @@
     });
 }
 
-- (void)imageFromPDFfromURLWithCompletion:(void(^)(UIImage * _Nullable image))completion {
+- (void)imageFromPDFfromURLWithCompletion:(void(^)(UIImage *image))completion {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         CFURLRef cfURLRef = CFBridgingRetain(self);
         CGPDFDocumentRef documentRef = CGPDFDocumentCreateWithURL(cfURLRef);
@@ -51,19 +54,13 @@
             CGContextScaleCTM(rendererContext.CGContext, 1, -1);
             CGContextDrawPDFPage(rendererContext.CGContext, pageRef);
         }];
-        
-        if (thumbImage) {
-            if (completion) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    completion(thumbImage);
-                });
-            }
-        } else {
-            if (completion) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    completion(nil);
-                });
-            }
+        if (!thumbImage) {
+            thumbImage = [UIImage imageNamed:@"file"];
+        }
+        if (completion) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(thumbImage);
+            });
         }
     });
 }

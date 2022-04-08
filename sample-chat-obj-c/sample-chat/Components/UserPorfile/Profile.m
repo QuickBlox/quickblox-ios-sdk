@@ -1,6 +1,6 @@
 //
 //  Profile.m
-//  samplechat
+//  sample-chat
 //
 //  Created by Injoit on 2/25/19.
 //  Copyright © 2019 Quickblox. All rights reserved.
@@ -9,10 +9,12 @@
 #import "Profile.h"
 #import "Log.h"
 
-static NSString* const kCurrentProfile = @"curentProfile";
+static NSString* const kCurrentProfile = @"currentProfile";
 
 @interface Profile()
+
 @property(strong, nonatomic) QBUUser *user;
+
 @end
 
 @implementation Profile
@@ -27,7 +29,7 @@ static NSString* const kCurrentProfile = @"curentProfile";
 }
 
 //MARK: - Static Methods
-+ (void)clearProfile {
++ (void)clear {
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kCurrentProfile];
 }
 
@@ -37,6 +39,7 @@ static NSString* const kCurrentProfile = @"curentProfile";
 }
 
 + (void)updateUser:(QBUUser *)user {
+    
     QBUUser *current = [Profile loadObject];
     
     if (current) {
