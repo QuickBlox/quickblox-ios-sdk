@@ -186,7 +186,6 @@ class AuthViewController: UIViewController {
                             if user.fullName != fullName {
                                 self.updateFullName(fullName: fullName, login: login)
                             } else {
-//                                self.login(fullName: fullName, login: login, password: password)
                                 self.connectToChat(user: user)
                             }
                             
