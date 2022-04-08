@@ -1,13 +1,13 @@
 //
 //  ChatDataSource.m
-//  samplechat
+//  sample-chat
 //
 //  Created by Injoit on 2/25/19.
 //  Copyright © 2019 Quickblox. All rights reserved.
 //
 
 #import "ChatDataSource.h"
-#import "QBChatMessage+QBDateDivider.h"
+#import "QBChatMessage+Chat.h"
 #import "NSDate+ChatDataSource.h"
 #import "DateUtils.h"
 #import "NSDate+Chat.h"
@@ -18,6 +18,7 @@ NSString *const dateDividerKey = @"kQBDateDividerCustomParameterKey";
 
 @property (strong, nonatomic) NSMutableArray *messages;
 @property (strong, nonatomic) NSMutableSet<QBChatMessage *> *messagesForRead;
+@property (strong, nonatomic) NSMutableSet<QBChatMessage *> *draftMessages;
 @property (strong, nonatomic) NSMutableSet *dateDividers;
 @property (strong, nonatomic) dispatch_queue_t serialQueue;
 
@@ -69,7 +70,6 @@ NSComparator messageComparator = ^(QBChatMessage *obj1, QBChatMessage *obj2) {
     [self addMessages:@[message]];
 }
 
-
 - (void)addMessages:(NSArray<QBChatMessage *> *)messages {
     
     dispatch_async(_serialQueue, ^{
@@ -87,7 +87,14 @@ NSComparator messageComparator = ^(QBChatMessage *obj1, QBChatMessage *obj2) {
             
             NSAssert(message.dateSent != nil, @"Message must have dateSent!");
             
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            
             if ([self isExistMessage:message] || message.isDateDividerMessage) {
+                if (message.isDateDividerMessage) {
+                    if ([message.text isEqualToString:@"Today"] || [message.text isEqualToString:@"Yesterday"]) {
+                        [self prepareDividerMessageTextWithFormatter:formatter message:message];
+                    }
+                }
                 continue;
             }
             [messagesArray addObject:message];
@@ -98,8 +105,6 @@ NSComparator messageComparator = ^(QBChatMessage *obj1, QBChatMessage *obj2) {
                 continue;
             }
             
-            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            
             if ([divideDate isHasSameComponents:NSCalendarUnitYear asDate:[NSDate date]] == YES) {
                 formatter.dateFormat = @"d MMM";
             } else {
@@ -109,14 +114,8 @@ NSComparator messageComparator = ^(QBChatMessage *obj1, QBChatMessage *obj2) {
             [self.dateDividers addObject:divideDate];
             
             QBChatMessage *dividerMessage = [QBChatMessage new];
-            dividerMessage.text = [formatter stringFromDate:divideDate];
-            if ([NSCalendar.currentCalendar isDateInToday:divideDate]) {
-                dividerMessage.text = @"Today";
-            }
-            if ([NSCalendar.currentCalendar isDateInYesterday:divideDate]) {
-                dividerMessage.text = @"Yesterday";
-            }
             dividerMessage.dateSent = divideDate;
+            [self prepareDividerMessageTextWithFormatter:formatter message:dividerMessage];
             dividerMessage.isDateDividerMessage = YES;
             
             if (dividerMessage != nil) {
@@ -285,6 +284,8 @@ NSComparator messageComparator = ^(QBChatMessage *obj1, QBChatMessage *obj2) {
 // MARK: - Clear
 - (void)clear {
     [self.messages removeAllObjects];
+    [self.messagesForRead removeAllObjects];
+    [self.draftMessages removeAllObjects];
 }
 
 // MARK: - Messages For Read
@@ -304,8 +305,32 @@ NSComparator messageComparator = ^(QBChatMessage *obj1, QBChatMessage *obj2) {
     [self.messagesForRead removeObject:message];
 }
 
+// MARK: - Draft Messages
+- (NSArray *)allDraftMessages {
+    return [self.draftMessages allObjects];
+}
+- (void)addDraftMessage:(QBChatMessage *)message {
+    [self.draftMessages addObject:message];
+}
+- (void)removeDraftMessage:(QBChatMessage *)message {
+    [self.draftMessages removeObject:message];
+}
+- (NSInteger)draftMessagesCount {
+    return self.draftMessages.count;
+}
+
 
 // MARK: - Helpers
+- (void)prepareDividerMessageTextWithFormatter:(NSDateFormatter *)formatter message:(QBChatMessage *)message {
+    message.text = [formatter stringFromDate:message.dateSent];
+    if ([NSCalendar.currentCalendar isDateInToday:message.dateSent]) {
+        message.text = @"Today";
+    }
+    if ([NSCalendar.currentCalendar isDateInYesterday:message.dateSent]) {
+        message.text = @"Yesterday";
+    }
+}
+
 - (NSArray *)indexPathsForMessages:(NSArray *)messages {
     NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:messages.count];
     

@@ -1,6 +1,6 @@
 //
 //  Profile.h
-//  samplechat
+//  sample-chat
 //
 //  Created by Injoit on 2/25/19.
 //  Copyright © 2019 Quickblox. All rights reserved.
@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Profile : NSObject
 
-+ (void)clearProfile;
++ (void)clear;
 + (void)synchronizeUser:(QBUUser *)user;
 + (void)updateUser:(QBUUser *)user;
 

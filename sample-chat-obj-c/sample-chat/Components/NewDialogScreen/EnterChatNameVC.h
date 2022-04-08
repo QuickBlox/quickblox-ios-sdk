@@ -1,6 +1,6 @@
 //
 //  EnterChatNameVC.h
-//  samplechat
+//  sample-chat
 //
 //  Created by Injoit on 04.02.2020.
 //  Copyright © 2020 Quickblox. All rights reserved.
@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface EnterChatNameVC : UITableViewController
+@interface EnterChatNameVC : UIViewController
 @property (strong, nonatomic) NSArray<QBUUser *> *selectedUsers;
 @end
 

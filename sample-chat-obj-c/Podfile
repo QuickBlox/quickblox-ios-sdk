@@ -1,13 +1,15 @@
-platform :ios, "13.0"
+platform :ios, "14.0"
 
 use_frameworks!
+install! 'cocoapods', :warn_for_unused_master_specs_repo => false
 
 target 'samplechat' do
     inhibit_all_warnings!
     pod 'QuickBlox', '~> 2.17.10'
-    # Additional libraries:
-    pod 'SDWebImage', '~> 4.4.7'
-    pod 'TTTAttributedLabel', '~> 2.0.0'
-    pod 'SVProgressHUD'
-    
+end
+
+post_install do |installer|
+  installer.pods_project.build_configurations.each do |config|
+    config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+  end
 end

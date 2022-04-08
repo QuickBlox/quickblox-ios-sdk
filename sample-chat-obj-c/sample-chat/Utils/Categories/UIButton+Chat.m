@@ -1,6 +1,6 @@
 //
 //  UIButton+Chat.m
-//  samplechat
+//  sample-chat
 //
 //  Created by Injoit on 23.07.2020.
 //  Copyright © 2020 Quickblox. All rights reserved.
@@ -12,7 +12,7 @@
 @implementation UIButton (Chat)
 - (void)addShadowToButton:(CGFloat)cornerRadius color:(nullable UIColor *)color {
     if (!color) {
-        color = [UIColor mainColor];
+        color = UIColor.appColor;
     }
     self.backgroundColor = UIColor.whiteColor;
     self.layer.shadowOffset = CGSizeMake(0.0f, 12.0f);

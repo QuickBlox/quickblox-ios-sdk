@@ -1,6 +1,6 @@
 //
 //  ChatDateCell.h
-//  samplechat
+//  sample-chat
 //
 //  Created by Injoit on 08.03.2020.
 //  Copyright © 2020 Quickblox. All rights reserved.

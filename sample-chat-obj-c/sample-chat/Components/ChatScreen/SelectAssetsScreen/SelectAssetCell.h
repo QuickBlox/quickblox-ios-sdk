@@ -1,6 +1,6 @@
 //
 //  SelectAssetCell.h
-//  samplechat
+//  sample-chat
 //
 //  Created by Injoit on 2/6/20.
 //  Copyright © 2020 Quickblox. All rights reserved.
@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIImageView *assetImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *checkBoxImageView;
 @property (weak, nonatomic) IBOutlet UIView *checkBoxView;
+@property (strong, nonatomic) NSString *representedAssetIdentifier;
 @end
 
 NS_ASSUME_NONNULL_END

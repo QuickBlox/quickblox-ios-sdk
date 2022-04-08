@@ -1,17 +1,16 @@
 //
 //  ZoomedAttachmentViewController.m
-//  samplechat
+//  sample-chat
 //
 //  Created by Injoit on 2/25/19.
 //  Copyright © 2019 Quickblox. All rights reserved.
 //
 
 #import "ZoomedAttachmentViewController.h"
-#import "ActionsMenuViewController.h"
 #import <Photos/Photos.h>
-#import "SVProgressHUD.h"
+#import "UIViewController+Alert.h"
 
-@interface ZoomedAttachmentViewController () <UIPopoverPresentationControllerDelegate>
+@interface ZoomedAttachmentViewController ()
 @property (strong, nonatomic) UIBarButtonItem *infoItem;
 @end
 
@@ -38,11 +37,31 @@
     self.navigationItem.leftBarButtonItem = backButtonItem;
     backButtonItem.tintColor = UIColor.whiteColor;
     
-    self.infoItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"moreInfo"]
-                                                     style:UIBarButtonItemStylePlain
-                                                    target:self
-                                                    action:@selector(didTapInfo:)];
-    
+    __weak __typeof(self) weakSelf = self;
+    UIAction *saveImageAction = [UIAction actionWithTitle:@"Save attachment" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+        __typeof(weakSelf)strongSelf = weakSelf;
+        UIImage *image = strongSelf.zoomImageView.image;
+        if (!image) {
+            return;
+        }
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            switch (status) {
+                case PHAuthorizationStatusAuthorized:
+                    UIImageWriteToSavedPhotosAlbum(image, strongSelf, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+                    break;
+                    
+                case PHAuthorizationStatusDenied:
+                    NSLog(@"User denied");
+                    break;
+                    
+                default:
+                    NSLog(@"Restricted");
+                    break;
+            }
+        }];
+    }];
+    UIMenu *menu = [UIMenu menuWithTitle:@"" children: @[saveImageAction]];
+    self.infoItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"moreInfo"] menu:menu];
     self.navigationItem.rightBarButtonItem = self.infoItem;
     self.infoItem.tintColor = UIColor.whiteColor;
     
@@ -76,55 +95,9 @@
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
-- (void)didTapInfo:(UIBarButtonItem *)sender {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Chat" bundle:nil];
-    ActionsMenuViewController *actionsMenuVC = [storyboard instantiateViewControllerWithIdentifier:@"ActionsMenuViewController"];
-    actionsMenuVC.modalPresentationStyle = UIModalPresentationPopover;
-    UIPopoverPresentationController *presentation = actionsMenuVC.popoverPresentationController;
-    presentation.delegate = self;
-    presentation.barButtonItem = self.infoItem;
-    presentation.permittedArrowDirections = 0;
-    
-    __weak __typeof(self) weakSelf = self;
-    MenuAction *saveImageAction = [[MenuAction alloc] initWithTitle:@"Save attachment" handler:^{
-        __typeof(weakSelf)strongSelf = weakSelf;
-        UIImage *image = strongSelf.zoomImageView.image;
-        if (!image) {
-            return;
-        }
-        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-            switch (status) {
-                case PHAuthorizationStatusAuthorized:
-                    UIImageWriteToSavedPhotosAlbum(image, strongSelf, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-                    break;
-                    
-                case PHAuthorizationStatusDenied:
-                    NSLog(@"User denied");
-                    break;
-                    
-                default:
-                    NSLog(@"Restricted");
-                    break;
-            }
-        }];
-    }];
-    
-    [actionsMenuVC addAction:saveImageAction];
-    
-    [self presentViewController:actionsMenuVC animated:NO completion:nil];
-}
-
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-    if (error) {
-        [SVProgressHUD showErrorWithStatus:@"Save error"];
-    } else {
-        [SVProgressHUD showSuccessWithStatus:@"Saved!"];
-    }
-}
-
-#pragma mark - UIPopoverPresentationControllerDelegate
-- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
-    return UIModalPresentationNone;
+    NSString *errorMessage = error ? @"Save error" : @"Saved!";
+    [self showAnimatedAlertWithTitle:nil message:errorMessage fromViewController:self];
 }
 
 @end

@@ -1,6 +1,6 @@
 //
 //  DialogCell.h
-//  samplechat
+//  sample-chat
 //
 //  Created by Injoit on 1/30/20.
 //  Copyright © 2020 Quickblox. All rights reserved.

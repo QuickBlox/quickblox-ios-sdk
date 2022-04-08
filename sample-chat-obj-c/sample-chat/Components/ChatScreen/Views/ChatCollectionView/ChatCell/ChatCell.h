@@ -1,6 +1,6 @@
 //
 //  ChatCell.h
-//  samplechat
+//  sample-chat
 //
 //  Created by Injoit on 2/25/19.
 //  Copyright © 2019 Quickblox. All rights reserved.
@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "ChatContainerView.h"
-#import <TTTAttributedLabel/TTTAttributedLabel.h>
 #import "ChatCellLayoutAttributes.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -117,7 +116,7 @@ typedef struct ChatLayoutModel ChatCellLayoutModel;
 @property (weak, nonatomic, readonly) UIView *avatarContainerView;
 @property (weak, nonatomic, readonly) UIImageView *avatarView;
 @property (weak, nonatomic, readonly) UILabel *avatarLabel;
-@property (weak, nonatomic, readonly) TTTAttributedLabel *timeLabel;
+@property (weak, nonatomic, readonly) UILabel *timeLabel;
 
 /**
  *  Returns bubbleContainer view
@@ -131,7 +130,7 @@ typedef struct ChatLayoutModel ChatCellLayoutModel;
  *  its frame, nor should you remove this view from the cell or remove any of its subviews.
  *  Doing so could result in unexpected behavior.
  */
-@property (weak, nonatomic, readonly) TTTAttributedLabel *textView;
+@property (weak, nonatomic, readonly) UILabel *textView;
 
 /**
  *  Returns top chat message attributed label.
@@ -140,7 +139,7 @@ typedef struct ChatLayoutModel ChatCellLayoutModel;
  *  its frame, nor should you remove this view from the cell or remove any of its subviews.
  *  Doing so could result in unexpected behavior.
  */
-@property (weak, nonatomic, readonly) TTTAttributedLabel *topLabel;
+@property (weak, nonatomic, readonly) UILabel *topLabel;
 
 /**
  *  Returns bottom chat message attributed label.
@@ -149,7 +148,7 @@ typedef struct ChatLayoutModel ChatCellLayoutModel;
  *  its frame, nor should you remove this view from the cell or remove any of its subviews.
  *  Doing so could result in unexpected behavior.
  */
-@property (weak, nonatomic, readonly) TTTAttributedLabel *bottomLabel;
+@property (weak, nonatomic, readonly) UILabel *bottomLabel;
 
 /**
  *  Returns the underlying gesture recognizer for tap gestures in the avatarContainerView of the cell.

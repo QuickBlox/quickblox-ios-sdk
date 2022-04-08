@@ -1,6 +1,6 @@
 //
 //  UITextField+Chat.h
-//  samplechat
+//  sample-chat
 //
 //  Created by Injoit on 1/24/20.
 //  Copyright © 2020 Quickblox. All rights reserved.
@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setPadding:(CGFloat)padding isLeft:(Boolean)isLeft;
 
-- (void)addShadowToTextFieldWithColor:(UIColor *)color cornerRadius:(CGFloat)cornerRadius;
+- (void)addShadow:(UIColor *)color cornerRadius:(CGFloat)cornerRadius;
 
 @end
 

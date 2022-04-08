@@ -1,6 +1,6 @@
 //
 //  UIButton+Chat.h
-//  samplechat
+//  sample-chat
 //
 //  Created by Injoit on 23.07.2020.
 //  Copyright © 2020 Quickblox. All rights reserved.

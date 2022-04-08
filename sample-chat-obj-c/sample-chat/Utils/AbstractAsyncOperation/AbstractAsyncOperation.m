@@ -1,6 +1,6 @@
 //
 //  AbstractAsyncOperation.m
-//  samplechat
+//  sample-chat
 //
 //  Created by Injoit on 2/25/19.
 //  Copyright © 2019 Quickblox. All rights reserved.
@@ -10,7 +10,6 @@
 #import "Log.h"
 
 static inline NSString *KeyPathForState(AsyncOperationState state) {
-    
     switch (state) {
         case AsyncOperationStateReady:        return @"isReady";
         case AsyncOperationStateExecuting:    return @"isExecuting";

@@ -1,6 +1,6 @@
 //
 //  AttachmentDownloadOperation.m
-//  samplechat
+//  sample-chat
 //
 //  Created by Injoit on 2/25/19.
 //  Copyright © 2019 Quickblox. All rights reserved.
@@ -8,6 +8,10 @@
 
 #import "AttachmentDownloadOperation.h"
 #import <Quickblox/Quickblox.h>
+#import "ImageCache.h"
+#import "Log.h"
+#import "NSURL+Chat.h"
+#import "UIImage+fixOrientation.h"
 
 @implementation AttachmentDownloadOperation
 
@@ -46,22 +50,47 @@
     __weak typeof(self)weakSelf = self;
     
     [QBRequest downloadFileWithUID:ID successBlock:^(QBResponse * _Nonnull response, NSData * _Nonnull fileData) {
-        
+        __typeof(weakSelf)strongSelf = weakSelf;
         if (attachmentType == AttachmentTypeImage && [UIImage imageWithData:fileData]) {
             UIImage *image = [UIImage imageWithData:fileData];
-            weakSelf.successHandler(image, nil, ID);
+            image = [image fixOrientation];
+            [ImageCache.instance storeImage:image forKey:ID];
+            if (!strongSelf) {
+                return;
+            }
+            strongSelf.successHandler(image, nil, ID);
         } else {
             NSString *fileName = [NSString stringWithFormat:@"%@_%@", ID, attachmentName];
             NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
             NSURL *fileURL = [NSURL fileURLWithPath:path];
             if ([fileData writeToURL:fileURL atomically:YES]) {
-                weakSelf.successHandler(nil, fileURL, ID);
-            }
-            else {
+                [ImageCache.instance getFileWithStringUrl:fileURL.absoluteString completionHandler:^(NSURL * _Nullable url, NSError * _Nullable error) {
+                    if (error) {
+                        Log(@"Failure in the Cache of video error: %@", error.localizedDescription);
+                        if (!strongSelf) {
+                            return;
+                        }
+                        strongSelf.successHandler(nil, nil, ID);
+                    } else if (url) {
+                        [url getThumbnailImageFromVideoUrlWithCompletion:^(UIImage * _Nullable thumbnailImage) {
+                            [ImageCache.instance storeImage:thumbnailImage forKey:ID];
+                            if (!strongSelf) {
+                                return;
+                            }
+                            strongSelf.successHandler(thumbnailImage, url, ID);
+                        }];
+                    }
+                }];
+                
+            } else {
                 NSLog(@"failure");
+                if (!strongSelf) {
+                    return;
+                }
+                strongSelf.successHandler(nil, nil, ID);
             }
         }
-        weakSelf.state = AsyncOperationStateFinished;
+        strongSelf.state = AsyncOperationStateFinished;
         
     } statusBlock:^(QBRequest * _Nonnull request, QBRequestStatus * _Nonnull status) {
         CGFloat progress = status.percentOfCompletion;
