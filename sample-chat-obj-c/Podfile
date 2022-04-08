@@ -5,11 +5,5 @@ install! 'cocoapods', :warn_for_unused_master_specs_repo => false
 
 target 'samplechat' do
     inhibit_all_warnings!
-    pod 'QuickBlox', '~> 2.17.10'
-end
-
-post_install do |installer|
-  installer.pods_project.build_configurations.each do |config|
-    config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
-  end
+    pod 'QuickBlox'
 end
