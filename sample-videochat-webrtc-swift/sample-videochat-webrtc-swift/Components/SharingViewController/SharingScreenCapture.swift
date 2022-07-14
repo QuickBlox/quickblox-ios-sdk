@@ -17,18 +17,18 @@ struct VideoFormat {
 
 class SharingScreenCapture: QBRTCVideoCapture {
     //MARK: - Properties
-    var videoformat: VideoFormat!
+    var sharingFormat: VideoFormat!
     //MARK: - Life Cycle
-    init(videoFormat: VideoFormat) {
+    init(sharingFormat: VideoFormat) {
         super.init()
         
-        self.videoformat = videoFormat
+        self.sharingFormat = sharingFormat
     }
     
     // MARK: - <QBRTCVideoCapture>
     override func didSet(to videoTrack: QBRTCLocalVideoTrack?) {
         super.didSet(to: videoTrack)
         
-        adaptOutputFormat(toWidth: videoformat.width, height: videoformat.height, fps: videoformat.fps)
+        adaptOutputFormat(toWidth: sharingFormat.width, height: sharingFormat.height, fps: sharingFormat.fps)
     }
 }

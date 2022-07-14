@@ -7,15 +7,25 @@
 //
 
 import UIKit
-import SVProgressHUD
 
 extension UIViewController {
     func showAlertView(_ title : String?, message : String?) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel,
                                       handler: nil))
-        self.present(alert, animated: true, completion:{
-            SVProgressHUD.dismiss()
+        present(alert, animated: true)
+    }
+    
+    func showAnimatedAlertView(_ title : String?, message : String?) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        present(alert, animated: false, completion:{
+            UIView.animate(withDuration: 1.5, delay: 2.0, options: .curveEaseIn) {
+                alert.view.alpha = 0.0
+            } completion: { finished in
+                DispatchQueue.main.async {
+                    alert.dismiss(animated: false)
+                }
+            }
         })
     }
     

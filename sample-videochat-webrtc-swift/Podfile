@@ -1,14 +1,13 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '13.0'
+platform :ios, '14.0'
 
 # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
 use_frameworks!
-
+install! 'cocoapods', :warn_for_unused_master_specs_repo => false
 target 'sample-videochat-webrtc-swift' do
   inhibit_all_warnings!
   
-  pod 'QuickBlox', '~> 2.17.10'
-  pod 'Quickblox-WebRTC', '~> 2.7.6'
-  pod 'SVProgressHUD', '~> 2.2.5'
+  pod 'QuickBlox'
+  pod 'Quickblox-WebRTC', '2.7.6'
 
 end

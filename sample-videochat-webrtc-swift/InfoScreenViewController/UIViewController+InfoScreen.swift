@@ -41,7 +41,9 @@ extension UIViewController {
     }
     
     @objc private func didTapInfoButton(sender: UIBarButtonItem) {
-        guard let infoController = Screen.infoTableViewController() else { return }
+        guard let infoController = Screen.infoTableViewController() else {
+            return
+        }
         navigationController?.pushViewController(infoController, animated: true)
     }
 }

@@ -11,24 +11,26 @@ import QuickbloxWebRTC
 
 class CallParticipant {
     //MARK: - Properties
-    var userID: UInt
+    var id: UInt
     var fullName = ""
     var isSelected = false
     var connectionState: QBRTCConnectionState = .new
     var isEnabledSound = true
     
     //MARK: - Life Cycle
-    init(userID: UInt, fullName: String) {
-        self.userID = userID
+    init(id: UInt, fullName: String) {
+        self.id = id
         self.fullName = fullName
     }
 }
 
 typealias ChangedStateHandler = ( _ participant: CallParticipant) -> Void
-typealias ChangedBitrateHandler = ( _ participant: (iD: UInt, statsString: String)) -> Void
+typealias ChangedBitrateHandler = ( _ participant: (id: UInt, statsString: String)) -> Void
+typealias UpdatedParticipantHandler = ( _ participant: (id: UInt, fullName: String)) -> Void
 
 class CallInfo: NSObject {
     //MARK: - Properties
+    var onUpdatedParticipant: UpdatedParticipantHandler?
     var onChangedState: ChangedStateHandler?
     var onChangedBitrate: ChangedBitrateHandler?
     
@@ -64,14 +66,14 @@ class CallInfo: NSObject {
         var interlocutors: [CallParticipant] = []
         
         for memberId in members.keys {
-            let participant = CallParticipant(userID: memberId.uintValue, fullName: members[memberId] ?? "Participant")
+            let participant = CallParticipant(id: memberId.uintValue, fullName: members[memberId] ?? "Participant")
             participantsDictionary[memberId.uintValue] = participant
             interlocutors.append(participant)
             participantsList.append(memberId.uintValue)
         }
         
         let localParticipantId = profile.ID
-        let local = CallParticipant(userID: profile.ID, fullName: profile.fullName)
+        let local = CallParticipant(id: profile.ID, fullName: profile.fullName)
         participantsDictionary[localParticipantId] = local
         participantsList.append(localParticipantId)
 
@@ -90,26 +92,13 @@ class CallInfo: NSObject {
             guard let participant = cache[userId.uintValue],
                   let fullName = members[userId] else {continue}
             participant.fullName = fullName
+            onUpdatedParticipant?((userId.uintValue, fullName))
         }
     }
     
     func participant(_ userID: UInt) -> CallParticipant? {
         guard let participant = cache[userID] else {return nil}
         return participant
-    }
-    
-    func currentOutput() -> AVAudioSession.PortOverride {
-        let audioSession = QBRTCAudioSession.instance()
-        if audioSession.isActive {
-            let outputs = AVAudioSession.sharedInstance().currentRoute.outputs
-            for output in outputs {
-                switch output.portType {
-                case .builtInSpeaker: return .speaker
-                default: return .none
-                }
-            }
-        }
-        return .none
     }
 }
 
@@ -119,13 +108,20 @@ extension CallInfo: QBRTCClientDelegate {
         if isCurrentSession(session) == false, userID.uintValue != localParticipantId  {
             return
         }
-        guard let participant = cache[userID.uintValue] else { return }
+        guard let participant = cache[userID.uintValue] else {
+            return
+        }
+        if participant.connectionState == state {
+            return
+        }
         participant.connectionState = state
         onChangedState?(participant)
     }
     
     func session(_ session: QBRTCBaseSession, updatedStatsReport report: QBRTCStatsReport, forUserID userID: NSNumber) {
-        guard cache[userID.uintValue] != nil else { return }
+        guard cache[userID.uintValue] != nil else {
+            return
+        }
         onChangedBitrate?((userID.uintValue, report.statsString()))
     }
     

@@ -22,7 +22,7 @@ struct LoginConstant {
     static let intoVideoChat = "Login into Video Chat ..."
     static let withCurrentUser = "Login with current user ..."
     static let chatServiceDomain = "com.q-municate.chatservice"
-    static let errorDomaimCode = -1000
+    static let alreadyConnectedCode = -1000
 }
 
 enum Title: String {
@@ -157,10 +157,8 @@ class AuthViewController: UIViewController {
         newUser.password = LoginConstant.defaultPassword
         infoText = LoginConstant.signUp
         QBRequest.signUp(newUser, successBlock: { [weak self] response, user in
-            guard let self = self else {
-                return
-            }
-            self.login(fullName: fullName, login: login)
+
+            self?.login(fullName: fullName, login: login)
             
             }, errorBlock: { [weak self] response in
                 
@@ -172,7 +170,6 @@ class AuthViewController: UIViewController {
                 if let error = response.error?.error {
                     self?.handleError(error)
                 }
-
         })
     }
 
@@ -181,17 +178,14 @@ class AuthViewController: UIViewController {
         QBRequest.logIn(withUserLogin: login,
                         password: password,
                         successBlock: { [weak self] response, user in
-                            guard let self = self else {
-                                return
-                            }
-                            
+
                             user.password = password
                             Profile.synchronize(withUser: user)
                             
                             if user.fullName != fullName {
-                                self.updateFullName(fullName: fullName, login: login)
+                                self?.updateFullName(fullName: fullName, login: login)
                             } else {
-                                self.connectToChat(user: user)
+                                self?.connectToChat(user: user)
                             }
                             
             }, errorBlock: { [weak self] response in
@@ -210,12 +204,10 @@ class AuthViewController: UIViewController {
         let updateUserParameter = QBUpdateUserParameters()
         updateUserParameter.fullName = fullName
         QBRequest.updateCurrentUser(updateUserParameter, successBlock: { [weak self] response, user in
-            guard let self = self else {
-                return
-            }
+
             user.password = profile.password
             Profile.synchronize(withUser: user)
-            self.connectToChat(user: user)
+            self?.connectToChat(user: user)
             
         }, errorBlock: { [weak self] response in
             if let error = response.error?.error {
@@ -223,20 +215,20 @@ class AuthViewController: UIViewController {
             }
         })
     }
-
+    
     private func connectToChat(user: QBUUser) {
         infoText = LoginConstant.intoVideoChat
         QBChat.instance.connect(withUserID: user.id,
                                 password: LoginConstant.defaultPassword,
                                 completion: { [weak self] error in
-                                    guard let self = self else { return }
-                                    if let error = error {
-                                        self.handleError(error)
-                                    } else {
-                                        //did Login action
-                                        self.showUsersScreen()
-                                    }
-                                })
+
+            if let error = error, error._code != LoginConstant.alreadyConnectedCode {
+                self?.handleError(error)
+            } else {
+                //did Login action
+                self?.showUsersScreen()
+            }
+        })
     }
     
     private func beginConnect() {

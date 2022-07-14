@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -57,14 +57,14 @@
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iCq-Po-0Sg">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="Connected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iCq-Po-0Sg">
                                     <rect key="frame" x="0.0" y="126" width="50" height="18"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="18" id="MrB-ps-Rav"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="textColor" red="0.70039123299999995" green="0.74366766210000002" blue="0.83094024659999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
@@ -90,18 +90,18 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SqL-JC-O9h" userLabel="Video Container View">
                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                             <subviews>
-                                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YAk-gc-DkF" userLabel="User Name Top View">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YAk-gc-DkF" userLabel="User Name Top View">
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="20"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ddf-oS-sat">
+                                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ddf-oS-sat">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="20"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="ddf-oS-sat" firstAttribute="top" secondItem="YAk-gc-DkF" secondAttribute="top" id="BwP-kW-Uac"/>
                                         <constraint firstAttribute="bottom" secondItem="ddf-oS-sat" secondAttribute="bottom" id="IN3-63-FgP"/>
@@ -111,7 +111,7 @@
                                     </constraints>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -139,16 +139,15 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="callingToLabelHeight" destination="t8G-Sl-rBO" id="e9I-sL-gt8"/>
-                <outlet property="containerView" destination="FF6-GQ-aIV" id="cnX-tu-TUO"/>
-                <outlet property="nameLabel" destination="4IV-Pj-SvI" id="PVn-dS-vkq"/>
+                <outlet property="callingInfoLabelHeightConstraint" destination="t8G-Sl-rBO" id="p5u-js-kMp"/>
+                <outlet property="containerView" destination="FF6-GQ-aIV" id="RL4-pw-23A"/>
+                <outlet property="nameLabel" destination="4IV-Pj-SvI" id="vLn-Bu-2yo"/>
                 <outlet property="nameLabelCenterXConstraint" destination="QQk-Dt-YiZ" id="k8p-zp-zd4"/>
-                <outlet property="stateLabel" destination="iCq-Po-0Sg" id="LGl-50-SnL"/>
-                <outlet property="userAvatarImageView" destination="rC2-Lv-vYt" id="70A-F1-TgN"/>
-                <outlet property="userAvatarLabel" destination="a27-rk-pjG" id="6Eu-oq-jjX"/>
+                <outlet property="stateLabel" destination="iCq-Po-0Sg" id="zxj-et-7rc"/>
+                <outlet property="userAvatarImageView" destination="rC2-Lv-vYt" id="g1X-4F-VaE"/>
+                <outlet property="userAvatarLabel" destination="a27-rk-pjG" id="gcv-yp-6ru"/>
                 <outlet property="userNameTopLabel" destination="ddf-oS-sat" id="sZf-Uz-1kt"/>
-                <outlet property="userNameTopView" destination="YAk-gc-DkF" id="g7N-je-bcz"/>
-                <outlet property="userView" destination="Rdf-wT-uKD" id="umh-Rk-Xlw"/>
+                <outlet property="userView" destination="Rdf-wT-uKD" id="D6t-wU-Ss4"/>
                 <outlet property="videoContainerView" destination="SqL-JC-O9h" id="doC-m4-UKL"/>
             </connections>
             <point key="canvasLocation" x="-58" y="123"/>

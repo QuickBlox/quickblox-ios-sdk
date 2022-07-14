@@ -10,41 +10,73 @@ import UIKit
 import QuickbloxWebRTC
 import Quickblox
 
+enum SessionState {
+    case new, wait, received, approved, rejected
+}
+
 protocol CallSessionDelegate: AnyObject {
-    func controller(_ controller: SessionsController, didEndWaitCallSession sessionId: String)
-    func controller(_ controller: SessionsController, didAcceptCallSession sessionId: String)
+    func controller(_ controller: SessionsController, didEndWaitSession sessionId: String)
+    func controller(_ controller: SessionsController, didAcceptSession sessionId: String)
     func controller(_ controller: SessionsController,
-                    didReceiveIncomingCallSession sessionId: String,
-                    membersIDs: [NSNumber],
-                    conferenceType: QBRTCConferenceType)
-    func controller(_ controller: SessionsController, didCloseCallSession sessionId: String, userInfo: [String: String]?)
+                    didReceiveIncomingSession payload: [String : String])
+    func controller(_ controller: SessionsController, didCloseSession sessionId: String, userInfo: [String: String]?)
+    func controller(_ controller: SessionsController, didChangeAudioState enabled: Bool, forSession sessionId: String)
+}
+
+protocol SessionsMediaListenerDelegate: AnyObject {
+    func controller(_ controller: SessionsController, didBroadcastMediaType mediaType: MediaType, enabled: Bool)
+    func controller(_ controller: SessionsController, didReceivedRemoteVideoTrack videoTrack: QBRTCVideoTrack, fromUser userID: NSNumber)
 }
 
 
 class SessionsController: NSObject {
-    
+
     //MARK: - Properties
     weak var delegate: CallSessionDelegate?
+    weak var mediaListenerDelegate: SessionsMediaListenerDelegate?
     
-    private(set) var activeSessionId = ""
-    private(set) var media = MediaRouter()
-    
-    private var receivedSessions: [String: QBRTCSession] = [:]
-    private var activeSession: QBRTCSession?
+    private var activeSession: Session?
+    var activeSessionId: String {
+        return activeSession?.id ?? ""
+    }
+    private var receivedSessions: [String] = []
     private var waitSessions: [String: SessionTimer] = [:]
     private var approvedSessions: [String] = []
-    var rejectedSessions: Set<String> = []
+    private var rejectedSessions: Set<String> = []
+    
+    let audioURL = URL(fileURLWithPath: Bundle.main.path(forResource: "calling", ofType: "wav")!)
     private var soundTimer: Timer? = nil
+    private var player: AVAudioPlayer?
     
     //MARK: - Life Cycle
     override init() {
         super.init()
         
         QBRTCClient.instance().add(self)
-        media.delegate = self
     }
     
     //MARK: Actions
+    func session(_ sessionId :String, confirmToState state: SessionState) -> Bool {
+        switch state {
+        case .wait:
+            return waitSessions[sessionId] != nil
+        case .received:
+            return receivedSessions.contains(sessionId)
+        case .approved:
+            return approvedSessions.contains(sessionId)
+        case .rejected:
+            return rejectedSessions.contains(sessionId)
+        case .new:
+            if waitSessions[sessionId] == nil,
+               receivedSessions.contains(sessionId) == false,
+               approvedSessions.contains(sessionId) == false,
+               rejectedSessions.contains(sessionId) == false {
+                return true
+            }
+            return false
+        }
+    }
+    
     func activateNewSession(withMembers members: [NSNumber: String], hasVideo: Bool) -> [String: String] {
         let type: QBRTCConferenceType = hasVideo ? .video : .audio;
         let opponentsIDs: [NSNumber] = Array(members.keys)
@@ -56,8 +88,10 @@ class SessionsController: NSObject {
             return [:]
         }
 
-        self.receivedSessions[session.id] = session
-        activate(session.id)
+        receivedSessions.append(session.id)
+        let timeStamp = Date().timeStamp
+        activeSession = Session(qbSession: session, startTime: timeStamp)
+        activate(session.id, timestamp: nil)
         
         let initiatorName = currentUser.fullName ?? "\(currentUser.id)"
         let membersNames = opponentsNamesArray.joined(separator: ",")
@@ -65,7 +99,7 @@ class SessionsController: NSObject {
         let arrayUserIDs = opponentsIDs.map({ $0.stringValue })
         let membersIds = arrayUserIDs.joined(separator: ",")
         let participantsIds = NSNumber(value: currentUser.id).stringValue + "," + membersIds
-        let timeStamp = Int((Date().timeIntervalSince1970 * 1000.0).rounded())
+        
         let payload = ["message": "\(initiatorName) is calling you.",
                        "ios_voip": "1",
                        "VOIPCall": "1",
@@ -79,114 +113,87 @@ class SessionsController: NSObject {
         return payload
     }
     
-    func isValid(_ sessionID: String) -> Bool {
-        if receivedSessions[sessionID] != nil {
-            return false
-        }
-        return true
-    }
-    
-    func activate(_ sessionId: String) {
-        debugPrint("\(#function)")
-        if sessionId.isEmpty { return }
-        if activeSessionId.isEmpty == false { return }
-        
-        activeSessionId = sessionId
-        if let session = receivedSessions[sessionId] {
-            activeSession = session
+    func activate(_ sessionId: String, timestamp: Int64?) {
+        if sessionId.isEmpty {
             return
         }
-        addTimer(.active, waitTime: 10.0, sessionId: sessionId, userInfo: nil)
+        let startTime = timestamp ?? Date().timeStamp
+        if activeSession?.established == true {
+            addTimer(.actions, waitTime: activeSession?.waitTimeInterval ?? 30.0, sessionId: sessionId, userInfo: nil)
+            return
+        }
+        activeSession = Session(id: sessionId, startTime: startTime)
+        addTimer(.active, waitTime: activeSession?.waitTimeInterval ?? 30.0, sessionId: sessionId, userInfo: nil)
     }
     
     func deactivate(_ sessionId: String) {
-        if sessionId.isEmpty { return }
-        if activeSessionId != sessionId { return }
-
+        if sessionId.isEmpty {
+            return
+        }
+        if activeSessionId != sessionId {
+            return
+        }
+        rejectedSessions.insert(sessionId)
         stopPlayCallingSound()
         activeSession = nil
-        activeSessionId = ""
-        media.reload()
     }
     
-    func startCall(_ sessionId: String, userInfo: [String: String]?) {
+    func start(_ sessionId: String, userInfo: [String: String]?) {
        guard sessionId.isEmpty == false,
              activeSessionId == sessionId,
-             let session = activeSession else { return }
-        session.startCall(userInfo)
-        setupCamera(session)
+             let session = activeSession else {
+            return
+        }
+        
+        session.start(userInfo)
         approvedSessions.append(sessionId)
         removeTimer(withId: sessionId)
+        startPlayCallingSound()
     }
     
-    func acceptCall(_ sessionId: String, userInfo: [String: String]?) {
-        if sessionId.isEmpty { return }
-        if let session = receivedSessions[sessionId] {
-            setupCamera(session)
-            session.acceptCall(userInfo)
+    func accept(_ sessionId: String, userInfo: [String: String]?) {
+        if sessionId.isEmpty {
+            return
+        }
+        if activeSession?.established == true, let session = activeSession, sessionId == session.id {
+            session.accept(userInfo)
             approvedSessions.append(sessionId)
-            
-            if let timer = waitSessions[session.id], timer.type == .actions {
-                //did Accept New Session Without Push
-                removeTimer(withId: session.id)
-                timer.invalidate()
-                waitSessions.removeValue(forKey: session.id)
-            }
-            delegate?.controller(self, didAcceptCallSession: sessionId)
+            delegate?.controller(self, didAcceptSession: sessionId)
+            removeTimer(withId: session.id)
         } else {
-            addTimer(.accept, waitTime: QBRTCConfig.answerTimeInterval(), sessionId: sessionId, userInfo: userInfo)
+            addTimer(.accept, waitTime: activeSession?.waitTimeInterval ?? 30.0, sessionId: sessionId, userInfo: userInfo)
         }
     }
     
-    func rejectCall(_ sessionId: String, userInfo: [String: String]?) {
-        if sessionId.isEmpty { return }
+    func reject(_ sessionId: String, userInfo: [String: String]?) {
+        if sessionId.isEmpty {
+            return
+        }
         rejectedSessions.insert(sessionId)
-        if let session = receivedSessions[sessionId] {
-            approvedSessions.contains(sessionId) ? session.hangUp(userInfo) : session.rejectCall(userInfo)
+        if activeSession?.established == true {
+            approvedSessions.contains(sessionId) ? activeSession?.hangUp(userInfo) : activeSession?.reject(userInfo)
         } else {
-            removeSession(sessionId, userInfo: nil)
+            removeSession(sessionId)
         }
     }
     
-    @objc private func removeSession(_ sessionId: String, userInfo: [String: String]? = nil) {
-        if receivedSessions[sessionId] != nil {
-            receivedSessions.removeValue(forKey: sessionId)
-        }
+    private func removeSession(_ sessionId: String) {
         removeTimer(withId: sessionId)
         if let index = approvedSessions.firstIndex(where: { $0 == sessionId }) {
             approvedSessions.remove(at: index)
         }
         if activeSessionId == sessionId {
-            delegate?.controller(self, didCloseCallSession: sessionId, userInfo: userInfo)
+            delegate?.controller(self, didCloseSession: sessionId, userInfo: nil)
             deactivate(sessionId)
         }
     }
     
-    private func turnAudioBroadcast(enable: Bool, fromUser userID: NSNumber) {
-        guard let session = activeSession else {
-            return
-        }
-        let audioTrack = session.remoteAudioTrack(withUserID: userID)
-        audioTrack.isEnabled = enable
-    }
-    
-    private func setupCamera(_ session: QBRTCSession) {
-        guard session == activeSession,
-              session.conferenceType == .video,
-              media.videoEnabled == true else {
-            return
-        }
-        if let sharing = media.sharing {
-            session.localMediaStream.videoTrack.videoCapture = sharing
-            return
-        }
-        session.localMediaStream.videoTrack.videoCapture = media.camera
-    }
-    
     private func removeTimer(withId sessionId: String) {
-        guard let timer = waitSessions[sessionId] else { return }
+        guard let timer = waitSessions[sessionId] else {
+            return
+        }
         timer.invalidate()
-        waitSessions.removeValue(forKey: sessionId)
+        waitSessions[sessionId] = nil
     }
     
     private func addTimer( _ type: SessionTimerType,
@@ -200,17 +207,22 @@ class SessionsController: NSObject {
         waitSessions[sessionId] = timer
     }
     
-    func startPlayCallingSound() {
-        soundTimer = Timer.scheduledTimer(timeInterval: 5.0,
+    private func startPlayCallingSound() {
+        soundTimer = Timer.scheduledTimer(timeInterval: 3.0,
                                           target: self,
                                           selector: #selector(playCallingSound(_:)),
                                           userInfo: nil,
                                           repeats: true)
-        playCallingSound(nil)
     }
     
-    @objc func playCallingSound(_ sender: Any?) {
-        SoundProvider.playSound(type: .calling)
+    @objc private func playCallingSound(_ sender: Any?) {
+        do {
+            player?.stop()
+            player = try AVAudioPlayer(contentsOf: audioURL)
+            player?.play()
+        } catch {
+            debugPrint("Couldn't load file")
+        }
     }
     
     private func stopPlayCallingSound() {
@@ -219,14 +231,14 @@ class SessionsController: NSObject {
         }
         soundTimer.invalidate()
         self.soundTimer = nil
-        SoundProvider.stopSound()
+        player?.stop()
     }
 }
 
 //MARK: - QBRTCClientDelegate
 extension SessionsController: QBRTCClientDelegate {
     func didReceiveNewSession(_ session: QBRTCSession, userInfo: [String : String]? = nil) {
-        if activeSession != nil {
+        if activeSession?.established == true {
             session.rejectCall(["reject": "busy"])
             rejectedSessions.insert(session.id)
             return
@@ -236,64 +248,61 @@ extension SessionsController: QBRTCClientDelegate {
             return
         }
         
-        receivedSessions[session.id] = session
+        receivedSessions.append(session.id)
 
         if let timer = waitSessions[session.id] {
-            timer.invalidate()
-            waitSessions.removeValue(forKey: session.id)
-
             //did Receive New Session by Push
             switch timer.type {
             case .active:
-                activeSession = session
-                addTimer(.actions, waitTime: QBRTCConfig.answerTimeInterval(), sessionId: session.id, userInfo: nil)
+                activeSession?.setup(qbSession: session)
             case .accept:
-                activeSession = session
-                setupCamera(session)
-                session.acceptCall(timer.userInfo)
-                approvedSessions.append(timer.sessionId)
-                delegate?.controller(self, didAcceptCallSession: session.id)
+                activeSession?.setup(qbSession: session)
+                accept(session.id, userInfo: timer.userInfo)
             case .actions: break
             case .none: break
             }
-            
             return
         }
         
+        let timestamp = userInfo?["timestamp"] ?? "\((Date().timeStamp))"
+        activeSession = Session(qbSession: session, startTime: Int64(timestamp)!)
+        
         //did Receive New Session without Push
         let membersIDs = [session.initiatorID] + session.opponentsIDs
-        delegate?.controller(self,
-                             didReceiveIncomingCallSession: session.id,
-                             membersIDs: membersIDs,
-                             conferenceType: session.conferenceType)
-        addTimer(.actions, waitTime: QBRTCConfig.answerTimeInterval(), sessionId: session.id, userInfo: nil)
+        let arrayUserIDs = membersIDs.map({ $0.stringValue })
+        let participantsIds = arrayUserIDs.joined(separator: ",")
+        
+        let payload = ["opponentsIDs": participantsIds,
+                       "sessionID": session.id,
+                       "conferenceType": NSNumber(value: session.conferenceType.rawValue).stringValue,
+                       "timestamp": timestamp
+        ]
+        delegate?.controller(self, didReceiveIncomingSession: payload)
     }
     
     func session(_ session: QBRTCSession, acceptedByUser userID: NSNumber, userInfo: [String : String]? = nil) {
-        setupCamera(session)
         stopPlayCallingSound()
     }
     
     func session(_ session: QBRTCSession, hungUpByUser userID: NSNumber, userInfo: [String : String]? = nil) {
         if userID == session.initiatorID,
-           let timer = waitSessions[session.id],
-           timer.type == .actions {
-            removeSession(session.id, userInfo: nil)
+           approvedSessions.contains(session.id) == false {
+            removeSession(session.id)
             return
         }
         if session.opponentsIDs.count == 1 {
-            removeSession(session.id, userInfo: nil)
+            removeSession(session.id)
         }
     }
     
     func session(_ session: QBRTCSession, rejectedByUser userID: NSNumber, userInfo: [String : String]? = nil) {
         if session.opponentsIDs.count == 1 {
-            removeSession(session.id, userInfo: nil)
+            removeSession(session.id)
         }
     }
     
     func sessionDidClose(_ session: QBRTCSession) {
-        removeSession(session.id, userInfo: nil)
+        removeSession(session.id)
     }
     
     /**
@@ -302,47 +311,46 @@ extension SessionsController: QBRTCClientDelegate {
     func session(_ session: QBRTCBaseSession,
                  receivedRemoteVideoTrack videoTrack: QBRTCVideoTrack,
                  fromUser userID: NSNumber) {
-        
-        if session != activeSession {
+        guard let qbrtcSession = session as? QBRTCSession,
+              qbrtcSession.id == activeSession?.id else {
             return
         }
         
-        media.receivedRemoteVideoTrack(videoTrack, fromUser: userID)
+        mediaListenerDelegate?.controller(self, didReceivedRemoteVideoTrack: videoTrack, fromUser: userID)
     }
 }
 
 //MARK: - MediaDelegate
-extension SessionsController: MediaDelegate {
-    func router(_ router: MediaRouter, audioBroadcast enable: Bool, fromUser userID: NSNumber) {
-        turnAudioBroadcast(enable: enable, fromUser: userID)
-    }
-    
-    func router(_ router: MediaRouter, audioBroadcast enable: Bool) {
-        guard let activeSession = activeSession else {
-            return
-        }
-        activeSession.localMediaStream.audioTrack.isEnabled = enable
-    }
-    
-    func router(_ router: MediaRouter, videoBroadcast enable: Bool, capture: QBRTCVideoCapture?) {
-        guard let activeSession = activeSession else {
-            return
-        }
-        
-        if let capture = capture, activeSession.localMediaStream.videoTrack.videoCapture != capture {
-            activeSession.localMediaStream.videoTrack.videoCapture = capture
-        }
-        
-        if (activeSession.localMediaStream.videoTrack.isEnabled != enable) {
-            activeSession.localMediaStream.videoTrack.isEnabled = enable
-        }
-    }
-    
-    func router(_ router: MediaRouter, videoTrackForUser userID: NSNumber) -> QBRTCVideoTrack? {
-        guard let activeSession = activeSession else {
+extension SessionsController: MediaControllerDelegate {
+    func mediaController(_ mediaController: MediaController, videoTrackForUserID userID: UInt) -> QBRTCVideoTrack? {
+        guard let activeSession = activeSession, activeSession.established == true else {
             return nil
         }
-        return activeSession.remoteVideoTrack(withUserID: userID)
+        return activeSession.remoteVideoTrack(withUserID: NSNumber(value: userID))
+    }
+    
+    func mediaController(_ mediaController: MediaController, videoBroadcast enable: Bool, capture: QBRTCVideoCapture?) {
+        if let capture = capture {
+            activeSession?.videoCapture = capture
+        } 
+        if activeSession?.videoEnabled == enable {
+            return
+        }
+        activeSession?.videoEnabled = enable
+        mediaListenerDelegate?.controller(self, didBroadcastMediaType: .video, enabled: enable)
+    }
+    
+    func mediaController(_ mediaController: MediaController, audioBroadcast enable: Bool, action: ChangeAudioStateAction) {
+        if activeSession?.audioEnabled == enable {
+            return
+        }
+        activeSession?.audioEnabled = enable
+        mediaListenerDelegate?.controller(self, didBroadcastMediaType: .audio, enabled: enable)
+        //Change audio state on CallKit Native Screen
+        if action == .callKit {
+            return
+        }
+        delegate?.controller(self, didChangeAudioState: enable, forSession: activeSessionId)
     }
 }
 
@@ -354,7 +362,7 @@ extension SessionsController: SessionTimerDelegate {
         }
         if activeSessionId == sessionId, self.delegate != nil {
             deactivate(sessionId)
-            delegate?.controller(self, didEndWaitCallSession: sessionId)
+            delegate?.controller(self, didEndWaitSession: sessionId)
             return
         }
         timer.invalidate()

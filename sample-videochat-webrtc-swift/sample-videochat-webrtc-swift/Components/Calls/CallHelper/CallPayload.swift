@@ -16,15 +16,7 @@ class CallPayload: NSObject {
         return sessionID.isEmpty == false
     }
     
-    var missed: Bool {
-        if members.count < 1 {
-            return true
-        }
-        
-        guard let startTimeInterval = Double(timestamp) else { return true }
-        let timeIntervalNow = (Date().timeIntervalSince1970 * 1000.0).rounded()
-        return (timeIntervalNow - startTimeInterval) / 1000 > QBRTCConfig.answerTimeInterval()
-    }
+    var missed = false
     
     var hasVideo: Bool {
         return conferenceType == "1"
@@ -43,7 +35,7 @@ class CallPayload: NSObject {
     
     private var opponentsIDs: String = ""
     private var contactIdentifier: String = ""
-    private var timestamp: String = ""
+    var timestamp: String = ""
     private var conferenceType: String = "1"
     
     //MARK: - Life Cycle
@@ -51,7 +43,14 @@ class CallPayload: NSObject {
         super.init()
         
         opponentsIDs = payload["opponentsIDs"] ?? ""
-        contactIdentifier = payload["contactIdentifier"] ?? "Incoming call. Connecting..."
+        var participantsNames: [String] = []
+        if let contactIdentifier = payload["contactIdentifier"] {
+            self.contactIdentifier = contactIdentifier
+            participantsNames = contactIdentifier.components(separatedBy: ",")
+        } else {
+            contactIdentifier = "Incoming call. Connecting..."
+            participantsNames = opponentsIDs.components(separatedBy: ",")
+        }
         sessionID = payload["sessionID"] ?? ""
         conferenceType = payload["conferenceType"] ?? "1"
         timestamp = payload["timestamp"] ?? ""
@@ -60,7 +59,6 @@ class CallPayload: NSObject {
             return
         }
         let participantsIDs = opponentsIDs.components(separatedBy: ",")
-        let participantsNames = contactIdentifier.components(separatedBy: ",")
         if participantsIDs.count == participantsNames.count {
             let ids = participantsIDs.compactMap({NSNumber(value: Int($0)!)})
             var participants: [NSNumber: String] = [:]
@@ -72,5 +70,14 @@ class CallPayload: NSObject {
                 members = participants
             }
         }
+        
+        if members.count < 1 {
+            missed = true
+            return
+        }
+        let startTimeInterval = Int64(timestamp) ?? Date().timeStamp
+        let timeIntervalNow = Date().timeStamp
+        let receivedTimeInterval = (timeIntervalNow - startTimeInterval) / 1000
+        missed = receivedTimeInterval > Int64(QBRTCConfig.answerTimeInterval())
     }
 }

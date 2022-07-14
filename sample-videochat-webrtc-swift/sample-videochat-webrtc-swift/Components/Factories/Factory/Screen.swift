@@ -17,6 +17,14 @@ final class Screen {
         return UsersViewController.controllerFromStoryboard(.users)
     }
     
+    class func userListViewController() -> UserListViewController? {
+        return UserListViewController.controllerFromStoryboard(.users)
+    }
+    
+    class func searchUsersViewController() -> SearchUsersViewController? {
+        return SearchUsersViewController.controllerFromStoryboard(.users)
+    }
+    
     class func sharingViewController() -> SharingViewController? {
         return SharingViewController.controllerFromStoryboard(.call)
     }
@@ -25,8 +33,8 @@ final class Screen {
         return VideoCallViewController.controllerFromStoryboard(.call)
     }
     
-    class func audioCallViewController() -> AudioCallViewController? {
-        return AudioCallViewController.controllerFromStoryboard(.call)
+    class func audioCallViewController() -> CallViewController? {
+        return CallViewController.controllerFromStoryboard(.call)
     }
     
     class func infoTableViewController() -> InfoTableViewController? {

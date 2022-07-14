@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -19,20 +19,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="UtM-ey-Fcs">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PGz-Ub-Dqx" customClass="ParticipantsView" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Ujl-98-1hg">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="409"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="zOr-Q2-45d">
-                                        <rect key="frame" x="0.0" y="409" width="414" height="409"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="gzT-Qn-EQj">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Aho-di-pTx">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="409"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="788-br-VrY">
+                                                <rect key="frame" x="0.0" y="409" width="414" height="409"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.1960526407" green="0.19609326120000001" blue="0.1960500479" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.1960526407" green="0.19609326120000001" blue="0.1960500479" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </stackView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="gzT-Qn-EQj" secondAttribute="trailing" id="Frt-0a-Tro"/>
+                                    <constraint firstAttribute="bottom" secondItem="gzT-Qn-EQj" secondAttribute="bottom" id="KYg-5v-2hn"/>
+                                    <constraint firstItem="gzT-Qn-EQj" firstAttribute="top" secondItem="PGz-Ub-Dqx" secondAttribute="top" id="Tn1-Ag-rpE"/>
+                                    <constraint firstItem="gzT-Qn-EQj" firstAttribute="leading" secondItem="PGz-Ub-Dqx" secondAttribute="leading" id="vVW-ux-6Gr"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="bottomStackView" destination="788-br-VrY" id="FMw-gs-gzo"/>
+                                    <outlet property="topStackView" destination="Aho-di-pTx" id="JKa-Je-y08"/>
+                                </connections>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q2x-5x-gWG" userLabel="Header View" customClass="CallGradientView" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
                                 <subviews>
@@ -62,7 +78,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9al-C3-8MG" userLabel="Bottom View" customClass="CallGradientView" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="662" width="414" height="200"/>
                                 <subviews>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cbq-Kq-5l1" userLabel="Timer Call Label">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cbq-Kq-5l1" userLabel="Timer Call Label" customClass="CallTimerView" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
                                         <rect key="frame" x="169.5" y="26" width="75" height="20"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -96,15 +112,15 @@
                         </subviews>
                         <color key="backgroundColor" white="0.066534853127389146" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="PGz-Ub-Dqx" firstAttribute="leading" secondItem="LFd-FF-nH7" secondAttribute="leading" id="7zX-SC-wSe"/>
                             <constraint firstItem="q2x-5x-gWG" firstAttribute="leading" secondItem="LFd-FF-nH7" secondAttribute="leading" id="96o-2y-Edz"/>
                             <constraint firstItem="hoz-yb-WSU" firstAttribute="top" secondItem="9al-C3-8MG" secondAttribute="bottom" id="M4o-Eb-dpM"/>
-                            <constraint firstAttribute="trailing" secondItem="UtM-ey-Fcs" secondAttribute="trailing" id="k0t-ah-Bo2"/>
-                            <constraint firstItem="UtM-ey-Fcs" firstAttribute="top" secondItem="S1s-gB-T9Q" secondAttribute="bottom" id="kLk-Gs-kbe"/>
+                            <constraint firstAttribute="trailing" secondItem="PGz-Ub-Dqx" secondAttribute="trailing" id="XlI-Pn-PdY"/>
+                            <constraint firstItem="PGz-Ub-Dqx" firstAttribute="top" secondItem="S1s-gB-T9Q" secondAttribute="bottom" id="Yjg-fB-Jey"/>
                             <constraint firstItem="q2x-5x-gWG" firstAttribute="top" secondItem="LFd-FF-nH7" secondAttribute="top" id="lyF-Of-rgR"/>
-                            <constraint firstItem="UtM-ey-Fcs" firstAttribute="leading" secondItem="LFd-FF-nH7" secondAttribute="leading" id="qs8-eJ-2q7"/>
-                            <constraint firstItem="hoz-yb-WSU" firstAttribute="top" secondItem="UtM-ey-Fcs" secondAttribute="bottom" id="rKB-yU-Zj4"/>
                             <constraint firstAttribute="trailing" secondItem="9al-C3-8MG" secondAttribute="trailing" id="uGk-SW-49h"/>
                             <constraint firstAttribute="trailing" secondItem="q2x-5x-gWG" secondAttribute="trailing" id="vJ3-fP-bmO"/>
+                            <constraint firstItem="hoz-yb-WSU" firstAttribute="top" secondItem="PGz-Ub-Dqx" secondAttribute="bottom" id="zBe-DW-arx"/>
                             <constraint firstItem="9al-C3-8MG" firstAttribute="leading" secondItem="LFd-FF-nH7" secondAttribute="leading" id="zxo-wJ-WEF"/>
                         </constraints>
                     </view>
@@ -112,23 +128,21 @@
                     <navigationItem key="navigationItem" id="wei-5o-qHB"/>
                     <connections>
                         <outlet property="actionsBar" destination="9WO-lA-txC" id="Aal-WC-3Pw"/>
-                        <outlet property="bottomStackView" destination="zOr-Q2-45d" id="d88-cQ-YhT"/>
-                        <outlet property="bottomView" destination="9al-C3-8MG" id="Q5u-mY-Yeb"/>
-                        <outlet property="headerView" destination="q2x-5x-gWG" id="Jpj-ff-23Y"/>
+                        <outlet property="bottomView" destination="9al-C3-8MG" id="UNh-SC-pkM"/>
+                        <outlet property="callTimer" destination="Cbq-Kq-5l1" id="aKN-Ms-EvR"/>
+                        <outlet property="headerView" destination="q2x-5x-gWG" id="cgc-0G-3xv"/>
+                        <outlet property="participantsView" destination="PGz-Ub-Dqx" id="k3q-MB-hrA"/>
                         <outlet property="statsButton" destination="hid-Ub-Lg1" id="VIg-Rd-cJc"/>
-                        <outlet property="timerCallLabel" destination="Cbq-Kq-5l1" id="i7E-Qh-gzF"/>
-                        <outlet property="topStackView" destination="Ujl-98-1hg" id="xdN-OI-JHG"/>
-                        <outlet property="vStackView" destination="UtM-ey-Fcs" id="FbD-Iu-w00"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hc3-yZ-kCn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3618.4000000000001" y="310.79460269865069"/>
         </scene>
-        <!--Audio Call View Controller-->
+        <!--Call View Controller-->
         <scene sceneID="8UH-wZ-IcA">
             <objects>
-                <viewController storyboardIdentifier="AudioCallViewController" id="Wpm-Ud-a52" customClass="AudioCallViewController" customModule="sample_videochat_webrtc_swift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CallViewController" id="Wpm-Ud-a52" customClass="CallViewController" customModule="sample_videochat_webrtc_swift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lSA-8n-FQr"/>
                         <viewControllerLayoutGuide type="bottom" id="t9G-q1-P8b"/>
@@ -137,19 +151,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="5N4-q7-1MU">
-                                <rect key="frame" x="0.0" y="84" width="414" height="296"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VNb-oe-IUe" customClass="ParticipantsView" customModule="sample_videochat_webrtc_swift">
+                                <rect key="frame" x="0.0" y="156" width="414" height="296"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="fJY-Ng-cFA">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="hTe-PI-9eU">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="296"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="fHS-Uu-uKI">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="148"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="CQS-bq-5Ll">
+                                                <rect key="frame" x="0.0" y="148" width="414" height="148"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.1960526407" green="0.19609326120000001" blue="0.1960500479" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="296" id="gQW-K5-8hN"/>
+                                    <constraint firstAttribute="height" constant="296" id="5pW-ib-JS1"/>
+                                    <constraint firstAttribute="bottom" secondItem="hTe-PI-9eU" secondAttribute="bottom" id="CUd-sU-r0C"/>
+                                    <constraint firstAttribute="trailing" secondItem="hTe-PI-9eU" secondAttribute="trailing" id="MtQ-O1-Laf"/>
+                                    <constraint firstItem="hTe-PI-9eU" firstAttribute="top" secondItem="VNb-oe-IUe" secondAttribute="top" id="dSR-ES-Bb1"/>
+                                    <constraint firstItem="hTe-PI-9eU" firstAttribute="leading" secondItem="VNb-oe-IUe" secondAttribute="leading" id="eic-ov-cLh"/>
                                 </constraints>
-                            </stackView>
+                                <connections>
+                                    <outlet property="bottomStackView" destination="CQS-bq-5Ll" id="Vc2-IZ-UnZ"/>
+                                    <outlet property="topStackView" destination="fHS-Uu-uKI" id="ZJI-hN-L9H"/>
+                                </connections>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IhD-3Q-dzn" userLabel="Header View" customClass="CallGradientView" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
                                 <subviews>
@@ -176,10 +208,10 @@
                                     <constraint firstAttribute="trailing" secondItem="loP-5j-Qm9" secondAttribute="trailing" id="E1a-un-x9U"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IFH-iS-e3X" userLabel="Bottom View">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IFH-iS-e3X" userLabel="Bottom View" customClass="CallGradientView" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="662" width="414" height="200"/>
                                 <subviews>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="plm-Tj-QMC" userLabel="Timer Call Label">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="plm-Tj-QMC" userLabel="Timer Call Label" customClass="CallTimerView" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
                                         <rect key="frame" x="169.5" y="26" width="75" height="20"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -214,13 +246,13 @@
                         <color key="backgroundColor" red="0.1960526407" green="0.19609326120000001" blue="0.1960500479" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="IFH-iS-e3X" firstAttribute="leading" secondItem="S1Y-7c-ZeL" secondAttribute="leading" id="40G-aQ-cy1"/>
-                            <constraint firstItem="5N4-q7-1MU" firstAttribute="leading" secondItem="S1Y-7c-ZeL" secondAttribute="leading" id="ESl-z5-paC"/>
+                            <constraint firstItem="VNb-oe-IUe" firstAttribute="top" secondItem="lSA-8n-FQr" secondAttribute="bottom" constant="112" id="PLZ-Ux-hia"/>
                             <constraint firstAttribute="trailing" secondItem="IhD-3Q-dzn" secondAttribute="trailing" id="Pqh-ZI-Xq8"/>
                             <constraint firstItem="IhD-3Q-dzn" firstAttribute="top" secondItem="S1Y-7c-ZeL" secondAttribute="top" id="QbR-qF-3a5"/>
+                            <constraint firstItem="VNb-oe-IUe" firstAttribute="leading" secondItem="S1Y-7c-ZeL" secondAttribute="leading" id="Tfj-T0-UTA"/>
                             <constraint firstItem="t9G-q1-P8b" firstAttribute="top" secondItem="IFH-iS-e3X" secondAttribute="bottom" id="VH4-kN-u56"/>
                             <constraint firstItem="IhD-3Q-dzn" firstAttribute="leading" secondItem="S1Y-7c-ZeL" secondAttribute="leading" id="aYU-Ig-Slw"/>
-                            <constraint firstItem="5N4-q7-1MU" firstAttribute="top" secondItem="lSA-8n-FQr" secondAttribute="bottom" constant="40" id="h40-6J-oW5"/>
-                            <constraint firstAttribute="trailing" secondItem="5N4-q7-1MU" secondAttribute="trailing" id="nIg-Fv-hoR"/>
+                            <constraint firstAttribute="trailing" secondItem="VNb-oe-IUe" secondAttribute="trailing" id="adq-U4-Ahn"/>
                             <constraint firstAttribute="trailing" secondItem="IFH-iS-e3X" secondAttribute="trailing" id="v4X-J8-GV2"/>
                         </constraints>
                     </view>
@@ -228,10 +260,11 @@
                     <navigationItem key="navigationItem" id="1hu-Kw-QuM"/>
                     <connections>
                         <outlet property="actionsBar" destination="nvl-aP-B6G" id="IV2-SQ-9Bj"/>
+                        <outlet property="bottomView" destination="IFH-iS-e3X" id="G8T-N8-Hbp"/>
+                        <outlet property="callTimer" destination="plm-Tj-QMC" id="v5F-Og-ZDV"/>
+                        <outlet property="headerView" destination="IhD-3Q-dzn" id="TWj-mj-zKe"/>
+                        <outlet property="participantsView" destination="VNb-oe-IUe" id="76T-A1-lzD"/>
                         <outlet property="statsButton" destination="loP-5j-Qm9" id="aT0-J3-bm4"/>
-                        <outlet property="timerCallLabel" destination="plm-Tj-QMC" id="ARX-BU-kcv"/>
-                        <outlet property="topStackView" destination="fJY-Ng-cFA" id="YKz-BH-yGC"/>
-                        <outlet property="vStackView" destination="5N4-q7-1MU" id="qIs-gA-fz7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6rE-te-Yi0" userLabel="First Responder" sceneMemberID="firstResponder"/>

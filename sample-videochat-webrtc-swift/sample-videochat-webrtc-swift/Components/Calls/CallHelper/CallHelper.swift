@@ -15,13 +15,16 @@ enum CallDirection {
     case outgoing
 }
 
-typealias CallMuteAction = ((Bool) -> Void)
-
 protocol CallHelperDelegate: AnyObject {
     func helper(_ helper: CallHelper, didAcceptCall callId: String)
-    func helper(_ helper: CallHelper, didUnregisterCall callId: String, userInfo: [String : String]?)
-    func helper(_ helper: CallHelper, didRegisterCall callId: String, direction: CallDirection, members: [NSNumber: String], hasVideo: Bool)
-    func helper(_ helper: CallHelper, didReciveIncomingCallWithMembers callMembers: [NSNumber], completion:@escaping (String) -> Void)
+    func helper(_ helper: CallHelper, didUnregisterCall callId: String)
+    func helper(_ helper: CallHelper,
+                didRegisterCall callId: String,
+                mediaListener: MediaListener,
+                mediaController: MediaController,
+                direction: CallDirection,
+                members: [NSNumber: String],
+                hasVideo: Bool)
 }
 
 class CallHelper: NSObject {
@@ -30,16 +33,8 @@ class CallHelper: NSObject {
     var registeredCallId: String? {
         return sessionsController.activeSessionId
     }
-    var onMute: CallMuteAction?
-    var media: MediaRouter? {
-        return sessionsController.media
-    }
-    
-    private let callKit = CallKit()
-    private lazy var sessionsController: SessionsController = {
-        let sessionsController = SessionsController()
-        return sessionsController
-    }()
+    private let sessionsController = SessionsController()
+    private let callKit = CallKitManager()
     
     // MARK: - Life Cycle
     override init() {
@@ -50,33 +45,36 @@ class CallHelper: NSObject {
     }
     
     //MARK: - Public Methods
-    func isValid(_ sessionID: String) -> Bool {
-        return sessionsController.isValid(sessionID)
+    func callReceived(_ sessionID: String) -> Bool {
+        return sessionsController.session(sessionID, confirmToState: .received)
     }
     
     func registerCall(withPayload payload: [String : String], completion: (() -> Void)? = nil) {
         let call = CallPayload(payload: payload)
-        
         var state: IncommingCallState = .valid
         if call.valid == false {
             state = .invalid
-        } else if call.missed || sessionsController.rejectedSessions.contains(call.sessionID) == true {
+        } else if call.missed || sessionsController.session(call.sessionID, confirmToState: .rejected) {
             state = .missed
         }
-        if let callUUID = callKit.callUUID(), callUUID.uuidString != call.sessionID  {
+        if let callUUID = callKit.callUUID(), callUUID.uuidString != call.sessionID, sessionsController.session(call.sessionID, confirmToState: .new) {
             // when self.callKit.callUUID != nil
             // at that moment has the active call
             debugPrint("\(#function) Received a voip push with another session that has an active call at that moment")
-            sessionsController.rejectedSessions.insert(call.sessionID)
+            sessionsController.reject(call.sessionID, userInfo: nil)
             return
         }
-        
         callKit.reportIncomingCall(sessionId: call.sessionID, title: call.title, hasVideo: call.hasVideo, state: state, completion: completion)
         if state != .valid {
             return
         }
-        sessionsController.activate(call.sessionID)
-        delegate?.helper(self, didRegisterCall: call.sessionID, direction: .incoming, members: call.members, hasVideo: call.hasVideo)
+        sessionsController.activate(call.sessionID, timestamp: Int64(call.timestamp))
+        delegate?.helper(self, didRegisterCall: call.sessionID,
+                         mediaListener: generateMediaListener(),
+                         mediaController: generateMediaController(),
+                         direction: .incoming,
+                         members: call.members,
+                         hasVideo: call.hasVideo)
     }
     
     
@@ -117,73 +115,76 @@ class CallHelper: NSObject {
         })
         
         // Start call
-        sessionsController.startCall(call.sessionID, userInfo: userInfo)
-        delegate?.helper(self, didRegisterCall: call.sessionID, direction: .outgoing, members: call.members, hasVideo: call.hasVideo)
+        sessionsController.start(call.sessionID, userInfo: userInfo)
+        
+        delegate?.helper(self, didRegisterCall: call.sessionID,
+                         mediaListener: generateMediaListener(),
+                         mediaController: generateMediaController(),
+                         direction: .outgoing,
+                         members: call.members,
+                         hasVideo: call.hasVideo)
     }
     
     func unregisterCall(_ callId: String, userInfo: [String: String]?) {
-        sessionsController.rejectCall(callId, userInfo: userInfo)
+        sessionsController.reject(callId, userInfo: userInfo)
     }
     
     func updateCall(_ callId: String, title: String) {
         callKit.reportUpdateCall(sessionId: callId, title: title)
     }
+    
+    //MARK: - Private Methods
+    private func generateMediaController() -> MediaController {
+        let mediaController = MediaController()
+        mediaController.delegate = sessionsController
+        callKit.actionDelegate = mediaController
+        return mediaController
+    }
+
+    private func generateMediaListener() -> MediaListener {
+        let mediaListener = MediaListener()
+        sessionsController.mediaListenerDelegate = mediaListener
+        return mediaListener
+    }
 }
 
-//MARK: - CallKitDelegate
-extension CallHelper: CallKitDelegate {
-    func callKit(_ callKit: CallKit, didActivate audioSession: QBRTCAudioSession, reason: CallKitActiveteAudioReason) {
-        if reason == .startCall {
-            sessionsController.startPlayCallingSound()
-        }
-    }
-    
-    func callKit(_ callKit: CallKit, didTapAnswer sessionId: String) {
-        sessionsController.acceptCall(sessionId, userInfo: nil)
+//MARK: - CallKitManagerDelegate
+extension CallHelper: CallKitManagerDelegate {
+    func callKit(_ callKit: CallKitManager, didTapAnswer sessionId: String) {
+        sessionsController.accept(sessionId, userInfo: nil)
         delegate?.helper(self, didAcceptCall: sessionId)
     }
     
-    func callKit(_ callKit: CallKit, didTapRedject sessionId: String) {
-        sessionsController.rejectCall(sessionId, userInfo: ["rejectCall": "CallKit"])
+    func callKit(_ callKit: CallKitManager, didTapRedject sessionId: String) {
+        sessionsController.reject(sessionId, userInfo: ["rejectCall": "CallKit"])
     }
     
-    func callKit(_ callKit: CallKit, didTapMute enable: Bool) {
-        onMute?(enable)
-    }
-    
-    func callKit(_ callKit: CallKit, didEndCall sessionId: String) {
+    func callKit(_ callKit: CallKitManager, didEndCall sessionId: String) {
         // external ending using "reportEndCall" methods
     }
 }
 
 //MARK: - CallSessionDelegate
 extension CallHelper: CallSessionDelegate {
-    func controller(_ controller: SessionsController, didReceiveIncomingCallSession sessionId: String, membersIDs: [NSNumber], conferenceType: QBRTCConferenceType) {
-        let arrayUserIDs = membersIDs.map({ $0.stringValue })
-        let opponentsIDs = arrayUserIDs.joined(separator: ",")
-        let timeStamp = Int((Date().timeIntervalSince1970 * 1000.0).rounded())
-        delegate?.helper(self, didReciveIncomingCallWithMembers: membersIDs, completion: { [weak self] (contactIdentifier) in
-            let payload = ["opponentsIDs": opponentsIDs,
-                                     "contactIdentifier": contactIdentifier,
-                                     "sessionID": sessionId,
-                                     "conferenceType": NSNumber(value: conferenceType.rawValue).stringValue,
-                                     "timestamp": "\(timeStamp)"
-            ]
-            self?.registerCall(withPayload: payload, completion: nil)
-        })
+    func controller(_ controller: SessionsController, didChangeAudioState enabled: Bool, forSession sessionId: String) {
+        callKit.muteAudio(!enabled, forCall: sessionId)
     }
     
-    func controller(_ controller: SessionsController, didCloseCallSession sessionId: String, userInfo: [String : String]?) {
-        delegate?.helper(self, didUnregisterCall: sessionId, userInfo: userInfo)
+    func controller(_ controller: SessionsController, didReceiveIncomingSession payload: [String : String]) {
+        registerCall(withPayload: payload, completion: nil)
+    }
+    
+    func controller(_ controller: SessionsController, didCloseSession sessionId: String, userInfo: [String : String]?) {
+        delegate?.helper(self, didUnregisterCall: sessionId)
         callKit.reportEndCall(sessionId: sessionId)
     }
     
-    func controller(_ controller: SessionsController, didEndWaitCallSession sessionId: String) {
-        delegate?.helper(self, didUnregisterCall: sessionId, userInfo: nil)
+    func controller(_ controller: SessionsController, didEndWaitSession sessionId: String) {
+        delegate?.helper(self, didUnregisterCall: sessionId)
         callKit.reportEndCall(sessionId: sessionId, reason: .unanswered)
     }
     
-    func controller(_ controller: SessionsController, didAcceptCallSession sessionId: String) {
+    func controller(_ controller: SessionsController, didAcceptSession sessionId: String) {
         callKit.reportAcceptCall(sessionId: sessionId)
     }
 }

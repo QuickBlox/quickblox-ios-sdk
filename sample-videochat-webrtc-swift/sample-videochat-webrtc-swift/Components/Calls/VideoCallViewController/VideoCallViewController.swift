@@ -13,259 +13,188 @@ struct CallConstant {
     static let viewMaxCount: Int = 2
 }
 
-class VideoCallViewController: UIViewController, CallViewControllerProtocol, CallTimerProtocol {
+class VideoCallViewController: CallViewController {
     
-    //MARK: - IBOutlets
-    @IBOutlet weak var headerView: CallGradientView!
-    @IBOutlet weak var bottomView: CallGradientView!
-    @IBOutlet weak var actionsBar: CallActionsBar!
-    @IBOutlet weak var statsButton: UIButton! {
-        didSet {
-            statsButton.isEnabled = false
-            statsButton.alpha = 0.0
+    //MARK: - Setup
+    override func setupWithCallId(_ callId: String, members: [NSNumber: String], mediaListener: MediaListener, mediaController: MediaController, direction: CallDirection) {
+        super.setupWithCallId(callId, members: members, mediaListener: mediaListener, mediaController: mediaController, direction: direction)
+        
+        self.mediaListener.onVideo = { [weak self] enable in
+            if self?.actionsBar == nil {
+                return
+            }
+            self?.actionsBar.select(!enable, type: .video)
+        }
+        
+        self.mediaListener.onSharing = { [weak self] enable in
+            if self?.actionsBar == nil {
+                return
+            }
+            self?.actionsBar.select(!enable, type: .share)
         }
     }
-    @IBOutlet weak var vStackView: UIStackView!
-    @IBOutlet weak var topStackView: UIStackView!
-    @IBOutlet weak var bottomStackView: UIStackView!
-    @IBOutlet weak var timerCallLabel: UILabel! {
-        didSet {
-            timerCallLabel.setRoundedLabel(cornerRadius: 10.0)
-        }
-    }
     
-    lazy private var statsView: StatsView = {
-        let statsView = StatsView.loadNib()
-        return statsView
-    }()
-    
-    //MARK: - Properties
-    var callInfo: CallInfo!
-    var hangUp: CallHangUpAction?
-    var media: MediaRouter!
-    
-    internal var callTimer = CallTimer()
-
-    //MARK: - Life Cycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        callInfo.direction == .incoming ? setupCallScreen() : setupCallingScreen()
-        
-        showParticipants(callInfo.participants)
-
-        checkCallPermissions(.video, completion: nil)
-        
-        callTimer.onTimeChanged = { [weak self] (duration) in
-            guard let self = self else { return }
-            self.timerCallLabel.text = duration
+    override func setupViews() {
+        participantsView.setup(callInfo: callInfo, conferenceType: .video)
+        checkCallPermissions(.video) { [weak self] videoGranted in
+            self?.callInfo.direction == .incoming ? self?.setupCallScreen() : self?.setupCallingScreen()
         }
-        
-        media.onReceivedRemoteVideoTrack = { [weak self] (videoTrack, userID) in
-            guard let self = self,
-                  let participantView = self.participantView(userID: userID.intValue) else { return }
-            
-            let remoteVideoView = QBRTCRemoteVideoView(frame: CGRect(x: 2.0, y: 2.0, width: 2.0, height: 2.0))
-            remoteVideoView.videoGravity = AVLayerVideoGravity.resizeAspect.rawValue
-            remoteVideoView.setVideoTrack(videoTrack)
-            participantView.videoView = remoteVideoView
-        }
-        
-        media.onReload = { [weak self] in
-            self?.callTimer.deactivate()
-            self?.callInfo = nil
-        }
-        
         callInfo.onChangedState = { [weak self] (participant) in
-            guard let self = self,
-                  let participantView = self.participantView(userID: Int(participant.userID)) else { return }
-            participantView.connectionState = participant.connectionState
             
-            if self.callTimer.isActive == false, participant.connectionState == .connected {
-                if self.timerCallLabel.isHidden == true {
-                    self.timerCallLabel.isHidden = false
-                }
-                self.callTimer.activate()
-                
-                self.statsButton.isEnabled = true
-                self.statsButton.alpha = 1.0
-
-                if let localParticipant = self.callInfo.localParticipant {
-                    if self.callInfo.direction == .outgoing {
-                        self.setupCallScreen()
-                        let localParticipantView = self.setupParticipantView(localParticipant)
-                        self.bottomStackView.addArrangedSubview(localParticipantView)
-                    }
-                    if self.media.videoEnabled {
-                        self.camera(enable:self.media.videoEnabled)
-                    }
-                }
+            self?.participantsView.setConnectionState(participant.connectionState, participantId: participant.id)
+            
+            if participant.connectionState != .connected {
+                return
             }
             
-            if participant.connectionState == .connected {
-                guard let participantVideoView = self.participantView(userID: Int(participant.userID))?.videoView as? QBRTCRemoteVideoView
-                else { return }
-                participantVideoView.isHidden = false
+            if self?.callTimer.isActive == false {
+                self?.callTimer.isActive = true
+                self?.statsButton.isEnabled = true
+                self?.statsButton.alpha = 1.0
+                
+                if self?.callInfo.direction == .outgoing {
+                    DispatchQueue.main.async {
+                        self?.setupCallScreen()
+                    }
+                }
+                return
+            }
+            
+            //setup after reconnect
+            if let videoTrack = self?.mediaController.videoTrack(for: participant.id) {
+                self?.participantsView.setupVideoTrack(videoTrack, participantId: participant.id)
             }
         }
     }
     
+    //MARK: - Life Cycle
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
         navigationController?.setNavigationBarHidden(true, animated: animated)
         self.actionsBar.select(false, type: .share)
     }
     
-    //MARK: - Actions
-    @IBAction func didTapStatsButton(_ sender: UIButton) {
-        statsView.callInfo = callInfo
-        
-        view.addSubview(statsView)
-        statsView.translatesAutoresizingMaskIntoConstraints = false
-        statsView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0.0).isActive = true
-        statsView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0.0).isActive = true
-        statsView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0.0).isActive = true
-        statsView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0.0).isActive = true
-    }
-
     //MARK: - Private Methods
-    private func showParticipants(_ participants: [CallParticipant]) {
-        for participant in participants {
-            
-            if self.callInfo.direction == .outgoing, participant.userID == callInfo.localParticipantId {
-                continue
-            }
-            
-            let participantView = setupParticipantView(participant)
-            let viewIsFull = topStackView.arrangedSubviews.count == CallConstant.viewMaxCount
-            if (viewIsFull || participant.userID == callInfo.localParticipantId) {
-                bottomStackView.addArrangedSubview(participantView)
-                continue
-            }
-            topStackView.addArrangedSubview(participantView)
-        }
-    }
-    
-    private func setupParticipantView(_ participant: CallParticipant) -> ParticipantVideoView {
-        let participantView = ParticipantVideoView.loadNib()
-        participantView.name = participant.fullName
-        participantView.tag = Int(participant.userID)
-        participantView.connectionState = participant.connectionState
-        participantView.nameLabel.isHidden = participant.userID == callInfo.localParticipantId
-        if participant.userID == callInfo.localParticipantId {
-            participantView.callingToLabelHeight.constant = 0.0
-        }
-         else if callInfo.direction == .incoming  {
-            participantView.callingToLabelHeight.constant = 0.0
-            participantView.stateLabel.text = "Calling..."
-        }
-        
-        return participantView
-    }
-    
-    private func participantView(userID: Int) -> ParticipantVideoView? {
-        let participantsViews =  topStackView.arrangedSubviews + bottomStackView.arrangedSubviews
-        guard let participantView = participantsViews.first(where: {$0.tag == userID}) as? ParticipantVideoView else {return nil}
-        return participantView
-    }
-    
     private func camera(enable:Bool) {
-        
-        if enable == true, callTimer.isActive == true,
-           participantView(userID: Int(callInfo.localParticipantId))?.videoView == nil {
-                setupLocalVideoView()
+        if  mediaController.camera?.hasStarted == false,
+            mediaController.camera?.isRunning == false, enable == true {
+            mediaController.camera?.startSession(nil)
         }
-        
-        if let localVideoView = participantView(userID: Int(callInfo.localParticipantId))?.videoView {
-            if media.camera?.isRunning == false, enable == true {
-                media.camera?.startSession(nil)
-            }
-            localVideoView.isHidden = !enable
-        }
+        participantsView.hideVideo(!enable, participantId: callInfo.localParticipantId)
         actionsBar.setUserInteractionEnabled(enable, type: .switchCamera)
     }
     
-    private func setupLocalVideoView() {
-        guard let cameraPreviewLayer = media.camera?.previewLayer,
-              let participantView = participantView(userID: Int(callInfo.localParticipantId)) else { return }
-               let localVideoView = LocalVideoView(previewlayer: cameraPreviewLayer)
-               participantView.videoView = localVideoView
-    }
-
     private func setupCallingScreen() {
         self.statsButton.isEnabled = false
         self.statsButton.alpha = 0.0
-
+        
         actionsBar.setup(withActions: [
             
             (.audio, action: { [weak self] sender in
-                guard let self = self else { return }
-                self.media.audioEnabled = !self.media.audioEnabled
+                guard let self = self else {
+                    return
+                }
+                self.mediaController.audioEnabled = !self.mediaController.audioEnabled
             }),
             
             (.decline, action: { [weak self] sender in
-                guard let self = self else { return }
+                guard let self = self else {
+                    return
+                }
                 sender?.isEnabled = false
                 self.hangUp?(self.callInfo.callId)
             }),
             
             (.video, action: { [weak self] sender in
-                guard let self = self else { return }
-                self.media.videoEnabled = !self.media.videoEnabled
-                self.camera(enable: self.media.videoEnabled)
+                guard let self = self else {
+                    return
+                }
+                self.mediaController.videoEnabled = !self.mediaController.videoEnabled
+                self.camera(enable: self.mediaController.videoEnabled)
             })
         ])
     }
     
     private func setupCallScreen() {
-        self.headerView.setupGradient(firstColor: UIColor.black.withAlphaComponent(0.7),
+        headerView.setupGradient(firstColor: UIColor.black.withAlphaComponent(0.7),
                                  secondColor: UIColor.black.withAlphaComponent(0.0))
-        self.bottomView.setupGradient(firstColor: UIColor.black.withAlphaComponent(0.0),
+        bottomView.setupGradient(firstColor: UIColor.black.withAlphaComponent(0.0),
                                  secondColor: UIColor.black.withAlphaComponent(0.7))
         actionsBar.setup(withActions: [
             
             (.audio, action: { [weak self] sender in
-                guard let self = self else { return }
+                guard let self = self else {
+                    return
+                }
                 
-                self.media.audioEnabled = !self.media.audioEnabled
+                self.mediaController.audioEnabled = !self.mediaController.audioEnabled
             }),
             
             (.video, action: { [weak self] sender in
-                guard let self = self else { return }
+                guard let self = self else {
+                    return
+                }
                 
-                self.media.videoEnabled = !self.media.videoEnabled
-                self.camera(enable: self.media.videoEnabled)
+                self.mediaController.videoEnabled = !self.mediaController.videoEnabled
+                self.camera(enable: self.mediaController.videoEnabled)
             }),
             
             (.decline, action: { [weak self] sender in
-                guard let self = self else { return }
+                guard let self = self else {
+                    return
+                }
                 
                 sender?.isEnabled = false
                 self.hangUp?(self.callInfo.callId)
             }),
             
             (.share, action: { [weak self] sender in
-                guard let self = self else { return }
+                guard let self = self else {
+                    return
+                }
                 
-                guard let sharingVC = Screen.sharingViewController() else { return }
-                sharingVC.media = self.media
+                guard let sharingVC = Screen.sharingViewController() else {
+                    return
+                }
+                sharingVC.mediaController = self.mediaController
                 self.navigationController?.pushViewController(sharingVC, animated: false)
             }),
             
             (.switchCamera, action: { [weak self] sender in
-                guard let self = self else { return }
-
-                guard let localVideoView = self.participantView(userID: Int(self.callInfo.localParticipantId))?.videoView else { return }
+                guard let self = self else {
+                    return
+                }
+                
                 let animation = CATransition()
                 animation.duration = 0.75
                 animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
                 animation.type = CATransitionType(rawValue: "oglFlip")
-                animation.subtype = self.media.camera?.position == .back ? .fromLeft : .fromRight
-                
-                localVideoView.superview?.layer.add(animation, forKey: nil)
-                self.media.switchCamera()
+                animation.subtype = self.mediaController.camera?.position == .back ? .fromLeft : .fromRight
+                self.participantsView.videoAnimation(animation, participantId: self.callInfo.localParticipantId)
+                let position: AVCaptureDevice.Position = self.mediaController.camera?.position == .back ? .front : .back
+                guard self.mediaController.camera?.hasCamera(for: position) == true else {
+                    return
+                }
+                self.mediaController.camera?.position = position
             })
         ])
+        
+        if let cameraPreviewLayer = mediaController.camera?.previewLayer {
+            let localVideoView = LocalVideoView(previewlayer: cameraPreviewLayer)
+            participantsView.addLocalVideo(localVideoView)
+        }
+        if mediaController.videoEnabled {
+            camera(enable: true)
+        }
+        
+        for participant in callInfo.interlocutors {
+            if let videoTrack = mediaController.videoTrack(for: participant.id) {
+                participantsView.setupVideoTrack(videoTrack, participantId: participant.id)
+            }
+        }
+        
+        mediaListener.onReceivedRemoteVideoTrack = { [weak self] (videoTrack, userID) in
+            self?.participantsView.setupVideoTrack(videoTrack, participantId: userID.uintValue)
+        }
     }
 }

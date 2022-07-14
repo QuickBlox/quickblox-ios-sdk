@@ -13,7 +13,7 @@ class ActionButton: UIButton {
     //MARK: - Properties
     var iconView: UIImageView? {
         willSet {
-            if (newValue != self.iconView) {
+            if (newValue != iconView) {
                 iconView?.isUserInteractionEnabled = false
                 self.iconView = newValue
                 setNeedsDisplay()
@@ -88,21 +88,21 @@ class ActionButton: UIButton {
         if let touches = touches, let event = event {
             super.touchesBegan(touches, with: event)
         }
-        self.isHighlighted = true
-        self.selectedView.alpha = 1.0
+        isHighlighted = true
+        selectedView.alpha = 1.0
     }
     
     override func touchesEnded(_ touches: Set<UITouch>?, with event: UIEvent?) {
         if let touches = touches, let event = event {
             super.touchesEnded(touches, with: event)
         }
-        if self.pushed {
-            self.pressed = !self.pressed
-            self.isHighlighted = self.pressed
+        if pushed {
+            pressed = !self.pressed
+            isHighlighted = pressed
         } else {
-            self.selectedView.alpha = 1.0
-            self.isHighlighted = false
-            self.isHighlighted = self.pressed
+            selectedView.alpha = 1.0
+            isHighlighted = false
+            isHighlighted = pressed
         }
     }
     
@@ -121,21 +121,23 @@ class ActionButton: UIButton {
         
         addSubview(backgroundSelectedView)
         backgroundSelectedView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundSelectedView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        backgroundSelectedView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        backgroundSelectedView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        backgroundSelectedView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         backgroundSelectedView.heightAnchor.constraint(equalToConstant: 56.0).isActive = true
         backgroundSelectedView.widthAnchor.constraint(equalToConstant: 56.0).isActive = true
         backgroundSelectedView.layer.cornerRadius = maxFrame
         
         addSubview(selectedView)
         selectedView.translatesAutoresizingMaskIntoConstraints = false
-        selectedView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        selectedView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        selectedView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        selectedView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         selectedView.heightAnchor.constraint(equalToConstant: 56.0).isActive = true
         selectedView.widthAnchor.constraint(equalToConstant: 56.0).isActive = true
         selectedView.layer.cornerRadius = maxFrame
         
-        guard let iconView = iconView else { return }
+        guard let iconView = iconView else {
+            return
+        }
         addSubview(iconView)
         iconView.translatesAutoresizingMaskIntoConstraints = false
         iconView.leftAnchor.constraint(equalTo: selectedView.leftAnchor).isActive = true
@@ -145,9 +147,9 @@ class ActionButton: UIButton {
         
         addSubview(actionButtonLabel)
         actionButtonLabel.translatesAutoresizingMaskIntoConstraints = false
-        actionButtonLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        actionButtonLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         actionButtonLabel.topAnchor.constraint(equalTo: selectedView.bottomAnchor, constant: 8.0).isActive = true
-        actionButtonLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        actionButtonLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         actionButtonLabel.heightAnchor.constraint(equalToConstant: 12.0).isActive = true
     }
 }

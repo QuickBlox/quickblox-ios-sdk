@@ -18,12 +18,6 @@ class CallGradientView: UIView {
     }()
     
     //MARK: - Life Cycle
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        applyGradient()
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         
