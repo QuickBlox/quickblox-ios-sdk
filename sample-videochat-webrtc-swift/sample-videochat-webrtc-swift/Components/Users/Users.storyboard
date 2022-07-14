@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hcz-bM-yPf">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--User List View Controller-->
+        <scene sceneID="NyS-vL-qDS">
+            <objects>
+                <tableViewController storyboardIdentifier="UserListViewController" id="Sof-HJ-ffL" customClass="UserListViewController" customModule="sample_videochat_webrtc_swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" estimatedRowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" id="JDT-4V-Xkc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.95686274509803915" green="0.96470588235294119" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <connections>
+                            <outlet property="dataSource" destination="Sof-HJ-ffL" id="kPZ-SH-tAf"/>
+                            <outlet property="delegate" destination="Sof-HJ-ffL" id="dfo-Xg-DmM"/>
+                        </connections>
+                    </tableView>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="afb-x8-m5S">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="refreshUsers:" destination="Sof-HJ-ffL" eventType="valueChanged" id="DSd-fa-5st"/>
+                        </connections>
+                    </refreshControl>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wbU-nG-aO6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2838" y="567"/>
+        </scene>
+        <!--Search Users View Controller-->
+        <scene sceneID="A6w-I7-Tpj">
+            <objects>
+                <tableViewController storyboardIdentifier="SearchUsersViewController" id="F5v-ln-MoY" customClass="SearchUsersViewController" customModule="sample_videochat_webrtc_swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" estimatedRowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" id="xhS-Ed-YvY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.95686274509803915" green="0.96470588235294119" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <connections>
+                            <outlet property="dataSource" destination="F5v-ln-MoY" id="Spg-Xy-Bje"/>
+                            <outlet property="delegate" destination="F5v-ln-MoY" id="7CQ-0w-2EW"/>
+                        </connections>
+                    </tableView>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="r9B-iO-uco">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="refreshUsers:" destination="F5v-ln-MoY" eventType="valueChanged" id="jRJ-Bd-QDA"/>
+                        </connections>
+                    </refreshControl>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gej-Es-TdE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2610" y="1242"/>
+        </scene>
+        <!--Users View Controller-->
+        <scene sceneID="Jom-Y7-7sc">
+            <objects>
+                <viewController storyboardIdentifier="UsersViewController" id="hcz-bM-yPf" customClass="UsersViewController" customModule="sample_videochat_webrtc_swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7al-5p-CeV"/>
+                        <viewControllerLayoutGuide type="bottom" id="gor-h1-alR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gR9-uM-SBz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KAE-LP-mBH" customClass="SearchBarView" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="2Ra-Xq-G6v"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jY5-vS-bTq" customClass="CallGradientView" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="375" height="60"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tpe-cA-nUU" customClass="SelectedUsersView" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="265" height="60"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can select maximum 3 users." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6mb-3h-TnA">
+                                                <rect key="frame" x="15" y="19" width="244" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="21" id="eIw-WD-6gy"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" red="0.42352941179999998" green="0.47843137250000001" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kwJ-xC-Uxp">
+                                                <rect key="frame" x="0.0" y="0.0" width="265" height="60"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i5d-AR-kdJ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="265" height="80"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="80" id="Fdp-gN-8GX"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="i5d-AR-kdJ" secondAttribute="trailing" id="93z-co-dJU"/>
+                                                    <constraint firstAttribute="bottom" secondItem="i5d-AR-kdJ" secondAttribute="bottom" id="REQ-I7-XQZ"/>
+                                                    <constraint firstItem="i5d-AR-kdJ" firstAttribute="leading" secondItem="kwJ-xC-Uxp" secondAttribute="leading" id="Udp-mG-LBf"/>
+                                                    <constraint firstItem="i5d-AR-kdJ" firstAttribute="top" secondItem="kwJ-xC-Uxp" secondAttribute="top" id="byJ-nb-M6W"/>
+                                                </constraints>
+                                            </scrollView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="kwJ-xC-Uxp" firstAttribute="leading" secondItem="Tpe-cA-nUU" secondAttribute="leading" id="0SW-S1-0ed"/>
+                                            <constraint firstItem="i5d-AR-kdJ" firstAttribute="width" secondItem="Tpe-cA-nUU" secondAttribute="width" id="6TC-WX-SfO"/>
+                                            <constraint firstItem="kwJ-xC-Uxp" firstAttribute="top" secondItem="Tpe-cA-nUU" secondAttribute="top" id="Cth-hL-o1k"/>
+                                            <constraint firstAttribute="bottom" secondItem="kwJ-xC-Uxp" secondAttribute="bottom" id="MhL-GJ-4cl"/>
+                                            <constraint firstItem="6mb-3h-TnA" firstAttribute="leading" secondItem="Tpe-cA-nUU" secondAttribute="leading" constant="15" id="WNJ-9l-u7W"/>
+                                            <constraint firstItem="6mb-3h-TnA" firstAttribute="top" secondItem="Tpe-cA-nUU" secondAttribute="top" constant="19" id="eAE-9A-0Q9"/>
+                                            <constraint firstItem="kwJ-xC-Uxp" firstAttribute="width" secondItem="Tpe-cA-nUU" secondAttribute="width" id="hVa-dl-ge7"/>
+                                            <constraint firstAttribute="trailing" secondItem="6mb-3h-TnA" secondAttribute="trailing" constant="6" id="pUL-2H-Sa3"/>
+                                            <constraint firstAttribute="trailing" secondItem="kwJ-xC-Uxp" secondAttribute="trailing" id="yig-Oz-U81"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="containerView" destination="i5d-AR-kdJ" id="i3G-mM-FZx"/>
+                                            <outlet property="maxUsersLabel" destination="6mb-3h-TnA" id="H0L-Xq-QUY"/>
+                                        </connections>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eI1-xK-AnG" userLabel="Video Call Button">
+                                        <rect key="frame" x="323" y="3" width="46" height="54"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="54" id="M1s-lx-U1i"/>
+                                            <constraint firstAttribute="width" constant="46" id="eng-BA-inC"/>
+                                        </constraints>
+                                        <state key="normal" image="ic_video_call"/>
+                                        <connections>
+                                            <action selector="didPressVideoCall:" destination="hcz-bM-yPf" eventType="touchUpInside" id="B4K-FR-4ix"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MPs-x8-2Dl" userLabel="Audio Call Button">
+                                        <rect key="frame" x="271" y="3" width="46" height="54"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="46" id="Mgn-ZR-z4t"/>
+                                            <constraint firstAttribute="height" constant="54" id="vTq-Ux-ofJ"/>
+                                        </constraints>
+                                        <state key="normal" image="ic_audio_call"/>
+                                        <connections>
+                                            <action selector="didPressAudioCall:" destination="hcz-bM-yPf" eventType="touchUpInside" id="2An-Uj-8eJ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="4v9-ia-udA"/>
+                                    <constraint firstItem="eI1-xK-AnG" firstAttribute="leading" secondItem="MPs-x8-2Dl" secondAttribute="trailing" constant="6" id="9DQ-xX-StD"/>
+                                    <constraint firstItem="MPs-x8-2Dl" firstAttribute="centerY" secondItem="jY5-vS-bTq" secondAttribute="centerY" id="Ad3-97-XVk"/>
+                                    <constraint firstItem="MPs-x8-2Dl" firstAttribute="leading" secondItem="Tpe-cA-nUU" secondAttribute="trailing" constant="6" id="ELe-8b-agO"/>
+                                    <constraint firstItem="Tpe-cA-nUU" firstAttribute="leading" secondItem="jY5-vS-bTq" secondAttribute="leading" id="Eih-Ha-eMS"/>
+                                    <constraint firstItem="Tpe-cA-nUU" firstAttribute="top" secondItem="jY5-vS-bTq" secondAttribute="top" id="GcV-dE-lWL"/>
+                                    <constraint firstAttribute="bottom" secondItem="Tpe-cA-nUU" secondAttribute="bottom" id="Kc9-OC-4FN"/>
+                                    <constraint firstAttribute="trailing" secondItem="eI1-xK-AnG" secondAttribute="trailing" constant="6" id="TqS-Q6-teL"/>
+                                    <constraint firstItem="eI1-xK-AnG" firstAttribute="centerY" secondItem="jY5-vS-bTq" secondAttribute="centerY" id="W53-eC-gPT"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cZF-Mi-Avn">
+                                <rect key="frame" x="0.0" y="104" width="375" height="563"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="jY5-vS-bTq" secondAttribute="trailing" id="Q2Z-MI-EEf"/>
+                            <constraint firstItem="jY5-vS-bTq" firstAttribute="top" secondItem="KAE-LP-mBH" secondAttribute="bottom" id="RWV-57-KeB"/>
+                            <constraint firstItem="cZF-Mi-Avn" firstAttribute="top" secondItem="jY5-vS-bTq" secondAttribute="bottom" id="ZpG-wF-lxc"/>
+                            <constraint firstItem="KAE-LP-mBH" firstAttribute="leading" secondItem="gR9-uM-SBz" secondAttribute="leading" id="hvX-5s-6M8"/>
+                            <constraint firstAttribute="trailing" secondItem="cZF-Mi-Avn" secondAttribute="trailing" id="jnm-xv-wH1"/>
+                            <constraint firstItem="cZF-Mi-Avn" firstAttribute="leading" secondItem="gR9-uM-SBz" secondAttribute="leading" id="l8R-Jb-NLS"/>
+                            <constraint firstItem="KAE-LP-mBH" firstAttribute="top" secondItem="7al-5p-CeV" secondAttribute="bottom" id="reZ-e9-xhV"/>
+                            <constraint firstItem="jY5-vS-bTq" firstAttribute="leading" secondItem="gR9-uM-SBz" secondAttribute="leading" id="tq6-UY-ydt"/>
+                            <constraint firstAttribute="bottom" secondItem="cZF-Mi-Avn" secondAttribute="bottom" id="u2T-pT-s3M"/>
+                            <constraint firstAttribute="trailing" secondItem="KAE-LP-mBH" secondAttribute="trailing" id="wkZ-ZS-5DG"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="kDn-8J-0rH">
+                        <barButtonItem key="leftBarButtonItem" image="exit" id="UTt-TF-8zV">
+                            <inset key="imageInsets" minX="-6" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="didTapLogout:" destination="hcz-bM-yPf" id="45i-Hr-60b"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="audioCallButton" destination="MPs-x8-2Dl" id="n1m-hw-9Xg"/>
+                        <outlet property="containerView" destination="cZF-Mi-Avn" id="PF8-uV-XAl"/>
+                        <outlet property="gradientView" destination="jY5-vS-bTq" id="ED7-gr-2N9"/>
+                        <outlet property="logoutButton" destination="UTt-TF-8zV" id="svf-Bd-USm"/>
+                        <outlet property="searchBarView" destination="KAE-LP-mBH" id="uSU-bW-fT1"/>
+                        <outlet property="selectedUsersView" destination="Tpe-cA-nUU" id="LfU-n9-yjR"/>
+                        <outlet property="videoCallButton" destination="eI1-xK-AnG" id="kmF-Ci-HiQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Ob-45-lKr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1749.5999999999999" y="984.55772113943033"/>
+        </scene>
+        <!--Selected Users Count Alert-->
+        <scene sceneID="EbM-xK-Jop">
+            <objects>
+                <viewController storyboardIdentifier="SelectedUsersCountAlert" id="Kjf-Kr-ZtT" customClass="SelectedUsersCountAlert" customModule="sample_videochat_webrtc_swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ehG-Rv-KF5"/>
+                        <viewControllerLayoutGuide type="bottom" id="zoq-J9-uEB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EVa-XB-08v">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a8X-iu-PLo">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <connections>
+                                    <action selector="tapCancelButton:" destination="Kjf-Kr-ZtT" eventType="touchUpInside" id="XiF-f2-Qqg"/>
+                                </connections>
+                            </button>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dQD-cf-lc0">
+                                <rect key="frame" x="12" y="112" width="351" height="44"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can select no more than 3 users." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EcF-Xb-bCh" customClass="PaddingLabel" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="351" height="44"/>
+                                        <color key="backgroundColor" red="0.1960526407" green="0.19609326120000001" blue="0.1960500479" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.1960526407" green="0.19609326120000001" blue="0.1960500479" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="EcF-Xb-bCh" secondAttribute="bottom" id="J5M-07-q4I"/>
+                                    <constraint firstItem="EcF-Xb-bCh" firstAttribute="top" secondItem="dQD-cf-lc0" secondAttribute="top" id="QMZ-3G-xwT"/>
+                                    <constraint firstAttribute="height" constant="44" id="fLz-Lx-kVW"/>
+                                    <constraint firstAttribute="trailing" secondItem="EcF-Xb-bCh" secondAttribute="trailing" id="oCh-hD-rFV"/>
+                                    <constraint firstItem="EcF-Xb-bCh" firstAttribute="leading" secondItem="dQD-cf-lc0" secondAttribute="leading" id="v4Z-YZ-fwi"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="dQD-cf-lc0" secondAttribute="trailing" constant="12" id="71S-iJ-bxQ"/>
+                            <constraint firstAttribute="trailing" secondItem="a8X-iu-PLo" secondAttribute="trailing" id="B0E-H7-h3F"/>
+                            <constraint firstItem="dQD-cf-lc0" firstAttribute="leading" secondItem="EVa-XB-08v" secondAttribute="leading" constant="12" id="K9U-2N-CP6"/>
+                            <constraint firstItem="zoq-J9-uEB" firstAttribute="top" secondItem="a8X-iu-PLo" secondAttribute="bottom" id="Ma2-ml-zcW"/>
+                            <constraint firstItem="a8X-iu-PLo" firstAttribute="leading" secondItem="EVa-XB-08v" secondAttribute="leading" id="bW8-4g-K1L"/>
+                            <constraint firstItem="dQD-cf-lc0" firstAttribute="top" secondItem="EVa-XB-08v" secondAttribute="topMargin" constant="112" id="dDj-a7-myf"/>
+                            <constraint firstItem="a8X-iu-PLo" firstAttribute="top" secondItem="ehG-Rv-KF5" secondAttribute="bottom" id="mW1-fo-5Uu"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="alertLabel" destination="EcF-Xb-bCh" id="7jt-WB-Dnd"/>
+                        <outlet property="alertView" destination="dQD-cf-lc0" id="Vdp-og-EWr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pcb-Nu-DJ4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2460" y="-87"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="exit" width="20" height="22"/>
+        <image name="ic_audio_call" width="23" height="24"/>
+        <image name="ic_video_call" width="28" height="18"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

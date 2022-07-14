@@ -1,5 +1,5 @@
 //
-//  ParticipantAudioView.swift
+//  ParticipantView.swift
 //  sample-videochat-webrtc-swift
 //
 //  Created by Injoit on 08.06.2021.
@@ -13,17 +13,17 @@ struct ParticipantViewConstant {
     static let stateColor = #colorLiteral(red: 0.700391233, green: 0.7436676621, blue: 0.8309402466, alpha: 1)
 }
 
-class ParticipantAudioView: UIView {
+class ParticipantView: UIView {
     
     //MARK: - IBOutlets
-    @IBOutlet private weak var userView: UIView!
+    @IBOutlet weak var userView: UIView!
     @IBOutlet weak var userAvatarLabel: UILabel!
     @IBOutlet weak var userAvatarImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var nameLabelCenterXConstraint: NSLayoutConstraint!
     @IBOutlet weak var stateLabel: UILabel!
-    @IBOutlet weak var callingToLabelHeight: NSLayoutConstraint!
+    @IBOutlet weak var callingInfoLabelHeightConstraint: NSLayoutConstraint!
 
     
     //MARK: - Properties
@@ -34,70 +34,75 @@ class ParticipantAudioView: UIView {
         }
     }
     
-    override var tag: Int {
+    var isCallingInfo = true {
         didSet {
-            userAvatarLabel.backgroundColor = UInt(tag).generateColor()
+            if isCallingInfo == false {
+                callingInfoLabelHeightConstraint.constant = 0.0
+            } else {
+                callingInfoLabelHeightConstraint.constant = 28.0
+            }
+        }
+    }
+    
+    var ID: UInt = 0 {
+        didSet {
+            userAvatarLabel.backgroundColor = ID.generateColor()
         }
     }
     
     var connectionState: QBRTCConnectionState = .connecting {
         didSet {
             switch connectionState {
-            case .new, .pending, .unknown: stateLabel.text = ""
             case .connected:
-                stateLabel.textColor = ParticipantViewConstant.stateColor
                 stateLabel.text = ""
-                callingToLabelHeight.constant = 0.0
+                callingInfoLabelHeightConstraint.constant = 0.0
                 stateLabel.isHidden = true
             case .closed:
-                stateLabel.textColor = ParticipantViewConstant.stateColor
                 stateLabel.text = "Closed"
-                stateLabel.isHidden = false
-                callingToLabelHeight.constant = 0.0
+                setupHiddenViews()
             case .failed:
-                stateLabel.textColor = ParticipantViewConstant.stateColor
                 stateLabel.text = "Failed"
-                callingToLabelHeight.constant = 0.0
-                stateLabel.isHidden = false
+                setupHiddenViews()
             case .hangUp:
-                stateLabel.textColor = ParticipantViewConstant.stateColor
                 stateLabel.text = "Hung Up"
-                stateLabel.isHidden = false
+                setupHiddenViews()
             case .rejected:
-                stateLabel.textColor = ParticipantViewConstant.stateColor
                 stateLabel.text = "Rejected"
-                stateLabel.isHidden = false
-                callingToLabelHeight.constant = 0.0
+                setupHiddenViews()
             case .noAnswer:
-                stateLabel.textColor = ParticipantViewConstant.stateColor
                 stateLabel.text = "No Answer"
-                stateLabel.isHidden = false
-                callingToLabelHeight.constant = 0.0
+                setupHiddenViews()
             case .disconnectTimeout:
-                stateLabel.textColor = ParticipantViewConstant.stateColor
                 stateLabel.text = "Time out"
-                stateLabel.isHidden = false
-                callingToLabelHeight.constant = 0.0
+                setupHiddenViews()
             case .disconnected:
-                stateLabel.textColor = ParticipantViewConstant.stateColor
                 stateLabel.text = "Disconnected"
-                stateLabel.isHidden = false
-                callingToLabelHeight.constant = 0.0
+                setupHiddenViews()
             default: stateLabel.text = ""
             }
         }
     }
     
-    //MARK: - Life Cycle
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
+    //MARK - Setup
+    func setupViews() {
         backgroundColor = .clear
         containerView.backgroundColor = #colorLiteral(red: 0.1960526407, green: 0.1960932612, blue: 0.1960500479, alpha: 1)
         userAvatarLabel.setRoundedLabel(cornerRadius: 30.0)
         userAvatarImageView.setRoundedView(cornerRadius: 30.0)
         userAvatarImageView.isHidden = true
         nameLabelCenterXConstraint.constant = 0.0
-        callingToLabelHeight.constant = 28.0
+        callingInfoLabelHeightConstraint.constant = 28.0
+    }
+    
+    func setupHiddenViews() {
+        callingInfoLabelHeightConstraint.constant = 0.0
+        stateLabel.isHidden = false
+    }
+    
+    //MARK: - Life Cycle
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        setupViews()
     }
 }

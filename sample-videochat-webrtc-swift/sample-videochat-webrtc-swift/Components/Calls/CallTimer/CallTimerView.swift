@@ -1,50 +1,60 @@
 //
-//  CallTimer.swift
+//  CallTimerView.swift
 //  sample-videochat-webrtc-swift
 //
-//  Created by Injoit on 16.07.2021.
+//  Created by Injoit on 23.12.2021.
 //  Copyright © 2021 QuickBlox. All rights reserved.
 //
 
-import Foundation
-
-protocol CallTimerProtocol {
-    //MARK: - Properties
-    var callTimer: CallTimer { get set }
-}
+import UIKit
 
 struct CallTimerConstant {
     static let refreshTimeInterval: TimeInterval = 1
 }
 
-class CallTimer {
+
+class CallTimerView: UILabel {
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        setRoundedLabel(cornerRadius: 10.0)
+        isHidden = true
+    }
+    
     //MARK: - Properties
-    var isActive = false
-    var onTimeChanged: ((_ duration: String) -> Void)?
+    var isActive = false {
+        didSet {
+            isActive == true ? activate() : deactivate()
+        }
+    }
     private var timer: Timer? = nil
     private var duration: TimeInterval = 0.0
     
-    //MARK: - Public Methods
-    func activate() {
+    //MARK: - Private Methods
+    private func activate() {
         timer = Timer.scheduledTimer(timeInterval: CallTimerConstant.refreshTimeInterval,
                                          target: self,
                                          selector: #selector(self.refreshCallTime),
                                          userInfo: nil,
                                          repeats: true)
-        isActive = true
+        isHidden = false
         refreshCallTime()
     }
     
-    func deactivate() {
+    private func deactivate() {
         isActive = true
-        if timer == nil { return }
+        if timer == nil {
+            return
+        }
         timer?.invalidate()
         timer = nil
+        isHidden = true
+        removeFromSuperview()
     }
     
     //MARK: - Private Methods
     @objc private func refreshCallTime() {
         duration += CallTimerConstant.refreshTimeInterval
-        onTimeChanged?(duration.string())
+        text = duration.string()
     }
 }

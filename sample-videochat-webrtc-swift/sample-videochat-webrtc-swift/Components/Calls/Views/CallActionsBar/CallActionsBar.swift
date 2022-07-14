@@ -84,13 +84,13 @@ class CallActionsBar: UIToolbar {
         case .audio:
             button.selectedTitle = "Unmute"
             button.unSelectedTitle = "Mute"
-            button.pushed = true
+            button.pushed = false
             button.tag = tag.rawValue
             button.iconView = iconView(withNormalImage: "mute_on_ic", selectedImage: "mic_off")
         case .video:
             button.selectedTitle = "Cam on"
             button.unSelectedTitle = "Cam off"
-            button.pushed = true
+            button.pushed = false
             button.tag = tag.rawValue
             button.iconView = iconView(withNormalImage: "camera_on_ic", selectedImage: "cam_off")
         case .speaker:
@@ -123,7 +123,9 @@ class CallActionsBar: UIToolbar {
     
     //MARK: - Actions
     func select(_ selected: Bool, type: ActionType) {
-        guard let callAction = buttons.filter({ $0.button.tag == type.rawValue }).first else { return }
+        guard let callAction = buttons.filter({ $0.button.tag == type.rawValue }).first else {
+            return
+        }
         callAction.button.pressed = selected
     }
     
@@ -133,13 +135,17 @@ class CallActionsBar: UIToolbar {
     }
     
     func setUserInteractionEnabled(_ enabled: Bool, type: ActionType) {
-        guard let callAction = buttons.filter({ $0.button.tag == type.rawValue }).first else { return }
+        guard let callAction = buttons.filter({ $0.button.tag == type.rawValue }).first else {
+            return
+        }
         callAction.button.isUserInteractionEnabled = enabled
     }
     
     //MARK: - Private Methods
     @objc private func didTap(_ button: ActionButton) {
-        guard let index = buttons.firstIndex(where: { $0.button.tag == button.tag }) else { return }
+        guard let index = buttons.firstIndex(where: { $0.button.tag == button.tag }) else {
+            return
+        }
         let action: ((_ sender: ActionButton?) -> Void)? = buttons[index].action
         action?(button)
     }

@@ -19,17 +19,14 @@ struct SelectedUsersViewConstants {
 class SelectedUsersView: UIView {
     //MARK: - IBOutlets
     @IBOutlet weak var maxUsersLabel: UILabel!
+    @IBOutlet weak var containerView: UIView!
     
     //MARK: - Properties
     var onSelectedUserViewCancelTapped: SelectUserViewCancelCompletion?
     private var topConstraint: NSLayoutConstraint!
     private var selectedViews: [SelectedUserView] = [] {
         didSet {
-            if selectedViews.count == 0 {
-                maxUsersLabel.isHidden = false
-                return
-            }
-            maxUsersLabel.isHidden = true
+            maxUsersLabel.isHidden = !selectedViews.isEmpty
         }
     }
     
@@ -40,26 +37,28 @@ class SelectedUsersView: UIView {
         selectedUserView.userID = userID
         
         selectedUserView.onCancelTapped = { [weak self] (userID) in
-            guard let self = self else { return }
-            
-            self.removeView(userID)
-            self.onSelectedUserViewCancelTapped?(userID)
+            self?.removeView(userID)
+            self?.onSelectedUserViewCancelTapped?(userID)
         }
         
-        addSubview(selectedUserView)
+        containerView.addSubview(selectedUserView)
         selectedViews.append(selectedUserView)
         setupViews()
     }
     
     func removeView(_ userID: UInt) {
         guard let selectedView = self.selectedViews.filter({ $0.userID == userID }).first,
-              let index = self.selectedViews.firstIndex(of: selectedView) else { return }
+              let index = self.selectedViews.firstIndex(of: selectedView) else {
+            return
+        }
         selectedViews.remove(at: index)
         selectedView.removeFromSuperview()
-        if selectedViews.count == 0 { return }
+        if selectedViews.count == 0 {
+            return
+        }
         for view in selectedViews {
             view.removeFromSuperview()
-            addSubview(view)
+            containerView.addSubview(view)
         }
         setupViews()
     }
@@ -80,9 +79,11 @@ class SelectedUsersView: UIView {
             let selectedUserView = selectedViews[i]
             selectedUserView.translatesAutoresizingMaskIntoConstraints = false
             selectedUserView.heightAnchor.constraint(equalToConstant: SelectedUsersViewConstants.heightView).isActive = true
+            let selectedUserViewWidth: CGFloat = selectedUserView.nameLabel.intrinsicContentSize.width + 37.0
+            selectedUserView.widthAnchor.constraint(equalToConstant: selectedUserViewWidth).isActive = true
             if let previous = previousView {
-                let allwidth = SelectedUsersViewConstants.paddingLeft + (SelectedUsersViewConstants.spaceBetween * CGFloat(spaceCount)) + viewsWidth + selectedUserView.bounds.width
-                if bounds.width >= allwidth {
+                let allwidth = SelectedUsersViewConstants.paddingLeft + (SelectedUsersViewConstants.spaceBetween * CGFloat(spaceCount)) + viewsWidth + selectedUserViewWidth
+                if bounds.width > allwidth {
                     spaceCount = spaceCount + 1
                     selectedUserView.leftAnchor.constraint(equalTo: previous.rightAnchor, constant: SelectedUsersViewConstants.spaceBetween).isActive = true
                     selectedUserView.topAnchor.constraint(equalTo: previous.topAnchor).isActive = true
@@ -94,12 +95,13 @@ class SelectedUsersView: UIView {
                     selectedUserView.topAnchor.constraint(equalTo: previous.bottomAnchor, constant: 3.0).isActive = true
                 }
             } else {
-                topConstraint = selectedUserView.topAnchor.constraint(equalTo: topAnchor, constant: 18.0)
+                spaceCount = 1
+                topConstraint = selectedUserView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 18.0)
                 topConstraint.isActive = true
                 selectedUserView.leftAnchor.constraint(equalTo: leftAnchor, constant: SelectedUsersViewConstants.paddingLeft).isActive = true
             }
             previousView = selectedUserView
-            viewsWidth = viewsWidth + selectedUserView.bounds.width
+            viewsWidth = viewsWidth + selectedUserViewWidth
         }
     }
 }

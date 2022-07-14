@@ -18,38 +18,40 @@ class StatsView: UIView {
     @IBOutlet weak var statsLabel: UILabel!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var participantButton: UIButton!
-
+    
     //MARK: - Properties
     var callInfo: CallInfo! {
         didSet {
             selectedParticipant = callInfo.interlocutors.first
             
             callInfo.onChangedBitrate = { [weak self] (participant) in
-                if self?.selectedParticipant?.userID != participant.iD { return }
+                if self?.selectedParticipant?.id != participant.id {
+                    return
+                }
                 self?.updateStats(participant.statsString)
             }
         }
     }
-
+    
     private var selectedParticipant: CallParticipant? {
-         didSet {
-             participantButton.setTitle("\(selectedParticipant?.fullName ?? "User") ⌵", for: .normal)
-         }
-     }
-
+        didSet {
+            participantButton.setTitle("\(selectedParticipant?.fullName ?? "User") ⌵", for: .normal)
+        }
+    }
+    
     //MARK: - Actions
     @IBAction func didTapBack(_ sender: UIButton) {
         removeFromSuperview()
     }
-
+    
     @IBAction func didTapRarticipant(_ sender: UIButton) {
         let actionsMenuView = ActionsMenuView.loadNib()
         for participant in callInfo.interlocutors {
-            participant.isSelected = participant.userID == self.selectedParticipant?.userID
+            participant.isSelected = participant.id == self.selectedParticipant?.id
             let selectParticipantAction = ActionMenu(title: participant.fullName,
                                                      isSelected: participant.isSelected,
                                                      action: .selectParticipant) { [weak self] action in
-                if self?.selectedParticipant?.userID == participant.userID {
+                if self?.selectedParticipant?.id == participant.id {
                     return
                 }
                 self?.selectedParticipant = participant

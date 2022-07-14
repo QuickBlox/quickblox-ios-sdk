@@ -10,10 +10,10 @@ import UIKit
 import Quickblox
 import QuickbloxWebRTC
 import PushKit
-import SVProgressHUD
 
 struct UsersConstant {
     static let perPage:UInt = 100
+    static let searchPerPage:UInt = 10
     static let noUsers = "No user with that name"
     static let subscriptionID = "last_voip_subscription_id"
     static let token = "last_voip_token"
@@ -29,73 +29,70 @@ Make sure your device is connected to the internet
 typealias CallHangUpAction = ((_ callId: String) -> Void)
 
 class UsersViewController: UIViewController {
-    
     //MARK: - IBOutlets
-    @IBOutlet weak var usersView: UITableView! {
-        didSet {
-            usersView.register(UINib(nibName: UserCellConstant.reuseIdentifier, bundle: nil),
-                               forCellReuseIdentifier: UserCellConstant.reuseIdentifier)
-            usersView.allowsMultipleSelection = true
-        }
-    }
     @IBOutlet weak var searchBarView: SearchBarView!
     @IBOutlet weak var audioCallButton: UIButton!
     @IBOutlet weak var videoCallButton: UIButton!
     @IBOutlet weak var logoutButton: UIBarButtonItem!
     @IBOutlet weak var gradientView: CallGradientView! {
         didSet {
-            gradientView.setupGradient(firstColor: #colorLiteral(red: 0.9565117955, green: 0.9645770192, blue: 0.9769250751, alpha: 1),
-                                            secondColor: #colorLiteral(red: 0.9565117955, green: 0.9645770192, blue: 0.9769250751, alpha: 1).withAlphaComponent(0.0))
+            gradientView.setupGradient(firstColor: UIColor(red: 0.96, green: 0.96, blue: 0.98, alpha: 1),
+                                            secondColor: UIColor(red: 0.96, green: 0.96, blue: 0.98, alpha: 1).withAlphaComponent(0.0))
         }
     }
-
-    //MARK: - Properties
-    private var refreshControl: UIRefreshControl?
-    private lazy var selectedUsersView: SelectedUsersView = {
-        let selectedUsersView = SelectedUsersView.loadNib()
-        return selectedUsersView
-    }()
-    private var navigationTitleView = TitleView()
-
-    private var voipRegistry: PKPushRegistry = PKPushRegistry(queue: DispatchQueue.main)
-    private let callHelper = CallHelper()
-    private var callViewController: CallViewControllerProtocol? = nil
-    
-    private var usersDataSource: UsersDataSource! {
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var selectedUsersView: SelectedUsersView! {
         didSet {
-            usersDataSource.onSetDisplayedUsers = { [weak self] in
-                self?.refreshControl?.endRefreshing()
-                self?.usersView.reloadData()
-                self?.usersView.isUserInteractionEnabled = true
-            }
-            usersDataSource.onSelectUser = { [weak self] (user, isSelected) in
-                guard let self = self, let selectedUser = user else { return }
-                
-                if isSelected == false {
-                    self.selectedUsersView.removeView(selectedUser.id)
+            selectedUsersView.onSelectedUserViewCancelTapped = { [weak self] (userID) in
+
+                guard let user = self?.users.selected.first(where: {$0.id == userID}) else {
                     return
                 }
-                
-                self.selectedUsersView.addView(selectedUser.id, userName: selectedUser.fullName ?? "QBUser")
-                
+                self?.users.selected.remove(user)
+                self?.current.removeSelectedUser(user)
             }
-            usersDataSource.onSearchNextUsers = { [weak self] in
-                self?.usersDataSource.downloadUsers(self?.searchBarView.searchText ?? "")
+        }
+    }
+    
+    //MARK: - Properties
+    private var users = Users()
+    private var navigationTitleView = TitleView()
+    private var voipRegistry: PKPushRegistry = PKPushRegistry(queue: DispatchQueue.main)
+    private let callHelper = CallHelper()
+    private var callViewController: CallViewController? = nil
+    private var current: UserListViewController! {
+        didSet {
+            current.setupSelectedUsers(Array(users.selected))
+            
+            current.onSelectUser = { [weak self] (user, isSelected) in
+
+                if isSelected == false {
+                    self?.users.selected.remove(user)
+                    self?.selectedUsersView.removeView(user.id)
+                    return
+                }
+                if let countUsers = self?.users.selected.count, countUsers > 2 {
+                    self?.showMaxCountAlert()
+                    return
+                }
+                self?.users.selected.insert(user)
+                self?.selectedUsersView.addView(user.id, userName: user.fullName ?? "QBUser")
             }
-            usersDataSource.onChooseMoreUsers = { [weak self] in
-                self?.showAMaxCountAlert()
+            
+            current.onFetchedUsers = { [weak self] (users) in
+                let profile = Profile()
+                for user in users {
+                    if user.id == profile.ID {
+                        continue
+                    }
+                    self?.users.users[user.id] = user
+                }
             }
         }
     }
     
     private var connection: ConnectionModule! {
         didSet {
-            connection.onStartAuthorization = { [weak self] in
-                debugPrint("[\(UsersViewController.className)] [connection] On Start Authorization")
-                DispatchQueue.main.async {
-                    self?.navigationTitleView.textColor = .orange
-                }
-            }
             
             connection.onAuthorize = { [weak self] in
                 debugPrint("[\(UsersViewController.className)] [connection] On Authorize")
@@ -109,27 +106,13 @@ class UsersViewController: UIViewController {
                 }
             }
             
-            connection.onAuthorizeFailed = { [weak self] in
-                debugPrint("[\(UsersViewController.className)] [connection] On Authorize Failed")
-                self?.connection.deactivateAutomaticMode()
-                self?.navigationController?.popToRootViewController(animated: false)
-            }
-            
-            connection.onStartConnection = { [weak self] in
-                debugPrint("[\(UsersViewController.className)] [connection] On Start Connection")
-                DispatchQueue.main.async {
-                    self?.navigationTitleView.textColor = .orange
-                }
-            }
-            
             connection.onConnect = { [weak self] in
                 self?.isPresentAlert = false
                 debugPrint("[\(UsersViewController.className)] [connection] On Connect")
                 DispatchQueue.main.async {
                     self?.navigationTitleView.textColor = .white
                 }
-                self?.usersView.isUserInteractionEnabled = false
-                self?.loadUsers()
+                self?.current.fetchUsers()
             }
             
             connection.onDisconnect = { [weak self] (isNetwork) in
@@ -137,10 +120,11 @@ class UsersViewController: UIViewController {
                 DispatchQueue.main.async {
                     self?.navigationTitleView.textColor = .orange
                 }
-                if isNetwork == true || self?.isPresentAlert == true { return }
+                if isNetwork == true || self?.isPresentAlert == true {
+                    return
+                }
                 self?.isPresentAlert = true
-
-                SVProgressHUD.showInfo(withStatus: UsersConstant.noInternet)
+                self?.showAnimatedAlertView(nil, message: UsersConstant.noInternet)
             }
         }
     }
@@ -148,14 +132,6 @@ class UsersViewController: UIViewController {
     private var isPresentAlert = false
     
     //MARK: - Life Cycle
-    private func configureNavigationBar() {
-        let currentUser = Profile()
-        guard currentUser.isFull  else { return }
-        
-        navigationTitleView.title = currentUser.fullName
-        navigationItem.titleView = navigationTitleView
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -167,31 +143,15 @@ class UsersViewController: UIViewController {
         voipRegistry.delegate = self
         voipRegistry.desiredPushTypes = Set<PKPushType>([.voIP])
         
-        usersDataSource = UsersDataSource()
-        usersView.dataSource = usersDataSource
-        usersView.delegate = usersDataSource
-        
-        searchBarView.delegate = usersDataSource
-        
-        gradientView.addSubview(selectedUsersView)
-        selectedUsersView.translatesAutoresizingMaskIntoConstraints = false
-        selectedUsersView.leftAnchor.constraint(equalTo: gradientView.leftAnchor, constant: 0.0).isActive = true
-        selectedUsersView.topAnchor.constraint(equalTo: gradientView.topAnchor).isActive = true
-        selectedUsersView.bottomAnchor.constraint(equalTo: gradientView.bottomAnchor).isActive = true
-        selectedUsersView.rightAnchor.constraint(equalTo: audioCallButton.leftAnchor, constant: -6).isActive = true
-        
-        self.selectedUsersView.onSelectedUserViewCancelTapped = { [weak self] (userID) in
-            guard let self = self else {return}
-            if let indexUser = self.usersDataSource.displayedUsers.firstIndex(where: {$0.id == userID}) {
-                let indexPath = IndexPath(row: indexUser, section: 0)
-                self.usersView.deselectRow(at: indexPath, animated: false)
-            }
-            self.usersDataSource.removeSelectedUser(userID)
-        }
-        
+        searchBarView.delegate = self
+
         configureNavigationBar()
-        addRefreshControl()
-        addInfoButton()
+
+        guard let fetchUsersViewController = Screen.userListViewController() else {
+            return
+        }
+        current = fetchUsersViewController
+        changeCurrentViewController(fetchUsersViewController)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -200,35 +160,59 @@ class UsersViewController: UIViewController {
         CallPermissions.check(with: .video, presentingViewController: self) { granted in
             debugPrint("\(UsersViewController.className)] isGranted \(granted)")
         }
-        
-        usersView.isUserInteractionEnabled = false
-        if connection.established {
-            loadUsers()
+    }
+    
+    //MARK: - UI Configuration
+    private func showFetchScreen() {
+        guard let fetchUsersViewController = Screen.userListViewController() else {
+            return
         }
-        
-        if let refreshControl = refreshControl, refreshControl.isRefreshing == true {
-            let contentOffset = CGPoint(x: 0.0, y: -refreshControl.frame.size.height)
-            usersView.setContentOffset(contentOffset, animated: false)
+        changeCurrentViewController(fetchUsersViewController)
+    }
+
+    private func showSearchScreen(withSearchText searchText: String) {
+        guard let searchUsersViewController = Screen.searchUsersViewController() else {
+            return
         }
+        searchUsersViewController.searchText = searchText;
+        changeCurrentViewController(searchUsersViewController)
+    }
+    
+    private func changeCurrentViewController(_ newCurrentViewController: UserListViewController) {
+        addChild(newCurrentViewController)
+        newCurrentViewController.view.frame = containerView.bounds
+        containerView.addSubview(newCurrentViewController.view)
+        newCurrentViewController.didMove(toParent: self)
+        if current == newCurrentViewController {
+            return
+        }
+        current.willMove(toParent: nil)
+        current.view.removeFromSuperview()
+        current.removeFromParent()
+        current = newCurrentViewController
+    }
+
+    private func configureNavigationBar() {
+        let currentUser = Profile()
+        guard currentUser.isFull  else {
+            return
+        }
+        navigationTitleView.title = currentUser.fullName
+        navigationItem.titleView = navigationTitleView
+        addInfoButton()
     }
     
     //MARK: - Actions
     @IBAction func didTapLogout(_ sender: UIBarButtonItem) {
         if connection.established == false {
-            SVProgressHUD.showInfo(withStatus: UsersConstant.noInternetCall)
+            showAnimatedAlertView(nil, message: UsersConstant.noInternetCall)
             return
         }
-        SVProgressHUD.show(withStatus: "Logouting...")
-        SVProgressHUD.setDefaultMaskType(.clear)
-        
         deleteLastSubscription { [weak self] in
             self?.connection.breakConnection {
-                guard let self = self else { return }
-                SVProgressHUD.dismiss()
-                self.connection.deactivateAutomaticMode()
+
                 UserDefaults.standard.removeObject(forKey: UsersConstant.token)
-                self.navigationController?.popToRootViewController(animated: false)
-                SVProgressHUD.showSuccess(withStatus: "Complited")
+                self?.navigationController?.popToRootViewController(animated: false)
                 Profile.clear()
             }
         }
@@ -244,48 +228,44 @@ class UsersViewController: UIViewController {
     
     private func call(with conferenceType: QBRTCConferenceType) {
         if connection.established == false {
-            SVProgressHUD.showInfo(withStatus: UsersConstant.noInternetCall)
+            showAnimatedAlertView(nil, message: UsersConstant.noInternetCall)
             return
         }
-        if usersDataSource.selectedUsers.count == 0 || usersDataSource.selectedUsers.count > 3 {
+        if users.selected.count == 0 || users.selected.count > 3 {
             return
         }
-        guard callHelper.registeredCallId?.isEmpty == true else { return }
+        
+        guard callHelper.registeredCallId?.isEmpty == true else {
+            return
+        }
         
         CallPermissions.check(with: conferenceType, presentingViewController: self) { [weak self] granted in
-            guard let self = self, granted == true else { return }
+            guard let self = self, granted == true else {
+                return
+            }
             self.connection.activateCallMode()
             var callMembers: [NSNumber: String] = [:]
-            for user in self.usersDataSource.selectedUsers {
+            for user in self.users.selected {
                 callMembers[NSNumber(value: user.id)] = user.fullName ?? "User"
             }
             let hasVideo = conferenceType == .video
+            let timeStamp = Date().timeStamp
             let userInfo = ["name": "Test",
                             "url" : "http.quickblox.com",
-                            "param" : "\"1,2,3,4\""]
+                            "param" : "\"1,2,3,4\"",
+                            "timestamp" : "\(timeStamp)"
+            ]
             self.callHelper.registerCall(withMembers: callMembers, hasVideo: hasVideo, userInfo: userInfo)
         }
     }
     
-    private func showAMaxCountAlert() {
+    private func showMaxCountAlert() {
         guard let maxCountAlertViewControllerVC = Screen.selectedUsersCountAlert() else {
             return
         }
         maxCountAlertViewControllerVC.modalPresentationStyle = .overFullScreen
         present(maxCountAlertViewControllerVC, animated: false)
    }
-    
-    @objc private func loadUsers() {
-        usersDataSource.downloadUsers()
-    }
-    
-    private func addRefreshControl() {
-        refreshControl = UIRefreshControl()
-        refreshControl?.tintColor = #colorLiteral(red: 0.4975875616, green: 0.5540842414, blue: 0.639736414, alpha: 1)
-        refreshControl?.addTarget(self, action: #selector(loadUsers), for: .valueChanged)
-        usersView.addSubview(refreshControl!)
-        refreshControl?.beginRefreshing()
-    }
 }
 
 // MARK: - PKPushRegistryDelegate
@@ -392,7 +372,7 @@ extension UsersViewController: PKPushRegistryDelegate {
                                  "timestamp": timestamp
         ]
         
-        if callHelper.isValid(sessionID) == false {
+        if callHelper.callReceived(sessionID) == true {
             // when a voip push is received with the same session
             // that has an active call at that moment
             debugPrint("\(#function) Received a voip push with the same session that has an active call at that moment")
@@ -407,73 +387,43 @@ extension UsersViewController: PKPushRegistryDelegate {
 
 // MARK: - CallHelperDelegate
 extension UsersViewController: CallHelperDelegate {
-    func helper(_ helper: CallHelper, didReciveIncomingCallWithMembers callMembers: [NSNumber], completion:@escaping (String) -> Void) {
-        var members: [NSNumber : String] = [:]
-        var newUsersIDs: [String] = []
-
-        callMembers.forEach { (userID) in
-            if let user = usersDataSource.user(withID: userID.uintValue) {
-                members[userID] = user.fullName ?? userID.stringValue
-            } else {
-                members[userID] = userID.stringValue
-                newUsersIDs.append(userID.stringValue)
-            }
-        }
-        
-        let contactIdentifier: (_ members: [NSNumber : String]) -> Void = { (members) in
-            var membersNames: [String] = []
-            callMembers.forEach { (userID) in
-                membersNames.append(members[userID]!)
-            }
-            let contactIdentifier = membersNames.joined(separator: ",")
-            completion(contactIdentifier)
-        }
-        
-        if newUsersIDs.isEmpty {
-            contactIdentifier(members)
-            return
-        }
-        
-        usersDataSource.downloadUsers(withIDs: newUsersIDs) { error, users, cancel in
-            for user in users {
-                members[NSNumber(value: user.id)] = user.fullName ?? "User"
-            }
-            contactIdentifier(members)
-        }
-    }
-    
     func helper(_ helper: CallHelper, didAcceptCall callId: String) {
         self.helper(helper, showCall: callId)
     }
     
-    func helper(_ helper: CallHelper, didRegisterCall callId: String, direction: CallDirection, members: [NSNumber : String], hasVideo: Bool) {
+    func helper(_ helper: CallHelper, didRegisterCall callId: String, mediaListener: MediaListener, mediaController: MediaController, direction: CallDirection, members: [NSNumber : String], hasVideo: Bool) {
         
         connection.activateCallMode()
         
-        guard let media = helper.media else { return }
-        self.callViewController  = hasVideo == true ? Screen.videoCallViewController() : Screen.audioCallViewController()
+        callViewController = hasVideo == true ? Screen.videoCallViewController() : Screen.audioCallViewController()
         
-        self.callViewController?.setupWithCallId(callId, members: members, media: media, direction: direction)
+        callViewController?.setupWithCallId(callId, members: members, mediaListener: mediaListener, mediaController: mediaController, direction: direction)
         
         if direction == .outgoing {
             self.helper(helper, showCall: callId)
-        } else if direction == .incoming {
-            let usersIDs = Array(members.keys).map({ $0.stringValue })
-            usersDataSource.downloadUsers(withIDs: usersIDs) { error, users, cancel in
-                var members: [NSNumber : String] = [:]
-                for user in users {
-                    members[NSNumber(value: user.id)] = user.fullName ?? "User"
-                }
-                self.callViewController?.update(withMembers: members)
-                let title = Array(members.values).joined(separator: ", ")
-                helper.updateCall(callId, title: title)
+            return
+        }
+        let usersIDs = Array(members.keys)
+        users.users(usersIDs) { [weak self] (users, error) in
+            guard let self = self, let users = users else {
+                return
             }
+            var callMembers: [NSNumber : String] = [:]
+            for user in users {
+                callMembers[NSNumber(value: user.id)] = user.fullName ?? "User"
+            }
+            self.callViewController?.callInfo.updateWithMembers(callMembers)
+            let title = Array(callMembers.values).joined(separator: ", ")
+            helper.updateCall(callId, title: title)
         }
     }
     
-    func helper(_ helper: CallHelper, didUnregisterCall callId: String, userInfo: [String : String]?) {
+    func helper(_ helper: CallHelper, didUnregisterCall callId: String) {
         connection.deactivateCallMode()
-        guard let callViewController = callViewController else { return }
+        guard let callViewController = callViewController else {
+            return
+        }
+        
         callViewController.dismiss(animated: false) {
             self.callViewController = nil
         }
@@ -483,28 +433,35 @@ extension UsersViewController: CallHelperDelegate {
     private func helper(_ helper: CallHelper, showCall callId: String) {
         guard let callViewController = self.callViewController,
               let callViewControllerCallId = callViewController.callInfo.callId,
-              callViewControllerCallId == callId else { return }
-
+              callViewControllerCallId == callId else {
+                  return
+              }
         let navVC = UINavigationController(rootViewController: callViewController)
         navVC.modalPresentationStyle = .overFullScreen
         present(navVC, animated: false)
         
-        usersDataSource.removeSelectedUsers()
-        
-        if let indexPathsForSelectedRows = usersView.indexPathsForSelectedRows {
-            for indexPathForSelectedRow in indexPathsForSelectedRows {
-                usersView.deselectRow(at: indexPathForSelectedRow, animated: false)
-            }
-        }
-        
+        current.removeSelectedUsers()
+        users.selected.removeAll()
         selectedUsersView.clear()
-
-        helper.onMute = { (enable) in
-            callViewController.onMute(enable)
-        }
-
         callViewController.hangUp = { (callId) in
             helper.unregisterCall(callId, userInfo: ["hangup": "hang up"])
         }
+    }
+}
+
+// MARK: - UISearchBarDelegate
+extension UsersViewController: SearchBarViewDelegate {
+    func searchBarView(_ searchBarView: SearchBarView, didChangeSearchText searchText: String) {
+        if let searchUsersViewController = current as? SearchUsersViewController {
+            searchUsersViewController.searchText = searchText
+        } else {
+            if searchText.count > 2 {
+               showSearchScreen(withSearchText: searchText)
+            }
+        }
+    }
+    
+    func searchBarView(_ searchBarView: SearchBarView, didCancelSearchButtonTapped sender: UIButton) {
+        showFetchScreen()
     }
 }

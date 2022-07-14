@@ -9,7 +9,6 @@
 import UIKit
 import Quickblox
 import QuickbloxWebRTC
-import SVProgressHUD
 
 //To update the Credentials, please see the README file.
 struct CredentialsConstant {
@@ -50,8 +49,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if AppDelegateConstant.enableStatsReports == 1 {
             QBRTCConfig.setStatsReportTimeInterval(3.0)
         }
-        
-        SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.clear)
         QBRTCClient.initializeRTC()
         
         let settings = Settings()
@@ -61,6 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let storyboard = UIStoryboard(name: "Authorization", bundle: nil)
         let root: UINavigationController = storyboard.instantiateViewController(identifier: "AuthNavVC")
+        root.view.backgroundColor = #colorLiteral(red: 0.0862745098, green: 0.4901960784, blue: 0.9882352941, alpha: 1)
         
         let profile = Profile()
         let isLoggedIn = profile.isFull

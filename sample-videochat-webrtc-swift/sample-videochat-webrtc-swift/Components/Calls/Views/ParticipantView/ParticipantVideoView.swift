@@ -9,20 +9,12 @@
 import UIKit
 import QuickbloxWebRTC
 
-class ParticipantVideoView: UIView {
+class ParticipantVideoView: ParticipantView {
     
     //MARK: - IBOutlets
     @IBOutlet weak var userNameTopLabel: UILabel!
     @IBOutlet weak var videoContainerView: UIView!
-    @IBOutlet weak var userNameTopView: UIView!
-    @IBOutlet private weak var userView: UIView!
-    @IBOutlet weak var userAvatarLabel: UILabel!
-    @IBOutlet weak var userAvatarImageView: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var nameLabelCenterXConstraint: NSLayoutConstraint!
-    @IBOutlet weak var stateLabel: UILabel!
-    @IBOutlet weak var callingToLabelHeight: NSLayoutConstraint!
+    
     
     //MARK: - Properties
     var videoView: UIView? {
@@ -30,8 +22,9 @@ class ParticipantVideoView: UIView {
             guard let view = videoView else {
                 return
             }
-            userNameTopView.isHidden = false
+            userNameTopLabel.isHidden = false
             videoContainerView.insertSubview(view, at: 0)
+            videoContainerView.isHidden = false
             view.translatesAutoresizingMaskIntoConstraints = false
             view.leftAnchor.constraint(equalTo: videoContainerView.leftAnchor).isActive = true
             view.rightAnchor.constraint(equalTo: videoContainerView.rightAnchor).isActive = true
@@ -41,7 +34,7 @@ class ParticipantVideoView: UIView {
         }
     }
     
-    var name = "" {
+    override var name: String {
         didSet {
             userNameTopLabel.text = name
             nameLabel.text = name
@@ -49,79 +42,24 @@ class ParticipantVideoView: UIView {
         }
     }
     
-    override var tag: Int {
+    override var ID: UInt {
         didSet {
-            userAvatarLabel.backgroundColor = UInt(tag).generateColor()
-        }
-    }
-    
-    var connectionState: QBRTCConnectionState = .connecting {
-        didSet {
-            switch connectionState {
-            case .new, .pending, .unknown: stateLabel.text = ""
-            case .connected:
-                stateLabel.textColor = ParticipantViewConstant.stateColor
-                stateLabel.text = ""
-                callingToLabelHeight.constant = 0.0
-                stateLabel.isHidden = true
-            case .closed:
-                stateLabel.textColor = ParticipantViewConstant.stateColor
-                stateLabel.text = "Closed"
-                stateLabel.isHidden = false
-                callingToLabelHeight.constant = 0.0
-            case .failed:
-                stateLabel.textColor = ParticipantViewConstant.stateColor
-                stateLabel.text = "Failed"
-                callingToLabelHeight.constant = 0.0
-                stateLabel.isHidden = false
-            case .hangUp:
-                stateLabel.textColor = ParticipantViewConstant.stateColor
-                stateLabel.text = "Hung Up"
-                stateLabel.isHidden = false
-                videoView?.isHidden = true
-                userNameTopView.isHidden = true
-            case .rejected:
-                stateLabel.textColor = ParticipantViewConstant.stateColor
-                stateLabel.text = "Rejected"
-                stateLabel.isHidden = false
-                callingToLabelHeight.constant = 0.0
-                videoView?.isHidden = true
-                userNameTopView.isHidden = true
-            case .noAnswer:
-                stateLabel.textColor = ParticipantViewConstant.stateColor
-                stateLabel.text = "No Answer"
-                stateLabel.isHidden = false
-                callingToLabelHeight.constant = 0.0
-            case .disconnectTimeout:
-                stateLabel.textColor = ParticipantViewConstant.stateColor
-                stateLabel.text = "Time out"
-                stateLabel.isHidden = false
-                callingToLabelHeight.constant = 0.0
-            case .disconnected:
-                stateLabel.textColor = ParticipantViewConstant.stateColor
-                stateLabel.text = "Disconnected"
-                stateLabel.isHidden = false
-                callingToLabelHeight.constant = 0.0
-                videoView?.isHidden = true
-                userNameTopView.isHidden = true
-            default: stateLabel.text = ""
+            if Profile().ID == ID {
+                userNameTopLabel.text = "You"
             }
+            userAvatarLabel.backgroundColor = ID.generateColor()
         }
     }
     
-    //MARK: - Life Cycle
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func setupViews() {
+        super.setupViews()
         
-        backgroundColor = .clear
-        videoContainerView.backgroundColor = .clear
-        containerView.backgroundColor = #colorLiteral(red: 0.1960526407, green: 0.1960932612, blue: 0.1960500479, alpha: 1)
-        userAvatarLabel.setRoundedLabel(cornerRadius: 30.0)
-        userAvatarImageView.setRoundedView(cornerRadius: 30.0)
-        userAvatarImageView.isHidden = true
-        videoContainerView.isHidden = false
-        userNameTopView.isHidden = true
-        nameLabelCenterXConstraint.constant = 0.0
-        callingToLabelHeight.constant = 28.0
+        userNameTopLabel.isHidden = true
+    }
+    
+    override func setupHiddenViews() {
+        callingInfoLabelHeightConstraint.constant = 0.0
+        stateLabel.isHidden = false
+        videoContainerView.isHidden = true
     }
 }
