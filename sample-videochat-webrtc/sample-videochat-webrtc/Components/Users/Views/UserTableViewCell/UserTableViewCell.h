@@ -8,10 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
+static NSString * const kUserCellIdentifier = @"UserTableViewCell";
+
+typedef void(^MuteButtonHandler)(BOOL isMuted);
+
 @interface UserTableViewCell : UITableViewCell
+@property (nonatomic, strong) MuteButtonHandler didPressMuteButton;
 
-- (void)setFullName:(NSString *)fullName;
-- (void)setCheck:(BOOL)isCheck;
-- (void)setUserImage:(UIImage *)image;
-
+- (void)setupUserName:(NSString *)userName;
+- (void)setupUserID:(NSUInteger)userID;
 @end
+
+NS_ASSUME_NONNULL_END

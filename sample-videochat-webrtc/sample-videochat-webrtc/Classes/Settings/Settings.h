@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Types.h"
 
 @interface Settings : NSObject
 

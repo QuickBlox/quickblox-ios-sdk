@@ -7,16 +7,13 @@
 //
 
 #import "AppDelegate.h"
-#import "SVProgressHUD.h"
 #import "Settings.h"
 #import "Profile.h"
-#import "CallKitManager.h"
+#import "UIColor+Videochat.h"
 
-const CGFloat kQBRingThickness = 1.f;
-const NSTimeInterval kQBAnswerTimeInterval = 60.f;
-const NSTimeInterval kQBDialingTimeInterval = 5.f;
+const NSTimeInterval kQBAnswerTimeInterval = 30.0f;
+const NSTimeInterval kQBDialingTimeInterval = 5.0f;
 static NSString* const kChatServiceDomain = @"com.q-municate.chatservice";
-static NSUInteger const kErrorDomaimCode = -1000;
 
 //To update the Credentials, please see the README file.
 const NSUInteger kApplicationID = 0;
@@ -28,94 +25,50 @@ NSString *const kAccountKey     = @"";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    self.isCalling = NO;
     self.window.backgroundColor = [UIColor whiteColor];
     
     // Set QuickBlox credentials (You must create application in admin.quickblox.com)
-    [QBSettings setApplicationID:kApplicationID];
-    [QBSettings setAuthKey:kAuthKey];
-    [QBSettings setAuthSecret:kAuthSecret];
-    [QBSettings setAccountKey:kAccountKey];
+    QBSettings.applicationID = kApplicationID;
+    QBSettings.authKey = kAuthKey;
+    QBSettings.authSecret = kAuthSecret;
+    QBSettings.accountKey = kAccountKey;
     
-    [QBSettings setLogLevel:QBLogLevelNothing];
+    QBSettings.logLevel = QBLogLevelNothing;
     [QBSettings disableFileLogging];
     [QBSettings disableXMPPLogging];
     
-    [QBRTCConfig setAnswerTimeInterval:kQBAnswerTimeInterval];
-    [QBRTCConfig setDialingTimeInterval:kQBDialingTimeInterval];
-    [QBRTCConfig setStatsReportTimeInterval:1.f];
+    QBRTCConfig.answerTimeInterval = kQBAnswerTimeInterval;
+    QBRTCConfig.dialingTimeInterval = kQBDialingTimeInterval;
+    QBRTCConfig.statsReportTimeInterval = 3.0f;
+    
+    [QBRTCClient initializeRTC];
     
     Settings *settings = [[Settings alloc] init];
     settings.mediaConfiguration.videoCodec = QBRTCVideoCodecVP8;
     [settings saveToDisk];
     [settings applyConfig];
     
-    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Authorization" bundle:nil];
+    UINavigationController *root =
+    [storyboard instantiateViewControllerWithIdentifier:@"AuthNavVC"];
+    root.view.backgroundColor = UIColor.blueBarColor;
     
-    [QBRTCClient initializeRTC];
+    Profile *profile = [[Profile alloc] init];
+    BOOL isLoggedIn = profile.isFull;
+    if (isLoggedIn) {
+        storyboard = [UIStoryboard storyboardWithName:@"Users" bundle:nil];
+        UIViewController *users =
+        [storyboard instantiateViewControllerWithIdentifier:@"UsersViewController"];
+        NSMutableArray<UIViewController *>*viewControllers = root.viewControllers.mutableCopy;
+        [viewControllers addObject:users];
+        [root setViewControllers:viewControllers animated:NO];
+    }
+    
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    self.window.rootViewController = root;
+    [self.window makeKeyAndVisible];
 
     return YES;
-}
-
-- (void)setIsCalling:(Boolean)isCalling {
-    _isCalling = isCalling;
-    if (UIApplication.sharedApplication.applicationState == UIApplicationStateBackground &&
-        self.isCalling == NO &&
-        [CallKitManager.instance isHasSession]) {
-        [self disconnect:nil];
-    }
-}
-
-// MARK: - Application states
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    if (![QBChat instance].isConnected) {
-        [SVProgressHUD showSuccessWithStatus: @"Connecting..."];
-        [self connect:^(NSError * _Nullable error) {
-            if (error) {
-                [SVProgressHUD showErrorWithStatus: error.localizedDescription];
-                return;
-            }
-            [SVProgressHUD dismiss];
-        }];
-    }
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    if (self.isCalling == NO) {
-        [self disconnect:nil];
-    }
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application {
-    [self disconnect:nil];
-}
-
-//MARK: - Connect/Disconnect
-- (void)connect:(nullable QBChatCompletionBlock)completion {
-    Profile *currentUser = [[Profile alloc] init];
-    
-    if (currentUser.isFull == NO) {
-        if (completion) {
-            completion([NSError errorWithDomain:kChatServiceDomain
-                                           code:kErrorDomaimCode
-                                       userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Please enter your login and username.", nil)}]);
-            
-        }
-        return;
-    }
-    
-    if (QBChat.instance.isConnected) {
-        if (completion) {
-            completion(nil);
-        }
-    } else {
-        QBSettings.autoReconnectEnabled = YES;
-        [QBChat.instance connectWithUserID:[currentUser ID] password:[currentUser password] completion:completion];
-    }
-}
-
-- (void)disconnect:(nullable QBChatCompletionBlock)completion {
-    [QBChat.instance disconnectWithCompletionBlock:completion];
 }
 
 @end
