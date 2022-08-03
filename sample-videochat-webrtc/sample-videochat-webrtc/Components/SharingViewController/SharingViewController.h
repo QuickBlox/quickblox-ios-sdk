@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MediaController.h"
 
-@interface SharingViewController : UICollectionViewController
+@interface SharingViewController : UIViewController
 
-@property (weak, nonatomic) QBRTCSession *session;
+@property (strong, nonatomic) MediaController *mediaController;
 
 @end

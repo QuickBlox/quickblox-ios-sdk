@@ -8,6 +8,8 @@
 
 #import "Settings.h"
 
+#define settingsKey( prop ) NSStringFromSelector(@selector(prop))
+
 #pragma mark - keys
 
 static NSString * const kVideoFormatKey = @"videoFormat";
@@ -29,11 +31,21 @@ static NSString * const kMediaConfigKey = @"mediaConfig";
 
     // saving to disk
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSData *videFormatData = [NSKeyedArchiver archivedDataWithRootObject:self.videoFormat requiringSecureCoding:NO error:nil];
-    [defaults setObject:videFormatData forKey:kVideoFormatKey];
-    NSData *mediaConfig = [NSKeyedArchiver archivedDataWithRootObject:self.mediaConfiguration requiringSecureCoding:NO error:nil];
-    [defaults setObject:mediaConfig forKey:kMediaConfigKey];
+    
     [defaults setInteger:self.preferredCameraPostion forKey:kPreferredCameraPosition];
+    BOOL isDefaultPixelFormat = self.videoFormat.pixelFormat == QBRTCPixelFormat420f;
+    [defaults setObject:@{ settingsKey(width): @(self.videoFormat.width),
+                           settingsKey(height): @(self.videoFormat.height),
+                           settingsKey(frameRate): @(self.videoFormat.frameRate),
+                           settingsKey(pixelFormat): @(isDefaultPixelFormat) }
+                 forKey:kVideoFormatKey];
+    
+    [defaults setObject:@{ settingsKey(audioCodec): @(self.mediaConfiguration.audioCodec),
+                           settingsKey(audioBandwidth): @(self.mediaConfiguration.audioBandwidth),
+                           settingsKey(videoCodec): @(self.mediaConfiguration.videoCodec),
+                           settingsKey(videoBandwidth): @(self.mediaConfiguration.videoBandwidth),
+                           settingsKey(isAudioLevelControlEnabled): @(self.mediaConfiguration.isAudioLevelControlEnabled) }
+                 forKey:kMediaConfigKey];
     
     [defaults synchronize];
 }
@@ -45,33 +57,38 @@ static NSString * const kMediaConfigKey = @"mediaConfig";
 }
 
 - (void)load {
-    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
     AVCaptureDevicePosition postion = [defaults integerForKey:kPreferredCameraPosition];
-    
     if (postion == AVCaptureDevicePositionUnspecified) {
         //First launch
         postion = AVCaptureDevicePositionFront;
     }
-    
     self.preferredCameraPostion = postion;
     
-    NSData *videoFormatData = [defaults objectForKey:kVideoFormatKey];
-    if (videoFormatData) {
-        NSKeyedUnarchiver* unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:videoFormatData error:nil];
-        unarchiver.requiresSecureCoding = NO;
-        self.videoFormat  = [unarchiver decodeTopLevelObjectForKey:NSKeyedArchiveRootObjectKey error:nil];
+    NSDictionary<NSString *, NSNumber *> *videoInfo = [defaults objectForKey:kVideoFormatKey];
+    if (videoInfo && [videoInfo isKindOfClass:[NSDictionary<NSString *, NSNumber *> class]]) {
+        BOOL isDefaultPixelFormat = videoInfo[settingsKey(pixelFormat)].boolValue;
+        QBRTCPixelFormat pixelFormat = isDefaultPixelFormat ? QBRTCPixelFormat420f : QBRTCPixelFormatARGB;
+        self.videoFormat =
+        [QBRTCVideoFormat videoFormatWithWidth:videoInfo[settingsKey(width)].unsignedIntegerValue
+                                        height:videoInfo[settingsKey(height)].unsignedIntegerValue
+                                     frameRate:videoInfo[settingsKey(frameRate)].unsignedIntegerValue
+                                   pixelFormat:pixelFormat];
     } else {
         self.videoFormat = [QBRTCVideoFormat defaultFormat];
     }
     
-    NSData *mediaConfigData = [defaults objectForKey:kMediaConfigKey];
+    NSDictionary<NSString *, NSNumber *>*mediaInfo = [defaults objectForKey:kMediaConfigKey];
     
-    if (mediaConfigData) {
-        NSKeyedUnarchiver* unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:mediaConfigData error:nil];
-        unarchiver.requiresSecureCoding = NO;
-        self.mediaConfiguration  = [unarchiver decodeTopLevelObjectForKey:NSKeyedArchiveRootObjectKey error:nil];
+    if (mediaInfo) {
+        self.mediaConfiguration = [QBRTCMediaStreamConfiguration defaultConfiguration];
+        self.mediaConfiguration.audioCodec = mediaInfo[settingsKey(audioCodec)].unsignedIntegerValue;
+        self.mediaConfiguration.audioBandwidth = mediaInfo[settingsKey(audioBandwidth)].unsignedIntegerValue;
+        self.mediaConfiguration.videoCodec = mediaInfo[settingsKey(videoCodec)].unsignedIntegerValue;
+        self.mediaConfiguration.videoBandwidth = mediaInfo[settingsKey(videoBandwidth)].unsignedIntegerValue;
+        self.mediaConfiguration.audioLevelControlEnabled =
+        mediaInfo[settingsKey(isAudioLevelControlEnabled)].boolValue;
+        [self applyConfig];
     } else {
         self.mediaConfiguration = [QBRTCMediaStreamConfiguration defaultConfiguration];
     }

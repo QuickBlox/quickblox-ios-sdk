@@ -80,7 +80,3 @@ $ pod install
 [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
 ```
 6. Run the code sample.
-
-Additional libraries used via [CocoaPods](https://cocoapods.org):
-
-* [SVProgressHUD](https://github.com/TransitApp/SVProgressHUD.git/)

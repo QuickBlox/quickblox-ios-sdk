@@ -1,5 +1,5 @@
 //
-//  QBLoadingButton.h
+//  LoadingButton.h
 //  sample-videochat-webrtc
 //
 //  Created by Injoit on 2/25/19.
@@ -12,10 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LoadingButton : UIButton
 
-@property(assign, nonatomic) BOOL isAnimating;
-
-- (void)showLoading;
-- (void)hideLoading;
+@property(assign, nonatomic) BOOL isLoading;
 
 @end
 
