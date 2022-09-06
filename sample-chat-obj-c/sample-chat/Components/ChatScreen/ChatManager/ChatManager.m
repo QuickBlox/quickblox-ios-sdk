@@ -660,7 +660,7 @@ typedef void(^UsersPage)(QBGeneralResponsePage *page);
 - (void)updateAllDialogsWithPageLimit:(NSInteger)limit
                       extendedRequest:(nullable NSDictionary *)extendedParameters
                            completion:(void(^)(QBResponse *response))completion {
-    NSDictionary *extendedRequest = [self parametersForMessages];
+    NSDictionary *extendedRequest = extendedParameters.count ? extendedParameters : @{@"sort_asc": @"last_message_date_sent"};
     __block  NSMutableSet *usersForUpdate = [NSMutableSet set];
     __block  NSMutableSet *existingUsersIDs = [[self.storage fetchAllUsersIDs] mutableCopy];
     void(^updateHandler)(BOOL cancel, NSArray *dialogs) = ^(BOOL cancel, NSArray *dialogs) {
