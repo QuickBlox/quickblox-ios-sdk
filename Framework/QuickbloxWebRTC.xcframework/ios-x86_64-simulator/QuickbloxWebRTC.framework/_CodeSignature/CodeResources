@@ -4,6 +4,18 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Frameworks/Quickblox.framework/Info.plist</key>
+		<data>
+		1kCKqYbbbNkafbefeb4uaqVEmlo=
+		</data>
+		<key>Frameworks/Quickblox.framework/Quickblox</key>
+		<data>
+		jEcG/+812wvRzoTXlpNg9q2uC4g=
+		</data>
+		<key>Frameworks/Quickblox.framework/_CodeSignature/CodeResources</key>
+		<data>
+		JDoCIHgXsVeiXlnn8RrPbymeqys=
+		</data>
 		<key>Headers/QBRTCAudioSession.h</key>
 		<data>
 		txvmpxBQoKHPF58aj4ODC/Md2Mk=
@@ -14,7 +26,7 @@
 		</data>
 		<key>Headers/QBRTCAudioSessionDelegate.h</key>
 		<data>
-		0qmXU+zvdAczYQIqyC892TtAQ0g=
+		l9kD8zT110Mw4Vklnxua2xymKg0=
 		</data>
 		<key>Headers/QBRTCAudioTrack.h</key>
 		<data>
@@ -26,7 +38,7 @@
 		</data>
 		<key>Headers/QBRTCBaseClientDelegate.h</key>
 		<data>
-		Dz9+0IEVJYHY8T7ayyDS3OYQsGo=
+		q0p4OwaG4hPFciIHSfgFJJJWBrg=
 		</data>
 		<key>Headers/QBRTCBaseSession.h</key>
 		<data>
@@ -62,7 +74,7 @@
 		</data>
 		<key>Headers/QBRTCConfig.h</key>
 		<data>
-		kFdJaM6Ai0zX1P4RZ1lt97xl0qs=
+		cRjqLugMk5EZnYbph3A17PmHFQ8=
 		</data>
 		<key>Headers/QBRTCICEServer.h</key>
 		<data>
@@ -114,7 +126,7 @@
 		</data>
 		<key>Headers/QBRTCTypes.h</key>
 		<data>
-		2BaBufI74OClouLwVTe5tXYVIkU=
+		4x82GZcB0RO1emfre+/w0/LEXH8=
 		</data>
 		<key>Headers/QBRTCVideoCapture.h</key>
 		<data>
@@ -134,7 +146,7 @@
 		</data>
 		<key>Headers/QuickbloxWebRTC.h</key>
 		<data>
-		U7mueJH2/EjGhtnFvLP2pfXfexs=
+		5csvUP3WNproTevyDi7VWpRGs54=
 		</data>
 		<key>Headers/RTCMacros.h</key>
 		<data>
@@ -158,7 +170,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		YeOJpTMzFfdMOmCTF9oCX9rUjCw=
+		TmnTdu79LnpDTcsQj6cDQ0Sb2oQ=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -171,6 +183,27 @@
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>Frameworks/Quickblox.framework/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			5kO9JrkW4OZrKfCL6z6/+RTyFtIymoA8Z4OQasXKDNM=
+			</data>
+		</dict>
+		<key>Frameworks/Quickblox.framework/Quickblox</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			uKp3VonTtjcxj7D5w42xOGeDHebgGgiic0fYxdLPMFg=
+			</data>
+		</dict>
+		<key>Frameworks/Quickblox.framework/_CodeSignature/CodeResources</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			7TrpjR4z2HxL6AoCjvCmp2/ITpHr6UhK42DqNTwwsrg=
+			</data>
+		</dict>
 		<key>Headers/QBRTCAudioSession.h</key>
 		<dict>
 			<key>hash2</key>
@@ -189,7 +222,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ThnMQ2sPBI+YBRFMiMxS0fAARL5M1hjMOXWBw5wuL1s=
+			6aO9K9df9dXNq5NHjFP7PxnLzS1O4/eNY2zhMXQhv/A=
 			</data>
 		</dict>
 		<key>Headers/QBRTCAudioTrack.h</key>
@@ -210,7 +243,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			nfKIbWLD1D6KwpchB87AuaWNX4OJDxkfcWS08wV8HXU=
+			xhxvvJexB4YsrFZhMGp+4UpFzFYqg8j8lWQPrV1gzO4=
 			</data>
 		</dict>
 		<key>Headers/QBRTCBaseSession.h</key>
@@ -273,7 +306,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Pf+zlQX5vwltAGAMjfATQH/2y2iknPGqoMHoGZG1fSo=
+			aZFAfnnyGwLkctCJ/eYUA1A/RuaGvEvNviQOHumyBM4=
 			</data>
 		</dict>
 		<key>Headers/QBRTCICEServer.h</key>
@@ -364,7 +397,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			aaFPIFoG1gVHSe8gopUydyzyMAdDOEtKO6yTRrlKBZY=
+			UNpJRNTKP92SGxTeC7lLZ4/ZDB7VmgNSLWsn+udUkqM=
 			</data>
 		</dict>
 		<key>Headers/QBRTCVideoCapture.h</key>
@@ -399,7 +432,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			TPPRzyRBOugDFbFwrV4Kmnpz3eQQyNa3nXAXNUBAPJo=
+			Fz56ShFPYOYiilLMki+AHg3IsV1nBASMau0/E6xcWSg=
 			</data>
 		</dict>
 		<key>Headers/RTCMacros.h</key>

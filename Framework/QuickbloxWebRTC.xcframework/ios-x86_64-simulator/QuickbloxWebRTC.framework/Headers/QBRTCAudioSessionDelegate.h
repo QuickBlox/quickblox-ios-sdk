@@ -2,7 +2,7 @@
 //  QBRTCAudioSessionDelegate.h
 //  QuickbloxWebRTC
 //
-//  Created by Illia Chemolosov on 22.03.2020.
+//  Created by Injoit on 22.03.2020.
 //  Copyright © 2020 QuickBlox Team. All rights reserved.
 //
 

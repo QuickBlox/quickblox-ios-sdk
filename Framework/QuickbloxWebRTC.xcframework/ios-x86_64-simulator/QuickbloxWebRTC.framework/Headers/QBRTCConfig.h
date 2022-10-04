@@ -69,11 +69,23 @@ NS_ASSUME_NONNULL_BEGIN
  *  If an opponent did not answer you within dialing time interval, then
  *  userDidNotRespond: and then connectionClosedForUser: delegate methods will be called
  *
- *  Default value: 45 seconds
+ *  Default value: 30 seconds
  *  Minimum value: 10 seconds
  *  @param answerTimeInterval time interval in seconds
  */
 + (void)setAnswerTimeInterval:(NSTimeInterval)answerTimeInterval;
+
+/**
+ *  Set disconnect time interval. Is not used for the conference.
+ *
+ *  Stops performing reconnection when the time is up, then
+ *  connectionClosedForUser: delegate methods will be called
+ *
+ *  Default value: 30 seconds
+ *  Minimum value: 10 seconds
+ *  @param disconnectTimeInterval time interval in seconds
+ */
++ (void)setDisconnectTimeInterval:(NSTimeInterval)disconnectTimeInterval;
 
 /**
  *  Dialing time interval
@@ -88,6 +100,13 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return current answer time interval;
  */
 + (NSTimeInterval)answerTimeInterval;
+
+/**
+ *  Disconnect time interval. Is not used for the conference.
+ *
+ *  @return current disconnect time interval;
+ */
++ (NSTimeInterval)disconnectTimeInterval;
 
 // MARK: Datagram Transport Layer Security
 
