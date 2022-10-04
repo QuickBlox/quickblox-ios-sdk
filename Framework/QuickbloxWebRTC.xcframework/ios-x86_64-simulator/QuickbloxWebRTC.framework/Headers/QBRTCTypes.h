@@ -48,6 +48,19 @@ typedef NS_ENUM(NSUInteger, QBRTCConnectionState) {
 };
 
 /**
+ *  Reconnection state.
+ *
+ *  - QBRTCReconnectionStateReconnecting: one or more of the ICE transports are currently in the process of establishing a connection
+ *  - QBRTCReconnectionStateReconnected: connection was performed successfully
+ *  - QBRTCReconnectionStateFailed: one or more of the ICE transports on the connection is in the failed state;
+ */
+typedef NS_ENUM(NSUInteger, QBRTCReconnectionState) {
+  QBRTCReconnectionStateReconnecting,
+  QBRTCReconnectionStateReconnected,
+  QBRTCReconnectionStateFailed
+};
+
+/**
  *  Session state.
  *
  *  - QBRTCSessionStateNew: session was successfully created and ready for the next step

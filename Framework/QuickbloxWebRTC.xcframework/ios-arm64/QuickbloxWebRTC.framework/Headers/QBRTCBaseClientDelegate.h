@@ -112,6 +112,16 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)session:(__kindof QBRTCBaseSession *)session didChangeConnectionState:(QBRTCConnectionState)state forUser:(NSNumber *)userID;
 
+/**
+ * Called when session reconnection state changed for a specific user. Not called for the conference.
+ *
+ * @param session QBRTCSession instance
+ * @param state  state - @see QBRTCReconnectionState
+ * @param userID ID of user
+ */
+- (void)session:(__kindof QBRTCBaseSession *)session didChangeRconnectionState:(QBRTCReconnectionState)state forUser:(NSNumber *)userID;
+
+
 @end
 
 NS_ASSUME_NONNULL_END
