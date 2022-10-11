@@ -54,16 +54,20 @@ FOUNDATION_EXPORT NSNotificationName const kQBLogoutNotification;
  @note updateSessionBlock must be already set
  
  @param session QBAsession instance with updated credentials
+ @warning *Deprecated in 2.18.*. Use 'startSessionWithToken:' method of QBSessionManager instead.
  */
-- (void)startSessionWithDetails:(QBASession *)session;
+- (void)startSessionWithDetails:(QBASession *)session
+DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.18. Use 'startSessionWithToken:' method of QBSessionManager instead.");
 
 /**
  Start session with details
 
  @param session QBASession instance, token, applicationID, userID are required fields
  @param sessionDate expiration date
+ @warning *Deprecated in 2.18.*. Use 'startSessionWithToken:' method of QBSessionManager instead.
  */
-- (void)startSessionWithDetails:(QBASession *)session expirationDate:(NSDate *)sessionDate;
+- (void)startSessionWithDetails:(QBASession *)session expirationDate:(NSDate *)sessionDate
+DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.18. Use 'startSessionWithToken:' method of QBSessionManager instead.");
 
 /**
  Start session with details
@@ -76,8 +80,11 @@ FOUNDATION_EXPORT NSNotificationName const kQBLogoutNotification;
  
  @param session QBAsession instance
  @param updateSessionBlock updateSessionBlock before the end of this block you should call startSessionWithDetails:
+ @warning *Deprecated in 2.18.*. Use 'startSessionWithToken:' method of QBSessionManager instead.
+ Use 'QBSessionManagerDelegate' callbacks to detect session states.
  */
-- (void)startSessionWithDetails:(QBASession *)session updateSessionBlock:(dispatch_block_t)updateSessionBlock;
+- (void)startSessionWithDetails:(QBASession *)session updateSessionBlock:(dispatch_block_t)updateSessionBlock
+DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.18. Use 'startSessionWithToken:' method of QBSessionManager instead.");
 
 @end
 
