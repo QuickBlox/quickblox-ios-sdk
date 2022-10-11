@@ -55,9 +55,32 @@
 #import <QuickBlox/QBResponse.h>
 #import <QuickBlox/QBResponsePage.h>
 #import <QuickBlox/QBSession.h>
+#import <QuickBlox/QBSessionManager.h>
 #import <QuickBlox/QBSettings.h>
 #import <QuickBlox/QBUpdateUserParameters.h>
 #import <QuickBlox/QBUUser.h>
 
-/// Framework version 2.17.11
+#import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+/// Framework version 2.18.0
 FOUNDATION_EXPORT NSString * const QuickbloxFrameworkVersion;
+
+@interface Quickblox : NSObject
+
++ (void)initWithApplicationId:(NSUInteger)appId
+                      authKey:(NSString *)authKey
+                   authSecret:(NSString *)authSecret
+                   accountKey:(nullable NSString *)accountKey;
+
++ (void)initWithApplicationId:(NSUInteger)appId
+                  accountKey:(nullable NSString *)accountKey;
+
+// Unavailable initializers
++ (id)new NS_UNAVAILABLE;
+- (id)init NS_UNAVAILABLE;
+
+@end
+
+NS_ASSUME_NONNULL_END

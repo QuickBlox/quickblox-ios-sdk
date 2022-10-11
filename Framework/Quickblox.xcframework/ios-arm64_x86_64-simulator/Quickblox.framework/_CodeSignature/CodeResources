@@ -206,7 +206,11 @@
 		</data>
 		<key>Headers/QBSession.h</key>
 		<data>
-		Ftbkt/m8JC7/92/8id8xjzwGUbo=
+		ENDB/0kW2t+XzuIrCPtEjk4cD9M=
+		</data>
+		<key>Headers/QBSessionManager.h</key>
+		<data>
+		o4ZIl5rWZQ+/5yFQdTE4JtdnR9w=
 		</data>
 		<key>Headers/QBSettings.h</key>
 		<data>
@@ -222,15 +226,19 @@
 		</data>
 		<key>Headers/Quickblox.h</key>
 		<data>
-		Ekeyou3mHJCbZb2zNEcYVe0oIMk=
+		nGBgLKc83ZvH96N9yZC3+r/fK1I=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		1kCKqYbbbNkafbefeb4uaqVEmlo=
+		kUVj7+nty5DV8cPdBoChcsqGWcU=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
 		1Pt0nFMU49BQLiWpozgPGowde0c=
+		</data>
+		<key>Modules/module.private.modulemap</key>
+		<data>
+		PORXHZrKGlpZdOnFUW1HYxayqfw=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -589,7 +597,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			zzUL5y7OGQOkf1B87CkZQtA52ZyQU6WkfQxbyL8nwII=
+			sHXGMYB/eZ5C7zZUM1+EdXXNToOmE0I0j+BzJSwx7hU=
+			</data>
+		</dict>
+		<key>Headers/QBSessionManager.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			MIZqLWGoe0rFS/awuCmltf7nszeoSBSLdrxZ1VrlAxU=
 			</data>
 		</dict>
 		<key>Headers/QBSettings.h</key>
@@ -617,7 +632,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			NMIkYlS9bhfHsKBOQQCF62YNpAb1stdSQZhVEIy5yrg=
+			RNkURqxSMWpk0OpL/2pjzY9Eaa2lpiY/FQz36DolUVQ=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
@@ -625,6 +640,13 @@
 			<key>hash2</key>
 			<data>
 			qne1yWww7iWsuc8ctfY9mdaiT9Es3eyeckYBrdm0Fp4=
+			</data>
+		</dict>
+		<key>Modules/module.private.modulemap</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			F6QmzxL4pg8/P0bg4f1c4ui1AS58y5IPg2cIS5nyBh8=
 			</data>
 		</dict>
 	</dict>
