@@ -4,18 +4,6 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Frameworks/Quickblox.framework/Info.plist</key>
-		<data>
-		1kCKqYbbbNkafbefeb4uaqVEmlo=
-		</data>
-		<key>Frameworks/Quickblox.framework/Quickblox</key>
-		<data>
-		jEcG/+812wvRzoTXlpNg9q2uC4g=
-		</data>
-		<key>Frameworks/Quickblox.framework/_CodeSignature/CodeResources</key>
-		<data>
-		JDoCIHgXsVeiXlnn8RrPbymeqys=
-		</data>
 		<key>Headers/QBRTCAudioSession.h</key>
 		<data>
 		txvmpxBQoKHPF58aj4ODC/Md2Mk=
@@ -146,7 +134,7 @@
 		</data>
 		<key>Headers/QuickbloxWebRTC.h</key>
 		<data>
-		5csvUP3WNproTevyDi7VWpRGs54=
+		u0Z60FxBlYq9etuL7DshtWeoRj0=
 		</data>
 		<key>Headers/RTCMacros.h</key>
 		<data>
@@ -170,7 +158,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		TmnTdu79LnpDTcsQj6cDQ0Sb2oQ=
+		xhHuoaHRcgjnm8LyYmkpC+p8joo=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -183,27 +171,6 @@
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Frameworks/Quickblox.framework/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			5kO9JrkW4OZrKfCL6z6/+RTyFtIymoA8Z4OQasXKDNM=
-			</data>
-		</dict>
-		<key>Frameworks/Quickblox.framework/Quickblox</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			uKp3VonTtjcxj7D5w42xOGeDHebgGgiic0fYxdLPMFg=
-			</data>
-		</dict>
-		<key>Frameworks/Quickblox.framework/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			7TrpjR4z2HxL6AoCjvCmp2/ITpHr6UhK42DqNTwwsrg=
-			</data>
-		</dict>
 		<key>Headers/QBRTCAudioSession.h</key>
 		<dict>
 			<key>hash2</key>
@@ -432,7 +399,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Fz56ShFPYOYiilLMki+AHg3IsV1nBASMau0/E6xcWSg=
+			HUDzRJSGCwbBJPpTjr7ok+YUefNoLTet8q1qsJKuAg8=
 			</data>
 		</dict>
 		<key>Headers/RTCMacros.h</key>
