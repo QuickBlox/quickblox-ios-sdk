@@ -64,7 +64,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// Framework version 2.18.0
+/// Framework version 2.18.1
 FOUNDATION_EXPORT NSString * const QuickbloxFrameworkVersion;
 
 @interface Quickblox : NSObject
