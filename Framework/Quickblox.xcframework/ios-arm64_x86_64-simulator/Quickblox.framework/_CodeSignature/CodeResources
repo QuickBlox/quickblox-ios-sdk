@@ -226,19 +226,15 @@
 		</data>
 		<key>Headers/Quickblox.h</key>
 		<data>
-		nGBgLKc83ZvH96N9yZC3+r/fK1I=
+		EzlM4a93COA3TgvetsGcAMPyRlg=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		kUVj7+nty5DV8cPdBoChcsqGWcU=
+		lBKkGVgL/2r6otkE+EayfGE9eEk=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
 		1Pt0nFMU49BQLiWpozgPGowde0c=
-		</data>
-		<key>Modules/module.private.modulemap</key>
-		<data>
-		PORXHZrKGlpZdOnFUW1HYxayqfw=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -632,7 +628,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			RNkURqxSMWpk0OpL/2pjzY9Eaa2lpiY/FQz36DolUVQ=
+			dQEjk+pdg3iXN1UC7tvxGdGb+g5QMrpAEUfgA4mLB2g=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
@@ -640,13 +636,6 @@
 			<key>hash2</key>
 			<data>
 			qne1yWww7iWsuc8ctfY9mdaiT9Es3eyeckYBrdm0Fp4=
-			</data>
-		</dict>
-		<key>Modules/module.private.modulemap</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			F6QmzxL4pg8/P0bg4f1c4ui1AS58y5IPg2cIS5nyBh8=
 			</data>
 		</dict>
 	</dict>
