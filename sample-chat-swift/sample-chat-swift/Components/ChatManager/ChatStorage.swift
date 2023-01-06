@@ -84,11 +84,13 @@ class ChatStorage {
         })
     }
     
-    func update(dialogs: [QBChatDialog], completion: (() -> Void)? = nil) {
+    func update(_ dialogs: [QBChatDialog], completion: (() -> Void)? = nil) {
         for chatDialog in dialogs {
-            assert(chatDialog.type.rawValue != 0, "Chat type is not defined")
-            assert(chatDialog.id != nil, "Chat ID is not defined")
-
+            if chatDialog.isValid == false {
+                debugPrint("[ChatStorage] Chat Dialog is not valid")
+                continue
+            }
+            
             let dialog = update(dialog:chatDialog)
             
             // Autojoin to the group chat
@@ -188,8 +190,6 @@ class ChatStorage {
     }
     
     private func update(dialog: QBChatDialog) -> QBChatDialog {
-        assert(dialog.type.rawValue != 0, "Chat type is not defined")
-        assert(dialog.id != nil, "Chat ID is not defined")
         if let localDialog = self.dialog(withID: dialog.id! ) {
             localDialog.updatedAt = dialog.updatedAt
             localDialog.createdAt = dialog.createdAt

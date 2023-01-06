@@ -66,11 +66,23 @@ class UsersInfoViewController: UserListViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        chatManager.delegate = self
         if QBChat.instance.isConnected == false {
             showNoInternetAlert(handler: nil)
             return
         }
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateDialog),
+                                               name: ChatManagerConstant.didUpdateChatDialog,
+                                               object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self,
+                                                  name: ChatManagerConstant.didUpdateChatDialog,
+                                                  object: nil)
     }
     
     //MARK: - Actions
@@ -101,29 +113,10 @@ class UsersInfoViewController: UserListViewController {
         let numberUsers = "\(self.userList.fetched.count) members"
         titleView.setupTitleView(title: title, subTitle: numberUsers)
     }
-}
-
-// MARK: - ChatManagerDelegate
-extension UsersInfoViewController: ChatManagerDelegate {
-    func chatManagerWillUpdateStorage(_ chatManager: ChatManager) {
-
-    }
     
-    func chatManager(_ chatManager: ChatManager, didFailUpdateStorage message: String) {
-        showAnimatedAlertView(nil, message: message)
-    }
-    
-    func chatManager(_ chatManager: ChatManager, didUpdateChatDialog chatDialog: QBChatDialog) {
-        if chatDialog.id != dialogID {
-            return
-        }
-        setupUsers(dialogID)
-    }
-    
-    func chatManager(_ chatManager: ChatManager, didUpdateStorage message: String) {
-        guard let dialogID = dialogID else {
-            return
-        }
+    @objc private func updateDialog(notification: Notification) {
+        guard let chatDialogId = notification.userInfo?[ChatManagerConstant.didUpdateChatDialogKey] as? String,
+              chatDialogId == dialogID  else { return }
         setupUsers(dialogID)
     }
 }

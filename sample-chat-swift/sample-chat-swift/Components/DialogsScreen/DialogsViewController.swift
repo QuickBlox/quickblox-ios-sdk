@@ -11,53 +11,31 @@ import Quickblox
 
 class DialogsViewController: DialogListViewController {
     //MARK: - Properties
-    var onSignIn: (() -> Void)?
-    private var isPresentAlert = false
-    private var connection: ConnectionModule! {
-        didSet {
-            connection.onAuthorize = {
-                debugPrint("[\(DialogsViewController.className)] [connection] On Authorize")
-                let userDefaults = UserDefaults.standard
-                guard userDefaults.bool(forKey: NotificationsConstant.needUpdateToken) != false,
-                      let token = userDefaults.object(forKey: NotificationsConstant.token) as? Data else {
-                          return
-                      }
-                NotificationsProvider.deleteLastSubscription {
-                    NotificationsProvider.createSubscription(withToken: token)
-                }
-            }
-            
-            connection.onConnect = { [weak self] in
-                guard let self = self else {
-                    return
-                }
-                self.isPresentAlert = false
-                debugPrint("[\(DialogsViewController.className)] [connection] On Connect")
-                self.showAnimatedAlertView(nil, message: ConnectionConstant.connectionEstablished)
-                self.refreshControl?.beginRefreshing()
-                self.chatManager.updateStorage()
-            }
-            
-            connection.onDisconnect = { [weak self] (isNetwork) in
-                guard let self = self else {
-                    return
-                }
-                debugPrint("[\(DialogsViewController.className)] [connection] On Disconnect")
-                if isNetwork == true || self.isPresentAlert == true { return }
-                self.isPresentAlert = true
-                self.refreshControl?.endRefreshing()
-                self.showAnimatedAlertView(nil, message: ConnectionConstant.noInternetConnection)
-            }
+    var onSignOut: (() -> Void)?
+    var splashVC: SplashScreenViewController!
+    private let authModule = AuthModule()
+    private let connection = ConnectionModule()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        connection.delegate = self
+        if connection.established == false {
+            showSplashScreen()
         }
+        connection.activateAutomaticMode()
+        authModule.delegate = self
+        QBChat.instance.addDelegate(self)
+        chatManager.delegate = self
+        
+        let tapGestureDelete = UILongPressGestureRecognizer(target: self, action: #selector(didTapEdit(_:)))
+        tapGestureDelete.minimumPressDuration = 0.5
+        tapGestureDelete.delaysTouchesBegan = true
+        tableView.addGestureRecognizer(tapGestureDelete)
     }
     
     //MARK: - Setup
     override func setupNavigationBar() {
-        connection = ConnectionModule()
-        connection.activateAutomaticMode()
-        
-        QBChat.instance.addDelegate(self)
-        
         navigationItem.rightBarButtonItems = []
         navigationItem.leftBarButtonItems = []
         let exitButtonItem = UIBarButtonItem(image: UIImage(named: "exit"),
@@ -88,11 +66,6 @@ class DialogsViewController: DialogListViewController {
     }
     
     override func setupDialogs() {
-        chatManager.delegate = self
-        let tapGestureDelete = UILongPressGestureRecognizer(target: self, action: #selector(didTapEdit(_:)))
-        tapGestureDelete.minimumPressDuration = 0.5
-        tapGestureDelete.delaysTouchesBegan = true
-        tableView.addGestureRecognizer(tapGestureDelete)
         chatManager.updateStorage()
         self.refreshControl?.beginRefreshing()
     }
@@ -102,7 +75,6 @@ class DialogsViewController: DialogListViewController {
             return
         }
         gestureReconizer.state = .ended
-        tableView.removeGestureRecognizer(gestureReconizer)
         guard let deleteVC = Screen.dialogsSelectionViewController() else {
             return
         }
@@ -118,24 +90,21 @@ class DialogsViewController: DialogListViewController {
     }
     
     @objc private func didTapLogout() {
-        if QBChat.instance.isConnected == false {
-            showAnimatedAlertView(nil, message: ConnectionConstant.noInternetConnection)
+        logout()
+    }
+    
+    private func logout() {
+        if connection.established == false {
+            showAnimatedAlertView(nil, message: ConnectionConstant.connectingState)
             return
         }
         progressView.start()
-        NotificationsProvider.deleteLastSubscription { [weak self] in
+        NotificationsProvider.clearSubscription { [weak self] in
             self?.connection.breakConnection {
                 guard let self = self else {
                     return
                 }
-                self.connection.deactivateAutomaticMode()
-                UserDefaults.standard.removeObject(forKey: NotificationsConstant.token)
-                self.navigationController?.popToRootViewController(animated: false)
-                Profile.clear()
-                self.chatManager.storage.clear()
-                CacheManager.shared.clearCache()
-                self.progressView.stop()
-                self.onSignIn?()
+                self.authModule.logout()
             }
         }
     }
@@ -155,12 +124,18 @@ class DialogsViewController: DialogListViewController {
     
     // MARK: - UITableViewDataSource
     override func configure(cell: DialogCell, for indexPath: IndexPath) {
+        let dialog = dialogs[indexPath.row]
         tableView.allowsMultipleSelection = false
         cell.checkBoxImageView.isHidden = true
         cell.checkBoxView.isHidden = true
         cell.lastMessageDateLabel.isHidden = false
         cell.contentView.backgroundColor = .clear
         cell.lastMessageDateLabel.isHidden = false
+        cell.unreadMessageCounterLabel.isHidden = false
+        if dialog.type != .publicGroup {
+            cell.unreadMessageCounterLabel.text = dialog.unreadMessagesCounter
+            cell.unreadMessageCounterHolder.isHidden = dialog.unreadMessagesCounter == nil
+        }
     }
     
     // MARK: - UITableViewDelegate
@@ -172,22 +147,30 @@ class DialogsViewController: DialogListViewController {
         }
         openChatScreen(dialogID)
     }
+    
+    //MARK: - Helper Methods
+    fileprivate func showSplashScreen() {
+        if splashVC == nil, let splashVC = Screen.splashScreenController() {
+            self.splashVC = splashVC
+            splashVC.modalPresentationStyle = .overCurrentContext
+            self.present(splashVC, animated: false)
+        }
+    }
+    
+    fileprivate func hideSplashScreen() {
+        if splashVC == nil {
+            return
+        }
+        splashVC?.dismiss(animated: false, completion: {
+            self.splashVC = nil
+        })
+        progressView.stop()
+    }
 }
 
 // MARK: - QBChatDelegate
 extension DialogsViewController: QBChatDelegate {
     func chatRoomDidReceive(_ message: QBChatMessage, fromDialogID dialogID: String) {
-        if currentUser.ID == message.senderID,
-           message.isNotificationMessageTypeLeave == true,
-           let index = dialogs.firstIndex(where: { $0.id == dialogID })  {
-            chatManager.delegate = self
-            dialogs.remove(at: index)
-            let indexPath = IndexPath(item: index, section: 0)
-            tableView.beginUpdates()
-            tableView.deleteRows(at: [indexPath], with: .none)
-            tableView.endUpdates()
-            return
-        }
         chatManager.updateDialog(with: dialogID, with: message)
     }
     
@@ -199,40 +182,10 @@ extension DialogsViewController: QBChatDelegate {
     }
     
     func chatDidReceiveSystemMessage(_ message: QBChatMessage) {
-        guard message.senderID != currentUser.ID else {
+        guard let dialogID = message.dialogID else {
             return
         }
-        guard let dialogID = message.dialogID,
-              chatManager.storage.dialog(withID: dialogID) == nil else {
-                  return
-              }
         chatManager.updateDialog(with: dialogID, with: message)
-    }
-    
-    func chatServiceChatDidFail(withStreamError error: Error) {
-        debugPrint("[DialogsViewController] \(#function) error: \(error.localizedDescription)")
-    }
-    
-    func chatDidAccidentallyDisconnect() {
-        debugPrint("[DialogsViewController] \(#function)")
-    }
-    
-    func chatDidNotConnectWithError(_ error: Error) {
-        debugPrint("[DialogsViewController] \(#function) error: \(error.localizedDescription)")
-    }
-    
-    func chatDidDisconnectWithError(_ error: Error?) {
-        if let error = error {
-            debugPrint("[DialogsViewController] \(#function) error: \(error.localizedDescription)")
-        }
-    }
-    
-    func chatDidConnect() {
-        debugPrint("[DialogsViewController] \(#function)")
-    }
-    
-    func chatDidReconnect() {
-        debugPrint("[DialogsViewController] \(#function)")
     }
 }
 
@@ -248,12 +201,82 @@ extension DialogsViewController: ChatManagerDelegate {
     }
     
     func chatManager(_ chatManager: ChatManager, didUpdateStorage message: String) {
+        debugPrint("[DialogsViewController] didUpdateStorage")
         reloadContent()
     }
-    
-    func chatManagerWillUpdateStorage(_ chatManager: ChatManager) {
-        if navigationController?.topViewController == self {
-            
+}
+
+// MARK: - AuthModuleDelegate
+extension DialogsViewController: AuthModuleDelegate {
+    func authModule(_ authModule: AuthModule, didLoginUser user: QBUUser) {
+        Profile.synchronize(withUser: user)
+        connection.establish()
+        let userDefaults = UserDefaults.standard
+        guard userDefaults.bool(forKey: NotificationsConstant.needUpdateToken) != false,
+              let token = userDefaults.object(forKey: NotificationsConstant.token) as? Data else {
+            return
         }
+        NotificationsProvider.deleteLastSubscription {
+            NotificationsProvider.createSubscription(withToken: token)
+        }
+    }
+    
+    func authModuleDidLogout(_ authModule: AuthModule) {
+        connection.deactivateAutomaticMode()
+        navigationController?.popToRootViewController(animated: false)
+        Profile.clear()
+        chatManager.storage.clear()
+        CacheManager.shared.clearCache()
+        progressView.stop()
+        onSignOut?()
+    }
+    
+    func authModule(_ authModule: AuthModule, didReceivedError error: ErrorInfo) {
+        showUnAuthorizeAlert(message: error.info, logoutAction: { [weak self] action in
+            self?.logout()
+        }, tryAgainAction: { action in
+            let profile = Profile()
+            authModule.login(fullName: profile.fullName, login: profile.login)
+        })
+    }
+}
+
+// MARK: - ConnectionModuleDelegate
+extension DialogsViewController: ConnectionModuleDelegate {
+    func connectionModuleWillConnect(_ connectionModule: ConnectionModule) {
+        showAnimatedAlertView(nil, message: ConnectionConstant.connectingState)
+    }
+    
+    func connectionModuleDidConnect(_ connectionModule: ConnectionModule) {
+        setupDialogs()
+        hideAlertView()
+        hideSplashScreen()
+    }
+    
+    func connectionModuleDidNotConnect(_ connectionModule: ConnectionModule, error: Error) {
+        hideSplashScreen()
+        refreshControl?.endRefreshing()
+        if error._code.isNetworkError {
+            showNoInternetAlert(handler: nil)
+            return
+        }
+        showAlertView(nil, message: error.localizedDescription, handler: nil)
+    }
+    
+    func connectionModuleWillReconnect(_ connectionModule: ConnectionModule) {
+        refreshControl?.endRefreshing()
+        showAnimatedAlertView(nil, message: ConnectionConstant.reconnectingState)
+    }
+    
+    func connectionModuleDidReconnect(_ connectionModule: ConnectionModule) {
+        setupDialogs()
+        hideAlertView()
+    }
+    
+    func connectionModuleTokenHasExpired(_ connectionModule: ConnectionModule) {
+        showSplashScreen()
+        refreshControl?.endRefreshing()
+        let profile = Profile()
+        authModule.login(fullName: profile.fullName, login: profile.login)
     }
 }

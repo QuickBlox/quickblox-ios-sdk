@@ -53,6 +53,7 @@ class ViewedByViewController: UserListViewController {
     
     //MARK: - Actions
     @objc func didTapBack(_ sender: UIBarButtonItem) {
+        QBChat.instance.removeDelegate(self)
         navigationController?.popViewController(animated: true)
     }
     

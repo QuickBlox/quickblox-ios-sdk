@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ZpA-u0-Lj0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ZpA-u0-Lj0">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Auth View Controller-->
+        <!--Enter to chat-->
         <scene sceneID="40N-AA-UYV">
             <objects>
                 <viewController storyboardIdentifier="AuthViewController" id="AAK-lY-EZn" customClass="AuthViewController" customModule="sample_chat_swift" customModuleProvider="target" sceneMemberID="viewController">
@@ -17,14 +17,14 @@
                         <viewControllerLayoutGuide type="bottom" id="Ywq-kz-oEw"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5G5-eF-Lhs">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="804"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="IvO-AG-Hew">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="766"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="762"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GDr-xe-IPV">
-                                        <rect key="frame" x="0.0" y="8" width="414" height="758"/>
+                                        <rect key="frame" x="0.0" y="8" width="414" height="754"/>
                                         <subviews>
                                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your login and display name" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GPd-0s-jT7" userLabel="Login Info Label">
                                                 <rect key="frame" x="108" y="28" width="198" height="40"/>
@@ -72,7 +72,7 @@
                             <constraint firstItem="Ywq-kz-oEw" firstAttribute="top" secondItem="IvO-AG-Hew" secondAttribute="bottom" constant="8" symbolic="YES" id="iAy-AG-ruC"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="jry-fJ-SCl"/>
+                    <navigationItem key="navigationItem" title="Enter to chat" id="jry-fJ-SCl"/>
                     <connections>
                         <outlet property="containerView" destination="GDr-xe-IPV" id="8GX-jv-F47"/>
                         <outlet property="loginButton" destination="XZB-oB-ALf" id="eUt-Gm-Mg4"/>
@@ -88,18 +88,18 @@
             <objects>
                 <viewController storyboardIdentifier="SplashScreenViewController" id="fTT-hF-MQc" customClass="SplashScreenViewController" customModule="sample_chat_swift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EZX-ib-YN1">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="qb-logo" translatesAutoresizingMaskIntoConstraints="NO" id="Z6h-W8-Ivb">
-                                <rect key="frame" x="157.5" y="354.5" width="99" height="99"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="qb-logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="Z6h-W8-Ivb">
+                                <rect key="frame" x="157.5" y="398.5" width="99" height="99"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="99" id="N2Z-bQ-Nf6"/>
                                     <constraint firstAttribute="height" constant="99" id="jZw-xm-vcD"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swift Chat Sample" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WcH-tv-C3o">
-                                <rect key="frame" x="107" y="745" width="200" height="29"/>
+                                <rect key="frame" x="107" y="833" width="200" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="29" id="ZZ6-yh-Pna"/>
                                     <constraint firstAttribute="width" constant="200" id="oSp-dE-qAy"/>
@@ -108,33 +108,17 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eKk-aE-gnE">
-                                <rect key="frame" x="108" y="58" width="198" height="40"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="IEf-ZP-ddo"/>
-                                    <constraint firstAttribute="width" constant="198" id="vkc-aw-Zw6"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WFr-y0-qrD"/>
                         <color key="backgroundColor" red="0.22164413329999999" green="0.47138309480000001" blue="0.98696607349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="WcH-tv-C3o" secondAttribute="bottom" constant="34" id="cPI-y3-Dto"/>
-                            <constraint firstItem="eKk-aE-gnE" firstAttribute="centerX" secondItem="EZX-ib-YN1" secondAttribute="centerX" id="hWM-5P-XGN"/>
-                            <constraint firstItem="eKk-aE-gnE" firstAttribute="top" secondItem="WFr-y0-qrD" secondAttribute="top" constant="58" id="huH-dl-PS9"/>
                             <constraint firstItem="WcH-tv-C3o" firstAttribute="centerX" secondItem="EZX-ib-YN1" secondAttribute="centerX" id="loE-bJ-40P"/>
                             <constraint firstItem="Z6h-W8-Ivb" firstAttribute="centerY" secondItem="EZX-ib-YN1" secondAttribute="centerY" id="pSA-2W-yaH"/>
                             <constraint firstItem="Z6h-W8-Ivb" firstAttribute="centerX" secondItem="EZX-ib-YN1" secondAttribute="centerX" id="pws-e0-0oi"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="9J5-x1-HUO"/>
-                    <connections>
-                        <outlet property="loginInfoLabel" destination="eKk-aE-gnE" id="LeS-XQ-05v"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Du-Pj-EKl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -146,7 +130,7 @@
                 <navigationController storyboardIdentifier="AuthNavVC" automaticallyAdjustsScrollViewInsets="NO" id="4rn-OB-09I" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" shadowImage="navbar-shadow" id="Bhs-xe-llp">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.22164413329999999" green="0.47138309480000001" blue="0.98696607349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
@@ -162,10 +146,9 @@
         <!--Navigation Controller-->
         <scene sceneID="OoD-8F-N0e">
             <objects>
-                <navigationController storyboardIdentifier="SplashNavVC" automaticallyAdjustsScrollViewInsets="NO" id="ZpA-u0-Lj0" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SplashNavVC" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="ZpA-u0-Lj0" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="3rb-Yi-FZo">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.22164413332939148" green="0.47138309478759766" blue="0.98696607351303101" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
@@ -181,6 +164,6 @@
     </scenes>
     <resources>
         <image name="navbar-shadow" width="1" height="23"/>
-        <image name="qb-logo" width="99" height="99"/>
+        <image name="qb-logo.png" width="99" height="99"/>
     </resources>
 </document>

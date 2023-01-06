@@ -232,7 +232,7 @@ class ChatCollectionViewFlowLayout: UICollectionViewFlowLayout {
             assert(maximumWidth >= 0.0, "Maximum width cannot be a negative nuber. Please check your maxWidthMarginSpace value.")
             
             let dynamicSize = chatDelegate.collectionView(chatCollectionView, dynamicSizeAt: indexPath, maxWidth: maximumWidth - horizontalInsetsTotal)
-
+            
             let verticalContainerInsets = layoutModel.containerInsets.top + layoutModel.containerInsets.bottom + layoutModel.timeLabelHeight + 6.0
             
             let additionalSpace = layoutModel.spaceBetweenTopLabelAndTextView

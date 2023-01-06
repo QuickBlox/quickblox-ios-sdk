@@ -120,7 +120,7 @@ extension QBChatMessage {
         return attachments?.isEmpty == false
     }
     
-    var isNotificationMessage: Bool {
+    var isNotification: Bool {
         return customParameters[Key.notificationType] != nil
     }
     
@@ -133,21 +133,21 @@ extension QBChatMessage {
     }
     
     var isNotificationMessageTypeCreate: Bool {
-        if isNotificationMessage == false {
+        if isNotification == false {
             return false
         }
         return customParameters[Key.notificationType] as? String == NotificationType.createGroupDialog.rawValue
     }
     
     var isNotificationMessageTypeAdding: Bool {
-        if isNotificationMessage == false {
+        if isNotification == false {
             return false
         }
         return customParameters[Key.notificationType] as? String == NotificationType.addUsersToGroupDialog.rawValue
     }
     
     var isNotificationMessageTypeLeave: Bool {
-        if isNotificationMessage == false {
+        if isNotification == false {
             return false
         }
         return customParameters[Key.notificationType] as? String == NotificationType.leaveGroupDialog.rawValue

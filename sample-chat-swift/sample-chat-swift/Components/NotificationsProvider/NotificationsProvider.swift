@@ -49,6 +49,13 @@ class NotificationsProvider: NSObject {
         }
     }
     
+    static func clearSubscription(withCompletion completion:@escaping () -> Void) {
+        UserDefaults.standard.removeObject(forKey: NotificationsConstant.token)
+        deleteLastSubscription{
+            completion()
+        }
+    }
+    
     static func createSubscription(withToken token: Data) {
         guard let deviceUUID = UIDevice.current.identifierForVendor?.uuidString else {
             return
@@ -83,17 +90,17 @@ class NotificationsProvider: NSObject {
     
    static func deleteLastSubscription(withCompletion completion:@escaping () -> Void) {
        let userDefaults = UserDefaults.standard
-       guard let lastSubscriptionId = userDefaults.object(forKey: NotificationsConstant.subscriptionID) as? NSNumber  else {
+       defer {
            completion()
+       }
+       guard let lastSubscriptionId = userDefaults.object(forKey: NotificationsConstant.subscriptionID) as? NSNumber  else {
            return
        }
        QBRequest.deleteSubscription(withID: lastSubscriptionId.uintValue) { (response) in
            userDefaults.removeObject(forKey: NotificationsConstant.subscriptionID)
            debugPrint("[\(NotificationsProvider.className)] \(#function) Unregister Subscription request - Success")
-           completion()
        } errorBlock: { (response) in
            debugPrint("[\(NotificationsProvider.className)] \(#function) Unregister Subscription request - Error")
-           completion()
        }
    }
 }

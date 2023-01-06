@@ -22,6 +22,13 @@ class DialogsSelectionViewController: DialogListViewController {
     var message: QBChatMessage?
     internal var senderID: UInt = 0
     
+    //MARK: - Life Cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupDialogs()
+    }
+    
     //MARK - Setup
     override func setupNavigationBar() {
         guard currentUser.isFull == true else {
@@ -167,8 +174,6 @@ class DialogsSelectionViewController: DialogListViewController {
     override func configure(cell: DialogCell, for indexPath: IndexPath) {
         tableView.allowsMultipleSelection = true
         cell.checkBoxView.isHidden = false
-        cell.unreadMessageCounterLabel.isHidden = true
-        cell.unreadMessageCounterHolder.isHidden = true
         cell.lastMessageDateLabel.isHidden = true
         
         if self.selectedPaths.contains(indexPath) {
