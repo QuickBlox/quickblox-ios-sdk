@@ -13,32 +13,19 @@ class DialogsNavigationController: UINavigationController { }
 
 class PresenterViewController: UIViewController {
     //MARK: - Properties
-    var current: UIViewController!
-    let notificationsProvider = NotificationsProvider()
-
+    private var current: UIViewController!
+    private var dialogsScreen: DialogsNavigationController!
+    private let notificationsProvider = NotificationsProvider()
+    private let profile = Profile()
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        profile.isFull == false ? showLoginScreen() : showDialogsScreen()
         notificationsProvider.delegate = self
-        showSplashScreen()
     }
     
     //MARK: - Internal Methods
-    private func showSplashScreen() {
-        guard let splashVC = Screen.splashScreenController() else {
-            return
-        }
-        splashVC.onSignIn = { [weak self] in
-            self?.showLoginScreen()
-        }
-        splashVC.onCompleteAuth = { [weak self] in
-            self?.showDialogsScreen()
-        }
-        current = splashVC
-        changeCurrentViewController(current)
-    }
-    
     private func showLoginScreen() {
         guard let authVC = Screen.authViewController() else {
             return
@@ -48,18 +35,27 @@ class PresenterViewController: UIViewController {
         }
         let authNavVC = AuthNavigationController(rootViewController: authVC)
         authNavVC.navigationTitleColor(.white)
+        if current == nil {
+            current = authNavVC
+        }
         changeCurrentViewController(authNavVC)
     }
     
     private func showDialogsScreen() {
-        guard let dialogsVC = Screen.dialogsViewController() else {
-            return
-        }
-        let dialogsScreen = DialogsNavigationController(rootViewController: dialogsVC)
-        dialogsVC.onSignIn = { [weak self] in
-            self?.showLoginScreen()
+        if dialogsScreen == nil {
+            guard let dialogsVC = Screen.dialogsViewController() else {
+                return
+            }
+            dialogsVC.onSignOut = { [weak self] in
+                self?.showLoginScreen()
+                self?.dialogsScreen = nil
+            }
+            dialogsScreen = DialogsNavigationController(rootViewController: dialogsVC)
         }
         dialogsScreen.navigationTitleColor(.white)
+        if current == nil {
+            current = dialogsScreen
+        }
         changeCurrentViewController(dialogsScreen)
         notificationsProvider.registerForRemoteNotifications()
     }

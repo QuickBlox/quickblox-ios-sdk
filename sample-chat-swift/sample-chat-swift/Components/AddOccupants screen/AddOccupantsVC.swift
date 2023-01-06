@@ -65,7 +65,6 @@ class AddOccupantsVC: UIViewController {
         
         navigationItem.titleView = titleView
         setupNavigationTitle()
-        chatManager.delegate = self
         searchBarView.delegate = self
 
         let createButtonItem = UIBarButtonItem(title: "Done",
@@ -96,6 +95,19 @@ class AddOccupantsVC: UIViewController {
             showNoInternetAlert(handler: nil)
             return
         }
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateDialog),
+                                               name: ChatManagerConstant.didUpdateChatDialog,
+                                               object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self,
+                                                  name: ChatManagerConstant.didUpdateChatDialog,
+                                                  object: nil)
     }
     
     //MARK: - UI Configuration
@@ -136,6 +148,17 @@ class AddOccupantsVC: UIViewController {
     
     private func checkCreateChatButtonState() {
         navigationItem.rightBarButtonItem?.isEnabled = users.selected.isEmpty == true ? false : true
+    }
+    
+    @objc private func updateDialog(notification: Notification) {
+        guard let chatDialogId = notification.userInfo?[ChatManagerConstant.didUpdateChatDialogKey] as? String,
+              chatDialogId == dialogID,
+              let chatDialog = chatManager.storage.dialog(withID: dialogID),
+              let occupantIDs = chatDialog.occupantIDs else {
+            return
+        }
+        dialog = chatDialog
+        current.userList.nonDisplayedUsers = occupantIDs.map({ $0.uintValue})
     }
     
     //MARK: - Actions
@@ -194,24 +217,5 @@ extension AddOccupantsVC: SearchBarViewDelegate {
     
     func searchBarView(_ searchBarView: SearchBarView, didCancelSearchButtonTapped sender: UIButton) {
         showFetchScreen()
-    }
-}
-
-// MARK: - ChatManagerDelegate
-extension AddOccupantsVC: ChatManagerDelegate {
-    func chatManager(_ chatManager: ChatManager, didUpdateChatDialog chatDialog: QBChatDialog) {
-        if chatDialog.id == dialogID, let occupantIDs = dialog.occupantIDs  {
-            dialog = chatDialog
-            current.userList.nonDisplayedUsers = occupantIDs.map({ $0.uintValue})
-        }
-    }
-    
-    func chatManagerWillUpdateStorage(_ chatManager: ChatManager) {
-    }
-    
-    func chatManager(_ chatManager: ChatManager, didFailUpdateStorage message: String) {
-    }
-    
-    func chatManager(_ chatManager: ChatManager, didUpdateStorage message: String) {
     }
 }

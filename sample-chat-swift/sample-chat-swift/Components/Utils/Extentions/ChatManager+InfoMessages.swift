@@ -21,6 +21,9 @@ extension ChatManager {
                                                dialog: dialog,
                                                notification: .leaveGroupDialog,
                                                currentUser: currentUser)
+        if dialog.type == .private {
+            chatMessage.customParameters[Key.saveToHistory] = false
+        }
         send(chatMessage, toDialog: dialog) { error in
             if let error = error {
                 debugPrint("[ChatManager] \(#function) error: \(error.localizedDescription)")
@@ -38,9 +41,9 @@ extension ChatManager {
         let currentUser = Profile()
         guard currentUser.isFull == true,
               let dialogName = dialog.name,
-              let usersIDs = dialog.occupantIDs?.filter({ $0.uintValue != currentUser.ID }) else {
-                  return
-              }
+              let usersIDs = dialog.occupantIDs else {
+            return
+        }
         let chatMessage = configureChatMessage(messageText(withChatName: dialogName),
                                                dialog: dialog,
                                                notification: .createGroupDialog,
@@ -55,6 +58,27 @@ extension ChatManager {
             }
             completion?(error)
             self.send(systemMessage, to: usersIDs)
+        }
+    }
+    
+    /// Sending an info message to the Private dialog about creation for carbon user.
+    /// - Parameters:
+    ///   - dialog: The dialog to which the info to be sent.
+    func sendCreate(to privateDialog: QBChatDialog) {
+        let currentUser = Profile()
+        guard currentUser.isFull == true else {
+            return
+        }
+        let infoMessage = QBChatMessage()
+        infoMessage.senderID = currentUser.ID
+        infoMessage.dialogID = privateDialog.id
+        infoMessage.dateSent = Date()
+        infoMessage.customParameters[Key.saveToHistory] = false
+        infoMessage.customParameters[Key.notificationType] = NotificationType.createGroupDialog.rawValue
+        send(infoMessage, toDialog: privateDialog) { error in
+            if let error = error {
+                debugPrint("[ChatManager] \(#function) error: \(error.localizedDescription)")
+            }
         }
     }
     

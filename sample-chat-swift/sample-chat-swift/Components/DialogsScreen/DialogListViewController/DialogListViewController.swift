@@ -10,63 +10,17 @@ import UIKit
 import Quickblox
 
 struct DialogsConstant {
-    static let dialogsPageLimit:Int = 100
+    static let dialogsPageLimit:Int = 20
     static let deleteChats = "Delete Chats"
     static let forward = "Forward to"
     static let chats = "Chats"
 }
 
-class DialogTableViewCellModel: NSObject {
-    
-    //MARK: - Properties
-    var text: String = ""
-    var unreadMessagesCounter: String?
-    var isHiddenUnreadMessagesCounter = true
-    var dialogIcon : UIImage?
-    
-    //MARK: - Life Cycle
-    init(dialog: QBChatDialog) {
-        super.init()
-        
-        text = dialog.name ?? "UN"
-        // Unread messages counter label
-        if dialog.unreadMessagesCount > 0 {
-            var trimmedUnreadMessageCount = ""
-            
-            if dialog.unreadMessagesCount > 99 {
-                trimmedUnreadMessageCount = "99+"
-            } else {
-                trimmedUnreadMessageCount = String(format: "%d", dialog.unreadMessagesCount)
-            }
-            unreadMessagesCounter = trimmedUnreadMessageCount
-            isHiddenUnreadMessagesCounter = false
-        } else {
-            unreadMessagesCounter = nil
-            isHiddenUnreadMessagesCounter = true
-        }
-        
-        if dialog.type == .private {
-            if dialog.recipientID == -1 {
-                return
-            }
-            // Getting recipient from users.
-            if let recipient = ChatManager.instance.storage.user(withID: UInt(dialog.recipientID)),
-               let fullName = recipient.fullName {
-                self.text = fullName
-            } else {
-                ChatManager.instance.loadUser(UInt(dialog.recipientID)) { [weak self] (user) in
-                    self?.text = user?.fullName ?? user?.login ?? ""
-                }
-            }
-        }
-    }
-}
-
 class DialogListViewController: UITableViewController {
     //MARK: - Properties
-     let chatManager = ChatManager.instance
-     var dialogs: [QBChatDialog] = []
-     let currentUser = Profile()
+    let chatManager = ChatManager.instance
+    var dialogs: [QBChatDialog] = []
+    let currentUser = Profile()
     lazy var progressView: ProgressView = {
         let progressView = ProgressView.loadNib()
         return progressView
@@ -75,22 +29,11 @@ class DialogListViewController: UITableViewController {
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tableView.register(UINib(nibName: DialogCellConstant.reuseIdentifier, bundle: nil),
                            forCellReuseIdentifier: DialogCellConstant.reuseIdentifier)
         setupNavigationBar()
         setupNavigationTitle()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        setupDialogs()
-        
-        if QBChat.instance.isConnected == false {
-            showNoInternetAlert(handler: nil)
-            return
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -144,18 +87,18 @@ class DialogListViewController: UITableViewController {
         cell.tag = indexPath.row
         
         let chatDialog = dialogs[indexPath.row]
-        let cellModel = DialogTableViewCellModel(dialog: chatDialog)
-        cell.dialogName.text = cellModel.text
-        cell.dialogAvatarLabel.backgroundColor = UInt(chatDialog.createdAt!.timeIntervalSince1970).generateColor()
-        cell.dialogAvatarLabel.text = String(cellModel.text.stringByTrimingWhitespace().capitalized.first ?? Character("C"))
+        cell.dialogName.text = chatDialog.title
+        cell.dialogAvatarLabel.backgroundColor = chatDialog.avatarColor
+        cell.dialogAvatarLabel.text = chatDialog.avatarCharacter
         cell.dialogLastMessage.text = chatDialog.lastMessageText
         if let dateSend = chatDialog.lastMessageDate {
             cell.lastMessageDateLabel.text = dateSend.setupDate()
         } else if let dateUpdate = chatDialog.updatedAt {
             cell.lastMessageDateLabel.text = dateUpdate.setupDate()
         }
-        cell.unreadMessageCounterLabel.text = cellModel.unreadMessagesCounter
-        cell.unreadMessageCounterHolder.isHidden = cellModel.isHiddenUnreadMessagesCounter
+        
+        cell.unreadMessageCounterLabel.isHidden = true
+        cell.unreadMessageCounterHolder.isHidden = true
         
         // Can be overridden in a child class.
         configure(cell: cell, for: indexPath)

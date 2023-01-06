@@ -10,12 +10,22 @@ import UIKit
 import Quickblox
 import SystemConfiguration
 
-typealias CompletionAction = (() -> Void)
-typealias DisconnectionAction = ((Bool?) -> Void)
-
 struct ConnectionConstant {
-    static let noInternetConnection = "Still in connecting state, please wait"
+    static let connectingState = "Still in connecting state, please wait"
+    static let reconnectingState = "Reconnecting state, please wait"
     static let connectionEstablished = "Connection established"
+    static let noInternetConnection = "No Internet Connection"
+}
+
+typealias CompletionAction = (() -> Void)
+
+@objc protocol ConnectionModuleDelegate: AnyObject {
+    @objc optional func connectionModuleWillConnect(_ connectionModule: ConnectionModule)
+    @objc optional func connectionModuleDidConnect(_ connectionModule: ConnectionModule)
+    @objc optional func connectionModuleDidNotConnect(_ connectionModule: ConnectionModule, error: Error)
+    @objc optional func connectionModuleWillReconnect(_ connectionModule: ConnectionModule)
+    @objc optional func connectionModuleDidReconnect(_ connectionModule: ConnectionModule)
+    @objc optional func connectionModuleTokenHasExpired(_ connectionModule: ConnectionModule)
 }
 
 /// The module is responsible for automatic connection establishment with QuickBlox.
@@ -32,26 +42,13 @@ class ConnectionModule: NSObject {
         if tokenHasExpired == false, QBChat.instance.isConnected {
             connected = true
         }
-        
-        if connected == false {
-            establishConnection()
-        }
         return connected
     }
-    /// The authorization process running.
-    private(set) var isProcessing: Bool = false
     /// Determining the "QBSession" token state.
     var tokenHasExpired: Bool {
         return QBSession.current.tokenHasExpired
     }
-
-    /// Called when authorization complete.
-    var onAuthorize: CompletionAction?
-    /// Called when the connection was established or re-established.
-    var onConnect: CompletionAction?
-    /// Called when connection lost.
-    var onDisconnect: DisconnectionAction?
-
+    weak var delegate: ConnectionModuleDelegate?
     private var appActiveStateObserver: Any?
     private var appInactiveStateObserver: Any?
     
@@ -67,15 +64,11 @@ class ConnectionModule: NSObject {
         return flags.contains(.reachable)
     }
     
-    private var activeCall: Bool = false
-    
-    
     //MARK: - Life Cycle
     override init() {
         super.init()
         
         QBSettings.autoReconnectEnabled = true
-        QBSettings.networkIndicatorManagerEnabled = true
         QBChat.instance.addDelegate(self)
     }
     
@@ -93,10 +86,10 @@ class ConnectionModule: NSObject {
             $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
                 SCNetworkReachabilityCreateWithAddress(nil, $0)
             }
-        })
+       })
         return isReachability
     }
-
+    
     func setupAppActiveStateObserver() {
         if appActiveStateObserver != nil {
             return
@@ -106,9 +99,9 @@ class ConnectionModule: NSObject {
                                                     object: nil,
                                                     queue: OperationQueue.main,
                                                     using: { [weak self] (note) in
-                                                        guard let self = self else { return }
-                                                        self.establishConnection()
-                                                    })
+            guard let self = self else { return }
+            self.establish()
+        })
     }
     
     func setupAppInactiveStateObserver() {
@@ -120,35 +113,18 @@ class ConnectionModule: NSObject {
                                                       object: nil,
                                                       queue: OperationQueue.main,
                                                       using: { [weak self] (note) in
-                                                        guard let self = self else { return }
-                                                        if self.activeCall == true { return }
-                                                        self.disconnect()
-                                                      })
+            guard let self = self else { return }
+            self.disconnect()
+        })
     }
-
+    
     /// Activating the automatic connection and disconnection process when the application state change.
     ///
     /// Calling this method starts the connection process when it's not established.
     func activateAutomaticMode() {
         setupAppActiveStateObserver()
-        
         setupAppInactiveStateObserver()
-        
-        establishConnection()
-    }
-    
-    /// Prevents breaking connection when the application state change.
-    func activateCallMode() {
-        activeCall = true
-    }
-    
-    /// Break connection when application state is inactive.
-    func deactivateCallMode() {
-        activeCall = false
-        if UIApplication.shared.applicationState == .active {
-            return
-        }
-        disconnect()
+        establish()
     }
     
     /// Stop trying connection automatically.
@@ -159,12 +135,32 @@ class ConnectionModule: NSObject {
     }
     
     /// Establishes a connection with the Quickblox.
-    func establishConnection() {
-        let profile = Profile()
-        guard profile.isFull else {
+     func establish() {
+        guard tokenHasExpired == false,
+              let sessionToken = QBSession.current.sessionDetails?.token,
+              let userId = QBSession.current.sessionDetails?.userID else {
+            disconnect()
+            delegate?.connectionModuleTokenHasExpired?(self)
             return
         }
-        self.connect(withId: profile.ID, password: profile.password)
+        
+        if QBChat.instance.isConnected {
+            delegate?.connectionModuleDidConnect?(self)
+            return
+        }
+        
+        delegate?.connectionModuleWillConnect?(self)
+        
+        QBChat.instance.connect(withUserID: userId, password: sessionToken) { [weak self] (error) in
+            guard let self = self else {
+                return
+            }
+            if let error = error, error._code != ErrorCode.alreadyConnectedCode {
+                self.delegate?.connectionModuleDidNotConnect?(self, error: error)
+                return
+            }
+            self.delegate?.connectionModuleDidConnect?(self)
+        }
     }
     
     /// Disconnects and unauthorize from the Quickblox.
@@ -173,36 +169,13 @@ class ConnectionModule: NSObject {
             completion()
             return
         }
-        if isProcessing {
-            completion()
-            return
-        }
-        isProcessing = true
         
-        QBChat.instance.disconnect { [weak self] (error) in
-            self?.logout(withCompletion: completion)
+        QBChat.instance.disconnect { (error) in
+            completion()
         }
     }
     
     //MARK: - Internal
-    private func logout(withCompletion completion:@escaping CompletionAction) {
-        QBRequest.logOut(successBlock: { [weak self] response in
-            self?.isProcessing = false
-            completion()
-        }) {  [weak self] response in
-            self?.isProcessing = false
-            completion()
-        }
-    }
-
-    private func connect(withId userID:UInt, password: String) {
-        if QBChat.instance.isConnected || QBChat.instance.isConnecting {
-            return
-        }
-        QBChat.instance.connect(withUserID: userID, password: password, completion: nil)
-        return
-    }
-    
     private func disconnect() {
         if QBChat.instance.isConnected == false { return }
         QBChat.instance.disconnect(completionBlock: nil)
@@ -211,20 +184,21 @@ class ConnectionModule: NSObject {
 
 //MARK: - QBChatDelegate
 extension ConnectionModule: QBChatDelegate {
-    func chatDidConnect() {
-        onConnect?()
-    }
-    
     func chatDidNotConnectWithError(_ error: Error) {
-        onDisconnect?(isNetwork)
+        delegate?.connectionModuleDidNotConnect?(self, error: error)
     }
     
     func chatDidDisconnectWithError(_ error: Error?) {
-        guard error != nil else { return }
-        onDisconnect?(isNetwork)
+        if let error = error {
+            delegate?.connectionModuleDidNotConnect?(self, error: error)
+        }
+    }
+    
+    func chatDidAccidentallyDisconnect() {
+        delegate?.connectionModuleWillReconnect?(self)
     }
     
     func chatDidReconnect() {
-        onConnect?()
+        delegate?.connectionModuleDidReconnect?(self)
     }
 }

@@ -1,16 +1,16 @@
 PODS:
-  - QuickBlox (2.17.11)
+  - QuickBlox (2.18.1)
 
 DEPENDENCIES:
-  - QuickBlox (~> 2.17.10)
+  - QuickBlox (~> 2.18)
 
 SPEC REPOS:
   trunk:
     - QuickBlox
 
 SPEC CHECKSUMS:
-  QuickBlox: 37d2eb7d791782469ba14fa40122633185944c01
+  QuickBlox: 579356f4ed04a74f345614cf00f002c2db303103
 
-PODFILE CHECKSUM: ae6d6dbcf0fc071e7c03c0aa20c17fee809daf05
+PODFILE CHECKSUM: 20ea051dc0bce748206f2306f8070b8dcc87adf0
 
 COCOAPODS: 1.11.3

@@ -20,13 +20,13 @@ enum NotificationType : String {
 struct ChatManagerConstant {
     static let messagesLimitPerDialog = 30
     static let usersLimit: UInt = 100
-    static let chatServiceDomain = "com.q-municate.chatservice"
     static let notFound = "Dialog has been removed"
     static let attachment = "[Attachment]"
+    static let didUpdateChatDialog = Notification.Name("com.quickblox.chatmanager.didupdatechatdialog")
+    static let didUpdateChatDialogKey = "chatDialogId"
 }
 
 protocol ChatManagerDelegate: AnyObject {
-    func chatManagerWillUpdateStorage(_ chatManager: ChatManager)
     func chatManager(_ chatManager: ChatManager, didFailUpdateStorage message: String)
     func chatManager(_ chatManager: ChatManager, didUpdateStorage message: String)
     func chatManager(_ chatManager: ChatManager, didUpdateChatDialog chatDialog: QBChatDialog)
@@ -67,20 +67,14 @@ class ChatManager: NSObject {
     
     //MARK: - Public Methods
     func updateStorage() {
-        self.delegate?.chatManagerWillUpdateStorage(self)
-        if QBChat.instance.isConnected == false {
-            delegate?.chatManager(self, didFailUpdateStorage: ConnectionConstant.noInternetConnection)
-            return
-        }
+        storage.dialogs.removeAll()
         var message = ""
         updateAllDialogs(withPageLimit: DialogsConstant.dialogsPageLimit,
                          completion: { (response: QBResponse?) -> Void in
             if let response = response {
                 message = self.errorMessage(response: response) ?? ""
             }
-            if message.isEmpty {
-                self.delegate?.chatManager(self, didUpdateStorage: "Completed")
-            } else {
+            if message.isEmpty == false {
                 self.delegate?.chatManager(self, didFailUpdateStorage: message)
             }
         })
@@ -138,12 +132,12 @@ class ChatManager: NSObject {
                 if let error = error {
                     debugPrint("[ChatStorage] \(#function) dialog.join error: \(error.localizedDescription)")
                 }
-                //Notify about create new dialog
+                //Notify about create new group dialog
                 self.sendCreate(to: dialog) { error in
                     if let error = error {
                         debugPrint("[ChatStorage] \(#function) dialog.join error: \(error.localizedDescription)")
                     }
-                    self.storage.update(dialogs:[dialog]) {
+                    self.storage.update([dialog]) {
                         let message = "created the group chat " + dialog.name!
                         self.delegate?.chatManager(self, didUpdateStorage: message)
                         completion?(error?.localizedDescription, dialog)
@@ -158,7 +152,11 @@ class ChatManager: NSObject {
     
     func createPrivateDialog(withOpponent opponent: QBUUser,
                              completion: DialogCompletion? = nil) {
-        assert(opponent.id > 0, "Incorrect user ID")
+        if opponent.id <= 0 {
+            debugPrint("[ChatManager] \(#function) error: Incorrect user ID")
+            return
+        }
+        
         if let dialog = storage.privateDialog(opponentID: opponent.id) {
             completion?(nil, dialog)
         } else {
@@ -169,10 +167,12 @@ class ChatManager: NSObject {
             let dialog = QBChatDialog(dialogID: nil, type: .private)
             dialog.occupantIDs = [NSNumber(value: opponent.id)]
             QBRequest.createDialog(dialog, successBlock: { response, createdDialog in
-                self.storage.update(dialogs:[createdDialog]) {
+                self.storage.update([createdDialog]) {
                     let message = "created the private chat with " + (opponent.fullName ?? "QBUser")
                     self.delegate?.chatManager(self, didUpdateStorage: message)
                     completion?(nil, createdDialog)
+                    //Notify carbon user about create new private dialog
+                    self.sendCreate(to: createdDialog)
                 }
             }, errorBlock: { response in
                 debugPrint("[ChatManager] \(#function) error: \(self.errorMessage(response: response) ?? "")")
@@ -188,39 +188,42 @@ class ChatManager: NSObject {
             completion?("Dialogue not found")
             return
         }
-        
         switch dialog.type {
         case .private:
-            QBRequest.deleteDialogs(withIDs: Set([dialogId]),
-                                    forAllUsers: false,
-                                    successBlock: {
-                response,
-                deletedObjectsIDs, notFoundObjectsIDs, wrongPermissionsObjectsIDs in
-                self.storage.deleteDialog(withID: dialogId) {
-                    self.delegate?.chatManager(self, didUpdateStorage: "Completed")
-                    completion?(nil)
-                }
-            }, errorBlock: { response in
-                if (response.status == .notFound || response.status == .forbidden), dialog.type != .publicGroup {
+            sendLeave(dialog) { error in
+                QBRequest.deleteDialogs(withIDs: Set([dialogId]),
+                                        forAllUsers: false,
+                                        successBlock: {
+                    response,
+                    deletedObjectsIDs, notFoundObjectsIDs, wrongPermissionsObjectsIDs in
                     self.storage.deleteDialog(withID: dialogId) {
                         self.delegate?.chatManager(self, didUpdateStorage: "Completed")
-                        completion?(nil)
-                    }
-                }
-                let errorMessage = self.errorMessage(response: response)
-                self.delegate?.chatManager(self, didFailUpdateStorage: errorMessage ?? "")
-                completion?(errorMessage)
-            })
-        case .group:
-            sendLeave(dialog) { error in
-                dialog.pullOccupantsIDs = [(NSNumber(value: currentUser.ID)).stringValue]
-                QBRequest.update(dialog, successBlock: { (response, dialog) in
-                    self.storage.deleteDialog(withID: dialogId) {
                         completion?(nil)
                     }
                 }, errorBlock: { response in
                     if (response.status == .notFound || response.status == .forbidden), dialog.type != .publicGroup {
                         self.storage.deleteDialog(withID: dialogId) {
+                            self.delegate?.chatManager(self, didUpdateStorage: "Completed")
+                            completion?(nil)
+                        }
+                    }
+                    let errorMessage = self.errorMessage(response: response)
+                    self.delegate?.chatManager(self, didFailUpdateStorage: errorMessage ?? "")
+                    completion?(errorMessage)
+                })
+            }
+        case .group:
+            sendLeave(dialog) { error in
+                dialog.pullOccupantsIDs = [(NSNumber(value: currentUser.ID)).stringValue]
+                QBRequest.update(dialog, successBlock: { (response, dialog) in
+                    self.storage.deleteDialog(withID: dialogId) {
+                        self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
+                        completion?(nil)
+                    }
+                }, errorBlock: { response in
+                    if (response.status == .notFound || response.status == .forbidden), dialog.type != .publicGroup {
+                        self.storage.deleteDialog(withID: dialogId) {
+                            self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
                             completion?(nil)
                         }
                     }
@@ -240,7 +243,7 @@ class ChatManager: NSObject {
         let responsePage = QBResponsePage(limit: 1, skip: 0)
         let extendedRequest = ["_id": dialogID]
         QBRequest.dialogs(for: responsePage, extendedRequest: extendedRequest,
-                             successBlock: { response, dialogs, dialogsUsersIDs, page in
+                          successBlock: { response, dialogs, dialogsUsersIDs, page in
             guard let chatDialog = dialogs.first else {
                 completion(nil)
                 return
@@ -262,27 +265,35 @@ class ChatManager: NSObject {
         })
     }
     
+    private func update(_ dialog: QBChatDialog) {
+        storage.update([dialog]) {
+            self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
+            self.postNotificationDidUpdateChatDialog(dialog.id)
+        }
+    }
+    
     private func prepareDialog(with dialogID: String, with message: QBChatMessage) {
         let currentUser = Profile()
+        if currentUser.isFull == false {
+            return
+        }
         if let dialog = storage.dialog(withID: dialogID) {
             dialog.updatedAt = message.dateSent
             dialog.lastMessageDate = message.dateSent
-            dialog.lastMessageText = message.text
-            if currentUser.isFull == true,
-               message.senderID != currentUser.ID {
-                dialog.unreadMessagesCount = dialog.unreadMessagesCount + 1
-            }
             
-            if message.attachments?.isEmpty == false {
-                dialog.lastMessageText = "[Attachment]"
-            }
-            if let notificationType = message.customParameters[Key.notificationType] as? String {
+            if message.isNotification,
+               let notificationType = message.customParameters[Key.notificationType] as? String {
                 switch(notificationType) {
-                case NotificationType.addUsersToGroupDialog.rawValue, NotificationType.createGroupDialog.rawValue:
+                case NotificationType.addUsersToGroupDialog.rawValue:
                     if let occupantIDs = dialog.occupantIDs,
                        let strIDs = message.customParameters[Key.newOccupantsIds] as? String {
-                        let strArray: [String] = strIDs.components(separatedBy: ",")
                         
+                        dialog.lastMessageText = message.text
+                        if (dialog.type == .group || dialog.type == .private) && message.senderID != currentUser.ID {
+                            dialog.unreadMessagesCount = dialog.unreadMessagesCount + 1
+                        }
+                        
+                        let strArray: [String] = strIDs.components(separatedBy: ",")
                         var newOccupantIDs: [NSNumber] = []
                         var missingOccupantIDs: [NSNumber] = []
                         for strID in strArray {
@@ -296,64 +307,84 @@ class ChatManager: NSObject {
                                 }
                             }
                         }
-                        
+                        if newOccupantIDs.isEmpty == true {
+                            self.storage.update([dialog])
+                            break
+                        }
                         if missingOccupantIDs.isEmpty == false {
                             let missingOccupantIDStrArray = missingOccupantIDs.map({ $0.stringValue })
                             QBRequest.users(withIDs: missingOccupantIDStrArray, page: nil, successBlock: { (response, page, newUsers) in
                                 self.storage.update(users: newUsers)
-                                dialog.occupantIDs = occupantIDs + newOccupantIDs
-                                dialog.occupantIDs = occupantIDs + newOccupantIDs
-                                self.storage.update(dialogs: [dialog]) {
-                                    self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
-                                }
+                                dialog.occupantIDs = Array(Set(occupantIDs).union(Set(newOccupantIDs)))
+                                self.update(dialog)
                             }, errorBlock: { response in
                                 debugPrint("[ChatManager] \(#function) error: \(self.errorMessage(response: response) ?? "")")
                             })
                         } else {
-                            dialog.occupantIDs = occupantIDs + newOccupantIDs
-                            self.storage.update(dialogs: [dialog]) {
-                                self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
-                            }
+                            dialog.occupantIDs = Array(Set(occupantIDs).union(Set(newOccupantIDs)))
+                            update(dialog)
                         }
                     }
                 case NotificationType.leaveGroupDialog.rawValue:
-                    if var occupantIDs = dialog.occupantIDs,
-                       occupantIDs.contains(NSNumber(value: message.senderID)) == true {
+                    if message.senderID != currentUser.ID, dialog.type == .private {
+                        break
+                    }
+                    
+                    if message.senderID == currentUser.ID, let dialogId = dialog.id {
+                        storage.deleteDialog(withID: dialogId) {
+                            self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
+                            self.postNotificationDidUpdateChatDialog(dialog.id)
+                        }
+                        break
+                    }
+                    guard let dialogOccupantIDs = dialog.occupantIDs else {
+                        break
+                    }
+                    dialog.lastMessageText = message.text
+                    if (dialog.type == .group || dialog.type == .private) && message.senderID != currentUser.ID {
+                        dialog.unreadMessagesCount = dialog.unreadMessagesCount + 1
+                    }
+                    var occupantIDs = dialogOccupantIDs
+                    if occupantIDs.contains(NSNumber(value: message.senderID)) == true {
                         occupantIDs = occupantIDs.filter({ $0.uintValue != message.senderID })
                         dialog.occupantIDs = occupantIDs
-                        self.storage.update(dialogs: [dialog]) {
-                            self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
-                        }
+                        update(dialog)
                     }
+                    
                 default: break
                     
                 }
             } else {
-                self.storage.update(dialogs: [dialog]) {
+                dialog.lastMessageText = message.text
+                if (dialog.type == .group || dialog.type == .private) && message.senderID != currentUser.ID {
+                    dialog.unreadMessagesCount = dialog.unreadMessagesCount + 1
+                }
+                if message.attachments?.isEmpty == false {
+                    dialog.lastMessageText = "[Attachment]"
+                }
+                self.storage.update([dialog]) {
                     self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
                 }
             }
         } else {
+            if message.isNotificationMessageTypeLeave {
+                return
+            }
             loadDialog(withID: dialogID, completion: { [weak self] dialog in
                 guard let self = self, let dialog = dialog else {
                     return
                 }
-                if let notificationType = message.customParameters[Key.notificationType] as? String {
-                    if dialog.type == .private {
-                        return
-                    }
-                    switch(notificationType) {
-                    case NotificationType.createGroupDialog.rawValue: dialog.unreadMessagesCount = 1
-                    case NotificationType.addUsersToGroupDialog.rawValue:break
-                    case NotificationType.leaveGroupDialog.rawValue:break
-                    default: break
-                    }
+                if dialog.type != .group {
+                    return
+                }
+                if message.isNotificationMessageTypeCreate, message.senderID != currentUser.ID {
+                    dialog.unreadMessagesCount = 1
                 }
                 if dialog.lastMessageText == nil, let lastMessageText = message.text {
                     dialog.lastMessageText = lastMessageText
                 }
                 dialog.updatedAt = Date()
-                self.storage.update(dialogs: [dialog]) {
+                self.storage.update([dialog]) {
                     self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
                 }
             })
@@ -411,10 +442,14 @@ class ChatManager: NSObject {
         dialog.send(message) { (error) in
             if let error = error {
                 completion?(error)
+                return
             }
-            dialog.updatedAt = Date()
-            self.storage.update(dialogs: [dialog])
-            self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
+            dialog.updatedAt = message.dateSent
+            dialog.lastMessageDate = message.dateSent
+            dialog.lastMessageText = message.text
+            self.storage.update([dialog]) {
+                self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
+            }
             completion?(nil)
         }
     }
@@ -445,8 +480,9 @@ class ChatManager: NSObject {
                     let badgeNumber = UIApplication.shared.applicationIconBadgeNumber
                     UIApplication.shared.applicationIconBadgeNumber = badgeNumber - 1
                 }
-                self.storage.update(dialogs: [dialog])
-                self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
+                self.storage.update([dialog]) {
+                    self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
+                }
                 completion?(nil)
             }
         }
@@ -489,8 +525,9 @@ class ChatManager: NSObject {
             }
         }
         readGroup.notify(queue: DispatchQueue.main) {
-            self.storage.update(dialogs: [dialog])
-            self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
+            self.storage.update([dialog]) {
+                self.delegate?.chatManager(self, didUpdateChatDialog: dialog)
+            }
             completion?(nil)
         }
     }
@@ -505,7 +542,7 @@ class ChatManager: NSObject {
                 if let error = error {
                     debugPrint("[ChatStorage] \(#function) dialog.join error: \(error.localizedDescription)")
                 }
-                self.storage.update(dialogs:[updatedDialog]) {
+                self.storage.update([updatedDialog]) {
                     completion(response, updatedDialog)
                 }
             }
@@ -517,19 +554,6 @@ class ChatManager: NSObject {
     
     //MARK: - Internal Methods
     //MARK: - Users
-    private func updateUsers(completion: @escaping (_ response: QBResponse?) -> Void) {
-        let firstPage = QBGeneralResponsePage(currentPage: 1, perPage: 100)
-        QBRequest.users(withExtendedRequest: ["order": "desc date last_request_at"],
-                        page: firstPage,
-                        successBlock: { (response, page, users) in
-            self.storage.update(users:users)
-            completion(response)
-        }, errorBlock: { response in
-            completion(response)
-            debugPrint("[ChatManager] \(#function) error: \(self.errorMessage(response: response) ?? "")")
-        })
-    }
-    
     private func loadUsers(_ usersIDs: [String], completion: @escaping (_ response: QBResponse?) -> Void) {
         var skip: UInt = 1
         var t_request: UsersPage?
@@ -561,24 +585,25 @@ class ChatManager: NSObject {
     
     //MARK: - Dialogs
     private func updateAllDialogs(withPageLimit limit: Int,
-                                  extendedRequest: [String: String]? = nil,
+                                  extendedParameters: [String: String]? = nil,
                                   completion: @escaping (_ response: QBResponse?) -> Void) {
         var usersForUpdate = Set<NSNumber>()
         var existingUsersIDs = storage.existingUsersIDs()
+        let extendedRequest = extendedParameters?.isEmpty == false ?
+        extendedParameters : ["sort_desc": "last_message_date_sent"]
         let updateHandler:(_ dialogs: [QBChatDialog]) -> Void = { (dialogs) in
-            self.storage.update(dialogs: dialogs) {
-                    self.delegate?.chatManager(self, didUpdateStorage: "Completed")
+            self.storage.update(dialogs) {
+                self.delegate?.chatManager(self, didUpdateStorage: "Completed")
             }
         }
-        let extendedRequest = ["sort_asc": "last_message_date_sent"]
         var t_request: DialogsPage?
         let request: DialogsPage? = { responsePage in
             QBRequest.dialogs(for: responsePage,
-                                 extendedRequest: extendedRequest,
-                                 successBlock: { response,
+                              extendedRequest: extendedRequest,
+                              successBlock: { response,
                 dialogs, dialogsUsersIDs, page in
-                
                 page.skip += dialogs.count
+                
                 let cancel = page.totalEntries <= page.skip
                 usersForUpdate = usersForUpdate.union(dialogsUsersIDs)
                 if usersForUpdate.isEmpty == false {
@@ -603,12 +628,19 @@ class ChatManager: NSObject {
                 }
             }, errorBlock: { response in
                 completion(response)
-                debugPrint("[ChatManager] updateAllDialogs error: \(self.errorMessage(response: response) ?? "")")
                 t_request = nil
             })
         }
         t_request = request
         request?(QBResponsePage(limit: limit))
+    }
+    
+    //MARK: - NotificationCenter methods
+    private func postNotificationDidUpdateChatDialog(_ chatDialogId: String?) {
+        guard let chatDialogId = chatDialogId else { return }
+        NotificationCenter.default.post(name: ChatManagerConstant.didUpdateChatDialog,
+                                        object: nil,
+                                        userInfo: [ChatManagerConstant.didUpdateChatDialogKey: chatDialogId])
     }
     
     //MARK: - Messages
@@ -627,8 +659,8 @@ class ChatManager: NSObject {
         } else {
             guard let qberror = response.error,
                   let error = qberror.error else {
-                      return nil
-                  }
+                return nil
+            }
             
             errorMessage = error.localizedDescription.replacingOccurrences(of: "(",
                                                                            with: "",

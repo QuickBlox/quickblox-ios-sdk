@@ -81,8 +81,12 @@ class ChatViewController: UIViewController, ChatContextMenu {
      */
     var dialogID: String! {
         didSet {
-            dialog = chatManager.storage.dialog(withID: dialogID)
-            dialog.joinWithCompletion { (error) in
+            guard let dialog = chatManager.storage.dialog(withID: dialogID) else {
+                goBack()
+                return
+            }
+            self.dialog = dialog
+            self.dialog.joinWithCompletion { (error) in
                 if let error = error {
                     debugPrint("Error: \(error.localizedDescription)")
                 }
@@ -173,19 +177,16 @@ class ChatViewController: UIViewController, ChatContextMenu {
                 self.setupToolbarBottom(constraintValue:inputToolBarStartPos, animated: animated)
                 return
             }
-            
-            let convertedViewPoint = superview.convert(view.frame.origin, to: view)
-            var pos = view.frame.size.height - convertedViewPoint.y
-            
+            var position = superview.frame.size.height - view.frame.origin.y
             if self.inputToolbar.contentView.textView.isFirstResponder,
                superview.frame.origin.y > 0.0,
-               pos <= 0.0 {
+               position <= 0.0 {
                 return
             }
-            if pos < inputToolBarStartPos {
-                pos = inputToolBarStartPos
+            if position < inputToolBarStartPos {
+                position = inputToolBarStartPos
             }
-            self.setupToolbarBottom(constraintValue:pos, animated: animated)
+            self.setupToolbarBottom(constraintValue:position, animated: animated)
         }
         return inputToolbar
     }()
@@ -202,12 +203,11 @@ class ChatViewController: UIViewController, ChatContextMenu {
     
     private lazy var typingView: TypingView = {
         let typingView = TypingView()
-        typingView.backgroundColor = #colorLiteral(red: 0.9565117955, green: 0.9645770192, blue: 0.9769250751, alpha: 1)
+        typingView.backgroundColor = .clear
         return typingView
     }()
     private var privateUserIsTypingTimer: Timer?
     private var stopTimer: Timer?
-    private var isOpponentTyping = false
     
     private var attachmentDownloadManager = AttachmentDownloadManager()
     lazy private var progressView: ProgressView = {
@@ -219,6 +219,8 @@ class ChatViewController: UIViewController, ChatContextMenu {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        QBChat.instance.addDelegate(self)
+        
         setupViewMessages()
         dataSource.delegate = self
         inputToolbar.inputToolbarDelegate = self
@@ -245,8 +247,6 @@ class ChatViewController: UIViewController, ChatContextMenu {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        QBChat.instance.addDelegate(self)
         
         selectedIndexPathForMenu = nil
         
@@ -302,32 +302,28 @@ class ChatViewController: UIViewController, ChatContextMenu {
                 debugPrint("[ChatViewController] requestOnlineUsers error \(error.localizedDescription)")
             }
         }
-
-        // online/offline for group and public chats
-        dialog.onJoinOccupant = { [weak self] userID in
-            guard let self = self else {
-                return
-            }
-            if userID == self.currentUserID  {
-                return
-            }
-            self.onlineUsersIDs.insert(userID)
-        }
         
-        dialog.onLeaveOccupant = { [weak self] userID in
-            guard let self = self else {
-                return
+        // online/offline for group and public chats
+        if dialog.type != .private {
+            dialog.onJoinOccupant = { [weak self] userID in
+                guard let self = self else {
+                    return
+                }
+                if userID == self.currentUserID  {
+                    return
+                }
+                self.onlineUsersIDs.insert(userID)
             }
-            if userID == self.currentUserID  {
-                return
-            }
-            self.onlineUsersIDs.remove(userID)
-            self.typingUsers.remove(userID)
-            if self.typingUsers.isEmpty == true {
-                self.hideTypingView()
-                self.isOpponentTyping = false
-            } else {
-                self.typingView.setupTypingView(self.typingUsers)
+            
+            dialog.onLeaveOccupant = { [weak self] userID in
+                guard let self = self else {
+                    return
+                }
+                if userID == self.currentUserID  {
+                    return
+                }
+                self.onlineUsersIDs.remove(userID)
+                self.handlerStopTypingUser(userID)
             }
         }
         
@@ -345,7 +341,6 @@ class ChatViewController: UIViewController, ChatContextMenu {
                 self.typingUsers.insert(userID)
                 self.typingView.setupTypingView(self.typingUsers)
                 self.showTypingView()
-                self.isOpponentTyping = true
                 
                 if self.privateUserIsTypingTimer != nil {
                     self.privateUserIsTypingTimer?.invalidate()
@@ -364,9 +359,7 @@ class ChatViewController: UIViewController, ChatContextMenu {
                 if userID == self?.currentUserID  {
                     return
                 }
-                self?.typingUsers.remove(userID)
-                self?.hideTypingView()
-                self?.isOpponentTyping = false
+                self?.handlerStopTypingUser(userID)
             }
             
         } else {
@@ -378,7 +371,6 @@ class ChatViewController: UIViewController, ChatContextMenu {
                 self?.typingUsers.insert(userID)
                 self?.typingView.setupTypingView(self?.typingUsers)
                 self?.showTypingView()
-                self?.isOpponentTyping = true
             }
             
             // Handling user stopped typing.
@@ -386,13 +378,7 @@ class ChatViewController: UIViewController, ChatContextMenu {
                 if userID == self?.currentUserID  {
                     return
                 }
-                self?.typingUsers.remove(userID)
-                if self?.typingUsers.isEmpty == true {
-                    self?.hideTypingView()
-                    self?.isOpponentTyping = false
-                } else {
-                    self?.typingView.setupTypingView(self?.typingUsers)
-                }
+                self?.handlerStopTypingUser(userID)
             }
         }
         
@@ -416,12 +402,15 @@ class ChatViewController: UIViewController, ChatContextMenu {
         NotificationCenter.default.removeObserver(self)
         // clearing typing status blocks
         dialog.clearTypingStatusBlocks()
-        
-        QBChat.instance.removeDelegate(self)
     }
     
     //MARK: - Actions
     @objc func didTapBack(_ sender: UIBarButtonItem) {
+        goBack()
+    }
+    
+    private func goBack() {
+        QBChat.instance.removeDelegate(self)
         navigationController?.popViewController(animated: true)
     }
     
@@ -442,7 +431,7 @@ class ChatViewController: UIViewController, ChatContextMenu {
             self.progressView.start()
             self.chatManager.leaveDialog(withID: dialogID) { [weak self] error in
                 self?.progressView.stop()
-                self?.navigationController?.popViewController(animated: true)
+                self?.goBack()
             }
         }
         alertController.addAction(cancelAction)
@@ -489,17 +478,21 @@ class ChatViewController: UIViewController, ChatContextMenu {
             title = dialog.name
             return
         }
+        
+        let setupPrivateChatTitleView:(_ user: QBUUser) -> Void = { [weak self] (user) in
+            self?.chatPrivateTitleView.setupPrivateChatTitleView(user)
+            self?.navigationItem.titleView = self?.chatPrivateTitleView
+            self?.navigationItem.titleView?.layoutSubviews()
+        }
+        
         if let userID = dialog.occupantIDs?.filter({$0.uintValue != self.currentUserID}).first as? UInt {
             if let opponentUser = chatManager.storage.user(withID: userID) {
-                chatPrivateTitleView.setupPrivateChatTitleView(opponentUser)
-                navigationItem.titleView = chatPrivateTitleView
-                
-            } else {
-                ChatManager.instance.loadUser(userID) { [weak self] (opponentUser) in
-                    if let opponentUser = opponentUser {
-                        self?.chatPrivateTitleView.setupPrivateChatTitleView(opponentUser)
-                        self?.navigationItem.titleView = self?.chatPrivateTitleView
-                    }
+                setupPrivateChatTitleView(opponentUser)
+                return
+            }
+            ChatManager.instance.loadUser(userID) { (opponentUser) in
+                if let opponentUser = opponentUser {
+                    setupPrivateChatTitleView(opponentUser)
                 }
             }
         }
@@ -552,7 +545,7 @@ class ChatViewController: UIViewController, ChatContextMenu {
     }
 
     private func viewClass(forItem item: QBChatMessage) -> ChatReusableViewProtocol.Type {
-        if item.isNotificationMessage == true {
+        if item.isNotification == true {
             return ChatNotificationCell.self
         }
         if item.isDateDividerMessage {
@@ -612,7 +605,6 @@ class ChatViewController: UIViewController, ChatContextMenu {
         }
         
         var contentOffset = collectionView.contentOffset
-        
         if contentOffset.y == 0 {
             return
         }
@@ -846,6 +838,7 @@ class ChatViewController: UIViewController, ChatContextMenu {
     }
     
     private func showTypingView() {
+        if view.subviews.contains(typingView) { return }
         view.addSubview(typingView)
         typingView.translatesAutoresizingMaskIntoConstraints = false
         typingView.leftAnchor.constraint(equalTo: inputToolbar.leftAnchor).isActive = true
@@ -862,7 +855,6 @@ class ChatViewController: UIViewController, ChatContextMenu {
         UIView.animate(withDuration: 0.3, animations: { [weak self] in
             self?.view.layoutIfNeeded()
         })
-        isOpponentTyping = false
         privateUserIsTypingTimer?.invalidate()
         privateUserIsTypingTimer = nil
     }
@@ -877,11 +869,23 @@ class ChatViewController: UIViewController, ChatContextMenu {
         dialog.sendUserIsTyping()
         stopTimer?.invalidate()
         stopTimer = nil
-        stopTimer = Timer.scheduledTimer(timeInterval: 6.0,
+        stopTimer = Timer.scheduledTimer(timeInterval: 3.0,
                                          target: self,
                                          selector: #selector(stopTyping),
                                          userInfo: nil,
                                          repeats: false)
+    }
+    
+    private func handlerStopTypingUser(_ userId: UInt) {
+        if typingUsers.contains(userId) == false {
+            return
+        }
+        typingUsers.remove(userId)
+        if typingUsers.isEmpty {
+            hideTypingView()
+            return
+        }
+        typingView.setupTypingView(typingUsers)
     }
     
     //MARK: - ChatContextMenu Protocol
@@ -1042,6 +1046,12 @@ extension ChatViewController: ChatDataSourceDelegate {
             case .add: self.collectionView.insertItems(at: indexPaths)
             case .update: self.collectionView.reloadItems(at: indexPaths)
             case .remove: self.collectionView.deleteItems(at: indexPaths)
+            }
+            
+            if automaticallyScrollsToMostRecentMessage {
+                DispatchQueue.main.async { [weak self] in
+                    self?.scrollToBottomAnimated(true)
+                }
             }
             
         }, completion: nil)
@@ -1529,16 +1539,29 @@ extension ChatViewController: QBChatDelegate {
         guard let message = dataSource.messageWithID(messageID),
               message.isDeliveredTo == false,
               message.deliveredIDs?.contains(NSNumber(value: userID)) == false else {
-                  return
-              }
+            return
+        }
         message.deliveredIDs?.append(NSNumber(value: userID))
         dataSource.updateMessage(message)
     }
     
     func chatDidReceive(_ message: QBChatMessage) {
-        if message.dialogID == self.dialogID && message.senderID != currentUserID {
-            dataSource.addMessage(message)
+        if message.dialogID != self.dialogID {
+            return
         }
+        if message.isNotificationMessageTypeLeave == true {
+            chatManager.updateDialog(with: dialogID, with: message)
+            if currentUserID == message.senderID {
+                QBChat.instance.removeDelegate(self)
+                navigationController?.popToRootViewController(animated: false)
+            }
+            return
+        }
+        if message.isNotificationMessageTypeCreate, message.senderID != currentUserID {
+            return
+        }
+        handlerStopTypingUser(message.senderID)
+        dataSource.addMessage(message)
     }
     
     func chatRoomDidReceive(_ message: QBChatMessage, fromDialogID dialogID: String) {
@@ -1548,15 +1571,15 @@ extension ChatViewController: QBChatDelegate {
         if message.isNotificationMessageTypeAdding == true {
             chatManager.updateDialog(with: dialogID, with: message)
         }
-        
-        if currentUserID == message.senderID {
-            return
-        }
-        
         if message.isNotificationMessageTypeLeave == true {
             chatManager.updateDialog(with: dialogID, with: message)
+            if currentUserID == message.senderID {
+                QBChat.instance.removeDelegate(self)
+                navigationController?.popToRootViewController(animated: false)
+                return
+            }
         }
-        
+        handlerStopTypingUser(message.senderID)
         dataSource.addMessage(message)
     }
     
