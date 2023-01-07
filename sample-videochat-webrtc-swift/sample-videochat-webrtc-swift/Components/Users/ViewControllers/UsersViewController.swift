@@ -19,11 +19,6 @@ struct UsersConstant {
     static let token = "last_voip_token"
     static let needUpdateToken = "last_voip_token_need_update"
     static let okAction = "Ok"
-    static let noInternetCall = "Still in connecting state, please wait"
-    static let noInternet = """
-No Internet Connection
-Make sure your device is connected to the internet
-"""
 }
 
 typealias CallHangUpAction = ((_ callId: String) -> Void)
@@ -37,14 +32,14 @@ class UsersViewController: UIViewController {
     @IBOutlet weak var gradientView: CallGradientView! {
         didSet {
             gradientView.setupGradient(firstColor: UIColor(red: 0.96, green: 0.96, blue: 0.98, alpha: 1),
-                                            secondColor: UIColor(red: 0.96, green: 0.96, blue: 0.98, alpha: 1).withAlphaComponent(0.0))
+                                       secondColor: UIColor(red: 0.96, green: 0.96, blue: 0.98, alpha: 1).withAlphaComponent(0.0))
         }
     }
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var selectedUsersView: SelectedUsersView! {
         didSet {
             selectedUsersView.onSelectedUserViewCancelTapped = { [weak self] (userID) in
-
+                
                 guard let user = self?.users.selected.first(where: {$0.id == userID}) else {
                     return
                 }
@@ -55,6 +50,7 @@ class UsersViewController: UIViewController {
     }
     
     //MARK: - Properties
+    var onSignOut: (() -> Void)?
     private var users = Users()
     private var navigationTitleView = TitleView()
     private var voipRegistry: PKPushRegistry = PKPushRegistry(queue: DispatchQueue.main)
@@ -65,7 +61,7 @@ class UsersViewController: UIViewController {
             current.setupSelectedUsers(Array(users.selected))
             
             current.onSelectUser = { [weak self] (user, isSelected) in
-
+                
                 if isSelected == false {
                     self?.users.selected.remove(user)
                     self?.selectedUsersView.removeView(user.id)
@@ -91,43 +87,9 @@ class UsersViewController: UIViewController {
         }
     }
     
-    private var connection: ConnectionModule! {
-        didSet {
-            
-            connection.onAuthorize = { [weak self] in
-                debugPrint("[\(UsersViewController.className)] [connection] On Authorize")
-                let userDefaults = UserDefaults.standard
-                guard userDefaults.bool(forKey: UsersConstant.needUpdateToken) != false,
-                      let token = userDefaults.object(forKey: UsersConstant.token) as? Data else {
-                    return
-                }
-                self?.deleteLastSubscription {
-                    self?.createSubscription(withToken: token)
-                }
-            }
-            
-            connection.onConnect = { [weak self] in
-                self?.isPresentAlert = false
-                debugPrint("[\(UsersViewController.className)] [connection] On Connect")
-                DispatchQueue.main.async {
-                    self?.navigationTitleView.textColor = .white
-                }
-                self?.current.fetchUsers()
-            }
-            
-            connection.onDisconnect = { [weak self] (isNetwork) in
-                debugPrint("[\(UsersViewController.className)] [connection] On Disconnect")
-                DispatchQueue.main.async {
-                    self?.navigationTitleView.textColor = .orange
-                }
-                if isNetwork == true || self?.isPresentAlert == true {
-                    return
-                }
-                self?.isPresentAlert = true
-                self?.showAnimatedAlertView(nil, message: UsersConstant.noInternet)
-            }
-        }
-    }
+    private let authModule = AuthModule()
+    private let connection = ConnectionModule()
+    private var splashVC: SplashScreenViewController? = nil
     
     private var isPresentAlert = false
     
@@ -135,8 +97,18 @@ class UsersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        connection = ConnectionModule()
+        guard let fetchUsersViewController = Screen.userListViewController() else {
+            return
+        }
+        current = fetchUsersViewController
+        changeCurrentViewController(fetchUsersViewController)
+        
+        connection.delegate = self
+        if connection.established == false {
+            showSplashScreen()
+        }
         connection.activateAutomaticMode()
+        authModule.delegate = self
         
         callHelper.delegate = self
         
@@ -144,19 +116,13 @@ class UsersViewController: UIViewController {
         voipRegistry.desiredPushTypes = Set<PKPushType>([.voIP])
         
         searchBarView.delegate = self
-
+        
         configureNavigationBar()
-
-        guard let fetchUsersViewController = Screen.userListViewController() else {
-            return
-        }
-        current = fetchUsersViewController
-        changeCurrentViewController(fetchUsersViewController)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         CallPermissions.check(with: .video, presentingViewController: self) { granted in
             debugPrint("\(UsersViewController.className)] isGranted \(granted)")
         }
@@ -169,7 +135,7 @@ class UsersViewController: UIViewController {
         }
         changeCurrentViewController(fetchUsersViewController)
     }
-
+    
     private func showSearchScreen(withSearchText searchText: String) {
         guard let searchUsersViewController = Screen.searchUsersViewController() else {
             return
@@ -191,7 +157,7 @@ class UsersViewController: UIViewController {
         current.removeFromParent()
         current = newCurrentViewController
     }
-
+    
     private func configureNavigationBar() {
         let currentUser = Profile()
         guard currentUser.isFull  else {
@@ -204,16 +170,19 @@ class UsersViewController: UIViewController {
     
     //MARK: - Actions
     @IBAction func didTapLogout(_ sender: UIBarButtonItem) {
+        logout()
+    }
+    
+    private func logout() {
         if connection.established == false {
-            showAnimatedAlertView(nil, message: UsersConstant.noInternetCall)
+            showNoInternetAlert { [weak self] (action) in
+                self?.connection.establish()
+            }
             return
         }
         deleteLastSubscription { [weak self] in
             self?.connection.breakConnection {
-
-                UserDefaults.standard.removeObject(forKey: UsersConstant.token)
-                self?.navigationController?.popToRootViewController(animated: false)
-                Profile.clear()
+                self?.authModule.logout()
             }
         }
     }
@@ -228,7 +197,9 @@ class UsersViewController: UIViewController {
     
     private func call(with conferenceType: QBRTCConferenceType) {
         if connection.established == false {
-            showAnimatedAlertView(nil, message: UsersConstant.noInternetCall)
+            showNoInternetAlert { [weak self] (action) in
+                self?.connection.establish()
+            }
             return
         }
         if users.selected.count == 0 || users.selected.count > 3 {
@@ -249,13 +220,7 @@ class UsersViewController: UIViewController {
                 callMembers[NSNumber(value: user.id)] = user.fullName ?? "User"
             }
             let hasVideo = conferenceType == .video
-            let timeStamp = Date().timeStamp
-            let userInfo = ["name": "Test",
-                            "url" : "http.quickblox.com",
-                            "param" : "\"1,2,3,4\"",
-                            "timestamp" : "\(timeStamp)"
-            ]
-            self.callHelper.registerCall(withMembers: callMembers, hasVideo: hasVideo, userInfo: userInfo)
+            self.callHelper.registerCall(withMembers: callMembers, hasVideo: hasVideo)
         }
     }
     
@@ -265,7 +230,25 @@ class UsersViewController: UIViewController {
         }
         maxCountAlertViewControllerVC.modalPresentationStyle = .overFullScreen
         present(maxCountAlertViewControllerVC, animated: false)
-   }
+    }
+    
+    //MARK: - Helper Methods
+    fileprivate func showSplashScreen() {
+        if splashVC == nil, let splashVC = Screen.splashScreenController() {
+            self.splashVC = splashVC
+            splashVC.modalPresentationStyle = .overCurrentContext
+            self.present(splashVC, animated: false)
+        }
+    }
+    
+    fileprivate func hideSplashScreen() {
+        if splashVC == nil {
+            return
+        }
+        splashVC?.dismiss(animated: false, completion: {
+            self.splashVC = nil
+        })
+    }
 }
 
 // MARK: - PKPushRegistryDelegate
@@ -352,7 +335,7 @@ extension UsersViewController: PKPushRegistryDelegate {
         defer {
             completion()
         }
-
+        
         guard (type == .voIP) else {
             return
         }
@@ -364,7 +347,7 @@ extension UsersViewController: PKPushRegistryDelegate {
               let timestamp = payload.dictionaryPayload["timestamp"] as? String else {
             return
         }
-
+        
         let dictionaryPayload = ["opponentsIDs": opponentsIDs,
                                  "contactIdentifier": contactIdentifier,
                                  "sessionID": sessionID,
@@ -381,7 +364,7 @@ extension UsersViewController: PKPushRegistryDelegate {
         
         connection.activateCallMode()
         callHelper.registerCall(withPayload: dictionaryPayload, completion: completion)
-        connection.establishConnection()
+        connection.activateAutomaticMode()
     }
 }
 
@@ -428,14 +411,17 @@ extension UsersViewController: CallHelperDelegate {
             self.callViewController = nil
         }
     }
-
+    
     //Internal Method
     private func helper(_ helper: CallHelper, showCall callId: String) {
         guard let callViewController = self.callViewController,
               let callViewControllerCallId = callViewController.callInfo.callId,
               callViewControllerCallId == callId else {
-                  return
-              }
+            return
+        }
+        hideAlertView()
+        hideSplashScreen()
+        
         let navVC = UINavigationController(rootViewController: callViewController)
         navVC.modalPresentationStyle = .overFullScreen
         present(navVC, animated: false)
@@ -456,12 +442,85 @@ extension UsersViewController: SearchBarViewDelegate {
             searchUsersViewController.searchText = searchText
         } else {
             if searchText.count > 2 {
-               showSearchScreen(withSearchText: searchText)
+                showSearchScreen(withSearchText: searchText)
             }
         }
     }
     
     func searchBarView(_ searchBarView: SearchBarView, didCancelSearchButtonTapped sender: UIButton) {
         showFetchScreen()
+    }
+}
+
+// MARK: - AuthModuleDelegate
+extension UsersViewController: AuthModuleDelegate {
+    func authModule(_ authModule: AuthModule, didLoginUser user: QBUUser) {
+        Profile.synchronize(withUser: user)
+        connection.establish()
+        let userDefaults = UserDefaults.standard
+        guard userDefaults.bool(forKey: UsersConstant.needUpdateToken) != false,
+              let token = userDefaults.object(forKey: UsersConstant.token) as? Data else {
+            return
+        }
+        deleteLastSubscription { [weak self] in
+            self?.createSubscription(withToken: token)
+        }
+    }
+    
+    func authModuleDidLogout(_ authModule: AuthModule) {
+        connection.deactivateAutomaticMode()
+        UserDefaults.standard.removeObject(forKey: UsersConstant.token)
+        onSignOut?()
+        Profile.clear()
+    }
+    
+    func authModule(_ authModule: AuthModule, didReceivedError error: ErrorInfo) {
+        showUnAuthorizeAlert(message: "\(error.statusCode) \(error.info)" , logoutAction: { [weak self] logoutAction in
+            self?.logout()
+        }, tryAgainAction: { [weak self] tryAgainAction in
+            let profile = Profile()
+            self?.authModule.login(fullName: profile.fullName, login: profile.login)
+        })
+    }
+}
+
+// MARK: - ConnectionModuleDelegate
+extension UsersViewController: ConnectionModuleDelegate {
+    func connectionModuleWillConnect(_ connectionModule: ConnectionModule) {
+        showAnimatedAlertView(nil, message: ConnectionConstant.connectingState)
+    }
+    
+    func connectionModuleDidConnect(_ connectionModule: ConnectionModule) {
+        current.fetchUsers()
+        navigationTitleView.textColor = .white
+        hideAlertView()
+        hideSplashScreen()
+    }
+    
+    func connectionModuleDidNotConnect(_ connectionModule: ConnectionModule, error: Error) {
+        hideSplashScreen()
+        if error._code.isNetworkError {
+            showNoInternetAlert { [weak self] (action) in
+                self?.connection.establish()
+            }
+            return
+        }
+        showAlertView(nil, message: error.localizedDescription, handler: nil)
+    }
+    
+    func connectionModuleWillReconnect(_ connectionModule: ConnectionModule) {
+        showAnimatedAlertView(nil, message: ConnectionConstant.reconnectingState)
+    }
+    
+    func connectionModuleDidReconnect(_ connectionModule: ConnectionModule) {
+        current.fetchUsers()
+        navigationTitleView.textColor = .white
+        hideAlertView()
+    }
+    
+    func connectionModuleTokenHasExpired(_ connectionModule: ConnectionModule) {
+        showSplashScreen()
+        let profile = Profile()
+        authModule.login(fullName: profile.fullName, login: profile.login)
     }
 }

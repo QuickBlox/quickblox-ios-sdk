@@ -17,6 +17,7 @@ class UserListViewController: UITableViewController {
     var userList = UserList()
     var onSelectUser: SelectUserCompletion?
     var onFetchedUsers: FetchedUsersCompletion?
+    private var isProcessing = false
 
     //MARK: - Life Cycle
     override func viewDidLoad() {
@@ -35,10 +36,15 @@ class UserListViewController: UITableViewController {
     
     //MARK - Setup
     func fetchUsers() {
+        if isProcessing == true {
+            return
+        }
+        isProcessing = true
         refreshControl?.beginRefreshing()
         userList.fetchWithPage(1) { [weak self] (users, error) in
             guard let self = self, let users = users else {
                 self?.refreshControl?.endRefreshing()
+                self?.isProcessing = false
                 return
             }
             if users.isEmpty == false {
@@ -46,6 +52,7 @@ class UserListViewController: UITableViewController {
             }
             self.refreshControl?.endRefreshing()
             self.tableView.reloadData()
+            self.isProcessing = false
         }
     }
     

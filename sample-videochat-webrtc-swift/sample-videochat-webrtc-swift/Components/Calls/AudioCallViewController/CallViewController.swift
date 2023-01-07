@@ -44,6 +44,10 @@ class CallViewController: UIViewController {
                 }))
             }
             actionsBar.setup(withActions: actionButtons)
+            
+            let selectedState = mediaController.currentAudioOutput == AVAudioSession.PortOverride.speaker
+            actionsBar.select(selectedState, type: .speaker)
+            actionsBar.select(!mediaController.audioEnabled, type: .audio)
         }
     }
     @IBOutlet weak var participantsView: ParticipantsView!
@@ -115,11 +119,6 @@ class CallViewController: UIViewController {
         super.viewWillAppear(animated)
         
         navigationController?.setNavigationBarHidden(true, animated: animated)
-        if callInfo.direction != .incoming {
-            return
-        }
-        let currentAudioOutput = mediaController.currentAudioOutput
-        actionsBar.select(currentAudioOutput == .speaker, type: .speaker)
     }
     
     @IBAction func didTapStatsButton(_ sender: UIButton) {
@@ -135,10 +134,11 @@ class CallViewController: UIViewController {
     
     func checkCallPermissions(_ conferenceType: QBRTCConferenceType, completion:((_ videoGranted: Bool) -> Void)?) {
         CallPermissions.check(with: .audio, presentingViewController: self) { [weak self] audioGranted in
-            
-            self?.mediaController.audioEnabled = audioGranted
-            self?.actionsBar.select(!audioGranted, type: .audio)
-            self?.actionsBar.setUserInteractionEnabled(audioGranted, type: .audio)
+            if audioGranted == false {
+                self?.mediaController.audioEnabled = false
+                self?.actionsBar.select(true, type: .audio)
+                self?.actionsBar.setUserInteractionEnabled(false, type: .audio)
+            }
             if conferenceType == .audio {
                 completion?(audioGranted)
                 return
@@ -147,11 +147,12 @@ class CallViewController: UIViewController {
         
         if conferenceType == .video {
             CallPermissions.check(with: .video, presentingViewController: self) { [weak self] videoGranted in
-                
-                self?.actionsBar.select(!videoGranted, type: .video)
-                self?.actionsBar.select(!videoGranted, type: .switchCamera)
-                self?.actionsBar.setUserInteractionEnabled(videoGranted, type: .video)
-                self?.actionsBar.setUserInteractionEnabled(videoGranted, type: .switchCamera)
+                if videoGranted == false {
+                    self?.actionsBar.select(true, type: .video)
+                    self?.actionsBar.select(true, type: .switchCamera)
+                    self?.actionsBar.setUserInteractionEnabled(false, type: .video)
+                    self?.actionsBar.setUserInteractionEnabled(false, type: .switchCamera)
+                }
                 self?.mediaController.videoEnabled = videoGranted
                 completion?(videoGranted)
             }

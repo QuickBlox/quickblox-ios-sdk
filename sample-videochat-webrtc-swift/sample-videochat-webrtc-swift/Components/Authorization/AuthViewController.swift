@@ -11,7 +11,7 @@ import Quickblox
 
 struct LoginConstant {
     static let notSatisfyingDeviceToken = "Invalid parameter not satisfying: deviceToken != nil"
-    static let enterToConference = "Enter to Video Chat"
+    static let enterToVideochat = "Enter to Video Chat"
     static let fullNameDidChange = "Full Name Did Change"
     static let login = "Login"
     static let checkInternet = "No Internet Connection"
@@ -22,7 +22,6 @@ struct LoginConstant {
     static let intoVideoChat = "Login into Video Chat ..."
     static let withCurrentUser = "Login with current user ..."
     static let chatServiceDomain = "com.q-municate.chatservice"
-    static let alreadyConnectedCode = -1000
 }
 
 enum Title: String {
@@ -81,6 +80,7 @@ class AuthViewController: UIViewController {
     }()
     
     //MARK: - Properties
+    var onCompleteAuth: (() -> Void)?
     var inputContainers:[InputContainer] = []
     
     private var inputEnabled = true {
@@ -97,6 +97,9 @@ class AuthViewController: UIViewController {
         }
     }
     
+    private let authModule = AuthModule()
+    private var connection = ConnectionModule()
+    
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,9 +112,11 @@ class AuthViewController: UIViewController {
         loginButton.widthAnchor.constraint(equalToConstant: 215.0).isActive = true
         loginButton.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
 
-        navigationItem.title = LoginConstant.enterToConference
-        
+        navigationItem.title = LoginConstant.enterToVideochat
         addInfoButton()
+        
+        authModule.delegate = self
+        connection.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -121,15 +126,6 @@ class AuthViewController: UIViewController {
     }
     
     //MARK - Setup
-    private func showUsersScreen() {
-        guard let usersVC = Screen.usersViewController() else {
-            return
-        }
-        usernameInputContainer.inputTextfield.text = ""
-        loginInputContainer.inputTextfield.text = ""
-        navigationController?.pushViewController(usersVC, animated: false)
-    }
-    
     private func defaultConfiguration() {
         infoText = LoginConstant.enterUsername
         loginButton.hideLoading()
@@ -145,92 +141,11 @@ class AuthViewController: UIViewController {
               sender.isAnimating == false else {
             return
         }
-        signUp(fullName: fullName, login: login)
+        beginConnect()
+        authModule.signUp(fullName: fullName, login: login)
     }
     
     //MARK: - Internal Methods
-    private func signUp(fullName: String, login: String) {
-        beginConnect()
-        let newUser = QBUUser()
-        newUser.login = login
-        newUser.fullName = fullName
-        newUser.password = LoginConstant.defaultPassword
-        infoText = LoginConstant.signUp
-        QBRequest.signUp(newUser, successBlock: { [weak self] response, user in
-
-            self?.login(fullName: fullName, login: login)
-            
-            }, errorBlock: { [weak self] response in
-                
-                if response.status == QBResponseStatusCode.validationFailed {
-                    // The user with existent login was created earlier
-                    self?.login(fullName: fullName, login: login)
-                    return
-                }
-                if let error = response.error?.error {
-                    self?.handleError(error)
-                }
-        })
-    }
-
-    private func login(fullName: String, login: String, password: String = LoginConstant.defaultPassword) {
-        beginConnect()
-        QBRequest.logIn(withUserLogin: login,
-                        password: password,
-                        successBlock: { [weak self] response, user in
-
-                            user.password = password
-                            Profile.synchronize(withUser: user)
-                            
-                            if user.fullName != fullName {
-                                self?.updateFullName(fullName: fullName, login: login)
-                            } else {
-                                self?.connectToChat(user: user)
-                            }
-                            
-            }, errorBlock: { [weak self] response in
-                if let error = response.error?.error {
-                    self?.handleError(error)
-                }
-        })
-    }
-
-    private func updateFullName(fullName: String, login: String) {
-        let profile = Profile.init()
-        if profile.isFull != true{
-            return
-        }
-        self.infoText = LoginConstant.fullNameDidChange
-        let updateUserParameter = QBUpdateUserParameters()
-        updateUserParameter.fullName = fullName
-        QBRequest.updateCurrentUser(updateUserParameter, successBlock: { [weak self] response, user in
-
-            user.password = profile.password
-            Profile.synchronize(withUser: user)
-            self?.connectToChat(user: user)
-            
-        }, errorBlock: { [weak self] response in
-            if let error = response.error?.error {
-                self?.handleError(error)
-            }
-        })
-    }
-    
-    private func connectToChat(user: QBUUser) {
-        infoText = LoginConstant.intoVideoChat
-        QBChat.instance.connect(withUserID: user.id,
-                                password: LoginConstant.defaultPassword,
-                                completion: { [weak self] error in
-
-            if let error = error, error._code != LoginConstant.alreadyConnectedCode {
-                self?.handleError(error)
-            } else {
-                //did Login action
-                self?.showUsersScreen()
-            }
-        })
-    }
-    
     private func beginConnect() {
         isEditing = false
         inputEnabled = false
@@ -238,17 +153,58 @@ class AuthViewController: UIViewController {
     }
     
     // MARK: - Handle errors
-    private func handleError(_ error: Error) {
-        var infoText = error.localizedDescription
-        if error._code == QBResponseStatusCode.unAuthorized.rawValue {
+    private func handleError(_ info: ErrorInfo) {
+        infoText = info.description
+        if info.statusCode == QBResponseStatusCode.unAuthorized.rawValue {
             Profile.clear()
-            self.defaultConfiguration()
-        } else if error._code == NSURLErrorNotConnectedToInternet {
-            infoText = LoginConstant.checkInternet
+            defaultConfiguration()
+        } else if info.statusCode.isNetworkError == true  {
+            infoText = ConnectionConstant.noInternetConnection
         }
         inputEnabled = true
         loginButton.hideLoading()
-        self.infoText = infoText
+    }
+}
+
+// MARK: - AuthModuleDelegate
+extension AuthViewController: AuthModuleDelegate {
+    func authModule(_ authModule: AuthModule, didSignUpUser user: QBUUser) {
+        guard let fullName = user.fullName, let login = user.login else { return }
+        Profile.synchronize(withUser: user)
+        authModule.login(fullName: fullName, login: login)
+    }
+    
+    func authModule(_ authModule: AuthModule, didLoginUser user: QBUUser) {
+        infoText = LoginConstant.intoVideoChat
+        let fullName = Profile().fullName
+        if user.fullName != fullName {
+            infoText = LoginConstant.fullNameDidChange
+            authModule.updateFullName(fullName: fullName)
+            return
+        }
+        Profile.synchronize(withUser: user)
+        connection.establish()
+    }
+    
+    func authModule(_ authModule: AuthModule, didUpdateUpdateFullNameUser user: QBUUser) {
+        Profile.synchronize(withUser: user)
+        connection.establish()
+    }
+    
+    func authModule(_ authModule: AuthModule, didReceivedError error: ErrorInfo) {
+        handleError(error)
+    }
+}
+
+// MARK: - ConnectionModuleDelegate
+extension AuthViewController: ConnectionModuleDelegate {
+    func connectionModuleDidConnect(_ connectionModule: ConnectionModule) {
+        onCompleteAuth?()
+    }
+    
+    func connectionModuleDidNotConnect(_ connectionModule: ConnectionModule, error: Error) {
+        let error = ErrorInfo(info: error.localizedDescription, statusCode: error._code)
+        handleError(error)
     }
 }
 

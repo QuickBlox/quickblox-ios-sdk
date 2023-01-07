@@ -78,7 +78,7 @@ class CallHelper: NSObject {
     }
     
     
-    func registerCall(withMembers members: [NSNumber: String], hasVideo:Bool, userInfo: [String: String]?) {
+    func registerCall(withMembers members: [NSNumber: String], hasVideo:Bool) {
         // Prepare call
         let payload = sessionsController.activateNewSession(withMembers: members, hasVideo: hasVideo)
         
@@ -100,21 +100,28 @@ class CallHelper: NSObject {
             message = String(data: data, encoding: .utf8) ?? ""
         }
         
-        let arrayUserIDs = members.keys.map({"\($0)"})
-        let usersIDsString = arrayUserIDs.joined(separator: ",")
-        
-        let event = QBMEvent()
-        event.notificationType = QBMNotificationType.push
-        event.usersIDs = usersIDsString
-        event.type = .oneShot
-        event.message = message
-        QBRequest.createEvent(event, successBlock: { response, events in
-            debugPrint("\(#function) Send voip push - Success")
-        }, errorBlock: { response in
-            debugPrint("\(#function) Send voip push Error: \(response.error?.error?.localizedDescription ?? "")")
-        })
+        //Determine participants who are offline to send them a VOIP Push
+        for member in members.keys {
+            QBChat.instance.pingUser(withID: member.uintValue, timeout: TimeIntervalConstant.dialingTimeInterval) { (timeInterval, success) in
+                if (success) {
+                    debugPrint("\(#function)  Participant with id: \(member) is online. There is no need to send a VoIP notification.")
+                    return
+                }
+                let event = QBMEvent()
+                event.notificationType = QBMNotificationType.push
+                event.usersIDs = "\(member)"
+                event.type = .oneShot
+                event.message = message
+                QBRequest.createEvent(event, successBlock: { response, events in
+                    debugPrint("\(#function) Send voip push to Participant with id: \(member) - Success")
+                }, errorBlock: { response in
+                    debugPrint("\(#function) Send voip push to Participant with id: \(member) - Error: \(response.error?.error?.localizedDescription ?? "")")
+                })
+            }
+        }
         
         // Start call
+        let userInfo = ["timestamp" : "\(Date().timeStamp)"]
         sessionsController.start(call.sessionID, userInfo: userInfo)
         
         delegate?.helper(self, didRegisterCall: call.sessionID,

@@ -18,6 +18,7 @@ class SearchUsersViewController: UserListViewController {
             }
         }
     }
+    private var isProcessing = false
     
     //MARK: - Public Methods
     override func fetchUsers() {
@@ -38,10 +39,15 @@ class SearchUsersViewController: UserListViewController {
 
     //MARK: - Private Methods
     private func searchUsers(_ name: String) {
+        if isProcessing == true {
+            return
+        }
+        isProcessing = true
         refreshControl?.beginRefreshing()
         userList.search(name, pageNumber: 1) { [weak self] (users, error) in
             guard let self = self, let users = users else {
                 self?.refreshControl?.endRefreshing()
+                self?.isProcessing = false
                 return
             }
             if users.isEmpty == true, let error = error, error._code == QBResponseStatusCode.notFound.rawValue {
@@ -53,6 +59,7 @@ class SearchUsersViewController: UserListViewController {
             }
             self.refreshControl?.endRefreshing()
             self.tableView.reloadData()
+            self.isProcessing = false
         }
     }
 }

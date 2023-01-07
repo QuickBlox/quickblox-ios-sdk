@@ -32,7 +32,7 @@ class MediaController: NSObject {
     var videoFormat: VideoFormat!
     var sharingFormat: VideoFormat!
     
-    private var _audioEnabled = false
+    private var _audioEnabled = true
     
     var currentAudioOutput: AVAudioSession.PortOverride {
         let audioSession = QBRTCAudioSession.instance()

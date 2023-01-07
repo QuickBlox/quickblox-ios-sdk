@@ -13,7 +13,7 @@ class Session {
     //MARK - Properties
     private(set) var id = ""
     private var qbSession: QBRTCSession? = nil
-    private var _audioEnabled = false
+    private var _audioEnabled = true
     private var _videoEnabled = false
     private weak var _videoCapture: QBRTCVideoCapture?
     private var stopWaitTime: Int64 = 0
@@ -70,7 +70,7 @@ class Session {
     init(qbSession: QBRTCSession, startTime: Int64) {
         self.qbSession = qbSession
         self.id = qbSession.id
-        self.stopWaitTime = startTime + Int64(QBRTCConfig.answerTimeInterval() * 1000)
+        self.stopWaitTime = startTime + Int64((QBRTCConfig.answerTimeInterval() - 1) * 1000)
     }
     
     //MARK: - Public Methods

@@ -87,6 +87,7 @@ final class CallKitManager: NSObject {
         
         let update = callUpdate(withTitle: title, hasVideo: hasVideo)
         let call = CallKitInfo(sessionID: sessionId, hasVideo: hasVideo)
+        self.call = call
         
         provider.reportNewIncomingCall(with: call.uuid, update: update) { [weak self] error in
             defer { completion?() }
@@ -96,11 +97,12 @@ final class CallKitManager: NSObject {
             }
             switch state {
             case .valid:
-                self?.call = call
                 self?.qbAudioSession.useManualAudio = true
+                return
             case .missed: provider.reportCall(with: call.uuid, endedAt: Date(), reason: .remoteEnded)
             case .invalid: provider.reportCall(with: call.uuid, endedAt: Date(), reason: .unanswered)
             }
+            self?.call = nil
         }
     }
     
