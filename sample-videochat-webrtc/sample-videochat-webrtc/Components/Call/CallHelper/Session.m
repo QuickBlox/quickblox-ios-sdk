@@ -30,7 +30,7 @@
     self = [super init];
     if (self) {
         _id = id;
-        self.stopWaitTime = [@(floor(startTime + (QBRTCConfig.answerTimeInterval * 1000))) longLongValue];
+        self.stopWaitTime = [@(floor(startTime + ((QBRTCConfig.answerTimeInterval - 1.0f) * 1000))) longLongValue];
         _audioEnabled = YES;
         _videoEnabled = NO;
     }

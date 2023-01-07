@@ -28,16 +28,21 @@
 #import "Users.h"
 #import "UIViewController+Alert.h"
 #import "ProgressView.h"
+#import "ConnectionModule.h"
+#import "AuthModule.h"
+#import "SplashScreenViewController.h"
+#import "NSError+Videochat.h"
 
 #define callInfoKey( prop ) NSStringFromSelector(@selector(prop))
 
 const NSUInteger kQBPageSize = 100;
-NSString *const kNoInternetCall = @"Still in connecting state,\n please wait";
+NSString *const kStillConnection = @"Still in connecting state,\n please wait";
 NSString *const kNoInternet = @"No Internet Connection \n Make sure your device is connected to the internet";
+NSString *const kReconnection = @"Reconnecting state, please wait";
 
 typedef void(^CallerNameCompletion)(NSString *callerName);
 
-@interface UsersViewController () <PKPushRegistryDelegate, SearchBarViewDelegate>
+@interface UsersViewController () <PKPushRegistryDelegate, SearchBarViewDelegate, AuthModuleDelegate, ConnectionModuleDelegate>
 //MARK: - IBOutlets
 @property (weak, nonatomic) IBOutlet SearchBarView *searchBarView;
 @property (weak, nonatomic) IBOutlet UIButton *videoCallButton;
@@ -54,10 +59,12 @@ typedef void(^CallerNameCompletion)(NSString *callerName);
 @property (strong, nonatomic) UserListViewController *current;
 @property (strong, nonatomic) SelectedUsersView *selectedUsersView;
 @property (strong, nonatomic) TitleView *navigationTitleView;
-@property (assign, nonatomic) BOOL isPresentAlert;
 @property (strong, nonatomic) Users *users;
 
 @property (strong, nonatomic) ConnectionModule *connection;
+@property (strong, nonatomic) AuthModule *authModule;
+@property (strong, nonatomic) SplashScreenViewController *splashVC;
+@property (nonatomic, strong) ProgressView *progressView;
 
 @end
 
@@ -93,64 +100,33 @@ typedef void(^CallerNameCompletion)(NSString *callerName);
     }];
 }
 
-- (ConnectionModule *)connection {
-    if (_connection) {
-        return _connection;
-    }
-    _connection = [[ConnectionModule alloc] init];
-    
-    __weak __typeof(self)weakSelf = self;
-    
-    [_connection setOnAuthorize:^{
-        Log(@"[%@] [connection] On Authorize",  NSStringFromClass(weakSelf.class));
-        NSUserDefaults *userDefaults = NSUserDefaults.standardUserDefaults;
-        if ([userDefaults boolForKey:kNeedUpdateToken] == NO) {
-            return;
-        }
-        NSData *token = [userDefaults objectForKey:kToken];
-        if (token == nil) {
-            return;
-        }
-        [weakSelf deleteLastSubscriptionWithCompletion:^{
-            [weakSelf createSubscriptionWithToken:token];
-        }];
-    }];
-    
-    [_connection setOnConnect:^{
-        weakSelf.isPresentAlert = NO;
-        weakSelf.navigationTitleView.textColor = UIColor.whiteColor;
-        Log(@"[%@] [connection] On Connect",  NSStringFromClass(weakSelf.class));
-        [weakSelf.current fetchUsers];
-    }];
-    
-    [_connection setOnDisconnect:^(BOOL lostNetwork) {
-        Log(@"[%@] [connection] On Disconnect",  NSStringFromClass(weakSelf.class));
-        weakSelf.navigationTitleView.textColor = UIColor.orangeColor;
-        if (lostNetwork == NO || weakSelf.isPresentAlert) {
-            return;
-        }
-        weakSelf.isPresentAlert = YES;
-        [weakSelf showAnimatedAlertWithTitle:nil message:kNoInternet fromViewController:weakSelf];
-    }];
-    
-    return _connection;
-}
-
 //MARK: - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Users" bundle:nil];
+    UserListViewController *fetchUsersViewController =
+    [storyboard instantiateViewControllerWithIdentifier:@"UserListViewController"];
+    self.current = fetchUsersViewController;
+    [self changeCurrentViewController:fetchUsersViewController];
+    
+    self.authModule = [[AuthModule alloc] init];
+    self.authModule.delegate = self;
+    self.connection = [[ConnectionModule alloc] init];
+    self.connection.delegate = self;
+    if (self.connection.established == NO) {
+        [self showSplashScreen];
+    }
+    [self.connection activateAutomaticMode];
+    
     self.users = [[Users alloc] init];
     self.callHelper = [CallHelper new];
     self.callHelper.delegate = self;
-    self.isPresentAlert = NO;
     self.searchBarView.delegate = self;
     
     self.voipRegistry = [[PKPushRegistry alloc] initWithQueue:nil];
     self.voipRegistry.delegate = self;
     self.voipRegistry.desiredPushTypes = [NSSet setWithObject:PKPushTypeVoIP];
-    
-    [self.connection activateAutomaticMode];
     
     UIColor *gradientColor = [UIColor colorWithRed:0.96f green:0.96f blue:0.98f alpha:1.0f];
     [self.gradientView setupGradientWithFirstColor:gradientColor andSecondColor:[gradientColor colorWithAlphaComponent:0.0f]];
@@ -174,12 +150,6 @@ typedef void(^CallerNameCompletion)(NSString *callerName);
     }];
     
     [self configureNavigationBar];
-    
-    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Users" bundle:nil];
-    UserListViewController *fetchUsersViewController =
-    [storyboard instantiateViewControllerWithIdentifier:@"UserListViewController"];
-    self.current = fetchUsersViewController;
-    [self changeCurrentViewController:fetchUsersViewController];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -258,8 +228,11 @@ typedef void(^CallerNameCompletion)(NSString *callerName);
 }
 
 - (void)callWithConferenceType:(QBRTCConferenceType)conferenceType {
+    __weak __typeof(self)weakSelf = self;
     if (!self.connection.established) {
-        [self showAnimatedAlertWithTitle:kNoInternetCall message:nil fromViewController:self];
+        [self showNoInternetAlertWithHandler:^(UIAlertAction * _Nonnull action) {
+            [weakSelf.connection establish];
+        }];
         return;
     }
     if (self.users.selected.count == 0 || self.users.selected.count > 3) {
@@ -269,14 +242,13 @@ typedef void(^CallerNameCompletion)(NSString *callerName);
         return;
     }
     
-    __weak __typeof(self)weakSelf = self;
     [CallPermissions checkPermissionsWithConferenceType:conferenceType presentingViewController:self completion:^(BOOL granted) {
         if (!granted) {
             return;
         }
         
         [weakSelf.connection activateCallMode];
-        [self.connection establishConnection];
+        [self.connection establish];
         
         NSMutableDictionary<NSNumber *, NSString *>*callMembers = @{}.mutableCopy;
         for (QBUUser *user in weakSelf.users.selected) {
@@ -290,23 +262,45 @@ typedef void(^CallerNameCompletion)(NSString *callerName);
 }
 
 - (IBAction)didTapLogout:(UIBarButtonItem *)sender {
+    [self logout];
+}
+
+- (void)logout {
+    __weak __typeof(self)weakSelf = self;
     if (!self.connection.established) {
-        [self showAnimatedAlertWithTitle:nil message:kNoInternetCall fromViewController:self];
+        [self showNoInternetAlertWithHandler:^(UIAlertAction * _Nonnull action) {
+            [weakSelf.connection establish];
+        }];
         return;
     }
-    ProgressView *progressView = [[NSBundle mainBundle] loadNibNamed:@"ProgressView"
-                                                               owner:nil
-                                                             options:nil].firstObject;
-    [progressView start];
-    __weak __typeof(self)weakSelf = self;
+    self.progressView = [[NSBundle mainBundle] loadNibNamed:@"ProgressView"
+                                                      owner:nil
+                                                    options:nil].firstObject;
+    [self.progressView start];
+    
     [self deleteLastSubscriptionWithCompletion:^{
         [weakSelf.connection breakConnectionWithCompletion:^{
-            [NSUserDefaults.standardUserDefaults removeObjectForKey:kToken];
-            //Dismiss Settings view controller
-            [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-            [Profile clear];
-            [progressView stop];
+            [weakSelf.authModule logout];
         }];
+    }];
+}
+
+- (void)showSplashScreen {
+    if (self.splashVC) {
+        return;
+    }
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Authorization" bundle:nil];
+    self.splashVC = [storyboard instantiateViewControllerWithIdentifier:@"SplashScreenViewController"];
+    self.splashVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    [self presentViewController:self.splashVC animated:NO completion:nil];
+}
+
+- (void)hideSplashScreen {
+    if (!self.splashVC) {
+        return;
+    }
+    [self.splashVC dismissViewControllerAnimated:NO completion:^{
+        self.splashVC = nil;
     }];
 }
 
@@ -397,7 +391,7 @@ withCompletionHandler:(nonnull void (^)(void))completion {
         return;
     }
     [self.connection activateCallMode];
-    [self.connection establishConnection];
+    [self.connection establish];
     [self.callHelper registerCallWithPayload:payload.dictionaryPayload completion:completion];
 }
 
@@ -481,6 +475,79 @@ mediaController:(MediaController *)mediaController
     [self.callViewController setHangUp:^(NSString *callId) {
         [helper unregisterCall:callId userInfo:@{@"hangup" : @"hang up"}];
     }];
+}
+
+#pragma mark - AuthModuleDelegate
+- (void)authModule:(AuthModule *)authModule didLoginUser:(QBUUser *)user {
+    [Profile synchronizeUser:user];
+    [self.connection establish];
+    NSUserDefaults *userDefaults = NSUserDefaults.standardUserDefaults;
+    if ([userDefaults boolForKey:kNeedUpdateToken] == NO) {
+        return;
+    }
+    NSData *token = [userDefaults objectForKey:kToken];
+    if (token == nil) {
+        return;
+    }
+    [self deleteLastSubscriptionWithCompletion:^{
+        [self createSubscriptionWithToken:token];
+    }];
+}
+
+- (void)authModuleDidLogout:(AuthModule *)authModule {
+    [self.connection deactivateAutomaticMode];
+    if (self.onSignOut) {
+        self.onSignOut();
+    }
+    [Profile clear];
+    [self.progressView stop];
+}
+
+- (void)authModule:(AuthModule *)authModule didReceivedError:(NSError *)error {
+    [self showUnAuthorizeAlert:error.localizedDescription logoutAction:^(UIAlertAction * _Nonnull action) {
+        [self logout];
+    } tryAgainAction:^(UIAlertAction * _Nonnull action) {
+        Profile *profile = [[Profile alloc] init];
+        [authModule loginWithFullName:profile.fullName login:profile.login];
+    }];
+}
+
+#pragma mark - ConnectionModuleDelegate
+- (void)connectionModuleWillConnect:(ConnectionModule *)connectionModule {
+    [self showAnimatedAlertWithTitle:nil message:kStillConnection];
+}
+
+- (void)connectionModuleDidConnect:(ConnectionModule *)connectionModule {
+    [self.current fetchUsers];
+    [self hideAlertView];
+    [self hideSplashScreen];
+}
+
+- (void)connectionModuleDidNotConnect:(ConnectionModule *)connectionModule withError:(NSError*)error {
+    [self hideSplashScreen];
+    if (error.isNetworkError) {
+        __weak __typeof(self)weakSelf = self;
+        [self showNoInternetAlertWithHandler:^(UIAlertAction * _Nonnull action) {
+            [weakSelf.connection establish];
+        }];
+        return;
+    }
+    [self showAlertWithTitle:nil message:error.localizedDescription];
+}
+
+- (void)connectionModuleWillReconnect:(ConnectionModule *)connectionModule {
+    [self showAnimatedAlertWithTitle:nil message:kReconnection ];
+}
+
+- (void)connectionModuleDidReconnect:(ConnectionModule *)connectionModule {
+    [self.current fetchUsers];
+    [self hideAlertView];
+}
+
+- (void)connectionModuleTokenHasExpired:(ConnectionModule *)connectionModule {
+    [self showSplashScreen];
+    Profile *profile = [[Profile alloc] init];
+    [self.authModule loginWithFullName:profile.fullName login:profile.login];
 }
 
 @end

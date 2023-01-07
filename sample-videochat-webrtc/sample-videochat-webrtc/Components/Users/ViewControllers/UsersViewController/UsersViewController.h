@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UsersViewController : UIViewController
+NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^SignOutAction)(void);
+
+@interface UsersViewController : UIViewController
+@property (nonatomic, strong) SignOutAction onSignOut;
 @end
+
+NS_ASSUME_NONNULL_END

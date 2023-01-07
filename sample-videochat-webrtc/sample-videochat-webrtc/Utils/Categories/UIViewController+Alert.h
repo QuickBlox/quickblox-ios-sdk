@@ -11,12 +11,15 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (Alert)
+- (void)showNoInternetAlertWithHandler:(void (^ __nullable)(UIAlertAction *action))handler;
 - (void)showAlertWithTitle:(NSString * _Nullable)title
-                   message:(NSString * _Nullable)message
-        fromViewController:(UIViewController *)viewController;
+                   message:(NSString * _Nullable)message;
 - (void)showAnimatedAlertWithTitle:(NSString * _Nullable)title
-                   message:(NSString * _Nullable)message
-               fromViewController:(UIViewController *)viewController;
+                   message:(NSString * _Nullable)message;
+- (void)showUnAuthorizeAlert:(NSString * _Nullable)message
+                logoutAction:(void (^ __nullable)(UIAlertAction *action))logoutAction
+              tryAgainAction:(void (^ __nullable)(UIAlertAction *action))tryAgainAction;
+- (void)hideAlertView;
 @end
 
 NS_ASSUME_NONNULL_END

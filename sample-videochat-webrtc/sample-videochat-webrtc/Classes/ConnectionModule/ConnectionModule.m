@@ -9,9 +9,13 @@
 #import "ConnectionModule.h"
 #import "Profile.h"
 #import <arpa/inet.h>
+#import "NSError+Videochat.h"
+
+static NSInteger const ALREADY_CONNECTED_CODE = -1000;
 
 @interface ConnectionModule ()
 
+@property (nonatomic, strong) id appActiveStateObserver;
 @property (nonatomic, assign) BOOL isProcessing;
 @property (nonatomic, assign) SCNetworkReachabilityRef reachability;
 @property (nonatomic, assign, readonly) BOOL isNetworkLost;
@@ -57,10 +61,6 @@
     if (self.tokenHasExpired == NO && QBChat.instance.isConnected) {
         connected = YES;
     }
-
-    if (connected == NO) {
-        [self establishConnection];
-    }
     return connected;
 }
 
@@ -81,8 +81,28 @@
 }
 
 //MARK: - Actions
+- (id)appActiveStateObserver {
+    if (_appActiveStateObserver) {
+        return _appActiveStateObserver;
+    }
+    NSNotificationCenter *center = NSNotificationCenter.defaultCenter;
+    __weak __typeof(self)weakSelf = self;
+    _appActiveStateObserver = [center addObserverForName:UIApplicationWillEnterForegroundNotification
+                                                  object:nil
+                                                   queue:NSOperationQueue.mainQueue
+                                              usingBlock:^(NSNotification * _Nonnull note) {
+        [weakSelf establish];
+    }];
+    return _appActiveStateObserver;
+}
+
 - (void)activateAutomaticMode {
-    [self establishConnection];
+    [self appActiveStateObserver];
+    [self establish];
+}
+
+- (void)deactivateAutomaticMode {
+    [NSNotificationCenter.defaultCenter removeObserver:self.appActiveStateObserver];
 }
 
 - (void)activateCallMode {
@@ -96,50 +116,55 @@
     }
 }
 
-- (void)establishConnection {
-    Profile *profile = [[Profile alloc] init];
-    [self connectWithId:profile.ID
-               password:profile.password];
+- (void)establish {
+    if (self.tokenHasExpired ) {
+        [self disconnect];
+        if ([self.delegate respondsToSelector:@selector(connectionModuleTokenHasExpired:)]) {
+            [self.delegate connectionModuleTokenHasExpired:self];
+        }
+        return;
+    }
+    if (QBChat.instance.isConnected || QBChat.instance.isConnecting) {
+        if ([self.delegate respondsToSelector:@selector(connectionModuleDidConnect:)]) {
+            [self.delegate connectionModuleDidConnect:self];
+        }
+        return;
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(connectionModuleWillConnect:)]) {
+        [self.delegate connectionModuleWillConnect:self];
+    }
+    
+    __weak __typeof(self)weakSelf = self;
+    [QBChat.instance connectWithUserID:QBSession.currentSession.sessionDetails.userID
+                              password:QBSession.currentSession.sessionDetails.token
+                            completion:^(NSError * _Nullable error) {
+        __typeof(weakSelf)strongSelf = weakSelf;
+        if (error && error.code != ALREADY_CONNECTED_CODE) {
+            NSLog(@"connectWithUserID error: %@", error.description);
+            if ([strongSelf.delegate respondsToSelector:@selector(connectionModuleDidNotConnect:withError:)]) {
+                [strongSelf.delegate connectionModuleDidNotConnect:strongSelf withError:error];
+            }
+            return;
+        }
+        
+        if ([strongSelf.delegate respondsToSelector:@selector(connectionModuleDidConnect:)]) {
+            [strongSelf.delegate connectionModuleDidConnect:strongSelf];
+        }
+    }];
 }
 
 - (void)breakConnectionWithCompletion:(nonnull void (^)(void))completion {
-    if (self.isProcessing) {
-        return;
-    }
-    self.isProcessing = YES;
-    
     if (QBChat.instance.isConnected == NO) {
-        [self logoutWithCompletion:completion];
+        completion();
         return;
     }
-    __weak __typeof(self)weakSelf = self;
     [QBChat.instance disconnectWithCompletionBlock:^(NSError * _Nullable error) {
-        [weakSelf logoutWithCompletion:completion];
+        completion();
     }];
 }
 
 //MARK: - Internal
-- (void)logoutWithCompletion:(nonnull void (^)(void))completion {
-    __weak __typeof(self)weakSelf = self;
-    [QBRequest logOutWithSuccessBlock:^(QBResponse * _Nonnull response) {
-        weakSelf.isProcessing = NO;
-        completion();
-    } errorBlock:^(QBResponse * _Nonnull response) {
-        weakSelf.isProcessing = NO;
-        completion();
-    }];
-}
-
-- (void)connectWithId:(NSUInteger)id password:(NSString *)password {
-    if (QBChat.instance.isConnected || QBChat.instance.isConnecting) {
-        return;
-    }
-    [QBChat.instance connectWithUserID:id
-                              password:password
-                            completion:nil];
-    return;
-}
-
 - (void)disconnect {
     if (QBChat.instance.isConnected == NO) {
         return;
@@ -151,30 +176,33 @@
 
 @implementation ConnectionModule (ChatConnection)
 
-- (void)chatDidConnect {
-    if (self.onConnect) { self.onConnect(); }
-}
-
 - (void)chatDidNotConnectWithError:(NSError *)error {
-    if (error == nil) {
-        return;
-    }
-    if (self.onDisconnect) {
-        self.onDisconnect(self.isNetworkLost);
+    if ([self.delegate respondsToSelector:@selector(connectionModuleDidNotConnect:withError:)]) {
+        [self.delegate connectionModuleDidNotConnect:self withError:error];
     }
 }
 
 - (void)chatDidDisconnectWithError:(NSError *)error {
-    if (error == nil) {
+    if (error == nil
+        || error.code == ErrorCodeSocketClosedRemote
+        || error.code == ErrorCodeBrokenPipe) {
         return;
     }
-    if (self.onDisconnect) {
-        self.onDisconnect(self.isNetworkLost);
+    if ([self.delegate respondsToSelector:@selector(connectionModuleDidNotConnect:withError:)]) {
+        [self.delegate connectionModuleDidNotConnect:self withError:error];
     }
 }
 
 - (void)chatDidReconnect {
-    if (self.onConnect) { self.onConnect(); }
+    if ([self.delegate respondsToSelector:@selector(connectionModuleDidReconnect:)]) {
+        [self.delegate connectionModuleDidReconnect:self];
+    }
+}
+
+- (void)chatDidAccidentallyDisconnect {
+    if ([self.delegate respondsToSelector:@selector(connectionModuleWillConnect:)]) {
+        [self.delegate connectionModuleWillConnect:self];
+    }
 }
 
 @end

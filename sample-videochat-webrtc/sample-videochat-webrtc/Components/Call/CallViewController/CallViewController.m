@@ -14,7 +14,6 @@
 @interface CallViewController()
 //MARK: - Properties
 @property (strong, nonatomic) StatsView *statsView;
-
 @end
 
 @implementation CallViewController

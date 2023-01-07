@@ -14,7 +14,7 @@
 #import "UIViewController+Alert.h"
 
 @interface UserListViewController ()
-
+@property (nonatomic, assign) Boolean isProcessing;
 @end
 
 @implementation UserListViewController
@@ -36,15 +36,19 @@
 
 //MARK - Setup
 - (void)fetchUsers {
+    if (self.isProcessing) {
+        return;
+    }
+    self.isProcessing = TRUE;
     [self.refreshControl beginRefreshing];
     __weak __typeof(self)weakSelf = self;
     [self.userList fetchWithPage:1 completion:^(NSArray<QBUUser *> * _Nonnull users, NSError * _Nonnull error) {
-        __typeof(weakSelf)strongSelf = weakSelf;
-        if (users && strongSelf.onFetchedUsers) {
-            strongSelf.onFetchedUsers(users);
+        if (users && weakSelf.onFetchedUsers) {
+            weakSelf.onFetchedUsers(users);
         }
-        [strongSelf.refreshControl endRefreshing];
-        [strongSelf.tableView reloadData];
+        [weakSelf.refreshControl endRefreshing];
+        [weakSelf.tableView reloadData];
+        weakSelf.isProcessing = NO;
     }];
 }
 

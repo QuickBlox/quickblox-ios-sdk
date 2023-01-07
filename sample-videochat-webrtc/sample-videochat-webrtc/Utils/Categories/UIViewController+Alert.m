@@ -8,36 +8,76 @@
 
 #import "UIViewController+Alert.h"
 
+NSString *const STILL_CONNECTION = @"Still in connecting state, please wait";
+NSString *const NO_INTERNET_CONNECTION = @"No Internet Connection";
+NSString *const CHECK_INTERNET_MESSAGE = @"Make sure your device is connected to the internet";
+
 @implementation UIViewController (Alert)
+- (void)showNoInternetAlertWithHandler:(void (^ __nullable)(UIAlertAction *action))handler {
+    if ([self.presentedViewController isKindOfClass:[UIAlertController class]] && self.presentedViewController.view.tag == 1234) {
+        return;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertController *alertController = [UIAlertController
+                                              alertControllerWithTitle:nil
+                                              message:NO_INTERNET_CONNECTION
+                                              preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK"
+                                                               style:UIAlertActionStyleCancel handler:handler];
+        alertController.view.tag = 1234;
+        [alertController addAction:cancelAction];
+        [self presentViewController:alertController animated:NO completion:nil];
+    });
+}
+
 - (void)showAlertWithTitle:(NSString * _Nullable)title
-                   message:(NSString * _Nullable)message
-        fromViewController:(UIViewController *)viewController {
+                   message:(NSString * _Nullable)message{
+    if ([self.presentedViewController isKindOfClass:[UIAlertController class]]) {
+        return;
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
         UIAlertController *alertController = [UIAlertController
                                               alertControllerWithTitle:title
                                               message:message
                                               preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"SA_STR_CANCEL", nil)
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Ok"
                                                                style:UIAlertActionStyleCancel handler:nil];
         [alertController addAction:cancelAction];
-        
-        [viewController presentViewController:alertController animated:NO completion:nil];
-        
+        [self presentViewController:alertController animated:NO completion:nil];
+    });
+}
+
+- (void)showUnAuthorizeAlert:(NSString * _Nullable)message
+                logoutAction:(void (^ __nullable)(UIAlertAction *action))logoutAction
+                tryAgainAction:(void (^ __nullable)(UIAlertAction *action))tryAgainAction {
+    if ([self.presentedViewController isKindOfClass:[UIAlertController class]]) {
+        return;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertController *alertController = [UIAlertController
+                                              alertControllerWithTitle:nil
+                                              message:message
+                                              preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Logout"
+                                                            style:UIAlertActionStyleCancel handler:logoutAction]];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Try Again"
+                                                            style:UIAlertActionStyleDefault handler:tryAgainAction]];
+        [self presentViewController:alertController animated:NO completion:nil];
     });
 }
 
 - (void)showAnimatedAlertWithTitle:(NSString * _Nullable)title
-                           message:(NSString * _Nullable)message
-                fromViewController:(UIViewController *)viewController {
+                           message:(NSString * _Nullable)message {
+    if ([self.presentedViewController isKindOfClass:[UIAlertController class]]) {
+        return;
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
         UIAlertController *alertController = [UIAlertController
                                               alertControllerWithTitle:title
                                               message:message
                                               preferredStyle:UIAlertControllerStyleAlert];
-        
-        [viewController presentViewController:alertController animated:NO completion:^{
-            
-            [UIView animateWithDuration:1.5f delay:2.0f options:UIViewAnimationOptionCurveEaseIn
+        [self presentViewController:alertController animated:NO completion:^{
+            [UIView animateWithDuration:1.5f delay:1.5f options:UIViewAnimationOptionCurveEaseIn
                              animations:^{
                 alertController.view.alpha = 0.0f;
             }
@@ -47,7 +87,13 @@
                 });
             }];
         }];
-        
     });
 }
+
+- (void)hideAlertView {
+    if ([self.presentedViewController isKindOfClass:[UIAlertController class]]) {
+        [self.presentedViewController dismissViewControllerAnimated:NO completion:nil];
+    }
+}
+
 @end

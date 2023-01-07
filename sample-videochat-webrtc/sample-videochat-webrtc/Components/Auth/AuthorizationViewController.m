@@ -16,8 +16,10 @@
 #import "NSString+Videochat.h"
 #import "AppDelegate.h"
 #import "InputContainer.h"
+#import "AuthModule.h"
+#import "ConnectionModule.h"
+#import "NSError+Videochat.h"
 
-NSString *const DEFAULT_PASSWORD = @"quickblox";
 NSString *const FULL_NAME_DID_CHANGE = @"Full Name Did Change";
 NSString *const LOGIN_HINT = @"Use your email or alphanumeric characters in a range from 3 to 50. First character must be a letter.";
 NSString *const DISPLAYNAME_HINT = @"Use alphanumeric characters and spaces in a range from 3 to 20. Cannot contain more than one space in a row.";
@@ -33,7 +35,7 @@ NSString *const DISPLAYNAME_REGEX = @"^(?=.{3,20}$)(?!.*([\\s])\\1{1})[\\w\\s]+$
 NSString *const LOGIN_REGEX = @"^[a-zA-Z][a-zA-Z0-9]{2,49}$";
 NSString *const EMAIL_REGEX = @"^[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,49}$";
 
-@interface AuthorizationViewController () <InputContainerDelegate>
+@interface AuthorizationViewController () <InputContainerDelegate, AuthModuleDelegate, ConnectionModuleDelegate>
 //MARK: - IBOutlets
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UILabel *loginInfoLabel;
@@ -43,12 +45,19 @@ NSString *const EMAIL_REGEX = @"^[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]
 @property (strong, nonatomic) InputContainer *displayNameInputContainer;
 @property (assign, nonatomic) BOOL needReconnect;
 @property (strong, nonatomic) NSArray<InputContainer *> *inputContainers;
+@property (strong, nonatomic) AuthModule *authModule;
+@property (strong, nonatomic) ConnectionModule *connection;
 @end
 
 @implementation AuthorizationViewController
 #pragma mark - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.authModule = [[AuthModule alloc] init];
+    self.authModule.delegate = self;
+    self.connection = [[ConnectionModule alloc] init];
+    self.connection.delegate = self;
     
     self.loginInputContainer = [[NSBundle mainBundle] loadNibNamed:@"InputContainer" owner:nil options:nil].firstObject;
     [self.loginInputContainer setupWithTitle:LOGIN hint:LOGIN_HINT regexes:@[LOGIN_REGEX, EMAIL_REGEX]];
@@ -97,18 +106,13 @@ NSString *const EMAIL_REGEX = @"^[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]
 }
 
 #pragma mark - Setup
-- (void)showUsersScreen {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Users" bundle:nil];
-    UIViewController *users = [storyboard instantiateViewControllerWithIdentifier:@"UsersViewController"];
-    [self.navigationController pushViewController:users animated:NO];
-}
-
 - (void)defaultConfiguration {
-    self.loginButton.isLoading = NO;
+    [self.loginButton hideLoading];
     [self.loginButton setTitle:LOGIN
                       forState:UIControlStateNormal];
     self.loginButton.enabled = NO;
     [self setupInputEnabled:YES];
+    self.loginInfoLabel.text = ENTER_LOGIN_AND_DISPLAYNAME;
 }
 
 - (void)clearInputFields {
@@ -128,124 +132,69 @@ NSString *const EMAIL_REGEX = @"^[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]
 - (IBAction)didPressLoginButton:(LoadingButton *)sender {
     NSString *displayName = self.displayNameInputContainer.text;
     NSString *login = self.loginInputContainer.text;
-    if (sender.isLoading == NO) {
-        [self signUpWithDisplayName:displayName login:login];
+    if (sender.isAnimating == NO) {
+        [self.authModule signUpWithFullName:displayName login:login];
+        [self beginConnect];
     }
 }
 
 #pragma mark - Internal Methods
-- (void)signUpWithDisplayName:(NSString *)displayName login:(NSString *)login {
-    [self beginConnect];
-    QBUUser *newUser = [[QBUUser alloc] init];
-    newUser.login = login;
-    newUser.fullName = displayName;
-    newUser.password = DEFAULT_PASSWORD;
-    
-    self.loginInfoLabel.text = SIGNG;
-    
-    __weak __typeof(self)weakSelf = self;
-    [QBRequest signUp:newUser successBlock:^(QBResponse * _Nonnull response, QBUUser * _Nonnull user) {
-        __typeof(weakSelf)strongSelf = weakSelf;
-        
-        [strongSelf loginWithDisplayName:displayName login:login password:DEFAULT_PASSWORD];
-        
-    } errorBlock:^(QBResponse * _Nonnull response) {
-        __typeof(weakSelf)strongSelf = weakSelf;
-        if (response.status == QBResponseStatusCodeValidationFailed) {
-            // The user with existent login was created earlier
-            [strongSelf loginWithDisplayName:displayName login:login password:DEFAULT_PASSWORD];
-            return;
-        }
-        [strongSelf handleError:response.error.error];
-    }];
-}
-
-- (void)loginWithDisplayName:(NSString *)displayName login:(NSString *)login password:(NSString *)password {
-    [self beginConnect];
-    
-    self.loginInfoLabel.text = LOGIN_USER;
-    
-    __weak __typeof(self)weakSelf = self;
-    [QBRequest logInWithUserLogin:login
-                         password:password
-                     successBlock:^(QBResponse * _Nonnull response, QBUUser * _Nonnull user) {
-        
-        __typeof(weakSelf)strongSelf = weakSelf;
-        
-        [user setPassword:password];
-        [Profile synchronizeUser:user];
-        
-        if ([user.fullName isEqualToString: displayName] == NO) {
-            [strongSelf updateDisplayName:displayName login:login];
-        } else {
-            // connect to chat when login action is complete
-            [strongSelf connectToChat:user];
-        }
-    } errorBlock:^(QBResponse * _Nonnull response) {
-        __typeof(weakSelf)strongSelf = weakSelf;
-        
-        [strongSelf handleError:response.error.error];
-        if (response.status == QBResponseStatusCodeUnAuthorized) {
-            [Profile clear];
-            [strongSelf defaultConfiguration];
-        }
-    }];
-}
-
-- (void)updateDisplayName:(NSString *)displayName login:(NSString *)login {
-    QBUpdateUserParameters *updateUserParameter = [[QBUpdateUserParameters alloc] init];
-    updateUserParameter.fullName = displayName;
-    __weak __typeof(self)weakSelf = self;
-    [QBRequest updateCurrentUser:updateUserParameter
-                    successBlock:^(QBResponse * _Nonnull response, QBUUser * _Nonnull user) {
-        __typeof(weakSelf)strongSelf = weakSelf;
-        strongSelf.loginInfoLabel.text = FULL_NAME_DID_CHANGE;
-        [Profile updateUser:user];
-        // connect to chat when login action and update user action is complete
-        [strongSelf connectToChat:user];
-    } errorBlock:^(QBResponse * _Nonnull response) {
-        __typeof(weakSelf)strongSelf = weakSelf;
-        [strongSelf handleError:response.error.error];
-    }];
-}
-
-- (void)connectToChat:(QBUUser *)user {
-    self.loginInfoLabel.text = @"Login into chat ...";
-    __weak __typeof(self)weakSelf = self;
-    
-    [QBChat.instance connectWithUserID:user.ID
-                              password:DEFAULT_PASSWORD
-                            completion:^(NSError * _Nullable error) {
-        
-        __typeof(weakSelf)strongSelf = weakSelf;
-        
-        if (error && error.code != -1000) {
-            [strongSelf handleError:error];
-        } else {
-            //did Login action
-            [strongSelf showUsersScreen];
-        }
-    }];
-}
-
 - (void)beginConnect {
     [self setEditing:NO];
     [self setupInputEnabled:NO];
-    self.loginButton.isLoading = YES;
+    [self.loginButton showLoading];
+}
+
+#pragma mark - AuthModuleDelegate
+- (void)authModule:(AuthModule *)authModule didSignUpUser:(QBUUser *)user {
+    [Profile synchronizeUser:user];
+    Profile *profile = [[Profile alloc] init];
+    [authModule loginWithFullName:profile.fullName login:profile.login];
+    self.loginInfoLabel.text = LOGIN_USER;
+}
+
+- (void)authModule:(AuthModule *)authModule didLoginUser:(QBUUser *)user {
+    Profile *profile = [[Profile alloc] init];
+    if ([user.fullName isEqualToString: profile.fullName] == NO) {
+        [authModule updateFullName:profile.fullName];
+        return;
+    }
+    [Profile synchronizeUser:user];
+    [self.connection establish];
+}
+
+- (void)authModule:(AuthModule *)authModule didUpdateUpdateFullNameUser:(QBUUser *)user {
+    self.loginInfoLabel.text = FULL_NAME_DID_CHANGE;
+    [Profile synchronizeUser:user];
+    [self.connection establish];
+}
+
+- (void)authModule:(AuthModule *)authModule didReceivedError:(NSError *)error {
+    [self handleError:error];
+}
+
+#pragma mark - ConnectionModuleDelegate
+- (void)connectionModuleDidConnect:(ConnectionModule *)connectionModule {
+    if (self.onCompleteAuth) {
+        self.onCompleteAuth();
+    }
+}
+
+- (void)connectionModuleDidNotConnect:(ConnectionModule *)connectionModule withError:(NSError*)error {
+    [self handleError:error];
 }
 
 #pragma mark - Handle errors
 - (void)handleError:(NSError *)error {
-    NSString *infoText = error.localizedDescription;
-    if (error.code == NSURLErrorNotConnectedToInternet) {
-        infoText = CHECK_INTERNET;
+    self.loginInfoLabel.text = error.localizedDescription;
+    if (error.isNetworkError) {
+        self.loginInfoLabel.text = CHECK_INTERNET;
     } else if (error.code == QBResponseStatusCodeUnAuthorized) {
         [Profile clear];
         [self defaultConfiguration];
     }
     [self setupInputEnabled:YES];
-    self.loginButton.isLoading = NO;
-    self.loginInfoLabel.text = infoText;
+    [self.loginButton hideLoading];
 }
 
 #pragma mark - InputContainerDelegate

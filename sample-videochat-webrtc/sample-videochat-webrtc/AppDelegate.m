@@ -8,30 +8,22 @@
 
 #import "AppDelegate.h"
 #import "Settings.h"
-#import "Profile.h"
-#import "UIColor+Videochat.h"
+#import "PresenterViewController.h"
 
 const NSTimeInterval kQBAnswerTimeInterval = 30.0f;
 const NSTimeInterval kQBDialingTimeInterval = 5.0f;
 static NSString* const kChatServiceDomain = @"com.q-municate.chatservice";
 
-//To update the Credentials, please see the README file.
-const NSUInteger kApplicationID = 0;
-NSString *const kAuthKey        = @"";
-NSString *const kAuthSecret     = @"";
-NSString *const kAccountKey     = @"";
-
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    self.window.backgroundColor = [UIColor whiteColor];
-    
     // Set QuickBlox credentials (You must create application in admin.quickblox.com)
-    QBSettings.applicationID = kApplicationID;
-    QBSettings.authKey = kAuthKey;
-    QBSettings.authSecret = kAuthSecret;
-    QBSettings.accountKey = kAccountKey;
+    [Quickblox initWithApplicationId:0
+                             authKey:@""
+                          authSecret:@""
+                          accountKey:@""
+    ];
     
     QBSettings.logLevel = QBLogLevelNothing;
     [QBSettings disableFileLogging];
@@ -48,24 +40,8 @@ NSString *const kAccountKey     = @"";
     [settings saveToDisk];
     [settings applyConfig];
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Authorization" bundle:nil];
-    UINavigationController *root =
-    [storyboard instantiateViewControllerWithIdentifier:@"AuthNavVC"];
-    root.view.backgroundColor = UIColor.blueBarColor;
-    
-    Profile *profile = [[Profile alloc] init];
-    BOOL isLoggedIn = profile.isFull;
-    if (isLoggedIn) {
-        storyboard = [UIStoryboard storyboardWithName:@"Users" bundle:nil];
-        UIViewController *users =
-        [storyboard instantiateViewControllerWithIdentifier:@"UsersViewController"];
-        NSMutableArray<UIViewController *>*viewControllers = root.viewControllers.mutableCopy;
-        [viewControllers addObject:users];
-        [root setViewControllers:viewControllers animated:NO];
-    }
-    
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-    self.window.rootViewController = root;
+    self.window.rootViewController = [[PresenterViewController alloc] init];
     [self.window makeKeyAndVisible];
 
     return YES;

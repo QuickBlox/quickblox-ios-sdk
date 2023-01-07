@@ -12,6 +12,10 @@
 
 NSString *const NO_USERS = @"No user with that name";
 
+@interface SearchUsersViewController ()
+@property (nonatomic, assign) Boolean isProcessing;
+@end
+
 @implementation SearchUsersViewController
 //MARK - Setup
 - (void)setupSelectedUsers:(NSArray<QBUUser *> *)users {
@@ -33,13 +37,17 @@ NSString *const NO_USERS = @"No user with that name";
 }
 
 - (void)fetchNext {
+    if (self.isProcessing) {
+        return;
+    }
+    self.isProcessing = TRUE;
     __weak __typeof(self)weakSelf = self;
     [self.userList searchNextWithName:self.searchText completion:^(NSArray<QBUUser *> * _Nullable users, NSError * _Nullable error) {
-        __typeof(weakSelf)strongSelf = weakSelf;
-        if (users && strongSelf.onFetchedUsers) {
-            strongSelf.onFetchedUsers(users);
+        if (users && weakSelf.onFetchedUsers) {
+            weakSelf.onFetchedUsers(users);
         }
-        [strongSelf.tableView reloadData];
+        [weakSelf.tableView reloadData];
+        weakSelf.isProcessing = NO;
     }];
 }
 
