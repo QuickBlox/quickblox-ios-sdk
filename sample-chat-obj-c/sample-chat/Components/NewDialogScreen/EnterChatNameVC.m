@@ -101,7 +101,6 @@ NSString *const NAME_TITLE = @"Chat Name";
             sender.enabled = YES;
             [weakSelf showAlertWithTitle:nil
                                  message:error.localizedDescription
-                      fromViewController:self
                                  handler:nil];
             return;
         }

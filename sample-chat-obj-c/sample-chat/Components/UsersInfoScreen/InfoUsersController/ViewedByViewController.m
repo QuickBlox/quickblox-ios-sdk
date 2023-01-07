@@ -109,6 +109,7 @@ NSString *const VIEWED = @"Message viewed by";
 
 #pragma mark - Actions
 - (void)didTapBack:(UIButton *)sender {
+    [QBChat.instance removeDelegate:self];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

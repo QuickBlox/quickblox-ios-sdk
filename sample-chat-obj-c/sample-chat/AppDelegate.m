@@ -8,16 +8,9 @@
 
 #import "AppDelegate.h"
 #import "Log.h"
-#import "ChatManager.h"
 #import "PresenterViewController.h"
 #import <Quickblox/Quickblox.h>
 #import "NotificationsProvider.h"
-
-// To update the QuickBlox credentials, please see the READMe file.(You must create application in admin.quickblox.com)
-const NSUInteger kApplicationID = 0;
-NSString *const kAuthKey        = @"";
-NSString *const kAuthSecret     = @"";
-NSString *const kAccountKey     = @"";
 
 @interface AppDelegate ()
 
@@ -29,10 +22,10 @@ NSString *const kAccountKey     = @"";
     application.applicationIconBadgeNumber = 0;
     
     // Set QuickBlox credentials (You must create application in admin.quickblox.com)
-    [QBSettings setApplicationID:kApplicationID];
-    [QBSettings setAuthKey:kAuthKey];
-    [QBSettings setAuthSecret:kAuthSecret];
-    [QBSettings setAccountKey:kAccountKey];
+    [Quickblox initWithApplicationId:0
+                             authKey:@""
+                          authSecret:@""
+                          accountKey:@""];
     // enabling carbons for chat
     [QBSettings setCarbonsEnabled:YES];
     [QBSettings setAutoReconnectEnabled:YES];

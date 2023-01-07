@@ -14,6 +14,9 @@ NSString *const CHECK_INTERNET_MESSAGE = @"Make sure your device is connected to
 
 @implementation UIViewController (Alert)
 - (void)showNoInternetAlertWithHandler:(void (^ __nullable)(UIAlertAction *action))handler {
+    if ([self.presentedViewController isKindOfClass:[UIAlertController class]]) {
+        return;
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
         UIAlertController *alertController = [UIAlertController
                                               alertControllerWithTitle:nil
@@ -28,8 +31,10 @@ NSString *const CHECK_INTERNET_MESSAGE = @"Make sure your device is connected to
 
 - (void)showAlertWithTitle:(NSString * _Nullable)title
                    message:(NSString * _Nullable)message
-        fromViewController:(UIViewController *)viewController
                    handler:(void (^ __nullable)(UIAlertAction *action))handler {
+    if ([self.presentedViewController isKindOfClass:[UIAlertController class]]) {
+        return;
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
         UIAlertController *alertController = [UIAlertController
                                               alertControllerWithTitle:title
@@ -38,20 +43,38 @@ NSString *const CHECK_INTERNET_MESSAGE = @"Make sure your device is connected to
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK"
                                                                style:UIAlertActionStyleCancel handler:handler];
         [alertController addAction:cancelAction];
-        [viewController presentViewController:alertController animated:NO completion:nil];
+        [self presentViewController:alertController animated:NO completion:nil];
+    });
+}
+
+- (void)showUnAuthorizeAlert:(NSString * _Nullable)message
+                logoutAction:(void (^ __nullable)(UIAlertAction *action))logoutAction
+                tryAgainAction:(void (^ __nullable)(UIAlertAction *action))tryAgainAction {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertController *alertController = [UIAlertController
+                                              alertControllerWithTitle:nil
+                                              message:message
+                                              preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Logout"
+                                                            style:UIAlertActionStyleCancel handler:logoutAction]];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Try Again"
+                                                            style:UIAlertActionStyleDefault handler:tryAgainAction]];
+        [self presentViewController:alertController animated:NO completion:nil];
     });
 }
 
 - (void)showAnimatedAlertWithTitle:(NSString * _Nullable)title
-                           message:(NSString * _Nullable)message
-                fromViewController:(UIViewController *)viewController {
+                           message:(NSString * _Nullable)message {
+    if ([self.presentedViewController isKindOfClass:[UIAlertController class]]) {
+        return;
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
         UIAlertController *alertController = [UIAlertController
                                               alertControllerWithTitle:title
                                               message:message
                                               preferredStyle:UIAlertControllerStyleAlert];
-        [viewController presentViewController:alertController animated:NO completion:^{
-            [UIView animateWithDuration:1.5f delay:1.5f options:UIViewAnimationOptionCurveEaseIn
+        [self presentViewController:alertController animated:NO completion:^{
+            [UIView animateWithDuration:1.0f delay:0.5f options:UIViewAnimationOptionCurveEaseIn
                              animations:^{
                 alertController.view.alpha = 0.0f;
             }
@@ -62,6 +85,12 @@ NSString *const CHECK_INTERNET_MESSAGE = @"Make sure your device is connected to
             }];
         }];
     });
+}
+
+- (void)hideAlertView {
+    if ([self.presentedViewController isKindOfClass:[UIAlertController class]]) {
+        [self.presentedViewController dismissViewControllerAnimated:NO completion:nil];
+    }
 }
 
 @end

@@ -18,7 +18,7 @@
 
 NSString *const ADD_MEMBERS = @"Add Members";
 
-@interface AddOccupantsController () <ChatManagerDelegate, SearchBarViewDelegate, QBChatDelegate>
+@interface AddOccupantsController () <SearchBarViewDelegate, QBChatDelegate>
 //MARK: - IBOutlets
 @property (weak, nonatomic) IBOutlet SearchBarView *searchBarView;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
@@ -62,7 +62,6 @@ NSString *const ADD_MEMBERS = @"Add Members";
     
     [QBChat.instance addDelegate: self];
     self.chatManager = [ChatManager instance];
-    self.chatManager.delegate = self;
     self.dialog = [self.chatManager.storage dialogWithID:self.dialogID];
     self.users = [[Users alloc] init];
     self.searchBarView.delegate = self;
@@ -96,6 +95,14 @@ NSString *const ADD_MEMBERS = @"Add Members";
         [self showNoInternetAlertWithHandler:nil];
         return;
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateDialog:)
+                                                 name:UpdatedChatDialogNotification
+                                               object:nil];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - UI Configuration
@@ -160,7 +167,6 @@ NSString *const ADD_MEMBERS = @"Add Members";
             sender.enabled = YES;
             [weakSelf showAlertWithTitle:nil
                                  message:response.error.error.localizedDescription
-                      fromViewController:self
                                  handler:nil];
             return;
         }
@@ -201,12 +207,13 @@ NSString *const ADD_MEMBERS = @"Add Members";
     [self showFetchScreen];
 }
 
-#pragma mark Chat Manager Delegate
-- (void)chatManager:(ChatManager *)chatManager didUpdateChatDialog:(QBChatDialog *)chatDialog {
-    if ([chatDialog.ID isEqualToString: self.dialogID]) {
-        self.dialog = chatDialog;
-        self.current.userList.nonDisplayedUsers = self.dialog.occupantIDs;
-    }
+#pragma mark Notification methods
+- (void)updateDialog:(NSNotification *)notification {
+    NSString *chatDialogId = [notification.userInfo objectForKey:UpdatedChatDialogNotificationKey];
+    if (!chatDialogId || ![chatDialogId isEqualToString:self.dialogID]) { return; }
+    self.dialog = [self.chatManager.storage dialogWithID:chatDialogId];
+    if (!self.dialog) { return; }
+    self.current.userList.nonDisplayedUsers = self.dialog.occupantIDs;
 }
 
 @end

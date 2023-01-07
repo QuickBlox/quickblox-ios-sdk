@@ -31,13 +31,6 @@
     [self setupNavigationTitle];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-
-    // Can be overridden in a child class.
-    [self setupDialogs];
-}
-
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
@@ -66,9 +59,9 @@
 }
 
 - (void)reloadContent {
-    [self.refreshControl endRefreshing];
     self.dialogs = [self.chatManager.storage dialogsSortByUpdatedAt];
     [self.tableView reloadData];
+    [self.refreshControl endRefreshing];
 }
 
 #pragma mark UITableViewDelegate & UITableViewDataSource
@@ -144,7 +137,7 @@
         [self.chatManager leaveDialogWithID:dialog.ID completion:^(NSString * _Nullable error) {
             [self.progressView stop];
             if (error) {
-                [weakSelf showAlertWithTitle:nil message:error fromViewController:weakSelf handler:nil];
+                [weakSelf showAlertWithTitle:nil message:error handler:nil];
             } else {
                 [weakSelf handleLeaveDialog];
             }

@@ -16,78 +16,51 @@
 #import "QBChatMessage+Chat.h"
 #import "UIViewController+Alert.h"
 #import "ConnectionModule.h"
+#import "AuthModule.h"
 #import "NotificationsProvider.h"
+#import "SplashScreenViewController.h"
+#import "NSError+Chat.h"
 
-@interface DialogsViewController () <ChatManagerDelegate, QBChatDelegate>
+@interface DialogsViewController () <ChatManagerDelegate, QBChatDelegate, AuthModuleDelegate, ConnectionModuleDelegate>
 //MARK: - Properties
 @property (nonatomic, strong) Profile *profile;
 @property (strong, nonatomic) ConnectionModule *connection;
-@property (assign, nonatomic) BOOL isPresentAlert;
+@property (strong, nonatomic) AuthModule *authModule;
+@property (strong, nonatomic) SplashScreenViewController *splashVC;
 @end
 
 NSString *const kStillConnection = @"Still in connecting state, please wait";
+NSString *const kReconnection = @"Reconnecting state, please wait";
 
 @implementation DialogsViewController
-
-- (ConnectionModule *)connection {
-    if (_connection) {
-        return _connection;
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.authModule = [[AuthModule alloc] init];
+    self.authModule.delegate = self;
+    self.connection = [[ConnectionModule alloc] init];
+    self.connection.delegate = self;
+    if (!self.connection.established) {
+        [self showSplashScreen];
     }
-    _connection = [[ConnectionModule alloc] init];
-    
-    __weak __typeof(self)weakSelf = self;
-    
-    [_connection setOnAuthorize:^{
-        Log(@"[%@] [connection] On Authorize",  NSStringFromClass(weakSelf.class));
-        NSUserDefaults *userDefaults = NSUserDefaults.standardUserDefaults;
-        if ([userDefaults boolForKey:kNeedUpdateToken] == NO) {
-            return;
-        }
-        NSData *token = [userDefaults objectForKey:kToken];
-        if (token == nil) {
-            return;
-        }
-        [NotificationsProvider deleteLastSubscriptionWithCompletion:^{
-            [NotificationsProvider createSubscriptionWithToken:token];
-        }];
-    }];
-    
-    [_connection setOnConnect:^{
-        weakSelf.isPresentAlert = NO;
-        Log(@"[%@] [connection] On Connect",  NSStringFromClass(weakSelf.class));
-        [weakSelf.refreshControl beginRefreshing];
-        [weakSelf showAnimatedAlertWithTitle:nil message:@"Connection established" fromViewController:weakSelf];
-        [weakSelf.chatManager updateStorage];
-    }];
-    
-    [_connection setOnDisconnect:^(BOOL lostNetwork) {
-        Log(@"[%@] [connection] On Disconnect",  NSStringFromClass(weakSelf.class));
-        if (lostNetwork == NO || weakSelf.isPresentAlert) { return; }
-        weakSelf.isPresentAlert = YES;
-        [weakSelf showAnimatedAlertWithTitle:nil message:kStillConnection fromViewController:weakSelf];
-    }];
-    
-    return _connection;
-}
-
-- (void)setupDialogs {
-    [self reloadContent];
-    self.profile = [[Profile alloc] init];
-    self.chatManager.delegate = self;
-    [self.chatManager updateStorage];
-    [self.refreshControl beginRefreshing];
-}
-
-- (void)setupViews {
-    self.isPresentAlert = NO;
     [self.connection activateAutomaticMode];
+    
+    self.chatManager.delegate = self;
+    self.profile = [[Profile alloc] init];
+    [QBChat.instance addDelegate:self];
+    
     UILongPressGestureRecognizer *tapGestureDelete = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(tapEdit:)];
     tapGestureDelete.minimumPressDuration = 0.5f;
     tapGestureDelete.delaysTouchesBegan = YES;
     [self.tableView addGestureRecognizer:tapGestureDelete];
-    
-    [QBChat.instance addDelegate:self];
-    
+}
+
+- (void)setupDialogs {
+    [self.refreshControl beginRefreshing];
+    [self.chatManager updateStorage];
+}
+
+- (void)setupViews {
     self.navigationItem.rightBarButtonItems = @[];
     self.navigationItem.leftBarButtonItems = @[];
     UIBarButtonItem *exitButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"exit"]
@@ -141,6 +114,10 @@ NSString *const kStillConnection = @"Still in connecting state, please wait";
 
 #pragma mark Logout
 - (void)logoutButtonPressed:(UIButton *)sender {
+    [self logout];
+}
+
+- (void)logout {
     if (!self.connection.established) {
         [self showNoInternetAlertWithHandler:nil];
         return;
@@ -149,15 +126,7 @@ NSString *const kStillConnection = @"Still in connecting state, please wait";
     __weak __typeof(self)weakSelf = self;
     [NotificationsProvider deleteLastSubscriptionWithCompletion:^{
         [weakSelf.connection breakConnectionWithCompletion:^{
-            [weakSelf.connection deactivateAutomaticMode];
-            [Profile clear];
-            [weakSelf.chatManager.storage clear];
-            [ImageCache.instance clearCache];
-            [NSUserDefaults.standardUserDefaults removeObjectForKey:kToken];
-            [weakSelf.progressView stop];
-            if (weakSelf.onSignIn) {
-                weakSelf.onSignIn();
-            }
+            [weakSelf.authModule logout];
         }];
     }];
 }
@@ -184,79 +153,120 @@ NSString *const kStillConnection = @"Still in connecting state, please wait";
     [self openChatScreenWithDialogID:dialog.ID];
 }
 
+- (void)showSplashScreen {
+    if (self.splashVC) {
+        return;
+    }
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Authorization" bundle:nil];
+    self.splashVC = [storyboard instantiateViewControllerWithIdentifier:@"SplashScreenViewController"];
+    self.splashVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    [self presentViewController:self.splashVC animated:NO completion:nil];
+}
+
+- (void)hideSplashScreen {
+    if (!self.splashVC) {
+        return;
+    }
+    [self.splashVC dismissViewControllerAnimated:NO completion:^{
+        self.splashVC = nil;
+    }];
+}
+
 #pragma mark QBChatDelegate
 - (void)chatDidReceiveMessage:(QBChatMessage *)message {
     [self.chatManager updateDialogWith:message.dialogID withMessage:message];
 }
 
 - (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromDialogID:(NSString *)dialogID {
-    if (self.profile.ID == message.senderID &&
-        message.isNotificationMessageTypeLeave == YES) {
-        QBChatDialog *dialog = [self.chatManager.storage dialogWithID:message.dialogID];
-        if (!dialog) {
-            return;
-        }
-        NSInteger index = [self.dialogs indexOfObject:dialog];
-        self.chatManager.delegate = self;
-        NSMutableArray<QBChatDialog *> *arrayOfDialogs = self.dialogs.mutableCopy;
-        [arrayOfDialogs removeObject:dialog];
-        self.dialogs = arrayOfDialogs.copy;
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        [self.tableView beginUpdates];
-        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-        [self.tableView endUpdates];
-        return;
-    }
     [self.chatManager updateDialogWith:message.dialogID withMessage:message];
 }
 
 - (void)chatDidReceiveSystemMessage:(QBChatMessage *)message {
-    if (message.dialogID && [self.chatManager.storage dialogWithID:message.dialogID]) {
+    if ([self.chatManager.storage dialogWithID:message.dialogID]) {
         return;
     }
-    if (message.isNotificationMessageTypeCreate || message.isNotificationMessageTypeAdding) {
-        if (message.dialogID) {
-            [self.chatManager updateDialogWith:message.dialogID withMessage:message];
-        } else {
-            NSString *dialogID = message.customParameters[@"dialogId"];
-            if (dialogID) {
-                [self.chatManager updateDialogWith:dialogID withMessage:message];
-            }
-        }
+    NSString *dialogID = message.dialogID ? : message.customParameters[@"dialog_Id"];
+    if (dialogID) {
+        [self.chatManager updateDialogWith:dialogID withMessage:message];
     }
-}
-
-- (void)chatDidConnect {
-    [self.chatManager updateStorage];
-    Log(@"[%@] Connected",
-        NSStringFromClass([DialogsViewController class]));
-}
-
-- (void)chatDidReconnect {
-    [self.chatManager updateStorage];
-    Log(@"[%@] ReConnected",
-        NSStringFromClass([DialogsViewController class]));
 }
 
 #pragma mark Chat Manager Delegate
 - (void)chatManager:(ChatManager *)chatManager didUpdateStorage:(NSString *)message {
-    [self.refreshControl endRefreshing];
     [self reloadContent];
 }
 
 - (void)chatManager:(ChatManager *)chatManager didUpdateChatDialog:(QBChatDialog *)chatDialog {
-    [self.refreshControl endRefreshing];
     [self reloadContent];
 }
 
 - (void)chatManager:(ChatManager *)chatManager didFailUpdateStorage:(NSString *)message {
     [self.refreshControl endRefreshing];
-    [self showAnimatedAlertWithTitle:nil message:message fromViewController:self];
+    [self showAnimatedAlertWithTitle:nil message:message];
 }
 
-- (void)chatManagerWillUpdateStorage:(ChatManager *)chatManager {
-    if (self.navigationController.topViewController == self) {
+#pragma mark - AuthModuleDelegate
+- (void)authModule:(AuthModule *)authModule didLoginUser:(QBUUser *)user {
+    [Profile synchronizeUser:user];
+    [self.connection establish];
+}
+
+- (void)authModuleDidLogout:(AuthModule *)authModule {
+    [self.connection deactivateAutomaticMode];
+    [self.navigationController popToRootViewControllerAnimated:NO];
+    [Profile clear];
+    [self.chatManager.storage clear];
+    [ImageCache.instance clearCache];
+    [NSUserDefaults.standardUserDefaults removeObjectForKey:kToken];
+    [self.progressView stop];
+    if (self.onSignOut) {
+        self.onSignOut();
     }
+}
+
+- (void)authModule:(AuthModule *)authModule didReceivedError:(NSError *)error {
+    [self showUnAuthorizeAlert:error.localizedDescription logoutAction:^(UIAlertAction * _Nonnull action) {
+        [self logout];
+    } tryAgainAction:^(UIAlertAction * _Nonnull action) {
+        [authModule loginWithFullName:self.profile.fullName login:self.profile.login];
+    }];
+}
+
+#pragma mark - ConnectionModuleDelegate
+- (void)connectionModuleWillConnect:(ConnectionModule *)connectionModule {
+    [self showAnimatedAlertWithTitle:nil message:kStillConnection];
+}
+
+- (void)connectionModuleDidConnect:(ConnectionModule *)connectionModule {
+    [self setupDialogs];
+    [self hideAlertView];
+    [self hideSplashScreen];
+}
+
+- (void)connectionModuleDidNotConnect:(ConnectionModule *)connectionModule withError:(NSError*)error {
+    [self.refreshControl endRefreshing];
+    [self hideSplashScreen];
+    if (error.isNetworkError) {
+        [self showNoInternetAlertWithHandler:nil];
+        return;
+    }
+    [self showAlertWithTitle:nil message:error.localizedDescription handler:nil];
+}
+
+- (void)connectionModuleWillReconnect:(ConnectionModule *)connectionModule {
+    [self showAnimatedAlertWithTitle:nil message:kReconnection];
+}
+
+- (void)connectionModuleDidReconnect:(ConnectionModule *)connectionModule {
+    [self setupDialogs];
+    [self hideAlertView];
+}
+
+- (void)connectionModuleTokenHasExpired:(ConnectionModule *)connectionModule {
+    [self showSplashScreen];
+    [self.refreshControl endRefreshing];
+    Profile *profile = [[Profile alloc] init];
+    [self.authModule loginWithFullName:profile.fullName login:profile.login];
 }
 
 @end

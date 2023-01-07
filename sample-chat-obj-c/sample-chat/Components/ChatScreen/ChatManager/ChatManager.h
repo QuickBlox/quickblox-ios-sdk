@@ -31,6 +31,9 @@ typedef NS_ENUM(NSUInteger, ChatAction) {
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSString *const UpdatedChatDialogNotification;
+extern NSString *const UpdatedChatDialogNotificationKey;
+
 @class ChatManager;
 
 typedef void(^DialogCompletion)(NSError * _Nullable error,  QBChatDialog * _Nullable dialog);
@@ -40,7 +43,6 @@ typedef void(^SendMessageCompletion)(NSError * _Nullable error, QBChatMessage *m
 
 @protocol ChatManagerDelegate <NSObject>
 @optional
-- (void)chatManagerWillUpdateStorage:(ChatManager *)chatManager;
 - (void)chatManager:(ChatManager *)chatManager didFailUpdateStorage:(NSString *)message;
 - (void)chatManager:(ChatManager *)chatManager didUpdateStorage:(NSString *)message;
 - (void)chatManager:(ChatManager *)chatManager didUpdateChatDialog:(QBChatDialog*)chatDialog;
