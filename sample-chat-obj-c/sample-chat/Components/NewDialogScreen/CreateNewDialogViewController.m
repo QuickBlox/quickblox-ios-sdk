@@ -193,7 +193,6 @@ NSString *const NEW_CHAT = @"New Chat";
                 sender.enabled = YES;
                 [weakSelf showAlertWithTitle:nil
                                      message:error.localizedDescription
-                          fromViewController:self
                                      handler:nil];
                 return;
             }

@@ -10,10 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^CompleteAuth)(BOOL isSuccess);
-
 @interface SplashScreenViewController : UIViewController
-@property (nonatomic, strong) CompleteAuth onCompleteAuth;
 @end
 
 NS_ASSUME_NONNULL_END

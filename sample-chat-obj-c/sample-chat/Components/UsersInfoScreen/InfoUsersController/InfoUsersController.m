@@ -14,7 +14,7 @@
 #import "UINavigationController+Appearance.h"
 #import "UIViewController+Alert.h"
 
-@interface InfoUsersController () <ChatManagerDelegate>
+@interface InfoUsersController ()
 @property (nonatomic, strong) QBChatDialog *dialog;
 @property (nonatomic, strong) UIBarButtonItem *addUsersItem;
 @property (strong, nonatomic) TitleView *navigationTitleView;
@@ -73,11 +73,19 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     
-    self.chatManager.delegate = self;
     if (QBChat.instance.isConnected == NO) {
         [self showNoInternetAlertWithHandler:nil];
         return;
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateDialog:)
+                                                 name:UpdatedChatDialogNotification
+                                               object:nil];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Setup
@@ -108,12 +116,10 @@
     [self.navigationController pushViewController:addOccupantsVC animated:YES ];
 }
 
-#pragma mark Chat Manager Delegate
-- (void)chatManager:(ChatManager *)chatManager didUpdateChatDialog:(QBChatDialog *)chatDialog {
-    if (![chatDialog.ID isEqualToString: self.dialogID]) {
-        return;
-    }
-    self.dialog = chatDialog;
+#pragma mark Notification methods
+- (void)updateDialog:(NSNotification *)notification {
+    NSString *chatDialogId = [notification.userInfo objectForKey:UpdatedChatDialogNotificationKey];
+    if (!chatDialogId || ![chatDialogId isEqualToString:self.dialogID]) { return; }
     [self setupUsers];
 }
 

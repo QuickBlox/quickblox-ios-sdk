@@ -5,5 +5,5 @@ install! 'cocoapods', :warn_for_unused_master_specs_repo => false
 
 target 'samplechat' do
     inhibit_all_warnings!
-    pod 'QuickBlox'
+    pod 'QuickBlox', '~> 2.18.1'
 end

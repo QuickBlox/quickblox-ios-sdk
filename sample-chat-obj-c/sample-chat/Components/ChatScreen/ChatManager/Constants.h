@@ -29,7 +29,7 @@ static NSString *const kGoToDialogsSegueIdentifier = @"goToDialogs";
 /**
  *  DialogsViewController
  */
-static const NSUInteger kDialogsPageLimit = 100;
+static const NSUInteger kDialogsPageLimit = 20;
 
 static NSString *const kGoToEditDialogSegueIdentifier = @"goToEditDialog";
 

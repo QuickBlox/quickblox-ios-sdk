@@ -97,7 +97,7 @@
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
     NSString *errorMessage = error ? @"Save error" : @"Saved!";
-    [self showAnimatedAlertWithTitle:nil message:errorMessage fromViewController:self];
+    [self showAnimatedAlertWithTitle:nil message:errorMessage];
 }
 
 @end

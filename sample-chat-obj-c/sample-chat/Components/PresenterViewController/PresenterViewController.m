@@ -7,14 +7,13 @@
 //
 
 #import "PresenterViewController.h"
-#import "SplashScreenViewController.h"
 #import "UIColor+Chat.h"
 #import "DialogsViewController.h"
 #import "ChatViewController.h"
 #import "AuthorizationViewController.h"
-#import "ChatManager.h"
 #import "NotificationsProvider.h"
 #import "UINavigationController+Appearance.h"
+#import "Profile.h"
 
 @interface PresenterViewController ()<NotificationsProviderDelegate>
 //MARK: - Properties
@@ -27,54 +26,45 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    Profile *profile = [[Profile alloc] init];
+    profile.isFull ? [self showDialogsScreen] : [self showLoginScreen];
+    
     self.notificationsProvider = [[NotificationsProvider alloc] init];
     self.notificationsProvider.delegate = self;
-    [self showSplashScreen];
 }
 
 // MARK: - Internal Methods
-- (void)showSplashScreen {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Authorization" bundle:nil];
-    SplashScreenViewController *splashScreenVC = [storyboard instantiateViewControllerWithIdentifier:@"SplashScreenVC"];
-    [splashScreenVC setOnCompleteAuth:^(BOOL isSuccess) {
-        if (isSuccess) {
-            [self showDialogsScreen];
-        } else {
-            [self showLoginScreen];
-        }
-    }];
-    self.current = splashScreenVC;
-    [self changeCurrentViewController:self.current];
-}
-
 - (void)showLoginScreen {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Authorization" bundle:nil];
     AuthorizationViewController *authorizationVC = [storyboard instantiateViewControllerWithIdentifier:@"AuthorizationViewController"];
+    UINavigationController *authNavVC = [[UINavigationController alloc] initWithRootViewController:authorizationVC];
+    [authNavVC setupAppearanceWithColor:nil titleColor:UIColor.whiteColor];
     [authorizationVC setOnCompleteAuth:^(void) {
         [self showDialogsScreen];
     }];
-
-    [self changeCurrentViewController:authorizationVC];
+    if (self.current == nil) {
+        self.current = authNavVC;
+    }
+    [self changeCurrentViewController:authNavVC];
 }
 
 - (void)showDialogsScreen {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Dialogs" bundle:nil];
     DialogsViewController *dialogsScreen = [storyboard instantiateViewControllerWithIdentifier:@"DialogsViewController"];
-    [dialogsScreen setOnSignIn:^{
+    UINavigationController *dialogsNavVC = [[UINavigationController alloc] initWithRootViewController:dialogsScreen];
+    [dialogsNavVC setupAppearanceWithColor:nil titleColor:UIColor.whiteColor];
+    [dialogsScreen setOnSignOut:^{
         [self showLoginScreen];
     }];
-    [self changeCurrentViewController:dialogsScreen];
+    if (self.current == nil) {
+        self.current = dialogsNavVC;
+    }
+    [self changeCurrentViewController:dialogsNavVC];
     [self.notificationsProvider registerForRemoteNotifications];
 }
 
 //MARK - Setup
-- (void)changeCurrentViewController:(UIViewController *)newCurrentViewController {
-    UIViewController *new = [self.current isEqual:newCurrentViewController] ? newCurrentViewController :
-    [[UINavigationController alloc] initWithRootViewController:newCurrentViewController];
-    if ([new isKindOfClass:[UINavigationController class]]) {
-        UINavigationController *navigationVC = (UINavigationController *)new;
-        [navigationVC setupAppearanceWithColor:nil titleColor:UIColor.whiteColor];
-    }
+- (void)changeCurrentViewController:(UIViewController *)new {
     [self addChildViewController:new];
     new.view.frame = self.view.bounds;
     [self.view addSubview:new.view];

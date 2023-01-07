@@ -65,7 +65,7 @@ static const NSUInteger maxNumberLetters = 1000;
 
 @interface ChatViewController () <InputToolbarDelegate, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate, UIActionSheetDelegate, UIScrollViewDelegate, UITextViewDelegate,
-ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, ChatCollectionViewDelegateFlowLayout, AttachmentBarDelegate, ChatContextMenuProtocol>
+ChatDataSourceDelegate, QBChatDelegate, ChatCellDelegate, ChatCollectionViewDelegateFlowLayout, AttachmentBarDelegate, ChatContextMenuProtocol>
 
 
 @property (weak, nonatomic) IBOutlet ChatCollectionView *collectionView;
@@ -113,7 +113,6 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
 @property (strong, nonatomic) NSMutableSet *typingUsers;
 @property (strong, nonatomic) NSTimer *privateUserIsTypingTimer;
 @property (strong, nonatomic) NSTimer *stopTimer;
-@property (assign, nonatomic) Boolean isOpponentTyping;
 @property (nonatomic, strong) ProgressView *progressView;
 
 @end
@@ -133,21 +132,25 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
 #pragma mark - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.chatManager = [ChatManager instance];
+    self.dialog =  [self.chatManager.storage dialogWithID:self.dialogID];
+    
+    if (!self.dialog) {
+        [self goBack];
+        return;
+    }
     
     self.dataSource = [[ChatDataSource alloc] init];
     self.dataSource.delegate = self;
     
-    self.chatManager = [ChatManager instance];
-    self.chatManager.delegate = self;
-    self.dialog =  [self.chatManager.storage dialogWithID:self.dialogID];
-    
     [QBChat.instance addDelegate: self];
+    
     [self setupViewMessages];
     self.isDeviceLocked = NO;
     
     self.onlineUsersIDs = [NSMutableSet set];
     self.typingUsers = [NSMutableSet set];
-    self.isOpponentTyping = NO;
     self.typingView = [[TypingView alloc] init];
     
     UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"chevron"]
@@ -172,19 +175,15 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
     __weak __typeof(self) weakSelf = self;
     self.systemInputToolbar.hostViewFrameChangeBlock = ^(UIView *view, BOOL animated) {
         CGFloat position = weakSelf.view.frame.size.height - [weakSelf.view.superview convertPoint:view.frame.origin toView:weakSelf.view].y;
-        
         if (weakSelf.inputToolbar.contentView.textView.isFirstResponder) {
             if (view.superview.frame.origin.y > 0 && position <= 0) {
                 return;
             }
         }
-        
         const CGFloat startPosition = weakSelf.inputToolBarStartPosition;
-        
         if (position < startPosition || !view) {
             position = startPosition;
         }
-        
         [weakSelf setToolbarBottomConstraintValue:position animated:animated];
     };
     
@@ -201,12 +200,7 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-
     [self.inputToolbar toggleSendButtonEnabledIsUploaded:self.isUploading];
-    
-    [QBChat.instance addDelegate: self];
-    
-    self.chatManager.delegate = self;
     
     if (!QBSession.currentSession.currentUser) {
         return;
@@ -235,11 +229,17 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
             deleteTitle = @"Leave Chat";
         }
         __weak __typeof(self) weakSelf = self;
-        UIAction *leaveChatAction = [UIAction actionWithTitle:deleteTitle image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+        UIAction *leaveChatAction = [UIAction actionWithTitle:deleteTitle
+                                                        image:nil
+                                                   identifier:nil
+                                                      handler:^(__kindof UIAction * _Nonnull action) {
             [weakSelf didTapDelete];
         }];
         
-        UIAction *chatInfoAction = [UIAction actionWithTitle:@"Chat info" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+        UIAction *chatInfoAction = [UIAction actionWithTitle:@"Chat info"
+                                                       image:nil
+                                                  identifier:nil
+                                                     handler:^(__kindof UIAction * _Nonnull action) {
             InfoUsersController *usersInfoViewController = [[InfoUsersController alloc] initWithNonDisplayedUsers:@[]];
             usersInfoViewController.dialogID = self.dialogID;
             [self.navigationController pushViewController:usersInfoViewController animated:YES];
@@ -262,49 +262,51 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
     
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     __weak __typeof(self)weakSelf = self;
-    self.observerWillResignActive = [defaultCenter addObserverForName: UIApplicationWillResignActiveNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+    self.observerWillResignActive = [defaultCenter addObserverForName: UIApplicationWillResignActiveNotification
+                                                               object:nil
+                                                                queue:nil
+                                                           usingBlock:^(NSNotification * _Nonnull note) {
         __typeof(weakSelf)strongSelf = weakSelf;
         strongSelf.isDeviceLocked = YES;
     }];
-    self.observerWillActive = [defaultCenter addObserverForName: UIApplicationDidBecomeActiveNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+    self.observerWillActive = [defaultCenter addObserverForName: UIApplicationDidBecomeActiveNotification
+                                                         object:nil
+                                                          queue:nil
+                                                     usingBlock:^(NSNotification * _Nonnull note) {
         __typeof(weakSelf)strongSelf = weakSelf;
         strongSelf.isDeviceLocked = NO;
         [strongSelf.collectionView reloadData];
     }];
     
     //request Online Users for group and public chats
-    [self.dialog requestOnlineUsersWithCompletionBlock:^(NSMutableArray<NSNumber *> * _Nullable onlineUsers, NSError * _Nullable error) {
-        if (onlineUsers) {
-            for (NSNumber *userID in onlineUsers) {
-                if (userID.unsignedIntValue != self.senderID) {
-                    [self.onlineUsersIDs addObject:userID];
+    if (self.dialog.type != QBChatDialogTypePrivate) {
+        [self.dialog requestOnlineUsersWithCompletionBlock:^(NSMutableArray<NSNumber *> * _Nullable onlineUsers, NSError * _Nullable error) {
+            if (onlineUsers) {
+                for (NSNumber *userID in onlineUsers) {
+                    if (userID.unsignedIntValue != self.senderID) {
+                        [self.onlineUsersIDs addObject:userID];
+                    }
                 }
+            } else if (error) {
+                Log(@"%@ requestOnlineUsers error: %@",NSStringFromClass([ChatViewController class]), error.localizedDescription);
             }
-        } else if (error) {
-            Log(@"%@ requestOnlineUsers error: %@",NSStringFromClass([ChatViewController class]), error.localizedDescription);
-        }
-    }];
-    
-    self.dialog.onJoinOccupant = ^(NSUInteger userID) {
-        if (userID == self.senderID) {
-            return;
-        }
-        [weakSelf.onlineUsersIDs addObject:@(userID)];
-    };
-    
-    self.dialog.onLeaveOccupant = ^(NSUInteger userID) {
-        if (userID == self.senderID) {
-            return;
-        }
-        [weakSelf.onlineUsersIDs removeObject:@(userID)];
-        [weakSelf.typingUsers removeObject:@(userID)];
-        if (!weakSelf.typingUsers.count) {
-            [weakSelf hideTypingView];
-            weakSelf.isOpponentTyping = NO;
-        } else {
-            [weakSelf.typingView setupTypingViewWithOpponentUsersIDs:weakSelf.typingUsers];
-        }
-    };
+        }];
+        
+        self.dialog.onJoinOccupant = ^(NSUInteger userID) {
+            if (userID == self.senderID) {
+                return;
+            }
+            [weakSelf.onlineUsersIDs addObject:@(userID)];
+        };
+        
+        self.dialog.onLeaveOccupant = ^(NSUInteger userID) {
+            if (userID == self.senderID) {
+                return;
+            }
+            [weakSelf.onlineUsersIDs removeObject:@(userID)];
+            [weakSelf handlerStopTypingUser:@(userID)];
+        };
+    }
     
     if (self.dialog.type == QBChatDialogTypePrivate) {
         // handling typing status
@@ -316,7 +318,6 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
             [weakSelf.typingUsers addObject:@(userID)];
             [weakSelf.typingView setupTypingViewWithOpponentUsersIDs:weakSelf.typingUsers];
             [weakSelf showTypingView];
-            weakSelf.isOpponentTyping = YES;
             
             if (weakSelf.privateUserIsTypingTimer) {
                 [weakSelf.privateUserIsTypingTimer invalidate];
@@ -335,9 +336,7 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
             if (userID == self.senderID) {
                 return;
             }
-            [weakSelf.typingUsers removeObject:@(userID)];
-            [weakSelf hideTypingView];
-            weakSelf.isOpponentTyping = NO;
+            [weakSelf handlerStopTypingUser:@(userID)];
         };
         
     } else {
@@ -351,7 +350,6 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
             [weakSelf.typingUsers addObject:@(userID)];
             [weakSelf.typingView setupTypingViewWithOpponentUsersIDs:weakSelf.typingUsers];
             [weakSelf showTypingView];
-            weakSelf.isOpponentTyping = YES;
         };
         
         // Handling user stopped typing.
@@ -359,14 +357,7 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
             if (userID == self.senderID) {
                 return;
             }
-            [weakSelf.typingUsers removeObject:@(userID)];
-            if (!weakSelf.typingUsers.count) {
-                [weakSelf hideTypingView];
-                weakSelf.isOpponentTyping = NO;
-                
-            } else {
-                [weakSelf.typingView setupTypingViewWithOpponentUsersIDs:weakSelf.typingUsers];
-            }
+            [weakSelf handlerStopTypingUser:@(userID)];
         };
     }
 }
@@ -375,7 +366,6 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
     [super viewWillDisappear:animated];
     
     [self.progressView stop];
-    [QBChat.instance removeDelegate:self];
     
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     if (self.observerWillResignActive) {
@@ -391,6 +381,7 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
 
 #pragma mark - Internal Methods
 - (void)showTypingView {
+    if ([self.view.subviews containsObject:self.typingView]) { return; }
     [self.view addSubview:self.typingView];
     self.typingView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.typingView.leftAnchor constraintEqualToAnchor:self.inputToolbar.leftAnchor].active = YES;
@@ -408,7 +399,6 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
     [UIView animateWithDuration:0.3f animations:^{
         [weakSelf.view layoutIfNeeded];
     }];
-    self.isOpponentTyping = NO;
     [self.privateUserIsTypingTimer invalidate];
     self.privateUserIsTypingTimer = nil;
 }
@@ -429,6 +419,18 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
                                                     selector:@selector(stopTyping)
                                                     userInfo:nil
                                                      repeats:NO];
+}
+
+- (void)handlerStopTypingUser:(NSNumber *)userId {
+    if (![self.typingUsers containsObject:userId]) {
+        return;
+    }
+    [self.typingUsers removeObject:userId];
+    if (!self.typingUsers.count) {
+        [self hideTypingView];
+        return;
+    }
+    [self.typingView setupTypingViewWithOpponentUsersIDs:self.typingUsers];
 }
 
 - (void)cancelUploadFile {
@@ -593,6 +595,11 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
 
 #pragma mark - Actions
 - (void)didTapBack:(UIButton *)sender {
+    [self goBack];
+}
+
+- (void)goBack {
+    [QBChat.instance removeDelegate:self];
     [self finishSendingMessageAnimated:NO];
     [self.navigationController popViewControllerAnimated:NO];
 }
@@ -611,7 +618,7 @@ ChatDataSourceDelegate, ChatManagerDelegate, QBChatDelegate, ChatCellDelegate, C
         self.infoItem.enabled = NO;
         [self.chatManager leaveDialogWithID:self.dialog.ID completion:^(NSString * _Nullable error) {
             [self.progressView stop];
-            [self.navigationController popViewControllerAnimated:NO];
+            [self goBack];
         }];
     }];
     [alertController addAction:cancelAction];
@@ -792,8 +799,7 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
 
 - (void)didPressAccessoryButton:(UIButton *)sender {
     if (self.isUploading) {
-        [self showAlertWithTitle:@"You can send 1 attachment per message" message:nil
-              fromViewController:self handler:nil];
+        [self showAlertWithTitle:@"You can send 1 attachment per message" message:nil handler:nil];
     } else {
         UIAlertController *alertController = [UIAlertController
                                               alertControllerWithTitle:nil
@@ -1095,7 +1101,8 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
         chatCell.timeLabel.attributedText = message.timeLabelText;
         if ([cell isKindOfClass:[ChatOutgoingCell class]]) {
             ChatOutgoingCell *chatOutgoingCell = (ChatOutgoingCell *)cell;
-            chatOutgoingCell.statusImageView.image = message.statusImage;
+            UIImage *image = self.dialog.type == QBChatDialogTypePublicGroup ? UIImage.new : message.statusImage;
+            chatOutgoingCell.statusImageView.image = image;
         }
         if (chatCell.textView ) {
             chatCell.textView.attributedText = message.messageText;
@@ -1409,7 +1416,7 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
     NSError *error = nil;
     [NSFileManager.defaultManager copyItemAtPath:chatAttachmentCell.attachmentUrl.path toPath:destinationPath error:&error];
     NSString *errorMessage = error ? @"Save error" : @"Saved!";
-    [self showAnimatedAlertWithTitle:nil message:errorMessage fromViewController:self];
+    [self showAnimatedAlertWithTitle:nil message:errorMessage];
 }
 
 - (void)openAttachmentImage:(UIImage *)image {
@@ -1456,15 +1463,36 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
 }
 
 - (void)chatDidReceiveMessage:(QBChatMessage *)message {
-    if ([message.dialogID isEqualToString: self.dialog.ID] && message.senderID != self.senderID) {
-        [self.dataSource addMessage:message];
+    if (![message.dialogID isEqualToString: self.dialog.ID]) { return; }
+    if (message.isNotificationMessageTypeLeave) {
+        [self.chatManager updateDialogWith:message.dialogID withMessage:message];
+        if (message.senderID == self.senderID) {
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            return;
+        }
     }
+    if (message.isNotificationMessageTypeCreate && message.senderID != self.senderID) {
+        return;
+    }
+    [self handlerStopTypingUser:@(message.senderID)];
+    [self.dataSource addMessage:message];
 }
 
 - (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromDialogID:(NSString *)dialogID {
-    if ([dialogID isEqualToString: self.dialog.ID] && message.senderID != self.senderID) {
-        [self.dataSource addMessage:message];
+    if (![dialogID isEqualToString: self.dialog.ID]) { return; }
+    if (message.isNotificationMessageTypeAdding) {
+        [self.chatManager updateDialogWith:dialogID withMessage:message];
     }
+    if (message.isNotificationMessageTypeLeave) {
+        [self.chatManager updateDialogWith:dialogID withMessage:message];
+        if (message.senderID == self.senderID) {
+            [QBChat.instance removeDelegate:self];
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            return;
+        }
+    }
+    [self handlerStopTypingUser:@(message.senderID)];
+    [self.dataSource addMessage:message];
 }
 
 - (void)chatDidConnect {
@@ -1476,16 +1504,6 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
 }
 
 - (void)refreshAndReadMessages {
-    // Autojoin to the group chat
-    if (self.dialog.type != QBChatDialogTypePrivate && !self.dialog.isJoined) {
-        [self.dialog joinWithCompletionBlock:^(NSError *error) {
-            if (error) {
-                Log(@"[%@] dialog join error: %@",
-                    NSStringFromClass([ChatViewController class]),
-                    error.localizedDescription);
-            }
-        }];
-    }
     // Handling unread messages
     if ([self.dataSource messagesForReadCount] > 0) {
         NSArray *messages = [self.dataSource allMessagesForRead];
@@ -1537,14 +1555,6 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> 
 - (void)attachmentBar:(AttachmentUploadBar *)attachmentBar didTapCancelButton:(UIButton *)sender {
     self.attachmentMessage = nil;
     [self hideAttacnmentBar];
-}
-
-#pragma mark Chat Manager Delegate
-- (void)chatManager:(ChatManager *)chatManager didUpdateChatDialog:(QBChatDialog *)chatDialog {
-    if (![chatDialog.ID isEqualToString:self.dialog.ID]) {
-        return;
-    }
-    [self setupTitleView];
 }
 
 @end

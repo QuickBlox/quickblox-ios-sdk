@@ -24,6 +24,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)sendCreateToDialog:(QBChatDialog *)dialog
    completionBlock:(QBChatCompletionBlock)completion;
 
+/// Sending an info message to the Private dialog about creation for carbon user.
+/// - Parameters:
+/// - privateDialog: The dialog to which the info to be sent.
+- (void)sendCreateToPrivateDialog:(QBChatDialog *)privateDialog;
+
 /// Sending an info message to the dialog about added new members and sending system messages to new members.
 /// @param usersIDs The new participants IDs.
 /// @param dialog The dialog to which the info to be sent.

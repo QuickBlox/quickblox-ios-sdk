@@ -18,6 +18,9 @@
                                                    toDialog:dialog
                                                 currentUser:currentUser];
     chatMessage.isNotificationMessageTypeLeave = YES;
+    if (dialog.type == QBChatDialogTypePrivate) {
+        chatMessage.customParameters[@"save_to_history"] = @"0";
+    }
     [self sendChatMessage:chatMessage toDialog:dialog completionBlock:^(NSError * _Nullable error) {
         completion(error);
     }];
@@ -26,21 +29,31 @@
 - (void)sendCreateToDialog:(QBChatDialog *)dialog
            completionBlock:(QBChatCompletionBlock)completion {
     Profile *currentUser = [[Profile alloc] init];
-    NSPredicate *predicateUser = [NSPredicate predicateWithFormat:@"SELF != %@", @(currentUser.ID)];
-    NSArray<NSNumber *> *usersIDs = [dialog.occupantIDs filteredArrayUsingPredicate:predicateUser];
     NSString *message = [self messageTextWithChatName:dialog.name];
     QBChatMessage *chatMessage = [self configureChatMessage:message
                                                    toDialog:dialog
                                                 currentUser:currentUser];
     chatMessage.isNotificationMessageTypeCreate = YES;
-    [self sendChatMessage:chatMessage toDialog:dialog completionBlock:^(NSError * _Nullable error) {
-        completion(error);
-    }];
     QBChatMessage *systemMessage = [self configureSystemMessage:message
                                                        toDialog:dialog
                                                     currentUser:currentUser];
     systemMessage.isNotificationMessageTypeCreate = YES;
-    [self sendSystemMessage:systemMessage toUsers:usersIDs];
+    [self sendChatMessage:chatMessage toDialog:dialog completionBlock:^(NSError * _Nullable error) {
+        completion(error);
+        systemMessage.isNotificationMessageTypeCreate = YES;
+        [self sendSystemMessage:systemMessage toUsers:dialog.occupantIDs];
+    }];
+}
+
+- (void)sendCreateToPrivateDialog:(QBChatDialog *)privateDialog {
+    Profile *currentUser = [[Profile alloc] init];
+    QBChatMessage *infoMessage = [[QBChatMessage alloc] init];
+    infoMessage.senderID = currentUser.ID;
+    infoMessage.dialogID = privateDialog.ID;
+    infoMessage.dateSent = NSDate.now;
+    infoMessage.customParameters[@"save_to_history"] = @"0";
+    infoMessage.isNotificationMessageTypeCreate = YES;
+    [self sendChatMessage:infoMessage toDialog:privateDialog completionBlock:nil];
 }
 
 - (void)sendAdd:(NSArray<NSNumber *> *)usersIDs
@@ -156,7 +169,9 @@
         if (error) {
             [self.draftMessages addObject:chatMessage];
         }
-        completion(error);
+        if (completion) {
+            completion(error);
+        }
     }];
 }
 

@@ -10,10 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^SignInAction)(void);
+typedef void(^SignOutAction)(void);
 
 @interface DialogsViewController : DialogListViewController
-@property (nonatomic, strong) SignInAction onSignIn;
+@property (nonatomic, strong) SignOutAction onSignOut;
 @end
 
 NS_ASSUME_NONNULL_END

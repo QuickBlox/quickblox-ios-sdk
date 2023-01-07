@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UICollectionView (Chat)
 
 - (NSArray<NSIndexPath *> *)indexPathsForElementsInRect:(CGRect)rect;
-- (void)compareHandlerWithRect:(CGRect)oldRect andRect:(CGRect)newRect removedHandler:(void (^)(CGRect removedRect))removedHandler addedHandler:(void (^)(CGRect addedRect))addedHandler;
 
 @end
 

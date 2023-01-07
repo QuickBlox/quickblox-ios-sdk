@@ -99,7 +99,7 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PHPhotoLibraryCh
         NSMutableArray *addedIndexPaths = [NSMutableArray array];
         NSMutableArray *removedIndexPaths = [NSMutableArray array];
         
-        [self.collectionView compareHandlerWithRect:self.previousRect andRect:originalRect removedHandler:^(CGRect removedRect) {
+        [self compareHandlerWithRect:self.previousRect andRect:originalRect removedHandler:^(CGRect removedRect) {
             NSArray *indexPaths = [self.collectionView indexPathsForElementsInRect:removedRect];
             [removedIndexPaths addObjectsFromArray:indexPaths];
         } addedHandler:^(CGRect addedRect) {
@@ -120,6 +120,37 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PHPhotoLibraryCh
                                               options:nil];
         
         self.previousRect = originalRect;
+    }
+}
+
+- (void)compareHandlerWithRect:(CGRect)oldRect
+                       andRect:(CGRect)newRect
+                removedHandler:(void (^)(CGRect removedRect))removedHandler
+                  addedHandler:(void (^)(CGRect addedRect))addedHandler {
+    if (CGRectIntersectsRect(newRect, oldRect)) {
+        CGFloat oldMaxY = CGRectGetMaxY(oldRect);
+        CGFloat oldMinY = CGRectGetMinY(oldRect);
+        CGFloat newMaxY = CGRectGetMaxY(newRect);
+        CGFloat newMinY = CGRectGetMinY(newRect);
+        if (newMaxY > oldMaxY) {
+            CGRect rectToAdd = CGRectMake(newRect.origin.x, oldMaxY, newRect.size.width, (newMaxY - oldMaxY));
+            addedHandler(rectToAdd);
+        }
+        if (oldMinY > newMinY) {
+            CGRect rectToAdd = CGRectMake(newRect.origin.x, newMinY, newRect.size.width, (oldMinY - newMinY));
+            addedHandler(rectToAdd);
+        }
+        if (newMaxY < oldMaxY) {
+            CGRect rectToRemove = CGRectMake(newRect.origin.x, newMaxY, newRect.size.width, (oldMaxY - newMaxY));
+            removedHandler(rectToRemove);
+        }
+        if (oldMinY < newMinY) {
+            CGRect rectToRemove = CGRectMake(newRect.origin.x, oldMinY, newRect.size.width, (newMinY - oldMinY));
+            removedHandler(rectToRemove);
+        }
+    } else {
+        addedHandler(newRect);
+        removedHandler(oldRect);
     }
 }
 
@@ -149,8 +180,7 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PHPhotoLibraryCh
         double sizeMB = size/kDividerToMB;
         sizeMB = trunc(sizeMB * 100) / 100;
         if (sizeMB > kMaximumMB) {
-            [self showAlertWithTitle:MAX_FILE_SIZE message:nil
-                  fromViewController:self handler:nil];
+            [self showAlertWithTitle:MAX_FILE_SIZE message:nil handler:nil];
         } else {
             self.sendAttachmentButton.enabled = NO;
             PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
@@ -169,8 +199,7 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PHPhotoLibraryCh
                         }];
                     });
                 } else {
-                    [strongSelf showAlertWithTitle:ERROR_IMAGE_LOAD message:nil
-                                fromViewController:strongSelf handler:^(UIAlertAction * _Nonnull action) {
+                    [strongSelf showAlertWithTitle:ERROR_IMAGE_LOAD message:nil handler:^(UIAlertAction * _Nonnull action) {
                         strongSelf.sendAttachmentButton.enabled = NO;
                     }];
                 }

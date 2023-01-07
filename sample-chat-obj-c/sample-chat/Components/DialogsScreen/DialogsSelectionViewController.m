@@ -23,6 +23,11 @@ NSString *const KEY_MESSAGE_FORWARDED = @"origin_sender_name";
 @end
 
 @implementation DialogsSelectionViewController
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self setupDialogs];
+}
 
 - (void)setupDialogs {
     [self reloadContent];
@@ -234,7 +239,7 @@ NSString *const KEY_MESSAGE_FORWARDED = @"origin_sender_name";
     if (self.action == ChatActionDelete && dialog.type == QBChatDialogTypePublicGroup) {
         NSString *title = [NSString stringWithFormat:@"You cannot leave %@", dialog.name ];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self showAlertWithTitle:title message:nil fromViewController:self handler:nil];
+            [self showAlertWithTitle:title message:nil handler:nil];
         });
     } else {
         if ([self.selectedPaths containsObject:indexPath]) {

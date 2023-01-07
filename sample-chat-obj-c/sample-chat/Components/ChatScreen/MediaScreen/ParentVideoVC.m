@@ -41,8 +41,7 @@
                         // Copy it to the camera roll.
                         UISaveVideoAtPathToSavedPhotosAlbum(strongSelf.videoURL.relativePath, strongSelf, @selector(videoSaved:didFinishSavingWithError:contextInfo:), nil);
                     } else {
-                        [strongSelf showAlertWithTitle:@"Save error" message:@"Video is not compatible With Photos Album"
-                                    fromViewController:self handler:nil];
+                        [strongSelf showAlertWithTitle:@"Save error" message:@"Video is not compatible With Photos Album" handler:nil];
                         return;
                     }
                     break;
@@ -91,7 +90,7 @@
 #pragma mark - Internal Methods
 - (void)videoSaved:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
     NSString *errorMessage = error ? @"Save error" : @"Saved!";
-    [self showAnimatedAlertWithTitle:nil message:errorMessage fromViewController:self];
+    [self showAnimatedAlertWithTitle:nil message:errorMessage];
 }
 
 #pragma mark - Actions
