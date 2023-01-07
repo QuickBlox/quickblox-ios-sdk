@@ -7,7 +7,7 @@ install! 'cocoapods', :warn_for_unused_master_specs_repo => false
 target 'sample-videochat-webrtc-swift' do
   inhibit_all_warnings!
   
-  pod 'QuickBlox'
-  pod 'Quickblox-WebRTC', '2.7.6'
+  pod 'QuickBlox', '~> 2.18.1'
+  pod 'Quickblox-WebRTC', '~> 2.8.0'
 
 end

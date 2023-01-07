@@ -13,6 +13,10 @@ final class Screen {
         return AuthViewController.controllerFromStoryboard(.auth)
     }
     
+    class func splashScreenController() -> SplashScreenViewController? {
+        return SplashScreenViewController.controllerFromStoryboard(.auth)
+    }
+    
     class func usersViewController() -> UsersViewController? {
         return UsersViewController.controllerFromStoryboard(.users)
     }

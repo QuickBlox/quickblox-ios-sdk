@@ -1,11 +1,11 @@
 PODS:
-  - QuickBlox (2.17.11)
-  - Quickblox-WebRTC (2.7.6):
+  - QuickBlox (2.18.0)
+  - Quickblox-WebRTC (2.8.1):
     - QuickBlox (>= 2.7)
 
 DEPENDENCIES:
-  - QuickBlox
-  - Quickblox-WebRTC (= 2.7.6)
+  - QuickBlox (~> 2.18.0)
+  - Quickblox-WebRTC (~> 2.8.0)
 
 SPEC REPOS:
   trunk:
@@ -13,9 +13,9 @@ SPEC REPOS:
     - Quickblox-WebRTC
 
 SPEC CHECKSUMS:
-  QuickBlox: 37d2eb7d791782469ba14fa40122633185944c01
-  Quickblox-WebRTC: 162d2421d91cfb3d4f7e01f87e095633ca52bb1d
+  QuickBlox: ffaf06dfbd5f4a3055138e44fc1663ecf4e215ae
+  Quickblox-WebRTC: 10bb490c8f5ffe730a00b62549f059b386e99d8c
 
-PODFILE CHECKSUM: b8893389f4e1046d3e74d54c49ee3cbb9b26742b
+PODFILE CHECKSUM: d266237c234d0d720903b5064f726b14eff09115
 
 COCOAPODS: 1.11.3

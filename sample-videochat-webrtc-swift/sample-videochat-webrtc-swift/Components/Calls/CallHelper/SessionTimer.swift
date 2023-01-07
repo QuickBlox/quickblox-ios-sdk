@@ -12,6 +12,7 @@ enum SessionTimerType {
     case active
     case accept
     case actions
+    case connected
 }
 
 protocol SessionTimerDelegate: AnyObject {

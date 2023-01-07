@@ -159,7 +159,7 @@ class SessionsController: NSObject {
             session.accept(userInfo)
             approvedSessions.append(sessionId)
             delegate?.controller(self, didAcceptSession: sessionId)
-            removeTimer(withId: session.id)
+            addTimer(.connected, waitTime: 7.0, sessionId: sessionId, userInfo: userInfo)
         } else {
             addTimer(.accept, waitTime: activeSession?.waitTimeInterval ?? 30.0, sessionId: sessionId, userInfo: userInfo)
         }
@@ -238,7 +238,7 @@ class SessionsController: NSObject {
 //MARK: - QBRTCClientDelegate
 extension SessionsController: QBRTCClientDelegate {
     func didReceiveNewSession(_ session: QBRTCSession, userInfo: [String : String]? = nil) {
-        if activeSession?.established == true {
+        if activeSessionId.isEmpty == false, activeSessionId != session.id {
             session.rejectCall(["reject": "busy"])
             rejectedSessions.insert(session.id)
             return
@@ -249,7 +249,7 @@ extension SessionsController: QBRTCClientDelegate {
         }
         
         receivedSessions.append(session.id)
-
+        
         if let timer = waitSessions[session.id] {
             //did Receive New Session by Push
             switch timer.type {
@@ -258,14 +258,14 @@ extension SessionsController: QBRTCClientDelegate {
             case .accept:
                 activeSession?.setup(qbSession: session)
                 accept(session.id, userInfo: timer.userInfo)
-            case .actions: break
-            case .none: break
+            case .actions, .connected, .none: break
             }
             return
         }
         
         let timestamp = userInfo?["timestamp"] ?? "\((Date().timeStamp))"
-        activeSession = Session(qbSession: session, startTime: Int64(timestamp)!)
+        let integerTimestamp = Int64((timestamp as NSString).integerValue)
+        activeSession = Session(qbSession: session, startTime: integerTimestamp)
         
         //did Receive New Session without Push
         let membersIDs = [session.initiatorID] + session.opponentsIDs
@@ -312,11 +312,20 @@ extension SessionsController: QBRTCClientDelegate {
                  receivedRemoteVideoTrack videoTrack: QBRTCVideoTrack,
                  fromUser userID: NSNumber) {
         guard let qbrtcSession = session as? QBRTCSession,
-              qbrtcSession.id == activeSession?.id else {
+              qbrtcSession.id == activeSessionId else {
             return
         }
         
         mediaListenerDelegate?.controller(self, didReceivedRemoteVideoTrack: videoTrack, fromUser: userID)
+    }
+    
+    func session(_ session: QBRTCBaseSession, connectedToUser userID: NSNumber) {
+        guard let qbrtcSession = session as? QBRTCSession,
+              qbrtcSession.id == activeSessionId,
+              waitSessions[qbrtcSession.id] != nil else {
+            return
+        }
+        removeTimer(withId: qbrtcSession.id)
     }
 }
 
@@ -361,11 +370,10 @@ extension SessionsController: SessionTimerDelegate {
             return
         }
         if activeSessionId == sessionId, self.delegate != nil {
-            deactivate(sessionId)
+            reject(sessionId, userInfo: timer.userInfo)
             delegate?.controller(self, didEndWaitSession: sessionId)
             return
         }
-        timer.invalidate()
-        waitSessions.removeValue(forKey: sessionId)
+        removeTimer(withId: sessionId)
     }
 }

@@ -30,21 +30,9 @@ class ParticipantsView: UIView {
             participantView.name = participant.fullName
         }
         
-        let participants = conferenceType == .video ? callInfo.participants : callInfo.interlocutors
-        for participant in participants {
-            if conferenceType == .video,
-               callInfo.direction == .outgoing,
-               participant.id == callInfo.localParticipantId {
-                continue
-            }
-            let participantView = createView(participant)
+        for participant in callInfo.interlocutors {
+            let participantView = conferenceType == .video ? createVideoView(participant) : createView(participant)
             let viewIsFull = topStackView.arrangedSubviews.count == 2
-            if conferenceType == .video,
-               participant.id == callInfo.localParticipantId {
-                bottomStackView.addArrangedSubview(participantView)
-                continue
-            }
-            
             if viewIsFull {
                 bottomStackView.addArrangedSubview(participantView)
                 return
@@ -61,13 +49,12 @@ class ParticipantsView: UIView {
             participantView.videoView = videoView
             return
         }
-        guard let participant = callInfo.participant(callInfo.localParticipantId),
-              let participantView = createView(participant) as? ParticipantVideoView else {
+        guard let participant = callInfo.participant(callInfo.localParticipantId) else {
             return
         }
+        let participantView = createVideoView(participant)
         bottomStackView.addArrangedSubview(participantView)
         participantView.videoView = videoView
-        participantView.videoContainerView.isHidden = false
     }
     
     func setupVideoTrack(_ videoTrack: QBRTCVideoTrack, participantId: UInt) {
@@ -102,31 +89,25 @@ class ParticipantsView: UIView {
     }
     
     //MARK: - Private Methods
-    private func createView(_ participant: CallParticipant) -> ParticipantView {
-        if conferenceType == .video {
-            let participantView = ParticipantVideoView.loadNib()
-            participantView.name = participant.fullName
-            participantView.ID = participant.id
-            participantView.connectionState = participant.connectionState
-            participantView.nameLabel.isHidden = participant.id == callInfo.localParticipantId
-            if participant.id == callInfo.localParticipantId {
-                participantView.isCallingInfo = false
-            } else if callInfo.direction == .incoming  {
-                participantView.isCallingInfo = false
-                participantView.stateLabel.text = "Calling..."
-            }
-            
-            if participant.id != callInfo.localParticipantId {
-                let remoteVideoView = QBRTCRemoteVideoView(frame: CGRect(x: 2.0, y: 2.0, width: 2.0, height: 2.0))
-                remoteVideoView.videoGravity = AVLayerVideoGravity.resizeAspect.rawValue
-                participantView.videoView = remoteVideoView
-            }
-            
-            viewCache[participant.id] = participantView
-            return participantView
+    private func createVideoView(_ participant: CallParticipant) -> ParticipantVideoView {
+        let participantView = ParticipantVideoView.loadNib()
+        participantView.nameLabel.isHidden = participant.id == callInfo.localParticipantId
+        if participant.id != callInfo.localParticipantId {
+            let remoteVideoView = QBRTCRemoteVideoView(frame: CGRect(x: 2.0, y: 2.0, width: 2.0, height: 2.0))
+            remoteVideoView.videoGravity = AVLayerVideoGravity.resizeAspect.rawValue
+            participantView.videoView = remoteVideoView
         }
+        setupView(participantView, participant: participant)
+        return participantView
+    }
+    
+    private func createView(_ participant: CallParticipant) -> ParticipantView {
         let participantView = ParticipantView.loadNib()
-        
+        setupView(participantView, participant: participant)
+        return participantView
+    }
+    
+    private func setupView(_ participantView: ParticipantView, participant: CallParticipant) {
         participantView.name = participant.fullName
         participantView.ID = participant.id
         if participant.id == callInfo.localParticipantId {
@@ -135,7 +116,7 @@ class ParticipantsView: UIView {
             participantView.isCallingInfo = false
             participantView.stateLabel.text = "Calling..."
         }
+        participantView.connectionState = participant.connectionState
         viewCache[participant.id] = participantView
-        return participantView
     }
 }

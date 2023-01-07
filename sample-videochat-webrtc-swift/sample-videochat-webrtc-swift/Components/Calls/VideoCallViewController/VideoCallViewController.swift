@@ -69,8 +69,8 @@ class VideoCallViewController: CallViewController {
     
     //MARK: - Life Cycle
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        navigationController?.setNavigationBarHidden(true, animated: animated)
         self.actionsBar.select(false, type: .share)
     }
     
@@ -178,6 +178,9 @@ class VideoCallViewController: CallViewController {
                 self.mediaController.camera?.position = position
             })
         ])
+        
+        actionsBar.select(!mediaController.audioEnabled, type: .audio)
+        actionsBar.select(false, type: .share)
         
         if let cameraPreviewLayer = mediaController.camera?.previewLayer {
             let localVideoView = LocalVideoView(previewlayer: cameraPreviewLayer)
