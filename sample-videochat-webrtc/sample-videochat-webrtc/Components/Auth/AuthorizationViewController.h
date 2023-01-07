@@ -10,7 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^CompleteAuthAction)(void);
+
 @interface AuthorizationViewController : UIViewController
+@property (nonatomic, strong) CompleteAuthAction onCompleteAuth;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -12,7 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LoadingButton : UIButton
 
-@property(assign, nonatomic) BOOL isLoading;
+@property(assign, nonatomic) BOOL isAnimating;
+
+- (void)showLoading;
+- (void)hideLoading;
 
 @end
 

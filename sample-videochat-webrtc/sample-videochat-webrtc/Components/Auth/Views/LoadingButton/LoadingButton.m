@@ -10,7 +10,7 @@
 #import "UIButton+Videochat.h"
 
 @interface LoadingButton()
-//MARK: - Properties
+
 @property (strong, nonatomic, readonly) CAShapeLayer *shapeLayer;
 @property (strong, nonatomic) UIActivityIndicatorView *activity;
 @property (strong, nonatomic) NSString *currentText;
@@ -33,11 +33,6 @@
 
 - (CAShapeLayer *)shapeLayer {
     return (CAShapeLayer *)self.layer;
-}
-
-- (void)setIsLoading:(BOOL)isLoading {
-    _isLoading = isLoading;
-    _isLoading == true ? [self showLoading] : [self hideLoading];
 }
 
 //MARK: - Actions
@@ -85,8 +80,12 @@
 
 - (void)hideLoading {
     if (!self.activity) return;
+    
+    self.isAnimating = NO;
+    
     self.shapeLayer.path = [[UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:5] CGPath];
     self.shapeLayer.fillColor = [[UIColor colorWithRed:0.22 green:0.47 blue:0.99 alpha:1.0] CGColor];
+    
     [self hideActivityIndicator];
     [self setTitle:self.currentText forState:UIControlStateNormal];
     self.currentText = nil;
@@ -94,6 +93,7 @@
 
 - (void)showAtivityIndicator {
     if (!self.activity) {
+        self.isAnimating = YES;
         self.userInteractionEnabled = NO;
         self.activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:(UIActivityIndicatorViewStyleMedium)];
         self.activity.color = [UIColor whiteColor];
@@ -106,6 +106,7 @@
 }
 
 - (void)hideActivityIndicator {
+    self.isAnimating = NO;
     self.userInteractionEnabled = YES;
     [self.shapeLayer removeAllAnimations];
     [self.activity removeFromSuperview];

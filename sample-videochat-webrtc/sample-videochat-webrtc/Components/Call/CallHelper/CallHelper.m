@@ -144,7 +144,8 @@
                       successBlock:^(QBResponse *response, NSArray<QBMEvent *> *events) {
                 Log(@"[%@] Send voip push to Participant with id: %@ - Success",  NSStringFromClass(CallHelper.class), member);
             } errorBlock:^(QBResponse * _Nonnull response) {
-                Log(@"[%@] Send voip push to Participant with id: %@  - Error",  NSStringFromClass(CallHelper.class), member);
+                
+                Log(@"[%@] Send voip push to Participant with id: %@  - Error %@",  NSStringFromClass(CallHelper.class), member, response.error.description);
             }];
         }];
     }
