@@ -4,15 +4,15 @@
 import PackageDescription
 
 let package = Package(
-    name: "quickblox-ios-sdk",
+    name: "QuickBloxSDK",
     platforms: [
         .iOS(.v13)
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
-            name: "quickblox-ios-sdk",
-            targets: ["quickblox-ios-sdk", "Quickblox"]),
+            name: "QuickBloxSDK",
+            targets: ["QuickBloxSDK", "Quickblox"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -22,14 +22,14 @@ let package = Package(
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
-            name: "quickblox-ios-sdk",
+            name: "QuickBloxSDK",
             dependencies: []),
         .binaryTarget(
             name: "Quickblox",
             path: "Framework/Quickblox.xcframework"
         ),
         .testTarget(
-            name: "quickblox-ios-sdkTests",
-            dependencies: ["quickblox-ios-sdk"]),
+            name: "QuickBloxSDKTests",
+            dependencies: ["QuickBloxSDK"]),
     ]
 )

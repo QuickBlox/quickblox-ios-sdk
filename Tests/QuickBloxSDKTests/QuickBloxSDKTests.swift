@@ -1,5 +1,5 @@
 import XCTest
-@testable import quickblox_ios_sdk
+@testable import QuickBloxSDK
 
 final class quickblox_ios_sdkTests: XCTestCase {
     func testExample() throws {
