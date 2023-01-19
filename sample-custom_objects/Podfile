@@ -1,8 +1,0 @@
-# Uncomment this line to define a global platform for your project
- platform :ios, '13.0'
-
-target 'sample-custom_objects' do
-    pod 'SVProgressHUD'
-    pod 'HCSStarRatingView', :git => 'https://github.com/hugocampossousa/HCSStarRatingView.git'
-end
-
