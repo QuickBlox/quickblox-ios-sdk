@@ -1,9 +1,12 @@
 # QuickBlox 
-Core SDK:
-[![CocoaPods](https://img.shields.io/cocoapods/v/QuickBlox.svg)](https://cocoapods.org/pods/QuickBlox)
 
-WebRTC SDK:
-[![CocoaPods](https://img.shields.io/cocoapods/v/Quickblox-WebRTC.svg)](https://cocoapods.org/pods/Quickblox-WebRTC)
+Core SDK  Last SDK Version: 2.18.1
+ * [Swift Package](https://github.com/QuickBlox/ios-quickblox-sdk.git)
+ * [![CocoaPods](https://img.shields.io/cocoapods/v/QuickBlox.svg)](https://cocoapods.org/pods/QuickBlox)
+
+WebRTC SDK  Last SDK Version: 2.8.1
+ * [Swift Package](https://github.com/QuickBlox/ios-quickblox-sdk-webrtc.git)
+ * [![CocoaPods](https://img.shields.io/cocoapods/v/Quickblox-WebRTC.svg)](https://cocoapods.org/pods/Quickblox-WebRTC)
 
 <br>
 QuickBlox - Communication & cloud backend platform which brings superpowers to your mobile apps.
