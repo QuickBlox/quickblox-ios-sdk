@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -48,6 +48,8 @@
 		2CC89E6B26BACA0300ADF5BF /* CallGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC89E6926BACA0200ADF5BF /* CallGradientView.m */; };
 		2CDFA021270DDC9500AA853D /* MediaListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDFA020270DDC9500AA853D /* MediaListener.m */; };
 		2CE3633F26E36F2D002341E2 /* TitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE3633E26E36F2D002341E2 /* TitleView.m */; };
+		2CE6C36929A8F73F00F0F4B9 /* QuickbloxWebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = 2CE6C36829A8F73F00F0F4B9 /* QuickbloxWebRTC */; };
+		2CE6C36C29A8F75700F0F4B9 /* Quickblox in Frameworks */ = {isa = PBXBuildFile; productRef = 2CE6C36B29A8F75700F0F4B9 /* Quickblox */; };
 		2CF78D7E283E31F9004D84FD /* ProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF78D7B283E31F9004D84FD /* ProgressView.xib */; };
 		2CF78D7F283E31F9004D84FD /* ProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF78D7D283E31F9004D84FD /* ProgressView.m */; };
 		2CF7CBDB28F1922000538A52 /* SplashScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7CBDA28F1922000538A52 /* SplashScreenViewController.m */; };
@@ -88,7 +90,6 @@
 		3AA05682251CE05A0016E613 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA05681251CE05A0016E613 /* CoreServices.framework */; };
 		55CF63A81A3AFF2500FE8D19 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CF63A71A3AFF2500FE8D19 /* SystemConfiguration.framework */; };
 		55F6BDCC1A3F21F10080C326 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F6BDCB1A3F21F10080C326 /* CFNetwork.framework */; };
-		79C6F9411C0163E869D02FB6 /* Pods_sample_videochat_webrtc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE8FE0602AC1B47487CC6363 /* Pods_sample_videochat_webrtc.framework */; };
 		CEFD0DC1247D1A450032C793 /* CallKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFD0DC0247D1A450032C793 /* CallKitManager.m */; };
 		CEFD0DC4247D1A710032C793 /* SessionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFD0DC3247D1A710032C793 /* SessionsController.m */; };
 		CEFD0DC7247D1B4A0032C793 /* SessionTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFD0DC6247D1B4A0032C793 /* SessionTimer.m */; };
@@ -258,7 +259,6 @@
 		2CFC2C8A26AF07BC00D904F3 /* UserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserTableViewCell.h; sourceTree = "<group>"; };
 		2CFC2C8B26AF07BC00D904F3 /* UserTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserTableViewCell.xib; sourceTree = "<group>"; };
 		2CFC2C8C26AF07BC00D904F3 /* UserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserTableViewCell.m; sourceTree = "<group>"; };
-		348BC22DED436770099068E8 /* Pods-sample-videochat-webrtc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-videochat-webrtc.release.xcconfig"; path = "Target Support Files/Pods-sample-videochat-webrtc/Pods-sample-videochat-webrtc.release.xcconfig"; sourceTree = "<group>"; };
 		3A1EE7DC2518F9A300509440 /* CallInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallInfo.h; sourceTree = "<group>"; };
 		3A1EE7DD2518F9A300509440 /* CallInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CallInfo.m; sourceTree = "<group>"; };
 		3A24E9D02510B392001E351C /* CallParticipant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallParticipant.h; sourceTree = "<group>"; };
@@ -284,7 +284,6 @@
 		55E156AE1AD6C41C00C62699 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		55F6BDC91A3F21CC0080C326 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		55F6BDCB1A3F21F10080C326 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		AE8FE0602AC1B47487CC6363 /* Pods_sample_videochat_webrtc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sample_videochat_webrtc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEFD0DBF247D1A450032C793 /* CallKitManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallKitManager.h; sourceTree = "<group>"; };
 		CEFD0DC0247D1A450032C793 /* CallKitManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CallKitManager.m; sourceTree = "<group>"; };
 		CEFD0DC2247D1A710032C793 /* SessionsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SessionsController.h; sourceTree = "<group>"; };
@@ -341,7 +340,6 @@
 		FBE079F21BEA204000718C56 /* PRODUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PRODUsers.plist; sourceTree = "<group>"; };
 		FBE079F31BEA204000718C56 /* QAUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = QAUsers.plist; sourceTree = "<group>"; };
 		FBE079F91BEA216400718C56 /* WEBUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WEBUsers.plist; sourceTree = "<group>"; };
-		FBFCF7966235FDAF83317032 /* Pods-sample-videochat-webrtc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-videochat-webrtc.debug.xcconfig"; path = "Target Support Files/Pods-sample-videochat-webrtc/Pods-sample-videochat-webrtc.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -354,10 +352,11 @@
 				FB4490521BFB8ADD00A8233D /* libresolv.tbd in Frameworks */,
 				FB4490501BFB8AD000A8233D /* libxml2.2.tbd in Frameworks */,
 				3AA05682251CE05A0016E613 /* CoreServices.framework in Frameworks */,
+				2CE6C36C29A8F75700F0F4B9 /* Quickblox in Frameworks */,
 				FB5764E01B42A00F00501049 /* VideoToolbox.framework in Frameworks */,
+				2CE6C36929A8F73F00F0F4B9 /* QuickbloxWebRTC in Frameworks */,
 				55F6BDCC1A3F21F10080C326 /* CFNetwork.framework in Frameworks */,
 				55CF63A81A3AFF2500FE8D19 /* SystemConfiguration.framework in Frameworks */,
-				79C6F9411C0163E869D02FB6 /* Pods_sample_videochat_webrtc.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -843,15 +842,6 @@
 			path = MenuAction;
 			sourceTree = "<group>";
 		};
-		4C67F942C7B7D64A35D17D69 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				FBFCF7966235FDAF83317032 /* Pods-sample-videochat-webrtc.debug.xcconfig */,
-				348BC22DED436770099068E8 /* Pods-sample-videochat-webrtc.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		55E076DA1A30817800118D23 = {
 			isa = PBXGroup;
 			children = (
@@ -860,7 +850,6 @@
 				FB29BBC51B32BBC0009751A1 /* Resources */,
 				55E076E41A30817800118D23 /* Products */,
 				AB35EE3F551E29A444EB63EF /* Frameworks */,
-				4C67F942C7B7D64A35D17D69 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -894,7 +883,6 @@
 				55CF63A71A3AFF2500FE8D19 /* SystemConfiguration.framework */,
 				3AA0568E252228390016E613 /* ReplayKit.framework */,
 				3AA0569B2522283A0016E613 /* UIKit.framework */,
-				AE8FE0602AC1B47487CC6363 /* Pods_sample_videochat_webrtc.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1180,18 +1168,20 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55E077061A30817900118D23 /* Build configuration list for PBXNativeTarget "sample-videochat-webrtc" */;
 			buildPhases = (
-				3676E53B5EEA644392CA8751 /* [CP] Check Pods Manifest.lock */,
 				55E076DF1A30817800118D23 /* Sources */,
 				55E076E01A30817800118D23 /* Frameworks */,
 				55E076E11A30817800118D23 /* Resources */,
 				3AA056A82522283A0016E613 /* Embed App Extensions */,
-				FF5439767959498E0F4C0D0A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "sample-videochat-webrtc";
+			packageProductDependencies = (
+				2CE6C36829A8F73F00F0F4B9 /* QuickbloxWebRTC */,
+				2CE6C36B29A8F75700F0F4B9 /* Quickblox */,
+			);
 			productName = QBRTCChatSemple;
 			productReference = 55E076E31A30817800118D23 /* sample-videochat-webrtc.app */;
 			productType = "com.apple.product-type.application";
@@ -1232,6 +1222,10 @@
 				Base,
 			);
 			mainGroup = 55E076DA1A30817800118D23;
+			packageReferences = (
+				2CE6C36729A8F73F00F0F4B9 /* XCRemoteSwiftPackageReference "ios-quickblox-sdk-webrtc" */,
+				2CE6C36A29A8F75700F0F4B9 /* XCRemoteSwiftPackageReference "ios-quickblox-sdk" */,
+			);
 			productRefGroup = 55E076E41A30817800118D23 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1278,51 +1272,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		3676E53B5EEA644392CA8751 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-sample-videochat-webrtc-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FF5439767959498E0F4C0D0A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-sample-videochat-webrtc/Pods-sample-videochat-webrtc-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/QuickBlox/Quickblox.framework/Quickblox",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/Quickblox-WebRTC/QuickbloxWebRTC.framework/QuickbloxWebRTC",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quickblox.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QuickbloxWebRTC.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-sample-videochat-webrtc/Pods-sample-videochat-webrtc-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		55E076DF1A30817800118D23 /* Sources */ = {
@@ -1514,7 +1463,6 @@
 		};
 		55E077071A30817900118D23 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FBFCF7966235FDAF83317032 /* Pods-sample-videochat-webrtc.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1542,7 +1490,10 @@
 				);
 				INFOPLIST_FILE = "sample-videochat-webrtc/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 5.0.1;
 				OTHER_CFLAGS = "$(inherited)";
@@ -1563,7 +1514,6 @@
 		};
 		55E077081A30817900118D23 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 348BC22DED436770099068E8 /* Pods-sample-videochat-webrtc.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1590,7 +1540,10 @@
 				);
 				INFOPLIST_FILE = "sample-videochat-webrtc/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 5.0.1;
 				OTHER_CFLAGS = "$(inherited)";
@@ -1631,6 +1584,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2CE6C36729A8F73F00F0F4B9 /* XCRemoteSwiftPackageReference "ios-quickblox-sdk-webrtc" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/QuickBlox/ios-quickblox-sdk-webrtc.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		2CE6C36A29A8F75700F0F4B9 /* XCRemoteSwiftPackageReference "ios-quickblox-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/QuickBlox/ios-quickblox-sdk.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2CE6C36829A8F73F00F0F4B9 /* QuickbloxWebRTC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2CE6C36729A8F73F00F0F4B9 /* XCRemoteSwiftPackageReference "ios-quickblox-sdk-webrtc" */;
+			productName = QuickbloxWebRTC;
+		};
+		2CE6C36B29A8F75700F0F4B9 /* Quickblox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2CE6C36A29A8F75700F0F4B9 /* XCRemoteSwiftPackageReference "ios-quickblox-sdk" */;
+			productName = Quickblox;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 55E076DB1A30817800118D23 /* Project object */;
 }

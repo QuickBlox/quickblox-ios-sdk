@@ -9,8 +9,9 @@
 #import "AppDelegate.h"
 #import "Log.h"
 #import "PresenterViewController.h"
-#import <Quickblox/Quickblox.h>
 #import "NotificationsProvider.h"
+
+@import Quickblox;
 
 @interface AppDelegate ()
 
@@ -22,6 +23,7 @@
     application.applicationIconBadgeNumber = 0;
     
     // Set QuickBlox credentials (You must create application in admin.quickblox.com)
+    
     [Quickblox initWithApplicationId:0
                              authKey:@""
                           authSecret:@""

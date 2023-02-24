@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/igorkhomenko/workspace/quickblox-ios-sdk/QBRTCChatSample/sample-videochat-webrtc.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>

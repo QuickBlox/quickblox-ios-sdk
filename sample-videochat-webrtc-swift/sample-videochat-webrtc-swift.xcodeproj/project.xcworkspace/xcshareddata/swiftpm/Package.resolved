@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "ios-quickblox-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/QuickBlox/ios-quickblox-sdk.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "a03f79d5bf06b1492c8e3116d22da92ac19aca3f"
+      }
+    },
+    {
+      "identity" : "ios-quickblox-sdk-webrtc",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/QuickBlox/ios-quickblox-sdk-webrtc.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "a52a1b3ec6e083d3083cf8dac57d4ed6c3faf679"
+      }
+    }
+  ],
+  "version" : 2
+}
