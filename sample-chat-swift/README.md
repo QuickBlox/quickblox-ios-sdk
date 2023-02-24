@@ -48,25 +48,13 @@ It allows to:
 
 To run a code sample, follow the steps below:
 
-1. Install [CocoaPods](https://cocoapods.org) to manage project dependencies.
-
-```
-bash
-$ sudo gem install cocoapods
-```
-2. Clone repository with the sample code.
-3. Open a terminal and enter the command below in your project path to integrate QuickBlox into the sample.
-```
-bash
-$ pod install
-```
-4. [Get application credentials](#get-application-credentials).
-5. Put the received credentials in ```AppDelegate``` file located in the root directory of your project.
+1. [Get application credentials](#get-application-credentials).
+2. Put the received credentials in ```AppDelegate``` file located in the root directory of your project.
 
 ```json
-QBSettings.applicationID = 92
-QBSettings.authKey = "wJHdOcQSxXQGWx5"
-QBSettings.authSecret = "BTFsj7Rtt27DAmT"
-QBSettings.accountKey = "7yvNe17TnjNUqDoPwfqp"
+Quickblox.initWithApplicationId(92,
+                                authKey: "wJHdOcQSxXQGWx5",
+                                authSecret: "BTFsj7Rtt27DAmT",
+                                accountKey: "7yvNe17TnjNUqDoPwfqp")
 ```
-6. Run the code sample.
+3. Run the code sample.

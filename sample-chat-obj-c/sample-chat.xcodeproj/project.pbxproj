@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -105,12 +105,13 @@
 		2CB4122623ED81C0007E6C13 /* AttachmentUploadBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB4122523ED81C0007E6C13 /* AttachmentUploadBar.xib */; };
 		2CB596A328EF667D00AC0359 /* NSError+Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB596A228EF667D00AC0359 /* NSError+Chat.m */; };
 		2CB74B3228E701AC0089CACF /* AuthModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB74B3128E701AC0089CACF /* AuthModule.m */; };
-		2CC758A51B0F0EB300999187 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		2CC758A51B0F0EB300999187 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		2CC9D9D127AABECC008B443D /* ConnectionModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC9D9D027AABECC008B443D /* ConnectionModule.m */; };
 		2CCEFD9727BBB54300072ADB /* ChatManager+InfoMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCEFD9527BBB54300072ADB /* ChatManager+InfoMessages.m */; };
 		2CCEFD9A27BBE49200072ADB /* QBChatMessage+Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCEFD9927BBE49200072ADB /* QBChatMessage+Chat.m */; };
 		2CE4588523ED867000ECA9DF /* CircularProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE4588423ED867000ECA9DF /* CircularProgressBar.m */; };
 		2CE4588823ED9EFF00ECA9DF /* CALayer+Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE4588723ED9EFF00ECA9DF /* CALayer+Chat.m */; };
+		2CE6C35729A8EDFB00F0F4B9 /* Quickblox in Frameworks */ = {isa = PBXBuildFile; productRef = 2CE6C35629A8EDFB00F0F4B9 /* Quickblox */; };
 		2CEBB41522454D8000A5E7BD /* Info.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CEBB41422454D8000A5E7BD /* Info.xcassets */; };
 		2CF0B68123E3029F00577F1D /* DialogCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF0B68023E3029F00577F1D /* DialogCell.m */; };
 		2CF0B68423E3219C00577F1D /* UILabel+Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF0B68323E3219C00577F1D /* UILabel+Chat.m */; };
@@ -125,7 +126,6 @@
 		2CFE528525C83118004A1DDB /* AuthorizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE527C25C83118004A1DDB /* AuthorizationViewController.m */; };
 		2CFE528625C83118004A1DDB /* PresenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE527E25C83118004A1DDB /* PresenterViewController.m */; };
 		86A716671B9EF0820019C42A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 86A716651B9EF0820019C42A /* InfoPlist.strings */; };
-		91B8A5A7E999ED66618397C3 /* Pods_samplechat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF4D81F24AAAC0BA26AD6096 /* Pods_samplechat.framework */; };
 		BFE6FB76180E8EF100E64AC4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FB75180E8EF100E64AC4 /* Foundation.framework */; };
 		BFE6FB78180E8EF100E64AC4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FB77180E8EF100E64AC4 /* CoreGraphics.framework */; };
 		BFE6FB7A180E8EF100E64AC4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FB79180E8EF100E64AC4 /* UIKit.framework */; };
@@ -369,12 +369,8 @@
 		2CFE527D25C83118004A1DDB /* SplashScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashScreenViewController.h; sourceTree = "<group>"; };
 		2CFE527E25C83118004A1DDB /* PresenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresenterViewController.m; sourceTree = "<group>"; };
 		2CFE527F25C83118004A1DDB /* AuthorizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorizationViewController.h; sourceTree = "<group>"; };
-		51E4792E6A1E45DC8BCF4376 /* Pods-samplechat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-samplechat.release.xcconfig"; path = "Target Support Files/Pods-samplechat/Pods-samplechat.release.xcconfig"; sourceTree = "<group>"; };
 		586DC8F81D9E59C3002A9D4A /* samplechat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = samplechat.entitlements; path = ../samplechat.entitlements; sourceTree = "<group>"; };
-		6BE43E1785E7F3156867CDE1 /* Pods-samplechat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-samplechat.debug.xcconfig"; path = "Target Support Files/Pods-samplechat/Pods-samplechat.debug.xcconfig"; sourceTree = "<group>"; };
-		6C4B8F9D483906A8EB5D4570 /* Pods-samplechat.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-samplechat.qa.xcconfig"; path = "Target Support Files/Pods-samplechat/Pods-samplechat.qa.xcconfig"; sourceTree = "<group>"; };
 		86A716661B9EF0820019C42A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		AF4D81F24AAAC0BA26AD6096 /* Pods_samplechat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_samplechat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE6FB72180E8EF100E64AC4 /* sample-chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-chat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE6FB75180E8EF100E64AC4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BFE6FB77180E8EF100E64AC4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -408,10 +404,10 @@
 				BFE6FBB6180E9E7400E64AC4 /* CoreData.framework in Frameworks */,
 				BFE6FB78180E8EF100E64AC4 /* CoreGraphics.framework in Frameworks */,
 				BFE6FBB2180E9E5E00E64AC4 /* SystemConfiguration.framework in Frameworks */,
+				2CE6C35729A8EDFB00F0F4B9 /* Quickblox in Frameworks */,
 				BFE6FBB0180E9E5300E64AC4 /* CFNetwork.framework in Frameworks */,
 				BFE6FB7A180E8EF100E64AC4 /* UIKit.framework in Frameworks */,
 				BFE6FB76180E8EF100E64AC4 /* Foundation.framework in Frameworks */,
-				91B8A5A7E999ED66618397C3 /* Pods_samplechat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1116,23 +1112,12 @@
 			path = PresenterViewController;
 			sourceTree = "<group>";
 		};
-		B21C52539D94D97EB802FAAC /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				6BE43E1785E7F3156867CDE1 /* Pods-samplechat.debug.xcconfig */,
-				51E4792E6A1E45DC8BCF4376 /* Pods-samplechat.release.xcconfig */,
-				6C4B8F9D483906A8EB5D4570 /* Pods-samplechat.qa.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		BFE6FB69180E8EF100E64AC4 = {
 			isa = PBXGroup;
 			children = (
 				BFE6FB7B180E8EF100E64AC4 /* sample-chat */,
 				BFE6FB74180E8EF100E64AC4 /* Frameworks */,
 				BFE6FB73180E8EF100E64AC4 /* Products */,
-				B21C52539D94D97EB802FAAC /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1162,7 +1147,6 @@
 				BFE6FB75180E8EF100E64AC4 /* Foundation.framework */,
 				BFE6FB77180E8EF100E64AC4 /* CoreGraphics.framework */,
 				BFE6FB79180E8EF100E64AC4 /* UIKit.framework */,
-				AF4D81F24AAAC0BA26AD6096 /* Pods_samplechat.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1204,18 +1188,19 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BFE6FBA7180E8EF100E64AC4 /* Build configuration list for PBXNativeTarget "samplechat" */;
 			buildPhases = (
-				1B920A9DAE5C391AC2058F82 /* [CP] Check Pods Manifest.lock */,
 				BFE6FB6E180E8EF100E64AC4 /* Sources */,
 				BFE6FB6F180E8EF100E64AC4 /* Frameworks */,
 				BFE6FB70180E8EF100E64AC4 /* Resources */,
 				583978A11D48A6D4009E970B /* Embed Frameworks */,
-				888A7DD27DAAC67AC9560FBA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = samplechat;
+			packageProductDependencies = (
+				2CE6C35629A8EDFB00F0F4B9 /* Quickblox */,
+			);
 			productName = "sample-chat";
 			productReference = BFE6FB72180E8EF100E64AC4 /* sample-chat.app */;
 			productType = "com.apple.product-type.application";
@@ -1255,6 +1240,9 @@
 				en,
 			);
 			mainGroup = BFE6FB69180E8EF100E64AC4;
+			packageReferences = (
+				2CE6C35529A8EDFB00F0F4B9 /* XCRemoteSwiftPackageReference "ios-quickblox-sdk" */,
+			);
 			productRefGroup = BFE6FB73180E8EF100E64AC4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1296,49 +1284,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		1B920A9DAE5C391AC2058F82 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-samplechat-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		888A7DD27DAAC67AC9560FBA /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-samplechat/Pods-samplechat-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/QuickBlox/Quickblox.framework/Quickblox",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quickblox.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-samplechat/Pods-samplechat-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BFE6FB6E180E8EF100E64AC4 /* Sources */ = {
@@ -1420,7 +1365,7 @@
 				2C73993625C9675F00A3204E /* DialogListViewController.m in Sources */,
 				2C980DE922315DF90055E46E /* DialogTableViewCell.m in Sources */,
 				2C4449DD27C162870060F050 /* AddOccupantsController.m in Sources */,
-				2CC758A51B0F0EB300999187 /* BuildFile in Sources */,
+				2CC758A51B0F0EB300999187 /* (null) in Sources */,
 				2C980E0122315DF90055E46E /* ChatNotificationCell.m in Sources */,
 				2CCEFD9A27BBE49200072ADB /* QBChatMessage+Chat.m in Sources */,
 				2CAF996C2415479800886214 /* ChatDateCell.m in Sources */,
@@ -1513,7 +1458,6 @@
 		};
 		86AB9BAA1B57F1B2000C830A /* QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6C4B8F9D483906A8EB5D4570 /* Pods-samplechat.qa.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = samplechat.entitlements;
@@ -1535,7 +1479,10 @@
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "ObjC-Chat";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 4.11.0;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -1663,7 +1610,6 @@
 		};
 		BFE6FBA8180E8EF100E64AC4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6BE43E1785E7F3156867CDE1 /* Pods-samplechat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = samplechat.entitlements;
@@ -1685,7 +1631,10 @@
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "ObjC-Chat";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 4.11.0;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -1700,7 +1649,6 @@
 		};
 		BFE6FBA9180E8EF100E64AC4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 51E4792E6A1E45DC8BCF4376 /* Pods-samplechat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = samplechat.entitlements;
@@ -1722,7 +1670,10 @@
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "ObjC-Chat";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 4.11.0;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -1759,6 +1710,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2CE6C35529A8EDFB00F0F4B9 /* XCRemoteSwiftPackageReference "ios-quickblox-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/QuickBlox/ios-quickblox-sdk.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2CE6C35629A8EDFB00F0F4B9 /* Quickblox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2CE6C35529A8EDFB00F0F4B9 /* XCRemoteSwiftPackageReference "ios-quickblox-sdk" */;
+			productName = Quickblox;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BFE6FB6A180E8EF100E64AC4 /* Project object */;
 }

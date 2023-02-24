@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -86,6 +86,8 @@
 		2CE202F321DCC44000017F18 /* StunList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CE202EA21DCC44000017F18 /* StunList.plist */; };
 		2CE64E6621BAA3BF00F85E06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE64E6521BAA3BF00F85E06 /* AppDelegate.swift */; };
 		2CE64E7021BAA3C200F85E06 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CE64E6E21BAA3C200F85E06 /* LaunchScreen.storyboard */; };
+		2CE6C36329A8F58500F0F4B9 /* Quickblox in Frameworks */ = {isa = PBXBuildFile; productRef = 2CE6C36229A8F58500F0F4B9 /* Quickblox */; };
+		2CE6C36629A8F63100F0F4B9 /* QuickbloxWebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = 2CE6C36529A8F63100F0F4B9 /* QuickbloxWebRTC */; };
 		2CECAB5026CD353C00D1C213 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CECAB4426CD353B00D1C213 /* UILabel+Extension.swift */; };
 		2CECAB5126CD353C00D1C213 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CECAB4526CD353B00D1C213 /* UIButton+Extension.swift */; };
 		2CECAB5226CD353C00D1C213 /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CECAB4626CD353B00D1C213 /* NSObject+Extension.swift */; };
@@ -105,7 +107,6 @@
 		2CF1F9C22616FFAC00140614 /* SessionTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF1F9BB2616FFAC00140614 /* SessionTimer.swift */; };
 		2CF1F9C32616FFAC00140614 /* CallHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF1F9BC2616FFAC00140614 /* CallHelper.swift */; };
 		2CFEDC1221BEB6DD00511479 /* CallPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFEDC1121BEB6DD00511479 /* CallPermissions.swift */; };
-		4C752D8EEE1F55295E285A27 /* Pods_sample_videochat_webrtc_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C77107FD186FF693F7CE7D14 /* Pods_sample_videochat_webrtc_swift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -212,9 +213,6 @@
 		2CF1F9BB2616FFAC00140614 /* SessionTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionTimer.swift; sourceTree = "<group>"; };
 		2CF1F9BC2616FFAC00140614 /* CallHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHelper.swift; sourceTree = "<group>"; };
 		2CFEDC1121BEB6DD00511479 /* CallPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallPermissions.swift; sourceTree = "<group>"; };
-		424CD22A73E94ED4A52F3097 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-videochat-webrtc-swift.debug.xcconfig"; path = "Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift.debug.xcconfig"; sourceTree = "<group>"; };
-		8E76FF2132BFDA7ED73A4D53 /* Pods-sample-videochat-webrtc-swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-videochat-webrtc-swift.release.xcconfig"; path = "Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift.release.xcconfig"; sourceTree = "<group>"; };
-		C77107FD186FF693F7CE7D14 /* Pods_sample_videochat_webrtc_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sample_videochat_webrtc_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,29 +220,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C752D8EEE1F55295E285A27 /* Pods_sample_videochat_webrtc_swift.framework in Frameworks */,
+				2CE6C36629A8F63100F0F4B9 /* QuickbloxWebRTC in Frameworks */,
+				2CE6C36329A8F58500F0F4B9 /* Quickblox in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		285695E31030063E09D95508 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				424CD22A73E94ED4A52F3097 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */,
-				8E76FF2132BFDA7ED73A4D53 /* Pods-sample-videochat-webrtc-swift.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		28EF69952B2C5190ABF1526D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				2C6A5DD528084787005A42B6 /* QuickbloxWebRTC.xcframework */,
 				2CC9750226480F91001559A4 /* QuickbloxWebRTC.framework */,
 				2CC9750126480F46001559A4 /* QuickbloxWebRTC.framework.zip */,
-				C77107FD186FF693F7CE7D14 /* Pods_sample_videochat_webrtc_swift.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -644,7 +633,6 @@
 			children = (
 				2CE64E6421BAA3BF00F85E06 /* sample-videochat-webrtc-swift */,
 				2CE64E6321BAA3BF00F85E06 /* Products */,
-				285695E31030063E09D95508 /* Pods */,
 				28EF69952B2C5190ABF1526D /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -724,17 +712,19 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2CE64E7421BAA3C200F85E06 /* Build configuration list for PBXNativeTarget "sample-videochat-webrtc-swift" */;
 			buildPhases = (
-				F4CD873556CCD80F5206214C /* [CP] Check Pods Manifest.lock */,
 				2CE64E5E21BAA3BF00F85E06 /* Sources */,
 				2CE64E5F21BAA3BF00F85E06 /* Frameworks */,
 				2CE64E6021BAA3BF00F85E06 /* Resources */,
-				9DA75288F09DC061B98C7B35 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "sample-videochat-webrtc-swift";
+			packageProductDependencies = (
+				2CE6C36229A8F58500F0F4B9 /* Quickblox */,
+				2CE6C36529A8F63100F0F4B9 /* QuickbloxWebRTC */,
+			);
 			productName = "sample-videochat-webrtc-swift";
 			productReference = 2CE64E6221BAA3BF00F85E06 /* sample-videochat-webrtc-swift.app */;
 			productType = "com.apple.product-type.application";
@@ -775,6 +765,10 @@
 				Base,
 			);
 			mainGroup = 2CE64E5921BAA3BF00F85E06;
+			packageReferences = (
+				2CE6C36129A8F58500F0F4B9 /* XCRemoteSwiftPackageReference "ios-quickblox-sdk" */,
+				2CE6C36429A8F63100F0F4B9 /* XCRemoteSwiftPackageReference "ios-quickblox-sdk-webrtc" */,
+			);
 			productRefGroup = 2CE64E6321BAA3BF00F85E06 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -818,48 +812,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		9DA75288F09DC061B98C7B35 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F4CD873556CCD80F5206214C /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-sample-videochat-webrtc-swift-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2CE64E5E21BAA3BF00F85E06 /* Sources */ = {
@@ -1076,7 +1028,6 @@
 		};
 		2CE64E7521BAA3C200F85E06 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 424CD22A73E94ED4A52F3097 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "sample-videochat-webrtc-swift/sample-videochat-webrtc-swift.entitlements";
@@ -1102,7 +1053,6 @@
 		};
 		2CE64E7621BAA3C200F85E06 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8E76FF2132BFDA7ED73A4D53 /* Pods-sample-videochat-webrtc-swift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "sample-videochat-webrtc-swift/sample-videochat-webrtc-swift.entitlements";
@@ -1147,6 +1097,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2CE6C36129A8F58500F0F4B9 /* XCRemoteSwiftPackageReference "ios-quickblox-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/QuickBlox/ios-quickblox-sdk.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		2CE6C36429A8F63100F0F4B9 /* XCRemoteSwiftPackageReference "ios-quickblox-sdk-webrtc" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/QuickBlox/ios-quickblox-sdk-webrtc.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2CE6C36229A8F58500F0F4B9 /* Quickblox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2CE6C36129A8F58500F0F4B9 /* XCRemoteSwiftPackageReference "ios-quickblox-sdk" */;
+			productName = Quickblox;
+		};
+		2CE6C36529A8F63100F0F4B9 /* QuickbloxWebRTC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2CE6C36429A8F63100F0F4B9 /* XCRemoteSwiftPackageReference "ios-quickblox-sdk-webrtc" */;
+			productName = QuickbloxWebRTC;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2CE64E5A21BAA3BF00F85E06 /* Project object */;
 }
