@@ -9,6 +9,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSUInteger, QBHashAlgorithm) {
+    QBHashAlgorithmSHA1,
+    QBHashAlgorithmSHA256
+};
+
 /** 
  QBSettings class interface.
  Class for framework setup.
@@ -28,6 +33,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** Setting application group identifier */
 @property (nonatomic, class, nullable) NSString *applicationGroupIdentifier;
+
+/** Setting hash algorithm. Default - QBHashAlgorithmSHA1 */
+@property (nonatomic, class, assign) QBHashAlgorithm hashAlgorithm;
 
 /** Setting Api Endpoint. Default - https://api.quickblox.com*/
 @property (nonatomic, class, null_resettable) NSString *apiEndpoint;
