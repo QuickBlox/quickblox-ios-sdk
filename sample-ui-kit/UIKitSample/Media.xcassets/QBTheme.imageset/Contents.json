@@ -1,0 +1,22 @@
+{
+  "images" : [
+    {
+      "filename" : "Simulator Screenshot - iPhone 14 - 2023-04-12 at 21.47.52.png",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "QBTheme_dark.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
