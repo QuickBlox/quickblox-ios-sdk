@@ -2,7 +2,7 @@
 //  Connect.swift
 //  UIKitSample
 //
-//  Created by Injoit.
+//  Created by Injoit on 14.06.2023.
 //  Copyright © 2023 QuickBlox. All rights reserved.
 //
 
@@ -60,12 +60,7 @@ class Connect: ObservableObject {
         newUser.fullName = displayName
         newUser.password = password
         QBRequest.signUp(newUser, successBlock: { [weak self] response, user in
-            guard QBSession.current.sessionDetails?.token != nil else {
-                print("Login Error: \(response)")
-                self?.state = .disconnected
-                return
-            }
-            self?.connect(withUserID: user.id)
+            self?.login(withLogin: login, password: password)
         }, errorBlock: { [weak self] response in
             if response.status == QBResponseStatusCode.validationFailed {
                 // The user with existent login was created earlier
