@@ -2,7 +2,8 @@
 //  LoginViewModal.swift
 //  UIKitSample
 //
-//  Created by Injoit.
+//  Created by Injoit on 14.06.2023.
+//  Copyright © 2023 QuickBlox. All rights reserved.
 //
 
 import SwiftUI
