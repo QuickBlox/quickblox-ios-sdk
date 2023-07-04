@@ -19,6 +19,7 @@ enum ConnectState {
 
 class Connect: ObservableObject {
     @Published var state: ConnectState = .waiting
+    @Published var isConnected: Bool = false
     
     init(state: ConnectState = .disconnected) {
         self.state = state
@@ -81,6 +82,7 @@ class Connect: ObservableObject {
             return
         }
         QBChat.instance.connect(withUserID: userId, password: token) { [weak self] _ in
+            self?.isConnected = true
             self?.state = .connected
             print("Success connect")
         }
@@ -90,6 +92,7 @@ class Connect: ObservableObject {
         state = .waiting
         QBChat.instance.disconnect() {_ in
             QBRequest.logOut { [weak self] response in
+                self?.isConnected = false
                 self?.state = .disconnected
                 print("Success disconnect")
             }

@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Quickblox
+import QuickBloxUIKit
 
 struct LoginConstant {
     static let enterToChat = "Login to Chat"
@@ -26,14 +27,11 @@ struct LoginScreen: View {
     
     @StateObject private var viewModel: LoginViewModal
     @StateObject private var connect: Connect
-    
     @State public var theme: AppTheme = appThemes[UserDefaults.standard.integer(forKey: "Theme")]
-    
     @State private var loginInfo = LoginConstant.login
-    
     @State var selectedSegment: ThemeType?
     
-    @State var isConnected: Bool? = false
+    let showChangeColorTheme: Bool = true //Setting this variable to true will show an example of choosing a color theme of the user's choice
     
     init(viewModel: LoginViewModal = LoginViewModal(), connect: Connect = Connect()) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -44,110 +42,33 @@ struct LoginScreen: View {
     }
     
     var body: some View {
+        
+        container()
+
+        //Option to open UIKit directly after user authorization in the QuickBlox system.
+        // Upon successful authorization, when connect.state == .connected the UIKit’s Dialogues screen will automatically open.
+            .if(showChangeColorTheme == false && connect.state == .connected, transform: { view in
+                view.fullScreenCover(isPresented: $connect.isConnected) {
+                    QuickBloxUIKit.dialogsView() // The entry point to the QuickBlox iOS UI Kit.
+                }
+            })
+    }
+    
+    @ViewBuilder
+    private func container() -> some View {
         NavigationView {
             ZStack {
                 theme.color.mainBackground.ignoresSafeArea()
                 switch connect.state {
                 case .waiting: ProgressView()
                 case .disconnected, .validationFailed, .unAuthorized:
-                    
                     if viewModel.isSignUped {
-                        
-                        VStack(spacing: 18) {
-                            InfoText(loginInfo: $loginInfo).padding(.top, 44)
-                            
-                            LoginTextField(theme: theme,
-                                           login: $viewModel.login,
-                                           isValidLogin: $viewModel.isValidLogin)
-                            
-                            PasswordTextField(theme: theme,
-                                              password: $viewModel.password,
-                                              isValidPassword: $viewModel.isValidPassword)
-                            
-                            LoginButton("Login",
-                                        isValidForm: $viewModel.isLoginValidForm,
-                                        onTapped: {
-                                connect.login(withLogin: viewModel.login,
-                                              password: viewModel.password)
-                            }, theme: theme)
-                            
-                            Spacer()
-                            
-                            Button("SignUp") {
-                                viewModel.isSignUped = false
-                                loginInfo = LoginConstant.signUp
-                            }
-                            .padding()
-                            .background(theme.color.incomingBackground)
-                            .foregroundColor(.white)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                            
-                        }.padding()
-                        
+                        loginView()
                     } else {
-                        
-                        VStack(spacing: 18) {
-                            InfoText(loginInfo: $loginInfo).padding(.top, 44)
-                            
-                            LoginTextField(theme: theme,
-                                           login: $viewModel.login,
-                                           isValidLogin: $viewModel.isValidLogin)
-                            
-                            DisplayNameTextField(theme: theme,
-                                                 displayName: $viewModel.displayName,
-                                                 isValidDisplayName: $viewModel.isValidDisplayName)
-                            
-                            PasswordTextField(theme: theme,
-                                              password: $viewModel.password,
-                                              isValidPassword: $viewModel.isValidPassword)
-                            
-                            LoginButton("SignUp",
-                                        isValidForm: $viewModel.isSignUpValidForm,
-                                        onTapped: {
-                                connect.signUp(withLogin: viewModel.login,
-                                              displayName: viewModel.displayName,
-                                              password: viewModel.password)
-                            }, theme: theme)
-                            
-                            Spacer()
-                            
-                            Button("Login") {
-                                viewModel.isSignUped = true
-                                loginInfo = LoginConstant.login
-                            }
-                            .padding()
-                            .background(theme.color.incomingBackground)
-                            .foregroundColor(.white)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                            
-                        }.padding()
+                        signUpView()
                     }
-                    
                 case .connected:
-                    
-                    VStack {
-                        if let selectedSegment {
-                            NavigationLink (
-                                tag: selectedSegment,
-                                selection: $selectedSegment
-                            ) {
-                                EnterToChatView(theme: switchTheme(selectedSegment))
-                            } label: {
-                                EmptyView()
-                            }
-                        }
-                        Spacer(minLength: 80)
-                        Button("Disconnect") {
-                            connect.disconnect()
-                        }
-                        .padding()
-                        .background(theme.color.incomingBackground)
-                        .foregroundColor(.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                        
-                        Spacer()
-                        ThemeSelectBar(theme: theme, selectedSegment: $selectedSegment)
-                    }
+                    connectedView()
                 }
             }
             .onChange(of: connect.state, perform: { state in
@@ -163,9 +84,113 @@ struct LoginScreen: View {
                 theme = appThemes[UserDefaults.standard.integer(forKey: "Theme")]
             }
             .navigationBarBackButtonHidden(true)
-            .background(theme.color.mainBackground)
             .navigationBarTitle(LoginConstant.enterToChat, displayMode: .inline)
             .navigationBarHidden(true)
+        }
+    }
+    
+    @ViewBuilder
+    private func signUpView() -> some View {
+        VStack(spacing: 18) {
+            InfoText(loginInfo: $loginInfo).padding(.top, 44)
+            
+            LoginTextField(theme: theme,
+                           login: $viewModel.login,
+                           isValidLogin: $viewModel.isValidLogin)
+            
+            DisplayNameTextField(theme: theme,
+                                 displayName: $viewModel.displayName,
+                                 isValidDisplayName: $viewModel.isValidDisplayName)
+            
+            PasswordTextField(theme: theme,
+                              password: $viewModel.password,
+                              isValidPassword: $viewModel.isValidPassword)
+            
+            LoginButton("SignUp",
+                        isValidForm: $viewModel.isSignUpValidForm,
+                        onTapped: {
+                connect.signUp(withLogin: viewModel.login,
+                               displayName: viewModel.displayName,
+                               password: viewModel.password)
+            }, theme: theme)
+            
+            Spacer()
+            
+            Button("Login") {
+                viewModel.isSignUped = true
+                loginInfo = LoginConstant.login
+            }
+            .padding()
+            .background(theme.color.incomingBackground)
+            .foregroundColor(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            
+        }.padding()
+    }
+    
+    @ViewBuilder
+    private func loginView() -> some View {
+        VStack(spacing: 18) {
+            InfoText(loginInfo: $loginInfo).padding(.top, 44)
+            
+            LoginTextField(theme: theme,
+                           login: $viewModel.login,
+                           isValidLogin: $viewModel.isValidLogin)
+            
+            PasswordTextField(theme: theme,
+                              password: $viewModel.password,
+                              isValidPassword: $viewModel.isValidPassword)
+            
+            LoginButton("Login",
+                        isValidForm: $viewModel.isLoginValidForm,
+                        onTapped: {
+                connect.login(withLogin: viewModel.login,
+                              password: viewModel.password)
+            }, theme: theme)
+            
+            Spacer()
+            
+            Button("SignUp") {
+                viewModel.isSignUped = false
+                loginInfo = LoginConstant.signUp
+            }
+            .padding()
+            .background(theme.color.incomingBackground)
+            .foregroundColor(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            
+        }.padding()
+    }
+    
+    @ViewBuilder
+    private func connectedView() -> some View {
+        VStack {
+            Spacer(minLength: 80)
+            Button("Disconnect") {
+                connect.disconnect()
+            }
+            .padding()
+            .background(theme.color.incomingBackground)
+            .foregroundColor(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            
+            Spacer()
+            
+            if showChangeColorTheme == true {
+                
+                if let selectedSegment {
+                    NavigationLink (
+                        tag: selectedSegment,
+                        selection: $selectedSegment
+                    ) {
+                        EnterToChatView(theme: switchTheme(selectedSegment))
+                    } label: {
+                        EmptyView()
+                    }
+                }
+                
+                ThemeSelectBar(theme: theme, selectedSegment: $selectedSegment)
+            }
         }
     }
     
