@@ -14,12 +14,6 @@ struct EnterConstant {
     static let enterToChat = "Enter to SwiftUIChat"
 }
 
-struct ShowQuickBlox: View {
-    var body: some View {
-        QuickBloxUIKit.dialogsView()
-    }
-}
-
 struct EnterToChatView: View {
     @Environment(\.dismiss) var dismiss
     
@@ -48,6 +42,7 @@ struct EnterToChatView: View {
                 
                 Spacer()
                 
+                // Button to enter the QuickBlox IOS UI Kit.
                 Button(action: {
                     withAnimation {
                         self.isPresented = true
@@ -65,7 +60,7 @@ struct EnterToChatView: View {
         }
         .navigationBarBackButtonHidden(true)
         .fullScreenCover(isPresented: $isPresented) {
-            QuickBloxUIKit.dialogsView()
+            QuickBloxUIKit.dialogsView() // The entry point to the QuickBlox iOS UI Kit.
         }
         .navigationBarTitle(EnterConstant.enterToChat, displayMode: .inline)
         .navigationBarHidden(true)

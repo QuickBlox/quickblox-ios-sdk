@@ -9,8 +9,7 @@
 import SwiftUI
 
 @main
-struct UIKitSampleApp: App {
-    
+struct UIKitSampleApp: App { 
     var body: some Scene {
         WindowGroup {
             LoginScreen()
