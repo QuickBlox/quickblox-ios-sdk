@@ -60,7 +60,10 @@ struct EnterToChatView: View {
         }
         .navigationBarBackButtonHidden(true)
         .fullScreenCover(isPresented: $isPresented) {
-            QuickBloxUIKit.dialogsView() // The entry point to the QuickBlox iOS UI Kit.
+            // The entry point to the QuickBlox iOS UI Kit.
+            QuickBloxUIKit.dialogsView(onExit: {
+                // Handling an event when exiting the QuickBloxUIKit
+            })
         }
         .navigationBarTitle(EnterConstant.enterToChat, displayMode: .inline)
         .navigationBarHidden(true)

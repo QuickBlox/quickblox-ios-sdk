@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2C5E9C3429E7352300CDA1FC /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C5E9C3329E7352300CDA1FC /* Media.xcassets */; };
-		2C5E9C3629E73A7500CDA1FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C5E9C3529E73A7500CDA1FC /* Assets.xcassets */; };
+		2C05E0C52A77D8A6008AE78B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C05E0C02A77D8A6008AE78B /* Media.xcassets */; };
+		2C05E0C62A77D8A6008AE78B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C05E0C12A77D8A6008AE78B /* Localizable.strings */; };
+		2C05E0C72A77D8A6008AE78B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C05E0C42A77D8A6008AE78B /* Assets.xcassets */; };
+		2C0A53DA2A784FFB0034841B /* QuickBloxUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2C0A53D92A784FFB0034841B /* QuickBloxUIKit */; };
 		2C5E9C3929E7490400CDA1FC /* ThemeSelectBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5E9C3829E7490400CDA1FC /* ThemeSelectBar.swift */; };
 		2C91739D29E87E4B00222A1F /* EnterToChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91739C29E87E4B00222A1F /* EnterToChatView.swift */; };
 		2C9E0AC829EB3675004B3CF0 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9E0AC729EB3675004B3CF0 /* AppTheme.swift */; };
@@ -20,7 +22,6 @@
 		2CBF893629DB3AF10016CF99 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF893129DB3AF10016CF99 /* LoginTextField.swift */; };
 		2CBF893B29DB43E30016CF99 /* TextFieldHint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF893829DB43E30016CF99 /* TextFieldHint.swift */; };
 		2CBF893C29DB43E30016CF99 /* TextFieldName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF893929DB43E30016CF99 /* TextFieldName.swift */; };
-		3A102ED22A3A1E170065CD4D /* QuickBloxUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3A102ED12A3A1E170065CD4D /* QuickBloxUIKit */; };
 		3AE104C029BF3B6F009B2B80 /* Connect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE104BF29BF3B6F009B2B80 /* Connect.swift */; };
 		3AF0154529B092B60021EE49 /* UIKitSampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF0154429B092B60021EE49 /* UIKitSampleApp.swift */; };
 		3AF0154C29B092B70021EE49 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AF0154B29B092B70021EE49 /* Preview Assets.xcassets */; };
@@ -47,9 +48,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C05E0C02A77D8A6008AE78B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		2C05E0C22A77D8A6008AE78B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2C05E0C32A77D8A6008AE78B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2C05E0C42A77D8A6008AE78B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C5E1A7C29E5957000F80CCF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		2C5E9C3329E7352300CDA1FC /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
-		2C5E9C3529E73A7500CDA1FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C5E9C3829E7490400CDA1FC /* ThemeSelectBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeSelectBar.swift; sourceTree = "<group>"; };
 		2C91739C29E87E4B00222A1F /* EnterToChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterToChatView.swift; sourceTree = "<group>"; };
 		2C9E0AC729EB3675004B3CF0 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
@@ -78,7 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A102ED22A3A1E170065CD4D /* QuickBloxUIKit in Frameworks */,
+				2C0A53DA2A784FFB0034841B /* QuickBloxUIKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +102,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C05E0BF2A77D8A6008AE78B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2C05E0C02A77D8A6008AE78B /* Media.xcassets */,
+				2C05E0C12A77D8A6008AE78B /* Localizable.strings */,
+				2C05E0C42A77D8A6008AE78B /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		2C5E9C3729E748D600CDA1FC /* ThemeSelectBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,8 +199,7 @@
 				3AF0154429B092B60021EE49 /* UIKitSampleApp.swift */,
 				3AF0154A29B092B70021EE49 /* Preview Content */,
 				3AE104BF29BF3B6F009B2B80 /* Connect.swift */,
-				2C5E9C3329E7352300CDA1FC /* Media.xcassets */,
-				2C5E9C3529E73A7500CDA1FC /* Assets.xcassets */,
+				2C05E0BF2A77D8A6008AE78B /* Resources */,
 			);
 			path = UIKitSample;
 			sourceTree = "<group>";
@@ -234,7 +246,7 @@
 			);
 			name = UIKitSample;
 			packageProductDependencies = (
-				3A102ED12A3A1E170065CD4D /* QuickBloxUIKit */,
+				2C0A53D92A784FFB0034841B /* QuickBloxUIKit */,
 			);
 			productName = UIKitSample;
 			productReference = 3AF0154129B092B60021EE49 /* UIKitSample.app */;
@@ -306,10 +318,11 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = 3AF0153829B092B60021EE49;
 			packageReferences = (
-				3A102ED02A3A1E170065CD4D /* XCRemoteSwiftPackageReference "ios-ui-kit" */,
+				2C0A53D82A784FFB0034841B /* XCRemoteSwiftPackageReference "ios-ui-kit" */,
 			);
 			productRefGroup = 3AF0154229B092B60021EE49 /* Products */;
 			projectDirPath = "";
@@ -327,8 +340,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C5E9C3429E7352300CDA1FC /* Media.xcassets in Resources */,
-				2C5E9C3629E73A7500CDA1FC /* Assets.xcassets in Resources */,
+				2C05E0C62A77D8A6008AE78B /* Localizable.strings in Resources */,
+				2C05E0C52A77D8A6008AE78B /* Media.xcassets in Resources */,
+				2C05E0C72A77D8A6008AE78B /* Assets.xcassets in Resources */,
 				3AF0154C29B092B70021EE49 /* Preview Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -401,6 +415,18 @@
 			targetProxy = 3AF0155C29B092B70021EE49 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		2C05E0C12A77D8A6008AE78B /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2C05E0C22A77D8A6008AE78B /* en */,
+				2C05E0C32A77D8A6008AE78B /* es */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		3AF0156329B092B70021EE49 /* Debug */ = {
@@ -575,7 +601,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.quickblox.UIKitSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -621,7 +647,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.quickblox.UIKitSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -751,20 +777,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		3A102ED02A3A1E170065CD4D /* XCRemoteSwiftPackageReference "ios-ui-kit" */ = {
+		2C0A53D82A784FFB0034841B /* XCRemoteSwiftPackageReference "ios-ui-kit" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/QuickBlox/ios-ui-kit";
+			repositoryURL = "https://github.com/QuickBlox/ios-ui-kit.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.1;
+				minimumVersion = 0.1.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		3A102ED12A3A1E170065CD4D /* QuickBloxUIKit */ = {
+		2C0A53D92A784FFB0034841B /* QuickBloxUIKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3A102ED02A3A1E170065CD4D /* XCRemoteSwiftPackageReference "ios-ui-kit" */;
+			package = 2C0A53D82A784FFB0034841B /* XCRemoteSwiftPackageReference "ios-ui-kit" */;
 			productName = QuickBloxUIKit;
 		};
 /* End XCSwiftPackageProductDependency section */
