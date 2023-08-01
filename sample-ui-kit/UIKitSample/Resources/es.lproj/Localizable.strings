@@ -2,7 +2,8 @@
 //  Localizable.es.strings
 //  UIKitSample
 //
-//  Created by Injoit.
+//  Created by Injoit on 31.07.2023.
+//  Copyright © 2023 QuickBlox. All rights reserved.
 //
 
 "dialog.items.empty" = "No tiene ningún cuadro de diálogo.";
@@ -16,7 +17,7 @@
 "dialog.typing.four" = " y otros 2 están escribiendo...";
 "dialog.name.hint" = "Use caracteres alfanuméricos y espacios en un rango de 3 a 60. No puede contener más de un espacio en una fila.";
 "dialog.name.create" = "Crear";
-"dialog.name.next" = "Siguiente";
+"dialog.name.next" = "Próximo";
 "dialog.name.search" = "Buscar";
 "dialog.name.cancel" = "Cancelar";
 "dialog.info.edit" = "Editar";
@@ -25,16 +26,16 @@
 "dialog.info.searchInDialog" = "Buscar en el cuadro de diálogo";
 "dialog.info.leaveDialog" = "Salir del cuadro de diálogo";
 "dialog.info.you" = " (usted)";
-"dialog.info.admin" = "Administrador";
+"dialog.info.admin" = "Admin";
 "dialog.action.typeMessage" = "Escribir mensaje";
 
 "screen.title.dialogs" = "Diálogos";
 "screen.title.dialog" = "Diálogo";
 "screen.title.dialogType" = "Tipo de diálogo";
 "screen.title.newDialog" = "Diálogo nuevo";
-"screen.title.createDialog" = "Crear cuadro de diálogo";
+"screen.title.createDialog" = "Crear diálogo";
 "screen.title.addMembers" = "Agregar miembros";
-"screen.title.dialogInformation" = "Información del cuadro de diálogo";
+"screen.title.dialogInformation" = "Información de diálogo";
 
 "alert.actions.add" = "Agregar";
 "alert.actions.dialogName" = "Nombre del diálogo";

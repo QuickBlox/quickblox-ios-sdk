@@ -31,7 +31,7 @@ struct LoginScreen: View {
     @State private var loginInfo = LoginConstant.login
     @State var selectedSegment: ThemeType?
     
-    let showChangeColorTheme: Bool = true //Setting this variable to true will show an example of choosing a color theme of the user's choice
+    let showChangeColorTheme: Bool = false //Setting this variable to true will show an example of choosing a color theme of the user's choice
     
     init(viewModel: LoginViewModal = LoginViewModal(), connect: Connect = Connect()) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -49,7 +49,11 @@ struct LoginScreen: View {
         // Upon successful authorization, when connect.state == .connected the UIKit’s Dialogues screen will automatically open.
             .if(showChangeColorTheme == false && connect.state == .connected, transform: { view in
                 view.fullScreenCover(isPresented: $connect.isConnected) {
-                    QuickBloxUIKit.dialogsView() // The entry point to the QuickBlox iOS UI Kit.
+                    // The entry point to the QuickBlox iOS UI Kit.
+                    QuickBloxUIKit.dialogsView(onExit: {
+                        // Handling an event when exiting the QuickBloxUIKit e.g. disconnect and logout
+                        connect.disconnect()
+                    })
                 }
             })
     }

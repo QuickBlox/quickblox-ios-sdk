@@ -2,7 +2,8 @@
 //  Localizable.en.strings
 //  UIKitSample
 //
-//  Created by Injoit.
+//  Created by Injoit on 31.07.2023.
+//  Copyright © 2023 QuickBlox. All rights reserved.
 //
 
 "dialog.items.empty" = "You don’t have any dialogs.";
