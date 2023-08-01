@@ -12,10 +12,10 @@
     {
       "identity" : "ios-ui-kit",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/QuickBlox/ios-ui-kit",
+      "location" : "https://github.com/QuickBlox/ios-ui-kit.git",
       "state" : {
-        "revision" : "725d7fccc0213074c608c70c021128cb130c36e2",
-        "version" : "0.1.2"
+        "revision" : "872daab30f88939a74e1fc48b0b51d3945aabc3d",
+        "version" : "0.1.4"
       }
     }
   ],
