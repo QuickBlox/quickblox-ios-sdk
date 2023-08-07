@@ -64,15 +64,15 @@ public class CustomThemeString: ThemeStringProtocol {
     public var dialogsEmpty: String = String(localized: "dialog.items.empty")
     public var usersEmpty: String = String(localized: "dialog.members.empty")
     public var messegesEmpty: String = String(localized: "dialog.messages.empty")
-    
+
     public var privateDialog: String = String(localized: "dialog.type.private")
     public var groupDialog: String = String(localized: "dialog.type.group")
     public var publicDialog: String = String(localized: "dialog.type.group")
-    
+
     public var typingOne: String = String(localized: "dialog.typing.one")
     public var typingTwo: String = String(localized: "dialog.typing.two")
     public var typingFour: String = String(localized: "dialog.typing.four")
-    
+
     public var enterName: String = String(localized: "alert.actions.enterName")
     public var nameHint: String = String(localized: "dialog.name.hint")
     public var create: String = String(localized: "dialog.name.create")
@@ -83,11 +83,11 @@ public class CustomThemeString: ThemeStringProtocol {
     public var notification: String = String(localized: "dialog.info.notification")
     public var searchInDialog: String = String(localized: "dialog.info.searchInDialog")
     public var leaveDialog: String = String(localized: "dialog.info.leaveDialog")
-    
+
     public var you: String = String(localized: "dialog.info.you")
     public var admin: String = String(localized: "dialog.info.admin")
     public var typeMessage: String = String(localized: "dialog.action.typeMessage")
-    
+
     public var dialogs: String = String(localized: "screen.title.dialogs")
     public var dialog: String = String(localized: "screen.title.dialog")
     public var dialogType: String = String(localized: "screen.title.dialogType")
@@ -95,18 +95,18 @@ public class CustomThemeString: ThemeStringProtocol {
     public var createDialog: String = String(localized: "screen.title.createDialog")
     public var addMembers: String = String(localized: "screen.title.addMembers")
     public var dialogInformation: String = String(localized: "screen.title.dialogInformation")
-    
+
     public var add: String = String(localized: "alert.actions.add")
     public var dialogName: String = String(localized: "alert.actions.dialogName")
     public var changeImage: String = String(localized: "alert.actions.changeImage")
     public var changeDialogName: String = String(localized: "alert.actions.changeDialogName")
-    
+
     public var photo: String = String(localized: "alert.actions.photo")
     public var removePhoto: String = String(localized: "alert.actions.removePhoto")
     public var camera: String = String(localized: "alert.actions.camera")
     public var gallery: String = String(localized: "alert.actions.gallery")
     public var file: String = String(localized: "alert.actions.file")
-    
+
     public var remove: String = String(localized: "alert.actions.remove")
     public var cancel: String = String(localized: "alert.actions.cancel")
     public var ok: String = String(localized: "alert.actions.ok")
@@ -115,11 +115,13 @@ public class CustomThemeString: ThemeStringProtocol {
     public var errorValidation: String = String(localized: "alert.message.errorValidation")
     public var addUser: String = String(localized: "alert.message.addUser")
     public var toDialog: String = String(localized: "alert.message.toDialog")
-    
+    public var noResults: String = String(localized: "alert.message.noResults")
+    public var noMembers: String = String(localized: "alert.message.noMembers")
+
     public var maxSize: String = String(localized: "attachment.maxSize.title")
     public var maxSizeHint: String = String(localized: "attachment.maxSize.hint")
     public var fileTitle: String  = String(localized: "attachment.title.file")
     public var gif: String = String(localized: "attachment.title.gif")
-    
+
     public init() {}
 }
