@@ -17,13 +17,13 @@
 "dialog.typing.four" = " y otros 2 están escribiendo...";
 "dialog.name.hint" = "Use caracteres alfanuméricos y espacios en un rango de 3 a 60. No puede contener más de un espacio en una fila.";
 "dialog.name.create" = "Crear";
-"dialog.name.next" = "Próximo";
+"dialog.name.next" = "Siguiente";
 "dialog.name.search" = "Buscar";
 "dialog.name.cancel" = "Cancelar";
 "dialog.info.edit" = "Editar";
 "dialog.info.members" = "Miembros";
 "dialog.info.notification" = "Notificación";
-"dialog.info.searchInDialog" = "Buscar en el cuadro de diálogo";
+"dialog.info.searchInDialog" = "Buscar en diálogo";
 "dialog.info.leaveDialog" = "Salir del cuadro de diálogo";
 "dialog.info.you" = " (usted)";
 "dialog.info.admin" = "Admin";
@@ -55,6 +55,8 @@
 "alert.message.errorValidation" = "Error de validación";
 "alert.message.addUser" = "¿Está seguro de que desea agregar ";
 "alert.message.toDialog" = "¿a este cuadro de diálogo?";
+"alert.message.noResults" = "No results found";
+"alert.message.noMembers" = "There are no members";
 
 "attachment.maxSize.title" = "El archivo cargado supera el tamaño máximo de archivo (10 MB)";
 "attachment.maxSize.hint" = "Seleccione un archivo adjunto más pequeño.";

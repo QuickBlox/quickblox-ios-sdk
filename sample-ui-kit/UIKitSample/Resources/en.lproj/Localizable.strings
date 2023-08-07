@@ -6,7 +6,7 @@
 //  Copyright © 2023 QuickBlox. All rights reserved.
 //
 
-"dialog.items.empty" = "You don’t have any dialogs.";
+"dialog.items.empty" = "There are no dialogs";
 "dialog.members.empty" = "You don’t have any users.";
 "dialog.messages.empty" = "You don’t have any messages.";
 "dialog.type.private" = "Private";
@@ -55,6 +55,8 @@
 "alert.message.errorValidation" = "Error Validation";
 "alert.message.addUser" = "Are you sure you want to add ";
 "alert.message.toDialog" = " to this dialog?";
+"alert.message.noResults" = "No results found";
+"alert.message.noMembers" = "There are no members";
 
 "attachment.maxSize.title" = "The uploaded file exceeds maximum file size (10MB)";
 "attachment.maxSize.hint" = "Please select a smaller attachment.";
