@@ -57,8 +57,104 @@
 "alert.message.toDialog" = " to this dialog?";
 "alert.message.noResults" = "No results found";
 "alert.message.noMembers" = "There are no members";
+"alert.message.invalidAI" = "The [AI Assist Answer feature](https://docs.quickblox.com/docs/ios-uikit-ai-features#assist-answer) is currently not configured. To enable this functionality, you must set either the **.openAIAPIKey** or **.proxyServerURLPath** properties for QuickBloxUIKit.feature.ai.assistAnswer. To disable the feature, simply set QuickBloxUIKit.feature.ai.assistAnswer.enable = false.";
 
 "attachment.maxSize.title" = "The uploaded file exceeds maximum file size (10MB)";
 "attachment.maxSize.hint" = "Please select a smaller attachment.";
 "attachment.title.file" = "file";
 "attachment.title.gif" = "GIF";
+
+"ai.translate.showOriginal" = "Show original";
+"ai.translate.showTranslation" = "Show translation";
+"ai.answerAssist.title" = "AI Answer Assist";
+
+"permission.camera.title" = "Camera error";
+"permission.camera.message" = "The app doesn't have access to the camera, please go to settings and enable it.";
+"permission.microphone.title" = "Microphone error";
+"permission.microphone.message" = "The app doesn't have access to the microphone, please go to settings and enable it.";
+"permission.actions.cancel" = "Cancel";
+"permission.actions.settings" = "Settings";
+
+"utils.string.createdGroupChat" = "created the group chat";
+"utils.string.dialogRenamedByUser" = "The dialog renamed by user";
+"utils.string.avatarWasChanged" = "The avatar was changed";
+"utils.string.addedBy" = "added by";
+"utils.string.removedBy" = "removed by";
+"utils.string.hasLeft" = "has left";
+
+/// Example for customization
+//"dialog.items.empty" = "You don’t have any channels.";
+//"dialog.members.empty" = "You don’t have any users.";
+//"dialog.messages.empty" = "You don’t have any messages.";
+//"dialog.type.private" = "Private";
+//"dialog.type.group" = "Group";
+//"dialog.type.public" = "Public";
+//"dialog.typing.one" = " is typing...";
+//"dialog.typing.two" = " are typing...";
+//"dialog.typing.four" = " and 2 others are typing...";
+//"dialog.name.hint" = "Use alphanumeric characters and spaces in a range from 3 to 60. Cannot contain more than one space in a row.";
+//"dialog.name.create" = "Create";
+//"dialog.name.next" = "Next";
+//"dialog.name.search" = "Search";
+//"dialog.name.cancel" = "Cancel";
+//"dialog.info.edit" = "Edit";
+//"dialog.info.members" = "Members";
+//"dialog.info.notification" = "Notification";
+//"dialog.info.searchInDialog" = "Search in channel";
+//"dialog.info.leaveDialog" = "Leave channel";
+//"dialog.info.you" = " (You)";
+//"dialog.info.admin" = "Admin";
+//"dialog.action.typeMessage" = "Type message";
+//
+//"screen.title.dialogs" = "Channels";
+//"screen.title.dialog" = "Channel";
+//"screen.title.dialogType" = "Channel type";
+//"screen.title.newDialog" = "New Channel";
+//"screen.title.createDialog" = "Create Channel";
+//"screen.title.addMembers" = "Add Members";
+//"screen.title.dialogInformation" = "Channel information";
+//
+//"alert.actions.add" = "Add";
+//"alert.actions.dialogName" = "Channel name";
+//"alert.actions.enterName" = "Enter name";
+//"alert.actions.changeImage" = "Change image";
+//"alert.actions.changeDialogName" = "Change channel name";
+//"alert.actions.photo" = "Photo";
+//"alert.actions.removePhoto" = "Remove photo";
+//"alert.actions.camera" = "Camera";
+//"alert.actions.gallery" = "Gallery";
+//"alert.actions.file" = "File";
+//"alert.actions.remove" = "Remove";
+//"alert.actions.cancel" = "Cancel";
+//"alert.actions.ok" = "Ok";
+//"alert.message.removeUser" = "Are you sure you want to remove ";
+//"alert.message.questionMark" = "?";
+//"alert.message.errorValidation" = "Error Validation";
+//"alert.message.addUser" = "Are you sure you want to add ";
+//"alert.message.toDialog" = " to this channel?";
+//"alert.message.noResults" = "No results found";
+//"alert.message.noMembers" = "There are no members";
+//"alert.message.invalidAI" = "The [AI Assist Answer feature](https://docs.quickblox.com/docs/ios-uikit-ai-features#assist-answer) is currently not configured. To enable this functionality, you must set either the **.openAIAPIKey** or **.proxyServerURLPath** properties for QuickBloxUIKit.feature.ai.assistAnswer. To disable the feature, simply set QuickBloxUIKit.feature.ai.assistAnswer.enable = false.";
+//
+//"attachment.maxSize.title" = "The uploaded file exceeds maximum file size (10MB)";
+//"attachment.maxSize.hint" = "Please select a smaller attachment.";
+//"attachment.title.file" = "file";
+//"attachment.title.gif" = "GIF";
+//
+//"ai.translate.showOriginal" = "Show original";
+//"ai.translate.showTranslation" = "Show translation";
+//"ai.answerAssist.title" = "AI Answer Assist";
+//
+//"permission.camera.title" = "Camera error";
+//"permission.camera.message" = "The app doesn't have access to the camera, please go to settings and enable it.";
+//"permission.microphone.title" = "Microphone error";
+//"permission.microphone.message" = "The app doesn't have access to the microphone, please go to settings and enable it.";
+//"permission.actions.cancel" = "Cancel";
+//"permission.actions.settings" = "Settings";
+//
+//"utils.string.createdGroupChat" = "created the group chat";
+//"utils.string.dialogRenamedByUser" = "The dialog renamed by user";
+//"utils.string.avatarWasChanged" = "The avatar was changed";
+//"utils.string.addedBy" = "added by";
+//"utils.string.removedBy" = "removed by";
+//"utils.string.hasLeft" = "has left";

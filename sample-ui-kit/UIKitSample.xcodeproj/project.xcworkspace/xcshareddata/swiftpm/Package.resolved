@@ -1,6 +1,24 @@
 {
   "pins" : [
     {
+      "identity" : "ios-ai-answer-assistant",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/QuickBlox/ios-ai-answer-assistant.git",
+      "state" : {
+        "revision" : "e0ddaf01bff2ce48d01faec77e6dbaff085e289c",
+        "version" : "1.0.1"
+      }
+    },
+    {
+      "identity" : "ios-ai-translate",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/QuickBlox/ios-ai-translate.git",
+      "state" : {
+        "revision" : "3a224bec51097629589fcc0a33dbc4b81feb95d6",
+        "version" : "1.0.0"
+      }
+    },
+    {
       "identity" : "ios-quickblox-sdk",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/QuickBlox/ios-quickblox-sdk",
@@ -14,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/QuickBlox/ios-ui-kit.git",
       "state" : {
-        "revision" : "872daab30f88939a74e1fc48b0b51d3945aabc3d",
-        "version" : "0.1.4"
+        "revision" : "5f717d9ba346f944ac0185f317d844bba0cfeee6",
+        "version" : "0.1.5"
       }
     }
   ],

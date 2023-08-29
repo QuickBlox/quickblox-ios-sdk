@@ -31,7 +31,7 @@ struct LoginScreen: View {
     @State private var loginInfo = LoginConstant.login
     @State var selectedSegment: ThemeType?
     
-    let showChangeColorTheme: Bool = false //Setting this variable to true will show an example of choosing a color theme of the user's choice
+    let showChangeColorTheme: Bool = true //Setting this variable to true will show an example of choosing a color theme of the user's choice
     
     init(viewModel: LoginViewModal = LoginViewModal(), connect: Connect = Connect()) {
         _viewModel = StateObject(wrappedValue: viewModel)
