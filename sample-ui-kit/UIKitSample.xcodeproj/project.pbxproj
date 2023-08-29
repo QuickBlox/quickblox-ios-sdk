@@ -10,7 +10,6 @@
 		2C05E0C52A77D8A6008AE78B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C05E0C02A77D8A6008AE78B /* Media.xcassets */; };
 		2C05E0C62A77D8A6008AE78B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C05E0C12A77D8A6008AE78B /* Localizable.strings */; };
 		2C05E0C72A77D8A6008AE78B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C05E0C42A77D8A6008AE78B /* Assets.xcassets */; };
-		2C0A53DA2A784FFB0034841B /* QuickBloxUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2C0A53D92A784FFB0034841B /* QuickBloxUIKit */; };
 		2C5E9C3929E7490400CDA1FC /* ThemeSelectBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5E9C3829E7490400CDA1FC /* ThemeSelectBar.swift */; };
 		2C91739D29E87E4B00222A1F /* EnterToChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91739C29E87E4B00222A1F /* EnterToChatView.swift */; };
 		2C9E0AC829EB3675004B3CF0 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9E0AC729EB3675004B3CF0 /* AppTheme.swift */; };
@@ -22,6 +21,7 @@
 		2CBF893629DB3AF10016CF99 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF893129DB3AF10016CF99 /* LoginTextField.swift */; };
 		2CBF893B29DB43E30016CF99 /* TextFieldHint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF893829DB43E30016CF99 /* TextFieldHint.swift */; };
 		2CBF893C29DB43E30016CF99 /* TextFieldName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF893929DB43E30016CF99 /* TextFieldName.swift */; };
+		2CD3270A2A9E3A6300AAC1D8 /* QuickBloxUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2CD327092A9E3A6300AAC1D8 /* QuickBloxUIKit */; };
 		3AE104C029BF3B6F009B2B80 /* Connect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE104BF29BF3B6F009B2B80 /* Connect.swift */; };
 		3AF0154529B092B60021EE49 /* UIKitSampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF0154429B092B60021EE49 /* UIKitSampleApp.swift */; };
 		3AF0154C29B092B70021EE49 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AF0154B29B092B70021EE49 /* Preview Assets.xcassets */; };
@@ -50,12 +50,12 @@
 /* Begin PBXFileReference section */
 		2C05E0C02A77D8A6008AE78B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		2C05E0C22A77D8A6008AE78B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		2C05E0C32A77D8A6008AE78B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2C05E0C42A77D8A6008AE78B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C5E1A7C29E5957000F80CCF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2C5E9C3829E7490400CDA1FC /* ThemeSelectBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeSelectBar.swift; sourceTree = "<group>"; };
 		2C91739C29E87E4B00222A1F /* EnterToChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterToChatView.swift; sourceTree = "<group>"; };
 		2C9E0AC729EB3675004B3CF0 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		2C9E2FE32A87654F0079E7DA /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2CA237CA29DC073C004FFA21 /* LoginViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModal.swift; sourceTree = "<group>"; };
 		2CA237CC29DC116B004FFA21 /* DisplayNameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayNameTextField.swift; sourceTree = "<group>"; };
 		2CA237CE29DC3077004FFA21 /* BaseTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextField.swift; sourceTree = "<group>"; };
@@ -81,7 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C0A53DA2A784FFB0034841B /* QuickBloxUIKit in Frameworks */,
+				2CD3270A2A9E3A6300AAC1D8 /* QuickBloxUIKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,7 +246,7 @@
 			);
 			name = UIKitSample;
 			packageProductDependencies = (
-				2C0A53D92A784FFB0034841B /* QuickBloxUIKit */,
+				2CD327092A9E3A6300AAC1D8 /* QuickBloxUIKit */,
 			);
 			productName = UIKitSample;
 			productReference = 3AF0154129B092B60021EE49 /* UIKitSample.app */;
@@ -322,7 +322,7 @@
 			);
 			mainGroup = 3AF0153829B092B60021EE49;
 			packageReferences = (
-				2C0A53D82A784FFB0034841B /* XCRemoteSwiftPackageReference "ios-ui-kit" */,
+				2CD327082A9E3A6300AAC1D8 /* XCRemoteSwiftPackageReference "ios-ui-kit" */,
 			);
 			productRefGroup = 3AF0154229B092B60021EE49 /* Products */;
 			projectDirPath = "";
@@ -421,7 +421,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2C05E0C22A77D8A6008AE78B /* en */,
-				2C05E0C32A77D8A6008AE78B /* es */,
+				2C9E2FE32A87654F0079E7DA /* es */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -433,6 +433,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -505,6 +506,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -601,7 +603,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.4;
+				MARKETING_VERSION = 1.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.quickblox.UIKitSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -647,7 +649,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.4;
+				MARKETING_VERSION = 1.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.quickblox.UIKitSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -777,20 +779,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2C0A53D82A784FFB0034841B /* XCRemoteSwiftPackageReference "ios-ui-kit" */ = {
+		2CD327082A9E3A6300AAC1D8 /* XCRemoteSwiftPackageReference "ios-ui-kit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/QuickBlox/ios-ui-kit.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.3;
+				minimumVersion = 0.1.5;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2C0A53D92A784FFB0034841B /* QuickBloxUIKit */ = {
+		2CD327092A9E3A6300AAC1D8 /* QuickBloxUIKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2C0A53D82A784FFB0034841B /* XCRemoteSwiftPackageReference "ios-ui-kit" */;
+			package = 2CD327082A9E3A6300AAC1D8 /* XCRemoteSwiftPackageReference "ios-ui-kit" */;
 			productName = QuickBloxUIKit;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -24,6 +24,8 @@ struct EnterToChatView: View {
     init(theme: AppTheme) {
         self.theme = theme
         QuickBloxUIKit.settings.theme = theme
+        QuickBloxUIKit.feature.aiFeature.openAIAPIKey = ""
+//        QuickBloxUIKit.feature.aiFeature.translate.setCustom(language: .french)
     }
     
     var body: some View {
