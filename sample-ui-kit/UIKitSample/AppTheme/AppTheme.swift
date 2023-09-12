@@ -114,6 +114,7 @@ public class CustomImageTheme: ThemeImageProtocol {
     public var speakerwave: Image = Image(systemName: "speaker.wave.1.fill")
     public var message: Image = Image(systemName: "message")
     public var robot: Image = Image("Robot")
+    public var translate: Image = Image("Translate")
     
     public init() {}
 }
@@ -175,7 +176,9 @@ public class CustomThemeString: ThemeStringProtocol {
     public var toDialog: String = String(localized: "alert.message.toDialog")
     public var noResults: String = String(localized: "alert.message.noResults")
     public var noMembers: String = String(localized: "alert.message.noMembers")
-    public var invalidAI: String = String(localized: "alert.message.invalidAI")
+    public var invalidAIAnswerAssist: String = String(localized: "alert.message.invalidAIAnswerAssist")
+    public var invalidAITranslate: String = String(localized: "alert.message.invalidAITranslate")
+    public var invalidAIRephrase: String = String(localized: "alert.message.invalidAIRephrase")
 
     public var maxSize: String = String(localized: "attachment.maxSize.title")
     public var maxSizeHint: String = String(localized: "attachment.maxSize.hint")
