@@ -57,7 +57,9 @@
 "alert.message.toDialog" = " to this dialog?";
 "alert.message.noResults" = "No results found";
 "alert.message.noMembers" = "There are no members";
-"alert.message.invalidAI" = "The [AI Assist Answer feature](https://docs.quickblox.com/docs/ios-uikit-ai-features#assist-answer) is currently not configured. To enable this functionality, you must set either the **.openAIAPIKey** or **.proxyServerURLPath** properties for QuickBloxUIKit.feature.ai.assistAnswer. To disable the feature, simply set QuickBloxUIKit.feature.ai.assistAnswer.enable = false.";
+"alert.message.invalidAIAnswerAssist" = "The [AI Answer Assist feature](https://docs.quickblox.com/docs/ios-uikit-ai-features#assist-answer) is currently not configured. To enable this functionality, you must set either the **.openAIAPIKey** or **.proxyServerURLPath** properties for QuickBloxUIKit.feature.ai.assistAnswer. To disable the feature, simply set QuickBloxUIKit.feature.ai.assistAnswer.enable = false.";
+"alert.message.invalidAITranslate" = "The [AI Translate feature](https://docs.quickblox.com/docs/ios-uikit-ai-features#translate) is currently not configured. To enable this functionality, you must set either the **.openAIAPIKey** or **.proxyServerURLPath** properties for QuickBloxUIKit.feature.ai.assistAnswer. To disable the feature, simply set QuickBloxUIKit.feature.ai.translate.enable = false.";
+"alert.message.invalidAIRephrase" = "The [AI Rephrase feature](https://docs.quickblox.com/docs/ios-uikit-ai-features#rephrase) is currently not configured. To enable this functionality, you must set either the **.openAIAPIKey** or **.proxyServerURLPath** properties for QuickBloxUIKit.feature.ai.assistAnswer. To disable the feature, simply set QuickBloxUIKit.feature.ai.rephrase.enable = false.";
 
 "attachment.maxSize.title" = "The uploaded file exceeds maximum file size (10MB)";
 "attachment.maxSize.hint" = "Please select a smaller attachment.";
@@ -134,8 +136,9 @@
 //"alert.message.toDialog" = " to this channel?";
 //"alert.message.noResults" = "No results found";
 //"alert.message.noMembers" = "There are no members";
-//"alert.message.invalidAI" = "The [AI Assist Answer feature](https://docs.quickblox.com/docs/ios-uikit-ai-features#assist-answer) is currently not configured. To enable this functionality, you must set either the **.openAIAPIKey** or **.proxyServerURLPath** properties for QuickBloxUIKit.feature.ai.assistAnswer. To disable the feature, simply set QuickBloxUIKit.feature.ai.assistAnswer.enable = false.";
-//
+//"alert.message.invalidAIAnswerAssist" = "The [AI Answer Assist feature](https://docs.quickblox.com/docs/ios-uikit-ai-features#assist-answer) is currently not configured. To enable this functionality, you must set either the **.openAIAPIKey** or **.proxyServerURLPath** properties for QuickBloxUIKit.feature.ai.assistAnswer. To disable the feature, simply set QuickBloxUIKit.feature.ai.assistAnswer.enable = false.";
+//"alert.message.invalidAITranslate" = "The [AI Translate feature](https://docs.quickblox.com/docs/ios-uikit-ai-features#translate) is currently not configured. To enable this functionality, you must set either the **.openAIAPIKey** or **.proxyServerURLPath** properties for QuickBloxUIKit.feature.ai.assistAnswer. To disable the feature, simply set QuickBloxUIKit.feature.ai.translate.enable = false.";
+//"alert.message.invalidAIRephrase" = "The [AI Rephrase feature](https://docs.quickblox.com/docs/ios-uikit-ai-features#rephrase) is currently not configured. To enable this functionality, you must set either the **.openAIAPIKey** or **.proxyServerURLPath** properties for QuickBloxUIKit.feature.ai.assistAnswer. To disable the feature, simply set QuickBloxUIKit.feature.ai.rephrase.enable = false.";
 //"attachment.maxSize.title" = "The uploaded file exceeds maximum file size (10MB)";
 //"attachment.maxSize.hint" = "Please select a smaller attachment.";
 //"attachment.title.file" = "file";

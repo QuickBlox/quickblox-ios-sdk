@@ -58,6 +58,8 @@
 "alert.message.noResults" = "No results found";
 "alert.message.noMembers" = "There are no members";
 "alert.message.invalidAI" = "La [función AI Assist Answer](https://docs.quickblox.com/docs/ios-uikit-ai-features#assist-answer) no está configurada actualmente. Para habilitar esta función, debe configurar ** Propiedades .openAIAPIKey** o **.proxyServerURLPath** para QuickBloxUIKit.feature.ai.assistAnswer. Para deshabilitar la función, simplemente establezca QuickBloxUIKit.feature.ai.assistAnswer.enable = false.";
+"alert.message.invalidAITranslate" = "La [función AI Translate](https://docs.quickblox.com/docs/ios-uikit-ai-features#translate) no está configurada actualmente. Para habilitar esta funcionalidad, debe establezca las propiedades **.openAIAPIKey** o **.proxyServerURLPath** para QuickBloxUIKit.feature.ai.assistAnswer. Para desactivar la función, simplemente configure QuickBloxUIKit.feature.ai.translate.enable = false.";
+"alert.message.invalidAIRephrase" = "La [función AI Rephrase](https://docs.quickblox.com/docs/ios-uikit-ai-features#rephrase) no está configurada actualmente. Para habilitar esta funcionalidad, debe establezca las propiedades **.openAIAPIKey** o **.proxyServerURLPath** para QuickBloxUIKit.feature.ai.assistAnswer. Para desactivar la función, simplemente configure QuickBloxUIKit.feature.ai.rephrase.enable = false.";
 
 "attachment.maxSize.title" = "El archivo cargado supera el tamaño máximo de archivo (10 MB)";
 "attachment.maxSize.hint" = "Seleccione un archivo adjunto más pequeño.";
