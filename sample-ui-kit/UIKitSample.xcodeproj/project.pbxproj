@@ -10,6 +10,7 @@
 		2C05E0C52A77D8A6008AE78B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C05E0C02A77D8A6008AE78B /* Media.xcassets */; };
 		2C05E0C62A77D8A6008AE78B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C05E0C12A77D8A6008AE78B /* Localizable.strings */; };
 		2C05E0C72A77D8A6008AE78B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C05E0C42A77D8A6008AE78B /* Assets.xcassets */; };
+		2C1FA2552AB1A1C300B47C60 /* QuickBloxUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2C1FA2542AB1A1C300B47C60 /* QuickBloxUIKit */; };
 		2C5E9C3929E7490400CDA1FC /* ThemeSelectBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5E9C3829E7490400CDA1FC /* ThemeSelectBar.swift */; };
 		2C9E0AC829EB3675004B3CF0 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9E0AC729EB3675004B3CF0 /* AppTheme.swift */; };
 		2CA237CB29DC073C004FFA21 /* LoginViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA237CA29DC073C004FFA21 /* LoginViewModal.swift */; };
@@ -20,7 +21,6 @@
 		2CBF893629DB3AF10016CF99 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF893129DB3AF10016CF99 /* LoginTextField.swift */; };
 		2CBF893B29DB43E30016CF99 /* TextFieldHint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF893829DB43E30016CF99 /* TextFieldHint.swift */; };
 		2CBF893C29DB43E30016CF99 /* TextFieldName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF893929DB43E30016CF99 /* TextFieldName.swift */; };
-		2CD6623E2A822990001F87C8 /* QuickBloxUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2CD6623D2A822990001F87C8 /* QuickBloxUIKit */; };
 		3AE104C029BF3B6F009B2B80 /* Connect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE104BF29BF3B6F009B2B80 /* Connect.swift */; };
 		3AF0154529B092B60021EE49 /* UIKitSampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF0154429B092B60021EE49 /* UIKitSampleApp.swift */; };
 		3AF0154C29B092B70021EE49 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AF0154B29B092B70021EE49 /* Preview Assets.xcassets */; };
@@ -79,7 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CD6623E2A822990001F87C8 /* QuickBloxUIKit in Frameworks */,
+				2C1FA2552AB1A1C300B47C60 /* QuickBloxUIKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,7 +243,7 @@
 			);
 			name = UIKitSample;
 			packageProductDependencies = (
-				2CD6623D2A822990001F87C8 /* QuickBloxUIKit */,
+				2C1FA2542AB1A1C300B47C60 /* QuickBloxUIKit */,
 			);
 			productName = UIKitSample;
 			productReference = 3AF0154129B092B60021EE49 /* UIKitSample.app */;
@@ -319,7 +319,7 @@
 			);
 			mainGroup = 3AF0153829B092B60021EE49;
 			packageReferences = (
-				2CD6623C2A822990001F87C8 /* XCRemoteSwiftPackageReference "ios-ui-kit-private" */,
+				2C1FA2532AB1A1C300B47C60 /* XCRemoteSwiftPackageReference "ios-ui-kit" */,
 			);
 			productRefGroup = 3AF0154229B092B60021EE49 /* Products */;
 			projectDirPath = "";
@@ -779,20 +779,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2CD6623C2A822990001F87C8 /* XCRemoteSwiftPackageReference "ios-ui-kit-private" */ = {
+		2C1FA2532AB1A1C300B47C60 /* XCRemoteSwiftPackageReference "ios-ui-kit" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/QuickBlox/ios-ui-kit-private.git";
+			repositoryURL = "https://github.com/QuickBlox/ios-ui-kit.git";
 			requirement = {
-				branch = aiRephrase/prepare_for_release;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.7;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2CD6623D2A822990001F87C8 /* QuickBloxUIKit */ = {
+		2C1FA2542AB1A1C300B47C60 /* QuickBloxUIKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2CD6623C2A822990001F87C8 /* XCRemoteSwiftPackageReference "ios-ui-kit-private" */;
+			package = 2C1FA2532AB1A1C300B47C60 /* XCRemoteSwiftPackageReference "ios-ui-kit" */;
 			productName = QuickBloxUIKit;
 		};
 /* End XCSwiftPackageProductDependency section */
