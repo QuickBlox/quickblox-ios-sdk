@@ -37,12 +37,12 @@
       }
     },
     {
-      "identity" : "ios-ui-kit-private",
+      "identity" : "ios-ui-kit",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/QuickBlox/ios-ui-kit-private.git",
+      "location" : "https://github.com/QuickBlox/ios-ui-kit.git",
       "state" : {
-        "branch" : "aiRephrase/prepare_for_release",
-        "revision" : "6695d64d2058cecd66ebc51283402278249bcda0"
+        "revision" : "7ed29e3804ed3ef48da70f92291cb72b35c217b3",
+        "version" : "0.1.7"
       }
     }
   ],
