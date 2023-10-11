@@ -57,18 +57,25 @@
 "alert.message.toDialog" = "¿a este cuadro de canal?";
 "alert.message.noResults" = "No results found";
 "alert.message.noMembers" = "There are no members";
-"alert.message.invalidAI" = "La [función AI Assist Answer](https://docs.quickblox.com/docs/ios-uikit-ai-features#assist-answer) no está configurada actualmente. Para habilitar esta función, debe configurar ** Propiedades .openAIAPIKey** o **.proxyServerURLPath** para QuickBloxUIKit.feature.ai.assistAnswer. Para deshabilitar la función, simplemente establezca QuickBloxUIKit.feature.ai.assistAnswer.enable = false.";
+"alert.message.invalidAIAnswerAssist" = "La [función AI Answer Assist](https://docs.quickblox.com/docs/ios-uikit-ai-features#assist-answer) no está configurada actualmente. Para habilitar esta funcionalidad , debe configurar las propiedades **.openAIAPIKey** o **.proxyServerURLPath** para QuickBloxUIKit.feature.ai.assistAnswer. Para deshabilitar la función, simplemente configure QuickBloxUIKit.feature.ai.assistAnswer.enable = false.";
 "alert.message.invalidAITranslate" = "La [función AI Translate](https://docs.quickblox.com/docs/ios-uikit-ai-features#translate) no está configurada actualmente. Para habilitar esta funcionalidad, debe establezca las propiedades **.openAIAPIKey** o **.proxyServerURLPath** para QuickBloxUIKit.feature.ai.assistAnswer. Para desactivar la función, simplemente configure QuickBloxUIKit.feature.ai.translate.enable = false.";
-"alert.message.invalidAIRephrase" = "La [función AI Rephrase](https://docs.quickblox.com/docs/ios-uikit-ai-features#rephrase) no está configurada actualmente. Para habilitar esta funcionalidad, debe establezca las propiedades **.openAIAPIKey** o **.proxyServerURLPath** para QuickBloxUIKit.feature.ai.assistAnswer. Para desactivar la función, simplemente configure QuickBloxUIKit.feature.ai.rephrase.enable = false.";
+"alert.message.invalidAIRephrase" = "La [función AI Rephrase](https://docs.quickblox.com/docs/ios-uikit-ai-features#rephrase) no está configurada actualmente. Para habilitar esta funcionalidad, debe establezca las propiedades **.openAIAPIKey** o **.proxyServerURLPath** para QuickBloxUIKit.feature.ai.rephrase. Para deshabilitar la función, simplemente configure QuickBloxUIKit.feature.ai.rephrase.enable = false.";
+"alert.message.invalidAITranscribe" = "La [función AI Transcribe](https://docs.quickblox.com/docs/ios-uikit-ai-features#transcribe) no está configurada actualmente. Para habilitar esta funcionalidad, debe establezca las propiedades **.openAIAPIKey** o **.proxyServerURLPath** para QuickBloxUIKit.feature.ai.transcribe. Para deshabilitar la función, simplemente configure QuickBloxUIKit.feature.ai.transcribe.enable = false.";
+
+"alert.message.answerFailedAnswerAssist" = "Error en la asistencia de respuesta. Inténtelo de nuevo.";
+"alert.message.answerFailedTranslate" = "Error en la traducción. Inténtelo de nuevo.";
+"alert.message.answerFailedRephrase" = "Error al reformular. Inténtelo de nuevo.";
 
 "attachment.maxSize.title" = "El archivo cargado supera el tamaño máximo de archivo (10 MB)";
 "attachment.maxSize.hint" = "Seleccione un archivo adjunto más pequeño.";
+"attachment.maxSize.compressibleHint" = "Seleccione un archivo adjunto más pequeño. O haga clic en Usar para comprimir el archivo adjunto y utilizarlo.";
 "attachment.title.file" = "archivo";
 "attachment.title.gif" = "GIF";
 
 "ai.translate.showOriginal" = "Mostrar original";
 "ai.translate.showTranslation" = "Mostrar traducción";
 "ai.answerAssist.title" = "Asistente de respuesta AI";
+"ai.transcribe.title" = "Transcripción AI";
 
 "permission.camera.title" = "Error de cámara";
 "permission.camera.message" = "La aplicación no tiene acceso a la cámara, vaya a configuración y habilítela.";
@@ -83,3 +90,12 @@
 "utils.string.addedBy" = "agregado por";
 "utils.string.removedBy" = "eliminado por";
 "utils.string.hasLeft" = "se ha ido";
+"utils.string.today" = "Hoy";
+"utils.string.yesterday" = "Ayer";
+
+"utils.string.connecting" = "conectando";
+"utils.string.update" = "actualizar";
+"utils.string.disconnected" = "desconectado";
+"utils.string.connected" = "conectado";
+"utils.string.unauthorized" = "no autorizado";
+"utils.string.authorized" = "autorizado";

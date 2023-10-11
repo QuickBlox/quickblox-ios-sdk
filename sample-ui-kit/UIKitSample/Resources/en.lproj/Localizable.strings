@@ -59,16 +59,23 @@
 "alert.message.noMembers" = "There are no members";
 "alert.message.invalidAIAnswerAssist" = "The [AI Answer Assist feature](https://docs.quickblox.com/docs/ios-uikit-ai-features#assist-answer) is currently not configured. To enable this functionality, you must set either the **.openAIAPIKey** or **.proxyServerURLPath** properties for QuickBloxUIKit.feature.ai.assistAnswer. To disable the feature, simply set QuickBloxUIKit.feature.ai.assistAnswer.enable = false.";
 "alert.message.invalidAITranslate" = "The [AI Translate feature](https://docs.quickblox.com/docs/ios-uikit-ai-features#translate) is currently not configured. To enable this functionality, you must set either the **.openAIAPIKey** or **.proxyServerURLPath** properties for QuickBloxUIKit.feature.ai.assistAnswer. To disable the feature, simply set QuickBloxUIKit.feature.ai.translate.enable = false.";
-"alert.message.invalidAIRephrase" = "The [AI Rephrase feature](https://docs.quickblox.com/docs/ios-uikit-ai-features#rephrase) is currently not configured. To enable this functionality, you must set either the **.openAIAPIKey** or **.proxyServerURLPath** properties for QuickBloxUIKit.feature.ai.assistAnswer. To disable the feature, simply set QuickBloxUIKit.feature.ai.rephrase.enable = false.";
+"alert.message.invalidAIRephrase" = "The [AI Rephrase feature](https://docs.quickblox.com/docs/ios-uikit-ai-features#rephrase) is currently not configured. To enable this functionality, you must set either the **.openAIAPIKey** or **.proxyServerURLPath** properties for QuickBloxUIKit.feature.ai.rephrase. To disable the feature, simply set QuickBloxUIKit.feature.ai.rephrase.enable = false.";
+"alert.message.invalidAITranscribe" = "The [AI Transcribe feature](https://docs.quickblox.com/docs/ios-uikit-ai-features#transcribe) is currently not configured. To enable this functionality, you must set either the **.openAIAPIKey** or **.proxyServerURLPath** properties for QuickBloxUIKit.feature.ai.transcribe. To disable the feature, simply set QuickBloxUIKit.feature.ai.transcribe.enable = false.";
+
+"alert.message.answerFailedAnswerAssist" = "Answer Assist failed. Try again.";
+"alert.message.answerFailedTranslate" = "Translation failed. Try again.";
+"alert.message.answerFailedRephrase" = "Rephrase failed. Try again.";
 
 "attachment.maxSize.title" = "The uploaded file exceeds maximum file size (10MB)";
 "attachment.maxSize.hint" = "Please select a smaller attachment.";
+"attachment.maxSize.compressibleHint" = "Please select a smaller attachment. Or click Use to compress the attachment and use it.";
 "attachment.title.file" = "file";
 "attachment.title.gif" = "GIF";
 
 "ai.translate.showOriginal" = "Show original";
 "ai.translate.showTranslation" = "Show translation";
 "ai.answerAssist.title" = "AI Answer Assist";
+"ai.transcribe.title" = "AI Transcribe";
 
 "permission.camera.title" = "Camera error";
 "permission.camera.message" = "The app doesn't have access to the camera, please go to settings and enable it.";
@@ -83,6 +90,15 @@
 "utils.string.addedBy" = "added by";
 "utils.string.removedBy" = "removed by";
 "utils.string.hasLeft" = "has left";
+"utils.string.today" = "Today";
+"utils.string.yesterday" = "Yesterday";
+
+"utils.string.connecting" = "connecting";
+"utils.string.update" = "update";
+"utils.string.disconnected" = "disconnected";
+"utils.string.connected" = "connected";
+"utils.string.unauthorized" = "unauthorized";
+"utils.string.authorized" = "authorized";
 
 /// Example for customization
 //"dialog.items.empty" = "You don’t have any channels.";
@@ -138,15 +154,22 @@
 //"alert.message.noMembers" = "There are no members";
 //"alert.message.invalidAIAnswerAssist" = "The [AI Answer Assist feature](https://docs.quickblox.com/docs/ios-uikit-ai-features#assist-answer) is currently not configured. To enable this functionality, you must set either the **.openAIAPIKey** or **.proxyServerURLPath** properties for QuickBloxUIKit.feature.ai.assistAnswer. To disable the feature, simply set QuickBloxUIKit.feature.ai.assistAnswer.enable = false.";
 //"alert.message.invalidAITranslate" = "The [AI Translate feature](https://docs.quickblox.com/docs/ios-uikit-ai-features#translate) is currently not configured. To enable this functionality, you must set either the **.openAIAPIKey** or **.proxyServerURLPath** properties for QuickBloxUIKit.feature.ai.assistAnswer. To disable the feature, simply set QuickBloxUIKit.feature.ai.translate.enable = false.";
-//"alert.message.invalidAIRephrase" = "The [AI Rephrase feature](https://docs.quickblox.com/docs/ios-uikit-ai-features#rephrase) is currently not configured. To enable this functionality, you must set either the **.openAIAPIKey** or **.proxyServerURLPath** properties for QuickBloxUIKit.feature.ai.assistAnswer. To disable the feature, simply set QuickBloxUIKit.feature.ai.rephrase.enable = false.";
+//"alert.message.invalidAIRephrase" = "The [AI Rephrase feature](https://docs.quickblox.com/docs/ios-uikit-ai-features#rephrase) is currently not configured. To enable this functionality, you must set either the **.openAIAPIKey** or **.proxyServerURLPath** properties for QuickBloxUIKit.feature.ai.rephrase. To disable the feature, simply set QuickBloxUIKit.feature.ai.rephrase.enable = false.";
+//"alert.message.invalidAITranscribe" = "The [AI Transcribe feature](https://docs.quickblox.com/docs/ios-uikit-ai-features#transcribe) is currently not configured. To enable this functionality, you must set either the **.openAIAPIKey** or **.proxyServerURLPath** properties for QuickBloxUIKit.feature.ai.transcribe. To disable the feature, simply set QuickBloxUIKit.feature.ai.transcribe.enable = false.";
+//"alert.message.answerFailedAnswerAssist" = "Answer Assist failed. Try again.";
+//"alert.message.answerFailedTranslate" = "Translation failed. Try again.";
+//"alert.message.answerFailedRephrase" = "Rephrase failed. Try again.";
+
 //"attachment.maxSize.title" = "The uploaded file exceeds maximum file size (10MB)";
 //"attachment.maxSize.hint" = "Please select a smaller attachment.";
+//"attachment.maxSize.compressibleHint" = "Please select a smaller attachment. Or click Use to compress the attachment and use it.";
 //"attachment.title.file" = "file";
 //"attachment.title.gif" = "GIF";
 //
 //"ai.translate.showOriginal" = "Show original";
 //"ai.translate.showTranslation" = "Show translation";
 //"ai.answerAssist.title" = "AI Answer Assist";
+//"ai.transcribe.title" = "AI Transcribe";
 //
 //"permission.camera.title" = "Camera error";
 //"permission.camera.message" = "The app doesn't have access to the camera, please go to settings and enable it.";
@@ -161,3 +184,12 @@
 //"utils.string.addedBy" = "added by";
 //"utils.string.removedBy" = "removed by";
 //"utils.string.hasLeft" = "has left";
+//"utils.string.today" = "Today";
+//"utils.string.yesterday" = "Yesterday";
+
+//"utils.string.connecting" = "connecting";
+//"utils.string.update" = "update";
+//"utils.string.disconnected" = "disconnected";
+//"utils.string.connected" = "connected";
+//"utils.string.unauthorized" = "unauthorized";
+//"utils.string.authorized" = "authorized";

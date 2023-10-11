@@ -5,17 +5,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/QuickBlox/ios-ai-answer-assistant.git",
       "state" : {
-        "revision" : "304299357b756132b57871bf4e08a748a96e60a0",
-        "version" : "1.0.2"
+        "revision" : "83da3d2846129853ad4a626205f7fea7edc933c2",
+        "version" : "2.0.0"
       }
     },
     {
       "identity" : "ios-ai-rephrase",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/QuickBlox/ios-ai-rephrase",
+      "location" : "https://github.com/QuickBlox/ios-ai-rephrase.git",
       "state" : {
-        "revision" : "3683683a07001005a254c3b8c753da162add267d",
-        "version" : "1.0.1"
+        "revision" : "633d1ce0219d0e48dd5773716e631233a5abe017",
+        "version" : "2.0.0"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/QuickBlox/ios-ai-translate.git",
       "state" : {
-        "revision" : "3a224bec51097629589fcc0a33dbc4b81feb95d6",
-        "version" : "1.0.0"
+        "revision" : "52a058215c03fa101c6810b692b80be2b07fc8ed",
+        "version" : "2.0.0"
       }
     },
     {
@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/QuickBlox/ios-ui-kit.git",
       "state" : {
-        "revision" : "7ed29e3804ed3ef48da70f92291cb72b35c217b3",
-        "version" : "0.1.7"
+        "revision" : "8e2dc71ee9fe53fcdc65b7c4b0a7215fec41f0e6",
+        "version" : "0.3.0"
       }
     }
   ],

@@ -8,6 +8,7 @@
 
 import SwiftUI
 import QuickBloxUIKit
+import QBAIRephrase
 
 var appThemes: [AppTheme] = [AppTheme(color: QuickBloxUIKit.ThemeColor(),
                                       font: QuickBloxUIKit.ThemeFont(),
@@ -120,18 +121,19 @@ public class CustomImageTheme: ThemeImageProtocol {
 }
 
 public class CustomThemeString: ThemeStringProtocol {
+    
     public var dialogsEmpty: String = String(localized: "dialog.items.empty")
     public var usersEmpty: String = String(localized: "dialog.members.empty")
     public var messegesEmpty: String = String(localized: "dialog.messages.empty")
-
+    
     public var privateDialog: String = String(localized: "dialog.type.private")
     public var groupDialog: String = String(localized: "dialog.type.group")
     public var publicDialog: String = String(localized: "dialog.type.group")
-
+    
     public var typingOne: String = String(localized: "dialog.typing.one")
     public var typingTwo: String = String(localized: "dialog.typing.two")
     public var typingFour: String = String(localized: "dialog.typing.four")
-
+    
     public var enterName: String = String(localized: "alert.actions.enterName")
     public var nameHint: String = String(localized: "dialog.name.hint")
     public var create: String = String(localized: "dialog.name.create")
@@ -142,11 +144,11 @@ public class CustomThemeString: ThemeStringProtocol {
     public var notification: String = String(localized: "dialog.info.notification")
     public var searchInDialog: String = String(localized: "dialog.info.searchInDialog")
     public var leaveDialog: String = String(localized: "dialog.info.leaveDialog")
-
+    
     public var you: String = String(localized: "dialog.info.you")
     public var admin: String = String(localized: "dialog.info.admin")
     public var typeMessage: String = String(localized: "dialog.action.typeMessage")
-
+    
     public var dialogs: String = String(localized: "screen.title.dialogs")
     public var dialog: String = String(localized: "screen.title.dialog")
     public var dialogType: String = String(localized: "screen.title.dialogType")
@@ -154,18 +156,18 @@ public class CustomThemeString: ThemeStringProtocol {
     public var createDialog: String = String(localized: "screen.title.createDialog")
     public var addMembers: String = String(localized: "screen.title.addMembers")
     public var dialogInformation: String = String(localized: "screen.title.dialogInformation")
-
+    
     public var add: String = String(localized: "alert.actions.add")
     public var dialogName: String = String(localized: "alert.actions.dialogName")
     public var changeImage: String = String(localized: "alert.actions.changeImage")
     public var changeDialogName: String = String(localized: "alert.actions.changeDialogName")
-
+    
     public var photo: String = String(localized: "alert.actions.photo")
     public var removePhoto: String = String(localized: "alert.actions.removePhoto")
     public var camera: String = String(localized: "alert.actions.camera")
     public var gallery: String = String(localized: "alert.actions.gallery")
     public var file: String = String(localized: "alert.actions.file")
-
+    
     public var remove: String = String(localized: "alert.actions.remove")
     public var cancel: String = String(localized: "alert.actions.cancel")
     public var ok: String = String(localized: "alert.actions.ok")
@@ -179,15 +181,22 @@ public class CustomThemeString: ThemeStringProtocol {
     public var invalidAIAnswerAssist: String = String(localized: "alert.message.invalidAIAnswerAssist")
     public var invalidAITranslate: String = String(localized: "alert.message.invalidAITranslate")
     public var invalidAIRephrase: String = String(localized: "alert.message.invalidAIRephrase")
-
+    public var invalidAITranscribe: String = String(localized: "alert.message.invalidAITranscribe")
+    
+    public var answerFailedAnswerAssist: String = String(localized: "alert.message.answerFailedAnswerAssist")
+    public var answerFailedTranslate: String = String(localized: "alert.message.answerFailedTranslate")
+    public var answerFailedRephrase: String = String(localized: "alert.message.answerFailedRephrase")
+    
     public var maxSize: String = String(localized: "attachment.maxSize.title")
     public var maxSizeHint: String = String(localized: "attachment.maxSize.hint")
+    public var compressibleMaxSizeHint: String = String(localized: "attachment.maxSize.compressibleHint")
     public var fileTitle: String  = String(localized: "attachment.title.file")
     public var gif: String = String(localized: "attachment.title.gif")
     
     public var showOriginal: String = String(localized: "ai.translate.showOriginal")
     public var showTranslation: String = String(localized: "ai.translate.showTranslation")
     public var answerAssistTitle: String = String(localized: "ai.answerAssist.title")
+    public var transcribeTitle: String = String(localized: "ai.transcribe.title")
     
     public var permissionCameraTitle: String = String(localized: "permission.camera.title")
     public var permissionCameraMessage: String = String(localized: "permission.camera.message")
@@ -202,6 +211,50 @@ public class CustomThemeString: ThemeStringProtocol {
     public var addedBy: String = String(localized: "utils.string.addedBy")
     public var removedBy: String = String(localized: "utils.string.removedBy")
     public var hasLeft: String = String(localized: "utils.string.hasLeft")
-
+    public var today: String = String(localized: "utils.string.today")
+    public var yesterday: String = String(localized: "utils.string.yesterday")
+    
+    public var connecting: String = String(localized: "utils.string.connecting")
+    public var update: String = String(localized: "utils.string.update")
+    public var disconnected: String = String(localized: "utils.string.disconnected")
+    public var connected: String = String(localized: "utils.string.connected")
+    public var unauthorized: String = String(localized: "utils.string.unauthorized")
+    public var authorized: String = String(localized: "utils.string.authorized")
+    
     public init() {}
 }
+
+import QBAIRephrase
+
+public extension QBAIRephrase.AITone {
+    static let slang = QBAIRephrase.AITone (
+        name: "Slang",
+        description: "This will allow messages to be edited to sound less formal, using slang language including strong language, unclear sentence structures, and not maintaining a respectful tone. This would avoid formal speech and ensure appropriate greetings and signatures.",
+        icon: "🗣️"
+    )
+    static let youth = QBAIRephrase.AITone (
+        name: "Youth",
+        description: "This will allow you to edit messages so that they sound youthful and less formal, using youth slang vocabulary that includes juvenile expressions, unclear sentence structure and without maintaining a formal tone. This will avoid formal speech and ensure appropriate youth greetings and signatures.",
+        icon: "🛹"
+    )
+    
+    static let doctor = QBAIRephrase.AITone (
+        name: "Doctor",
+        description: "This will allow you to edit messages so that they sound doctoral, using medical and medical vocabulary, including professional expressions, unclear sentence structure. This will allow you to make speeches in a medical-doctoral tone and provide appropriate medical greetings and signatures.",
+        icon: "🩺"
+    )
+    
+    static let gangster = QBAIRephrase.AITone (
+        name: "Gangster",
+        description: "This will allow you to edit the messages so that they sound in a gangster-like and least formal manner, using gangster slang vocabulary including strong expressions, unclear sentence structures and not maintaining a respectful tone. This would avoid formal speech and ensure appropriate gang greetings and signatures.",
+        icon: "🥷"
+    )
+}
+
+public var customTones: [QBAIRephrase.AITone] = [
+    .gangster,
+    .youth,
+    .slang,
+    .neutral,
+    .poetic
+]
