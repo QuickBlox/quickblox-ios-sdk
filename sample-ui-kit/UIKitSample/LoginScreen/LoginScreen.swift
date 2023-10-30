@@ -14,6 +14,10 @@ struct LoginConstant {
     static let enterToChat = "Login to Chat"
     static let login = "Enter your login and password"
     static let signUp = "Enter your login, display name and password"
+    
+    static let  authorization = "Authorization Processing..."
+    static let authorized = "Authorization Successful!"
+    static let unAuthorized = "Authorization Failed"
 }
 
 enum Hint: String {
@@ -26,7 +30,6 @@ struct LoginScreen: View {
     @Environment(\.dismiss) var dismiss
     
     @StateObject private var viewModel: LoginViewModal
-    @StateObject private var connect: Connect
     @State public var theme: AppTheme = appThemes[UserDefaults.standard.integer(forKey: "Theme")]
     @State private var loginInfo = LoginConstant.login
     @State private var selectedTabIndex: String = "chats" {
@@ -41,11 +44,10 @@ struct LoginScreen: View {
     
     private let openWithTabBar: Bool = true //Setting this variable to true will show an example of choosing a color theme of the user's choice and with TabBar
     
-    init(viewModel: LoginViewModal = LoginViewModal(), connect: Connect = Connect()) {
+    init(viewModel: LoginViewModal = LoginViewModal()) {
         _viewModel = StateObject(wrappedValue: viewModel)
-        connect.authState = QBSession.current.currentUser != nil
+        viewModel.authState = QBSession.current.currentUser != nil
         ? AuthState.authorized : AuthState.unAuthorized
-        _connect = StateObject(wrappedValue: connect)
         setupFeatures()
     }
     
@@ -55,78 +57,62 @@ struct LoginScreen: View {
             .environmentObject(viewModel)
         
         //Option to open UIKit directly after user authorization in the QuickBlox system.
-        // Upon successful authorization, when connect.state == .connected the UIKit’s Dialogues screen will automatically open.
-            .if(openWithTabBar == false && connect.authState == .authorized, transform: { view in
+        // Upon successful authorization, when viewModel.authState == .authorized the UIKit’s Dialogues screen will automatically open.
+            .if(openWithTabBar == false && viewModel.authState == .authorized, transform: { view in
                 // The entry point to the QuickBlox iOS UI Kit.
                 QuickBloxUIKit.dialogsView(onExit: {
                     // Handling an event when exiting the QuickBloxUIKit e.g. disconnect and logout
-                    connect.disconnect()
+                    viewModel.disconnect()
                 })
             })
     }
-
+    
     @ViewBuilder
     private func container() -> some View {
-        if #available(iOS 16.0, *) {
-            switch connect.authState {
-            case .unAuthorized:
-                authView()
-            case .authorized:
+        switch viewModel.authState {
+        case .unAuthorized, .authorization:
+            authView()
+        case .authorized:
+            
+            TabView(selection: $selectedTabIndex) {
                 
-                TabView(selection: $selectedTabIndex) {
-                    
-                    QuickBloxUIKit.dialogsView(onAppear: { appear in
-                        if selectedTabIndex == "chats" {
-                            tabBarVisibility = appear == true ? Visibility.visible : Visibility.hidden
-                        }
-                    })
-                    .toolbar(tabBarVisibility, for: .tabBar)
-                    .toolbarBackground(theme.color.mainBackground, for: .tabBar)
-                    .toolbarBackground(tabBarVisibility, for: .tabBar)
-                    .tag("chats")
-                    .tabItem {
-                        Label("Chats", systemImage: "bubble.left.and.bubble.right.fill")
+                QuickBloxUIKit.dialogsView(onAppear: { appear in
+                    if selectedTabIndex == "chats" {
+                        tabBarVisibility = appear == true ? Visibility.visible : Visibility.hidden
                     }
-                    
-                    settingsView()
-                        .tabItem {
-                            Label("Settings", systemImage: "gearshape")
-                        }.tag("settings")
-                    
-                    disconnectView()
-                        .tabItem {
-                            Label(connect.authState == .unAuthorized ? "Enter" : "Exit",
-                                  systemImage: connect.authState == .unAuthorized
-                                  ? "figure.walk.arrival" : "figure.walk.departure")
-                        }.tag("auth")
-                    
-                        .onChange(of: connect.authState) { authState in
-                            self.selectedTabIndex = authState == .authorized ? "chats" : "auth"
-                        }
-                }
-                .accentColor(theme.color.mainElements)
-                .onAppear {
-                    selectedTabIndex = QBSession.current.currentUser != nil ? "chats" : "auth"
-                    connect.authState = QBSession.current.currentUser != nil
-                    ? AuthState.authorized : AuthState.unAuthorized
-                    theme = appThemes[UserDefaults.standard.integer(forKey: "Theme")]
-                    setupSettins()
-                }
-            }
-        } else {
-            switch connect.authState {
-            case .unAuthorized:
-                authView()
-            case .authorized:
-                
-                QuickBloxUIKit.dialogsView(onExit: {
-                    // Handling an event when exiting the QuickBloxUIKit e.g. disconnect and logout
-                    connect.disconnect()
                 })
-                .onAppear {
-                    theme = appThemes[UserDefaults.standard.integer(forKey: "Theme")]
-                    setupSettins()
+                .toolbar(tabBarVisibility, for: .tabBar)
+                .toolbarBackground(theme.color.mainBackground, for: .tabBar)
+                .toolbarBackground(tabBarVisibility, for: .tabBar)
+                .tag("chats")
+                .tabItem {
+                    Label("Chats", systemImage: "bubble.left.and.bubble.right.fill")
                 }
+                
+                settingsView()
+                    .tabItem {
+                        Label("Settings", systemImage: "gearshape")
+                    }.tag("settings")
+                
+                disconnectView()
+                    .tabItem {
+                        Label(viewModel.authState == .unAuthorized ? "Enter" : "Exit",
+                              systemImage: viewModel.authState == .unAuthorized
+                              ? "figure.walk.arrival" : "figure.walk.departure")
+                    }.tag("auth")
+                
+                    .onChange(of: viewModel.authState) { authState in
+                        self.selectedTabIndex = authState == .authorized ? "chats" : "auth"
+                    }
+            }
+            .accentColor(theme.color.mainElements)
+            .onAppear {
+                selectedTabIndex = QBSession.current.currentUser != nil ? "chats" : "auth"
+                viewModel.authState = QBSession.current.currentUser != nil
+                ? AuthState.authorized : AuthState.unAuthorized
+                theme = appThemes[UserDefaults.standard.integer(forKey: "Theme")]
+                setupSettings()
+                tabBarVisibility = .visible
             }
         }
     }
@@ -136,7 +122,7 @@ struct LoginScreen: View {
         ZStack {
             theme.color.mainBackground.ignoresSafeArea()
             Button("Disconnect") {
-                connect.disconnect()
+                viewModel.disconnect()
             }
             .padding()
             .background(theme.color.incomingBackground)
@@ -190,10 +176,18 @@ struct LoginScreen: View {
             LoginButton("SignUp",
                         isValidForm: $viewModel.isSignUpValidForm,
                         onTapped: {
-                connect.signUp(withLogin: viewModel.login,
+                viewModel.signUp(withLogin: viewModel.login,
                                displayName: viewModel.displayName,
                                password: viewModel.password)
             }, theme: theme)
+            
+            .onChange(of: viewModel.authState) { authState in
+                switch authState {
+                case .authorization: loginInfo = LoginConstant.authorization
+                case .authorized: loginInfo = LoginConstant.authorized
+                case .unAuthorized: loginInfo = LoginConstant.unAuthorized
+                }
+            }
             
             Spacer()
             
@@ -229,9 +223,17 @@ struct LoginScreen: View {
             LoginButton("Login",
                         isValidForm: $viewModel.isLoginValidForm,
                         onTapped: {
-                connect.login(withLogin: viewModel.login,
+                viewModel.login(withLogin: viewModel.login,
                               password: viewModel.password)
             }, theme: theme)
+            
+            .onChange(of: viewModel.authState) { authState in
+                switch authState {
+                case .authorization: loginInfo = LoginConstant.authorization
+                case .authorized: loginInfo = LoginConstant.authorized
+                case .unAuthorized: loginInfo = LoginConstant.unAuthorized
+                }
+            }
             
             Spacer()
             
@@ -256,14 +258,14 @@ struct LoginScreen: View {
             .onChange(of: selectedSegment) { selectedSegment in
                 if let selectedSegment {
                     theme = switchTheme(selectedSegment)
-                    setupSettins()
+                    setupSettings()
                 }
             }
             .onAppear {
                 tabBarVisibility = Visibility.visible
             }
     }
-
+    
     private func switchTheme(_ themeType: ThemeType) -> AppTheme {
         UserDefaults.standard.set(themeType.rawValue, forKey: "Theme")
         switch themeType {
@@ -285,12 +287,12 @@ struct LoginScreen: View {
         }
     }
     
-    private func setupSettins() {
+    private func setupSettings() {
         // Setup Custom Theme
         QuickBloxUIKit.settings.theme = theme
         
         // Hide backButton for Dialogs Screen
-        if openWithTabBar == true, #available(iOS 16.0, *) {
+        if openWithTabBar == true {
             QuickBloxUIKit.settings.dialogsScreen.header.leftButton.hidden = true
         }
         

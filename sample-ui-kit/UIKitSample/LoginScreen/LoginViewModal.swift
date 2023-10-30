@@ -32,6 +32,10 @@ final class LoginViewModal: ObservableObject {
     
     @Published var isSignUped = true
     
+    @Published var authState: AuthState = .unAuthorized
+    
+    private var connect = Connect()
+    
     private var publishers = Set<AnyCancellable>()
     
     private var loginRegexes = [Regex.login, Regex.email]
@@ -48,6 +52,25 @@ final class LoginViewModal: ObservableObject {
             .receive(on: RunLoop.main)
             .assign(to: \.isSignUpValidForm, on: self)
             .store(in: &publishers)
+        
+        connect
+            .objectWillChange
+            .receive(on: RunLoop.main)
+            .sink { [weak self] authState in
+                self?.authState = authState
+            }.store(in: &publishers)
+    }
+    
+    public func disconnect() {
+        connect.disconnect()
+    }
+    
+    public func login(withLogin login: String, password: String) {
+        connect.login(withLogin: login, password: password)
+    }
+    
+    public func signUp(withLogin login: String, displayName: String, password: String) {
+        connect.signUp(withLogin: login, displayName: displayName, password: password)
     }
 }
 
