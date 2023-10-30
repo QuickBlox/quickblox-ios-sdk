@@ -56,6 +56,8 @@ Quickblox.initWithApplicationId(92,
 
 # QBAIAnswerAssistant
 
+[Video tutorial](https://youtu.be/1HaTipnH2VY)
+
 QBAIAnswerAssistant is a Swift package that helps generate answers in a chat based on the history.
 
 Installation
