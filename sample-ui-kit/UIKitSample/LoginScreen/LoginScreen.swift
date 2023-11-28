@@ -304,6 +304,8 @@ struct LoginScreen: View {
     private func setupFeatures() {
         QuickBloxUIKit.feature.ai.apiKey = ""
         QuickBloxUIKit.feature.ai.ui = AIUISettings(theme)
+        QuickBloxUIKit.feature.forward.enable = true
+        QuickBloxUIKit.feature.reply.enable = true
     }
 }
 

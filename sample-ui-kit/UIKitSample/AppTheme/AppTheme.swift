@@ -116,6 +116,12 @@ public class CustomImageTheme: ThemeImageProtocol {
     public var message: Image = Image(systemName: "message")
     public var robot: Image = Image("Robot")
     public var translate: Image = Image("Translate")
+    public var reply: Image = Image(systemName: "arrowshape.turn.up.backward")
+    public var replyFilled: Image = Image(systemName: "arrowshape.turn.up.left.fill")
+    public var forward: Image = Image(systemName: "arrowshape.turn.up.left.2")
+    public var forwardIcon: Image = Image("forwardIcon")
+    public var forwardFilled: Image = Image("forwardFilled")
+    public var save: Image = Image(systemName: "folder")
     
     public init() {}
 }
@@ -220,6 +226,14 @@ public class CustomThemeString: ThemeStringProtocol {
     public var connected: String = String(localized: "utils.string.connected")
     public var unauthorized: String = String(localized: "utils.string.unauthorized")
     public var authorized: String = String(localized: "utils.string.authorized")
+    
+    public var reply: String = String(localized: "features.action.reply")
+    public var forward: String = String(localized: "features.action.forward")
+    public var save: String = String(localized: "features.action.save")
+    public var forwardedFrom: String = String(localized: "features.action.forwardedfrom")
+    public var repliedTo: String = String(localized: "features.action.repliedTo")
+    public var forwardSuccess: String = String(localized: "features.action.forwardSuccess")
+    public var forwardFailure: String = String(localized: "features.action.forwardFailure")
     
     public init() {}
 }
