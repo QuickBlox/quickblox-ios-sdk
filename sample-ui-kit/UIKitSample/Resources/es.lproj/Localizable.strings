@@ -99,3 +99,11 @@
 "utils.string.connected" = "conectado";
 "utils.string.unauthorized" = "no autorizado";
 "utils.string.authorized" = "autorizado";
+
+"features.action.reply" = "Responder";
+"features.action.forward" = "Adelante";
+"features.action.save" = "Guardar";
+"features.action.forwardedfrom" = "Reenviado desde";
+"features.action.repliedTo" = "Respondido a";
+"features.action.forwardSuccess" = "Mensaje reenviado desde";
+"features.action.forwardFailure" = "Error del mensaje reenviado";

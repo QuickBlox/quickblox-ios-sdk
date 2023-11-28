@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/QuickBlox/ios-ui-kit.git",
       "state" : {
-        "revision" : "a59acec737b49b2a0c069016179644703b3374f1",
-        "version" : "0.3.1"
+        "revision" : "68de4424be89b074c5c150a974d00778f4b12fb9",
+        "version" : "0.3.2"
       }
     }
   ],
