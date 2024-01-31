@@ -33,6 +33,7 @@ class Connect: ObservableObject {
             objectWillChange.send(authState)
         }
     }
+    
     @Published var isConnected: Bool = false
     
     init(state: ConnectState = .disconnected) {

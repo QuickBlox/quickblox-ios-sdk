@@ -9,6 +9,7 @@
 "dialog.items.empty" = "No tiene ningún cuadro de canal.";
 "dialog.members.empty" = "No tiene ningún usuario.";
 "dialog.messages.empty" = "No tiene ningún mensaje.";
+"dialog.info.selectDialog" = "Seleccione un cuadro de diálogo para iniciar la comunicación";
 "dialog.type.private" = "Privado";
 "dialog.type.group" = "Grupo";
 "dialog.type.public" = "Público";
@@ -48,6 +49,7 @@
 "alert.actions.gallery" = "Galería";
 "alert.actions.file" = "Archivo";
 "alert.actions.remove" = "Eliminar";
+"alert.message.removeItem" = "¿Está seguro de que desea eliminar ";
 "alert.actions.cancel" = "Cancelar";
 "alert.actions.ok" = "Ok";
 "alert.message.removeUser" = "¿Está seguro de que desea eliminar ";
@@ -92,6 +94,7 @@
 "utils.string.hasLeft" = "se ha ido";
 "utils.string.today" = "Hoy";
 "utils.string.yesterday" = "Ayer";
+"utils.string.unknown" = "Desconocido";
 
 "utils.string.connecting" = "conectando";
 "utils.string.update" = "actualizar";

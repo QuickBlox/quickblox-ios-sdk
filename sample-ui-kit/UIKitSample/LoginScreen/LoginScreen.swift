@@ -32,11 +32,8 @@ struct LoginScreen: View {
     @StateObject private var viewModel: LoginViewModal
     @State public var theme: AppTheme = appThemes[UserDefaults.standard.integer(forKey: "Theme")]
     @State private var loginInfo = LoginConstant.login
-    @State private var selectedTabIndex: String = "chats" {
-        didSet {
-            dialogsPresented = selectedTabIndex == "chats"
-        }
-    }
+    @State private var selectedTabIndex: QuickBloxUIKit.TabIndex = .dialogs
+    
     @State private var tabBarVisibility: Visibility = .visible
     @State private var dialogsPresented: Bool = false
     
@@ -48,6 +45,9 @@ struct LoginScreen: View {
         _viewModel = StateObject(wrappedValue: viewModel)
         viewModel.authState = QBSession.current.currentUser != nil
         ? AuthState.authorized : AuthState.unAuthorized
+        if openWithTabBar == false {
+            tabBarVisibility = .hidden
+        }
         setupFeatures()
     }
     
@@ -63,7 +63,14 @@ struct LoginScreen: View {
                 QuickBloxUIKit.dialogsView(onExit: {
                     // Handling an event when exiting the QuickBloxUIKit e.g. disconnect and logout
                     viewModel.disconnect()
+                }, onSelect: { tabIndex in
+                    selectedTabIndex = tabIndex
                 })
+                .onAppear {
+                    tabBarVisibility = .hidden
+                    theme = appThemes[UserDefaults.standard.integer(forKey: "Theme")]
+                    setupSettings()
+                }
             })
     }
     
@@ -73,46 +80,59 @@ struct LoginScreen: View {
         case .unAuthorized, .authorization:
             authView()
         case .authorized:
-            
-            TabView(selection: $selectedTabIndex) {
-                
-                QuickBloxUIKit.dialogsView(onAppear: { appear in
-                    if selectedTabIndex == "chats" {
-                        tabBarVisibility = appear == true ? Visibility.visible : Visibility.hidden
+            if openWithTabBar == true {
+                TabView(selection: $selectedTabIndex) {
+                    QuickBloxUIKit.dialogsView(onSelect: { tabIndex in
+                        if tabIndex != .dialogs {
+                            selectedTabIndex = tabIndex
+                        }
+                    })
+                    .toolbar(tabBarVisibility, for: .tabBar)
+                    .toolbarBackground(theme.color.mainBackground, for: .tabBar)
+                    .toolbarBackground(tabBarVisibility, for: .tabBar)
+                    .tag(TabIndex.dialogs)
+                    .tabItem {
+                        Label(TabIndex.dialogs.title, systemImage: TabIndex.dialogs.systemIcon)
                     }
-                })
-                .toolbar(tabBarVisibility, for: .tabBar)
-                .toolbarBackground(theme.color.mainBackground, for: .tabBar)
-                .toolbarBackground(tabBarVisibility, for: .tabBar)
-                .tag("chats")
-                .tabItem {
-                    Label("Chats", systemImage: "bubble.left.and.bubble.right.fill")
+                    .onAppear {
+                        theme = appThemes[UserDefaults.standard.integer(forKey: "Theme")]
+                        setupSettings()
+                        tabBarVisibility = selectedTabIndex != .dialogs ? .visible : .hidden
+                    }
+                    
+                    settingsView()
+                        .toolbar(tabBarVisibility, for: .tabBar)
+                        .toolbarBackground(theme.color.mainBackground, for: .tabBar)
+                        .toolbarBackground(tabBarVisibility, for: .tabBar)
+                        .tabItem {
+                            Label(TabIndex.settings.title, systemImage: TabIndex.settings.systemIcon)
+                        }
+                        .tag(TabIndex.settings)
+                    
+                    disconnectView()
+                        .toolbar(tabBarVisibility, for: .tabBar)
+                        .toolbarBackground(theme.color.mainBackground, for: .tabBar)
+                        .toolbarBackground(tabBarVisibility, for: .tabBar)
+                        .tabItem {
+                            Label(viewModel.authState == .unAuthorized ? TabIndex.enter.title : TabIndex.exit.title,
+                                  systemImage: viewModel.authState == .unAuthorized
+                                  ? TabIndex.enter.systemIcon : TabIndex.exit.systemIcon)
+                        }
+                        .tag(TabIndex.exit)
+                    
+                        .onChange(of: viewModel.authState) { authState in
+                            self.selectedTabIndex = authState == .authorized ? TabIndex.dialogs : TabIndex.exit
+                        }
                 }
-                
-                settingsView()
-                    .tabItem {
-                        Label("Settings", systemImage: "gearshape")
-                    }.tag("settings")
-                
-                disconnectView()
-                    .tabItem {
-                        Label(viewModel.authState == .unAuthorized ? "Enter" : "Exit",
-                              systemImage: viewModel.authState == .unAuthorized
-                              ? "figure.walk.arrival" : "figure.walk.departure")
-                    }.tag("auth")
-                
-                    .onChange(of: viewModel.authState) { authState in
-                        self.selectedTabIndex = authState == .authorized ? "chats" : "auth"
-                    }
-            }
-            .accentColor(theme.color.mainElements)
-            .onAppear {
-                selectedTabIndex = QBSession.current.currentUser != nil ? "chats" : "auth"
-                viewModel.authState = QBSession.current.currentUser != nil
-                ? AuthState.authorized : AuthState.unAuthorized
-                theme = appThemes[UserDefaults.standard.integer(forKey: "Theme")]
-                setupSettings()
-                tabBarVisibility = .visible
+                .accentColor(theme.color.mainElements)
+                .onAppear {
+                    selectedTabIndex = QBSession.current.currentUser != nil ? TabIndex.dialogs : TabIndex.exit
+                    viewModel.authState = QBSession.current.currentUser != nil
+                    ? AuthState.authorized : AuthState.unAuthorized
+                    theme = appThemes[UserDefaults.standard.integer(forKey: "Theme")]
+                    setupSettings()
+                    tabBarVisibility = .visible
+                }
             }
         }
     }
@@ -137,7 +157,7 @@ struct LoginScreen: View {
     
     @ViewBuilder
     private func authView() -> some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 theme.color.mainBackground.ignoresSafeArea()
                 if viewModel.isSignUped {
@@ -177,8 +197,8 @@ struct LoginScreen: View {
                         isValidForm: $viewModel.isSignUpValidForm,
                         onTapped: {
                 viewModel.signUp(withLogin: viewModel.login,
-                               displayName: viewModel.displayName,
-                               password: viewModel.password)
+                                 displayName: viewModel.displayName,
+                                 password: viewModel.password)
             }, theme: theme)
             
             .onChange(of: viewModel.authState) { authState in
@@ -224,7 +244,7 @@ struct LoginScreen: View {
                         isValidForm: $viewModel.isLoginValidForm,
                         onTapped: {
                 viewModel.login(withLogin: viewModel.login,
-                              password: viewModel.password)
+                                password: viewModel.password)
             }, theme: theme)
             
             .onChange(of: viewModel.authState) { authState in
@@ -299,6 +319,9 @@ struct LoginScreen: View {
         // Setup Background Image for Dialog Screen
         QuickBloxUIKit.settings.dialogScreen.backgroundImage = Image("dialogBackground")
         QuickBloxUIKit.settings.dialogScreen.backgroundImageColor = theme.color.divider
+        if openWithTabBar {
+            QuickBloxUIKit.settings.dialogsScreen.tabIndex.externalIndexes = [.settings, .exit]
+        }
     }
     
     private func setupFeatures() {
@@ -306,6 +329,7 @@ struct LoginScreen: View {
         QuickBloxUIKit.feature.ai.ui = AIUISettings(theme)
         QuickBloxUIKit.feature.forward.enable = true
         QuickBloxUIKit.feature.reply.enable = true
+        QuickBloxUIKit.feature.toolbar.enable = openWithTabBar
     }
 }
 
@@ -317,4 +341,11 @@ struct LoginScreen_Previews: PreviewProvider {
                 .preferredColorScheme(.dark)
         }
     }
+}
+
+public extension TabIndex {
+    static let exit = TabIndex(title: "Exit",
+                               systemIcon: "figure.walk.departure")
+    static let enter = TabIndex(title: "Enter",
+                               systemIcon: "figure.walk.arrival")
 }

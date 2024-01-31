@@ -9,6 +9,7 @@
 "dialog.items.empty" = "There are no dialogs";
 "dialog.members.empty" = "You don’t have any users.";
 "dialog.messages.empty" = "You don’t have any messages.";
+"dialog.info.selectDialog" = "Select a dialog to start communication";
 "dialog.type.private" = "Private";
 "dialog.type.group" = "Group";
 "dialog.type.public" = "Public";
@@ -48,6 +49,7 @@
 "alert.actions.gallery" = "Gallery";
 "alert.actions.file" = "File";
 "alert.actions.remove" = "Remove";
+"alert.message.removeItem" = "Are you sure you want to remove ";
 "alert.actions.cancel" = "Cancel";
 "alert.actions.ok" = "Ok";
 "alert.message.removeUser" = "Are you sure you want to remove ";
@@ -92,6 +94,7 @@
 "utils.string.hasLeft" = "has left";
 "utils.string.today" = "Today";
 "utils.string.yesterday" = "Yesterday";
+"utils.string.unknown" = "Unknown";
 
 "utils.string.connecting" = "connecting";
 "utils.string.update" = "update";

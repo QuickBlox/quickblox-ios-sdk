@@ -128,9 +128,13 @@ public class CustomImageTheme: ThemeImageProtocol {
 
 public class CustomThemeString: ThemeStringProtocol {
     
+    public var removeItem: String = String(localized: "alert.message.removeItem")
+    public var settings: String = String(localized: "permission.actions.settings")
+    public var unknown: String = String(localized: "utils.string.unknown")
     public var dialogsEmpty: String = String(localized: "dialog.items.empty")
     public var usersEmpty: String = String(localized: "dialog.members.empty")
     public var messegesEmpty: String = String(localized: "dialog.messages.empty")
+    public var selectDialog: String = String(localized: "dialog.info.selectDialog")
     
     public var privateDialog: String = String(localized: "dialog.type.private")
     public var groupDialog: String = String(localized: "dialog.type.group")
