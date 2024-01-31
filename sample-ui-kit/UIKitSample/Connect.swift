@@ -38,10 +38,10 @@ class Connect: ObservableObject {
     
     init(state: ConnectState = .disconnected) {
         
-//        Quickblox.initWithApplicationId(0,
-//                                        authKey: "",
-//                                        authSecret: "",
-//                                        accountKey: "")
+        Quickblox.initWithApplicationId(0,
+                                        authKey: "",
+                                        authSecret: "",
+                                        accountKey: "")
         
         QBSettings.carbonsEnabled = true
         QBSettings.autoReconnectEnabled = true
