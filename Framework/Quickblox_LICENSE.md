@@ -1,5 +1,7 @@
 # QuickBlox SDK LICENSE
 
+Copyright (c) 2024, QuickBlox
+
 This is an agreement between You ("You") and Injoit Ltd. trading as QuickBlox, the developer of QuickBlox, incorporated in England and Wales under company number 07150135 and having our registered office at 7 Baxter Road, Churchdown, Gloucester, GL3 1FY, ("QuickBlox") regarding Your use of the QuickBlox SDK and any associated documentation or other materials made available by QuickBlox (collectively the "SDK"). This agreement applies to any updates or supplements for the SDK, unless other terms accompany those items. If so, those other terms apply.
  
 By installing, accessing or otherwise using the SDK, You accept the terms of this agreement. If You do not agree to the terms of this agreement, do not install, access or use the SDK.
