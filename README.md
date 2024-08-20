@@ -1,14 +1,14 @@
 <div align="center">
 
 <p>
-        <a href="https://discord.gg/Yc56F9KG"><img src="https://img.shields.io/discord/1042743094833065985?color=5865F2&logo=discord&logoColor=white&label=QuickBlox%20Discord%20server&style=for-the-badge" alt="Discord server" /></a>
+        <a href="https://discord.com/invite/3cKRunq8ZZ"><img src="https://img.shields.io/discord/1042743094833065985?color=5865F2&logo=discord&logoColor=white&label=QuickBlox%20Discord%20server&style=for-the-badge" alt="Discord server" /></a>
 </p>
 
 </div>
 
 # QuickBlox 
 
-Core SDK  Last SDK Version: 2.19.0
+Core SDK  Last SDK Version: 2.20.0
  * [Swift Package](https://github.com/QuickBlox/ios-quickblox-sdk.git)
  * [![CocoaPods](https://img.shields.io/cocoapods/v/QuickBlox.svg)](https://cocoapods.org/pods/QuickBlox)
 
@@ -63,3 +63,11 @@ Detailed information for each sample is also available in *README.md* of each sa
 ## See also
 
 * [QuickBlox REST API](https://docs.quickblox.com/reference/overview)
+
+## Licensing
+
+This repository is distributed under the terms of the [Repository License](./LICENSE.md). The license covers all examples and sample code included in this repository.
+
+### Quickblox SDK Licensing
+
+Please note that the Quickblox SDK included in the `Framework` directory is governed by its own license. You can find the SDK license details in the [Quickblox SDK License](./Framework/Quickblox_LICENSE.md).
