@@ -63,3 +63,11 @@ Detailed information for each sample is also available in *README.md* of each sa
 ## See also
 
 * [QuickBlox REST API](https://docs.quickblox.com/reference/overview)
+
+## Licensing
+
+This repository is distributed under the terms of the [Repository License](./LICENSE.md). The license covers all examples and sample code included in this repository.
+
+### Quickblox SDK Licensing
+
+Please note that the Quickblox SDK included in the `Framework` directory is governed by its own license. You can find the SDK license details in the [Quickblox SDK License](./Framework/Quickblox_LICENSE.md).
