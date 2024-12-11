@@ -12,7 +12,7 @@ Core SDK  Last SDK Version: 2.20.0
  * [Swift Package](https://github.com/QuickBlox/ios-quickblox-sdk.git)
  * [![CocoaPods](https://img.shields.io/cocoapods/v/QuickBlox.svg)](https://cocoapods.org/pods/QuickBlox)
 
-WebRTC SDK  Last SDK Version: 2.8.1
+WebRTC SDK  Last SDK Version: 3.1.0
  * [Swift Package](https://github.com/QuickBlox/ios-quickblox-sdk-webrtc.git)
  * [![CocoaPods](https://img.shields.io/cocoapods/v/Quickblox-WebRTC.svg)](https://cocoapods.org/pods/Quickblox-WebRTC)
 
@@ -68,6 +68,8 @@ Detailed information for each sample is also available in *README.md* of each sa
 
 This repository is distributed under the terms of the [Repository License](./LICENSE.md). The license covers all examples and sample code included in this repository.
 
-### Quickblox SDK Licensing
+### Quickblox SDKs Licensing
 
-Please note that the Quickblox SDK included in the `Framework` directory is governed by its own license. You can find the SDK license details in the [Quickblox SDK License](./Framework/Quickblox_LICENSE.md).
+The Quickblox SDK, located in the `Framework` directory, is governed by its own license. For more details, please refer to the [Quickblox SDK License](./Framework/Quickblox_LICENSE.md).  
+
+Similarly, the Quickblox WebRTC SDK, also in the `Framework` directory, is governed by its own license. Additional details can be found in the [Quickblox WebRTC SDK License](./Framework/QuickbloxWebRTC_LICENSE.md).  
