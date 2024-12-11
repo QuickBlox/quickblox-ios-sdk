@@ -1,6 +1,0 @@
-framework module QuickbloxWebRTC {
-  umbrella header "QuickbloxWebRTC.h"
-
-  export *
-  module * { export * }
-}
