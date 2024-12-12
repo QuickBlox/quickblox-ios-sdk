@@ -1178,17 +1178,14 @@ extension ChatViewController: ChatCollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing:ChatIncomingCell.self),
-                                                      for: indexPath)
         guard let message = dataSource.messageWithIndexPath(indexPath) else {
-            return cell
+            return UICollectionViewCell()
         }
         
         let cellClass = viewClass(forItem: message)
         
         guard let identifier = cellClass.cellReuseIdentifier() else {
-            return cell
+            return UICollectionViewCell()
         }
         
         guard let chatCell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,
