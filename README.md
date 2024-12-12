@@ -8,7 +8,7 @@
 
 # QuickBlox 
 
-Core SDK  Last SDK Version: 2.20.0
+Core SDK  Last SDK Version: 2.21.0
  * [Swift Package](https://github.com/QuickBlox/ios-quickblox-sdk.git)
  * [![CocoaPods](https://img.shields.io/cocoapods/v/QuickBlox.svg)](https://cocoapods.org/pods/QuickBlox)
 

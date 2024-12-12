@@ -27,6 +27,16 @@ NS_ASSUME_NONNULL_BEGIN
               extendedRequest:(nullable NSDictionary<NSString *, NSString *> *)extendedRequest
                  successBlock:(nullable qb_response_dialogs_block_t)successBlock
                    errorBlock:(nullable qb_response_block_t)errorBlock;
+
+/// Creates a chat dialog.
+/// @param dialog The chat dialog instance to be created.
+/// @param completion A block called upon completion of the operation.
+///        - `tDialog`: The created chat dialog instance, or `nil` if an error occurred.
+///        - `error`: An error object describing the failure, or `nil` if the operation succeeded.
++ (void)createDialog:(QBChatDialog *)dialog
+          completion:(void (^)(QBChatDialog * _Nullable tDialog,
+                               NSError * _Nullable error))completion;
+
 /**
  Create chat dialog
  
@@ -53,6 +63,23 @@ NS_ASSUME_NONNULL_BEGIN
                successBlock:(nullable qb_response_dialog_block_t)successBlock
                  errorBlock:(nullable qb_response_block_t)errorBlock;
 
+/// Deletes dialogs with specified IDs.
+///
+/// @param dialogIDs A set of dialog IDs to delete.
+/// @param forAllUsers Specifies whether the dialog should be deleted for all users.
+///                    Pass `YES` to delete for all users (current user must be the owner),
+///                    or `NO` to delete only for the current user.
+/// @param completion A block called upon completion of the request, containing:
+///        - `deletedIds`: An array of dialog IDs successfully deleted.
+///        - `notFoundIds`: An array of dialog IDs that were not found.
+///        - `wrongPermissionsIds`: An array of dialog IDs for which the current user lacks the necessary permissions.
+///        - `error`: An error object if the request fails, or `nil` if it succeeds.
+///
+/// @discussion When passing `YES` to `forAllUsers`, the current user must be the owner of the dialog.
+///             If the user is not the owner, the request will fail.
++ (void)deleteDialogsWithIDs:(NSSet<NSString *> *)dialogIDs
+                 forAllUsers:(BOOL)forAllUsers
+                  completion:(qb_response_delete_dialog_completion_t)completion;
 /**
  Delete dialogs
  
@@ -69,6 +96,27 @@ NS_ASSUME_NONNULL_BEGIN
                         forAllUsers:(BOOL)forAllUsers
                        successBlock:(nullable qb_response_delete_dialog_block_t)successBlock
                          errorBlock:(nullable qb_response_block_t)errorBlock;
+
+/// Retrieves chat messages for a specific dialog and page.
+///
+/// - Parameters:
+///   - dialogID: The unique identifier of the dialog.
+///   - extendedParameters: A dictionary of additional request parameters. Use the key `@"mark_as_read"` with value `@"0"`
+///     to prevent marking messages as read upon retrieval.
+///   - page: An optional instance of `QBResponsePage` specifying the pagination details.
+///   - completion: A completion block that returns an array of `QBChatMessage` objects for the specified page,
+///     the response page details, and an error object if the operation fails.
+///
+/// By default, all messages retrieved from the server are marked as read. To change this behavior,
+/// include the `@"mark_as_read"` parameter in the `extendedParameters` dictionary.
+///
+/// ```objective-c
+/// [extendedParameters setObject:@"0" forKey:@"mark_as_read"];
+/// ```
++ (void)messagesWithDialogID:(NSString *)dialogID
+             extendedRequest:(nullable NSDictionary<NSString *, NSString *> *) extendedParameters
+                     forPage:(nullable QBResponsePage *)page
+                  completion:(nullable qb_response_messages_completion_t)completion;
 
 /**
  Retrieve chat messages within particular dialog for page.

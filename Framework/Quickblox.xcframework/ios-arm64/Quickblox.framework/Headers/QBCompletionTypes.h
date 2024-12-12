@@ -29,3 +29,16 @@ typedef void(^qb_response_unread_messages_block_t) (QBResponse *response, NSUInt
 typedef void(^qb_response_count_block_t) (QBResponse *response, NSUInteger count);
 
 NS_ASSUME_NONNULL_END
+
+/**Completion with response deleted dialogs ids, not found dialogs ids and wrong permissions dialogs ids. */
+typedef void(^qb_response_delete_dialog_completion_t)
+(NSArray<NSString *>* _Nullable deletedIds,
+ NSArray<NSString *>* _Nullable notFoundIds,
+ NSArray<NSString *> * _Nullable wrongPermissionsIds,
+ NSError * _Nullable error);
+
+/**Completion with response array of chat messages for page. */
+typedef void(^qb_response_messages_completion_t)
+(NSArray<QBChatMessage *>* _Nullable messages,
+ QBResponsePage * _Nullable page,
+ NSError * _Nullable error);
