@@ -50,10 +50,19 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign, readonly) BOOL carbon;
 
-/**
- *  Message date sent.
- */
+/// The date when the message was sent.
+///
+/// This property is automatically populated when calling the `dialog.send(message)` method.
+/// To use a custom value for this property, the `setDateSentEnforced:` method should be used.
 @property (nonatomic, strong, nullable) NSDate *dateSent;
+
+/// Sets a custom sent date for the message.
+///
+/// @param dateSent A non-null date to set as the sent time for the message.
+///
+/// This method allows specifying a custom value for the sent date instead of the
+/// automatically populated date from the `dialog.send(message)` method.
+- (void)setDateSentEnforced:(NSDate *)dateSent;
 
 /**
  Message custom parameters. Don't use 'body' & 'delay' as keys for parameters.

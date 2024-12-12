@@ -55,8 +55,9 @@ typedef void(^qb_response_user_block_t)(QBResponse *response, QBUUser *tUser);
  @return An instance of QBUUser for cancel operation mainly.
  */
 + (void)login:(NSString *)login
-                         password:(NSString *)password
-                completion:(void (^) (QBUUser * _Nullable tUser, NSError * _Nullable error))completion;
+     password:(NSString *)password
+   completion:(void (^) (QBUUser * _Nullable tUser, 
+                         NSError * _Nullable error))completion;
 
 /**
  User LogIn with email

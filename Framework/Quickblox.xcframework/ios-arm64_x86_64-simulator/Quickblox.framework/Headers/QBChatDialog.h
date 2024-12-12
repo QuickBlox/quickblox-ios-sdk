@@ -171,6 +171,11 @@ typedef void(^QBOnlineUsersBlock)(NSMutableArray <NSNumber *> * _Nullable online
 - (id)init NS_UNAVAILABLE;
 + (id)new NS_UNAVAILABLE;
 
+/// Creates a dialog instance.
+/// @param type The type of the dialog. See `QBChatDialogType`.
+/// @return An instance of `QBChatDialog`.
++ (instancetype)create:(QBChatDialogType)type;
+
 /**
  Init with dialog ID and type.
  
