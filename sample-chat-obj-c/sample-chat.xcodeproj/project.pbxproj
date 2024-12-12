@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -111,7 +111,6 @@
 		2CCEFD9A27BBE49200072ADB /* QBChatMessage+Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCEFD9927BBE49200072ADB /* QBChatMessage+Chat.m */; };
 		2CE4588523ED867000ECA9DF /* CircularProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE4588423ED867000ECA9DF /* CircularProgressBar.m */; };
 		2CE4588823ED9EFF00ECA9DF /* CALayer+Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE4588723ED9EFF00ECA9DF /* CALayer+Chat.m */; };
-		2CE6C35729A8EDFB00F0F4B9 /* Quickblox in Frameworks */ = {isa = PBXBuildFile; productRef = 2CE6C35629A8EDFB00F0F4B9 /* Quickblox */; };
 		2CEBB41522454D8000A5E7BD /* Info.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CEBB41422454D8000A5E7BD /* Info.xcassets */; };
 		2CF0B68123E3029F00577F1D /* DialogCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF0B68023E3029F00577F1D /* DialogCell.m */; };
 		2CF0B68423E3219C00577F1D /* UILabel+Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF0B68323E3219C00577F1D /* UILabel+Chat.m */; };
@@ -125,6 +124,7 @@
 		2CFE528425C83118004A1DDB /* InputContainer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CFE527B25C83118004A1DDB /* InputContainer.xib */; };
 		2CFE528525C83118004A1DDB /* AuthorizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE527C25C83118004A1DDB /* AuthorizationViewController.m */; };
 		2CFE528625C83118004A1DDB /* PresenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE527E25C83118004A1DDB /* PresenterViewController.m */; };
+		3ADB7A8C2D0AF22B00BE0202 /* Quickblox in Frameworks */ = {isa = PBXBuildFile; productRef = 3ADB7A8B2D0AF22B00BE0202 /* Quickblox */; };
 		86A716671B9EF0820019C42A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 86A716651B9EF0820019C42A /* InfoPlist.strings */; };
 		BFE6FB76180E8EF100E64AC4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FB75180E8EF100E64AC4 /* Foundation.framework */; };
 		BFE6FB78180E8EF100E64AC4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FB77180E8EF100E64AC4 /* CoreGraphics.framework */; };
@@ -404,7 +404,7 @@
 				BFE6FBB6180E9E7400E64AC4 /* CoreData.framework in Frameworks */,
 				BFE6FB78180E8EF100E64AC4 /* CoreGraphics.framework in Frameworks */,
 				BFE6FBB2180E9E5E00E64AC4 /* SystemConfiguration.framework in Frameworks */,
-				2CE6C35729A8EDFB00F0F4B9 /* Quickblox in Frameworks */,
+				3ADB7A8C2D0AF22B00BE0202 /* Quickblox in Frameworks */,
 				BFE6FBB0180E9E5300E64AC4 /* CFNetwork.framework in Frameworks */,
 				BFE6FB7A180E8EF100E64AC4 /* UIKit.framework in Frameworks */,
 				BFE6FB76180E8EF100E64AC4 /* Foundation.framework in Frameworks */,
@@ -1199,7 +1199,7 @@
 			);
 			name = samplechat;
 			packageProductDependencies = (
-				2CE6C35629A8EDFB00F0F4B9 /* Quickblox */,
+				3ADB7A8B2D0AF22B00BE0202 /* Quickblox */,
 			);
 			productName = "sample-chat";
 			productReference = BFE6FB72180E8EF100E64AC4 /* sample-chat.app */;
@@ -1241,7 +1241,7 @@
 			);
 			mainGroup = BFE6FB69180E8EF100E64AC4;
 			packageReferences = (
-				2CE6C35529A8EDFB00F0F4B9 /* XCRemoteSwiftPackageReference "ios-quickblox-sdk" */,
+				3ADB7A8A2D0AF22B00BE0202 /* XCRemoteSwiftPackageReference "ios-quickblox-sdk" */,
 			);
 			productRefGroup = BFE6FB73180E8EF100E64AC4 /* Products */;
 			projectDirPath = "";
@@ -1483,7 +1483,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.11.0;
+				MARKETING_VERSION = 4.12.0;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.quickblox.chats;
@@ -1635,7 +1635,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.11.0;
+				MARKETING_VERSION = 4.12.0;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.quickblox.chats;
@@ -1674,7 +1674,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.11.0;
+				MARKETING_VERSION = 4.12.0;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.quickblox.chats;
@@ -1712,20 +1712,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2CE6C35529A8EDFB00F0F4B9 /* XCRemoteSwiftPackageReference "ios-quickblox-sdk" */ = {
+		3ADB7A8A2D0AF22B00BE0202 /* XCRemoteSwiftPackageReference "ios-quickblox-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/QuickBlox/ios-quickblox-sdk.git";
+			repositoryURL = "https://github.com/QuickBlox/ios-quickblox-sdk";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.21.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2CE6C35629A8EDFB00F0F4B9 /* Quickblox */ = {
+		3ADB7A8B2D0AF22B00BE0202 /* Quickblox */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2CE6C35529A8EDFB00F0F4B9 /* XCRemoteSwiftPackageReference "ios-quickblox-sdk" */;
+			package = 3ADB7A8A2D0AF22B00BE0202 /* XCRemoteSwiftPackageReference "ios-quickblox-sdk" */;
 			productName = Quickblox;
 		};
 /* End XCSwiftPackageProductDependency section */

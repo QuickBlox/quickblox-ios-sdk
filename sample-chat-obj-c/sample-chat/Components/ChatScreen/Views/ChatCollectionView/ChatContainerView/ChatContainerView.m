@@ -43,8 +43,8 @@ static NSMutableDictionary *_imaages = nil;
     float leftCap = space +  cornerRadius + 1;
     float topCap = cornerRadius;
     
-    CGSize size = CGSizeMake(arrowSize.width + (space +  cornerRadius * 2) +2,
-                             cornerRadius * 2 + arrowSize.height);
+    CGSize size = CGSizeMake(arrowSize.width + (space +  cornerRadius * 2) + 2,
+                             cornerRadius * 2 + arrowSize.height +0.001);
     
     if (img) {
         return img;
